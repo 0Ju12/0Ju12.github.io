@@ -4,7 +4,7 @@
 
 자원에너지공학을 전공하고 환경에너지융합학과에서 석사 학위를 받았습니다(2026). 시공간 딥러닝(U-LSTM) 기반 산불 확산 경로 예측 모델의 설계·학습을 맡아, 학습에 쓰지 않은 산불 사례에서 정확도 0.90, F1-score 0.85를 달성했습니다. 석사 과정에서는 중력·자력·탄성파 등 지구물리 데이터를 분석해 지하 구조를 규명했고, SCIE 국제학술지 SPE Journal 제1저자 논문을 포함해 논문 3편과 학회 발표 10건, 학회 우수논문 발표상의 성과를 냈습니다. 포스코 청년 AI·Big Data 아카데미에서는 FLAN-T5와 RAG를 결합한 영어 표현 교정 시스템 프로젝트에서 데이터 구축과 모델 실험을 맡았고, 팀은 장려상을 받았습니다. 캐나다 캘거리대학교에서 두 차례 파견 연구를 하며 해외 연구진과 협업했고, ADsP(데이터분석 준전문가) 자격을 보유하고 있습니다.
 
-[GitHub](https://github.com/0Ju12) · [연구 이력](https://www.geoverselab.com/ko/research-history/13/)
+[GitHub](https://github.com/0Ju12) · [연구 이력](https://www.geoverselab.com/ko/research-history/13/) · [LinkedIn](https://www.linkedin.com/in/%EC%98%81%EC%A3%BC-%EC%9D%B4-a335ab251/)
 
 ---
 

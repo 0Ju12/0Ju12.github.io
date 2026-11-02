@@ -16,6 +16,7 @@ data/portfolio.yaml에서 자동 생성됩니다. 각 플랫폼의 해당 칸에
 포트폴리오: (GitHub Pages 주소)
 GitHub: https://github.com/0Ju12
 연구 이력: https://www.geoverselab.com/ko/research-history/13/
+LinkedIn: https://www.linkedin.com/in/%EC%98%81%EC%A3%BC-%EC%9D%B4-a335ab251/
 ```
 
 ## 3. 경력·활동 항목 (활동 하나당 칸 하나)
