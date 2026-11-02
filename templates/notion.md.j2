@@ -54,6 +54,21 @@
 | {{ a.period_str }} | {{ a.type }} | {{ a.title }} | {{ a.org }} | {{ a.role }} |
 {% endfor %}
 
+{% if papers or talks %}
+## 📄 논문 · 학회 발표
+
+**논문 ({{ papers|length }})**
+{% for x in papers %}
+- {{ x.year }} · {{ x.title }}{% if x.venue %} — *{{ x.venue }}*{% endif %}
+
+{% endfor %}
+
+**학회 발표 ({{ talks|length }})**
+{% for x in talks %}
+- {{ x.year }} · {{ x.title }}
+{% endfor %}
+
+{% endif %}
 ## 🛠 역량
 {% for s in skills %}
 - **{{ s.category }}** {{ s['items']|join(', ') }}

@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>이름을 입력하세요 포트폴리오</title>
-<meta name="description" content="희망 직무를 입력하세요 · [예시] 문제를 데이터로 정의하고, 끝까지 구현해서 결과로 증명하는 사람">
-<meta property="og:title" content="이름을 입력하세요 | 희망 직무를 입력하세요">
-<meta property="og:description" content="[예시] 문제를 데이터로 정의하고, 끝까지 구현해서 결과로 증명하는 사람">
+<title>이영주 포트폴리오</title>
+<meta name="description" content="지구물리 연구원 · CCS 탄성파 모니터링 · 탄성파 데이터로 이산화탄소 지중저장소를 들여다보는 지구물리 연구자">
+<meta property="og:title" content="이영주 | 지구물리 연구원 · CCS 탄성파 모니터링">
+<meta property="og:description" content="탄성파 데이터로 이산화탄소 지중저장소를 들여다보는 지구물리 연구자">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
@@ -76,14 +76,17 @@ details.item[open] summary{border-bottom:1px solid var(--line)}
 .list li:last-child{border-bottom:0}
 .skills dt{font-weight:700;font-size:14px;margin-top:12px}
 .skills dd{margin:6px 0 0}
+.sub-h{font-size:15px;color:var(--muted);margin:20px 0 4px}
+.pubs li{display:grid;grid-template-columns:48px 1fr;gap:12px}
+.pubs .year{color:var(--accent);font-weight:700;font-size:14px;padding-top:2px}
 footer{padding:32px 0 56px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
 @media (max-width:560px){header{padding:48px 0 32px} details.item summary{grid-template-columns:1fr} details.item summary .when{text-align:left}}
 </style>
 </head>
 <body>
 <nav><div class="wrap">
-  <a class="brand" href="#top">이름을 입력하세요</a>
-<a href="#featured">대표 활동</a>  <a href="#activities">전체 활동</a>
+  <a class="brand" href="#top">이영주</a>
+<a href="#featured">대표 활동</a><a href="#publications">논문·발표</a>  <a href="#activities">전체 활동</a>
   <a href="#skills">역량</a>
   <a href="#contact">연락처</a>
   <button class="theme" id="theme" type="button" aria-label="테마 전환">테마</button>
@@ -92,12 +95,12 @@ footer{padding:32px 0 56px;color:var(--muted);font-size:13px;border-top:1px soli
 <main class="wrap" id="top">
 <header>
   <div>
-    <div class="eyebrow">희망 직무를 입력하세요</div>
-    <h1>[예시] 문제를 데이터로 정의하고, 끝까지 구현해서 결과로 증명하는 사람</h1>
-    <p class="lead">[예시] 전북대학교에서 ○○을 전공하며 ○개의 프로젝트와 ○개의 대외활동을 수행했습니다. 특히 ○○ 프로젝트에서 ○○ 문제를 해결해 ○○% 개선한 경험이 있습니다. (3~4문장: 정체성 → 핵심 역량 → 대표 성과 → 지원 동기)</p>
+    <div class="eyebrow">지구물리 연구원 · CCS 탄성파 모니터링</div>
+    <h1>탄성파 데이터로 이산화탄소 지중저장소를 들여다보는 지구물리 연구자</h1>
+    <p class="lead">지구물리컴퓨팅연구실에서 이산화탄소 지중저장(CCS) 부지의 4D 탄성파 모니터링과 해석을 연구하고 환경에너지융합학과 석사 학위를 취득했습니다(2026). 노르웨이 슬라이프너·스메아하이아, 호주 CarbonNet, 캐나다 CaMI FRS 등 해외 대규모 CCS 프로젝트를 분석해 국내 논문 2편과 학회 발표 10건을 수행했고, 2024 한국지구물리·물리탐사학회(KSEG) 추계학술대회에서 학생 우수논문 발표상을 받았습니다. 캐나다 캘거리대학교에서 두 차례 파견 연구를 수행하며 국제공동연구 경험을 쌓았습니다.</p>
     <div class="links">
       <a class="btn primary" href="resume.pdf" download>이력서 PDF</a>
-<a class="btn" href="https://github.com/0Ju12" target="_blank" rel="noopener">GitHub</a>    </div>
+<a class="btn" href="https://github.com/0Ju12" target="_blank" rel="noopener">GitHub</a><a class="btn" href="https://www.geoverselab.com/ko/research-history/13/" target="_blank" rel="noopener">연구실 연구이력</a>    </div>
   </div>
 </header>
 
@@ -105,37 +108,70 @@ footer{padding:32px 0 56px;color:var(--muted);font-size:13px;border-top:1px soli
   <h2>대표 활동</h2>
   <div class="grid">
     <article class="card">
-      <div class="meta"><span class="type">프로젝트</span>2025.03 – 2025.06 · [예시] 교내 캡스톤디자인</div>
-      <h3>[예시] 캠퍼스 중고거래 웹 서비스</h3>
-      <div class="meta">[예시] 백엔드 리드 · 4인 (백엔드 2, 프론트 1, 디자인 1)</div>
-      <p style="margin:0">[예시] 학내 구성원 인증 기반의 중고거래 플랫폼을 기획·개발</p>
-<div class="metrics"><div class="metric"><b>120명</b><span>사용자</span></div><div class="metric"><b>-75%</b><span>응답속도</span></div></div><div class="chips"><span class="chip">Spring Boot</span><span class="chip">MySQL</span><span class="chip">AWS</span></div>      <div class="meta"><a href="#act-sample-project" data-open="act-sample-project">자세히 보기 →</a></div>
+      <div class="meta"><span class="type">연구</span>2024.03 – 2026.08 · 지구물리컴퓨팅연구실 · 환경에너지융합학과</div>
+      <h3>CCS 부지 4D 탄성파 모니터링 연구 (석사)</h3>
+      <div class="meta">석사과정 연구원</div>
+      <p style="margin:0">해외 대규모 이산화탄소 지중저장소의 탄성파 해석과 모니터링 기법 연구</p>
+<div class="chips"><span class="chip">CCS</span><span class="chip">4D 탄성파</span><span class="chip">복합해석</span><span class="chip">부지 적합성</span></div>      <div class="meta"><a href="#act-masters-ccs" data-open="act-masters-ccs">자세히 보기 →</a></div>
+    </article>
+    <article class="card">
+      <div class="meta"><span class="type">국제협력</span>2024.06 – 2024.12 · University of Calgary</div>
+      <h3>캐나다 캘거리대학교 장기 파견연구</h3>
+      <div class="meta">석사과정 파견연구원</div>
+      <p style="margin:0">캐나다 캘거리대학교에서 약 6개월간 CCS 모니터링 공동연구 수행</p>
+<div class="chips"><span class="chip">국제공동연구</span><span class="chip">탄성파 모니터링</span><span class="chip">CaMI FRS</span></div>      <div class="meta"><a href="#act-calgary-2024" data-open="act-calgary-2024">자세히 보기 →</a></div>
+    </article>
+    <article class="card">
+      <div class="meta"><span class="type">연구</span>2022 – 2024.02 · 지구물리컴퓨팅연구실</div>
+      <h3>학부연구생 — 4D 탄성파 모니터링 기술 연구</h3>
+      <div class="meta">학부연구생</div>
+      <p style="margin:0">학부 과정에서 4D 탄성파 모니터링 기술과 해외 CCS 프로젝트 사례를 연구</p>
+<div class="chips"><span class="chip">4D 탄성파</span><span class="chip">GPU</span><span class="chip">딥러닝</span><span class="chip">해외 CCS</span></div>      <div class="meta"><a href="#act-undergrad-research" data-open="act-undergrad-research">자세히 보기 →</a></div>
     </article>
   </div>
 </section>
 
+<section id="publications">
+  <h2>논문·발표 <span class="meta">(논문 2 · 학회 발표 10)</span></h2>
+  <h3 class="sub-h">논문</h3>
+  <ul class="list pubs">
+<li><span class="year">2024</span><div><b>판구조론적 역사를 고려한 해외 대규모 이산화탄소 지중저장소 탄성파 해석 결과 분석</b><div class="meta">지구물리와 물리탐사</div></div></li><li><span class="year">2023</span><div><b>호주 깁스랜드 분지 CarbonNet CCS 프로젝트의 지질학적 분석</b><div class="meta">지구물리와 물리탐사</div></div></li>  </ul>
+  <h3 class="sub-h">학회 발표</h3>
+  <ul class="list pubs">
+<li><span class="year">2024</span><div>노르웨이 슬라이프너 프로젝트 모니터링 자료에 대한 탄성파-전자탐사 복합 해석 연구</div></li><li><span class="year">2024</span><div>인공지능과 디지털 트윈 융합을 통한 스마트 이산화탄소 저장소 운영 혁신 글로벌 인력양성사업</div></li><li><span class="year">2024</span><div>해외 CCS 프로젝트 실증 현황 및 국제공동연구 추진 전략</div></li><li><span class="year">2024</span><div>스마트 이산화탄소 지중저장 부지 운영을 위한 글로벌 인력양성사업</div></li><li><span class="year">2024</span><div>노르웨이 스메아하이아 이산화탄소 지중저장 프로젝트의 적합성 분석</div></li><li><span class="year">2023</span><div>노르웨이 슬라이프너 지구물리 모니터링 적용사례 분석 및 국제공동연구 계획</div></li><li><span class="year">2023</span><div>사우디아라비아 딥러닝 기반 탄성파 영상화 연구 현황과 국제공동연구 계획</div></li><li><span class="year">2023</span><div>캐나다 CaMI FRS 탄성파 모니터링 연구 현황과 국제공동연구 계획</div></li><li><span class="year">2022</span><div>스트리머를 이용한 해양 4차원 탄성파 모니터링 비반복성 분석 연구</div></li><li><span class="year">2022</span><div>GPU를 이용한 4차원 탄성파 모니터링 기술 적용성 검토</div></li>  </ul>
+</section>
+
 <section id="activities">
-  <h2>전체 활동 <span class="meta">(2)</span></h2>
+  <h2>전체 활동 <span class="meta">(3)</span></h2>
   <div class="filters" role="group" aria-label="활동 유형 필터">
     <button type="button" data-filter="all" aria-pressed="true">전체</button>
-<button type="button" data-filter="대외활동" aria-pressed="false">대외활동</button><button type="button" data-filter="프로젝트" aria-pressed="false">프로젝트</button>  </div>
-  <details class="item" id="act-sample-project" data-type="프로젝트">
+<button type="button" data-filter="국제협력" aria-pressed="false">국제협력</button><button type="button" data-filter="연구" aria-pressed="false">연구</button>  </div>
+  <details class="item" id="act-masters-ccs" data-type="연구">
     <summary>
-      <span class="t"><span class="type">프로젝트</span>[예시] 캠퍼스 중고거래 웹 서비스</span>
-      <span class="when">2025.03 – 2025.06</span>
-      <span class="sub">[예시] 교내 캡스톤디자인 · [예시] 백엔드 리드 — [예시] 학내 구성원 인증 기반의 중고거래 플랫폼을 기획·개발</span>
+      <span class="t"><span class="type">연구</span>CCS 부지 4D 탄성파 모니터링 연구 (석사)</span>
+      <span class="when">2024.03 – 2026.08</span>
+      <span class="sub">지구물리컴퓨팅연구실 · 환경에너지융합학과 · 석사과정 연구원 — 해외 대규모 이산화탄소 지중저장소의 탄성파 해석과 모니터링 기법 연구</span>
     </summary>
     <dl class="star">
-<div><dt>SITUATION · 상황</dt><dd>[예시] 학내 중고거래가 단톡방에 흩어져 있어 사기·분실 문제가 잦았음</dd></div><div><dt>TASK · 역할과 과제</dt><dd>[예시] 학교 이메일 인증과 거래 API 설계·구현을 담당</dd></div><div><dt>ACTION · 한 일</dt><dd><ul><li>[예시] 학교 메일 인증 기반 회원가입 구현</li><li>[예시] 검색 쿼리 인덱스 튜닝으로 응답 속도 개선</li></ul></dd></div><div><dt>RESULT · 결과</dt><dd><ul><li>[예시] 베타 기간 사용자 120명, 거래 300건 달성</li><li>[예시] 검색 API 응답 1.2s → 0.3s (75% 단축)</li></ul></dd></div><div class="chips"><span class="chip">Spring Boot</span><span class="chip">MySQL</span><span class="chip">AWS</span></div>    </dl>
+<div><dt>SITUATION · 상황</dt><dd>탄소중립을 위해 CO2를 지하에 안전하게 저장하려면, 저장 후 CO2 거동을 지구물리 탐사로 장기간 감시해야 함</dd></div><div><dt>TASK · 역할과 과제</dt><dd>해외 실증 CCS 프로젝트 자료를 분석해 국내 CCS 모니터링에 적용할 수 있는 해석·모니터링 기법을 연구</dd></div><div><dt>ACTION · 한 일</dt><dd><ul><li>판구조론적 역사를 고려해 해외 대규모 CO2 지중저장소의 탄성파 해석 결과를 분석 (논문, 2024)</li><li>노르웨이 슬라이프너 모니터링 자료에 대한 탄성파-전자탐사 복합 해석 연구</li><li>노르웨이 스메아하이아 CO2 지중저장 프로젝트의 부지 적합성 분석</li><li>AI·디지털 트윈 융합 스마트 CO2 저장소 운영 글로벌 인력양성사업 관련 발표</li></ul></dd></div><div><dt>RESULT · 결과</dt><dd><ul><li>국내 논문 1편(지구물리와 물리탐사, 2024), 학회 발표 5건(2024)</li><li>2024 KSEG 추계학술대회 학생 우수논문 발표상 수상</li><li>2026년 석사 학위 취득</li></ul></dd></div><div class="chips"><span class="chip">CCS</span><span class="chip">4D 탄성파</span><span class="chip">복합해석</span><span class="chip">부지 적합성</span></div><div class="links"><a class="btn" href="https://www.geoverselab.com/ko/research-history/13/" target="_blank" rel="noopener">연구이력</a></div>    </dl>
   </details>
-  <details class="item" id="act-sample-activity" data-type="대외활동">
+  <details class="item" id="act-calgary-2024" data-type="국제협력">
     <summary>
-      <span class="t"><span class="type">대외활동</span>[예시] ○○ 대외활동 / 서포터즈</span>
-      <span class="when">2024.07 – 2024.12</span>
-      <span class="sub">[예시] ○○재단 · [예시] 기획팀원 — [예시] 활동 한 줄 요약</span>
+      <span class="t"><span class="type">국제협력</span>캐나다 캘거리대학교 장기 파견연구</span>
+      <span class="when">2024.06 – 2024.12</span>
+      <span class="sub">University of Calgary · 석사과정 파견연구원 — 캐나다 캘거리대학교에서 약 6개월간 CCS 모니터링 공동연구 수행</span>
     </summary>
     <dl class="star">
-<div class="chips"><span class="chip">기획</span><span class="chip">협업</span></div>    </dl>
+<div><dt>SITUATION · 상황</dt><dd>캐나다는 CaMI FRS 등 CCS 모니터링 현장 실험 인프라를 보유해 국제공동연구 수요가 있었음</dd></div><div><dt>TASK · 역할과 과제</dt><dd>현지 연구진과 함께 CCS 탄성파 모니터링 공동연구 수행</dd></div><div><dt>RESULT · 결과</dt><dd><ul><li>약 6개월간의 장기 파견연구를 성공적으로 마무리 (2024.12)</li></ul></dd></div><div class="chips"><span class="chip">국제공동연구</span><span class="chip">탄성파 모니터링</span><span class="chip">CaMI FRS</span></div>    </dl>
+  </details>
+  <details class="item" id="act-undergrad-research" data-type="연구">
+    <summary>
+      <span class="t"><span class="type">연구</span>학부연구생 — 4D 탄성파 모니터링 기술 연구</span>
+      <span class="when">2022 – 2024.02</span>
+      <span class="sub">지구물리컴퓨팅연구실 · 학부연구생 — 학부 과정에서 4D 탄성파 모니터링 기술과 해외 CCS 프로젝트 사례를 연구</span>
+    </summary>
+    <dl class="star">
+<div><dt>SITUATION · 상황</dt><dd>CO2 저장소 모니터링에는 시간에 따른 변화를 비교하는 4D 탄성파 기술이 핵심이지만, 자료 비반복성과 계산 비용이 과제였음</dd></div><div><dt>TASK · 역할과 과제</dt><dd>4D 탄성파 모니터링의 기술적 한계와 해외 적용 사례를 조사·분석</dd></div><div><dt>ACTION · 한 일</dt><dd><ul><li>스트리머를 이용한 해양 4D 탄성파 모니터링의 비반복성 분석 (2022)</li><li>GPU를 이용한 4D 탄성파 모니터링 기술의 적용성 검토 (2022)</li><li>사우디아라비아 딥러닝 기반 탄성파 영상화, 캐나다 CaMI FRS, 노르웨이 슬라이프너 모니터링 연구 동향 분석 (2023)</li><li>호주 깁스랜드 분지 CarbonNet CCS 프로젝트의 지질학적 분석 (논문, 2023)</li><li>캐나다 캘거리대학교 단기 파견연구 (2023.12–2024.02)</li></ul></dd></div><div><dt>RESULT · 결과</dt><dd><ul><li>학부 과정에서 국내 논문 1편(지구물리와 물리탐사, 2023) 게재</li><li>학회 발표 5건 (2022–2023)</li></ul></dd></div><div class="chips"><span class="chip">4D 탄성파</span><span class="chip">GPU</span><span class="chip">딥러닝</span><span class="chip">해외 CCS</span></div>    </dl>
   </details>
 </section>
 
@@ -144,13 +180,15 @@ footer{padding:32px 0 56px;color:var(--muted);font-size:13px;border-top:1px soli
     <div>
       <h2>역량</h2>
       <dl class="skills">
-<dt>[예시] 언어</dt><dd class="chips"><span class="chip">Python</span><span class="chip">Java</span><span class="chip">SQL</span></dd><dt>[예시] 프레임워크·도구</dt><dd class="chips"><span class="chip">Spring Boot</span><span class="chip">React</span><span class="chip">Git</span><span class="chip">Docker</span></dd><dt>[예시] 협업</dt><dd class="chips"><span class="chip">Notion</span><span class="chip">Figma</span><span class="chip">Jira</span></dd>      </dl>
+<dt>연구 분야</dt><dd class="chips"><span class="chip">CCS(이산화탄소 지중저장)</span><span class="chip">4D 탄성파 모니터링</span><span class="chip">탄성파 자료 해석</span><span class="chip">탄성파-전자탐사 복합해석</span><span class="chip">CO2 저장 부지 적합성 평가</span></dd><dt>계산·AI</dt><dd class="chips"><span class="chip">GPU 기반 탄성파 처리</span><span class="chip">딥러닝 기반 탄성파 영상화</span><span class="chip">디지털 트윈</span></dd><dt>국제협력</dt><dd class="chips"><span class="chip">캘거리대학교 파견연구(2회)</span><span class="chip">국제공동연구 기획</span><span class="chip">해외 CCS 프로젝트 분석</span></dd>      </dl>
     </div>
     <div>
       <h2>학력</h2>
       <ul class="list">
-        <li><b>전북대학교</b> · 전공을 입력하세요 학사<div class="meta">20XX.03 – 재학 중</div>
-<div class="meta">[예시] 주요 이수 과목: 자료구조, 알고리즘, 데이터베이스</div></li>
+        <li><b>전북대학교 대학원</b> · 환경에너지융합학과 석사<div class="meta">2024.03 – 2026.08</div>
+<div class="meta">지구물리컴퓨팅연구실 — CCS 탄성파 모니터링</div></li>
+        <li><b>전북대학교</b> · 학과를 입력하세요 학사<div class="meta">~ 2024.02</div>
+<div class="meta">학부연구생 (지구물리컴퓨팅연구실)</div></li>
       </ul>
     </div>
   </div>
@@ -158,12 +196,12 @@ footer{padding:32px 0 56px;color:var(--muted);font-size:13px;border-top:1px soli
 
 <section>
   <div class="two">
-<div><h2>수상</h2><ul class="list"><li><b>[예시] 캡스톤디자인 경진대회</b> 우수상<div class="meta">전북대학교 · 2025.06</div></li></ul></div><div><h2>자격·어학</h2><ul class="list"><li><b>[예시] 정보처리기사</b><div class="meta">한국산업인력공단 · 2025.09</div></li><li><b>[예시] TOEIC 850</b><div class="meta">ETS · 2025.01</div></li></ul></div>  </div>
+<div><h2>수상</h2><ul class="list"><li><b>2024 한국지구물리·물리탐사학회(KSEG) 추계학술대회 학생 우수논문(포스터) 발표상</b> <div class="meta">한국지구물리·물리탐사학회 · 2024.11</div></li></ul></div>  </div>
 </section>
 
 <section id="contact">
   <h2>연락처</h2>
-  <p><a href="mailto:iyju990312@jbnu.ac.kr">iyju990312@jbnu.ac.kr</a> · 대한민국 전북 전주</p>
+  <p><a href="mailto:iyju990312@jbnu.ac.kr">iyju990312@jbnu.ac.kr</a> · 대한민국</p>
 </section>
 </main>
 <footer><div class="wrap">© Young-Ju Lee · data/portfolio.yaml에서 자동 생성된 페이지</div></footer>

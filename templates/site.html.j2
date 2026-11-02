@@ -76,6 +76,9 @@ details.item[open] summary{border-bottom:1px solid var(--line)}
 .list li:last-child{border-bottom:0}
 .skills dt{font-weight:700;font-size:14px;margin-top:12px}
 .skills dd{margin:6px 0 0}
+.sub-h{font-size:15px;color:var(--muted);margin:20px 0 4px}
+.pubs li{display:grid;grid-template-columns:48px 1fr;gap:12px}
+.pubs .year{color:var(--accent);font-weight:700;font-size:14px;padding-top:2px}
 footer{padding:32px 0 56px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
 @media (max-width:560px){header{padding:48px 0 32px} details.item summary{grid-template-columns:1fr} details.item summary .when{text-align:left}}
 </style>
@@ -84,6 +87,7 @@ footer{padding:32px 0 56px;color:var(--muted);font-size:13px;border-top:1px soli
 <nav><div class="wrap">
   <a class="brand" href="#top">{{ profile.name }}</a>
   {% if featured %}<a href="#featured">대표 활동</a>{% endif %}
+  {% if papers or talks %}<a href="#publications">논문·발표</a>{% endif %}
   <a href="#activities">전체 활동</a>
   <a href="#skills">역량</a>
   <a href="#contact">연락처</a>
@@ -120,6 +124,24 @@ footer{padding:32px 0 56px;color:var(--muted);font-size:13px;border-top:1px soli
     </article>
   {% endfor %}
   </div>
+</section>
+{% endif %}
+
+{% if papers or talks %}
+<section id="publications">
+  <h2>논문·발표 <span class="meta">(논문 {{ papers|length }} · 학회 발표 {{ talks|length }})</span></h2>
+  {% if papers %}
+  <h3 class="sub-h">논문</h3>
+  <ul class="list pubs">
+  {% for x in papers %}<li><span class="year">{{ x.year }}</span><div><b>{{ x.title }}</b>{% if x.venue %}<div class="meta">{{ x.venue }}</div>{% endif %}{% if x.url %}<a href="{{ x.url }}" target="_blank" rel="noopener" class="meta">링크 →</a>{% endif %}</div></li>{% endfor %}
+  </ul>
+  {% endif %}
+  {% if talks %}
+  <h3 class="sub-h">학회 발표</h3>
+  <ul class="list pubs">
+  {% for x in talks %}<li><span class="year">{{ x.year }}</span><div>{{ x.title }}{% if x.venue %}<div class="meta">{{ x.venue }}</div>{% endif %}</div></li>{% endfor %}
+  </ul>
+  {% endif %}
 </section>
 {% endif %}
 

@@ -41,7 +41,14 @@ data/portfolio.yaml에서 자동 생성됩니다. 각 플랫폼의 해당 칸에
 ```
 {% endfor %}
 
-## 4. 스킬 (복사용, 쉼표 구분)
+{% if papers or talks %}
+## 4. 논문·발표 (LinkedIn "Publications" 항목 등)
+{% for x in papers + talks %}
+- {{ x.title }} ({% if x.venue %}{{ x.venue }}, {% endif %}{{ x.year }})
+{% endfor %}
+
+{% endif %}
+## 5. 스킬 (복사용, 쉼표 구분)
 
 ```
 {% for s in skills %}{{ s['items']|join(', ') }}{% if not loop.last %}, {% endif %}{% endfor %}

@@ -32,22 +32,36 @@ def period_str(p):
     if not p:
         return ""
     start, end = p.get("start", ""), p.get("end", "")
-    return f"{start} – {end}" if end else start
+    if start and end:
+        return f"{start} – {end}"
+    return f"~ {end}" if end else start
 
 
 def sort_key(a):
-    # 최신 활동이 먼저 오도록 (시작일 기준 내림차순)
-    return (a.get("period") or {}).get("start", "")
+    # 최근에 끝난(또는 진행 중인) 활동이 먼저 오도록: 종료일 → 시작일 내림차순
+    p = a.get("period") or {}
+    end = str(p.get("end", ""))
+    if not end or not end[:1].isdigit():  # "재학 중", "현재" 등
+        end = "9999"
+    return (end, str(p.get("start", "")))
 
 
 def normalize(data):
+    data["_todos"] = [
+        f'{a.get("title")} — {x}'
+        for a in data.get("activities") or []
+        for k in ("action", "result")
+        for x in (a.get("star") or {}).get(k) or []
+        if str(x).startswith("TODO")
+    ]
     data["profile"]["links"] = clean_links(data["profile"].get("links"))
     acts = data.get("activities") or []
     for a in acts:
         a["links"] = clean_links(a.get("links"))
         a.setdefault("star", {})
         for k in ("action", "result"):
-            a["star"][k] = [x for x in (a["star"].get(k) or []) if x]
+            # 'TODO' 로 시작하는 항목은 결과물에 표시하지 않고 체크리스트로만 보냄
+            a["star"][k] = [x for x in (a["star"].get(k) or []) if x and not str(x).startswith("TODO")]
         a["period_str"] = period_str(a.get("period"))
     acts.sort(key=sort_key, reverse=True)
     data["activities"] = acts
@@ -55,6 +69,12 @@ def normalize(data):
     data["types"] = sorted({a.get("type", "기타") for a in acts})
     for e in data.get("education") or []:
         e["period_str"] = period_str(e.get("period"))
+    pubs = sorted(data.get("publications") or [], key=lambda x: str(x.get("year", "")), reverse=True)
+    data["papers"] = [x for x in pubs if x.get("kind") == "논문"]
+    data["talks"] = [x for x in pubs if x.get("kind") != "논문"]
+    data["skills"] = [s for s in data.get("skills") or [] if s.get("items")]
+    data["certifications"] = data.get("certifications") or []
+    data["awards"] = data.get("awards") or []
     return data
 
 
@@ -69,10 +89,13 @@ def collect_warnings(data):
         if "입력하세요" in e.get("major", ""):
             w.append("education.major — 전공을 입력하세요")
 
-    text = yaml.safe_dump(data, allow_unicode=True)
+    text = yaml.safe_dump({k: v for k, v in data.items() if k != "_todos"}, allow_unicode=True)
     n_sample = text.count("[예시]")
     if n_sample:
         w.append(f"[예시] 샘플 문구가 {n_sample}곳 남아 있습니다")
+
+    for t in data["_todos"]:
+        w.append(f"{t}")
 
     if not data["featured"]:
         w.append("featured: true 인 대표 활동이 없습니다 (3~5개 권장)")

@@ -62,6 +62,12 @@ li{margin:1px 0}
 {% endfor %}
 {% endif %}
 
+{% if papers or talks %}
+<h2>PUBLICATIONS · 논문 및 발표</h2>
+{% for x in papers %}<div class="row"><span>[논문] {{ x.title }}{% if x.venue %}, <i>{{ x.venue }}</i>{% endif %}</span><span class="dim">{{ x.year }}</span></div>{% endfor %}
+{% for x in talks %}<div class="row"><span>[발표] {{ x.title }}</span><span class="dim">{{ x.year }}</span></div>{% endfor %}
+{% endif %}
+
 <h2>SKILLS</h2>
 {% for s in skills %}<div class="skill"><b>{{ s.category }}</b> {{ s['items']|join(', ') }}</div>{% endfor %}
 
