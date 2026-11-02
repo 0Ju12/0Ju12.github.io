@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>이름을 입력하세요 포트폴리오</title>
+<meta name="description" content="희망 직무를 입력하세요 · [예시] 문제를 데이터로 정의하고, 끝까지 구현해서 결과로 증명하는 사람">
+<meta property="og:title" content="이름을 입력하세요 | 희망 직무를 입력하세요">
+<meta property="og:description" content="[예시] 문제를 데이터로 정의하고, 끝까지 구현해서 결과로 증명하는 사람">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f7f5; --surface:#ffffff; --text:#1b1d21; --muted:#5c6370; --line:#e3e4e8;
+  --accent:#2f5bd3; --accent-soft:#e8eefc; --chip:#f0f1f4;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111317; --surface:#1a1d23; --text:#e9eaee; --muted:#a0a6b2; --line:#2b2f37;
+    --accent:#7d9cff; --accent-soft:#222c45; --chip:#242830;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111317; --surface:#1a1d23; --text:#e9eaee; --muted:#a0a6b2; --line:#2b2f37;
+  --accent:#7d9cff; --accent-soft:#222c45; --chip:#242830;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 "Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:20px;height:56px;overflow-x:auto;white-space:nowrap}
+nav .brand{font-weight:700;color:var(--text);margin-right:auto}
+nav a{color:var(--muted);font-size:14px}
+.theme{background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:4px 10px;cursor:pointer;font:inherit;font-size:13px}
+header{padding:72px 0 48px;display:flex;gap:32px;align-items:center;flex-wrap:wrap}
+header img{width:120px;height:120px;border-radius:50%;object-fit:cover;border:1px solid var(--line)}
+.eyebrow{color:var(--accent);font-weight:700;font-size:14px;letter-spacing:.02em}
+h1{font-size:clamp(28px,5vw,40px);line-height:1.25;margin:6px 0 12px}
+.lead{color:var(--muted);max-width:640px;margin:0 0 20px}
+.links{display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-block;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:14px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+section{padding:40px 0;border-top:1px solid var(--line)}
+h2{font-size:22px;margin:0 0 20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.card h3{margin:0;font-size:18px;line-height:1.4}
+.meta{color:var(--muted);font-size:13px}
+.metrics{display:flex;gap:10px;flex-wrap:wrap}
+.metric{background:var(--accent-soft);border-radius:10px;padding:8px 12px;min-width:84px}
+.metric b{display:block;font-size:18px;color:var(--accent)}
+.metric span{font-size:12px;color:var(--muted)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{background:var(--chip);border-radius:999px;padding:2px 10px;font-size:12px;color:var(--muted)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.filters button{font:inherit;font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+details.item{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:12px}
+details.item summary{list-style:none;cursor:pointer;padding:16px 20px;display:grid;grid-template-columns:1fr auto;gap:4px 16px}
+details.item summary::-webkit-details-marker{display:none}
+details.item summary .t{font-weight:700}
+details.item summary .when{color:var(--muted);font-size:13px;text-align:right}
+details.item summary .sub{grid-column:1/-1;color:var(--muted);font-size:14px}
+details.item[open] summary{border-bottom:1px solid var(--line)}
+.star{padding:16px 20px;display:grid;gap:12px}
+.star dt{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.04em}
+.star dd{margin:2px 0 0}
+.star ul{margin:4px 0 0;padding-left:18px}
+.type{display:inline-block;font-size:11px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:6px;padding:1px 8px;margin-right:6px;vertical-align:2px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+.list{list-style:none;margin:0;padding:0}
+.list li{padding:10px 0;border-bottom:1px solid var(--line)}
+.list li:last-child{border-bottom:0}
+.skills dt{font-weight:700;font-size:14px;margin-top:12px}
+.skills dd{margin:6px 0 0}
+footer{padding:32px 0 56px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+@media (max-width:560px){header{padding:48px 0 32px} details.item summary{grid-template-columns:1fr} details.item summary .when{text-align:left}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="brand" href="#top">이름을 입력하세요</a>
+<a href="#featured">대표 활동</a>  <a href="#activities">전체 활동</a>
+  <a href="#skills">역량</a>
+  <a href="#contact">연락처</a>
+  <button class="theme" id="theme" type="button" aria-label="테마 전환">테마</button>
+</div></nav>
+
+<main class="wrap" id="top">
+<header>
+  <div>
+    <div class="eyebrow">희망 직무를 입력하세요</div>
+    <h1>[예시] 문제를 데이터로 정의하고, 끝까지 구현해서 결과로 증명하는 사람</h1>
+    <p class="lead">[예시] 전북대학교에서 ○○을 전공하며 ○개의 프로젝트와 ○개의 대외활동을 수행했습니다. 특히 ○○ 프로젝트에서 ○○ 문제를 해결해 ○○% 개선한 경험이 있습니다. (3~4문장: 정체성 → 핵심 역량 → 대표 성과 → 지원 동기)</p>
+    <div class="links">
+      <a class="btn primary" href="resume.pdf" download>이력서 PDF</a>
+<a class="btn" href="https://github.com/0Ju12" target="_blank" rel="noopener">GitHub</a>    </div>
+  </div>
+</header>
+
+<section id="featured">
+  <h2>대표 활동</h2>
+  <div class="grid">
+    <article class="card">
+      <div class="meta"><span class="type">프로젝트</span>2025.03 – 2025.06 · [예시] 교내 캡스톤디자인</div>
+      <h3>[예시] 캠퍼스 중고거래 웹 서비스</h3>
+      <div class="meta">[예시] 백엔드 리드 · 4인 (백엔드 2, 프론트 1, 디자인 1)</div>
+      <p style="margin:0">[예시] 학내 구성원 인증 기반의 중고거래 플랫폼을 기획·개발</p>
+<div class="metrics"><div class="metric"><b>120명</b><span>사용자</span></div><div class="metric"><b>-75%</b><span>응답속도</span></div></div><div class="chips"><span class="chip">Spring Boot</span><span class="chip">MySQL</span><span class="chip">AWS</span></div>      <div class="meta"><a href="#act-sample-project" data-open="act-sample-project">자세히 보기 →</a></div>
+    </article>
+  </div>
+</section>
+
+<section id="activities">
+  <h2>전체 활동 <span class="meta">(2)</span></h2>
+  <div class="filters" role="group" aria-label="활동 유형 필터">
+    <button type="button" data-filter="all" aria-pressed="true">전체</button>
+<button type="button" data-filter="대외활동" aria-pressed="false">대외활동</button><button type="button" data-filter="프로젝트" aria-pressed="false">프로젝트</button>  </div>
+  <details class="item" id="act-sample-project" data-type="프로젝트">
+    <summary>
+      <span class="t"><span class="type">프로젝트</span>[예시] 캠퍼스 중고거래 웹 서비스</span>
+      <span class="when">2025.03 – 2025.06</span>
+      <span class="sub">[예시] 교내 캡스톤디자인 · [예시] 백엔드 리드 — [예시] 학내 구성원 인증 기반의 중고거래 플랫폼을 기획·개발</span>
+    </summary>
+    <dl class="star">
+<div><dt>SITUATION · 상황</dt><dd>[예시] 학내 중고거래가 단톡방에 흩어져 있어 사기·분실 문제가 잦았음</dd></div><div><dt>TASK · 역할과 과제</dt><dd>[예시] 학교 이메일 인증과 거래 API 설계·구현을 담당</dd></div><div><dt>ACTION · 한 일</dt><dd><ul><li>[예시] 학교 메일 인증 기반 회원가입 구현</li><li>[예시] 검색 쿼리 인덱스 튜닝으로 응답 속도 개선</li></ul></dd></div><div><dt>RESULT · 결과</dt><dd><ul><li>[예시] 베타 기간 사용자 120명, 거래 300건 달성</li><li>[예시] 검색 API 응답 1.2s → 0.3s (75% 단축)</li></ul></dd></div><div class="chips"><span class="chip">Spring Boot</span><span class="chip">MySQL</span><span class="chip">AWS</span></div>    </dl>
+  </details>
+  <details class="item" id="act-sample-activity" data-type="대외활동">
+    <summary>
+      <span class="t"><span class="type">대외활동</span>[예시] ○○ 대외활동 / 서포터즈</span>
+      <span class="when">2024.07 – 2024.12</span>
+      <span class="sub">[예시] ○○재단 · [예시] 기획팀원 — [예시] 활동 한 줄 요약</span>
+    </summary>
+    <dl class="star">
+<div class="chips"><span class="chip">기획</span><span class="chip">협업</span></div>    </dl>
+  </details>
+</section>
+
+<section id="skills">
+  <div class="two">
+    <div>
+      <h2>역량</h2>
+      <dl class="skills">
+<dt>[예시] 언어</dt><dd class="chips"><span class="chip">Python</span><span class="chip">Java</span><span class="chip">SQL</span></dd><dt>[예시] 프레임워크·도구</dt><dd class="chips"><span class="chip">Spring Boot</span><span class="chip">React</span><span class="chip">Git</span><span class="chip">Docker</span></dd><dt>[예시] 협업</dt><dd class="chips"><span class="chip">Notion</span><span class="chip">Figma</span><span class="chip">Jira</span></dd>      </dl>
+    </div>
+    <div>
+      <h2>학력</h2>
+      <ul class="list">
+        <li><b>전북대학교</b> · 전공을 입력하세요 학사<div class="meta">20XX.03 – 재학 중</div>
+<div class="meta">[예시] 주요 이수 과목: 자료구조, 알고리즘, 데이터베이스</div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="two">
+<div><h2>수상</h2><ul class="list"><li><b>[예시] 캡스톤디자인 경진대회</b> 우수상<div class="meta">전북대학교 · 2025.06</div></li></ul></div><div><h2>자격·어학</h2><ul class="list"><li><b>[예시] 정보처리기사</b><div class="meta">한국산업인력공단 · 2025.09</div></li><li><b>[예시] TOEIC 850</b><div class="meta">ETS · 2025.01</div></li></ul></div>  </div>
+</section>
+
+<section id="contact">
+  <h2>연락처</h2>
+  <p><a href="mailto:iyju990312@jbnu.ac.kr">iyju990312@jbnu.ac.kr</a> · 대한민국 전북 전주</p>
+</section>
+</main>
+<footer><div class="wrap">© Young-Ju Lee · data/portfolio.yaml에서 자동 생성된 페이지</div></footer>
+
+<script>
+(function(){
+  var root=document.documentElement, KEY='theme';
+  try{var s=localStorage.getItem(KEY); if(s) root.setAttribute('data-theme',s);}catch(e){}
+  document.getElementById('theme').addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+    var next=cur==='dark'?'light':'dark'; root.setAttribute('data-theme',next);
+    try{localStorage.setItem(KEY,next);}catch(e){}
+  });
+  document.querySelectorAll('[data-filter]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var f=b.dataset.filter;
+      document.querySelectorAll('[data-filter]').forEach(function(x){x.setAttribute('aria-pressed',x===b)});
+      document.querySelectorAll('details.item').forEach(function(d){d.hidden=!(f==='all'||d.dataset.type===f)});
+    });
+  });
+  function openHash(id){var d=document.getElementById(id); if(d){d.hidden=false; d.open=true;}}
+  document.querySelectorAll('[data-open]').forEach(function(a){a.addEventListener('click',function(){openHash(a.dataset.open)})});
+  if(location.hash.indexOf('#act-')===0) openHash(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>

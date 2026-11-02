@@ -1,0 +1,99 @@
+# =====================================================================
+#  포트폴리오 데이터 — 이 파일 하나만 수정하면 모든 결과물이 갱신됩니다.
+#  (웹사이트 · PDF 이력서 · 노션용 문서 · 채용 플랫폼 프로필 문구)
+#
+#  [예시] 로 표시된 항목은 샘플입니다. 실제 내용으로 바꾸거나 지우세요.
+#  수정 후:  python3 scripts/build.py
+# =====================================================================
+
+profile:
+  name: 이름을 입력하세요          # 예: 홍길동
+  name_en: Young-Ju Lee
+  title: 희망 직무를 입력하세요     # 예: 백엔드 개발자 / 데이터 분석가 / 서비스 기획자
+  headline: "[예시] 문제를 데이터로 정의하고, 끝까지 구현해서 결과로 증명하는 사람"
+  summary: >-
+    [예시] 전북대학교에서 ○○을 전공하며 ○개의 프로젝트와 ○개의 대외활동을 수행했습니다.
+    특히 ○○ 프로젝트에서 ○○ 문제를 해결해 ○○% 개선한 경험이 있습니다.
+    (3~4문장: 정체성 → 핵심 역량 → 대표 성과 → 지원 동기)
+  email: iyju990312@jbnu.ac.kr
+  phone: ""                      # 웹사이트에는 표시되지 않고 PDF 이력서에만 들어갑니다
+  location: 대한민국 전북 전주
+  photo: ""                      # 예: assets/profile.jpg (docs/assets 폴더에 넣기)
+  links:
+    - { label: GitHub,   url: "https://github.com/0Ju12" }
+    - { label: LinkedIn, url: "" }
+    - { label: Blog,     url: "" }
+    - { label: Notion,   url: "" }
+
+education:
+  - school: 전북대학교
+    major: 전공을 입력하세요
+    degree: 학사
+    period: { start: "20XX.03", end: "재학 중" }
+    gpa: ""                      # 예: "3.9 / 4.5"
+    notes:
+      - "[예시] 주요 이수 과목: 자료구조, 알고리즘, 데이터베이스"
+
+skills:
+  - category: "[예시] 언어"
+    items: [Python, Java, SQL]
+  - category: "[예시] 프레임워크·도구"
+    items: [Spring Boot, React, Git, Docker]
+  - category: "[예시] 협업"
+    items: [Notion, Figma, Jira]
+
+# ---------------------------------------------------------------------
+#  활동 — 프로젝트 / 대외활동 / 인턴 / 동아리 / 연구 / 봉사 등 모두 여기에
+#  STAR 구조:  situation(상황) → task(내 역할·과제) → action(한 일) → result(결과)
+#  featured: true  → 웹사이트 상단 '대표 활동'과 PDF 이력서에 포함
+#  result 에는 가능한 한 숫자를 넣으세요 (warnings 리포트가 알려줍니다)
+# ---------------------------------------------------------------------
+activities:
+  - id: sample-project
+    title: "[예시] 캠퍼스 중고거래 웹 서비스"
+    type: 프로젝트
+    org: "[예시] 교내 캡스톤디자인"
+    period: { start: "2025.03", end: "2025.06" }
+    team: "4인 (백엔드 2, 프론트 1, 디자인 1)"
+    role: "[예시] 백엔드 리드"
+    featured: true
+    tags: [Spring Boot, MySQL, AWS]
+    summary: "[예시] 학내 구성원 인증 기반의 중고거래 플랫폼을 기획·개발"
+    star:
+      situation: "[예시] 학내 중고거래가 단톡방에 흩어져 있어 사기·분실 문제가 잦았음"
+      task: "[예시] 학교 이메일 인증과 거래 API 설계·구현을 담당"
+      action:
+        - "[예시] 학교 메일 인증 기반 회원가입 구현"
+        - "[예시] 검색 쿼리 인덱스 튜닝으로 응답 속도 개선"
+      result:
+        - "[예시] 베타 기간 사용자 120명, 거래 300건 달성"
+        - "[예시] 검색 API 응답 1.2s → 0.3s (75% 단축)"
+    metrics:
+      - { label: 사용자, value: "120명" }
+      - { label: 응답속도, value: "-75%" }
+    links:
+      - { label: GitHub, url: "" }
+      - { label: 발표자료, url: "" }   # 구글 드라이브 공유 링크 등
+
+  - id: sample-activity
+    title: "[예시] ○○ 대외활동 / 서포터즈"
+    type: 대외활동
+    org: "[예시] ○○재단"
+    period: { start: "2024.07", end: "2024.12" }
+    role: "[예시] 기획팀원"
+    featured: false
+    tags: [기획, 협업]
+    summary: "[예시] 활동 한 줄 요약"
+    star:
+      situation: ""
+      task: ""
+      action: []
+      result: []
+    links: []
+
+awards:
+  - { name: "[예시] 캡스톤디자인 경진대회", rank: 우수상, org: 전북대학교, date: "2025.06" }
+
+certifications:
+  - { name: "[예시] 정보처리기사", org: 한국산업인력공단, date: "2025.09" }
+  - { name: "[예시] TOEIC 850", org: ETS, date: "2025.01" }

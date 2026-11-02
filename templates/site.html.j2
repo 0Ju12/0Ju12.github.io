@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ profile.name }} 포트폴리오</title>
+<meta name="description" content="{{ profile.title }} · {{ profile.headline }}">
+<meta property="og:title" content="{{ profile.name }} | {{ profile.title }}">
+<meta property="og:description" content="{{ profile.headline }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f7f5; --surface:#ffffff; --text:#1b1d21; --muted:#5c6370; --line:#e3e4e8;
+  --accent:#2f5bd3; --accent-soft:#e8eefc; --chip:#f0f1f4;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111317; --surface:#1a1d23; --text:#e9eaee; --muted:#a0a6b2; --line:#2b2f37;
+    --accent:#7d9cff; --accent-soft:#222c45; --chip:#242830;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111317; --surface:#1a1d23; --text:#e9eaee; --muted:#a0a6b2; --line:#2b2f37;
+  --accent:#7d9cff; --accent-soft:#222c45; --chip:#242830;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 "Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:20px;height:56px;overflow-x:auto;white-space:nowrap}
+nav .brand{font-weight:700;color:var(--text);margin-right:auto}
+nav a{color:var(--muted);font-size:14px}
+.theme{background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:4px 10px;cursor:pointer;font:inherit;font-size:13px}
+header{padding:72px 0 48px;display:flex;gap:32px;align-items:center;flex-wrap:wrap}
+header img{width:120px;height:120px;border-radius:50%;object-fit:cover;border:1px solid var(--line)}
+.eyebrow{color:var(--accent);font-weight:700;font-size:14px;letter-spacing:.02em}
+h1{font-size:clamp(28px,5vw,40px);line-height:1.25;margin:6px 0 12px}
+.lead{color:var(--muted);max-width:640px;margin:0 0 20px}
+.links{display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-block;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:14px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+section{padding:40px 0;border-top:1px solid var(--line)}
+h2{font-size:22px;margin:0 0 20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.card h3{margin:0;font-size:18px;line-height:1.4}
+.meta{color:var(--muted);font-size:13px}
+.metrics{display:flex;gap:10px;flex-wrap:wrap}
+.metric{background:var(--accent-soft);border-radius:10px;padding:8px 12px;min-width:84px}
+.metric b{display:block;font-size:18px;color:var(--accent)}
+.metric span{font-size:12px;color:var(--muted)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{background:var(--chip);border-radius:999px;padding:2px 10px;font-size:12px;color:var(--muted)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.filters button{font:inherit;font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+details.item{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:12px}
+details.item summary{list-style:none;cursor:pointer;padding:16px 20px;display:grid;grid-template-columns:1fr auto;gap:4px 16px}
+details.item summary::-webkit-details-marker{display:none}
+details.item summary .t{font-weight:700}
+details.item summary .when{color:var(--muted);font-size:13px;text-align:right}
+details.item summary .sub{grid-column:1/-1;color:var(--muted);font-size:14px}
+details.item[open] summary{border-bottom:1px solid var(--line)}
+.star{padding:16px 20px;display:grid;gap:12px}
+.star dt{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.04em}
+.star dd{margin:2px 0 0}
+.star ul{margin:4px 0 0;padding-left:18px}
+.type{display:inline-block;font-size:11px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:6px;padding:1px 8px;margin-right:6px;vertical-align:2px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+.list{list-style:none;margin:0;padding:0}
+.list li{padding:10px 0;border-bottom:1px solid var(--line)}
+.list li:last-child{border-bottom:0}
+.skills dt{font-weight:700;font-size:14px;margin-top:12px}
+.skills dd{margin:6px 0 0}
+footer{padding:32px 0 56px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+@media (max-width:560px){header{padding:48px 0 32px} details.item summary{grid-template-columns:1fr} details.item summary .when{text-align:left}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="brand" href="#top">{{ profile.name }}</a>
+  {% if featured %}<a href="#featured">대표 활동</a>{% endif %}
+  <a href="#activities">전체 활동</a>
+  <a href="#skills">역량</a>
+  <a href="#contact">연락처</a>
+  <button class="theme" id="theme" type="button" aria-label="테마 전환">테마</button>
+</div></nav>
+
+<main class="wrap" id="top">
+<header>
+  {% if profile.photo %}<img src="{{ profile.photo }}" alt="{{ profile.name }} 프로필 사진">{% endif %}
+  <div>
+    <div class="eyebrow">{{ profile.title }}</div>
+    <h1>{{ profile.headline }}</h1>
+    <p class="lead">{{ profile.summary }}</p>
+    <div class="links">
+      <a class="btn primary" href="resume.pdf" download>이력서 PDF</a>
+      {% for l in profile.links %}<a class="btn" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }}</a>{% endfor %}
+    </div>
+  </div>
+</header>
+
+{% if featured %}
+<section id="featured">
+  <h2>대표 활동</h2>
+  <div class="grid">
+  {% for a in featured %}
+    <article class="card">
+      <div class="meta"><span class="type">{{ a.type }}</span>{{ a.period_str }}{% if a.org %} · {{ a.org }}{% endif %}</div>
+      <h3>{{ a.title }}</h3>
+      <div class="meta">{{ a.role }}{% if a.team %} · {{ a.team }}{% endif %}</div>
+      <p style="margin:0">{{ a.summary }}</p>
+      {% if a.metrics %}<div class="metrics">{% for m in a.metrics %}<div class="metric"><b>{{ m.value }}</b><span>{{ m.label }}</span></div>{% endfor %}</div>{% endif %}
+      {% if a.tags %}<div class="chips">{% for t in a.tags %}<span class="chip">{{ t }}</span>{% endfor %}</div>{% endif %}
+      <div class="meta"><a href="#act-{{ a.id }}" data-open="act-{{ a.id }}">자세히 보기 →</a></div>
+    </article>
+  {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section id="activities">
+  <h2>전체 활동 <span class="meta">({{ activities|length }})</span></h2>
+  {% if types|length > 1 %}
+  <div class="filters" role="group" aria-label="활동 유형 필터">
+    <button type="button" data-filter="all" aria-pressed="true">전체</button>
+    {% for t in types %}<button type="button" data-filter="{{ t }}" aria-pressed="false">{{ t }}</button>{% endfor %}
+  </div>
+  {% endif %}
+  {% for a in activities %}
+  <details class="item" id="act-{{ a.id }}" data-type="{{ a.type }}">
+    <summary>
+      <span class="t"><span class="type">{{ a.type }}</span>{{ a.title }}</span>
+      <span class="when">{{ a.period_str }}</span>
+      <span class="sub">{{ a.org }}{% if a.role %} · {{ a.role }}{% endif %}{% if a.summary %} — {{ a.summary }}{% endif %}</span>
+    </summary>
+    <dl class="star">
+      {% if a.star.situation %}<div><dt>SITUATION · 상황</dt><dd>{{ a.star.situation }}</dd></div>{% endif %}
+      {% if a.star.task %}<div><dt>TASK · 역할과 과제</dt><dd>{{ a.star.task }}</dd></div>{% endif %}
+      {% if a.star.action %}<div><dt>ACTION · 한 일</dt><dd><ul>{% for x in a.star.action %}<li>{{ x }}</li>{% endfor %}</ul></dd></div>{% endif %}
+      {% if a.star.result %}<div><dt>RESULT · 결과</dt><dd><ul>{% for x in a.star.result %}<li>{{ x }}</li>{% endfor %}</ul></dd></div>{% endif %}
+      {% if a.tags %}<div class="chips">{% for t in a.tags %}<span class="chip">{{ t }}</span>{% endfor %}</div>{% endif %}
+      {% if a.links %}<div class="links">{% for l in a.links %}<a class="btn" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }}</a>{% endfor %}</div>{% endif %}
+    </dl>
+  </details>
+  {% endfor %}
+</section>
+
+<section id="skills">
+  <div class="two">
+    <div>
+      <h2>역량</h2>
+      <dl class="skills">
+      {% for s in skills %}<dt>{{ s.category }}</dt><dd class="chips">{% for i in s['items'] %}<span class="chip">{{ i }}</span>{% endfor %}</dd>{% endfor %}
+      </dl>
+    </div>
+    <div>
+      <h2>학력</h2>
+      <ul class="list">
+      {% for e in education %}
+        <li><b>{{ e.school }}</b> · {{ e.major }} {{ e.degree }}<div class="meta">{{ e.period_str }}{% if e.gpa %} · 학점 {{ e.gpa }}{% endif %}</div>
+        {% for n in e.notes or [] %}<div class="meta">{{ n }}</div>{% endfor %}</li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+{% if awards or certifications %}
+<section>
+  <div class="two">
+    {% if awards %}<div><h2>수상</h2><ul class="list">{% for x in awards %}<li><b>{{ x.name }}</b> {{ x.rank }}<div class="meta">{{ x.org }} · {{ x.date }}</div></li>{% endfor %}</ul></div>{% endif %}
+    {% if certifications %}<div><h2>자격·어학</h2><ul class="list">{% for x in certifications %}<li><b>{{ x.name }}</b><div class="meta">{{ x.org }} · {{ x.date }}</div></li>{% endfor %}</ul></div>{% endif %}
+  </div>
+</section>
+{% endif %}
+
+<section id="contact">
+  <h2>연락처</h2>
+  <p><a href="mailto:{{ profile.email }}">{{ profile.email }}</a>{% if profile.location %} · {{ profile.location }}{% endif %}</p>
+</section>
+</main>
+<footer><div class="wrap">© {{ profile.name_en or profile.name }} · data/portfolio.yaml에서 자동 생성된 페이지</div></footer>
+
+<script>
+(function(){
+  var root=document.documentElement, KEY='theme';
+  try{var s=localStorage.getItem(KEY); if(s) root.setAttribute('data-theme',s);}catch(e){}
+  document.getElementById('theme').addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+    var next=cur==='dark'?'light':'dark'; root.setAttribute('data-theme',next);
+    try{localStorage.setItem(KEY,next);}catch(e){}
+  });
+  document.querySelectorAll('[data-filter]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var f=b.dataset.filter;
+      document.querySelectorAll('[data-filter]').forEach(function(x){x.setAttribute('aria-pressed',x===b)});
+      document.querySelectorAll('details.item').forEach(function(d){d.hidden=!(f==='all'||d.dataset.type===f)});
+    });
+  });
+  function openHash(id){var d=document.getElementById(id); if(d){d.hidden=false; d.open=true;}}
+  document.querySelectorAll('[data-open]').forEach(function(a){a.addEventListener('click',function(){openHash(a.dataset.open)})});
+  if(location.hash.indexOf('#act-')===0) openHash(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>

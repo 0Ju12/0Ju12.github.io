@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>{{ profile.name }} 이력서</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+@page{size:A4;margin:16mm 15mm}
+*{box-sizing:border-box}
+body{margin:0;font:10pt/1.55 "Noto Sans KR",sans-serif;color:#1b1d21;background:#fff}
+a{color:#2f5bd3;text-decoration:none}
+.page{max-width:180mm;margin:0 auto}
+header{border-bottom:2px solid #1b1d21;padding-bottom:10px;margin-bottom:14px}
+h1{font-size:20pt;margin:0}
+.title{color:#2f5bd3;font-weight:700;margin:2px 0 6px}
+.contact{color:#5c6370;font-size:9pt}
+.contact span+span::before{content:" · "}
+h2{font-size:11pt;color:#2f5bd3;border-bottom:1px solid #d9dbe0;padding-bottom:3px;margin:16px 0 8px;letter-spacing:.04em}
+.summary{margin:0}
+.entry{margin-bottom:10px;break-inside:avoid}
+.row{display:flex;justify-content:space-between;gap:12px}
+.row b{font-size:10.5pt}
+.dim{color:#5c6370;font-size:9pt;white-space:nowrap}
+ul{margin:3px 0 0;padding-left:16px}
+li{margin:1px 0}
+.tags{color:#5c6370;font-size:8.5pt;margin-top:2px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}
+.skill b{display:inline-block;min-width:80px}
+</style>
+</head>
+<body><div class="page">
+<header>
+  <h1>{{ profile.name }} <span style="font-size:11pt;color:#5c6370;font-weight:400">{{ profile.name_en }}</span></h1>
+  <div class="title">{{ profile.title }}</div>
+  <div class="contact">
+    <span>{{ profile.email }}</span>{% if profile.phone %}<span>{{ profile.phone }}</span>{% endif %}
+    {% for l in profile.links %}<span><a href="{{ l.url }}">{{ l.url|replace('https://','') }}</a></span>{% endfor %}
+  </div>
+</header>
+
+<h2>SUMMARY</h2>
+<p class="summary">{{ profile.summary }}</p>
+
+<h2>EXPERIENCE · 핵심 활동</h2>
+{% for a in (featured if featured else activities) %}
+<div class="entry">
+  <div class="row"><b>{{ a.title }}</b><span class="dim">{{ a.period_str }}</span></div>
+  <div class="dim">{{ a.type }} · {{ a.org }}{% if a.role %} · {{ a.role }}{% endif %}{% if a.team %} · {{ a.team }}{% endif %}</div>
+  <ul>
+    {% for x in a.star.action %}<li>{{ x }}</li>{% endfor %}
+    {% for x in a.star.result %}<li><b>{{ x }}</b></li>{% endfor %}
+  </ul>
+  {% if a.tags %}<div class="tags">{{ a.tags|join(' · ') }}</div>{% endif %}
+</div>
+{% endfor %}
+
+{% set others = activities|rejectattr('featured')|list %}
+{% if featured and others %}
+<h2>OTHER ACTIVITIES · 기타 활동</h2>
+{% for a in others %}
+<div class="row"><span><b>{{ a.title }}</b> <span class="dim">{{ a.org }}{% if a.role %} · {{ a.role }}{% endif %}</span></span><span class="dim">{{ a.period_str }}</span></div>
+{% endfor %}
+{% endif %}
+
+<h2>SKILLS</h2>
+{% for s in skills %}<div class="skill"><b>{{ s.category }}</b> {{ s['items']|join(', ') }}</div>{% endfor %}
+
+<div class="cols">
+<div>
+<h2>EDUCATION</h2>
+{% for e in education %}
+<div class="row"><b>{{ e.school }}</b><span class="dim">{{ e.period_str }}</span></div>
+<div class="dim">{{ e.major }} {{ e.degree }}{% if e.gpa %} · {{ e.gpa }}{% endif %}</div>
+{% endfor %}
+</div>
+<div>
+{% if awards %}<h2>AWARDS</h2>{% for x in awards %}<div class="row"><span>{{ x.name }} {{ x.rank }}</span><span class="dim">{{ x.date }}</span></div>{% endfor %}{% endif %}
+{% if certifications %}<h2>CERTIFICATIONS</h2>{% for x in certifications %}<div class="row"><span>{{ x.name }}</span><span class="dim">{{ x.date }}</span></div>{% endfor %}{% endif %}
+</div>
+</div>
+</div></body>
+</html>

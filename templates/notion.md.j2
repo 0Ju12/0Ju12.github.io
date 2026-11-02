@@ -1,0 +1,74 @@
+# {{ profile.name }} — {{ profile.title }}
+
+> {{ profile.headline }}
+
+{{ profile.summary }}
+
+📧 {{ profile.email }}{% for l in profile.links %} · [{{ l.label }}]({{ l.url }}){% endfor %}
+
+
+---
+
+## ⭐ 대표 활동
+
+{% for a in featured %}
+### {{ a.title }}
+`{{ a.type }}` · {{ a.period_str }} · {{ a.org }}{% if a.role %} · **{{ a.role }}**{% endif %}{% if a.team %} · {{ a.team }}{% endif %}
+
+
+{{ a.summary }}
+
+{% if a.metrics %}
+| {% for m in a.metrics %}{{ m.label }} | {% endfor %}
+
+| {% for m in a.metrics %}--- | {% endfor %}
+
+| {% for m in a.metrics %}**{{ m.value }}** | {% endfor %}
+
+
+{% endif %}
+- **상황** {{ a.star.situation }}
+- **역할·과제** {{ a.star.task }}
+- **한 일**
+{% for x in a.star.action %}
+  - {{ x }}
+{% endfor %}
+- **결과**
+{% for x in a.star.result %}
+  - {{ x }}
+{% endfor %}
+
+{% if a.tags %}🏷 {{ a.tags|join(', ') }}{% endif %}
+
+{% for l in a.links %}🔗 [{{ l.label }}]({{ l.url }})  {% endfor %}
+
+
+{% endfor %}
+---
+
+## 📋 전체 활동
+
+| 기간 | 유형 | 활동 | 기관 | 역할 |
+| --- | --- | --- | --- | --- |
+{% for a in activities %}
+| {{ a.period_str }} | {{ a.type }} | {{ a.title }} | {{ a.org }} | {{ a.role }} |
+{% endfor %}
+
+## 🛠 역량
+{% for s in skills %}
+- **{{ s.category }}** {{ s['items']|join(', ') }}
+{% endfor %}
+
+## 🎓 학력
+{% for e in education %}
+- **{{ e.school }}** {{ e.major }} {{ e.degree }} ({{ e.period_str }}){% if e.gpa %} · {{ e.gpa }}{% endif %}
+
+{% endfor %}
+
+## 🏆 수상 · 자격
+{% for x in awards %}
+- {{ x.name }} {{ x.rank }} — {{ x.org }} ({{ x.date }})
+{% endfor %}
+{% for x in certifications %}
+- {{ x.name }} — {{ x.org }} ({{ x.date }})
+{% endfor %}
