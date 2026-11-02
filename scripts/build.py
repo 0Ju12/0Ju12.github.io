@@ -143,7 +143,12 @@ def main():
     OUT.mkdir(exist_ok=True)
     site_tpl = env.get_template("site.html.j2")
     theme = (data.get("site") or {}).get("theme", "minimal")
-    (DOCS / "index.html").write_text(site_tpl.render(theme=theme, **data), encoding="utf-8")
+    layout = (data.get("site") or {}).get("layout")  # sidebar | bento | showcase (templates/layouts/)
+    if layout:
+        html = env.get_template(f"layouts/{layout}.html.j2").render(**data)
+    else:
+        html = site_tpl.render(theme=theme, **data)
+    (DOCS / "index.html").write_text(html, encoding="utf-8")
     # 디자인 비교용 미리보기: python3 scripts/build.py --previews  → docs/design-<테마>.html
     for t in [] if "--previews" not in sys.argv else sorted(x.stem for x in (TEMPLATES / "themes").glob("*.css")):
         (DOCS / f"design-{t}.html").write_text(site_tpl.render(theme=t, **data), encoding="utf-8")

@@ -1,0 +1,91 @@
+{# 시안 공통 조각 #}
+
+{% macro icon(name, size=18) -%}
+{%- set paths = {
+  'github': 'M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z',
+  'linkedin': 'M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.84-2.05 3.79-2.05 4.05 0 4.8 2.67 4.8 6.13V21h-4v-5.5c0-1.31-.02-3-1.83-3-1.83 0-2.11 1.43-2.11 2.9V21h-4V9Z',
+  'doc': 'M6 2h9l5 5v15H6V2Zm8 1.5V8h4.5M9 12h8M9 16h8',
+  'lab': 'M9 3h6M10 3v6L4.5 19a1.5 1.5 0 0 0 1.3 2h12.4a1.5 1.5 0 0 0 1.3-2L14 9V3',
+  'arrow': 'M5 12h14M13 6l6 6-6 6',
+  'mail': 'M3 5h18v14H3V5Zm0 0 9 7 9-7'
+} -%}
+<svg width="{{ size }}" height="{{ size }}" viewBox="0 0 24 24" aria-hidden="true" {% if name in ['github','linkedin'] %}fill="currentColor"{% else %}fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"{% endif %}><path d="{{ paths[name] }}"/></svg>
+{%- endmacro %}
+
+{% macro link_icon(label) -%}
+{%- set l = label|lower -%}
+{{ icon('github' if 'github' in l else 'linkedin' if 'linkedin' in l else 'lab' if '연구' in label else 'doc') }}
+{%- endmacro %}
+
+{% macro avatar(profile, cls='avatar') -%}
+{% if profile.photo %}<img class="{{ cls }}" src="{{ profile.photo }}" alt="{{ profile.name }} 프로필 사진">
+{% else %}<div class="{{ cls }} avatar-fallback" aria-hidden="true">{{ profile.name[1:] if profile.name|length == 3 else profile.name[:2] }}</div>{% endif %}
+{%- endmacro %}
+
+{% macro star(a) -%}
+<dl class="star">
+  {% if a.star.situation %}<div><dt>문제</dt><dd>{{ a.star.situation }}</dd></div>{% endif %}
+  {% if a.star.task %}<div><dt>역할</dt><dd>{{ a.star.task }}</dd></div>{% endif %}
+  {% if a.star.action %}<div><dt>한 일</dt><dd><ul>{% for x in a.star.action %}<li>{{ x }}</li>{% endfor %}</ul></dd></div>{% endif %}
+  {% if a.star.result %}<div><dt>결과</dt><dd><ul>{% for x in a.star.result %}<li>{{ x }}</li>{% endfor %}</ul></dd></div>{% endif %}
+</dl>
+{% if a.gallery %}<div class="gallery">{% for g in a.gallery %}<a href="{{ g.src }}" target="_blank" rel="noopener"><img src="{{ g.src }}" alt="{{ g.caption }}" loading="lazy"><span>{{ g.caption }}</span></a>{% endfor %}</div>{% endif %}
+{% if a.links %}<div class="links">{% for l in a.links %}<a class="btn ghost" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }} {{ icon('arrow', 14) }}</a>{% endfor %}</div>{% endif %}
+{%- endmacro %}
+
+{% macro pubs(papers, talks) -%}
+<ol class="pubs">
+{% for x in papers %}
+  <li><span class="yr">{{ x.year }}</span><div><b>{% if x.url %}<a href="{{ x.url }}" target="_blank" rel="noopener">{{ x.title }}</a>{% else %}{{ x.title }}{% endif %}</b><small>{{ x.venue }}</small></div></li>
+{% endfor %}
+</ol>
+<details class="talks"><summary>학회 발표 {{ talks|length }}건 보기</summary>
+<ol class="pubs compact">{% for x in talks %}<li><span class="yr">{{ x.year }}</span><div>{{ x.title }}</div></li>{% endfor %}</ol>
+</details>
+{%- endmacro %}
+
+{% macro theme_script() -%}
+<script>
+(function(){var r=document.documentElement,K='theme';
+try{var s=localStorage.getItem(K);if(s)r.setAttribute('data-theme',s)}catch(e){}
+var b=document.getElementById('theme');if(b)b.addEventListener('click',function(){
+var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});
+document.querySelectorAll('[data-expand]').forEach(function(btn){btn.addEventListener('click',function(){
+var t=document.getElementById(btn.dataset.expand);var open=t.hasAttribute('hidden');
+if(open){t.removeAttribute('hidden')}else{t.setAttribute('hidden','')}
+btn.setAttribute('aria-expanded',open);btn.querySelector('span').textContent=open?'접기':'자세히 보기';});});
+})();
+</script>
+{%- endmacro %}
+
+{# 공통 하위 요소 스타일 (각 시안의 토큰을 사용) #}
+{% macro base_css() -%}
+.star{display:grid;gap:14px;margin:0}
+.star dt{font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--accent);margin-bottom:2px}
+.star dd{margin:0}
+.star ul{margin:0;padding-left:18px}
+.star li{margin:3px 0}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:16px}
+.gallery a{color:var(--muted);font-size:12px;text-decoration:none}
+.gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;display:block;margin-bottom:4px}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid transparent;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn.solid{background:var(--accent);color:var(--on-accent)}
+.btn.ghost{border-color:var(--line);color:var(--text);background:var(--surface)}
+.pubs{list-style:none;margin:0;padding:0}
+.pubs li{display:grid;grid-template-columns:52px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.pubs li:last-child{border-bottom:0}
+.pubs .yr{font-weight:700;color:var(--accent);font-size:14px;padding-top:1px}
+.pubs b a{color:inherit;text-decoration:none;background-image:linear-gradient(var(--accent),var(--accent));background-size:0 1px;background-repeat:no-repeat;background-position:0 100%;transition:background-size .2s}
+.pubs b a:hover{background-size:100% 1px}
+.pubs small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+.pubs.compact li{padding:8px 0;font-size:14px}
+.talks{margin-top:10px}
+.talks summary{cursor:pointer;color:var(--accent);font-weight:600;font-size:14px;padding:6px 0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--chip);color:var(--muted)}
+.avatar-fallback{display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:700}
+[hidden]{display:none!important}
+{%- endmacro %}

@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>이영주 포트폴리오</title>
+<meta name="description" content="데이터·AI 엔지니어 · 복잡한 지구과학 데이터를 딥러닝과 분석으로 풀어내는 데이터·AI 엔지니어">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--surface:#f7f7f8;--text:#0d0d0f;--muted:#5d5f66;--line:#e7e7ea;--accent:#0a7c66;--accent-2:#14b8a6;--on-accent:#fff;--chip:#eef2f1;--hero:#0d0d0f;--hero-text:#f4f4f5}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--on-accent:#0d0d0f;--chip:#1f2422;--hero:#000}}
+:root[data-theme="dark"]{--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--on-accent:#0d0d0f;--chip:#1f2422;--hero:#000}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 "Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header.hero{background:var(--hero);color:var(--hero-text);position:relative;overflow:hidden}
+header.hero::after{content:"";position:absolute;inset:auto -10% -40% 40%;height:520px;background:radial-gradient(closest-side,rgba(20,184,166,.35),transparent);pointer-events:none}
+.topbar{display:flex;align-items:center;gap:22px;padding:24px 0;position:relative;z-index:1}
+.topbar .logo{font-weight:900;margin-right:auto;letter-spacing:-.02em}
+.topbar a{color:#a1a1aa;text-decoration:none;font-size:14px;font-weight:500}.topbar a:hover{color:#fff}
+#theme{background:none;border:1px solid #3f3f46;color:#a1a1aa;border-radius:999px;padding:4px 12px;font:inherit;font-size:12px;cursor:pointer}
+.herobody{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;padding:80px 0 56px;position:relative;z-index:1}
+.herobody .role{color:var(--accent-2);font-weight:700;letter-spacing:.08em;font-size:14px}
+.herobody h1{font-size:clamp(34px,5.4vw,68px);line-height:1.08;letter-spacing:-.04em;margin:14px 0 22px;font-weight:900}
+.herobody h1 span{color:var(--accent-2)}
+.herobody p{color:#a1a1aa;max-width:620px;margin:0 0 28px;font-size:17px}
+.herobody .avatar{width:180px;height:180px;border-radius:28px;object-fit:cover;font-size:52px;transform:rotate(3deg);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.cta{display:flex;flex-wrap:wrap;gap:10px}
+.hero .btn.ghost{background:transparent;color:#f4f4f5;border-color:#3f3f46}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #27272a;position:relative;z-index:1}
+.kpis div{padding:26px 22px 30px;border-right:1px solid #27272a}
+.kpis div:last-child{border-right:0}
+.kpis b{display:block;font-size:30px;font-weight:900;letter-spacing:-.03em}
+.kpis span{font-size:13px;color:#a1a1aa}
+section{padding:96px 0 0;scroll-margin-top:20px}
+.sechead{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:40px;border-bottom:2px solid var(--text);padding-bottom:16px}
+.sechead h2{font-size:clamp(28px,4vw,44px);letter-spacing:-.03em;margin:0;font-weight:900;line-height:1.1}
+.sechead span{color:var(--muted);font-size:14px}
+.case{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center;padding:48px 0;border-bottom:1px solid var(--line)}
+.case:nth-of-type(even) .visual{order:2}
+.visual{border-radius:24px;background:var(--surface);aspect-ratio:4/3;display:grid;place-items:center;overflow:hidden;position:relative;border:1px solid var(--line)}
+.visual img{width:100%;height:100%;object-fit:contain;background:#fff}
+.visual .ph{text-align:center}
+.visual .ph .ic{font-size:64px;line-height:1}
+.visual .ph b{display:block;font-size:44px;font-weight:900;letter-spacing:-.03em;margin-top:10px;background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.visual .ph span{color:var(--muted);font-size:14px}
+.case .num{font-size:14px;font-weight:900;color:var(--accent);letter-spacing:.1em}
+.case h3{font-size:clamp(22px,2.6vw,30px);line-height:1.3;letter-spacing:-.02em;margin:8px 0 10px;font-weight:900}
+.case .meta{color:var(--muted);font-size:14px;margin-bottom:16px}
+.case p.sum{font-size:17px;margin:0 0 18px}
+.case .kpi{display:inline-flex;align-items:baseline;gap:10px;background:var(--chip);border-radius:14px;padding:10px 16px;margin-bottom:16px}
+.case .kpi b{font-size:22px;color:var(--accent);font-weight:900}
+.case .kpi span{font-size:13px;color:var(--muted)}
+.more{background:var(--text);color:var(--bg);border:0;font:inherit;font-weight:700;font-size:14px;cursor:pointer;padding:10px 18px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;margin-top:18px}
+.detail{grid-column:1/-1;background:var(--surface);border-radius:20px;padding:26px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px}
+.card h4{margin:0 0 10px;font-size:15px}
+.timeline{display:grid;gap:0}
+.tl{display:grid;grid-template-columns:160px 1fr;gap:20px;padding:18px 0;border-bottom:1px solid var(--line)}
+.tl .when{color:var(--muted);font-size:14px;font-weight:500}
+.tl b{display:block}.tl small{color:var(--muted)}
+footer{padding:96px 0 48px;color:var(--muted);font-size:13px}
+.contactband{margin-top:96px;background:var(--hero);color:var(--hero-text);border-radius:28px;padding:48px;display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between}
+.contactband h2{margin:0;font-size:clamp(24px,3vw,36px);letter-spacing:-.03em;font-weight:900}
+.contactband .btn.ghost{background:transparent;color:#f4f4f5;border-color:#3f3f46}
+.star{display:grid;gap:14px;margin:0}
+.star dt{font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--accent);margin-bottom:2px}
+.star dd{margin:0}
+.star ul{margin:0;padding-left:18px}
+.star li{margin:3px 0}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:16px}
+.gallery a{color:var(--muted);font-size:12px;text-decoration:none}
+.gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;display:block;margin-bottom:4px}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid transparent;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn.solid{background:var(--accent);color:var(--on-accent)}
+.btn.ghost{border-color:var(--line);color:var(--text);background:var(--surface)}
+.pubs{list-style:none;margin:0;padding:0}
+.pubs li{display:grid;grid-template-columns:52px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.pubs li:last-child{border-bottom:0}
+.pubs .yr{font-weight:700;color:var(--accent);font-size:14px;padding-top:1px}
+.pubs b a{color:inherit;text-decoration:none;background-image:linear-gradient(var(--accent),var(--accent));background-size:0 1px;background-repeat:no-repeat;background-position:0 100%;transition:background-size .2s}
+.pubs b a:hover{background-size:100% 1px}
+.pubs small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+.pubs.compact li{padding:8px 0;font-size:14px}
+.talks{margin-top:10px}
+.talks summary{cursor:pointer;color:var(--accent);font-weight:600;font-size:14px;padding:6px 0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--chip);color:var(--muted)}
+.avatar-fallback{display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:700}
+[hidden]{display:none!important}
+@media (max-width:900px){
+  .herobody{grid-template-columns:1fr;padding:48px 0 40px}
+  .herobody .avatar{width:120px;height:120px;order:-1}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .kpis div:nth-child(2){border-right:0}
+  .kpis div:nth-child(-n+2){border-bottom:1px solid #27272a}
+  .case{grid-template-columns:1fr;gap:24px}
+  .case:nth-of-type(even) .visual{order:0}
+  .grid3{grid-template-columns:1fr}
+  .tl{grid-template-columns:1fr;gap:4px}
+  .topbar a{display:none}
+  .contactband{padding:32px 24px}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar"><span class="logo">Young-Ju Lee</span><a href="#work">Work</a><a href="#publications">Publications</a><a href="#about">About</a><button id="theme" type="button">테마</button></div>
+    <div class="herobody">
+      <div>
+        <div class="role">데이터·AI 엔지니어 · 이영주</div>
+        <h1>지구과학 데이터를<br><span>딥러닝</span>으로 풀어냅니다.</h1>
+        <p>자원에너지공학을 전공하고 환경에너지융합학과에서 석사 학위를 받았습니다(2026). 시공간 딥러닝(U-LSTM) 기반 산불 확산 경로 예측 모델의 설계·학습을 맡아, 학습에 쓰지 않은 산불 사례에서 정확도 0.90, F1-score 0.85를 달성했습니다. 석사 과정에서는...</p>
+        <div class="cta"><a class="btn solid" href="#work">대표 프로젝트 <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn ghost" href="resume.pdf" download><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v15H6V2Zm8 1.5V8h4.5M9 12h8M9 16h8"/></svg> 이력서 PDF</a><a class="btn ghost" href="https://github.com/0Ju12" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg> GitHub</a><a class="btn ghost" href="https://www.linkedin.com/in/%EC%98%81%EC%A3%BC-%EC%9D%B4-a335ab251/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.84-2.05 3.79-2.05 4.05 0 4.8 2.67 4.8 6.13V21h-4v-5.5c0-1.31-.02-3-1.83-3-1.83 0-2.11 1.43-2.11 2.9V21h-4V9Z"/></svg> LinkedIn</a></div>
+      </div>
+      <div class="avatar avatar-fallback" aria-hidden="true">영주</div>
+    </div>
+  </div>
+  <div class="wrap"><div class="kpis"><div><b>SCIE 1편</b><span>국제학술지 제1저자 (SPE Journal)</span></div><div><b>F1 0.85</b><span>산불 확산 예측 · 미학습 테스트</span></div><div><b>0.94+</b><span>기반암 모델 상관계수</span></div><div><b>3 · 10</b><span>논문 · 학회 발표</span></div></div></div>
+</header>
+
+<main class="wrap">
+  <section id="work">
+    <div class="sechead"><h2>Selected Work</h2><span>5개 프로젝트 · 문제 → 역할 → 결과</span></div>
+    <article class="case">
+      <div class="visual"><img src="assets/wildfire_test_map.png" alt="미학습 산불(테스트) — 위: 실제 확산, 아래: 모델 예측 (t1→t5)" loading="lazy"></div>
+      <div>
+        <div class="num">01 — AI 프로젝트</div>
+        <h3>시공간 딥러닝 기반 산불 확산 경로 예측 모델</h3>
+        <div class="meta">2023.09 – 2023.12 · 모델 설계·학습 담당</div>
+        <p class="sum">이전 시점의 화선·기상·지형 데이터로 다음 시점의 산불 화선을 예측하는 U-LSTM 모델</p>
+<div class="kpi"><b>F1 0.85</b><span>미학습 산불 테스트</span></div>        <div class="chips"><span class="chip">Python</span><span class="chip">TensorFlow</span><span class="chip">PyTorch</span><span class="chip">U-LSTM</span><span class="chip">ArcGIS</span></div>
+        <button class="more" type="button" data-expand="d-wildfire-capstone" aria-expanded="false"><span>자세히 보기</span> <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+      <div class="detail" id="d-wildfire-capstone" hidden><dl class="star">
+<div><dt>문제</dt><dd>산불은 풍향·풍속·식생에 따라 빠르게 번지지만, 국내에는 실시간 산불 확산 경로를 예측하는 모델이 없었음</dd></div><div><dt>역할</dt><dd>팀에서 시공간 딥러닝 모델의 설계와 학습을 맡아, 다음 시점의 산불 확산 범위를 예측하는 것이 목표</dd></div><div><dt>한 일</dt><dd><ul><li>Conv2D 인코더 → LSTM → Conv2DTranspose 디코더 구조의 U-LSTM 모델을 설계하고, 데이터가 적은 점을 고려해 파라미터 2,736개의 얕은 네트워크로 구성</li><li>부족한 시점 데이터를 길이 1~19의 슬라이딩 윈도우로 확장해 학습 배치 151개 구성</li><li>TensorFlow·PyTorch로 모델을 구현하고 Overall Accuracy·F1-score로 검증·평가</li><li>입력 데이터: 4개 대형 산불(울진·삼척, 군위, 밀양, 강릉)의 화선·고도·NDVI·풍향·풍속을 ArcGIS로 2D 래스터화 — 3개로 학습, 1개는 미학습 테스트로 일반화 성능 검증</li></ul></dd></div><div><dt>결과</dt><dd><ul><li>검증 정확도 0.95, F1-score 0.81</li><li>학습에 쓰지 않은 산불 테스트에서 정확도 0.90, F1-score 0.85</li><li>초기 시점은 데이터 한계로 오차가 있지만, 후반으로 갈수록 실제 확산 형태를 근접하게 재현</li><li>팀 노트북을 설정 파일 기반 Python 패키지로 재구성하고 테스트를 추가해 GitHub에 공개</li></ul></dd></div></dl>
+<div class="links"><a class="btn ghost" href="https://github.com/0Ju12/wildfire-spread-prediction" target="_blank" rel="noopener">GitHub 코드 <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
+    </article>
+    <article class="case">
+      <div class="visual"><div class="ph"><div class="ic">🗣️</div><b>0.74</b><span>BERTScore F1 · 장려상</span></div></div>
+      <div>
+        <div class="num">02 — AI 프로젝트</div>
+        <h3>콩글리시 → 원어민 표현 교정 시스템 (FLAN-T5 + RAG)</h3>
+        <div class="meta">2025.08 · 데이터 구축·모델 실험 담당</div>
+        <p class="sum">어색한 영어·콩글리시 문장을 자연스러운 원어민 표현으로 바꿔 주는 생성 모델 + 검색 증강(RAG) 시스템</p>
+        <div class="chips"><span class="chip">Python</span><span class="chip">Hugging Face</span><span class="chip">FLAN-T5</span><span class="chip">LoRA</span><span class="chip">RAG</span><span class="chip">FAISS</span></div>
+        <button class="more" type="button" data-expand="d-posco-pospeak" aria-expanded="false"><span>자세히 보기</span> <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+      <div class="detail" id="d-posco-pospeak" hidden><dl class="star">
+<div><dt>문제</dt><dd>한국 학습자가 쓰는 콩글리시와 어색한 격식체 영어는 문법 교정기로 잡히지 않아, 문맥에 맞는 자연스러운 표현으로 바꿔 주는 도구가 필요했음</dd></div><div><dt>역할</dt><dd>팀에서 교정 학습 데이터 구축과 모델 실험을 맡아, 단어 단위·문맥 단위 교정 데이터로 T5 계열 모델의 학습 전략을 찾는 것이 목표</dd></div><div><dt>한 일</dt><dd><ul><li>[담당] 콩글리시·어색한 표현 → 원어민 표현 쌍으로 이루어진 단어 단위·문맥 단위 교정 데이터셋 구축 및 정제</li><li>[담당] FLAN-T5를 LoRA로 파인튜닝하고, 학습 전략 3가지(단어→문맥 순차, 문맥→단어 순차, 통합 학습)를 BERTScore로 비교 실험</li><li>[팀] 다국어 문장 임베딩(paraphrase-multilingual-MiniLM)과 FAISS로 유사 교정 예문 top-5를 검색해 모델 입력에 제공하는 RAG 파이프라인과 CLI 구성</li></ul></dd></div><div><dt>결과</dt><dd><ul><li>순차 학습에서 앞 단계 성능이 떨어지는 catastrophic forgetting(BERTScore F1 0.47 → 0.32)을 실험으로 확인하고 통합 학습으로 전환</li><li>통합 학습 모델의 검증 BERTScore F1 약 0.74 (순차 학습 0.32~0.47 대비 개선)</li><li>팀 프로젝트 장려상 수상</li></ul></dd></div></dl>
+<div class="links"><a class="btn ghost" href="https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5" target="_blank" rel="noopener">팀 GitHub <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
+    </article>
+    <article class="case">
+      <div class="visual"><div class="ph"><div class="ic">🌍</div><b>r ≥ 0.94</b><span>기존 모델과의 상관계수</span></div></div>
+      <div>
+        <div class="num">03 — 연구</div>
+        <h3>중력·자력 데이터 파수 상관 분석으로 지하 구조 규명 (석사 · SPE Journal 제1저자)</h3>
+        <div class="meta">2024.03 – 2026.08 · 석사과정 연구원</div>
+        <p class="sum">겹쳐 있는 중력·자력 신호를 파수 영역 상관 분석으로 분리하는 지표(SLFI·DLFI)를 설계해 암염·기반암 구조를 규명</p>
+        <div class="chips"><span class="chip">신호처리(파수 영역)</span><span class="chip">상관 분석</span><span class="chip">지표 설계</span><span class="chip">중력·자력 데이터</span><span class="chip">CCS</span></div>
+        <button class="more" type="button" data-expand="d-masters" aria-expanded="false"><span>자세히 보기</span> <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+      <div class="detail" id="d-masters" hidden><dl class="star">
+<div><dt>문제</dt><dd>아부다비 해상 가샤 지역은 암염과 기반암이 8~10 km 두께의 퇴적층 아래에 겹쳐 있어, 중력·자력 신호가 섞이고 기존 해석법은 암염 깊이를 약 6,000 m로 실제(탄성파 기준 약 9,300 m)보다 크게 얕게 추정하는 한계가 있었음</dd></div><div><dt>역할</dt><dd>항공 중력·자력 데이터에서 기반암과 암염의 신호를 분리해 각 구조를 규명하는 분석 방법을 제안</dd></div><div><dt>한 일</dt><dd><ul><li>상향 연속·정규화로 중력·자력 데이터를 전처리하고, 파수(wavenumber) 영역에서 두 신호의 상관계수 CC(k)를 계산하는 파수 상관 필터링(WCF) 파이프라인 구축</li><li>양의 상관 성분을 강조해 기반암을 드러내는 SLFI, 약한·음의 상관 성분으로 암염을 드러내는 DLFI 두 지표를 설계</li><li>기존 3개 독립 모델과 공간 비교·측선별 비교·3D 밀도 모델로 결과를 다각도 검증</li><li>관련 연구: GPlates로 해외 대규모 CO2 저장소 형성사를 복원하고 탄성파 영상을 해석(제1저자, 2024), 슬라이프너 탄성파-전자탐사 복합 해석, 스메아하이아 부지 적합성 분석</li></ul></dd></div><div><dt>결과</dt><dd><ul><li>SLFI 기반 기반암 구조가 서로 다른 해석법의 기존 독립 모델 3개와 상관계수 0.94 이상으로 일치</li><li>DLFI로 암염 구조의 공간 분포를 재현하고, 가샤 서쪽의 추가 암염 융기 가능성을 새로 제시</li><li>SCIE 국제학술지 SPE Journal 제1저자 논문 (2026, 캘거리대·칼리파대 공동연구) · 국내 제1저자 논문 1편 · 학회 발표 5건</li><li>2024 KSEG 추계학술대회 학생 우수논문(포스터) 발표상 · 2026년 석사 학위 취득</li></ul></dd></div></dl>
+<div class="links"><a class="btn ghost" href="https://doi.org/10.2118/236968-PA" target="_blank" rel="noopener">SPE Journal 논문 <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn ghost" href="https://koreascience.or.kr/article/JAKO202410348585789.page" target="_blank" rel="noopener">국내 제1저자 논문 <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn ghost" href="https://www.geoverselab.com/ko/research-history/13/" target="_blank" rel="noopener">연구 이력 <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
+    </article>
+    <article class="case">
+      <div class="visual"><div class="ph"><div class="ic">🇨🇦</div><b>SCIE</b><span>SPE Journal 제1저자</span></div></div>
+      <div>
+        <div class="num">04 — 국제협력</div>
+        <h3>캐나다 캘거리대학교 장기 파견연구 — 중력·자력 데이터 복합 해석</h3>
+        <div class="meta">2024.06 – 2024.12 · 석사과정 파견연구원</div>
+        <p class="sum">중력·자력 탐사 자료를 결합해 아부다비 가샤 암염돔과 지하 기반암 구조를 파악</p>
+        <div class="chips"><span class="chip">중력·자력 데이터</span><span class="chip">복합 해석</span><span class="chip">국제공동연구</span></div>
+        <button class="more" type="button" data-expand="d-calgary-2024" aria-expanded="false"><span>자세히 보기</span> <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+      <div class="detail" id="d-calgary-2024" hidden><dl class="star">
+<div><dt>문제</dt><dd>암염돔과 기반암 구조는 단일 탐사 자료로 해석하기 어려워 서로 다른 물리량을 함께 분석할 필요가 있었음</dd></div><div><dt>역할</dt><dd>약 6개월간 캘거리대학교에 파견되어, 중력·자력 탐사 자료의 복합 해석 연구를 수행</dd></div><div><dt>한 일</dt><dd><ul><li>캘거리대학교 측지공학과 연구진과 함께 항공 중력·자력 데이터의 파수 상관 분석 연구 수행</li><li>칼리파대학교(UAE)와의 3개 기관 공동연구로 확장</li></ul></dd></div><div><dt>결과</dt><dd><ul><li>파견 연구 결과로 SCIE 국제학술지 SPE Journal 제1저자 논문 게재 승인 (2026)</li><li>같은 연구를 석사 학위논문(2026)으로 완성</li></ul></dd></div></dl>
+<div class="links"><a class="btn ghost" href="https://doi.org/10.2118/236968-PA" target="_blank" rel="noopener">SPE Journal 논문 <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
+    </article>
+    <article class="case">
+      <div class="visual"><div class="ph"><div class="ic">🔬</div><b>6편</b><span>논문 1 · 학회 발표 5</span></div></div>
+      <div>
+        <div class="num">05 — 연구</div>
+        <h3>학부연구생 — 지구물리 데이터 처리와 해외 CCS 사례 분석</h3>
+        <div class="meta">2022 – 2024.02 · 학부연구생</div>
+        <p class="sum">학부 과정에서 지구물리 데이터 처리와 4D 탄성파 모니터링·해외 CCS 사례를 연구</p>
+        <div class="chips"><span class="chip">중력 데이터 처리</span><span class="chip">4D 탄성파</span><span class="chip">GPU</span><span class="chip">해외 CCS</span></div>
+        <button class="more" type="button" data-expand="d-undergrad-research" aria-expanded="false"><span>자세히 보기</span> <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+      <div class="detail" id="d-undergrad-research" hidden><dl class="star">
+<div><dt>문제</dt><dd>CO2 저장소 모니터링의 핵심인 4D 탄성파 기술은 자료 비반복성과 높은 계산 비용이라는 과제가 있었음</dd></div><div><dt>역할</dt><dd>4D 탄성파 모니터링의 기술적 한계와 해외 CCS 사례를 조사·분석하고, 해외 파견에서 실제 데이터 처리를 수행</dd></div><div><dt>한 일</dt><dd><ul><li>캘거리대학교 단기 파견(2023.12–2024.02): 미국 Utah FORGE 지열 부지의 중력 데이터 처리</li><li>스트리머를 이용한 해양 4D 탄성파 모니터링의 비반복성 분석, GPU 기반 4D 탄성파 모니터링 기술의 적용성 검토 (2022)</li><li>사우디아라비아 딥러닝 기반 탄성파 영상화, 캐나다 CaMI FRS, 노르웨이 슬라이프너 모니터링 연구 동향 분석 (2023)</li></ul></dd></div><div><dt>결과</dt><dd><ul><li>제2저자 논문 1편 (호주 깁스랜드 분지 CarbonNet CCS 지질학적 분석, 지구물리와 물리탐사, 2023)</li><li>학회 발표 5건 (2022–2023)</li></ul></dd></div></dl>
+<div class="links"><a class="btn ghost" href="https://koreascience.or.kr/article/JAKO202335272000266.page" target="_blank" rel="noopener">제2저자 논문 <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
+    </article>
+  </section>
+
+  <section id="publications">
+    <div class="sechead"><h2>Publications</h2><span>논문 3 · 학회 발표 10</span></div>
+    <ol class="pubs">
+  <li><span class="yr">2026</span><div><b><a href="https://doi.org/10.2118/236968-PA" target="_blank" rel="noopener">Wavenumber Correlation of Gravity and Magnetic Anomalies for Constraining Salt/Basement Structure in Offshore Abu Dhabi</a></b><small>SPE Journal (SCIE) · 제1저자 · 게재 승인</small></div></li>
+  <li><span class="yr">2024</span><div><b><a href="https://koreascience.or.kr/article/JAKO202410348585789.page" target="_blank" rel="noopener">판구조론적 역사를 고려한 해외 대규모 이산화탄소 지중저장소 탄성파 해석 결과 분석</a></b><small>지구물리와 물리탐사 27(1), 1–22 · 제1저자</small></div></li>
+  <li><span class="yr">2023</span><div><b><a href="https://koreascience.or.kr/article/JAKO202335272000266.page" target="_blank" rel="noopener">호주 깁스랜드 분지 CarbonNet CCS 프로젝트의 지질학적 분석</a></b><small>지구물리와 물리탐사 · 제2저자</small></div></li>
+</ol>
+<details class="talks"><summary>학회 발표 10건 보기</summary>
+<ol class="pubs compact"><li><span class="yr">2024</span><div>노르웨이 슬라이프너 프로젝트 모니터링 자료에 대한 탄성파-전자탐사 복합 해석 연구</div></li><li><span class="yr">2024</span><div>인공지능과 디지털 트윈 융합을 통한 스마트 이산화탄소 저장소 운영 혁신 글로벌 인력양성사업</div></li><li><span class="yr">2024</span><div>해외 CCS 프로젝트 실증 현황 및 국제공동연구 추진 전략</div></li><li><span class="yr">2024</span><div>스마트 이산화탄소 지중저장 부지 운영을 위한 글로벌 인력양성사업</div></li><li><span class="yr">2024</span><div>노르웨이 스메아하이아 이산화탄소 지중저장 프로젝트의 적합성 분석</div></li><li><span class="yr">2023</span><div>노르웨이 슬라이프너 지구물리 모니터링 적용사례 분석 및 국제공동연구 계획</div></li><li><span class="yr">2023</span><div>사우디아라비아 딥러닝 기반 탄성파 영상화 연구 현황과 국제공동연구 계획</div></li><li><span class="yr">2023</span><div>캐나다 CaMI FRS 탄성파 모니터링 연구 현황과 국제공동연구 계획</div></li><li><span class="yr">2022</span><div>스트리머를 이용한 해양 4차원 탄성파 모니터링 비반복성 분석 연구</div></li><li><span class="yr">2022</span><div>GPU를 이용한 4차원 탄성파 모니터링 기술 적용성 검토</div></li></ol>
+</details>
+  </section>
+
+  <section id="about">
+    <div class="sechead"><h2>About</h2><span>역량 · 학력 · 수상</span></div>
+    <div class="grid3"><div class="card"><h4>언어·프레임워크</h4><div class="chips"><span class="chip">Python</span><span class="chip">TensorFlow</span><span class="chip">PyTorch</span><span class="chip">Hugging Face Transformers</span></div></div><div class="card"><h4>AI·데이터 분석</h4><div class="chips"><span class="chip">시공간 딥러닝(U-LSTM)</span><span class="chip">CNN·LSTM</span><span class="chip">LLM 파인튜닝(FLAN-T5·LoRA)</span><span class="chip">RAG(FAISS·임베딩 검색)</span><span class="chip">모델 평가(F1·BERTScore)</span></div></div><div class="card"><h4>공간·지구물리 데이터</h4><div class="chips"><span class="chip">ArcGIS</span><span class="chip">래스터 데이터 구축</span><span class="chip">중력·자력 자료 처리</span><span class="chip">파수 상관 분석</span><span class="chip">탄성파 자료 해석</span><span class="chip">GPlates</span></div></div></div>
+    <div class="timeline" style="margin-top:32px">
+<div class="tl"><span class="when">2024.03 – 2026.08</span><div><b>전북대학교 대학원 · 환경에너지융합학과 석사</b><small>학위논문: 중력·자기 이상 자료의 파수 상관성 분석을 통한 가샤 지역 암염 및 기반암 구조 특성화 연구</small></div></div><div class="tl"><span class="when">~ 2025</span><div><b>포스코 청년 AI·Big Data 아카데미 · 30기 교육 과정</b><small>LLM 파인튜닝·RAG 팀 프로젝트 수행</small></div></div><div class="tl"><span class="when">~ 2024.02</span><div><b>전북대학교 · 자원에너지공학과 학사</b><small>IAB 융합전공 이수 · 학부연구생</small></div></div><div class="tl"><span class="when">🏆 2025</span><div><b>포스코 청년 AI·Big Data 아카데미 30기 프로젝트 장려상</b><small>포스코 청년 AI·Big Data 아카데미</small></div></div><div class="tl"><span class="when">🏆 2024.11</span><div><b>2024 한국지구물리·물리탐사학회(KSEG) 추계학술대회 학생 우수논문(포스터) 발표상</b><small>한국지구물리·물리탐사학회</small></div></div><div class="tl"><span class="when">📜 자격</span><div><b>ADsP (데이터분석 준전문가)</b><small>한국데이터산업진흥원</small></div></div>    </div>
+  </section>
+
+  <div class="contactband"><h2>함께 일할 기회를 기다립니다.</h2><div class="cta"><a class="btn ghost" href="https://github.com/0Ju12" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg> GitHub</a><a class="btn ghost" href="https://www.geoverselab.com/ko/research-history/13/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6L4.5 19a1.5 1.5 0 0 0 1.3 2h12.4a1.5 1.5 0 0 0 1.3-2L14 9V3"/></svg> 연구 이력</a><a class="btn ghost" href="https://www.linkedin.com/in/%EC%98%81%EC%A3%BC-%EC%9D%B4-a335ab251/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.84-2.05 3.79-2.05 4.05 0 4.8 2.67 4.8 6.13V21h-4v-5.5c0-1.31-.02-3-1.83-3-1.83 0-2.11 1.43-2.11 2.9V21h-4V9Z"/></svg> LinkedIn</a></div></div>
+  <footer>© Young-Ju Lee · data/portfolio.yaml 에서 자동 생성</footer>
+</main>
+<script>
+(function(){var r=document.documentElement,K='theme';
+try{var s=localStorage.getItem(K);if(s)r.setAttribute('data-theme',s)}catch(e){}
+var b=document.getElementById('theme');if(b)b.addEventListener('click',function(){
+var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});
+document.querySelectorAll('[data-expand]').forEach(function(btn){btn.addEventListener('click',function(){
+var t=document.getElementById(btn.dataset.expand);var open=t.hasAttribute('hidden');
+if(open){t.removeAttribute('hidden')}else{t.setAttribute('hidden','')}
+btn.setAttribute('aria-expanded',open);btn.querySelector('span').textContent=open?'접기':'자세히 보기';});});
+})();
+</script>
+</body>
+</html>

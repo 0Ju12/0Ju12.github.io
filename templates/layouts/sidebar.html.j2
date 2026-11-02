@@ -1,0 +1,146 @@
+{% import "layouts/_parts.j2" as p %}
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ profile.name }} 포트폴리오</title>
+<meta name="description" content="{{ profile.title }} · {{ profile.headline }}">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f7fb;--surface:#fff;--text:#14171f;--muted:#5b6474;--line:#e3e6ee;--accent:#3b5bdb;--accent-2:#7048e8;--on-accent:#fff;--chip:#eef1f8;--side:#0f1424;--side-text:#e8ebf3;--side-muted:#9aa3b8}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0b0f1a;--surface:#131a2b;--text:#e8ebf3;--muted:#9aa3b8;--line:#232c42;--accent:#748ffc;--accent-2:#9775fa;--on-accent:#0b0f1a;--chip:#1b2338;--side:#070a13}}
+:root[data-theme="dark"]{--bg:#0b0f1a;--surface:#131a2b;--text:#e8ebf3;--muted:#9aa3b8;--line:#232c42;--accent:#748ffc;--accent-2:#9775fa;--on-accent:#0b0f1a;--chip:#1b2338;--side:#070a13}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 "Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.layout{display:grid;grid-template-columns:minmax(300px,380px) 1fr;min-height:100vh}
+aside{position:sticky;top:0;height:100vh;background:var(--side);color:var(--side-text);padding:56px 40px;display:flex;flex-direction:column;gap:22px;overflow:auto}
+aside .avatar{width:112px;height:112px;border-radius:50%;object-fit:cover;font-size:34px;border:3px solid rgba(255,255,255,.12)}
+aside h1{font-size:34px;line-height:1.2;margin:0;letter-spacing:-.02em}
+aside .role{color:#a5b4fc;font-weight:700;margin-top:6px}
+aside .tagline{color:var(--side-muted);font-size:15px;margin:0}
+aside nav{display:flex;flex-direction:column;gap:2px;margin-top:8px}
+aside nav a{color:var(--side-muted);text-decoration:none;font-size:14px;font-weight:600;padding:7px 0;display:flex;align-items:center;gap:12px;letter-spacing:.04em}
+aside nav a::before{content:"";width:24px;height:1px;background:currentColor;transition:width .2s}
+aside nav a.active,aside nav a:hover{color:#fff}
+aside nav a.active::before,aside nav a:hover::before{width:48px}
+.social{display:flex;gap:14px;margin-top:auto;align-items:center}
+.social a{color:var(--side-muted)}.social a:hover{color:#fff}
+aside .btn.solid{background:#fff;color:#0f1424;align-self:flex-start}
+#theme{background:none;border:1px solid rgba(255,255,255,.2);color:var(--side-muted);border-radius:999px;padding:4px 12px;font:inherit;font-size:12px;cursor:pointer;margin-left:auto}
+main{padding:72px clamp(20px,5vw,80px) 96px;max-width:920px}
+section{margin-bottom:80px;scroll-margin-top:40px}
+.eyebrow{font-size:13px;font-weight:800;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;margin:0 0 18px}
+.about p{font-size:17px;color:var(--muted);margin:0 0 28px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px}
+.stat b{display:block;font-size:24px;font-weight:800;background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1.2}
+.stat span{font-size:12.5px;color:var(--muted)}
+.proj{display:grid;grid-template-columns:200px 1fr;gap:24px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px;margin-bottom:16px;transition:border-color .2s,box-shadow .2s}
+.proj:hover{border-color:var(--accent);box-shadow:0 10px 30px rgba(59,91,219,.08)}
+.thumb{border-radius:14px;aspect-ratio:4/3;overflow:hidden;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;color:#fff;text-align:center}
+.thumb img{width:100%;height:100%;object-fit:cover;background:#fff}
+.thumb .ic{font-size:34px;line-height:1}
+.thumb .kv{font-size:22px;font-weight:800;margin-top:6px}
+.thumb .kl{font-size:11px;opacity:.85}
+.proj .meta{font-size:13px;color:var(--muted)}
+.proj h3{font-size:19px;line-height:1.4;margin:4px 0 6px}
+.proj p{margin:0 0 12px;color:var(--muted);font-size:15px}
+.more{background:none;border:0;color:var(--accent);font:inherit;font-weight:700;font-size:14px;cursor:pointer;padding:0;margin-top:12px;display:inline-flex;align-items:center;gap:6px}
+.detail{grid-column:1/-1;border-top:1px solid var(--line);padding-top:18px}
+.skills{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.skill{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px}
+.skill h4{margin:0 0 10px;font-size:15px}
+.timeline{list-style:none;margin:0;padding:0;border-left:2px solid var(--line)}
+.timeline li{position:relative;padding:0 0 22px 22px}
+.timeline li::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--bg)}
+.timeline b{display:block}.timeline small{color:var(--muted);font-size:13px;display:block}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+footer{color:var(--muted);font-size:13px}
+{{ p.base_css() }}
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr}
+  aside{position:relative;height:auto;padding:40px 20px 28px}
+  aside nav{display:none}
+  .social{margin-top:6px}
+  main{padding:40px 16px 64px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .proj{grid-template-columns:1fr}
+  .skills,.two{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside>
+  <div style="display:flex;align-items:flex-start">{{ p.avatar(profile) }}<button id="theme" type="button">테마</button></div>
+  <div>
+    <h1>{{ profile.name }}</h1>
+    <div class="role">{{ profile.title }}</div>
+  </div>
+  <p class="tagline">{{ profile.headline }}</p>
+  <a class="btn solid" href="resume.pdf" download>{{ p.icon('doc', 16) }} 이력서 PDF</a>
+  <nav aria-label="섹션">
+    <a href="#about" class="active">소개</a>
+    <a href="#projects">프로젝트</a>
+    <a href="#publications">논문·발표</a>
+    <a href="#skills">역량</a>
+    <a href="#history">이력</a>
+  </nav>
+  <div class="social">{% for l in profile.links %}<a href="{{ l.url }}" target="_blank" rel="noopener" aria-label="{{ l.label }}" title="{{ l.label }}">{{ p.link_icon(l.label) }}</a>{% endfor %}</div>
+</aside>
+
+<main>
+  <section id="about" class="about">
+    <p class="eyebrow">About</p>
+    <p>{{ profile.summary }}</p>
+    <div class="stats">{% for h in highlights %}<div class="stat"><b>{{ h.value }}</b><span>{{ h.label }}</span></div>{% endfor %}</div>
+  </section>
+
+  <section id="projects">
+    <p class="eyebrow">Projects</p>
+    {% for a in featured %}
+    <article class="proj">
+      <div class="thumb">{% if a.image %}<img src="{{ a.image }}" alt="{{ a.image_caption or a.title }}" loading="lazy">{% elif a.gallery %}<img src="{{ a.gallery[0].src }}" alt="{{ a.gallery[0].caption }}" loading="lazy">{% else %}<div><div class="ic">{{ a.icon }}</div>{% if a.kpi %}<div class="kv">{{ a.kpi.value }}</div><div class="kl">{{ a.kpi.label }}</div>{% endif %}</div>{% endif %}</div>
+      <div>
+        <div class="meta">{{ a.period_str }} · {{ a.type }}</div>
+        <h3>{{ a.title }}</h3>
+        <p>{{ a.summary }}</p>
+        <div class="chips">{% for t in a.tags %}<span class="chip">{{ t }}</span>{% endfor %}</div>
+        <button class="more" type="button" data-expand="d-{{ a.id }}" aria-expanded="false"><span>자세히 보기</span> {{ p.icon('arrow', 14) }}</button>
+      </div>
+      <div class="detail" id="d-{{ a.id }}" hidden>{{ p.star(a) }}</div>
+    </article>
+    {% endfor %}
+  </section>
+
+  <section id="publications">
+    <p class="eyebrow">Publications</p>
+    {{ p.pubs(papers, talks) }}
+  </section>
+
+  <section id="skills">
+    <p class="eyebrow">Skills</p>
+    <div class="skills">{% for s in skills %}<div class="skill"><h4>{{ s.category }}</h4><div class="chips">{% for i in s['items'] %}<span class="chip">{{ i }}</span>{% endfor %}</div></div>{% endfor %}</div>
+  </section>
+
+  <section id="history">
+    <p class="eyebrow">Education & Awards</p>
+    <div class="two">
+      <ul class="timeline">{% for e in education %}<li><b>{{ e.school }}</b>{{ e.major }} {{ e.degree }}<small>{{ e.period_str }}</small></li>{% endfor %}</ul>
+      <ul class="timeline">{% for x in awards %}<li><b>{{ x.name }}</b><small>{{ x.org }}{% if x.date %} · {{ x.date }}{% endif %}</small></li>{% endfor %}{% for x in certifications %}<li><b>{{ x.name }}</b><small>{{ x.org }}</small></li>{% endfor %}</ul>
+    </div>
+  </section>
+  <footer>© {{ profile.name_en }} · 이 페이지는 data/portfolio.yaml 에서 자동 생성됩니다.</footer>
+</main>
+</div>
+{{ p.theme_script() }}
+<script>
+(function(){var links=[].slice.call(document.querySelectorAll('aside nav a'));
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(l){l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-40% 0px -55% 0px'});
+document.querySelectorAll('main section').forEach(function(s){io.observe(s)});})();
+</script>
+</body>
+</html>

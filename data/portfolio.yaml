@@ -37,6 +37,7 @@ highlights:
 # 디자인 테마: minimal | dashboard | editorial
 site:
   theme: editorial
+  layout: ""        # 확정 후: sidebar | bento | showcase
 
 education:
   - school: 전북대학교 대학원
@@ -78,6 +79,8 @@ skills:
 # ---------------------------------------------------------------------
 activities:
   - id: wildfire-capstone
+    icon: "🔥"
+    kpi: { value: "F1 0.85", label: "미학습 산불 테스트" }
     title: 시공간 딥러닝 기반 산불 확산 경로 예측 모델
     type: AI 프로젝트
     org: 전북대학교 IAB 융합전공 · 창의적공학설계 (캡스톤)
@@ -107,6 +110,8 @@ activities:
       - { label: GitHub 코드, url: "https://github.com/0Ju12/wildfire-spread-prediction" }
 
   - id: posco-pospeak
+    icon: "🗣️"
+    kpi: { value: "0.74", label: "BERTScore F1 · 장려상" }
     title: 콩글리시 → 원어민 표현 교정 시스템 (FLAN-T5 + RAG)
     type: AI 프로젝트
     org: 포스코 청년 AI·Big Data 아카데미 30기 · 팀 프로젝트
@@ -132,6 +137,8 @@ activities:
       - { label: 팀 GitHub, url: "https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5" }
 
   - id: masters
+    icon: "🌍"
+    kpi: { value: "r ≥ 0.94", label: "기존 모델과의 상관계수" }
     title: 중력·자력 데이터 파수 상관 분석으로 지하 구조 규명 (석사 · SPE Journal 제1저자)
     type: 연구
     org: 지구물리컴퓨팅연구실 · 환경에너지융합학과
@@ -160,6 +167,8 @@ activities:
       - { label: 연구 이력, url: "https://www.geoverselab.com/ko/research-history/13/" }
 
   - id: calgary-2024
+    icon: "🇨🇦"
+    kpi: { value: "SCIE", label: "SPE Journal 제1저자" }
     title: 캐나다 캘거리대학교 장기 파견연구 — 중력·자력 데이터 복합 해석
     type: 국제협력
     org: University of Calgary
@@ -182,6 +191,8 @@ activities:
       - { label: SPE Journal 논문, url: "https://doi.org/10.2118/236968-PA" }
 
   - id: undergrad-research
+    icon: "🔬"
+    kpi: { value: "6편", label: "논문 1 · 학회 발표 5" }
     title: 학부연구생 — 지구물리 데이터 처리와 해외 CCS 사례 분석
     type: 연구
     org: 지구물리컴퓨팅연구실 · 자원에너지공학과
