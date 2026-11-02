@@ -75,6 +75,11 @@ footer{padding:96px 0 48px;color:var(--muted);font-size:13px}
 .post b{font-size:19px;line-height:1.4;letter-spacing:-.02em}
 .post p{margin:0;color:var(--muted);font-size:14.5px;flex:1}
 .post .read{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;color:var(--accent)}
+.studyband{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;margin-top:16px;padding:24px 28px;border-radius:22px;background:var(--hero);color:var(--hero-text);text-decoration:none}
+.studyband .pdate{font-size:13px;color:var(--accent-2);font-weight:700}
+.studyband b{display:block;font-size:20px;letter-spacing:-.02em;margin:4px 0}
+.studyband p{margin:0;color:#a1a1aa;font-size:14.5px}
+.studyband .read{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--accent-2)}
 .postlink{display:inline-flex;margin:18px 0 0 10px;font-size:14px;font-weight:700;text-decoration:none;color:var(--accent)}
 {{ p.base_css() }}
 @media (max-width:900px){
@@ -96,7 +101,7 @@ footer{padding:96px 0 48px;color:var(--muted);font-size:13px}
 <body>
 <header class="hero">
   <div class="wrap">
-    <div class="topbar"><span class="logo">{{ profile.name_en }}</span><a href="#work">Work</a>{% if posts %}<a href="#writing">Writing</a>{% endif %}<a href="#publications">Publications</a><a href="#about">About</a><a href="#contact">Contact</a><button id="theme" type="button">테마</button></div>
+    <div class="topbar"><span class="logo">{{ profile.name_en }}</span><a href="#work">Work</a>{% if posts %}<a href="#writing">Writing</a>{% endif %}{% if study_notes %}<a href="study/index.html">Study</a>{% endif %}<a href="#publications">Publications</a><a href="#about">About</a><a href="#contact">Contact</a><button id="theme" type="button">테마</button></div>
     <div class="herobody">
       <div>
         <div class="role">{{ profile.title|upper }} · {{ profile.name }}</div>
@@ -134,6 +139,7 @@ footer{padding:96px 0 48px;color:var(--muted);font-size:13px}
   <section id="writing">
     <div class="sechead"><h2>Writing</h2><span>프로젝트에서 배운 것 · {{ posts|length }}편</span></div>
     <div class="posts">{% for w in posts %}<a class="post" href="posts/{{ w.slug }}.html"><span class="pdate">{{ w.date }}</span><b>{{ w.title }}</b><p>{{ w.summary }}</p><div class="chips">{% for t in w.tags[:3] %}<span class="chip">{{ t }}</span>{% endfor %}</div><span class="read">읽기 {{ p.icon('arrow', 14) }}</span></a>{% endfor %}</div>
+    {% if study_notes %}<a class="studyband" href="study/index.html"><div><span class="pdate">STUDY NOTES</span><b>SSAFY 강의 노트 {{ study_notes|length }}편 · 실습 프로그램</b><p>WEB · Django · DB · 알고리즘 · AI를 주제별로 다시 정리한 학습 공간</p></div><span class="read">학습 공간 열기 {{ p.icon('arrow', 14) }}</span></a>{% endif %}
   </section>
   {% endif %}
 
