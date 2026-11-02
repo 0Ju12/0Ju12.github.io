@@ -35,7 +35,7 @@ highlights:
 
 # 디자인 테마: minimal | dashboard | editorial
 site:
-  theme: minimal
+  theme: editorial
 
 education:
   - school: 전북대학교 대학원

@@ -89,12 +89,35 @@ footer{padding:32px 0 56px;color:var(--muted);font-size:13px;border-top:1px soli
 .stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
 .stat b{display:block;font-size:22px;color:var(--accent);line-height:1.2}
 .stat span{font-size:12.5px;color:var(--muted)}
-/* A. Minimal — 밝고 깔끔한 기본형. 카드 그리드 + 블루 포인트 */
-.theme-minimal header{padding-top:80px}
-.theme-minimal .card{transition:box-shadow .2s,transform .2s}
-.theme-minimal .card:hover{box-shadow:0 8px 24px rgba(20,30,60,.08);transform:translateY(-2px)}</style>
+/* C. Editorial — 연구자 이력서 같은 단정한 편집형. 세리프 제목, 따뜻한 배경, 세로 타임라인 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&display=swap');
+.theme-editorial{
+  --bg:#faf7f2; --surface:#fffdf9; --text:#2a2521; --muted:#6f655c; --line:#e7dfd4;
+  --accent:#b4532a; --accent-soft:#f6e6dc; --chip:#f1ebe2;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .theme-editorial{--bg:#1c1916;--surface:#24201c;--text:#efe8df;--muted:#b2a698;--line:#3a332c;--accent:#e08a5f;--accent-soft:#3a2a20;--chip:#2e2823}
+}
+:root[data-theme="dark"] .theme-editorial{--bg:#1c1916;--surface:#24201c;--text:#efe8df;--muted:#b2a698;--line:#3a332c;--accent:#e08a5f;--accent-soft:#3a2a20;--chip:#2e2823}
+.theme-editorial h1,.theme-editorial h2,.theme-editorial h3,.theme-editorial .brand{font-family:"Noto Serif KR",serif}
+.theme-editorial .wrap{max-width:860px}
+.theme-editorial header{border-bottom:2px solid var(--text);padding-bottom:40px}
+.theme-editorial section{border-top:0}
+.theme-editorial h2{font-size:26px;border-bottom:1px solid var(--line);padding-bottom:10px}
+.theme-editorial .stats{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.theme-editorial .stat{background:transparent;border:0;border-left:3px solid var(--accent);border-radius:0;padding:4px 14px}
+.theme-editorial .grid{grid-template-columns:1fr}
+.theme-editorial .card{flex-direction:row;flex-wrap:wrap;align-items:flex-start;border-radius:4px}
+.theme-editorial .card .thumb{width:min(440px,100%)}
+.theme-editorial .card > :not(.thumb){flex:1 1 100%}
+.theme-editorial .btn,.theme-editorial .chip,.theme-editorial .filters button{border-radius:4px}
+.theme-editorial #activities{position:relative}
+.theme-editorial details.item{margin-left:22px;border-radius:4px;position:relative}
+.theme-editorial details.item::before{content:"";position:absolute;left:-17px;top:22px;width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.theme-editorial details.item::after{content:"";position:absolute;left:-13px;top:36px;bottom:-14px;width:2px;background:var(--line)}
+.theme-editorial details.item:last-of-type::after{display:none}</style>
 </head>
-<body class="theme-minimal">
+<body class="theme-editorial">
 <nav><div class="wrap">
   <a class="brand" href="#top">이영주</a>
 <a href="#featured">대표 활동</a><a href="#publications">논문·발표</a>  <a href="#activities">전체 활동</a>

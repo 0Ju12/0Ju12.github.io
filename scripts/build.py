@@ -134,8 +134,8 @@ def main():
     site_tpl = env.get_template("site.html.j2")
     theme = (data.get("site") or {}).get("theme", "minimal")
     (DOCS / "index.html").write_text(site_tpl.render(theme=theme, **data), encoding="utf-8")
-    # 디자인 비교용 미리보기 (docs/design-<테마>.html)
-    for t in sorted(x.stem for x in (TEMPLATES / "themes").glob("*.css")):
+    # 디자인 비교용 미리보기: python3 scripts/build.py --previews  → docs/design-<테마>.html
+    for t in [] if "--previews" not in sys.argv else sorted(x.stem for x in (TEMPLATES / "themes").glob("*.css")):
         (DOCS / f"design-{t}.html").write_text(site_tpl.render(theme=t, **data), encoding="utf-8")
     (DOCS / "resume.html").write_text(env.get_template("resume.html.j2").render(**data), encoding="utf-8")
     (OUT / "notion.md").write_text(md_env.get_template("notion.md.j2").render(**data), encoding="utf-8")
