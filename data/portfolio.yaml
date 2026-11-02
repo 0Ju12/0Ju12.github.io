@@ -31,7 +31,7 @@ profile:
 highlights:
   - { value: "SCIE 1편", label: "국제학술지 제1저자 (SPE Journal)" }
   - { value: "캘거리대 2회", label: "해외 파견 연구 · 국제 공동연구" }
-  - { value: "0.94+", label: "기반암 모델 상관계수" }
+  - { value: "SSAFY 16기", label: "삼성 청년 SW·AI 아카데미 이수 중" }
   - { value: "3 · 10", label: "논문 · 학회 발표" }
 
 # 디자인 테마: minimal | dashboard | editorial
