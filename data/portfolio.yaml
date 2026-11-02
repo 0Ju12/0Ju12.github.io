@@ -13,12 +13,12 @@ profile:
   headline: "복잡한 지구과학 데이터를 딥러닝과 분석으로 풀어내는 데이터·AI 엔지니어"
   summary: >-
     자원에너지공학을 전공하고 환경에너지융합학과에서 석사 학위를 받았습니다(2026).
-    시공간 딥러닝(U-LSTM) 기반 산불 확산 경로 예측 모델의 설계·학습을 맡아, 학습에 쓰지 않은 산불 사례에서 정확도 0.90, F1-score 0.85를 달성했습니다.
+    캡스톤에서는 시공간 딥러닝(U-LSTM) 기반 산불 확산 경로 예측 모델의 설계와 학습을 맡았습니다.
     석사 과정에서는 중력·자력·탄성파 등 지구물리 데이터를 분석해 지하 구조를 규명했고,
     SCIE 국제학술지 SPE Journal 제1저자 논문을 포함해 논문 3편과 학회 발표 10건, 학회 우수논문 발표상의 성과를 냈습니다.
     포스코 청년 AI·Big Data 아카데미에서는 FLAN-T5와 RAG를 결합한 영어 표현 교정 시스템 프로젝트에서 데이터 구축과 모델 실험을 맡았고, 팀은 장려상을 받았습니다.
     캐나다 캘거리대학교에서 두 차례 파견 연구를 하며 해외 연구진과 협업했고, ADsP(데이터분석 준전문가) 자격을 보유하고 있습니다.
-  email: ""          # 공개하지 않음 (필요하면 입력)
+  email: "iyju990312@naver.com"
   phone: ""
   location: 대한민국
   photo: ""
@@ -30,14 +30,14 @@ profile:
 # 첫 화면 핵심 숫자 (채용 담당자가 3초 안에 보는 부분)
 highlights:
   - { value: "SCIE 1편", label: "국제학술지 제1저자 (SPE Journal)" }
-  - { value: "F1 0.85", label: "산불 확산 예측 · 미학습 테스트" }
+  - { value: "캘거리대 2회", label: "해외 파견 연구 · 국제 공동연구" }
   - { value: "0.94+", label: "기반암 모델 상관계수" }
   - { value: "3 · 10", label: "논문 · 학회 발표" }
 
 # 디자인 테마: minimal | dashboard | editorial
 site:
   theme: editorial
-  layout: ""        # 확정 후: sidebar | bento | showcase
+  layout: "showcase"        # 확정 후: sidebar | bento | showcase
 
 education:
   - school: 전북대학교 대학원
@@ -80,7 +80,7 @@ skills:
 activities:
   - id: wildfire-capstone
     icon: "🔥"
-    kpi: { value: "F1 0.85", label: "미학습 산불 테스트" }
+    kpi: { value: "U-LSTM", label: "시공간 딥러닝 모델 설계·학습" }
     title: 시공간 딥러닝 기반 산불 확산 경로 예측 모델
     type: AI 프로젝트
     org: 전북대학교 IAB 융합전공 · 창의적공학설계 (캡스톤)
@@ -102,9 +102,7 @@ activities:
         - TensorFlow·PyTorch로 모델을 구현하고 Overall Accuracy·F1-score로 검증·평가
         - "입력 데이터: 4개 대형 산불(울진·삼척, 군위, 밀양, 강릉)의 화선·고도·NDVI·풍향·풍속을 ArcGIS로 2D 래스터화 — 3개로 학습, 1개는 미학습 테스트로 일반화 성능 검증"
       result:
-        - 검증 정확도 0.95, F1-score 0.81
-        - 학습에 쓰지 않은 산불 테스트에서 정확도 0.90, F1-score 0.85
-        - 초기 시점은 데이터 한계로 오차가 있지만, 후반으로 갈수록 실제 확산 형태를 근접하게 재현
+        - 학습에 쓰지 않은 산불 사례에서도 시점이 지날수록 실제 확산 형태를 근접하게 재현
         - 팀 노트북을 설정 파일 기반 Python 패키지로 재구성하고 테스트를 추가해 GitHub에 공개
     links:
       - { label: GitHub 코드, url: "https://github.com/0Ju12/wildfire-spread-prediction" }

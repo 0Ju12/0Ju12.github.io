@@ -66,6 +66,7 @@ section{padding:96px 0 0;scroll-margin-top:20px}
 footer{padding:96px 0 48px;color:var(--muted);font-size:13px}
 .contactband{margin-top:96px;background:var(--hero);color:var(--hero-text);border-radius:28px;padding:48px;display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between}
 .contactband h2{margin:0;font-size:clamp(24px,3vw,36px);letter-spacing:-.03em;font-weight:900}
+.contactband .mail{display:inline-block;margin-top:8px;color:var(--accent-2);font-size:18px;font-weight:700;text-decoration:none}
 .contactband .btn.ghost{background:transparent;color:#f4f4f5;border-color:#3f3f46}
 {{ p.base_css() }}
 @media (max-width:900px){
@@ -86,13 +87,13 @@ footer{padding:96px 0 48px;color:var(--muted);font-size:13px}
 <body>
 <header class="hero">
   <div class="wrap">
-    <div class="topbar"><span class="logo">{{ profile.name_en }}</span><a href="#work">Work</a><a href="#publications">Publications</a><a href="#about">About</a><button id="theme" type="button">테마</button></div>
+    <div class="topbar"><span class="logo">{{ profile.name_en }}</span><a href="#work">Work</a><a href="#publications">Publications</a><a href="#about">About</a><a href="#contact">Contact</a><button id="theme" type="button">테마</button></div>
     <div class="herobody">
       <div>
         <div class="role">{{ profile.title|upper }} · {{ profile.name }}</div>
         <h1>지구과학 데이터를<br><span>딥러닝</span>으로 풀어냅니다.</h1>
         <p>{{ profile.summary|truncate(160) }}</p>
-        <div class="cta"><a class="btn solid" href="#work">대표 프로젝트 {{ p.icon('arrow', 14) }}</a><a class="btn ghost" href="resume.pdf" download>{{ p.icon('doc', 16) }} 이력서 PDF</a>{% for l in profile.links if 'github' in l.label|lower or 'linkedin' in l.label|lower %}<a class="btn ghost" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.link_icon(l.label) }} {{ l.label }}</a>{% endfor %}</div>
+        <div class="cta"><a class="btn solid" href="#work">대표 프로젝트 {{ p.icon('arrow', 14) }}</a><a class="btn ghost" href="resume.pdf" download>{{ p.icon('doc', 16) }} 이력서 PDF</a>{% for l in profile.links if 'github' in l.label|lower or 'linkedin' in l.label|lower %}<a class="btn ghost" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.link_icon(l.label) }} {{ l.label }}</a>{% endfor %}{% if profile.email %}<a class="btn ghost" href="mailto:{{ profile.email }}">{{ p.icon('mail', 16) }} 이메일</a>{% endif %}</div>
       </div>
       {{ p.avatar(profile) }}
     </div>
@@ -135,7 +136,7 @@ footer{padding:96px 0 48px;color:var(--muted);font-size:13px}
     </div>
   </section>
 
-  <div class="contactband"><h2>함께 일할 기회를 기다립니다.</h2><div class="cta">{% for l in profile.links %}<a class="btn ghost" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.link_icon(l.label) }} {{ l.label }}</a>{% endfor %}</div></div>
+  <div class="contactband" id="contact"><div><h2>함께 일할 기회를 기다립니다.</h2>{% if profile.email %}<a class="mail" href="mailto:{{ profile.email }}">{{ profile.email }}</a>{% endif %}</div><div class="cta">{% if profile.email %}<a class="btn solid" href="mailto:{{ profile.email }}">{{ p.icon('mail', 16) }} 메일 보내기</a>{% endif %}{% for l in profile.links %}<a class="btn ghost" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.link_icon(l.label) }} {{ l.label }}</a>{% endfor %}</div></div>
   <footer>© {{ profile.name_en }} · data/portfolio.yaml 에서 자동 생성</footer>
 </main>
 {{ p.theme_script() }}
