@@ -64,7 +64,7 @@
   - SSAFY AI 과정: Perceptron 구현, Transformer·BERT, RAG 검색, 프롬프트 엔지니어링, CNN·ViT / 일타싸피(삼각함수 기반 당구 AI), SWEA 알고리즘
 - **결과**
   - LLM 응답을 그대로 믿지 않고 코드로 검증하는 구조(번호 범위 검사, 뒤에서부터 제거, 등록 도서 id만 허용)로 안정적인 AI 기능 구현
-  - 관통 4 자동 테스트 45개, 관통 5 요구사항(F601~F611) 전부 구현 + 진행 상황 스트리밍·분석 이력·11가지 화면 테마 추가
+  - 자동 테스트 관통 4 45개 · 관통 5 41개 통과, 관통 5 요구사항(F601~F611) 전부 구현 + 진행 상황 스트리밍·분석 이력·11가지 화면 테마 추가
 
 🏷 Python, Django, Selenium, Pandas, LLM API, Bootstrap
 🔗 [GitHub 저장소](https://github.com/0Ju12/ssafy-thread)  
