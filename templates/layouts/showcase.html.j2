@@ -93,7 +93,7 @@ footer{padding:96px 0 48px;color:var(--muted);font-size:13px}
         <div class="role">{{ profile.title|upper }} · {{ profile.name }}</div>
         <h1>지구과학 데이터를<br><span>딥러닝</span>으로 풀어냅니다.</h1>
         <p>{{ profile.summary|truncate(160) }}</p>
-        <div class="cta"><a class="btn solid" href="#work">대표 프로젝트 {{ p.icon('arrow', 14) }}</a><a class="btn ghost" href="resume.pdf" download>{{ p.icon('doc', 16) }} 이력서 PDF</a>{% for l in profile.links if 'github' in l.label|lower or 'linkedin' in l.label|lower %}<a class="btn ghost" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.link_icon(l.label) }} {{ l.label }}</a>{% endfor %}{% if profile.email %}<a class="btn ghost" href="mailto:{{ profile.email }}">{{ p.icon('mail', 16) }} 이메일</a>{% endif %}</div>
+        <div class="cta"><a class="btn solid" href="#work">대표 프로젝트 {{ p.icon('arrow', 14) }}</a><a class="btn ghost" href="resume-1page.pdf" download>{{ p.icon('doc', 16) }} 이력서 (1장)</a><a class="btn ghost" href="resume.pdf" download>{{ p.icon('doc', 16) }} 상세 이력서</a>{% for l in profile.links if 'github' in l.label|lower or 'linkedin' in l.label|lower %}<a class="btn ghost" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.link_icon(l.label) }} {{ l.label }}</a>{% endfor %}{% if profile.email %}<a class="btn ghost" href="mailto:{{ profile.email }}">{{ p.icon('mail', 16) }} 이메일</a>{% endif %}</div>
       </div>
       {{ p.avatar(profile) }}
     </div>

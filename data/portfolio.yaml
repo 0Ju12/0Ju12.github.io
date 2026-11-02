@@ -96,6 +96,10 @@ activities:
     role: 모델 설계·학습 담당
     featured: true
     priority: 1
+    brief:
+      - "Conv2D 인코더–LSTM–디코더 구조의 U-LSTM을 설계·학습해 다음 시점 산불 화선을 예측 (TensorFlow·PyTorch)"
+      - "4개 대형 산불의 화선·고도·NDVI·풍향·풍속을 ArcGIS로 래스터화, 슬라이딩 윈도우로 학습 배치 151개 구성"
+      - "미학습 산불 사례에서 확산 형태 재현 확인 · 팀 노트북을 테스트 포함 Python 패키지로 재구성해 GitHub 공개"
     tags: [Python, TensorFlow, PyTorch, U-LSTM, ArcGIS]
     image: assets/wildfire_test_map.png
     image_caption: "미학습 산불(테스트) — 위: 실제 확산, 아래: 모델 예측 (t1→t5)"
@@ -125,6 +129,10 @@ activities:
     role: 데이터 구축·모델 실험 담당
     featured: true
     priority: 2
+    brief:
+      - "콩글리시→원어민 표현 교정 데이터셋(단어·문맥 단위) 구축, FLAN-T5 LoRA 파인튜닝 학습 전략 3종 비교"
+      - "순차 학습의 catastrophic forgetting(BERTScore F1 0.47→0.32) 확인 후 통합 학습으로 전환해 F1 약 0.74 달성"
+      - "FAISS 유사 예문 검색 RAG와 결합 · 팀 프로젝트 장려상"
     tags: [Python, Hugging Face, FLAN-T5, LoRA, RAG, FAISS]
     summary: 어색한 영어·콩글리시 문장을 자연스러운 원어민 표현으로 바꿔 주는 생성 모델 + 검색 증강(RAG) 시스템
     star:
@@ -151,7 +159,11 @@ activities:
     role: 석사과정 연구원
     featured: true
     priority: 4
-    tags: [신호처리(파수 영역), 상관 분석, 지표 설계, 중력·자력 데이터, CCS]
+    brief:
+      - "파수 영역 상관 분석으로 겹친 중력·자력 신호를 분리하는 지표(SLFI·DLFI) 설계, 기존 독립 모델 3개와 상관계수 0.94 이상 일치"
+      - "캘거리대 6개월 파견 · 칼리파대(UAE) 3개 기관 공동연구 → SCIE SPE Journal 제1저자 논문 (2026)"
+      - "국내 제1저자 논문 1편 · 학회 발표 5건 · KSEG 학생 우수논문 발표상"
+    tags: [신호처리(파수 영역), 상관 분석, 지표 설계, 중력·자력 데이터, 국제공동연구]
     summary: 겹쳐 있는 중력·자력 신호를 파수 영역 상관 분석으로 분리하는 지표(SLFI·DLFI)를 설계해 암염·기반암 구조를 규명
     star:
       situation: 아부다비 해상 가샤 지역은 암염과 기반암이 8~10 km 두께의 퇴적층 아래에 겹쳐 있어, 중력·자력 신호가 섞이고 기존 해석법은 암염 깊이를 약 6,000 m로 실제(탄성파 기준 약 9,300 m)보다 크게 얕게 추정하는 한계가 있었음
@@ -160,6 +172,7 @@ activities:
         - 상향 연속·정규화로 중력·자력 데이터를 전처리하고, 파수(wavenumber) 영역에서 두 신호의 상관계수 CC(k)를 계산하는 파수 상관 필터링(WCF) 파이프라인 구축
         - 양의 상관 성분을 강조해 기반암을 드러내는 SLFI, 약한·음의 상관 성분으로 암염을 드러내는 DLFI 두 지표를 설계
         - 기존 3개 독립 모델과 공간 비교·측선별 비교·3D 밀도 모델로 결과를 다각도 검증
+        - "캐나다 캘거리대학교 장기 파견(2024.06–12, 약 6개월): 측지공학과 연구진과 공동 수행, 칼리파대학교(UAE)와 3개 기관 공동연구로 확장"
         - "관련 연구: GPlates로 해외 대규모 CO2 저장소 형성사를 복원하고 탄성파 영상을 해석(제1저자, 2024), 슬라이프너 탄성파-전자탐사 복합 해석, 스메아하이아 부지 적합성 분석"
       result:
         - SLFI 기반 기반암 구조가 서로 다른 해석법의 기존 독립 모델 3개와 상관계수 0.94 이상으로 일치
@@ -179,8 +192,7 @@ activities:
     org: University of Calgary
     period: { start: "2024.06", end: "2024.12" }
     role: 석사과정 파견연구원
-    featured: true
-    priority: 5
+    featured: false
     tags: [중력·자력 데이터, 복합 해석, 국제공동연구]
     summary: 중력·자력 탐사 자료를 결합해 아부다비 가샤 암염돔과 지하 기반암 구조를 파악
     star:
@@ -204,7 +216,10 @@ activities:
     period: { start: "2022", end: "2024.02" }
     role: 학부연구생
     featured: true
-    priority: 6
+    priority: 5
+    brief:
+      - "캘거리대 단기 파견: 미국 Utah FORGE 지열 부지 중력 데이터 처리"
+      - "4D 탄성파 모니터링·해외 CCS 사례 분석 → 제2저자 논문 1편 · 학회 발표 5건"
     tags: [중력 데이터 처리, 4D 탄성파, GPU, 해외 CCS]
     summary: 학부 과정에서 지구물리 데이터 처리와 4D 탄성파 모니터링·해외 CCS 사례를 연구
     star:
@@ -231,6 +246,10 @@ activities:
     role: 백엔드 · 데이터 파이프라인 담당
     featured: true
     priority: 3
+    brief:
+      - "Selenium 댓글 수집 → LLM 부적절 판단(번호만 받고 코드로 검증) → pandas 정제 → IQR 기준 → LLM 증강·요약 파이프라인, NDJSON 진행 상황 스트리밍"
+      - "Django 커스텀 인증(오픈 리다이렉트 방어), 등록 도서만 허용하도록 검증한 AI 추천, 알라딘 API 수집 명령"
+      - "mock 기반 자동 테스트 86개(관통 4·5) 작성 · 새내기 캠프 AI 여행 커뮤니티 「요기유」 개발·발표"
     tags: [Python, Django, Selenium, Pandas, LLM API, Bootstrap, Kakao Map API]
     summary: 도서·독서 커뮤니티 서비스 ThRead를 5회에 걸쳐 확장하며, 데이터 수집부터 LLM 분석·웹 서비스까지 직접 구현
     star:
