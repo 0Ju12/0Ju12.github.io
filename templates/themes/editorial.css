@@ -13,7 +13,7 @@
 .theme-editorial header{border-bottom:2px solid var(--text);padding-bottom:40px}
 .theme-editorial section{border-top:0}
 .theme-editorial h2{font-size:26px;border-bottom:1px solid var(--line);padding-bottom:10px}
-.theme-editorial .stats{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.theme-editorial .stats{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
 .theme-editorial .stat{background:transparent;border:0;border-left:3px solid var(--accent);border-radius:0;padding:4px 14px}
 .theme-editorial .grid{grid-template-columns:1fr}
 .theme-editorial .card{flex-direction:row;flex-wrap:wrap;align-items:flex-start;border-radius:4px}

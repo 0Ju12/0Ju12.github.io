@@ -65,6 +65,16 @@ def normalize(data):
         a["period_str"] = period_str(a.get("period"))
     acts.sort(key=sort_key, reverse=True)
     data["activities"] = acts
+    # 사진 자동 연결: docs/assets/photos/<활동 id>/*.jpg → gallery, profile.jpg → 프로필
+    photos = DOCS / "assets" / "photos"
+    for a in acts:
+        d = photos / a.get("id", "")
+        a["gallery"] = [
+            {"src": f"assets/photos/{a['id']}/{f.name}", "caption": f.stem.replace("_", " ")}
+            for f in sorted(d.glob("*.jpg"))
+        ] if d.is_dir() else []
+    if not data["profile"].get("photo") and (photos / "profile.jpg").exists():
+        data["profile"]["photo"] = "assets/photos/profile.jpg"
     data["featured"] = sorted((a for a in acts if a.get("featured")), key=lambda a: a.get("priority", 99))
     data["types"] = sorted({a.get("type", "기타") for a in acts})
     for e in data.get("education") or []:

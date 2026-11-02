@@ -83,6 +83,16 @@ details.item[open] summary{border-bottom:1px solid var(--line)}
 .fig{margin:0}
 .fig img{max-width:100%;border-radius:10px;border:1px solid var(--line);background:#fff}
 .fig figcaption{font-size:13px;color:var(--muted);margin-top:6px}
+header{flex-wrap:nowrap;align-items:flex-start}
+header > div{flex:1 1 auto;min-width:0}
+@media (max-width:720px){header{flex-wrap:wrap}}
+header img.avatar{flex:0 0 auto;margin-top:8px;width:136px;height:136px;border-radius:50%;object-fit:cover;border:3px solid var(--surface);box-shadow:0 0 0 1px var(--line)}
+.thumb.photo{aspect-ratio:16/9;object-fit:cover}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.gallery a{color:inherit;text-decoration:none}
+.gallery figure{margin:0}
+.gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;border:1px solid var(--line);display:block}
+.gallery figcaption{font-size:12px;color:var(--muted);margin-top:4px}
 footer{padding:32px 0 56px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
 @media (max-width:560px){header{padding:48px 0 32px} details.item summary{grid-template-columns:1fr} details.item summary .when{text-align:left}}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:28px 0 0}
@@ -105,7 +115,7 @@ footer{padding:32px 0 56px;color:var(--muted);font-size:13px;border-top:1px soli
 
 <main class="wrap" id="top">
 <header>
-  {% if profile.photo %}<img src="{{ profile.photo }}" alt="{{ profile.name }} 프로필 사진">{% endif %}
+  {% if profile.photo %}<img class="avatar" src="{{ profile.photo }}" alt="{{ profile.name }} 프로필 사진">{% endif %}
   <div>
     <div class="eyebrow">{{ profile.title }}</div>
     <h1>{{ profile.headline }}</h1>
@@ -125,7 +135,7 @@ footer{padding:32px 0 56px;color:var(--muted);font-size:13px;border-top:1px soli
   {% for a in featured %}
     <article class="card">
       <div class="meta"><span class="type">{{ a.type }}</span>{{ a.period_str }}{% if a.org %} · {{ a.org }}{% endif %}</div>
-      {% if a.image %}<img class="thumb" src="{{ a.image }}" alt="{{ a.image_caption or a.title }}" loading="lazy">{% endif %}
+      {% if a.image %}<img class="thumb" src="{{ a.image }}" alt="{{ a.image_caption or a.title }}" loading="lazy">{% elif a.gallery %}<img class="thumb photo" src="{{ a.gallery[0].src }}" alt="{{ a.gallery[0].caption }}" loading="lazy">{% endif %}
       <h3>{{ a.title }}</h3>
       <div class="meta">{{ a.role }}{% if a.team %} · {{ a.team }}{% endif %}</div>
       <p style="margin:0">{{ a.summary }}</p>
@@ -173,6 +183,7 @@ footer{padding:32px 0 56px;color:var(--muted);font-size:13px;border-top:1px soli
     </summary>
     <dl class="star">
       {% if a.image %}<figure class="fig"><img src="{{ a.image }}" alt="{{ a.image_caption or a.title }}" loading="lazy">{% if a.image_caption %}<figcaption>{{ a.image_caption }}</figcaption>{% endif %}</figure>{% endif %}
+      {% if a.gallery %}<div class="gallery">{% for g in a.gallery %}<a href="{{ g.src }}" target="_blank" rel="noopener"><figure><img src="{{ g.src }}" alt="{{ g.caption }}" loading="lazy"><figcaption>{{ g.caption }}</figcaption></figure></a>{% endfor %}</div>{% endif %}
       {% if a.star.situation %}<div><dt>SITUATION · 상황</dt><dd>{{ a.star.situation }}</dd></div>{% endif %}
       {% if a.star.task %}<div><dt>TASK · 역할과 과제</dt><dd>{{ a.star.task }}</dd></div>{% endif %}
       {% if a.star.action %}<div><dt>ACTION · 한 일</dt><dd><ul>{% for x in a.star.action %}<li>{{ x }}</li>{% endfor %}</ul></dd></div>{% endif %}
