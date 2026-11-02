@@ -11,7 +11,7 @@ data/portfolio.yaml에서 자동 생성됩니다. 각 플랫폼의 해당 칸에
 ## 2. 자기소개 / About
 
 ```
-자원에너지공학을 전공하고 환경에너지융합학과에서 석사 학위를 받았습니다(2026). 캡스톤에서는 시공간 딥러닝(U-LSTM) 기반 산불 확산 경로 예측 모델의 설계와 학습을 맡았습니다. 석사 과정에서는 중력·자력·탄성파 등 지구물리 데이터를 분석해 지하 구조를 규명했고, SCIE 국제학술지 SPE Journal 제1저자 논문을 포함해 논문 3편과 학회 발표 10건, 학회 우수논문 발표상의 성과를 냈습니다. 포스코 청년 AI·Big Data 아카데미에서는 FLAN-T5와 RAG를 결합한 영어 표현 교정 시스템 프로젝트에서 데이터 구축과 모델 실험을 맡았고, 팀은 장려상을 받았습니다. 캐나다 캘거리대학교에서 두 차례 파견 연구를 하며 해외 연구진과 협업했고, ADsP(데이터분석 준전문가) 자격을 보유하고 있습니다.
+자원에너지공학을 전공하고 환경에너지융합학과에서 석사 학위를 받았습니다(2026). 캡스톤에서는 시공간 딥러닝(U-LSTM) 기반 산불 확산 경로 예측 모델의 설계와 학습을 맡았습니다. 석사 과정에서는 중력·자력·탄성파 등 지구물리 데이터를 분석해 지하 구조를 규명했고, SCIE 국제학술지 SPE Journal 제1저자 논문을 포함해 논문 3편과 학회 발표 10건, 학회 우수논문 발표상의 성과를 냈습니다. 포스코 청년 AI·BigData 아카데미(POSTECH)에서는 FLAN-T5와 RAG를 결합한 영어 표현 교정 시스템 프로젝트에서 데이터 구축과 모델 실험을 맡았고, 팀은 장려상을 받았습니다. 캐나다 캘거리대학교에서 두 차례 파견 연구를 하며 해외 연구진과 협업했고, ADsP(데이터분석 준전문가) 자격을 보유하고 있습니다.
 
 포트폴리오: (GitHub Pages 주소)
 GitHub: https://github.com/0Ju12
@@ -21,9 +21,26 @@ LinkedIn: https://www.linkedin.com/in/%EC%98%81%EC%A3%BC-%EC%9D%B4-a335ab251/
 
 ## 3. 경력·활동 항목 (활동 하나당 칸 하나)
 
+### 삼성 청년 SW·AI 아카데미(SSAFY) 16기 — AI·SW 엔지니어링 과정
+- **직함/역할:** 교육생
+- **회사/기관:** 삼성 청년 SW·AI 아카데미 (SSAFY)
+- **기간:** 2026.07 – 진행 중
+- **설명:**
+```
+ML·NLP·LLM·비전 모델 이론과 실습, 알고리즘, 웹·백엔드 개발을 함께 익히며 연구 경험을 서비스 개발 역량으로 확장하는 중
+• AI: 데이터 EDA·모델 학습 과제, Perceptron 직접 구현, 워드 임베딩·RNN/LSTM·Transformer·사전학습 언어모델 학습
+• LLM 실습: 토큰화·임베딩, BERT 감정분석, 코사인 유사도 기반 RAG 문서 검색 구현, 디코딩 알고리즘·프롬프트 엔지니어링·LLM 평가
+• 비전: FCN·CNN 변천사, RNN, 어텐션·ViT, 딥러닝 학습 전략, 이미지 파운데이션 모델
+• 관통 프로젝트: Git Forking Workflow·PR 협업, OpenAI API 연동, 웹 데이터 크롤링, Django 인증(Form Auth)과 DB 모델링(1:N·M:N, SQL)
+• 일타싸피: 삼각함수(atan2·코사인 법칙)로 공의 진행 각도를 계산해 직선 샷·원쿠션 전략을 자동화하는 당구 시뮬레이션 AI를 Python으로 구현
+• SW 알고리즘: SWEA 문제 풀이(완전탐색·DFS/BFS·백트래킹 등), Battle SSAFY 대전형 게임 자동 플레이 봇 작성
+• 2026년 진행 중 — 학습 내용을 노션에 강의별로 정리
+기술/키워드: Python, PyTorch, Transformers, RAG, Django, SQL, Git
+```
+
 ### 콩글리시 → 원어민 표현 교정 시스템 (FLAN-T5 + RAG)
 - **직함/역할:** 데이터 구축·모델 실험 담당
-- **회사/기관:** 포스코 청년 AI·Big Data 아카데미 30기 · 팀 프로젝트
+- **회사/기관:** 포스코 청년 AI·BigData 아카데미 30기 (포스코인재창조원·POSTECH) · 팀 프로젝트
 - **기간:** 2025.08
 - **설명:**
 ```
@@ -118,5 +135,5 @@ LinkedIn: https://www.linkedin.com/in/%EC%98%81%EC%A3%BC-%EC%9D%B4-a335ab251/
 ## 5. 스킬 (복사용, 쉼표 구분)
 
 ```
-Python, TensorFlow, PyTorch, Hugging Face Transformers, 시공간 딥러닝(U-LSTM), CNN·LSTM, LLM 파인튜닝(FLAN-T5·LoRA), RAG(FAISS·임베딩 검색), 모델 평가(F1·BERTScore), ArcGIS, 래스터 데이터 구축, 중력·자력 자료 처리, 파수 상관 분석, 탄성파 자료 해석, GPlates, CCS(이산화탄소 지중저장), 에너지·자원, 재난(산불) 예측
+Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, SQL, Django, 시공간 딥러닝(U-LSTM), CNN·LSTM, LLM 파인튜닝(FLAN-T5·LoRA), RAG(FAISS·임베딩 검색), 모델 평가(F1·BERTScore), ArcGIS, 래스터 데이터 구축, 중력·자력 자료 처리, 파수 상관 분석, 탄성파 자료 해석, GPlates, CCS(이산화탄소 지중저장), 에너지·자원, 재난(산불) 예측
 ```

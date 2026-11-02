@@ -106,7 +106,7 @@ footer{padding:96px 0 48px;color:var(--muted);font-size:13px}
     <div class="sechead"><h2>Selected Work</h2><span>{{ featured|length }}개 프로젝트 · 문제 → 역할 → 결과</span></div>
     {% for a in featured %}
     <article class="case">
-      <div class="visual">{% if a.image %}<img src="{{ a.image }}" alt="{{ a.image_caption or a.title }}" loading="lazy">{% elif a.gallery %}<img src="{{ a.gallery[0].src }}" alt="{{ a.gallery[0].caption }}" loading="lazy" style="object-fit:cover">{% else %}<div class="ph"><div class="ic">{{ a.icon }}</div>{% if a.kpi %}<b>{{ a.kpi.value }}</b><span>{{ a.kpi.label }}</span>{% endif %}</div>{% endif %}</div>
+      <div class="visual">{% if a.image %}<img src="{{ a.image }}" alt="{{ a.image_caption or a.title }}" loading="lazy">{% elif a.gallery %}<img src="{{ a.gallery[0].src }}" alt="{{ a.gallery[0].caption }}" loading="lazy" style="object-fit:contain;background:var(--surface)">{% else %}<div class="ph"><div class="ic">{{ a.icon }}</div>{% if a.kpi %}<b>{{ a.kpi.value }}</b><span>{{ a.kpi.label }}</span>{% endif %}</div>{% endif %}</div>
       <div>
         <div class="num">{{ '%02d'|format(loop.index) }} — {{ a.type }}</div>
         <h3>{{ a.title }}</h3>
