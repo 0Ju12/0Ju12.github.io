@@ -24,11 +24,11 @@ def seal(path):
     ct = AESGCM(key).encrypt(nonce, path.read_bytes(), None)
     rec = {"v": 1, "name": path.name, "key": b64(pub.encrypt(key, OAEP)), "nonce": b64(nonce), "ct": b64(ct)}
     OUT.mkdir(parents=True, exist_ok=True)
-    (OUT / (path.stem + ".json")).write_text(json.dumps(rec), encoding="utf-8")
+    (OUT / (path.name.replace(".", "_") + ".sealed.json")).write_text(json.dumps(rec), encoding="utf-8")
     print("sealed", path.name)
 
 
 if __name__ == "__main__":
-    names = sys.argv[1:] or sorted(p.name for p in SRC.glob("*.md"))
+    names = sys.argv[1:] or sorted(p.name for p in SRC.iterdir() if p.suffix in (".md", ".json"))
     for n in names:
         seal(SRC / n)
