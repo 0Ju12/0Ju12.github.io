@@ -129,6 +129,24 @@ def collect_warnings(data):
     return w
 
 
+def load_posts(acts):
+    """content/posts/*.md (YAML front matter + Markdown) → 글 목록"""
+    import markdown
+    titles = {a.get("id"): a.get("title") for a in acts}
+    posts = []
+    for f in sorted((ROOT / "content" / "posts").glob("*.md")):
+        raw = f.read_text(encoding="utf-8")
+        _, fm, body = raw.split("---", 2)
+        meta = yaml.safe_load(fm) or {}
+        if meta.get("draft"):
+            continue
+        meta["slug"] = f.stem
+        meta["html"] = markdown.markdown(body, extensions=["fenced_code", "tables"])
+        meta["project_title"] = titles.get(meta.get("project"))
+        posts.append(meta)
+    return sorted(posts, key=lambda p: (str(p.get("date", "")), p["slug"]), reverse=True)
+
+
 def main():
     data = normalize(yaml.safe_load(DATA.read_text(encoding="utf-8")))
     env = Environment(
@@ -141,6 +159,11 @@ def main():
 
     DOCS.mkdir(exist_ok=True)
     OUT.mkdir(exist_ok=True)
+    data["posts"] = load_posts(data.get("activities", []))
+    (DOCS / "posts").mkdir(exist_ok=True)
+    for post in data["posts"]:
+        (DOCS / "posts" / f"{post['slug']}.html").write_text(
+            env.get_template("post.html.j2").render(post=post, **data), encoding="utf-8")
     site_tpl = env.get_template("site.html.j2")
     theme = (data.get("site") or {}).get("theme", "minimal")
     layout = (data.get("site") or {}).get("layout")  # sidebar | bento | showcase (templates/layouts/)

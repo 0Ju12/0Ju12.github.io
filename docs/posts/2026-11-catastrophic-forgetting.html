@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>순차 학습이 성능을 떨어뜨린 이유 — catastrophic forgetting 실험기 · 이영주</title>
+<meta name="description" content="단어 단위 → 문맥 단위로 차례로 학습하면 더 좋아질 줄 알았는데, BERTScore가 0.47에서 0.32로 떨어졌다. FLAN-T5 LoRA 학습 전략 비교.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--surface:#f7f7f8;--text:#0d0d0f;--muted:#5d5f66;--line:#e7e7ea;--accent:#0a7c66;--accent-2:#14b8a6;--chip:#eef2f1;--code:#0f1117;--code-text:#e6e6e6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}}
+:root[data-theme="dark"]{--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.85 "Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:740px;margin:0 auto;padding:0 20px}
+nav{display:flex;align-items:center;gap:16px;padding:24px 0;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
+nav .home{font-weight:900;color:var(--text);margin-right:auto}
+#theme{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 12px;font:inherit;font-size:12px;cursor:pointer}
+header.post{padding:56px 0 28px;border-bottom:2px solid var(--text);margin-bottom:36px}
+header.post .meta{color:var(--accent);font-weight:700;font-size:14px;letter-spacing:.04em}
+header.post h1{font-size:clamp(28px,5vw,42px);line-height:1.25;letter-spacing:-.03em;margin:10px 0 14px;font-weight:900}
+header.post p{color:var(--muted);margin:0 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--chip);color:var(--muted)}
+article h2{font-size:24px;letter-spacing:-.02em;margin:48px 0 14px;font-weight:900}
+article h3{font-size:19px;margin:32px 0 10px}
+article p,article li{margin:0 0 16px}
+article ul,article ol{padding-left:22px}
+article li{margin-bottom:6px}
+article blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--surface);border-radius:0 12px 12px 0;font-weight:700}
+article blockquote p{margin:0}
+article code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em;background:var(--chip);padding:2px 6px;border-radius:6px}
+article pre{background:var(--code);color:var(--code-text);padding:18px 20px;border-radius:14px;overflow-x:auto;line-height:1.6;margin:0 0 20px}
+article pre code{background:none;padding:0;font-size:13.5px;color:inherit}
+article table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:15px;display:block;overflow-x:auto}
+article th,article td{border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+article th{background:var(--surface)}
+.endcard{margin:56px 0 0;padding:24px;border:1px solid var(--line);border-radius:18px;background:var(--surface);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.endcard b{display:block}
+.endcard span{color:var(--muted);font-size:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--line);color:var(--text);background:var(--bg)}
+.others{margin:40px 0 0}
+.others a{display:block;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--text);font-weight:700}
+.others a span{display:block;color:var(--muted);font-weight:400;font-size:14px}
+footer{padding:64px 0 40px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a class="home" href="../index.html">Young-Ju Lee</a><a href="../index.html#writing">Writing</a><a href="../index.html#work">Work</a><button id="theme" type="button">테마</button></nav>
+  <header class="post">
+    <div class="meta">WRITING · 2026-11-02</div>
+    <h1>순차 학습이 성능을 떨어뜨린 이유 — catastrophic forgetting 실험기</h1>
+    <p>단어 단위 → 문맥 단위로 차례로 학습하면 더 좋아질 줄 알았는데, BERTScore가 0.47에서 0.32로 떨어졌다. FLAN-T5 LoRA 학습 전략 비교.</p>
+    <div class="chips"><span class="chip">NLP</span><span class="chip">FLAN-T5</span><span class="chip">LoRA</span><span class="chip">실험 설계</span></div>
+  </header>
+  <article><p>포스코 청년 AI·BigData 아카데미에서 <strong>콩글리시를 자연스러운 원어민 표현으로 바꿔 주는 시스템</strong>을 팀으로 만들었습니다. 예를 들어 "I'm very exciting to meet you" 같은 문장을 "I'm really excited to meet you"처럼 고쳐 주는 것이 목표였습니다. 문법 교정기는 문법은 맞지만 어색한 표현을 잘 잡지 못해서, 생성 모델로 접근했습니다.</p>
+<p>저는 <strong>교정 데이터 구축과 모델 실험</strong>을 맡았습니다. 이 글은 그중 학습 전략을 비교하다 겪은 일입니다.</p>
+<h2>데이터를 두 종류로 만들었다</h2>
+<p>교정 데이터를 두 단위로 구축했습니다.</p>
+<ul>
+<li><strong>단어 단위</strong>: 콩글리시 단어·표현 → 원어민 표현 쌍 (예: <em>eye shopping → window shopping</em> 같은 유형)</li>
+<li><strong>문맥 단위</strong>: 어색한 문장 전체 → 자연스러운 문장 쌍</li>
+</ul>
+<p>모델은 FLAN-T5에 LoRA를 붙여 파인튜닝했습니다. 전체 가중치 대신 작은 어댑터만 학습해 제한된 GPU에서도 여러 번 실험할 수 있었습니다.</p>
+<h2>가설: 쉬운 것부터 차례로 배우면 더 잘할 것이다</h2>
+<p>사람이 단어를 먼저 익히고 문장을 배우듯, <strong>단어 단위로 먼저 학습하고 이어서 문맥 단위로 학습</strong>하면 더 좋을 거라고 생각했습니다. 그래서 세 가지 전략을 같은 조건에서 비교했습니다.</p>
+<table>
+<thead>
+<tr>
+<th>전략</th>
+<th>방법</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A. 단어 → 문맥 순차</td>
+<td>단어 데이터로 학습한 모델을 이어서 문맥 데이터로 학습</td>
+</tr>
+<tr>
+<td>B. 문맥 → 단어 순차</td>
+<td>순서를 반대로</td>
+</tr>
+<tr>
+<td>C. 통합 학습</td>
+<td>두 데이터를 섞어 한 번에 학습</td>
+</tr>
+</tbody>
+</table>
+<p>평가는 BERTScore F1로 했습니다. 교정 결과는 정답이 하나가 아니라서, 단어가 정확히 일치하는지보다 <strong>의미가 얼마나 가까운지</strong>를 보는 지표가 적합하다고 판단했습니다.</p>
+<h2>결과: 순차 학습에서 앞 단계 성능이 무너졌다</h2>
+<p>순차 학습에서 이상한 현상이 보였습니다. 앞 단계 학습으로 얻은 성능이, 다음 단계를 학습하고 나니 <strong>BERTScore F1 0.47에서 0.32로</strong> 떨어진 것입니다.</p>
+<p>두 번째 데이터를 배우면서 <strong>먼저 배운 것을 잊어버린</strong> 셈입니다. 신경망이 새 작업에 맞춰 가중치를 갱신하면서 이전 작업에 필요한 정보를 덮어쓰는 현상으로, <strong>catastrophic forgetting</strong>이라고 부릅니다. 개념으로만 알던 현상을 직접 실험 결과로 확인한 셈입니다.</p>
+<p>순서를 바꾼 경우까지 포함해 순차 학습 결과는 0.32~0.47에 머물렀습니다. 순서를 잘 고르는 문제가 아니라, <strong>"나눠서 차례로 학습한다"는 방식 자체</strong>를 다시 봐야 했습니다.</p>
+<h2>통합 학습으로 전환</h2>
+<p>두 데이터를 섞어 한 번에 학습한 C에서 검증 BERTScore F1이 <strong>약 0.74</strong>가 나왔습니다. 순차 학습(0.32~0.47)보다 확실히 높았습니다.</p>
+<p>여기에 팀에서 만든 <strong>RAG</strong>를 결합했습니다. 다국어 문장 임베딩과 FAISS로 입력과 비슷한 교정 예문 5개를 찾아 모델 입력에 함께 넣어, 모델이 비슷한 사례를 참고해 교정하도록 했습니다. 프로젝트는 아카데미에서 <strong>장려상</strong>을 받았습니다.</p>
+<h2>배운 것</h2>
+<ul>
+<li><strong>직관은 가설일 뿐</strong>입니다. "쉬운 것부터"는 그럴듯했지만, 같은 조건에서 비교해 보니 틀렸습니다. 전략을 하나만 정해 밀고 나갔다면 원인도 모른 채 낮은 성능을 받아들였을 겁니다.</li>
+<li><strong>각 단계 직후의 성능을 따로 기록</strong>해 둔 덕분에 원인을 찾을 수 있었습니다. 마지막 점수만 봤다면 "그냥 성능이 낮다"로 끝났을 것입니다.</li>
+<li>순차 학습이 꼭 필요하다면 이전 데이터를 일부 섞는 replay, 가중치 변화를 제한하는 정규화(EWC 등)를 검토해야 합니다. 이번에는 데이터가 크지 않아 통합 학습이 가장 단순하고 효과적인 답이었습니다.</li>
+</ul></article>
+  <div class="endcard">
+    <div><b>콩글리시 → 원어민 표현 교정 시스템 (FLAN-T5 + RAG)</b><span>이 글에서 다룬 코드는 저장소에서 볼 수 있습니다.</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5" target="_blank" rel="noopener">GitHub 저장소 →</a><a class="btn" href="../index.html#work">포트폴리오로</a></div>
+  </div>
+<div class="others"><b style="font-size:14px;color:var(--muted)">다른 글</b><a href="2026-11-small-data-spatiotemporal.html">산불 4건으로 시공간 딥러닝 학습하기<span>데이터가 35개 시점뿐일 때 어떻게 학습시켰고, 다시 보니 무엇이 부족했는지. U-LSTM 산불 확산 예측 모델 회고.</span></a><a href="2026-11-llm-verify-pipeline.html">LLM 응답을 믿지 않는 파이프라인 설계<span>LLM에는 판단만 맡기고, 결과는 코드로 검증한다. 댓글 분석 파이프라인과 AI 도서 추천을 만들며 정한 네 가지 원칙.</span></a></div>  <footer>© Young-Ju Lee · iyju990312@naver.com</footer>
+</div>
+<script>
+(function(){var r=document.documentElement,K='theme';
+try{var s=localStorage.getItem(K);if(s)r.setAttribute('data-theme',s)}catch(e){}
+var b=document.getElementById('theme');if(b)b.addEventListener('click',function(){
+var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});})();
+</script>
+</body>
+</html>

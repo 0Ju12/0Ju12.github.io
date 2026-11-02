@@ -68,6 +68,14 @@ footer{padding:96px 0 48px;color:var(--muted);font-size:13px}
 .contactband h2{margin:0;font-size:clamp(24px,3vw,36px);letter-spacing:-.03em;font-weight:900}
 .contactband .mail{display:inline-block;margin-top:8px;color:var(--accent-2);font-size:18px;font-weight:700;text-decoration:none}
 .contactband .btn.ghost{background:transparent;color:#f4f4f5;border-color:#3f3f46}
+.posts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.post{display:flex;flex-direction:column;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px;text-decoration:none;color:var(--text);transition:transform .15s,border-color .15s}
+.post:hover{transform:translateY(-3px);border-color:var(--accent)}
+.post .pdate{font-size:13px;color:var(--accent);font-weight:700}
+.post b{font-size:19px;line-height:1.4;letter-spacing:-.02em}
+.post p{margin:0;color:var(--muted);font-size:14.5px;flex:1}
+.post .read{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;color:var(--accent)}
+.postlink{display:inline-flex;margin:18px 0 0 10px;font-size:14px;font-weight:700;text-decoration:none;color:var(--accent)}
 {{ p.base_css() }}
 @media (max-width:900px){
   .herobody{grid-template-columns:1fr;padding:48px 0 40px}
@@ -77,7 +85,8 @@ footer{padding:96px 0 48px;color:var(--muted);font-size:13px}
   .kpis div:nth-child(-n+2){border-bottom:1px solid #27272a}
   .case{grid-template-columns:1fr;gap:24px}
   .case:nth-of-type(even) .visual{order:0}
-  .grid3{grid-template-columns:1fr}
+  .grid3,.posts{grid-template-columns:1fr}
+  .postlink{margin-left:0;display:flex}
   .tl{grid-template-columns:1fr;gap:4px}
   .topbar a{display:none}
   .contactband{padding:32px 24px}
@@ -87,7 +96,7 @@ footer{padding:96px 0 48px;color:var(--muted);font-size:13px}
 <body>
 <header class="hero">
   <div class="wrap">
-    <div class="topbar"><span class="logo">{{ profile.name_en }}</span><a href="#work">Work</a><a href="#publications">Publications</a><a href="#about">About</a><a href="#contact">Contact</a><button id="theme" type="button">테마</button></div>
+    <div class="topbar"><span class="logo">{{ profile.name_en }}</span><a href="#work">Work</a>{% if posts %}<a href="#writing">Writing</a>{% endif %}<a href="#publications">Publications</a><a href="#about">About</a><a href="#contact">Contact</a><button id="theme" type="button">테마</button></div>
     <div class="herobody">
       <div>
         <div class="role">{{ profile.title|upper }} · {{ profile.name }}</div>
@@ -114,12 +123,19 @@ footer{padding:96px 0 48px;color:var(--muted);font-size:13px}
         <p class="sum">{{ a.summary }}</p>
         {% if a.kpi and (a.image or a.gallery) %}<div class="kpi"><b>{{ a.kpi.value }}</b><span>{{ a.kpi.label }}</span></div>{% endif %}
         <div class="chips">{% for t in a.tags %}<span class="chip">{{ t }}</span>{% endfor %}</div>
-        <button class="more" type="button" data-expand="d-{{ a.id }}" aria-expanded="false"><span>자세히 보기</span> {{ p.icon('arrow', 14) }}</button>
+        <button class="more" type="button" data-expand="d-{{ a.id }}" aria-expanded="false"><span>자세히 보기</span> {{ p.icon('arrow', 14) }}</button>{% for w in posts if w.project == a.id %}<a class="postlink" href="posts/{{ w.slug }}.html">✍️ 글: {{ w.title }}</a>{% endfor %}
       </div>
       <div class="detail" id="d-{{ a.id }}" hidden>{{ p.star(a) }}</div>
     </article>
     {% endfor %}
   </section>
+
+  {% if posts %}
+  <section id="writing">
+    <div class="sechead"><h2>Writing</h2><span>프로젝트에서 배운 것 · {{ posts|length }}편</span></div>
+    <div class="posts">{% for w in posts %}<a class="post" href="posts/{{ w.slug }}.html"><span class="pdate">{{ w.date }}</span><b>{{ w.title }}</b><p>{{ w.summary }}</p><div class="chips">{% for t in w.tags[:3] %}<span class="chip">{{ t }}</span>{% endfor %}</div><span class="read">읽기 {{ p.icon('arrow', 14) }}</span></a>{% endfor %}</div>
+  </section>
+  {% endif %}
 
   <section id="publications">
     <div class="sechead"><h2>Publications</h2><span>논문 {{ papers|length }} · 학회 발표 {{ talks|length }}</span></div>

@@ -21,7 +21,7 @@ jobs:
         with: { python-version: "3.12" }
       - uses: actions/setup-node@v4
         with: { node-version: "20" }
-      - run: pip install pyyaml jinja2
+      - run: pip install pyyaml jinja2 markdown
       - run: python scripts/build.py
       - run: npm install playwright@1.47.2 && npx playwright install --with-deps chromium
       - run: node scripts/pdf.js
