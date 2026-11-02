@@ -61,12 +61,13 @@
   - 관통 4 · AI 도서 서비스: Django 커스텀 User·인증(오픈 리다이렉트 방어, HTTP Method 제한), 도서 CRUD, 위키피디아+LLM 작가 정보 생성, AI 도서 분석, 등록 도서 안에서만 추천하도록 검증한 AI 맞춤 추천, 알라딘 API 수집 명령
   - 관통 4: Django TestCase와 mock으로 외부 API 없이 요구사항별 동작을 검증하는 자동 테스트 45개 작성
   - 관통 1~3: JSON 도서 데이터 집계·정렬, 알라딘 API 수집(페이지네이션·중복 제거)+LLM 분류+gTTS 음성 변환, Bootstrap 반응형 웹페이지
+  - 새내기 캠프 3인 팀 프로젝트 「요기유(YOGIU)」 — 대전·충청 AI 여행 커뮤니티 웹 서비스, 개발·발표 담당: 카카오맵 API 기반 동선 플래너(찜·지도), OpenAI API 기반 AI 추천 여행 경로·꿈돌이 테마 챗봇, 테마별 관광 정보·축제·익명 게시판(댓글) 구현
   - SSAFY AI 과정: Perceptron 구현, Transformer·BERT, RAG 검색, 프롬프트 엔지니어링, CNN·ViT / 일타싸피(삼각함수 기반 당구 AI), SWEA 알고리즘
 - **결과**
   - LLM 응답을 그대로 믿지 않고 코드로 검증하는 구조(번호 범위 검사, 뒤에서부터 제거, 등록 도서 id만 허용)로 안정적인 AI 기능 구현
   - 자동 테스트 관통 4 45개 · 관통 5 41개 통과, 관통 5 요구사항(F601~F611) 전부 구현 + 진행 상황 스트리밍·분석 이력·11가지 화면 테마 추가
 
-🏷 Python, Django, Selenium, Pandas, LLM API, Bootstrap
+🏷 Python, Django, Selenium, Pandas, LLM API, Bootstrap, Kakao Map API
 🔗 [GitHub 저장소](https://github.com/0Ju12/ssafy-thread)  
 
 ### 중력·자력 데이터 파수 상관 분석으로 지하 구조 규명 (석사 · SPE Journal 제1저자)
