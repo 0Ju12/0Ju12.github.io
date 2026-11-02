@@ -67,7 +67,7 @@
   - 관통 4 자동 테스트 45개, 관통 5 요구사항(F601~F611) 전부 구현 + 진행 상황 스트리밍·분석 이력·11가지 화면 테마 추가
 
 🏷 Python, Django, Selenium, Pandas, LLM API, Bootstrap
-
+🔗 [GitHub 저장소](https://github.com/0Ju12/ssafy-thread)  
 
 ### 중력·자력 데이터 파수 상관 분석으로 지하 구조 규명 (석사 · SPE Journal 제1저자)
 `연구` · 2024.03 – 2026.08 · 지구물리컴퓨팅연구실 · 환경에너지융합학과 · **석사과정 연구원**
