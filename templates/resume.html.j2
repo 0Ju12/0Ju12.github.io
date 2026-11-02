@@ -34,7 +34,7 @@ li{margin:1px 0}
   <div class="title">{{ profile.title }}</div>
   <div class="contact">
     {% if profile.email %}<span>{{ profile.email }}</span>{% endif %}{% if profile.phone %}<span>{{ profile.phone }}</span>{% endif %}
-    {% for l in profile.links %}<span><a href="{{ l.url }}">{{ l.url|replace('https://','') }}</a></span>{% endfor %}
+    {% for l in profile.links %}<span><a href="{{ l.url }}">{% if '%' in l.url %}{{ l.label }}{% else %}{{ l.url|replace('https://','')|replace('www.','') }}{% endif %}</a></span>{% endfor %}
   </div>
 </header>
 
