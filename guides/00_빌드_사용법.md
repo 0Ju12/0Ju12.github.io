@@ -1,0 +1,48 @@
+# 포트폴리오 자동화 키트
+
+`data/portfolio.yaml` **하나만 수정하면** 아래 결과물이 전부 자동으로 만들어집니다.
+
+| 결과물 | 파일 | 용도 |
+|---|---|---|
+| 웹 포트폴리오 | `docs/index.html` | GitHub Pages 주소 하나로 모든 활동을 연결하는 허브 |
+| PDF 이력서 | `docs/resume.pdf` | 지원서 첨부용 (웹사이트의 "이력서 PDF" 버튼과 연결됨) |
+| 노션 문서 | `out/notion.md` | 노션에 붙여넣거나 가져오기 → 공개 링크로 공유 |
+| 프로필 문구 | `out/profiles.md` | LinkedIn · 원티드 · 리멤버 · 프로그래머스 커리어에 복사해 붙여넣기 |
+| 보완 체크리스트 | `out/warnings.md` | 빠진 성과 수치, 증빙 링크, STAR 항목을 알려줌 |
+
+## 사용법
+
+```bash
+pip install pyyaml jinja2          # 최초 1회
+python3 scripts/build.py           # 웹/노션/프로필 문구 생성
+node scripts/pdf.js                # PDF 이력서 생성 (playwright 필요)
+```
+
+## 작업 순서
+
+1. `guides/01_활동_수집_시트.md`를 보고 지금까지 한 활동을 **전부** 적습니다 (일단 양이 중요).
+2. 각 활동을 `data/portfolio.yaml`의 `activities`에 STAR 구조로 옮깁니다.
+3. 희망 직무와 가장 관련 있는 3~5개에 `featured: true`를 표시합니다.
+4. `python3 scripts/build.py` 실행 → `out/warnings.md`의 항목을 하나씩 해결합니다.
+5. 프로젝트 저장소마다 `guides/02_프로젝트_README_템플릿.md`로 README를 정리합니다.
+6. GitHub에 올려 배포합니다 (아래 참고).
+7. `out/profiles.md`를 각 채용 플랫폼에 붙여넣고, 모든 프로필에 웹 포트폴리오 주소를 넣습니다.
+
+## GitHub Pages 배포 (무료, 주소: https://0ju12.github.io)
+
+1. GitHub에서 `0Ju12.github.io` 라는 이름으로 새 저장소를 만듭니다.
+2. 이 폴더를 그 저장소에 push 합니다.
+3. 저장소 **Settings → Pages → Source** 를 **GitHub Actions** 로 바꿉니다.
+4. 이후에는 `portfolio.yaml`을 고쳐 push할 때마다 사이트와 PDF가 자동으로 다시 만들어지고 배포됩니다
+   (`.github/workflows/deploy.yml`).
+
+## 연동 구조
+
+```
+            ┌──────── GitHub 저장소들 (코드 · README)
+웹 포트폴리오 ┼──────── Google Drive (발표자료 · 보고서 · 수료증 — "링크가 있는 사용자" 공유)
+ (허브)      ├──────── 블로그 / 노션 (회고 · 과정 기록)
+            └──────── PDF 이력서 (자동 생성)
+LinkedIn · 원티드 · 리멤버 프로필 ──→ 웹 포트폴리오 주소
+```
+원본 자료는 각자 자리에 두고, `portfolio.yaml`의 `links`에 주소만 넣으면 됩니다.
