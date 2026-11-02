@@ -159,7 +159,7 @@ footer{padding:96px 0 48px;color:var(--muted);font-size:13px}
   </section>
 
   <div class="contactband" id="contact"><div><h2>함께 일할 기회를 기다립니다.</h2>{% if profile.email %}<a class="mail" href="mailto:{{ profile.email }}">{{ profile.email }}</a>{% endif %}</div><div class="cta">{% if profile.email %}<a class="btn solid" href="mailto:{{ profile.email }}">{{ p.icon('mail', 16) }} 메일 보내기</a>{% endif %}{% for l in profile.links %}<a class="btn ghost" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.link_icon(l.label) }} {{ l.label }}</a>{% endfor %}</div></div>
-  <footer>© {{ profile.name_en }} · data/portfolio.yaml 에서 자동 생성</footer>
+  <footer>© {{ profile.name_en }} · data/portfolio.yaml 에서 자동 생성 · <a href="private/index.html" rel="nofollow">🔒 Private</a></footer>
 </main>
 {{ p.theme_script() }}
 </body>

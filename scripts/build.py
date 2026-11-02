@@ -163,6 +163,8 @@ def main():
     (DOCS / "posts").mkdir(exist_ok=True)
     import study
     data["study_notes"] = study.build(env, data)
+    import private_build
+    data["private_ready"] = private_build.build(env, data)
     for post in data["posts"]:
         (DOCS / "posts" / f"{post['slug']}.html").write_text(
             env.get_template("post.html.j2").render(post=post, **data), encoding="utf-8")

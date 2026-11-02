@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Private · {{ profile.name }}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--surface:#f7f7f8;--text:#0d0d0f;--muted:#5d5f66;--line:#e7e7ea;--accent:#0a7c66;--accent-2:#14b8a6;--chip:#eef2f1;--danger:#b4232f}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--danger:#ff8b93;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--danger:#ff8b93;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.75 "Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);overflow-wrap:anywhere}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+nav.top{display:flex;align-items:center;gap:16px;padding:22px 0;border-bottom:1px solid var(--line)}
+nav.top .home{font-weight:900;color:var(--text);text-decoration:none;margin-right:auto}
+nav.top a{color:var(--muted);text-decoration:none;font-size:14px}
+.lock{max-width:420px;margin:12vh auto 0;text-align:center}
+.lock .ic{font-size:40px}
+.lock h1{font-size:26px;margin:10px 0 6px;letter-spacing:-.02em}
+.lock p{color:var(--muted);margin:0 0 22px;font-size:15px}
+.lock form{display:flex;gap:8px}
+.lock input{flex:1;min-width:0;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font:inherit;background:var(--surface);color:var(--text)}
+.btn{border:0;border-radius:12px;padding:12px 18px;font:inherit;font-weight:700;background:var(--text);color:var(--bg);cursor:pointer}
+.btn:disabled{opacity:.6}
+#err{color:var(--danger);font-size:14px;min-height:22px;margin-top:10px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;padding:20px 0 6px;position:sticky;top:0;background:var(--bg);z-index:2}
+.tabs button{border:1px solid var(--line);background:var(--bg);color:var(--muted);border-radius:999px;padding:6px 14px;font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--text);color:var(--bg);border-color:var(--text)}
+.tabs .out{margin-left:auto}
+article{padding:10px 0 60px}
+article h1{font-size:30px;letter-spacing:-.03em;margin:18px 0 12px}
+article h2{font-size:21px;margin:34px 0 10px;letter-spacing:-.02em}
+article table{width:100%;border-collapse:collapse;font-size:14.5px;display:block;overflow-x:auto;margin:0 0 16px}
+article th,article td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+article th{background:var(--surface)}
+article blockquote{margin:12px 0 22px;padding:10px 16px;border-left:3px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0;color:var(--muted);font-size:14.5px}
+article blockquote p{margin:4px 0}
+article p,article li{margin:0 0 12px}
+.note{color:var(--muted);font-size:13px;padding:20px 0 40px}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="top"><a class="home" href="../index.html">{{ profile.name_en }}</a><a href="../study/index.html">Study</a><a href="../index.html">Portfolio</a></nav>
+  {% if box %}
+  <section class="lock" id="lock">
+    <div class="ic" aria-hidden="true">🔒</div>
+    <h1>비공개 영역</h1>
+    <p>연락처 · 증빙자료 · 자기소개서 소재 · 면접 답변. 암호를 입력해야 열립니다.</p>
+    <form id="f"><input id="pw" type="password" autocomplete="current-password" placeholder="암호" aria-label="암호" required><button class="btn" id="go" type="submit">열기</button></form>
+    <div id="err" role="alert"></div>
+  </section>
+  <div id="app" hidden>
+    <div class="tabs" id="tabs"></div>
+    <article id="doc"></article>
+  </div>
+  <script id="box" type="application/json">{{ box|tojson }}</script>
+  <script>
+  (function(){
+    var box=JSON.parse(document.getElementById('box').textContent), pages=null;
+    function b(s){return Uint8Array.from(atob(s),function(c){return c.charCodeAt(0)})}
+    async function open(pw){
+      var base=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
+      var key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b(box.salt),iterations:box.iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
+      var pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b(box.iv)},key,b(box.ct));
+      return JSON.parse(new TextDecoder().decode(pt)).pages;
+    }
+    function show(i){
+      document.getElementById('doc').innerHTML='<h1></h1>'+pages[i].html;
+      document.querySelector('#doc h1').textContent=pages[i].title;
+      [].forEach.call(document.querySelectorAll('#tabs button[data-i]'),function(x){x.setAttribute('aria-pressed',x.dataset.i==i)});
+      window.scrollTo(0,0);
+    }
+    document.getElementById('f').addEventListener('submit',async function(e){
+      e.preventDefault();var go=document.getElementById('go'),err=document.getElementById('err');
+      go.disabled=true;err.textContent='여는 중…';
+      try{
+        pages=await open(document.getElementById('pw').value);
+        var t=document.getElementById('tabs');
+        pages.forEach(function(p,i){var x=document.createElement('button');x.type='button';x.dataset.i=i;x.textContent=p.title;x.onclick=function(){show(i)};t.appendChild(x)});
+        var o=document.createElement('button');o.type='button';o.className='out';o.textContent='잠그기';o.onclick=function(){location.reload()};t.appendChild(o);
+        document.getElementById('lock').hidden=true;document.getElementById('app').hidden=false;show(0);
+      }catch(_){err.textContent='암호가 맞지 않습니다.';go.disabled=false;document.getElementById('pw').select();}
+    });
+  })();
+  </script>
+  {% else %}
+  <section class="lock">
+    <div class="ic" aria-hidden="true">🔒</div>
+    <h1>비공개 영역 준비 중</h1>
+    <p>저장소 비밀값(PRIVATE_KEY, PRIVATE_PASSWORD)이 등록되면 이 자리에 암호로 잠긴 페이지가 만들어집니다.</p>
+  </section>
+  {% endif %}
+  <p class="note">이 페이지의 내용은 암호로 암호화되어 있어, 암호 없이는 파일을 받아도 읽을 수 없습니다.</p>
+</div>
+</body>
+</html>
