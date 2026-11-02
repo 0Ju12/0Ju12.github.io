@@ -48,6 +48,27 @@
 🏷 Python, Hugging Face, FLAN-T5, LoRA, RAG, FAISS
 🔗 [팀 GitHub](https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5)  
 
+### SSAFY 16기 관통 프로젝트 — ThRead: LLM 댓글 분석 파이프라인 · AI 도서 서비스
+`AI 프로젝트` · 2026.07 – 진행 중 · 삼성 청년 SW·AI 아카데미 (SSAFY) 16기 · 2인 팀 · **백엔드 · 데이터 파이프라인 담당** · 2인 팀
+
+도서·독서 커뮤니티 서비스 ThRead를 5회에 걸쳐 확장하며, 데이터 수집부터 LLM 분석·웹 서비스까지 직접 구현
+
+- **상황** SSAFY 관통 프로젝트에서 하나의 서비스(ThRead)를 회차마다 확장 — Python 데이터 처리 → 외부 API → 반응형 웹 → Django 인증 → 크롤링·LLM 파이프라인
+- **역할·과제** 2인 팀에서 Django 구조 설계, 백엔드, 생성형 AI·외부 API 연동, 크롤링·데이터 파이프라인을 담당
+- **한 일**
+  - 관통 5 · 댓글 분석 파이프라인: Selenium으로 토스증권 커뮤니티 댓글 20개를 실시간 수집 → LLM이 부적절 댓글 번호만 판단하고 코드가 원본에서 제거 → pandas·정규식 정제 → IQR로 길이 이상치 기준 계산 → LLM 증강(개수 불일치 시 재시도) → 요약까지 단계별로 DB 저장
+  - 관통 5: 30초 이상 걸리는 작업의 진행 상황을 StreamingHttpResponse(NDJSON)+스레드·큐로 실시간 표시, 회사 없음·댓글 없음·LLM 실패 등 예외 상황을 구분해 안내
+  - 관통 4 · AI 도서 서비스: Django 커스텀 User·인증(오픈 리다이렉트 방어, HTTP Method 제한), 도서 CRUD, 위키피디아+LLM 작가 정보 생성, AI 도서 분석, 등록 도서 안에서만 추천하도록 검증한 AI 맞춤 추천, 알라딘 API 수집 명령
+  - 관통 4: Django TestCase와 mock으로 외부 API 없이 요구사항별 동작을 검증하는 자동 테스트 45개 작성
+  - 관통 1~3: JSON 도서 데이터 집계·정렬, 알라딘 API 수집(페이지네이션·중복 제거)+LLM 분류+gTTS 음성 변환, Bootstrap 반응형 웹페이지
+  - SSAFY AI 과정: Perceptron 구현, Transformer·BERT, RAG 검색, 프롬프트 엔지니어링, CNN·ViT / 일타싸피(삼각함수 기반 당구 AI), SWEA 알고리즘
+- **결과**
+  - LLM 응답을 그대로 믿지 않고 코드로 검증하는 구조(번호 범위 검사, 뒤에서부터 제거, 등록 도서 id만 허용)로 안정적인 AI 기능 구현
+  - 관통 4 자동 테스트 45개, 관통 5 요구사항(F601~F611) 전부 구현 + 진행 상황 스트리밍·분석 이력·11가지 화면 테마 추가
+
+🏷 Python, Django, Selenium, Pandas, LLM API, Bootstrap
+
+
 ### 중력·자력 데이터 파수 상관 분석으로 지하 구조 규명 (석사 · SPE Journal 제1저자)
 `연구` · 2024.03 – 2026.08 · 지구물리컴퓨팅연구실 · 환경에너지융합학과 · **석사과정 연구원**
 
@@ -104,33 +125,13 @@
 🏷 중력 데이터 처리, 4D 탄성파, GPU, 해외 CCS
 🔗 [제2저자 논문](https://koreascience.or.kr/article/JAKO202335272000266.page)  
 
-### 삼성 청년 SW·AI 아카데미(SSAFY) 16기 — AI·SW 엔지니어링 과정
-`교육` · 2026.07 – 진행 중 · 삼성 청년 SW·AI 아카데미 (SSAFY) · **교육생**
-
-ML·NLP·LLM·비전 모델 이론과 실습, 알고리즘, 웹·백엔드 개발을 함께 익히며 연구 경험을 서비스 개발 역량으로 확장하는 중
-
-- **상황** 연구 중심 경험에 더해, AI 모델을 실제 서비스로 만드는 소프트웨어 엔지니어링 역량을 갖추기 위해 참여
-- **역할·과제** 데이터·AI 엔지니어에게 필요한 모델링, 알고리즘, 백엔드, 협업 역량을 실습 중심으로 습득
-- **한 일**
-  - AI: 데이터 EDA·모델 학습 과제, Perceptron 직접 구현, 워드 임베딩·RNN/LSTM·Transformer·사전학습 언어모델 학습
-  - LLM 실습: 토큰화·임베딩, BERT 감정분석, 코사인 유사도 기반 RAG 문서 검색 구현, 디코딩 알고리즘·프롬프트 엔지니어링·LLM 평가
-  - 비전: FCN·CNN 변천사, RNN, 어텐션·ViT, 딥러닝 학습 전략, 이미지 파운데이션 모델
-  - 관통 프로젝트: Git Forking Workflow·PR 협업, OpenAI API 연동, 웹 데이터 크롤링, Django 인증(Form Auth)과 DB 모델링(1:N·M:N, SQL)
-  - 일타싸피: 삼각함수(atan2·코사인 법칙)로 공의 진행 각도를 계산해 직선 샷·원쿠션 전략을 자동화하는 당구 시뮬레이션 AI를 Python으로 구현
-  - SW 알고리즘: SWEA 문제 풀이(완전탐색·DFS/BFS·백트래킹 등), Battle SSAFY 대전형 게임 자동 플레이 봇 작성
-- **결과**
-  - 2026년 진행 중 — 학습 내용을 노션에 강의별로 정리
-
-🏷 Python, PyTorch, Transformers, RAG, Django, SQL, Git
-
-
 ---
 
 ## 📋 전체 활동
 
 | 기간 | 유형 | 활동 | 기관 | 역할 |
 | --- | --- | --- | --- | --- |
-| 2026.07 – 진행 중 | 교육 | 삼성 청년 SW·AI 아카데미(SSAFY) 16기 — AI·SW 엔지니어링 과정 | 삼성 청년 SW·AI 아카데미 (SSAFY) | 교육생 |
+| 2026.07 – 진행 중 | AI 프로젝트 | SSAFY 16기 관통 프로젝트 — ThRead: LLM 댓글 분석 파이프라인 · AI 도서 서비스 | 삼성 청년 SW·AI 아카데미 (SSAFY) 16기 · 2인 팀 | 백엔드 · 데이터 파이프라인 담당 |
 | 2025.08 | AI 프로젝트 | 콩글리시 → 원어민 표현 교정 시스템 (FLAN-T5 + RAG) | 포스코 청년 AI·BigData 아카데미 30기 (포스코인재창조원·POSTECH) · 팀 프로젝트 | 데이터 구축·모델 실험 담당 |
 | 2024.03 – 2026.08 | 연구 | 중력·자력 데이터 파수 상관 분석으로 지하 구조 규명 (석사 · SPE Journal 제1저자) | 지구물리컴퓨팅연구실 · 환경에너지융합학과 | 석사과정 연구원 |
 | 2024.06 – 2024.12 | 국제협력 | 캐나다 캘거리대학교 장기 파견연구 — 중력·자력 데이터 복합 해석 | University of Calgary | 석사과정 파견연구원 |
@@ -157,7 +158,7 @@ ML·NLP·LLM·비전 모델 이론과 실습, 알고리즘, 웹·백엔드 개�
 - 2022 · GPU를 이용한 4차원 탄성파 모니터링 기술 적용성 검토
 
 ## 🛠 역량
-- **언어·프레임워크** Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, SQL, Django
+- **언어·프레임워크** Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, Django, Selenium, SQL
 - **AI·데이터 분석** 시공간 딥러닝(U-LSTM), CNN·LSTM, LLM 파인튜닝(FLAN-T5·LoRA), RAG(FAISS·임베딩 검색), 모델 평가(F1·BERTScore)
 - **공간·지구물리 데이터** ArcGIS, 래스터 데이터 구축, 중력·자력 자료 처리, 파수 상관 분석, 탄성파 자료 해석, GPlates
 - **도메인** CCS(이산화탄소 지중저장), 에너지·자원, 재난(산불) 예측
