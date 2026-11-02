@@ -79,6 +79,10 @@ details.item[open] summary{border-bottom:1px solid var(--line)}
 .sub-h{font-size:15px;color:var(--muted);margin:20px 0 4px}
 .pubs li{display:grid;grid-template-columns:48px 1fr;gap:12px}
 .pubs .year{color:var(--accent);font-weight:700;font-size:14px;padding-top:2px}
+.thumb{width:100%;border-radius:10px;border:1px solid var(--line);background:#fff}
+.fig{margin:0}
+.fig img{max-width:100%;border-radius:10px;border:1px solid var(--line);background:#fff}
+.fig figcaption{font-size:13px;color:var(--muted);margin-top:6px}
 footer{padding:32px 0 56px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
 @media (max-width:560px){header{padding:48px 0 32px} details.item summary{grid-template-columns:1fr} details.item summary .when{text-align:left}}
 </style>
@@ -115,6 +119,7 @@ footer{padding:32px 0 56px;color:var(--muted);font-size:13px;border-top:1px soli
   {% for a in featured %}
     <article class="card">
       <div class="meta"><span class="type">{{ a.type }}</span>{{ a.period_str }}{% if a.org %} · {{ a.org }}{% endif %}</div>
+      {% if a.image %}<img class="thumb" src="{{ a.image }}" alt="{{ a.image_caption or a.title }}" loading="lazy">{% endif %}
       <h3>{{ a.title }}</h3>
       <div class="meta">{{ a.role }}{% if a.team %} · {{ a.team }}{% endif %}</div>
       <p style="margin:0">{{ a.summary }}</p>
@@ -161,6 +166,7 @@ footer{padding:32px 0 56px;color:var(--muted);font-size:13px;border-top:1px soli
       <span class="sub">{{ a.org }}{% if a.role %} · {{ a.role }}{% endif %}{% if a.summary %} — {{ a.summary }}{% endif %}</span>
     </summary>
     <dl class="star">
+      {% if a.image %}<figure class="fig"><img src="{{ a.image }}" alt="{{ a.image_caption or a.title }}" loading="lazy">{% if a.image_caption %}<figcaption>{{ a.image_caption }}</figcaption>{% endif %}</figure>{% endif %}
       {% if a.star.situation %}<div><dt>SITUATION · 상황</dt><dd>{{ a.star.situation }}</dd></div>{% endif %}
       {% if a.star.task %}<div><dt>TASK · 역할과 과제</dt><dd>{{ a.star.task }}</dd></div>{% endif %}
       {% if a.star.action %}<div><dt>ACTION · 한 일</dt><dd><ul>{% for x in a.star.action %}<li>{{ x }}</li>{% endfor %}</ul></dd></div>{% endif %}
@@ -195,15 +201,15 @@ footer{padding:32px 0 56px;color:var(--muted);font-size:13px;border-top:1px soli
 {% if awards or certifications %}
 <section>
   <div class="two">
-    {% if awards %}<div><h2>수상</h2><ul class="list">{% for x in awards %}<li><b>{{ x.name }}</b> {{ x.rank }}<div class="meta">{{ x.org }} · {{ x.date }}</div></li>{% endfor %}</ul></div>{% endif %}
-    {% if certifications %}<div><h2>자격·어학</h2><ul class="list">{% for x in certifications %}<li><b>{{ x.name }}</b><div class="meta">{{ x.org }} · {{ x.date }}</div></li>{% endfor %}</ul></div>{% endif %}
+    {% if awards %}<div><h2>수상</h2><ul class="list">{% for x in awards %}<li><b>{{ x.name }}</b> {{ x.rank }}<div class="meta">{{ x.org }}{% if x.date %} · {{ x.date }}{% endif %}</div></li>{% endfor %}</ul></div>{% endif %}
+    {% if certifications %}<div><h2>자격·어학</h2><ul class="list">{% for x in certifications %}<li><b>{{ x.name }}</b><div class="meta">{{ x.org }}{% if x.date %} · {{ x.date }}{% endif %}</div></li>{% endfor %}</ul></div>{% endif %}
   </div>
 </section>
 {% endif %}
 
 <section id="contact">
   <h2>연락처</h2>
-  <p><a href="mailto:{{ profile.email }}">{{ profile.email }}</a>{% if profile.location %} · {{ profile.location }}{% endif %}</p>
+  <p>{% if profile.email %}<a href="mailto:{{ profile.email }}">{{ profile.email }}</a> · {% endif %}{% for l in profile.links %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }}</a> · {% endfor %}{{ profile.location }}</p>
 </section>
 </main>
 <footer><div class="wrap">© {{ profile.name_en or profile.name }} · data/portfolio.yaml에서 자동 생성된 페이지</div></footer>

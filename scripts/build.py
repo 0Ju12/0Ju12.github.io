@@ -65,7 +65,7 @@ def normalize(data):
         a["period_str"] = period_str(a.get("period"))
     acts.sort(key=sort_key, reverse=True)
     data["activities"] = acts
-    data["featured"] = [a for a in acts if a.get("featured")]
+    data["featured"] = sorted((a for a in acts if a.get("featured")), key=lambda a: a.get("priority", 99))
     data["types"] = sorted({a.get("type", "기타") for a in acts})
     for e in data.get("education") or []:
         e["period_str"] = period_str(e.get("period"))

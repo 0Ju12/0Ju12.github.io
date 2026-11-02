@@ -4,7 +4,7 @@
 
 {{ profile.summary }}
 
-📧 {{ profile.email }}{% for l in profile.links %} · [{{ l.label }}]({{ l.url }}){% endfor %}
+{% if profile.email %}📧 {{ profile.email }} · {% endif %}{% for l in profile.links %}[{{ l.label }}]({{ l.url }}){% if not loop.last %} · {% endif %}{% endfor %}
 
 
 ---
@@ -85,5 +85,5 @@
 - {{ x.name }} {{ x.rank }} — {{ x.org }} ({{ x.date }})
 {% endfor %}
 {% for x in certifications %}
-- {{ x.name }} — {{ x.org }} ({{ x.date }})
+- {{ x.name }} — {{ x.org }}{% if x.date %} ({{ x.date }}){% endif %}
 {% endfor %}

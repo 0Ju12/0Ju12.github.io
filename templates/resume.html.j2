@@ -33,7 +33,7 @@ li{margin:1px 0}
   <h1>{{ profile.name }} <span style="font-size:11pt;color:#5c6370;font-weight:400">{{ profile.name_en }}</span></h1>
   <div class="title">{{ profile.title }}</div>
   <div class="contact">
-    <span>{{ profile.email }}</span>{% if profile.phone %}<span>{{ profile.phone }}</span>{% endif %}
+    {% if profile.email %}<span>{{ profile.email }}</span>{% endif %}{% if profile.phone %}<span>{{ profile.phone }}</span>{% endif %}
     {% for l in profile.links %}<span><a href="{{ l.url }}">{{ l.url|replace('https://','') }}</a></span>{% endfor %}
   </div>
 </header>

@@ -1,153 +1,164 @@
 # =====================================================================
 #  포트폴리오 데이터 — 이 파일 하나만 수정하면 모든 결과물이 갱신됩니다.
 #  (웹사이트 · PDF 이력서 · 노션용 문서 · 채용 플랫폼 프로필 문구)
-#  출처: 지구물리컴퓨팅연구실 홈페이지 연구이력 (2026-11 기준)
+#  출처: 연구실 연구이력 페이지, 캡스톤 최종결과 보고서, 확인 체크리스트(2026-11-02)
+#  공개 원칙: 팀원 이름·개인정보(이메일·전화번호)는 넣지 않음
 #  수정 후:  python3 scripts/build.py
 # =====================================================================
 
 profile:
   name: 이영주
   name_en: Young-Ju Lee
-  title: 지구물리 연구원 · CCS 탄성파 모니터링     # TODO 희망 직무에 맞게 조정
-  headline: "탄성파 데이터로 이산화탄소 지중저장소를 들여다보는 지구물리 연구자"
+  title: 데이터·AI 엔지니어
+  headline: "복잡한 지구과학 데이터를 딥러닝과 분석으로 풀어내는 데이터·AI 엔지니어"
   summary: >-
-    지구물리컴퓨팅연구실에서 이산화탄소 지중저장(CCS) 부지의 4D 탄성파 모니터링과 해석을 연구하고
-    환경에너지융합학과 석사 학위를 취득했습니다(2026).
-    노르웨이 슬라이프너·스메아하이아, 호주 CarbonNet, 캐나다 CaMI FRS 등 해외 대규모 CCS 프로젝트를 분석해
-    국내 논문 2편과 학회 발표 10건을 수행했고, 2024 한국지구물리·물리탐사학회(KSEG) 추계학술대회에서 학생 우수논문 발표상을 받았습니다.
-    캐나다 캘거리대학교에서 두 차례 파견 연구를 수행하며 국제공동연구 경험을 쌓았습니다.
-  email: iyju990312@jbnu.ac.kr
+    자원에너지공학을 전공하고 환경에너지융합학과에서 석사 학위를 받았습니다(2026).
+    시공간 딥러닝(U-LSTM) 기반 산불 확산 경로 예측 모델의 설계·학습을 맡아, 학습에 쓰지 않은 산불 사례에서 정확도 0.90, F1-score 0.85를 달성했습니다.
+    석사 과정에서는 중력·자력·탄성파 등 지구물리 데이터를 분석해 지하 구조를 규명했고,
+    논문 2편(제1저자 1편)과 학회 발표 10건, 학회 우수논문 발표상의 성과를 냈습니다.
+    캐나다 캘거리대학교에서 두 차례 파견 연구를 하며 해외 연구진과 협업했고, ADsP(데이터분석 준전문가) 자격을 보유하고 있습니다.
+  email: ""          # 공개하지 않음 (필요하면 입력)
   phone: ""
   location: 대한민국
   photo: ""
   links:
     - { label: GitHub,   url: "https://github.com/0Ju12" }
-    - { label: 연구실 연구이력, url: "https://www.geoverselab.com/ko/research-history/13/" }
+    - { label: 연구 이력, url: "https://www.geoverselab.com/ko/research-history/13/" }
     - { label: LinkedIn, url: "" }
 
 education:
-  - school: 전북대학교 대학원          # TODO 학교명 확인
+  - school: 전북대학교 대학원
     major: 환경에너지융합학과
     degree: 석사
     period: { start: "2024.03", end: "2026.08" }
     gpa: ""
     notes:
-      - "지구물리컴퓨팅연구실 — CCS 탄성파 모니터링"
+      - "학위논문: 중력·자기 이상 자료의 파수 상관성 분석을 통한 가샤 지역 암염 및 기반암 구조 특성화 연구"
+      - "Characterization of Salt and Basement Structures in the Ghasha Area Using Wavenumber Correlation Analysis of Gravity and Magnetic Anomaly Data"
   - school: 전북대학교
-    major: 학과를 입력하세요 (IAB 융합전공)
+    major: 자원에너지공학과
     degree: 학사
     period: { start: "", end: "2024.02" }
     gpa: ""
     notes:
-      - "학부연구생 (지구물리컴퓨팅연구실)"
+      - "IAB 융합전공 이수 · 학부연구생"
 
 skills:
-  - category: 연구 분야
-    items: [CCS(이산화탄소 지중저장), 4D 탄성파 모니터링, 탄성파 자료 해석, 탄성파-전자탐사 복합해석, CO2 저장 부지 적합성 평가]
-  - category: 계산·AI
-    items: [딥러닝(U-LSTM·시공간 예측), GIS 래스터 데이터 구축, GPU 기반 탄성파 처리, 디지털 트윈]
-  - category: 국제협력
-    items: [캘거리대학교 파견연구(2회), 국제공동연구 기획, 해외 CCS 프로젝트 분석]
-  # TODO 사용한 도구·언어 추가 (예: Python, MATLAB, Madagascar, Petrel 등)
+  - category: 언어·프레임워크
+    items: [Python, TensorFlow, PyTorch]
+  - category: AI·데이터 분석
+    items: [시공간 딥러닝(U-LSTM), CNN·LSTM, 모델 평가(Accuracy·F1-score), 데이터 증강·시퀀스 구성]
+  - category: 공간·지구물리 데이터
+    items: [ArcGIS, 래스터 데이터 구축, 중력·자력 자료 처리, 파수 상관 분석, 탄성파 자료 해석, GPlates]
+  - category: 도메인
+    items: [CCS(이산화탄소 지중저장), 에너지·자원, 재난(산불) 예측]
 
 # ---------------------------------------------------------------------
-#  활동 (STAR 구조) — featured: true 는 대표 활동
-#  TODO 표시: 실제 수치·도구 등 본인이 보완해야 할 부분
+#  활동 (STAR 구조)
+#  featured: true → 대표 활동 / priority: 대표 활동 표시 순서 (작을수록 앞)
 # ---------------------------------------------------------------------
 activities:
-  - id: masters-ccs
-    title: CCS 부지 4D 탄성파 모니터링 연구 (석사)
+  - id: wildfire-capstone
+    title: 시공간 딥러닝 기반 산불 확산 경로 예측 모델
+    type: AI 프로젝트
+    org: 전북대학교 IAB 융합전공 · 창의적공학설계 (캡스톤)
+    period: { start: "2023.09", end: "2023.12" }
+    team: "4인 팀"
+    role: 모델 설계·학습 담당
+    featured: true
+    priority: 1
+    tags: [Python, TensorFlow, PyTorch, U-LSTM, ArcGIS]
+    image: assets/wildfire_test_map.png
+    image_caption: "미학습 산불(테스트) — 위: 실제 확산, 아래: 모델 예측 (t1→t5)"
+    summary: 이전 시점의 화선·기상·지형 데이터로 다음 시점의 산불 화선을 예측하는 U-LSTM 모델
+    star:
+      situation: 산불은 풍향·풍속·식생에 따라 빠르게 번지지만, 국내에는 실시간 산불 확산 경로를 예측하는 모델이 없었음
+      task: 팀에서 시공간 딥러닝 모델의 설계와 학습을 맡아, 다음 시점의 산불 확산 범위를 예측하는 것이 목표
+      action:
+        - Conv2D(공간 특징) → LSTM(시계열 특징) → Conv2D Transpose(지도 복원) 구조의 U-LSTM 모델을 설계하고, 데이터가 적고 시계열이 짧은 점을 고려해 네트워크를 얕게 구성
+        - 학습 데이터 부족을 time step별 시퀀스 추가 생성으로 보완
+        - TensorFlow·PyTorch로 모델을 구현하고 Overall Accuracy·F1-score로 검증·평가
+        - "입력 데이터: 4개 대형 산불(울진·삼척, 군위, 밀양, 강릉)의 화선·고도·NDVI·풍향·풍속을 ArcGIS로 2D 래스터화 — 3개로 학습, 1개는 미학습 테스트로 일반화 성능 검증"
+      result:
+        - 검증 정확도 0.95, F1-score 0.81
+        - 학습에 쓰지 않은 산불 테스트에서 정확도 0.90, F1-score 0.85
+        - 초기 시점은 데이터 한계로 오차가 있지만, 후반으로 갈수록 실제 확산 형태를 근접하게 재현
+    links: []
+
+  - id: masters
+    title: 지구물리 데이터 분석 기반 지하 구조 규명 연구 (석사)
     type: 연구
     org: 지구물리컴퓨팅연구실 · 환경에너지융합학과
     period: { start: "2024.03", end: "2026.08" }
     role: 석사과정 연구원
     featured: true
-    tags: [CCS, 4D 탄성파, 복합해석, 부지 적합성]
-    summary: 해외 대규모 이산화탄소 지중저장소의 탄성파 해석과 모니터링 기법 연구
+    priority: 2
+    tags: [중력·자력 데이터, 파수 상관 분석, 탄성파 해석, CCS]
+    summary: 중력·자력·탄성파 데이터를 분석해 CO2 지중저장 후보지와 지하 구조를 해석
     star:
-      situation: 탄소중립을 위해 CO2를 지하에 안전하게 저장하려면, 저장 후 CO2 거동을 지구물리 탐사로 장기간 감시해야 함
-      task: 해외 실증 CCS 프로젝트 자료를 분석해 국내 CCS 모니터링에 적용할 수 있는 해석·모니터링 기법을 연구
+      situation: 이산화탄소 지중저장(CCS)과 자원 탐사에는 지하 구조를 정확히 파악하는 것이 핵심이지만, 단일 탐사 자료만으로는 해석에 한계가 있음
+      task: 여러 종류의 지구물리 데이터를 결합·분석해 지하 구조를 규명하고, 해외 대규모 CCS 사례를 분석
       action:
-        - 판구조론적 역사를 고려해 해외 대규모 CO2 지중저장소의 탄성파 해석 결과를 분석 (논문, 2024)
-        - 노르웨이 슬라이프너 모니터링 자료에 대한 탄성파-전자탐사 복합 해석 연구
-        - 노르웨이 스메아하이아 CO2 지중저장 프로젝트의 부지 적합성 분석
-        - AI·디지털 트윈 융합 스마트 CO2 저장소 운영 글로벌 인력양성사업 관련 발표
+        - "학위논문: 중력·자기 이상 자료의 파수(wavenumber) 상관성 분석으로 아부다비 가샤 지역의 암염돔과 기반암 구조를 특성화"
+        - "제1저자 논문: GPlates로 북미·북해·오세아니아·중동 대규모 CO2 저장소의 형성사를 복원하고 탄성파 영상을 지질구조 관점에서 해석"
+        - 노르웨이 슬라이프너 모니터링 자료의 탄성파-전자탐사 복합 해석, 스메아하이아 저장 부지 적합성 분석
       result:
-        - 국내 논문 1편(지구물리와 물리탐사, 2024), 학회 발표 5건(2024)
-        - 2024 KSEG 추계학술대회 학생 우수논문 발표상 수상
+        - 제1저자 논문 1편 (지구물리와 물리탐사, 2024), 학회 발표 5건 (2024)
+        - 2024 KSEG 추계학술대회 학생 우수논문(포스터) 발표상
         - 2026년 석사 학위 취득
     links:
-      - { label: 연구이력, url: "https://www.geoverselab.com/ko/research-history/13/" }
+      - { label: 제1저자 논문, url: "https://koreascience.or.kr/article/JAKO202410348585789.page" }
+      - { label: 연구 이력, url: "https://www.geoverselab.com/ko/research-history/13/" }
 
   - id: calgary-2024
-    title: 캐나다 캘거리대학교 장기 파견연구
+    title: 캐나다 캘거리대학교 장기 파견연구 — 중력·자력 데이터 복합 해석
     type: 국제협력
     org: University of Calgary
     period: { start: "2024.06", end: "2024.12" }
     role: 석사과정 파견연구원
     featured: true
-    tags: [국제공동연구, 탄성파 모니터링, CaMI FRS]
-    summary: 캐나다 캘거리대학교에서 약 6개월간 CCS 모니터링 공동연구 수행
+    priority: 3
+    tags: [중력·자력 데이터, 복합 해석, 국제공동연구]
+    summary: 중력·자력 탐사 자료를 결합해 아부다비 가샤 암염돔과 지하 기반암 구조를 파악
     star:
-      situation: 캐나다는 CaMI FRS 등 CCS 모니터링 현장 실험 인프라를 보유해 국제공동연구 수요가 있었음
-      task: 현지 연구진과 함께 CCS 탄성파 모니터링 공동연구 수행   # TODO 구체적인 담당 업무
+      situation: 암염돔과 기반암 구조는 단일 탐사 자료로 해석하기 어려워 서로 다른 물리량을 함께 분석할 필요가 있었음
+      task: 약 6개월간 캘거리대학교에 파견되어, 중력·자력 탐사 자료의 복합 해석 연구를 수행
       action:
-        - "TODO: 파견 기간 동안 수행한 구체적인 연구 내용"
+        - 중력·자력 탐사 자료를 결합해 아부다비 가샤 지역의 암염돔과 지하 기반암 구조를 분석
+        - 해외 연구진과 협업하며 연구를 진행하고, 결과를 석사 학위논문으로 확장
       result:
-        - 약 6개월간의 장기 파견연구를 성공적으로 마무리 (2024.12)
+        - 파견 연구 결과가 석사 학위논문(2026)의 핵심 내용이 됨
     links: []
 
   - id: undergrad-research
-    title: 학부연구생 — 4D 탄성파 모니터링 기술 연구
+    title: 학부연구생 — 지구물리 데이터 처리와 해외 CCS 사례 분석
     type: 연구
-    org: 지구물리컴퓨팅연구실
+    org: 지구물리컴퓨팅연구실 · 자원에너지공학과
     period: { start: "2022", end: "2024.02" }
     role: 학부연구생
     featured: true
-    tags: [4D 탄성파, GPU, 딥러닝, 해외 CCS]
-    summary: 학부 과정에서 4D 탄성파 모니터링 기술과 해외 CCS 프로젝트 사례를 연구
+    priority: 4
+    tags: [중력 데이터 처리, 4D 탄성파, GPU, 해외 CCS]
+    summary: 학부 과정에서 지구물리 데이터 처리와 4D 탄성파 모니터링·해외 CCS 사례를 연구
     star:
-      situation: CO2 저장소 모니터링에는 시간에 따른 변화를 비교하는 4D 탄성파 기술이 핵심이지만, 자료 비반복성과 계산 비용이 과제였음
-      task: 4D 탄성파 모니터링의 기술적 한계와 해외 적용 사례를 조사·분석
+      situation: CO2 저장소 모니터링의 핵심인 4D 탄성파 기술은 자료 비반복성과 높은 계산 비용이라는 과제가 있었음
+      task: 4D 탄성파 모니터링의 기술적 한계와 해외 CCS 사례를 조사·분석하고, 해외 파견에서 실제 데이터 처리를 수행
       action:
-        - 스트리머를 이용한 해양 4D 탄성파 모니터링의 비반복성 분석 (2022)
-        - GPU를 이용한 4D 탄성파 모니터링 기술의 적용성 검토 (2022)
+        - "캘거리대학교 단기 파견(2023.12–2024.02): 미국 Utah FORGE 지열 부지의 중력 데이터 처리"
+        - 스트리머를 이용한 해양 4D 탄성파 모니터링의 비반복성 분석, GPU 기반 4D 탄성파 모니터링 기술의 적용성 검토 (2022)
         - 사우디아라비아 딥러닝 기반 탄성파 영상화, 캐나다 CaMI FRS, 노르웨이 슬라이프너 모니터링 연구 동향 분석 (2023)
-        - 호주 깁스랜드 분지 CarbonNet CCS 프로젝트의 지질학적 분석 (논문, 2023)
-        - 캐나다 캘거리대학교 단기 파견연구 (2023.12–2024.02)
       result:
-        - 학부 과정에서 국내 논문 1편(지구물리와 물리탐사, 2023) 게재
+        - 제2저자 논문 1편 (호주 깁스랜드 분지 CarbonNet CCS 지질학적 분석, 지구물리와 물리탐사, 2023)
         - 학회 발표 5건 (2022–2023)
-    links: []
-
-  - id: wildfire-capstone
-    title: 시공간 딥러닝 기반 산불 확산 경로 예측 모델
-    type: 프로젝트
-    org: 전북대학교 IAB 융합전공 · 창의적공학설계 (캡스톤)
-    period: { start: "2023.09", end: "2023.12" }
-    team: "4인"
-    role: 팀원        # TODO 담당 역할 확인 (체크리스트 9번)
-    featured: true
-    tags: [딥러닝, U-LSTM, GIS, 시공간 예측, Python]
-    summary: 기상·지형·식생 데이터로 다음 시점의 산불 화선을 예측하는 U-LSTM 모델 구축
-    star:
-      situation: 산불은 풍향·풍속·임상 등에 따라 급속히 확산되지만, 국내에는 실시간 산불 확산 경로 예측 모델이 없었음
-      task: 산불 상황도와 기상·지리 데이터로 다음 시점의 산불 확산을 예측하는 딥러닝 모델 구축
-      action:
-        - 울진·삼척, 군위, 밀양, 강릉 등 4개 대형 산불의 확산 양상을 GIS로 2D 래스터 데이터화 (3개 학습, 1개 테스트)
-        - 화선·고도·NDVI(식생지수)·풍향·풍속 5개 변수를 래스터로 구축하고, 부족한 데이터는 time step별 시퀀스를 추가 생성해 보완
-        - Conv2D(공간) + LSTM(시계열) + Conv2D Transpose 구조의 U-LSTM 모델을 얕게 설계해 소규모 데이터에 맞춤
-      result:
-        - 검증 정확도 0.95, F1-score 0.81
-        - 미학습 산불 테스트 정확도 0.90, F1-score 0.85
-    links: []
+    links:
+      - { label: 제2저자 논문, url: "https://koreascience.or.kr/article/JAKO202335272000266.page" }
 
 # ---------------------------------------------------------------------
 #  논문·학회 발표
 # ---------------------------------------------------------------------
 publications:
-  - { kind: 논문, year: 2024, title: "판구조론적 역사를 고려한 해외 대규모 이산화탄소 지중저장소 탄성파 해석 결과 분석", venue: "지구물리와 물리탐사 27(1), 1–22", url: "https://koreascience.or.kr/article/JAKO202410348585789.page" }
-  - { kind: 논문, year: 2023, title: "호주 깁스랜드 분지 CarbonNet CCS 프로젝트의 지질학적 분석", venue: 지구물리와 물리탐사, url: "https://koreascience.or.kr/article/JAKO202335272000266.page" }
+  - { kind: 논문, year: 2024, title: "판구조론적 역사를 고려한 해외 대규모 이산화탄소 지중저장소 탄성파 해석 결과 분석", venue: "지구물리와 물리탐사 27(1), 1–22 · 제1저자", url: "https://koreascience.or.kr/article/JAKO202410348585789.page" }
+  - { kind: 논문, year: 2023, title: "호주 깁스랜드 분지 CarbonNet CCS 프로젝트의 지질학적 분석", venue: "지구물리와 물리탐사 · 제2저자", url: "https://koreascience.or.kr/article/JAKO202335272000266.page" }
   - { kind: 학회 발표, year: 2024, title: "노르웨이 슬라이프너 프로젝트 모니터링 자료에 대한 탄성파-전자탐사 복합 해석 연구" }
   - { kind: 학회 발표, year: 2024, title: "인공지능과 디지털 트윈 융합을 통한 스마트 이산화탄소 저장소 운영 혁신 글로벌 인력양성사업" }
   - { kind: 학회 발표, year: 2024, title: "해외 CCS 프로젝트 실증 현황 및 국제공동연구 추진 전략" }
@@ -162,4 +173,5 @@ publications:
 awards:
   - { name: "2024 한국지구물리·물리탐사학회(KSEG) 추계학술대회 학생 우수논문(포스터) 발표상", rank: "", org: 한국지구물리·물리탐사학회, date: "2024.11" }
 
-certifications: []   # TODO 교육 이수증·자격증·어학 추가
+certifications:
+  - { name: "ADsP (데이터분석 준전문가)", org: 한국데이터산업진흥원, date: "" }
