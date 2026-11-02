@@ -15,7 +15,7 @@ profile:
     자원에너지공학을 전공하고 환경에너지융합학과에서 석사 학위를 받았습니다(2026).
     시공간 딥러닝(U-LSTM) 기반 산불 확산 경로 예측 모델의 설계·학습을 맡아, 학습에 쓰지 않은 산불 사례에서 정확도 0.90, F1-score 0.85를 달성했습니다.
     석사 과정에서는 중력·자력·탄성파 등 지구물리 데이터를 분석해 지하 구조를 규명했고,
-    논문 2편(제1저자 1편)과 학회 발표 10건, 학회 우수논문 발표상의 성과를 냈습니다.
+    SCIE 국제학술지 SPE Journal 제1저자 논문을 포함해 논문 3편과 학회 발표 10건, 학회 우수논문 발표상의 성과를 냈습니다.
     캐나다 캘거리대학교에서 두 차례 파견 연구를 하며 해외 연구진과 협업했고, ADsP(데이터분석 준전문가) 자격을 보유하고 있습니다.
   email: ""          # 공개하지 않음 (필요하면 입력)
   phone: ""
@@ -25,6 +25,17 @@ profile:
     - { label: GitHub,   url: "https://github.com/0Ju12" }
     - { label: 연구 이력, url: "https://www.geoverselab.com/ko/research-history/13/" }
     - { label: LinkedIn, url: "" }
+
+# 첫 화면 핵심 숫자 (채용 담당자가 3초 안에 보는 부분)
+highlights:
+  - { value: "SCIE 1편", label: "국제학술지 제1저자 (SPE Journal)" }
+  - { value: "F1 0.85", label: "산불 확산 예측 · 미학습 테스트" }
+  - { value: "0.94+", label: "기반암 모델 상관계수" }
+  - { value: "3 · 10", label: "논문 · 학회 발표" }
+
+# 디자인 테마: minimal | dashboard | editorial
+site:
+  theme: minimal
 
 education:
   - school: 전북대학교 대학원
@@ -86,28 +97,31 @@ activities:
     links: []
 
   - id: masters
-    title: 지구물리 데이터 분석 기반 지하 구조 규명 연구 (석사)
+    title: 중력·자력 데이터 파수 상관 분석으로 지하 구조 규명 (석사 · SPE Journal 제1저자)
     type: 연구
     org: 지구물리컴퓨팅연구실 · 환경에너지융합학과
     period: { start: "2024.03", end: "2026.08" }
     role: 석사과정 연구원
     featured: true
     priority: 2
-    tags: [중력·자력 데이터, 파수 상관 분석, 탄성파 해석, CCS]
-    summary: 중력·자력·탄성파 데이터를 분석해 CO2 지중저장 후보지와 지하 구조를 해석
+    tags: [신호처리(파수 영역), 상관 분석, 지표 설계, 중력·자력 데이터, CCS]
+    summary: 겹쳐 있는 중력·자력 신호를 파수 영역 상관 분석으로 분리하는 지표(SLFI·DLFI)를 설계해 암염·기반암 구조를 규명
     star:
-      situation: 이산화탄소 지중저장(CCS)과 자원 탐사에는 지하 구조를 정확히 파악하는 것이 핵심이지만, 단일 탐사 자료만으로는 해석에 한계가 있음
-      task: 여러 종류의 지구물리 데이터를 결합·분석해 지하 구조를 규명하고, 해외 대규모 CCS 사례를 분석
+      situation: 아부다비 해상 가샤 지역은 암염과 기반암이 8~10 km 두께의 퇴적층 아래에 겹쳐 있어, 중력·자력 신호가 섞이고 기존 해석법은 암염 깊이를 약 6,000 m로 실제(탄성파 기준 약 9,300 m)보다 크게 얕게 추정하는 한계가 있었음
+      task: 항공 중력·자력 데이터에서 기반암과 암염의 신호를 분리해 각 구조를 규명하는 분석 방법을 제안
       action:
-        - "학위논문: 중력·자기 이상 자료의 파수(wavenumber) 상관성 분석으로 아부다비 가샤 지역의 암염돔과 기반암 구조를 특성화"
-        - "제1저자 논문: GPlates로 북미·북해·오세아니아·중동 대규모 CO2 저장소의 형성사를 복원하고 탄성파 영상을 지질구조 관점에서 해석"
-        - 노르웨이 슬라이프너 모니터링 자료의 탄성파-전자탐사 복합 해석, 스메아하이아 저장 부지 적합성 분석
+        - 상향 연속·정규화로 중력·자력 데이터를 전처리하고, 파수(wavenumber) 영역에서 두 신호의 상관계수 CC(k)를 계산하는 파수 상관 필터링(WCF) 파이프라인 구축
+        - 양의 상관 성분을 강조해 기반암을 드러내는 SLFI, 약한·음의 상관 성분으로 암염을 드러내는 DLFI 두 지표를 설계
+        - 기존 3개 독립 모델과 공간 비교·측선별 비교·3D 밀도 모델로 결과를 다각도 검증
+        - "관련 연구: GPlates로 해외 대규모 CO2 저장소 형성사를 복원하고 탄성파 영상을 해석(제1저자, 2024), 슬라이프너 탄성파-전자탐사 복합 해석, 스메아하이아 부지 적합성 분석"
       result:
-        - 제1저자 논문 1편 (지구물리와 물리탐사, 2024), 학회 발표 5건 (2024)
-        - 2024 KSEG 추계학술대회 학생 우수논문(포스터) 발표상
-        - 2026년 석사 학위 취득
+        - SLFI 기반 기반암 구조가 서로 다른 해석법의 기존 독립 모델 3개와 상관계수 0.94 이상으로 일치
+        - DLFI로 암염 구조의 공간 분포를 재현하고, 가샤 서쪽의 추가 암염 융기 가능성을 새로 제시
+        - SCIE 국제학술지 SPE Journal 제1저자 논문 (2026, 캘거리대·칼리파대 공동연구) · 국내 제1저자 논문 1편 · 학회 발표 5건
+        - 2024 KSEG 추계학술대회 학생 우수논문(포스터) 발표상 · 2026년 석사 학위 취득
     links:
-      - { label: 제1저자 논문, url: "https://koreascience.or.kr/article/JAKO202410348585789.page" }
+      - { label: SPE Journal 논문, url: "https://doi.org/10.2118/236968-PA" }
+      - { label: 국내 제1저자 논문, url: "https://koreascience.or.kr/article/JAKO202410348585789.page" }
       - { label: 연구 이력, url: "https://www.geoverselab.com/ko/research-history/13/" }
 
   - id: calgary-2024
@@ -124,11 +138,13 @@ activities:
       situation: 암염돔과 기반암 구조는 단일 탐사 자료로 해석하기 어려워 서로 다른 물리량을 함께 분석할 필요가 있었음
       task: 약 6개월간 캘거리대학교에 파견되어, 중력·자력 탐사 자료의 복합 해석 연구를 수행
       action:
-        - 중력·자력 탐사 자료를 결합해 아부다비 가샤 지역의 암염돔과 지하 기반암 구조를 분석
-        - 해외 연구진과 협업하며 연구를 진행하고, 결과를 석사 학위논문으로 확장
+        - 캘거리대학교 측지공학과 연구진과 함께 항공 중력·자력 데이터의 파수 상관 분석 연구 수행
+        - 칼리파대학교(UAE)와의 3개 기관 공동연구로 확장
       result:
-        - 파견 연구 결과가 석사 학위논문(2026)의 핵심 내용이 됨
-    links: []
+        - 파견 연구 결과로 SCIE 국제학술지 SPE Journal 제1저자 논문 게재 승인 (2026)
+        - 같은 연구를 석사 학위논문(2026)으로 완성
+    links:
+      - { label: SPE Journal 논문, url: "https://doi.org/10.2118/236968-PA" }
 
   - id: undergrad-research
     title: 학부연구생 — 지구물리 데이터 처리와 해외 CCS 사례 분석
@@ -157,6 +173,7 @@ activities:
 #  논문·학회 발표
 # ---------------------------------------------------------------------
 publications:
+  - { kind: 논문, year: 2026, title: "Wavenumber Correlation of Gravity and Magnetic Anomalies for Constraining Salt/Basement Structure in Offshore Abu Dhabi", venue: "SPE Journal (SCIE) · 제1저자 · 게재 승인", url: "https://doi.org/10.2118/236968-PA" }
   - { kind: 논문, year: 2024, title: "판구조론적 역사를 고려한 해외 대규모 이산화탄소 지중저장소 탄성파 해석 결과 분석", venue: "지구물리와 물리탐사 27(1), 1–22 · 제1저자", url: "https://koreascience.or.kr/article/JAKO202410348585789.page" }
   - { kind: 논문, year: 2023, title: "호주 깁스랜드 분지 CarbonNet CCS 프로젝트의 지질학적 분석", venue: "지구물리와 물리탐사 · 제2저자", url: "https://koreascience.or.kr/article/JAKO202335272000266.page" }
   - { kind: 학회 발표, year: 2024, title: "노르웨이 슬라이프너 프로젝트 모니터링 자료에 대한 탄성파-전자탐사 복합 해석 연구" }

@@ -1,0 +1,4 @@
+/* A. Minimal — 밝고 깔끔한 기본형. 카드 그리드 + 블루 포인트 */
+.theme-minimal header{padding-top:80px}
+.theme-minimal .card{transition:box-shadow .2s,transform .2s}
+.theme-minimal .card:hover{box-shadow:0 8px 24px rgba(20,30,60,.08);transform:translateY(-2px)}

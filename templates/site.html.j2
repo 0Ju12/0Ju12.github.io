@@ -85,9 +85,14 @@ details.item[open] summary{border-bottom:1px solid var(--line)}
 .fig figcaption{font-size:13px;color:var(--muted);margin-top:6px}
 footer{padding:32px 0 56px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
 @media (max-width:560px){header{padding:48px 0 32px} details.item summary{grid-template-columns:1fr} details.item summary .when{text-align:left}}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:28px 0 0}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.stat b{display:block;font-size:22px;color:var(--accent);line-height:1.2}
+.stat span{font-size:12.5px;color:var(--muted)}
+{% include "themes/" ~ theme ~ ".css" %}
 </style>
 </head>
-<body>
+<body class="theme-{{ theme }}">
 <nav><div class="wrap">
   <a class="brand" href="#top">{{ profile.name }}</a>
   {% if featured %}<a href="#featured">대표 활동</a>{% endif %}
@@ -109,6 +114,7 @@ footer{padding:32px 0 56px;color:var(--muted);font-size:13px;border-top:1px soli
       <a class="btn primary" href="resume.pdf" download>이력서 PDF</a>
       {% for l in profile.links %}<a class="btn" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }}</a>{% endfor %}
     </div>
+    {% if highlights %}<div class="stats">{% for h in highlights %}<div class="stat"><b>{{ h.value }}</b><span>{{ h.label }}</span></div>{% endfor %}</div>{% endif %}
   </div>
 </header>
 
