@@ -88,7 +88,7 @@ activities:
     brief:
       - "Designed wavenumber-correlation indices (SLFI · DLFI) splitting overlapping gravity/magnetic signals; r ≥ 0.94 vs. 3 independent models · code released"
       - "6-month stay at Univ. of Calgary, collaboration with Khalifa Univ. (UAE) → first-author SPE Journal paper (SCIE, 2026)"
-      - "Best Student Paper (poster), KSEG 2024 · 3 talks"
+      - "Best Student Paper (poster), KSEG 2024 · 3 talks · 10+ lab research-meeting talks · 2025 Basic Research Lab workshop talk"
     tags: [Signal processing (wavenumber domain), Correlation analysis, Index design, Gravity & magnetic data, International collaboration]
     image: assets/masters_thesis.jpg
     image_caption: "M.S. thesis (2026.08) — left: cover, right: SLFI (basement) and DLFI (salt) maps (Fig. 11)"
@@ -111,6 +111,8 @@ activities:
             - Designed two indices — SLFI from positively correlated components (basement) and DLFI from weak/negative ones (salt)
             - Chose thresholds from energy–correlation trade-off curves instead of by eye (upward continuation 1,500 m at the knee point; SLFI band 0.5–1.0 keeps ~half the energy at correlation 0.85)
             - Validated against three independent published models with map, profile and 3-D density comparisons
+            - "Presented Abu Dhabi processing and analysis results at 10+ regular lab research meetings (2024.05–2026.01) and at the 2025.11 Basic Research Lab workshop"
+            - "Drafted annual and progress reports for national R&D projects (incl. the IITP global talent program) and handled lab administration"
           result:
             - SLFI basement structure agrees with three independent models at r ≥ 0.94 (profile correlation 0.95–0.98 after shift alignment)
             - DLFI reproduces the salt distribution and suggests an additional salt uplift west of Ghasha
@@ -135,6 +137,7 @@ activities:
             - "Funded by the MSIT/IITP Global Talent program in digital fields (AI & digital-twin smart CCS)"
             - Worked with the Department of Geomatics Engineering on wavenumber correlation of airborne gravity and magnetic data
             - Extended the work into a 3-institution collaboration with Khalifa University (UAE)
+            - "Joined a field geophysical survey in Kananaskis (Canadian Rockies) and co-wrote the English Field Exploration Report (2024.08)"
           result:
             - Led to the first-author SPE Journal paper (SCIE, 2026) and the M.S. thesis
         links:

@@ -80,6 +80,7 @@ Combined gravity and magnetic surveys to characterize the Ghasha salt dome and b
 • Funded by the MSIT/IITP Global Talent program in digital fields (AI & digital-twin smart CCS)
 • Worked with the Department of Geomatics Engineering on wavenumber correlation of airborne gravity and magnetic data
 • Extended the work into a 3-institution collaboration with Khalifa University (UAE)
+• Joined a field geophysical survey in Kananaskis (Canadian Rockies) and co-wrote the English Field Exploration Report (2024.08)
 ✔ Led to the first-author SPE Journal paper (SCIE, 2026) and the M.S. thesis
 기술: Gravity & magnetic data, Joint interpretation, International collaboration
 ```
