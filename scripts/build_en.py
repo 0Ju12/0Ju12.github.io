@@ -90,6 +90,7 @@ CAPTIONS = {
     "Fig11_": "M.S. thesis Fig. 11 — SLFI (basement) · DLFI (salt) maps",
     "프로젝트_장려상·수료증": "POSCO academy — Excellence Award & certificate",
     "관통5_LLM_댓글분석_결과화면": "ThRead — LLM comment-analysis result screen",
+    "국보입문가이드_RAG": "Heritage RAG guide — Q&A showing only verified citations",
     "학회_참가": "2022 — conference badges (KSEG · K-CCUS)",
     "유타_FORGE_지열부지_포스터발표": "2024.04 — Utah FORGE poster presentation",
 }
