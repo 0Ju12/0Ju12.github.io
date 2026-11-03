@@ -1,0 +1,110 @@
+{% import "layouts/_parts.j2" as p %}
+{% import "layouts/_v2.j2" as v %}
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ profile.name }} — 연구 노트</title>
+<meta name="description" content="{{ profile.title }} · {{ profile.headline }}">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fffff8;--text:#111;--muted:#6b6b63;--line:#d9d7cc;--accent:#8a1c1c;--note:#555}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#151513;--text:#e8e6dd;--muted:#9b998f;--line:#33322d;--accent:#e08a7a;--note:#aaa79d}}
+:root[data-theme="dark"]{--bg:#151513;--text:#e8e6dd;--muted:#9b998f;--line:#33322d;--accent:#e08a7a;--note:#aaa79d}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:18px/1.85 "Gowun Batang",serif;-webkit-font-smoothing:antialiased;word-break:keep-all}
+a{color:inherit;text-decoration-color:var(--line);text-underline-offset:3px}
+a:hover{color:var(--accent);text-decoration-color:var(--accent)}
+.page{max-width:1180px;margin:0 auto;padding:56px 32px 80px}
+.row{display:grid;grid-template-columns:minmax(0,640px) 1fr;gap:0 56px}
+.main{grid-column:1}
+.side{grid-column:2;font:13.5px/1.65 "Noto Sans KR",sans-serif;color:var(--note)}
+.side .n{display:block;margin-bottom:14px}
+.side b{color:var(--text);font-weight:500}
+nav.top{display:flex;justify-content:space-between;font:13px "Noto Sans KR",sans-serif;color:var(--muted);margin-bottom:64px}
+nav.top a{text-decoration:none;margin-left:18px}
+#theme{background:none;border:0;color:inherit;font:inherit;cursor:pointer;margin-left:18px;padding:0}
+h1{font-weight:400;font-size:clamp(34px,4.6vw,52px);line-height:1.2;letter-spacing:-.02em;margin:0 0 6px}
+.subtitle{font-style:italic;font-size:21px;color:var(--muted);margin:0 0 40px}
+.lead{font-size:20px}
+.lead::first-letter{float:left;font-size:3.4em;line-height:.9;padding:6px 10px 0 0;color:var(--accent)}
+h2{font-weight:400;font-style:italic;font-size:30px;margin:72px 0 8px;letter-spacing:-.01em}
+h2 small{font-style:normal;font:12px "Noto Sans KR",sans-serif;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px}
+h3{font-weight:700;font-size:22px;line-height:1.45;margin:48px 0 8px;letter-spacing:-.01em}
+h3 .sc{font:600 12.5px "Noto Sans KR",sans-serif;letter-spacing:.08em;color:var(--accent);display:block;margin-bottom:6px}
+p{margin:0 0 18px}
+.pts{margin:0 0 18px;padding-left:22px}.pts li{margin:6px 0}
+.avatar{width:100%;max-width:200px;aspect-ratio:1;object-fit:cover;border-radius:2px;display:block;filter:sepia(.15);font-size:48px}
+.vis{margin:6px 0 20px}
+.vis img{width:100%;max-height:380px;object-fit:cover;object-position:top;display:block;border:1px solid var(--line);background:#fff}
+.vis figcaption{font:13px/1.6 "Noto Sans KR",sans-serif;color:var(--note);margin-top:6px}
+.vis.flow{font:14px/1.6 "Noto Sans KR",sans-serif;border-left:2px solid var(--accent);padding:2px 0 2px 14px}
+.flow-l{display:block;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+.vis.flow ol{margin:0;padding:0;list-style:none}
+.vis.flow li{padding:3px 0;color:var(--text)}
+.vis.flow li i{font-style:normal;color:var(--muted);margin-right:8px}
+.plinks a{display:block}
+hr{border:0;border-top:1px solid var(--line);margin:56px 0 0}
+.wl{list-style:none;margin:0;padding:0}
+.wl li{margin:0 0 16px}
+.wl a{font-size:19px}
+.wl small{display:block;font:13px "Noto Sans KR",sans-serif;color:var(--muted)}
+.refs{padding-left:24px}.refs li{margin-bottom:12px}
+.refs small{color:var(--muted);font-style:italic}
+.epi{font-style:italic;font-size:22px;border-left:2px solid var(--line);padding-left:20px;margin:40px 0;color:var(--muted)}
+footer{margin-top:80px;font:13px "Noto Sans KR",sans-serif;color:var(--muted)}
+@media (max-width:900px){
+  .page{padding:28px 20px 56px}
+  .row{grid-template-columns:1fr}
+  .side{grid-column:1;border-left:2px solid var(--line);padding-left:14px;margin:0 0 20px}
+  nav.top{margin-bottom:40px}nav.top .opt{display:none}
+  body{font-size:17px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+<nav class="top"><span>{{ profile.name_en }} · 연구 노트</span><span><a class="opt" href="#work">작업</a><a class="opt" href="#writing">글</a><a class="opt" href="#refs">논문</a>{% if alt_lang %}<a href="{{ alt_lang.url }}">{{ alt_lang.label }}</a>{% endif %}{{ v.theme_btn() }}</span></nav>
+
+<div class="row">
+  <div class="main">
+    <h1>{{ profile.name }}</h1>
+    <p class="subtitle">데이터를 모으고, 모델로 검증하고, 결과로 증명합니다</p>
+    <p class="lead">{{ v.intro() }}</p>
+    <p>이 페이지는 그동안의 작업을 연구 노트처럼 정리한 것입니다. 본문에는 무엇을 왜 했는지를, 오른쪽 여백에는 기간·역할·도구·링크를 적었습니다.</p>
+  </div>
+  <aside class="side">{{ p.avatar(profile) }}<span class="n" style="margin-top:12px"><b>{{ profile.title }}</b><br>전북대 석사(2026) · SSAFY 16기</span><span class="n"><a href="resume-1page.pdf" download>이력서 PDF</a>{% for l in profile.links %}<br><a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }}</a>{% endfor %}{% if profile.email %}<br><a href="mailto:{{ profile.email }}">{{ profile.email }}</a>{% endif %}</span></aside>
+</div>
+
+<div class="row" id="work"><div class="main"><h2><small>Part I</small>작업</h2></div></div>
+{% for x in projects_index %}
+<div class="row">
+  <div class="main">
+    <h3><span class="sc">{{ '%d'|format(loop.index) }}. {{ x.org }}</span>{{ x.title }}</h3>
+    <p>{{ x.oneliner }}</p>
+    <ul class="pts">{% for t in x.points %}<li>{{ t }}</li>{% endfor %}</ul>
+    {{ v.visual(x) }}
+  </div>
+  <aside class="side" style="padding-top:52px"><span class="n"><b>기간</b> {{ x.period }}<br><b>역할</b> {{ x.team }}</span><span class="n"><b>도구</b> {{ x.stack|join(', ') }}</span><span class="n plinks">{{ v.links(x, posts) }}</span></aside>
+</div>
+{% if loop.index == 3 %}<div class="row"><div class="main"><p class="epi">LLM에는 판단만 맡기고, 결과는 코드로 다시 확인한다 — 세 프로젝트에 공통으로 적용한 원칙.</p></div></div>{% endif %}
+{% endfor %}
+
+{% if posts %}
+<div class="row" id="writing"><div class="main"><h2><small>Part II</small>글</h2>
+<ul class="wl">{% for w in posts %}<li><a href="posts/{{ w.slug }}.html">{{ w.title }}</a><small>{{ w.date }} · {{ w.summary|truncate(64) }}</small></li>{% endfor %}</ul>
+</div><aside class="side" style="padding-top:110px"><span class="n">프로젝트마다 내린 설계 결정과 실패를 기록했습니다.{% if study_notes %} SSAFY 강의 노트 {{ study_notes|length }}편은 <a href="study/index.html">학습 공간</a>에 있습니다.{% endif %}</span></aside></div>
+{% endif %}
+
+<div class="row" id="refs"><div class="main"><h2><small>Part III</small>논문과 이력</h2>
+<ol class="refs">{% for x in papers %}<li>{% if x.url %}<a href="{{ x.url }}" target="_blank" rel="noopener">{{ x.title }}</a>{% else %}{{ x.title }}{% endif %}. <small>{{ x.venue }}, {{ x.year }}.</small></li>{% endfor %}</ol>
+<p>학력 — {% for e in education %}{{ e.school }} {{ e.major }} {{ e.degree }}({{ e.period_str }}){% if not loop.last %}; {% endif %}{% endfor %}.</p>
+<p>수상·자격 — {% for x in awards + certifications %}{{ x.name }}({{ x.date }}){% if not loop.last %}; {% endif %}{% endfor %}.</p>
+</div><aside class="side" style="padding-top:110px">{% for s in skills %}<span class="n"><b>{{ s.category }}</b><br>{{ s['items']|join(', ') }}</span>{% endfor %}<span class="n">학회 발표 {{ talks|length }}건</span></aside></div>
+
+<footer>© {{ profile.name_en }} · data/portfolio.yaml 에서 자동 생성 · <a href="private/index.html" rel="nofollow">Private</a></footer>
+</div>
+{{ p.theme_script() }}
+</body>
+</html>

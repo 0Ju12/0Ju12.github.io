@@ -1,0 +1,153 @@
+{% import "layouts/_parts.j2" as p %}
+{% import "layouts/_v2.j2" as v %}
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ profile.name }} — {{ profile.title }}</title>
+<meta name="description" content="{{ profile.title }} · {{ profile.headline }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--bg:#08090a;--card:#0f1011;--card-2:#141516;--text:#f7f8f8;--muted:#8a8f98;--faint:#62666d;--line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.14);--accent:#8e9cff}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){--bg:#fbfbfc;--card:#ffffff;--card-2:#f4f5f7;--text:#0d0e10;--muted:#5e636b;--faint:#8b9098;--line:rgba(0,0,0,.08);--line-2:rgba(0,0,0,.14);--accent:#4f5bd5}}
+:root[data-theme="light"]{--bg:#fbfbfc;--card:#ffffff;--card-2:#f4f5f7;--text:#0d0e10;--muted:#5e636b;--faint:#8b9098;--line:rgba(0,0,0,.08);--line-2:rgba(0,0,0,.14);--accent:#4f5bd5}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:15.5px/1.65 "Pretendard Variable",Pretendard,system-ui,sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all;letter-spacing:-.005em}
+a{color:inherit;text-decoration:none}
+.w{max-width:1080px;margin:0 auto;padding:0 24px}
+header.nav{position:sticky;top:0;z-index:10;border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(12px)}
+header.nav .w{display:flex;align-items:center;gap:26px;height:56px;font-size:14px}
+header.nav .b{font-weight:600;margin-right:auto;display:flex;gap:10px;align-items:center}
+header.nav .b i{width:18px;height:18px;border-radius:5px;background:var(--text);display:inline-block}
+header.nav a.n{color:var(--muted)}header.nav a.n:hover{color:var(--text)}
+.pill{display:inline-flex;align-items:center;height:30px;padding:0 12px;border-radius:8px;border:1px solid var(--line-2);font-size:13px;font-weight:500;color:var(--text);background:var(--card)}
+#theme{cursor:pointer;font:inherit;font-size:13px}
+.hero{padding:120px 0 80px;text-align:center}
+.badge{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line-2);border-radius:999px;padding:4px 12px 4px 6px;font-size:13px;color:var(--muted)}
+.badge b{background:var(--card-2);color:var(--text);border-radius:999px;padding:1px 8px;font-weight:500;font-size:12px}
+.hero h1{font-size:clamp(38px,6vw,68px);line-height:1.08;letter-spacing:-.045em;font-weight:700;margin:24px auto 22px;max-width:860px;background:linear-gradient(180deg,var(--text) 30%,color-mix(in srgb,var(--text) 55%,transparent));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);font-size:18px;max-width:620px;margin:0 auto 32px}
+.cta{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.btn{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 18px;border-radius:10px;font-weight:600;font-size:14.5px;border:1px solid var(--line-2);background:var(--card);color:var(--text)}
+.btn.pri{background:var(--text);color:var(--bg);border-color:var(--text)}
+.btn:hover{border-color:var(--muted)}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:14px;margin-top:72px;text-align:left;overflow:hidden}
+.strip div{padding:18px 20px;border-right:1px solid var(--line)}
+.strip div:last-child{border-right:0}
+.strip b{display:block;font-size:14px;font-weight:600}
+.strip span{font-size:13px;color:var(--muted)}
+section{padding:96px 0 0;scroll-margin-top:64px}
+.sh{text-align:center;margin-bottom:44px}
+.sh .k{font-size:13px;color:var(--accent);font-weight:600}
+.sh h2{font-size:clamp(28px,3.6vw,42px);letter-spacing:-.04em;line-height:1.15;margin:8px 0 10px;font-weight:700}
+.sh p{color:var(--muted);margin:0}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .2s}
+.card:hover{border-color:var(--line-2)}
+.card.wide{grid-column:1/-1;flex-direction:row}
+.card .top{padding:24px 24px 0}
+.card .lbl{font-size:12.5px;color:var(--faint);display:flex;gap:8px;align-items:center}
+.card .lbl i{width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block}
+.card h3{font-size:20px;letter-spacing:-.03em;line-height:1.35;margin:10px 0 8px;font-weight:600}
+.card p{color:var(--muted);margin:0 0 14px;font-size:14.5px}
+.card .pts{list-style:none;margin:0 0 14px;padding:0;font-size:14px;color:var(--muted)}
+.card .pts li{padding:6px 0;border-top:1px solid var(--line)}
+.card .meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.card .meta span{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:2px 8px}
+.card .plinks{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13.5px;font-weight:500;padding-bottom:20px}
+.card .plinks a{color:var(--text)}.card .plinks a:hover{color:var(--accent)}
+.card .shot{margin-top:auto;padding:0 24px;}
+.card.wide .top{flex:1;padding-bottom:20px}
+.card.wide .shot{flex:1.1;padding:24px 24px 0 0;display:flex;align-items:flex-end}
+.vis{margin:0;width:100%}
+.vis img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;display:block;border:1px solid var(--line-2);border-bottom:0;border-radius:10px 10px 0 0;background:#fff}
+.vis figcaption{display:none}
+.vis.flow{border:1px solid var(--line-2);border-bottom:0;border-radius:10px 10px 0 0;background:var(--card-2);padding:18px 20px}
+.flow-l{display:block;font-size:12px;color:var(--faint);margin-bottom:10px}
+.vis.flow ol{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.vis.flow li{display:flex;gap:10px;align-items:center;font-size:14px;font-weight:500;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 12px}
+.vis.flow li i{font-style:normal;font-size:12px;color:var(--accent);font-weight:600;width:14px}
+.list{border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.list a{display:grid;grid-template-columns:120px 1fr auto;gap:16px;padding:16px 22px;border-top:1px solid var(--line);align-items:center}
+.list a:first-child{border-top:0}
+.list a:hover{background:var(--card)}
+.list .d{font-size:13px;color:var(--faint)}
+.list b{font-weight:500}
+.list .ar{color:var(--faint)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px}
+.box h3{font-size:14px;margin:0 0 10px;color:var(--muted);font-weight:500}
+.box .it{padding:10px 0;border-top:1px solid var(--line);font-size:14.5px}
+.box .it:first-of-type{border-top:0}
+.box .it small{display:block;color:var(--faint);font-size:13px}
+.end{margin:112px 0 0;text-align:center;padding:64px 24px;border:1px solid var(--line);border-radius:20px;background:radial-gradient(60% 100% at 50% 0%,color-mix(in srgb,var(--accent) 14%,transparent),transparent 70%),var(--card)}
+.end h2{font-size:clamp(26px,3.4vw,38px);letter-spacing:-.04em;margin:0 0 10px}
+.end p{color:var(--muted);margin:0 0 24px}
+footer{padding:40px 0 56px;color:var(--faint);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+@media (max-width:860px){
+  header.nav a.n{display:none}
+  .hero{padding:72px 0 48px}
+  .strip{grid-template-columns:1fr 1fr}.strip div:nth-child(2){border-right:0}.strip div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .grid,.two{grid-template-columns:1fr}
+  .card.wide{flex-direction:column}.card.wide .shot{padding:0 24px}
+  .list a{grid-template-columns:1fr;gap:2px}.list .ar{display:none}
+}
+</style>
+</head>
+<body>
+<header class="nav"><div class="w"><a class="b" href="#"><i></i>{{ profile.name }}</a><a class="n" href="#work">Work</a>{% if posts %}<a class="n" href="#writing">Writing</a>{% endif %}<a class="n" href="#cv">CV</a>{% if alt_lang %}<a class="n" href="{{ alt_lang.url }}">{{ alt_lang.label }}</a>{% endif %}<button class="pill" id="theme" type="button">Theme</button><a class="pill" href="resume-1page.pdf" download>Resume</a></div></header>
+
+<div class="w">
+  <section class="hero" style="padding-top:112px">
+    <span class="badge"><b>New</b>국보 입문 가이드 — 인용을 검증하는 RAG</span>
+    <h1>데이터를 모으고, 모델로 검증하고, 결과로 증명합니다</h1>
+    <p>{{ v.intro() }}</p>
+    <div class="cta"><a class="btn pri" href="#work">작업 보기</a>{% for l in profile.links if 'github' in l.label|lower %}<a class="btn" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.icon('github', 16) }} GitHub</a>{% endfor %}{% if profile.email %}<a class="btn" href="mailto:{{ profile.email }}">{{ p.icon('mail', 16) }} 연락하기</a>{% endif %}</div>
+    <div class="strip">
+      <div><b>지구물리 데이터 연구</b><span>중력·자력·탄성파 자료 해석</span></div>
+      <div><b>국제 공동연구</b><span>캘거리대 · 칼리파대</span></div>
+      <div><b>LLM · RAG</b><span>응답을 코드로 검증</span></div>
+      <div><b>딥러닝</b><span>시공간 · 비전-언어 · LoRA</span></div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="sh"><span class="k">Work</span><h2>만든 것들</h2><p>연구 프로젝트부터 LLM 서비스까지</p></div>
+    <div class="grid">
+    {% for x in projects_index %}
+      <article class="card{% if loop.first %} wide{% endif %}">
+        <div class="top">
+          <div class="lbl"><i></i>{{ x.org }} · {{ x.period }}</div>
+          <h3>{{ x.title }}</h3>
+          <p>{{ x.oneliner }}</p>
+          {% if loop.first %}<ul class="pts">{% for t in x.points %}<li>{{ t }}</li>{% endfor %}</ul>{% endif %}
+          <div class="meta">{% for s in x.stack[:5] %}<span>{{ s }}</span>{% endfor %}</div>
+          <div class="plinks">{{ v.links(x, posts) }}</div>
+        </div>
+        <div class="shot">{{ v.visual(x) }}</div>
+      </article>
+    {% endfor %}
+    </div>
+  </section>
+
+  {% if posts %}
+  <section id="writing">
+    <div class="sh"><span class="k">Writing</span><h2>설계 노트</h2><p>프로젝트에서 내린 결정과 실패의 기록</p></div>
+    <div class="list">{% for w in posts %}<a href="posts/{{ w.slug }}.html"><span class="d">{{ w.date }}</span><b>{{ w.title }}</b><span class="ar">→</span></a>{% endfor %}</div>
+  </section>
+  {% endif %}
+
+  <section id="cv">
+    <div class="sh"><span class="k">CV</span><h2>이력</h2></div>
+    <div class="two">
+      <div class="box"><h3>학력 · 교육</h3>{% for e in education %}<div class="it">{{ e.school }}<small>{{ e.major }} {{ e.degree }} · {{ e.period_str }}</small></div>{% endfor %}</div>
+      <div class="box"><h3>논문 · 수상</h3>{% for x in papers %}<div class="it">{% if x.url %}<a href="{{ x.url }}" target="_blank" rel="noopener">{{ x.title }}</a>{% else %}{{ x.title }}{% endif %}<small>{{ x.venue }} · {{ x.year }}</small></div>{% endfor %}{% for x in awards + certifications %}<div class="it">{{ x.name }}<small>{{ x.org }} · {{ x.date }}</small></div>{% endfor %}</div>
+    </div>
+  </section>
+
+  <div class="end" id="contact"><h2>함께 일할 기회를 기다립니다</h2><p>{{ profile.email }}</p><div class="cta">{% if profile.email %}<a class="btn pri" href="mailto:{{ profile.email }}">메일 보내기</a>{% endif %}<a class="btn" href="resume.pdf" download>상세 이력서</a></div></div>
+  <footer><span>© {{ profile.name_en }}</span><span>{% for l in profile.links %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }}</a> · {% endfor %}<a href="private/index.html" rel="nofollow">Private</a></span></footer>
+</div>
+{{ p.theme_script() }}
+</body>
+</html>

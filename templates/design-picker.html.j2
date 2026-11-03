@@ -30,35 +30,44 @@ h1{font-size:clamp(26px,4vw,36px);letter-spacing:-.03em;margin:0 0 8px}
 .d p.desc{margin:0 0 16px;font-size:15px}
 .open{display:inline-flex;gap:6px;background:var(--text);color:var(--bg);text-decoration:none;font-weight:700;padding:10px 16px;border-radius:10px;font-size:14.5px}
 .pick{margin-top:10px;font-size:13px;color:var(--muted)}
+.grp{font-size:20px;margin:8px 0 16px;letter-spacing:-.02em}.grp small{font-size:13px;color:var(--muted);font-weight:500;margin-left:8px}
+.quick{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:28px}
+.quick a{display:block;text-decoration:none;color:var(--text);font-size:13px;font-weight:600}
+.quick img{width:100%;aspect-ratio:16/11;object-fit:cover;object-position:top;border-radius:10px;border:1px solid var(--line);display:block;margin-bottom:6px}
+.ref a{color:var(--accent)}
 .pick code{background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:1px 6px}
-@media (max-width:860px){.d{grid-template-columns:1fr 110px}.d .info{grid-column:1/-1;order:-1}}
+@media (max-width:860px){.quick{grid-template-columns:repeat(2,1fr)}.d{grid-template-columns:1fr 110px}.d .info{grid-column:1/-1;order:-1}}
 </style>
 </head>
 <body><div class="wrap">
 <h1>디자인 시안 비교</h1>
 <p class="lead">아직 실제 사이트(index.html)에는 반영하지 않았습니다. 시안을 열어 보고 마음에 드는 것을 알려 주시면 그 시안으로 바꾸고 영문 페이지까지 맞춰 반영합니다. 내용은 모두 같은 data/portfolio.yaml에서 나옵니다.</p>
-<div class="common"><b>새 시안 A·B·C에 공통으로 넣은 개선점</b>
+<div class="common"><b>공통 개선점 (새 후보 10개 + A·B·C)</b>
 <ul>
-<li><b style="display:inline">프로젝트 단위로 재구성</b> — 지금은 '석사 / 학부 / 부트캠프' 3덩어리라 VQA·국보 RAG·ThRead가 한 카드 안에 묻혀 있습니다. 7개 프로젝트를 각각 꺼내고, 프로젝트마다 대표 수치 1개(0.96961, r ≥ 0.94, F1 0.85 …)를 오른쪽에 고정했습니다.</li>
+<li><b style="display:inline">프로젝트 단위로 재구성</b> — 지금은 '석사 / 학부 / 부트캠프' 3덩어리라 VQA·국보 RAG·ThRead가 한 카드 안에 묻혀 있습니다. 7개 프로젝트를 각각 꺼내 문제 → 접근 → 결과 순으로 보여 줍니다. 새 후보 10개는 점수·지표를 크게 강조하지 않고, 화면이 없는 프로젝트는 '접근 과정' 단계로 보여 줍니다.</li>
 <li><b style="display:inline">첫 화면 메시지 변경</b> — '지구과학 데이터를 딥러닝으로'에서 '데이터를 모으고, 모델로 검증하고, 결과로 증명합니다'로. 연구 경력과 SSAFY LLM 작업을 한 문장으로 묶었습니다. 잘려서 '…'로 끝나던 소개문도 3문장으로 다시 썼습니다.</li>
 <li><b style="display:inline">글을 프로젝트 옆에</b> — 각 프로젝트 상세에 관련 글과 GitHub 링크를 함께 둡니다.</li>
 <li>시안 페이지는 검색 노출 제외(noindex)이고 메인 메뉴에서 링크하지 않습니다.</li>
 </ul></div>
-<div class="list">
-{% for d in designs %}
+{% macro card(d) %}
 <div class="d{% if d.id == current %} cur{% endif %}">
   <div class="info">
     {% if d.id == current %}<span class="tag">현재 적용됨</span>{% endif %}
     <h2>{{ d.name }}</h2>
-    <p class="ref">참고: {{ d.ref }}</p>
+    <p class="ref">참고: {% if d.ref_url %}<a href="{{ d.ref_url }}" target="_blank" rel="noopener">{{ d.ref }}</a>{% else %}{{ d.ref }}{% endif %}</p>
     <p class="desc">{{ d.desc }}</p>
     <a class="open" href="design-{{ d.id }}.html" target="_blank" rel="noopener">시안 열기 →</a>
-    <div class="pick">선택: “{{ d.id }}로 해줘” 또는 <code>site.layout: "{{ d.id }}"</code></div>
+    <div class="pick">선택: “{{ d.id }}로 해줘”</div>
   </div>
   <div class="shots mob"><a href="design-{{ d.id }}.html" target="_blank" rel="noopener"><img src="assets/design/{{ d.id }}-mob.jpg" alt="{{ d.name }} 모바일 화면" loading="lazy"></a></div>
   <div class="shots"><a href="design-{{ d.id }}.html" target="_blank" rel="noopener"><img src="assets/design/{{ d.id }}-desk.jpg" alt="{{ d.name }} 데스크톱 화면" loading="lazy"></a></div>
 </div>
-{% endfor %}
+{% endmacro %}
+<h3 class="grp">새 후보 {{ new_designs|length }}개 <small>2026.11.03 밤 · 모두 수치 강조 없음</small></h3>
+<div class="quick">{% for d in new_designs %}<a href="#c-{{ d.id }}"><img src="assets/design/{{ d.id }}-desk.jpg" alt="" loading="lazy"><span>{{ d.name }}</span></a>{% endfor %}</div>
+<div class="list">{% for d in new_designs %}<div id="c-{{ d.id }}">{{ card(d) }}</div>{% endfor %}</div>
+<h3 class="grp" style="margin-top:56px">이전 시안 <small>현재 적용본 · 지난번 시안</small></h3>
+<div class="list">{% for d in designs %}{{ card(d) }}{% endfor %}</div>
 </div>
 </div></body>
 </html>

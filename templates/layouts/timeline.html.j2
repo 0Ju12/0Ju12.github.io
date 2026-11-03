@@ -1,0 +1,147 @@
+{% import "layouts/_parts.j2" as p %}
+{% import "layouts/_v2.j2" as v %}
+{% set byid = {} %}{% for x in projects_index %}{% set _ = byid.update({x.id: x}) %}{% endfor %}
+{% set chapters = [
+  ('2022 — 2024', '학부', '데이터가 만들어진 역사부터 본다', '자원에너지공학 학부연구생으로 해외 CO2 저장소를 판구조 형성사와 함께 해석했고, IAB 융합전공에서 처음으로 딥러닝 모델을 설계했습니다.', ['co2', 'wildfire']),
+  ('2024 — 2026', '석사 · 국제 공동연구', '겹친 신호를 가르는 지표를 설계하다', '캘거리대에 6개월간 파견되어 중력·자력 자료를 함께 해석했고, 칼리파대까지 3개 기관 공동연구로 SCIE 제1저자 논문을 냈습니다.', ['masters']),
+  ('2025', '포스코 AI·BigData 아카데미', '생성 모델의 학습 전략을 실험으로 고르다', '콩글리시 교정 데이터셋을 만들고 학습 순서가 성능에 미치는 영향을 실험으로 확인했습니다.', ['pospeak']),
+  ('2026 —', 'SSAFY 16기', '모델의 답을 코드로 다시 확인하다', '데이터 수집부터 LLM 판단, 검증, 서비스 화면까지 직접 만들며 LLM을 믿지 않는 파이프라인을 설계했습니다.', ['thread', 'vqa', 'heritage']),
+] %}
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ profile.name }} — {{ profile.title }}</title>
+<meta name="description" content="{{ profile.title }} · {{ profile.headline }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f6f2;--card:#fff;--text:#1a1c1e;--muted:#646a70;--faint:#9aa0a6;--line:#dcdad3;--accent:#b45309;--accent-soft:#fdf0e1;--hero:#15181b;--hero-text:#f2f2ef}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#111315;--card:#181b1e;--text:#ecece8;--muted:#a1a6ab;--faint:#6d7277;--line:#2a2e32;--accent:#f59e0b;--accent-soft:#2a2113;--hero:#0a0b0c}}
+:root[data-theme="dark"]{--bg:#111315;--card:#181b1e;--text:#ecece8;--muted:#a1a6ab;--faint:#6d7277;--line:#2a2e32;--accent:#f59e0b;--accent-soft:#2a2113;--hero:#0a0b0c}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 "Pretendard Variable",Pretendard,system-ui,sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all}
+a{color:inherit}
+.w{max-width:1100px;margin:0 auto;padding:0 24px}
+.hero{background:var(--hero);color:var(--hero-text);padding:0 0 88px}
+.top{display:flex;align-items:center;gap:22px;height:64px;font-size:14px}
+.top .b{margin-right:auto;font-weight:700}
+.top a{text-decoration:none;color:#a8acb0}.top a:hover{color:#fff}
+#theme{background:none;border:1px solid #3a3e42;color:#a8acb0;border-radius:8px;padding:4px 10px;font:inherit;font-size:12.5px;cursor:pointer}
+.herob{display:grid;grid-template-columns:1fr 220px;gap:48px;align-items:end;padding-top:72px}
+.hero .k{color:#f5b45a;font-weight:700;font-size:13.5px;letter-spacing:.06em}
+.hero h1{font-size:clamp(34px,5vw,60px);line-height:1.15;letter-spacing:-.04em;margin:14px 0 20px;font-weight:800}
+.hero p{color:#a8acb0;max-width:600px;margin:0 0 26px;font-size:17px}
+.hero .avatar{width:220px;height:220px;border-radius:50%;object-fit:cover;border:6px solid #23272b;font-size:56px}
+.cta{display:flex;flex-wrap:wrap;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:7px;height:42px;padding:0 16px;border-radius:10px;font-weight:700;font-size:14.5px;text-decoration:none;border:1px solid #3a3e42;color:#f2f2ef}
+.btn.pri{background:#f2f2ef;color:#15181b;border-color:#f2f2ef}
+.years{display:flex;gap:0;margin-top:56px;border-top:1px solid #2b2f33}
+.years a{flex:1;padding:14px 0 0;text-decoration:none;color:#a8acb0;font-size:13px;position:relative}
+.years a::before{content:"";position:absolute;top:-5px;left:0;width:9px;height:9px;border-radius:50%;background:#f5b45a}
+.years b{display:block;color:#f2f2ef;font-family:Fraunces,serif;font-size:20px;font-weight:600}
+.chapter{display:grid;grid-template-columns:240px 1fr;gap:48px;padding:96px 0 0;scroll-margin-top:16px}
+.ch-side{position:sticky;top:32px;align-self:start}
+.ch-side .yr{font-family:Fraunces,serif;font-size:44px;line-height:1;font-weight:600;letter-spacing:-.02em;color:var(--accent)}
+.ch-side .nm{font-weight:700;margin-top:10px}
+.ch-side .no{font-size:12.5px;color:var(--faint);letter-spacing:.1em;text-transform:uppercase}
+.ch-main h2{font-size:clamp(24px,3vw,34px);letter-spacing:-.035em;line-height:1.3;margin:0 0 12px}
+.ch-main .intro{color:var(--muted);font-size:17px;margin:0 0 32px;max-width:640px}
+.rail{position:relative;padding-left:32px}
+.rail::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.node{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;margin-bottom:20px}
+.node::before{content:"";position:absolute;left:-32px;top:28px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--accent)}
+.node .m{font-size:13px;color:var(--faint)}
+.node h3{margin:4px 0 8px;font-size:20px;letter-spacing:-.025em;line-height:1.4}
+.node .one{margin:0 0 14px;color:var(--muted)}
+.node .body{display:grid;grid-template-columns:1fr 280px;gap:22px}
+.node .pts{margin:0 0 14px;padding-left:18px;font-size:14.5px}.node .pts li{margin:4px 0}
+.node .stack{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.node .stack span{font-size:12.5px;background:var(--accent-soft);color:var(--accent);border-radius:6px;padding:2px 9px;font-weight:600}
+.node .plinks{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:14px;font-weight:700}
+.node .plinks a{text-decoration:none}.node .plinks a:hover{color:var(--accent)}
+.vis{margin:0}
+.vis img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top;border-radius:10px;border:1px solid var(--line);display:block;background:#fff}
+.vis figcaption{font-size:12px;color:var(--faint);margin-top:6px}
+.vis.flow{background:var(--accent-soft);border-radius:12px;padding:16px 18px}
+.flow-l{display:block;font-size:12px;font-weight:700;color:var(--accent);margin-bottom:8px}
+.vis.flow ol{list-style:none;margin:0;padding:0;font-size:14px;font-weight:600}
+.vis.flow li{display:flex;gap:10px;padding:4px 0}
+.vis.flow li i{font-style:normal;color:var(--accent)}
+.after{display:grid;grid-template-columns:240px 1fr;gap:48px;padding:112px 0 0}
+.after h2{font-family:Fraunces,serif;font-size:32px;margin:0;font-weight:600;color:var(--accent)}
+.wl a{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:12px 0;border-top:1px solid var(--line);text-decoration:none}
+.wl a:hover b{color:var(--accent)}
+.wl .d{font-size:13px;color:var(--faint)}
+.cv{display:grid;grid-template-columns:1fr 1fr;gap:0 28px;font-size:14.5px}
+.cv .it{padding:10px 0;border-top:1px solid var(--line)}
+.cv .it small{display:block;color:var(--faint)}
+footer{margin-top:112px;padding:40px 0 56px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;color:var(--muted);font-size:13.5px}
+footer b{display:block;color:var(--text);font-size:22px;letter-spacing:-.03em}
+footer a{color:var(--accent)}
+@media (max-width:900px){
+  .top a.n{display:none}
+  .herob{grid-template-columns:1fr;padding-top:32px;gap:24px}
+  .hero .avatar{width:96px;height:96px;order:-1;border-width:4px}
+  .years{flex-wrap:wrap}.years a{flex:0 0 50%;padding-bottom:12px}
+  .chapter,.after{grid-template-columns:1fr;gap:20px;padding-top:64px}
+  .ch-side{position:static}.ch-side .yr{font-size:34px}
+  .node .body{grid-template-columns:1fr}
+  .rail{padding-left:24px}.node::before{left:-24px}
+  .cv{grid-template-columns:1fr}
+  .wl a{grid-template-columns:1fr;gap:0}
+}
+</style>
+</head>
+<body>
+<header class="hero"><div class="w">
+  <div class="top"><span class="b">{{ profile.name }}</span><a class="n" href="#ch1">학부</a><a class="n" href="#ch2">석사</a><a class="n" href="#ch4">SSAFY</a><a class="n" href="#writing">글</a>{% if alt_lang %}<a href="{{ alt_lang.url }}">{{ alt_lang.label }}</a>{% endif %}{{ v.theme_btn() }}</div>
+  <div class="herob">
+    <div>
+      <div class="k">{{ profile.title }} · 2022 → 2026</div>
+      <h1>데이터를 모으고,<br>모델로 검증하고,<br>결과로 증명해 온 4년</h1>
+      <p>{{ v.intro() }}</p>
+      <div class="cta"><a class="btn pri" href="#ch1">처음부터 보기 ↓</a><a class="btn" href="resume-1page.pdf" download>이력서 PDF</a>{% for l in profile.links if 'github' in l.label|lower %}<a class="btn" href="{{ l.url }}" target="_blank" rel="noopener">GitHub</a>{% endfor %}</div>
+    </div>
+    {{ p.avatar(profile) }}
+  </div>
+  <nav class="years">{% for yr, nm, h, d, ids in chapters %}<a href="#ch{{ loop.index }}"><b>{{ yr }}</b>{{ nm }}</a>{% endfor %}</nav>
+</div></header>
+
+<main class="w">
+  {% for yr, nm, h, d, ids in chapters %}
+  <section class="chapter" id="ch{{ loop.index }}">
+    <div class="ch-side"><div class="no">Chapter {{ loop.index }}</div><div class="yr">{{ yr }}</div><div class="nm">{{ nm }}</div></div>
+    <div class="ch-main">
+      <h2>{{ h }}</h2><p class="intro">{{ d }}</p>
+      <div class="rail">
+      {% for id in ids %}{% set x = byid[id] %}
+        <article class="node">
+          <div class="m">{{ x.period }} · {{ x.org }} · {{ x.team }}</div>
+          <h3>{{ x.title }}</h3>
+          <p class="one">{{ x.oneliner }}</p>
+          <div class="body">
+            <div><ul class="pts">{% for t in x.points %}<li>{{ t }}</li>{% endfor %}</ul><div class="stack">{% for s in x.stack %}<span>{{ s }}</span>{% endfor %}</div><div class="plinks">{{ v.links(x, posts) }}</div></div>
+            {{ v.visual(x) }}
+          </div>
+        </article>
+      {% endfor %}
+      </div>
+    </div>
+  </section>
+  {% endfor %}
+
+  {% if posts %}
+  <section class="after" id="writing"><h2>글</h2><div class="wl">{% for w in posts %}<a href="posts/{{ w.slug }}.html"><span class="d">{{ w.date }}</span><b>{{ w.title }}</b></a>{% endfor %}</div></section>
+  {% endif %}
+  <section class="after"><h2>이력</h2><div class="cv">
+    <div>{% for e in education %}<div class="it">{{ e.school }}<small>{{ e.major }} {{ e.degree }} · {{ e.period_str }}</small></div>{% endfor %}</div>
+    <div>{% for x in papers %}<div class="it">{% if x.url %}<a href="{{ x.url }}" target="_blank" rel="noopener">{{ x.title }}</a>{% else %}{{ x.title }}{% endif %}<small>{{ x.venue }} · {{ x.year }}</small></div>{% endfor %}{% for x in awards + certifications %}<div class="it">{{ x.name }}<small>{{ x.org }} · {{ x.date }}</small></div>{% endfor %}</div>
+  </div></section>
+
+  <footer id="contact"><div><b>다음 장을 함께 쓸 곳을 찾고 있습니다.</b>{% if profile.email %}<a href="mailto:{{ profile.email }}">{{ profile.email }}</a>{% endif %}</div><span>© {{ profile.name_en }} · data/portfolio.yaml 에서 자동 생성 · <a href="private/index.html" rel="nofollow">Private</a></span></footer>
+</main>
+{{ p.theme_script() }}
+</body>
+</html>

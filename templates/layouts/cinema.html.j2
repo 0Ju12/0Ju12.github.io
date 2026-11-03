@@ -1,0 +1,134 @@
+{% import "layouts/_parts.j2" as p %}
+{% import "layouts/_v2.j2" as v %}
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ profile.name }} — {{ profile.title }}</title>
+<meta name="description" content="{{ profile.title }} · {{ profile.headline }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--bg:#070809;--panel:#0f1113;--text:#f2f3f4;--muted:#9aa1a9;--faint:#646b73;--line:#1f2327;--accent:#5eead4;--paper:#ffffff}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){--bg:#f4f4f2;--panel:#ffffff;--text:#0f1113;--muted:#5a6168;--faint:#8d939a;--line:#e0e0dc;--accent:#0f766e}}
+:root[data-theme="light"]{--bg:#f4f4f2;--panel:#ffffff;--text:#0f1113;--muted:#5a6168;--faint:#8d939a;--line:#e0e0dc;--accent:#0f766e}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 "Pretendard Variable",Pretendard,system-ui,sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all}
+a{color:inherit;text-decoration:none}
+.w{max-width:1240px;margin:0 auto;padding:0 32px}
+.nav{position:fixed;inset:0 0 auto 0;z-index:20;mix-blend-mode:difference;color:#fff}
+.nav .w{display:flex;align-items:center;gap:28px;height:72px;font-size:13.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.nav .b{margin-right:auto}
+#theme{background:none;border:0;color:inherit;font:inherit;letter-spacing:inherit;text-transform:inherit;cursor:pointer;padding:0}
+.hero{position:relative;min-height:100vh;display:grid;grid-template-columns:1.2fr 1fr;align-items:end;overflow:hidden}
+.hero .txt{padding:0 0 12vh 6vw;position:relative;z-index:2}
+.hero .k{font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+.hero h1{font-size:clamp(44px,7.4vw,112px);line-height:.98;letter-spacing:-.055em;margin:18px 0 28px;font-weight:800}
+.hero p{max-width:520px;color:var(--muted);font-size:17px;margin:0 0 30px}
+.cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-weight:700;font-size:15px}
+.cta a.pri{display:inline-flex;align-items:center;gap:10px;height:50px;padding:0 24px;border-radius:999px;background:var(--text);color:var(--bg)}
+.cta a.ln{border-bottom:1px solid var(--faint);padding-bottom:2px}
+.cta a.ln:hover{border-color:var(--text)}
+.hero .ph{position:relative;height:100%;min-height:100vh}
+.hero .ph .avatar{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%;filter:grayscale(.6) contrast(1.05);opacity:.8;font-size:120px}
+.hero .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 0%,transparent 45%),linear-gradient(0deg,var(--bg) 0%,transparent 35%)}
+.hero .scroll{position:absolute;left:6vw;bottom:4vh;font-size:12px;color:var(--faint);letter-spacing:.2em;text-transform:uppercase;z-index:2}
+.intro{padding:20vh 0 12vh}
+.intro p{font-size:clamp(24px,3.2vw,42px);line-height:1.4;letter-spacing:-.035em;font-weight:600;max-width:1000px;margin:0}
+.intro p span{color:var(--faint)}
+.reel{border-top:1px solid var(--line)}
+.scene{padding:12vh 0;border-bottom:1px solid var(--line)}
+.scene .head{display:grid;grid-template-columns:140px 1fr auto;gap:24px;align-items:baseline;margin-bottom:36px}
+.scene .no{font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--accent)}
+.scene h3{font-size:clamp(28px,4vw,56px);line-height:1.1;letter-spacing:-.05em;margin:0;font-weight:800}
+.scene .when{font-size:13px;color:var(--faint);text-align:right;white-space:nowrap}
+.band{position:relative;border-radius:6px;overflow:hidden;background:var(--panel)}
+.band .vis{margin:0}
+.band .vis img{width:100%;aspect-ratio:21/9;object-fit:cover;object-position:top;display:block;background:var(--paper)}
+.band .vis figcaption{position:absolute;left:0;right:0;bottom:0;padding:40px 24px 16px;font-size:13px;color:#e8eaec;background:linear-gradient(0deg,rgba(0,0,0,.75),transparent)}
+.band .vis.flow{aspect-ratio:21/9;display:flex;flex-direction:column;justify-content:center;padding:4vw;background:radial-gradient(70% 120% at 100% 0%,color-mix(in srgb,var(--accent) 16%,transparent),transparent 60%),var(--panel)}
+.flow-l{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:20px}
+.band .vis.flow ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:12px 0;align-items:center}
+.band .vis.flow li{font-size:clamp(16px,1.8vw,24px);font-weight:700;letter-spacing:-.02em;display:flex;align-items:center}
+.band .vis.flow li i{font-style:normal;font-size:12px;color:var(--faint);margin-right:10px;font-weight:600}
+.band .vis.flow li:not(:last-child)::after{content:"";width:40px;height:1px;background:var(--faint);margin:0 18px}
+.scene .body{display:grid;grid-template-columns:140px 1fr 1fr;gap:24px;margin-top:36px}
+.scene .one{grid-column:2;font-size:19px;line-height:1.6;letter-spacing:-.015em;margin:0}
+.scene .side{grid-column:3}
+.scene .pts{list-style:none;margin:0 0 18px;padding:0;font-size:14.5px;color:var(--muted)}
+.scene .pts li{padding:9px 0;border-top:1px solid var(--line)}
+.scene .meta{font-size:13px;color:var(--faint);margin-bottom:14px}
+.scene .plinks{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:14px;font-weight:700}
+.scene .plinks a{border-bottom:1px solid var(--faint)}.scene .plinks a:hover{border-color:var(--accent);color:var(--accent)}
+section.sec{padding:14vh 0 0}
+.sec h2{font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin:0 0 28px}
+.wl a{display:grid;grid-template-columns:140px 1fr;gap:24px;padding:20px 0;border-top:1px solid var(--line);font-size:clamp(18px,2vw,24px);font-weight:600;letter-spacing:-.025em;transition:padding .2s,color .2s}
+.wl a:hover{padding-left:12px;color:var(--accent)}
+.wl .d{font-size:13px;color:var(--faint);font-weight:500;letter-spacing:0;padding-top:6px}
+.cv{display:grid;grid-template-columns:repeat(3,1fr);gap:0 32px;font-size:14.5px}
+.cv h4{font-size:12px;color:var(--faint);letter-spacing:.14em;text-transform:uppercase;margin:0 0 8px}
+.cv .it{padding:10px 0;border-top:1px solid var(--line)}
+.cv .it small{display:block;color:var(--faint)}
+.end{padding:20vh 0 8vh}
+.end h2{font-size:clamp(40px,8vw,120px);line-height:.95;letter-spacing:-.06em;margin:0 0 32px;font-weight:800}
+.end h2 a:hover{color:var(--accent)}
+footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:28px 0 48px;border-top:1px solid var(--line);color:var(--faint);font-size:13px}
+@media (max-width:900px){
+  .w{padding:0 20px}
+  .nav a.n{display:none}
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero .ph{position:absolute;inset:0;min-height:0;opacity:.45}
+  .hero .ph::after{background:linear-gradient(0deg,var(--bg) 20%,transparent 100%)}
+  .hero .txt{padding:140px 20px 96px}
+  .hero .scroll{display:none}
+  .scene .head{grid-template-columns:1fr;gap:6px}.scene .when{text-align:left}
+  .band .vis img,.band .vis.flow{aspect-ratio:4/3}
+  .band .vis.flow li:not(:last-child)::after{display:none}.band .vis.flow ol{flex-direction:column;align-items:flex-start;gap:8px}
+  .scene .body{grid-template-columns:1fr;gap:16px}.scene .one,.scene .side{grid-column:1}
+  .wl a{grid-template-columns:1fr;gap:2px}
+  .cv{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="w"><span class="b">{{ profile.name_en }}</span><a class="n" href="#work">Work</a>{% if posts %}<a class="n" href="#writing">Writing</a>{% endif %}<a class="n" href="#cv">CV</a>{% if alt_lang %}<a href="{{ alt_lang.url }}">{{ alt_lang.label }}</a>{% endif %}{{ v.theme_btn('Theme') }}</div></nav>
+
+<header class="hero">
+  <div class="txt">
+    <div class="k">{{ profile.title }}</div>
+    <h1>데이터를<br>모으고, 검증하고,<br>증명합니다.</h1>
+    <p>{{ v.intro() }}</p>
+    <div class="cta"><a class="pri" href="#work">작업 보기 ↓</a><a class="ln" href="resume-1page.pdf" download>이력서 PDF</a>{% for l in profile.links if 'github' in l.label|lower %}<a class="ln" href="{{ l.url }}" target="_blank" rel="noopener">GitHub</a>{% endfor %}</div>
+  </div>
+  <div class="ph">{{ p.avatar(profile) }}</div>
+  <div class="scroll">Scroll</div>
+</header>
+
+<main class="w">
+  <div class="intro"><p>지구물리 연구실에서 <span>겹쳐 있는 신호를 가르는 법</span>을 배웠고, 지금은 그 방식으로 <span>LLM의 답을 코드로 다시 확인하는 서비스</span>를 만듭니다.</p></div>
+
+  <div class="reel" id="work">
+  {% for x in projects_index %}
+    <article class="scene">
+      <div class="head"><span class="no">Scene {{ '%02d'|format(loop.index) }}</span><h3>{{ x.title }}</h3><span class="when">{{ x.period }}<br>{{ x.org }}</span></div>
+      <div class="band">{{ v.visual(x) }}</div>
+      <div class="body"><span></span><p class="one">{{ x.oneliner }}</p><div class="side"><ul class="pts">{% for t in x.points %}<li>{{ t }}</li>{% endfor %}</ul><div class="meta">{{ x.team }} · {{ x.stack|join(' · ') }}</div><div class="plinks">{{ v.links(x, posts) }}</div></div></div>
+    </article>
+  {% endfor %}
+  </div>
+
+  {% if posts %}
+  <section class="sec" id="writing"><h2>Writing</h2><div class="wl">{% for w in posts %}<a href="posts/{{ w.slug }}.html"><span class="d">{{ w.date }}</span>{{ w.title }}</a>{% endfor %}</div></section>
+  {% endif %}
+
+  <section class="sec" id="cv"><h2>CV</h2><div class="cv">
+    <div><h4>Education</h4>{% for e in education %}<div class="it">{{ e.school }}<small>{{ e.major }} {{ e.degree }} · {{ e.period_str }}</small></div>{% endfor %}</div>
+    <div><h4>Publications</h4>{% for x in papers %}<div class="it">{% if x.url %}<a href="{{ x.url }}" target="_blank" rel="noopener">{{ x.title }}</a>{% else %}{{ x.title }}{% endif %}<small>{{ x.venue }} · {{ x.year }}</small></div>{% endfor %}</div>
+    <div><h4>Awards</h4>{% for x in awards + certifications %}<div class="it">{{ x.name }}<small>{{ x.org }} · {{ x.date }}</small></div>{% endfor %}</div>
+  </div></section>
+
+  <div class="end" id="contact"><h2>{% if profile.email %}<a href="mailto:{{ profile.email }}">Let's<br>work together →</a>{% else %}Let's<br>work together.{% endif %}</h2></div>
+  <footer><span>© {{ profile.name_en }} · data/portfolio.yaml 에서 자동 생성</span><span>{% for l in profile.links %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }}</a> · {% endfor %}<a href="private/index.html" rel="nofollow">Private</a></span></footer>
+</main>
+{{ p.theme_script() }}
+</body>
+</html>

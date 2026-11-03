@@ -32,10 +32,43 @@ def render(names=None):
         out.append(name)
     if not names:  # 시안 비교 페이지
         cur = (data.get("site") or {}).get("layout")
-        html = env.get_template("design-picker.html.j2").render(designs=DESIGNS, current=cur, **data)
+        html = env.get_template("design-picker.html.j2").render(designs=DESIGNS, new_designs=NEW_DESIGNS, current=cur, **data)
         (DOCS / "design-picker.html").write_text(html, encoding="utf-8")
     return out
 
+
+NEW_DESIGNS = [  # 2026-11-03 밤 새 후보 — 전부 수치 강조 없음
+    {"id": "swiss", "name": "1 · Swiss Grid", "ref": "스위스 타이포그래피 그리드 포트폴리오 템플릿(Konstrukt 등) — 12단 격자·그로테스크 글꼴·단일 강조색",
+     "ref_url": "https://www.framer.com/marketplace/templates/konstrukt/",
+     "desc": "종이색 배경, 검정 잉크, 빨강 한 가지. 이름을 아주 크게, 프로젝트는 12단 격자에 번호·제목·내용·그림을 칸 맞춰 배치. 정돈되고 단단한 인상."},
+    {"id": "magazine", "name": "2 · Magazine", "ref": "에디토리얼 포트폴리오 템플릿(Satz 등) — 표지·목차·기사·인용구 구성",
+     "ref_url": "https://www.framer.com/marketplace/templates/satz/",
+     "desc": "잡지 표지처럼 시작해 목차 → 기사(프로젝트) → 큰 인용구 → 에세이(글) 순서. 세리프 제목과 2단 본문으로 '읽히는' 포트폴리오."},
+    {"id": "tufte", "name": "3 · Research Notes", "ref": "Tufte CSS — 본문 옆 여백에 주석을 두는 학술 문서 스타일",
+     "ref_url": "https://edwardtufte.github.io/tufte-css/",
+     "desc": "연구 노트처럼 본문에는 무엇을·왜, 오른쪽 여백에는 기간·역할·도구·링크. 바탕체 계열 글꼴, 첫 글자 장식. 연구 경력을 가장 자연스럽게 보여 줌."},
+    {"id": "splitnav", "name": "4 · Split Nav", "ref": "왼쪽 고정 소개 + 오른쪽 스크롤 경력 목록형 개발자 포트폴리오(고정 내비·모노 태그 패턴)",
+     "ref_url": "https://medium.com/@cwhitt91/how-i-built-my-portfolio-site-with-next-js-and-tailwind-css-b4896d500948",
+     "desc": "왼쪽에 이름·한 줄 소개·섹션 메뉴가 고정, 오른쪽에서 프로젝트가 기간과 함께 흐름. 마우스를 따라오는 은은한 빛, 세이지 그린 강조. 다크 기본."},
+    {"id": "product", "name": "5 · Product Dark", "ref": "Linear·Vercel 계열 제품 랜딩 — 평평한 다크, 1px 경계선, 강조색 하나(과한 글로우 자제)",
+     "ref_url": "https://uirip.pages.dev/blog/teardowns/linear",
+     "desc": "제품 소개 페이지처럼 가운데 정렬 헤드라인, 분야 4칸 띠, 얇은 테두리 카드에 화면 캡처가 아래에서 올라오는 구성. 절제된 다크."},
+    {"id": "timeline", "name": "6 · Timeline Story", "ref": "연대기 스크롤형 포트폴리오 — 챕터·연도 고정·레일",
+     "ref_url": "",
+     "desc": "2022 학부 → 2024 석사·국제 공동연구 → 2025 포스코 → 2026 SSAFY를 4개 챕터로. 연도가 왼쪽에 고정되고 프로젝트가 레일 위에 놓임. 성장 과정이 한눈에."},
+    {"id": "wiki", "name": "7 · Docs / Wiki", "ref": "개발 문서 사이트(GitHub Docs·Docusaurus류) — 왼쪽 문서 트리, 오른쪽 '이 페이지' 목차",
+     "ref_url": "",
+     "desc": "포트폴리오를 기술 문서처럼. 프로젝트마다 정보 표(소속·기간·역할·도구), 원칙은 안내 상자, 접근 과정은 코드 블록풍. 개발자에게 익숙한 구조."},
+    {"id": "stack", "name": "8 · Card Stack", "ref": "스크롤하면 카드가 겹겹이 쌓이는 스태킹 카드 인터랙션(Framer 템플릿에서 흔한 패턴)",
+     "ref_url": "",
+     "desc": "가운데 큰 헤드라인, 떠 있는 알약형 메뉴. 프로젝트 카드가 파스텔 배경으로 한 장씩 위에 쌓임. 밝고 현대적, 모바일에서는 일반 목록."},
+    {"id": "academic", "name": "9 · Academic Home", "ref": "연구자 홈페이지 테마(al-folio·Minimal Mistakes 계열) — 소개·뉴스·대표 논문·프로젝트",
+     "ref_url": "https://github.com/alshedivat/al-folio",
+     "desc": "대학원 연구자 홈페이지 형식. 날짜별 News, 썸네일 붙은 대표 논문(PAPER·CODE·BLOG 버튼), 프로젝트 목록. 연구직·R&D 지원에 적합."},
+    {"id": "cinema", "name": "10 · Cinema", "ref": "Awwwards류 케이스 스터디 사이트 — 풀스크린 인물 히어로, 와이드 이미지 밴드, 큰 타이포",
+     "ref_url": "https://www.awwwards.com/websites/portfolio/",
+     "desc": "현재 시안(어두운 히어로)과 가장 가까운 '극적인' 버전. 첫 화면은 큰 제목과 흐려진 인물 사진, 프로젝트는 Scene 01…로 와이드 이미지와 함께 한 장면씩."},
+]
 
 DESIGNS = [
     {"id": "showcase", "name": "Showcase (현재)", "ref": "현재 사이트",

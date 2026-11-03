@@ -30,28 +30,146 @@ h1{font-size:clamp(26px,4vw,36px);letter-spacing:-.03em;margin:0 0 8px}
 .d p.desc{margin:0 0 16px;font-size:15px}
 .open{display:inline-flex;gap:6px;background:var(--text);color:var(--bg);text-decoration:none;font-weight:700;padding:10px 16px;border-radius:10px;font-size:14.5px}
 .pick{margin-top:10px;font-size:13px;color:var(--muted)}
+.grp{font-size:20px;margin:8px 0 16px;letter-spacing:-.02em}.grp small{font-size:13px;color:var(--muted);font-weight:500;margin-left:8px}
+.quick{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:28px}
+.quick a{display:block;text-decoration:none;color:var(--text);font-size:13px;font-weight:600}
+.quick img{width:100%;aspect-ratio:16/11;object-fit:cover;object-position:top;border-radius:10px;border:1px solid var(--line);display:block;margin-bottom:6px}
+.ref a{color:var(--accent)}
 .pick code{background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:1px 6px}
-@media (max-width:860px){.d{grid-template-columns:1fr 110px}.d .info{grid-column:1/-1;order:-1}}
+@media (max-width:860px){.quick{grid-template-columns:repeat(2,1fr)}.d{grid-template-columns:1fr 110px}.d .info{grid-column:1/-1;order:-1}}
 </style>
 </head>
 <body><div class="wrap">
 <h1>디자인 시안 비교</h1>
 <p class="lead">아직 실제 사이트(index.html)에는 반영하지 않았습니다. 시안을 열어 보고 마음에 드는 것을 알려 주시면 그 시안으로 바꾸고 영문 페이지까지 맞춰 반영합니다. 내용은 모두 같은 data/portfolio.yaml에서 나옵니다.</p>
-<div class="common"><b>새 시안 A·B·C에 공통으로 넣은 개선점</b>
+<div class="common"><b>공통 개선점 (새 후보 10개 + A·B·C)</b>
 <ul>
-<li><b style="display:inline">프로젝트 단위로 재구성</b> — 지금은 '석사 / 학부 / 부트캠프' 3덩어리라 VQA·국보 RAG·ThRead가 한 카드 안에 묻혀 있습니다. 7개 프로젝트를 각각 꺼내고, 프로젝트마다 대표 수치 1개(0.96961, r ≥ 0.94, F1 0.85 …)를 오른쪽에 고정했습니다.</li>
+<li><b style="display:inline">프로젝트 단위로 재구성</b> — 지금은 '석사 / 학부 / 부트캠프' 3덩어리라 VQA·국보 RAG·ThRead가 한 카드 안에 묻혀 있습니다. 7개 프로젝트를 각각 꺼내 문제 → 접근 → 결과 순으로 보여 줍니다. 새 후보 10개는 점수·지표를 크게 강조하지 않고, 화면이 없는 프로젝트는 '접근 과정' 단계로 보여 줍니다.</li>
 <li><b style="display:inline">첫 화면 메시지 변경</b> — '지구과학 데이터를 딥러닝으로'에서 '데이터를 모으고, 모델로 검증하고, 결과로 증명합니다'로. 연구 경력과 SSAFY LLM 작업을 한 문장으로 묶었습니다. 잘려서 '…'로 끝나던 소개문도 3문장으로 다시 썼습니다.</li>
 <li><b style="display:inline">글을 프로젝트 옆에</b> — 각 프로젝트 상세에 관련 글과 GitHub 링크를 함께 둡니다.</li>
 <li>시안 페이지는 검색 노출 제외(noindex)이고 메인 메뉴에서 링크하지 않습니다.</li>
 </ul></div>
-<div class="list">
-<div class="d cur">
+<h3 class="grp">새 후보 10개 <small>2026.11.03 밤 · 모두 수치 강조 없음</small></h3>
+<div class="quick"><a href="#c-swiss"><img src="assets/design/swiss-desk.jpg" alt="" loading="lazy"><span>1 · Swiss Grid</span></a><a href="#c-magazine"><img src="assets/design/magazine-desk.jpg" alt="" loading="lazy"><span>2 · Magazine</span></a><a href="#c-tufte"><img src="assets/design/tufte-desk.jpg" alt="" loading="lazy"><span>3 · Research Notes</span></a><a href="#c-splitnav"><img src="assets/design/splitnav-desk.jpg" alt="" loading="lazy"><span>4 · Split Nav</span></a><a href="#c-product"><img src="assets/design/product-desk.jpg" alt="" loading="lazy"><span>5 · Product Dark</span></a><a href="#c-timeline"><img src="assets/design/timeline-desk.jpg" alt="" loading="lazy"><span>6 · Timeline Story</span></a><a href="#c-wiki"><img src="assets/design/wiki-desk.jpg" alt="" loading="lazy"><span>7 · Docs / Wiki</span></a><a href="#c-stack"><img src="assets/design/stack-desk.jpg" alt="" loading="lazy"><span>8 · Card Stack</span></a><a href="#c-academic"><img src="assets/design/academic-desk.jpg" alt="" loading="lazy"><span>9 · Academic Home</span></a><a href="#c-cinema"><img src="assets/design/cinema-desk.jpg" alt="" loading="lazy"><span>10 · Cinema</span></a></div>
+<div class="list"><div id="c-swiss"><div class="d">
+  <div class="info">
+    <h2>1 · Swiss Grid</h2>
+    <p class="ref">참고: <a href="https://www.framer.com/marketplace/templates/konstrukt/" target="_blank" rel="noopener">스위스 타이포그래피 그리드 포트폴리오 템플릿(Konstrukt 등) — 12단 격자·그로테스크 글꼴·단일 강조색</a></p>
+    <p class="desc">종이색 배경, 검정 잉크, 빨강 한 가지. 이름을 아주 크게, 프로젝트는 12단 격자에 번호·제목·내용·그림을 칸 맞춰 배치. 정돈되고 단단한 인상.</p>
+    <a class="open" href="design-swiss.html" target="_blank" rel="noopener">시안 열기 →</a>
+    <div class="pick">선택: “swiss로 해줘”</div>
+  </div>
+  <div class="shots mob"><a href="design-swiss.html" target="_blank" rel="noopener"><img src="assets/design/swiss-mob.jpg" alt="1 · Swiss Grid 모바일 화면" loading="lazy"></a></div>
+  <div class="shots"><a href="design-swiss.html" target="_blank" rel="noopener"><img src="assets/design/swiss-desk.jpg" alt="1 · Swiss Grid 데스크톱 화면" loading="lazy"></a></div>
+</div>
+</div><div id="c-magazine"><div class="d">
+  <div class="info">
+    <h2>2 · Magazine</h2>
+    <p class="ref">참고: <a href="https://www.framer.com/marketplace/templates/satz/" target="_blank" rel="noopener">에디토리얼 포트폴리오 템플릿(Satz 등) — 표지·목차·기사·인용구 구성</a></p>
+    <p class="desc">잡지 표지처럼 시작해 목차 → 기사(프로젝트) → 큰 인용구 → 에세이(글) 순서. 세리프 제목과 2단 본문으로 &#39;읽히는&#39; 포트폴리오.</p>
+    <a class="open" href="design-magazine.html" target="_blank" rel="noopener">시안 열기 →</a>
+    <div class="pick">선택: “magazine로 해줘”</div>
+  </div>
+  <div class="shots mob"><a href="design-magazine.html" target="_blank" rel="noopener"><img src="assets/design/magazine-mob.jpg" alt="2 · Magazine 모바일 화면" loading="lazy"></a></div>
+  <div class="shots"><a href="design-magazine.html" target="_blank" rel="noopener"><img src="assets/design/magazine-desk.jpg" alt="2 · Magazine 데스크톱 화면" loading="lazy"></a></div>
+</div>
+</div><div id="c-tufte"><div class="d">
+  <div class="info">
+    <h2>3 · Research Notes</h2>
+    <p class="ref">참고: <a href="https://edwardtufte.github.io/tufte-css/" target="_blank" rel="noopener">Tufte CSS — 본문 옆 여백에 주석을 두는 학술 문서 스타일</a></p>
+    <p class="desc">연구 노트처럼 본문에는 무엇을·왜, 오른쪽 여백에는 기간·역할·도구·링크. 바탕체 계열 글꼴, 첫 글자 장식. 연구 경력을 가장 자연스럽게 보여 줌.</p>
+    <a class="open" href="design-tufte.html" target="_blank" rel="noopener">시안 열기 →</a>
+    <div class="pick">선택: “tufte로 해줘”</div>
+  </div>
+  <div class="shots mob"><a href="design-tufte.html" target="_blank" rel="noopener"><img src="assets/design/tufte-mob.jpg" alt="3 · Research Notes 모바일 화면" loading="lazy"></a></div>
+  <div class="shots"><a href="design-tufte.html" target="_blank" rel="noopener"><img src="assets/design/tufte-desk.jpg" alt="3 · Research Notes 데스크톱 화면" loading="lazy"></a></div>
+</div>
+</div><div id="c-splitnav"><div class="d">
+  <div class="info">
+    <h2>4 · Split Nav</h2>
+    <p class="ref">참고: <a href="https://medium.com/@cwhitt91/how-i-built-my-portfolio-site-with-next-js-and-tailwind-css-b4896d500948" target="_blank" rel="noopener">왼쪽 고정 소개 + 오른쪽 스크롤 경력 목록형 개발자 포트폴리오(고정 내비·모노 태그 패턴)</a></p>
+    <p class="desc">왼쪽에 이름·한 줄 소개·섹션 메뉴가 고정, 오른쪽에서 프로젝트가 기간과 함께 흐름. 마우스를 따라오는 은은한 빛, 세이지 그린 강조. 다크 기본.</p>
+    <a class="open" href="design-splitnav.html" target="_blank" rel="noopener">시안 열기 →</a>
+    <div class="pick">선택: “splitnav로 해줘”</div>
+  </div>
+  <div class="shots mob"><a href="design-splitnav.html" target="_blank" rel="noopener"><img src="assets/design/splitnav-mob.jpg" alt="4 · Split Nav 모바일 화면" loading="lazy"></a></div>
+  <div class="shots"><a href="design-splitnav.html" target="_blank" rel="noopener"><img src="assets/design/splitnav-desk.jpg" alt="4 · Split Nav 데스크톱 화면" loading="lazy"></a></div>
+</div>
+</div><div id="c-product"><div class="d">
+  <div class="info">
+    <h2>5 · Product Dark</h2>
+    <p class="ref">참고: <a href="https://uirip.pages.dev/blog/teardowns/linear" target="_blank" rel="noopener">Linear·Vercel 계열 제품 랜딩 — 평평한 다크, 1px 경계선, 강조색 하나(과한 글로우 자제)</a></p>
+    <p class="desc">제품 소개 페이지처럼 가운데 정렬 헤드라인, 분야 4칸 띠, 얇은 테두리 카드에 화면 캡처가 아래에서 올라오는 구성. 절제된 다크.</p>
+    <a class="open" href="design-product.html" target="_blank" rel="noopener">시안 열기 →</a>
+    <div class="pick">선택: “product로 해줘”</div>
+  </div>
+  <div class="shots mob"><a href="design-product.html" target="_blank" rel="noopener"><img src="assets/design/product-mob.jpg" alt="5 · Product Dark 모바일 화면" loading="lazy"></a></div>
+  <div class="shots"><a href="design-product.html" target="_blank" rel="noopener"><img src="assets/design/product-desk.jpg" alt="5 · Product Dark 데스크톱 화면" loading="lazy"></a></div>
+</div>
+</div><div id="c-timeline"><div class="d">
+  <div class="info">
+    <h2>6 · Timeline Story</h2>
+    <p class="ref">참고: 연대기 스크롤형 포트폴리오 — 챕터·연도 고정·레일</p>
+    <p class="desc">2022 학부 → 2024 석사·국제 공동연구 → 2025 포스코 → 2026 SSAFY를 4개 챕터로. 연도가 왼쪽에 고정되고 프로젝트가 레일 위에 놓임. 성장 과정이 한눈에.</p>
+    <a class="open" href="design-timeline.html" target="_blank" rel="noopener">시안 열기 →</a>
+    <div class="pick">선택: “timeline로 해줘”</div>
+  </div>
+  <div class="shots mob"><a href="design-timeline.html" target="_blank" rel="noopener"><img src="assets/design/timeline-mob.jpg" alt="6 · Timeline Story 모바일 화면" loading="lazy"></a></div>
+  <div class="shots"><a href="design-timeline.html" target="_blank" rel="noopener"><img src="assets/design/timeline-desk.jpg" alt="6 · Timeline Story 데스크톱 화면" loading="lazy"></a></div>
+</div>
+</div><div id="c-wiki"><div class="d">
+  <div class="info">
+    <h2>7 · Docs / Wiki</h2>
+    <p class="ref">참고: 개발 문서 사이트(GitHub Docs·Docusaurus류) — 왼쪽 문서 트리, 오른쪽 &#39;이 페이지&#39; 목차</p>
+    <p class="desc">포트폴리오를 기술 문서처럼. 프로젝트마다 정보 표(소속·기간·역할·도구), 원칙은 안내 상자, 접근 과정은 코드 블록풍. 개발자에게 익숙한 구조.</p>
+    <a class="open" href="design-wiki.html" target="_blank" rel="noopener">시안 열기 →</a>
+    <div class="pick">선택: “wiki로 해줘”</div>
+  </div>
+  <div class="shots mob"><a href="design-wiki.html" target="_blank" rel="noopener"><img src="assets/design/wiki-mob.jpg" alt="7 · Docs / Wiki 모바일 화면" loading="lazy"></a></div>
+  <div class="shots"><a href="design-wiki.html" target="_blank" rel="noopener"><img src="assets/design/wiki-desk.jpg" alt="7 · Docs / Wiki 데스크톱 화면" loading="lazy"></a></div>
+</div>
+</div><div id="c-stack"><div class="d">
+  <div class="info">
+    <h2>8 · Card Stack</h2>
+    <p class="ref">참고: 스크롤하면 카드가 겹겹이 쌓이는 스태킹 카드 인터랙션(Framer 템플릿에서 흔한 패턴)</p>
+    <p class="desc">가운데 큰 헤드라인, 떠 있는 알약형 메뉴. 프로젝트 카드가 파스텔 배경으로 한 장씩 위에 쌓임. 밝고 현대적, 모바일에서는 일반 목록.</p>
+    <a class="open" href="design-stack.html" target="_blank" rel="noopener">시안 열기 →</a>
+    <div class="pick">선택: “stack로 해줘”</div>
+  </div>
+  <div class="shots mob"><a href="design-stack.html" target="_blank" rel="noopener"><img src="assets/design/stack-mob.jpg" alt="8 · Card Stack 모바일 화면" loading="lazy"></a></div>
+  <div class="shots"><a href="design-stack.html" target="_blank" rel="noopener"><img src="assets/design/stack-desk.jpg" alt="8 · Card Stack 데스크톱 화면" loading="lazy"></a></div>
+</div>
+</div><div id="c-academic"><div class="d">
+  <div class="info">
+    <h2>9 · Academic Home</h2>
+    <p class="ref">참고: <a href="https://github.com/alshedivat/al-folio" target="_blank" rel="noopener">연구자 홈페이지 테마(al-folio·Minimal Mistakes 계열) — 소개·뉴스·대표 논문·프로젝트</a></p>
+    <p class="desc">대학원 연구자 홈페이지 형식. 날짜별 News, 썸네일 붙은 대표 논문(PAPER·CODE·BLOG 버튼), 프로젝트 목록. 연구직·R&amp;D 지원에 적합.</p>
+    <a class="open" href="design-academic.html" target="_blank" rel="noopener">시안 열기 →</a>
+    <div class="pick">선택: “academic로 해줘”</div>
+  </div>
+  <div class="shots mob"><a href="design-academic.html" target="_blank" rel="noopener"><img src="assets/design/academic-mob.jpg" alt="9 · Academic Home 모바일 화면" loading="lazy"></a></div>
+  <div class="shots"><a href="design-academic.html" target="_blank" rel="noopener"><img src="assets/design/academic-desk.jpg" alt="9 · Academic Home 데스크톱 화면" loading="lazy"></a></div>
+</div>
+</div><div id="c-cinema"><div class="d">
+  <div class="info">
+    <h2>10 · Cinema</h2>
+    <p class="ref">참고: <a href="https://www.awwwards.com/websites/portfolio/" target="_blank" rel="noopener">Awwwards류 케이스 스터디 사이트 — 풀스크린 인물 히어로, 와이드 이미지 밴드, 큰 타이포</a></p>
+    <p class="desc">현재 시안(어두운 히어로)과 가장 가까운 &#39;극적인&#39; 버전. 첫 화면은 큰 제목과 흐려진 인물 사진, 프로젝트는 Scene 01…로 와이드 이미지와 함께 한 장면씩.</p>
+    <a class="open" href="design-cinema.html" target="_blank" rel="noopener">시안 열기 →</a>
+    <div class="pick">선택: “cinema로 해줘”</div>
+  </div>
+  <div class="shots mob"><a href="design-cinema.html" target="_blank" rel="noopener"><img src="assets/design/cinema-mob.jpg" alt="10 · Cinema 모바일 화면" loading="lazy"></a></div>
+  <div class="shots"><a href="design-cinema.html" target="_blank" rel="noopener"><img src="assets/design/cinema-desk.jpg" alt="10 · Cinema 데스크톱 화면" loading="lazy"></a></div>
+</div>
+</div></div>
+<h3 class="grp" style="margin-top:56px">이전 시안 <small>현재 적용본 · 지난번 시안</small></h3>
+<div class="list"><div class="d cur">
   <div class="info">
 <span class="tag">현재 적용됨</span>    <h2>Showcase (현재)</h2>
     <p class="ref">참고: 현재 사이트</p>
     <p class="desc">어두운 히어로 + 학업 단계별(석사·학부·부트캠프) 큰 사례 카드. 지금 0ju12.github.io 에 적용된 시안.</p>
     <a class="open" href="design-showcase.html" target="_blank" rel="noopener">시안 열기 →</a>
-    <div class="pick">선택: “showcase로 해줘” 또는 <code>site.layout: "showcase"</code></div>
+    <div class="pick">선택: “showcase로 해줘”</div>
   </div>
   <div class="shots mob"><a href="design-showcase.html" target="_blank" rel="noopener"><img src="assets/design/showcase-mob.jpg" alt="Showcase (현재) 모바일 화면" loading="lazy"></a></div>
   <div class="shots"><a href="design-showcase.html" target="_blank" rel="noopener"><img src="assets/design/showcase-desk.jpg" alt="Showcase (현재) 데스크톱 화면" loading="lazy"></a></div>
@@ -62,7 +180,7 @@ h1{font-size:clamp(26px,4vw,36px);letter-spacing:-.03em;margin:0 0 8px}
     <p class="ref">참고: Showcase Pro에서 수치 강조를 뺀 버전</p>
     <p class="desc">Showcase Pro와 같은 구성에서 점수·지표를 크게 보여 주는 요소를 모두 뺐습니다. 첫 화면 숫자 행 대신 &#39;지구물리 데이터 연구 · 국제 공동연구 · LLM·RAG 엔지니어링 · 딥러닝 모델링&#39; 네 분야 소개, 프로젝트는 수치 칩 없이 문제와 접근 위주로, 이미지가 없는 프로젝트는 점수 대신 &#39;접근 과정&#39; 단계도로 보여 줍니다.</p>
     <a class="open" href="design-showcase-story.html" target="_blank" rel="noopener">시안 열기 →</a>
-    <div class="pick">선택: “showcase-story로 해줘” 또는 <code>site.layout: "showcase-story"</code></div>
+    <div class="pick">선택: “showcase-story로 해줘”</div>
   </div>
   <div class="shots mob"><a href="design-showcase-story.html" target="_blank" rel="noopener"><img src="assets/design/showcase-story-mob.jpg" alt="★ Showcase Story 모바일 화면" loading="lazy"></a></div>
   <div class="shots"><a href="design-showcase-story.html" target="_blank" rel="noopener"><img src="assets/design/showcase-story-desk.jpg" alt="★ Showcase Story 데스크톱 화면" loading="lazy"></a></div>
@@ -73,7 +191,7 @@ h1{font-size:clamp(26px,4vw,36px);letter-spacing:-.03em;margin:0 0 8px}
     <p class="ref">참고: 현재 시안의 구성·색을 유지하고 다듬은 버전</p>
     <p class="desc">현재 느낌(어두운 히어로 + 좌우 교차 사례)을 그대로 두고 다듬었습니다. Pretendard·숫자 정렬, 스크롤해도 따라오는 상단 메뉴, 버튼 7개를 주요 2개 + 아이콘 3개로 정리, 기울어진 사진 대신 프로필 카드, 이모지 대신 아이콘. 프로젝트는 7개로 나눠 화면 캡처는 브라우저 프레임, 그림은 캡션, 이미지가 없으면 핵심 수치 패널로 보여 줍니다.</p>
     <a class="open" href="design-showcase-pro.html" target="_blank" rel="noopener">시안 열기 →</a>
-    <div class="pick">선택: “showcase-pro로 해줘” 또는 <code>site.layout: "showcase-pro"</code></div>
+    <div class="pick">선택: “showcase-pro로 해줘”</div>
   </div>
   <div class="shots mob"><a href="design-showcase-pro.html" target="_blank" rel="noopener"><img src="assets/design/showcase-pro-mob.jpg" alt="★ Showcase Pro 모바일 화면" loading="lazy"></a></div>
   <div class="shots"><a href="design-showcase-pro.html" target="_blank" rel="noopener"><img src="assets/design/showcase-pro-desk.jpg" alt="★ Showcase Pro 데스크톱 화면" loading="lazy"></a></div>
@@ -84,7 +202,7 @@ h1{font-size:clamp(26px,4vw,36px);letter-spacing:-.03em;margin:0 0 8px}
     <p class="ref">참고: Eugene Yan(eugeneyan.com)처럼 글과 사례 연구가 중심인 ML 엔지니어 사이트</p>
     <p class="desc">종이 질감 배경, 세리프 제목, 고정폭 메타데이터. 프로젝트 7개를 &#39;기간 · 제목 · 핵심 수치&#39; 표로 보여 주고, 행을 누르면 사례가 펼쳐집니다. 읽는 사람이 30초 안에 전체를 훑을 수 있는 구조.</p>
     <a class="open" href="design-report.html" target="_blank" rel="noopener">시안 열기 →</a>
-    <div class="pick">선택: “report로 해줘” 또는 <code>site.layout: "report"</code></div>
+    <div class="pick">선택: “report로 해줘”</div>
   </div>
   <div class="shots mob"><a href="design-report.html" target="_blank" rel="noopener"><img src="assets/design/report-mob.jpg" alt="A · Report 모바일 화면" loading="lazy"></a></div>
   <div class="shots"><a href="design-report.html" target="_blank" rel="noopener"><img src="assets/design/report-desk.jpg" alt="A · Report 데스크톱 화면" loading="lazy"></a></div>
@@ -95,7 +213,7 @@ h1{font-size:clamp(26px,4vw,36px);letter-spacing:-.03em;margin:0 0 8px}
     <p class="ref">참고: 국내 IT 기업 채용 페이지·서비스형 포트폴리오의 카드 UI</p>
     <p class="desc">Pretendard, 밝은 카드 그리드. 화면 캡처가 있는 프로젝트는 썸네일로, 없는 것은 핵심 수치로 보여 줍니다. LLM·RAG / 딥러닝 / 데이터 / 연구 필터, 카드를 누르면 상세 창이 열립니다.</p>
     <a class="open" href="design-gallery.html" target="_blank" rel="noopener">시안 열기 →</a>
-    <div class="pick">선택: “gallery로 해줘” 또는 <code>site.layout: "gallery"</code></div>
+    <div class="pick">선택: “gallery로 해줘”</div>
   </div>
   <div class="shots mob"><a href="design-gallery.html" target="_blank" rel="noopener"><img src="assets/design/gallery-mob.jpg" alt="B · Gallery 모바일 화면" loading="lazy"></a></div>
   <div class="shots"><a href="design-gallery.html" target="_blank" rel="noopener"><img src="assets/design/gallery-desk.jpg" alt="B · Gallery 데스크톱 화면" loading="lazy"></a></div>
@@ -106,7 +224,7 @@ h1{font-size:clamp(26px,4vw,36px);letter-spacing:-.03em;margin:0 0 8px}
     <p class="ref">참고: 개발자 도구·데이터 플랫폼 랜딩 페이지의 다크 테마</p>
     <p class="desc">다크 + 격자 배경 + 고정폭 글꼴. 첫 화면에 &#39;수집 → 정제 → 학습·색인 → 검증 → 결과&#39; 흐름도를 두고, 각 단계에 실제로 쓴 도구를 적었습니다. 데이터 엔지니어 지원에 가장 직접적인 메시지.</p>
     <a class="open" href="design-pipeline.html" target="_blank" rel="noopener">시안 열기 →</a>
-    <div class="pick">선택: “pipeline로 해줘” 또는 <code>site.layout: "pipeline"</code></div>
+    <div class="pick">선택: “pipeline로 해줘”</div>
   </div>
   <div class="shots mob"><a href="design-pipeline.html" target="_blank" rel="noopener"><img src="assets/design/pipeline-mob.jpg" alt="C · Pipeline 모바일 화면" loading="lazy"></a></div>
   <div class="shots"><a href="design-pipeline.html" target="_blank" rel="noopener"><img src="assets/design/pipeline-desk.jpg" alt="C · Pipeline 데스크톱 화면" loading="lazy"></a></div>
@@ -117,7 +235,7 @@ h1{font-size:clamp(26px,4vw,36px);letter-spacing:-.03em;margin:0 0 8px}
     <p class="ref">참고: 왼쪽 고정 사이드바형</p>
     <p class="desc">이전에 만들어 둔 시안. 왼쪽 고정 프로필 + 오른쪽 스크롤.</p>
     <a class="open" href="design-sidebar.html" target="_blank" rel="noopener">시안 열기 →</a>
-    <div class="pick">선택: “sidebar로 해줘” 또는 <code>site.layout: "sidebar"</code></div>
+    <div class="pick">선택: “sidebar로 해줘”</div>
   </div>
   <div class="shots mob"><a href="design-sidebar.html" target="_blank" rel="noopener"><img src="assets/design/sidebar-mob.jpg" alt="이전 시안 · Sidebar 모바일 화면" loading="lazy"></a></div>
   <div class="shots"><a href="design-sidebar.html" target="_blank" rel="noopener"><img src="assets/design/sidebar-desk.jpg" alt="이전 시안 · Sidebar 데스크톱 화면" loading="lazy"></a></div>
@@ -128,10 +246,11 @@ h1{font-size:clamp(26px,4vw,36px);letter-spacing:-.03em;margin:0 0 8px}
     <p class="ref">참고: 벤토 그리드형</p>
     <p class="desc">이전에 만들어 둔 시안. 크기가 다른 타일을 격자로 배치.</p>
     <a class="open" href="design-bento.html" target="_blank" rel="noopener">시안 열기 →</a>
-    <div class="pick">선택: “bento로 해줘” 또는 <code>site.layout: "bento"</code></div>
+    <div class="pick">선택: “bento로 해줘”</div>
   </div>
   <div class="shots mob"><a href="design-bento.html" target="_blank" rel="noopener"><img src="assets/design/bento-mob.jpg" alt="이전 시안 · Bento 모바일 화면" loading="lazy"></a></div>
   <div class="shots"><a href="design-bento.html" target="_blank" rel="noopener"><img src="assets/design/bento-desk.jpg" alt="이전 시안 · Bento 데스크톱 화면" loading="lazy"></a></div>
+</div>
 </div>
 </div>
 </div></body>

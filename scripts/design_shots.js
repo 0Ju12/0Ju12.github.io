@@ -8,9 +8,11 @@ const fs = require('fs'), path = require('path');
   const b = await chromium.launch();
   for (const n of names) {
     for (const [tag, vp] of [['desk', { width: 1280, height: 860 }], ['mob', { width: 390, height: 780 }]]) {
-      const p = await b.newPage({ viewport: vp, deviceScaleFactor: 1, colorScheme: n === 'pipeline' ? 'dark' : 'light' });
+      const p = await b.newPage({ viewport: vp, deviceScaleFactor: 1, colorScheme: ['pipeline','splitnav','product','cinema'].includes(n) ? 'dark' : 'light' });
       await p.goto('file://' + path.join(root, 'docs', `design-${n}.html`), { waitUntil: 'networkidle' });
       await p.evaluate(() => document.fonts.ready);
+      await p.evaluate(() => document.querySelectorAll('.reveal').forEach(e => e.classList.add('in')));
+      await p.waitForTimeout(300);
       await p.screenshot({ path: path.join(out, `${n}-${tag}.jpg`), type: 'jpeg', quality: 78 });
       await p.close();
     }
