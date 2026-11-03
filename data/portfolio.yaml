@@ -98,7 +98,7 @@ activities:
     featured: true
     priority: 1
     brief:
-      - "파수 영역 상관 분석으로 겹친 중력·자력 신호를 분리하는 지표(SLFI·DLFI) 설계, 기존 독립 모델 3개와 상관계수 0.94 이상 일치"
+      - "파수 영역 상관 분석으로 겹친 중력·자력 신호를 분리하는 지표(SLFI·DLFI) 설계, 기존 독립 모델 3개와 상관계수 0.94 이상 일치 · 분석 코드 공개(Python 패키지·테스트)"
       - "캘거리대 6개월 파견 · 칼리파대(UAE) 3개 기관 공동연구 → SCIE SPE Journal 제1저자 논문 (2026)"
       - "학회 발표 3건 · 2024 KSEG 추계학술대회 학생 우수논문(포스터) 발표상"
     tags: [신호처리(파수 영역), 상관 분석, 지표 설계, 중력·자력 데이터, 국제공동연구]
@@ -131,6 +131,7 @@ activities:
             - "석사 학위논문 「Characterization of Salt and Basement Structures in the Ghasha Area Using Wavenumber Correlation Analysis of Gravity and Magnetic Anomaly Data」 (전북대학교 대학원 환경에너지융합학과, 2026.08.21 학위 취득)"
         links:
           - { label: SPE Journal 논문, url: "https://doi.org/10.2118/236968-PA" }
+          - { label: GitHub 코드 (WCF·SLFI·DLFI), url: "https://github.com/0Ju12/gravmag-wcf" }
           - { label: 연구 이력, url: "https://www.geoverselab.com/ko/research-history/13/" }
       - id: calgary-2024
         short: "캘거리대 장기 파견"

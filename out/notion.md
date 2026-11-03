@@ -35,7 +35,7 @@
   - [캘거리대 장기 파견] 같은 연구를 석사 학위논문(2026)으로 완성
 
 🏷 신호처리(파수 영역), 상관 분석, 지표 설계, 중력·자력 데이터, 국제공동연구
-🔗 [SPE Journal 논문](https://doi.org/10.2118/236968-PA)  🔗 [연구 이력](https://www.geoverselab.com/ko/research-history/13/)  🔗 [SPE Journal 논문](https://doi.org/10.2118/236968-PA)  
+🔗 [SPE Journal 논문](https://doi.org/10.2118/236968-PA)  🔗 [GitHub 코드 (WCF·SLFI·DLFI)](https://github.com/0Ju12/gravmag-wcf)  🔗 [연구 이력](https://www.geoverselab.com/ko/research-history/13/)  🔗 [SPE Journal 논문](https://doi.org/10.2118/236968-PA)  
 
 ### 학부 — 판구조 기반 해외 CO2 저장소 탄성파 해석 (제1저자) · IAB 융합전공 시공간 딥러닝
 `연구 · AI 프로젝트` · 2022 – 2024.02 · 전북대학교 자원에너지공학과 · IAB 융합전공 · 지구물리컴퓨팅연구실 · **학부연구생 · 캡스톤 모델 설계·학습 담당**
