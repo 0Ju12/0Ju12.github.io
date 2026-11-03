@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>디자인 시안 비교</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--bg:#f4f5f7;--surface:#fff;--text:#16181d;--muted:#666d78;--line:#e3e6ea;--accent:#2563eb}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0f1012;--surface:#1a1b1f;--text:#eceef1;--muted:#9aa0a9;--line:#2a2c31;--accent:#60a5fa}}
+:root[data-theme="dark"]{--bg:#0f1012;--surface:#1a1b1f;--text:#eceef1;--muted:#9aa0a9;--line:#2a2c31;--accent:#60a5fa}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 "Pretendard Variable",Pretendard,system-ui,sans-serif;word-break:keep-all}
+.wrap{max-width:1120px;margin:0 auto;padding:48px 20px 64px}
+h1{font-size:clamp(26px,4vw,36px);letter-spacing:-.03em;margin:0 0 8px}
+.lead{color:var(--muted);margin:0 0 10px;max-width:760px}
+.common{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 22px;margin:20px 0 32px;font-size:15px}
+.common b{display:block;margin-bottom:6px}
+.common ul{margin:0;padding-left:18px}
+.list{display:grid;gap:20px}
+.d{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:20px;display:grid;grid-template-columns:1fr 150px 300px;gap:20px;align-items:start}
+.d.cur{border-color:var(--accent)}
+.shots a{display:block;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.shots img{width:100%;display:block}
+.mob a{border-radius:14px}
+.d h2{margin:0 0 6px;font-size:22px;letter-spacing:-.02em}
+.tag{display:inline-block;font-size:12px;font-weight:700;color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent);border-radius:6px;padding:2px 8px;margin-bottom:8px}
+.ref{font-size:13.5px;color:var(--muted);margin:0 0 10px}
+.d p.desc{margin:0 0 16px;font-size:15px}
+.open{display:inline-flex;gap:6px;background:var(--text);color:var(--bg);text-decoration:none;font-weight:700;padding:10px 16px;border-radius:10px;font-size:14.5px}
+.pick{margin-top:10px;font-size:13px;color:var(--muted)}
+.pick code{background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:1px 6px}
+@media (max-width:860px){.d{grid-template-columns:1fr 110px}.d .info{grid-column:1/-1;order:-1}}
+</style>
+</head>
+<body><div class="wrap">
+<h1>디자인 시안 비교</h1>
+<p class="lead">아직 실제 사이트(index.html)에는 반영하지 않았습니다. 시안을 열어 보고 마음에 드는 것을 알려 주시면 그 시안으로 바꾸고 영문 페이지까지 맞춰 반영합니다. 내용은 모두 같은 data/portfolio.yaml에서 나옵니다.</p>
+<div class="common"><b>새 시안 A·B·C에 공통으로 넣은 개선점</b>
+<ul>
+<li><b style="display:inline">프로젝트 단위로 재구성</b> — 지금은 '석사 / 학부 / 부트캠프' 3덩어리라 VQA·국보 RAG·ThRead가 한 카드 안에 묻혀 있습니다. 7개 프로젝트를 각각 꺼내고, 프로젝트마다 대표 수치 1개(0.96961, r ≥ 0.94, F1 0.85 …)를 오른쪽에 고정했습니다.</li>
+<li><b style="display:inline">첫 화면 메시지 변경</b> — '지구과학 데이터를 딥러닝으로'에서 '데이터를 모으고, 모델로 검증하고, 결과로 증명합니다'로. 연구 경력과 SSAFY LLM 작업을 한 문장으로 묶었습니다. 잘려서 '…'로 끝나던 소개문도 3문장으로 다시 썼습니다.</li>
+<li><b style="display:inline">글을 프로젝트 옆에</b> — 각 프로젝트 상세에 관련 글과 GitHub 링크를 함께 둡니다.</li>
+<li>시안 페이지는 검색 노출 제외(noindex)이고 메인 메뉴에서 링크하지 않습니다.</li>
+</ul></div>
+<div class="list">
+<div class="d cur">
+  <div class="info">
+<span class="tag">현재 적용됨</span>    <h2>Showcase (현재)</h2>
+    <p class="ref">참고: 현재 사이트</p>
+    <p class="desc">어두운 히어로 + 학업 단계별(석사·학부·부트캠프) 큰 사례 카드. 지금 0ju12.github.io 에 적용된 시안.</p>
+    <a class="open" href="design-showcase.html" target="_blank" rel="noopener">시안 열기 →</a>
+    <div class="pick">선택: “showcase로 해줘” 또는 <code>site.layout: "showcase"</code></div>
+  </div>
+  <div class="shots mob"><a href="design-showcase.html" target="_blank" rel="noopener"><img src="assets/design/showcase-mob.jpg" alt="Showcase (현재) 모바일 화면" loading="lazy"></a></div>
+  <div class="shots"><a href="design-showcase.html" target="_blank" rel="noopener"><img src="assets/design/showcase-desk.jpg" alt="Showcase (현재) 데스크톱 화면" loading="lazy"></a></div>
+</div>
+<div class="d">
+  <div class="info">
+    <h2>A · Report</h2>
+    <p class="ref">참고: Eugene Yan(eugeneyan.com)처럼 글과 사례 연구가 중심인 ML 엔지니어 사이트</p>
+    <p class="desc">종이 질감 배경, 세리프 제목, 고정폭 메타데이터. 프로젝트 7개를 &#39;기간 · 제목 · 핵심 수치&#39; 표로 보여 주고, 행을 누르면 사례가 펼쳐집니다. 읽는 사람이 30초 안에 전체를 훑을 수 있는 구조.</p>
+    <a class="open" href="design-report.html" target="_blank" rel="noopener">시안 열기 →</a>
+    <div class="pick">선택: “report로 해줘” 또는 <code>site.layout: "report"</code></div>
+  </div>
+  <div class="shots mob"><a href="design-report.html" target="_blank" rel="noopener"><img src="assets/design/report-mob.jpg" alt="A · Report 모바일 화면" loading="lazy"></a></div>
+  <div class="shots"><a href="design-report.html" target="_blank" rel="noopener"><img src="assets/design/report-desk.jpg" alt="A · Report 데스크톱 화면" loading="lazy"></a></div>
+</div>
+<div class="d">
+  <div class="info">
+    <h2>B · Gallery</h2>
+    <p class="ref">참고: 국내 IT 기업 채용 페이지·서비스형 포트폴리오의 카드 UI</p>
+    <p class="desc">Pretendard, 밝은 카드 그리드. 화면 캡처가 있는 프로젝트는 썸네일로, 없는 것은 핵심 수치로 보여 줍니다. LLM·RAG / 딥러닝 / 데이터 / 연구 필터, 카드를 누르면 상세 창이 열립니다.</p>
+    <a class="open" href="design-gallery.html" target="_blank" rel="noopener">시안 열기 →</a>
+    <div class="pick">선택: “gallery로 해줘” 또는 <code>site.layout: "gallery"</code></div>
+  </div>
+  <div class="shots mob"><a href="design-gallery.html" target="_blank" rel="noopener"><img src="assets/design/gallery-mob.jpg" alt="B · Gallery 모바일 화면" loading="lazy"></a></div>
+  <div class="shots"><a href="design-gallery.html" target="_blank" rel="noopener"><img src="assets/design/gallery-desk.jpg" alt="B · Gallery 데스크톱 화면" loading="lazy"></a></div>
+</div>
+<div class="d">
+  <div class="info">
+    <h2>C · Pipeline</h2>
+    <p class="ref">참고: 개발자 도구·데이터 플랫폼 랜딩 페이지의 다크 테마</p>
+    <p class="desc">다크 + 격자 배경 + 고정폭 글꼴. 첫 화면에 &#39;수집 → 정제 → 학습·색인 → 검증 → 결과&#39; 흐름도를 두고, 각 단계에 실제로 쓴 도구를 적었습니다. 데이터 엔지니어 지원에 가장 직접적인 메시지.</p>
+    <a class="open" href="design-pipeline.html" target="_blank" rel="noopener">시안 열기 →</a>
+    <div class="pick">선택: “pipeline로 해줘” 또는 <code>site.layout: "pipeline"</code></div>
+  </div>
+  <div class="shots mob"><a href="design-pipeline.html" target="_blank" rel="noopener"><img src="assets/design/pipeline-mob.jpg" alt="C · Pipeline 모바일 화면" loading="lazy"></a></div>
+  <div class="shots"><a href="design-pipeline.html" target="_blank" rel="noopener"><img src="assets/design/pipeline-desk.jpg" alt="C · Pipeline 데스크톱 화면" loading="lazy"></a></div>
+</div>
+<div class="d">
+  <div class="info">
+    <h2>이전 시안 · Sidebar</h2>
+    <p class="ref">참고: 왼쪽 고정 사이드바형</p>
+    <p class="desc">이전에 만들어 둔 시안. 왼쪽 고정 프로필 + 오른쪽 스크롤.</p>
+    <a class="open" href="design-sidebar.html" target="_blank" rel="noopener">시안 열기 →</a>
+    <div class="pick">선택: “sidebar로 해줘” 또는 <code>site.layout: "sidebar"</code></div>
+  </div>
+  <div class="shots mob"><a href="design-sidebar.html" target="_blank" rel="noopener"><img src="assets/design/sidebar-mob.jpg" alt="이전 시안 · Sidebar 모바일 화면" loading="lazy"></a></div>
+  <div class="shots"><a href="design-sidebar.html" target="_blank" rel="noopener"><img src="assets/design/sidebar-desk.jpg" alt="이전 시안 · Sidebar 데스크톱 화면" loading="lazy"></a></div>
+</div>
+<div class="d">
+  <div class="info">
+    <h2>이전 시안 · Bento</h2>
+    <p class="ref">참고: 벤토 그리드형</p>
+    <p class="desc">이전에 만들어 둔 시안. 크기가 다른 타일을 격자로 배치.</p>
+    <a class="open" href="design-bento.html" target="_blank" rel="noopener">시안 열기 →</a>
+    <div class="pick">선택: “bento로 해줘” 또는 <code>site.layout: "bento"</code></div>
+  </div>
+  <div class="shots mob"><a href="design-bento.html" target="_blank" rel="noopener"><img src="assets/design/bento-mob.jpg" alt="이전 시안 · Bento 모바일 화면" loading="lazy"></a></div>
+  <div class="shots"><a href="design-bento.html" target="_blank" rel="noopener"><img src="assets/design/bento-desk.jpg" alt="이전 시안 · Bento 데스크톱 화면" loading="lazy"></a></div>
+</div>
+</div>
+</div></body>
+</html>

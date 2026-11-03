@@ -1,0 +1,187 @@
+{% import "layouts/_parts.j2" as p %}
+{% import "layouts/_v2.j2" as v %}
+{% set cats = [('all','전체'),('llm','LLM · RAG'),('dl','딥러닝'),('data','데이터 파이프라인'),('research','연구')] %}
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ profile.name }} 포트폴리오</title>
+<meta name="description" content="{{ profile.title }} · {{ profile.headline }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--bg:#f5f6f8;--surface:#ffffff;--text:#191f28;--muted:#6b7684;--line:#e5e8eb;--accent:#3182f6;--accent-2:#6aa8ff;--on-accent:#fff;--chip:#f2f4f6;--shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.06)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#101113;--surface:#1b1c1f;--text:#eef0f3;--muted:#9aa1ab;--line:#2a2c30;--accent:#4f95ff;--accent-2:#8ab8ff;--on-accent:#0b1220;--chip:#25272b;--shadow:none}}
+:root[data-theme="dark"]{--bg:#101113;--surface:#1b1c1f;--text:#eef0f3;--muted:#9aa1ab;--line:#2a2c30;--accent:#4f95ff;--accent-2:#8ab8ff;--on-accent:#0b1220;--chip:#25272b;--shadow:none}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 "Pretendard Variable",Pretendard,system-ui,sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header.top{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:22px;height:60px}
+.logo{font-weight:800;margin-right:auto;text-decoration:none;letter-spacing:-.02em}
+header.top a.n{text-decoration:none;color:var(--muted);font-size:14.5px;font-weight:600}header.top a.n:hover{color:var(--text)}
+#theme{background:var(--chip);border:0;color:var(--muted);border-radius:8px;padding:6px 12px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.hero{display:grid;grid-template-columns:1fr 300px;gap:40px;align-items:center;padding:72px 0 40px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 12px 5px 8px;font-size:13.5px;font-weight:600;color:var(--muted)}
+.badge i{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.18)}
+.hero h1{font-size:clamp(30px,4.2vw,48px);line-height:1.22;letter-spacing:-.035em;font-weight:800;margin:18px 0 18px}
+.hero h1 span{color:var(--accent)}
+.hero p{font-size:18px;color:var(--muted);margin:0 0 28px;max-width:600px}
+.cta{display:flex;flex-wrap:wrap;gap:8px}
+.b{display:inline-flex;align-items:center;gap:6px;padding:11px 18px;border-radius:12px;font-weight:700;font-size:15px;text-decoration:none;transition:transform .15s}
+.b:hover{transform:translateY(-1px)}
+.b.pri{background:var(--accent);color:var(--on-accent)}
+.b.sec{background:var(--surface);color:var(--text);border:1px solid var(--line)}
+.me{background:var(--surface);border-radius:28px;padding:22px;box-shadow:var(--shadow);border:1px solid var(--line)}
+.me .avatar{width:100%;aspect-ratio:1;border-radius:20px;object-fit:cover;display:block;font-size:64px}
+.me b{display:block;margin-top:14px;font-size:18px}.me span{color:var(--muted);font-size:14px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.stat{background:var(--surface);border-radius:20px;padding:20px 22px;box-shadow:var(--shadow);border:1px solid var(--line)}
+.stat b{display:block;font-size:26px;font-weight:800;letter-spacing:-.03em}
+.stat span{font-size:13.5px;color:var(--muted)}
+section{padding:72px 0 0;scroll-margin-top:72px}
+.sh h2{font-size:clamp(26px,3.4vw,36px);letter-spacing:-.03em;font-weight:800;margin:0 0 6px}
+.sh p{margin:0 0 22px;color:var(--muted)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.filters button{border:1px solid var(--line);background:var(--surface);color:var(--muted);padding:8px 16px;border-radius:999px;font:inherit;font-size:14.5px;font-weight:700;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--text);color:var(--bg);border-color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.card{background:var(--surface);border-radius:24px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);display:flex;flex-direction:column;cursor:pointer;text-align:left;font:inherit;color:inherit;padding:0;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-4px)}
+.card.wide{grid-column:1/-1;flex-direction:row}
+.card.wide .thumb{flex:1.25;aspect-ratio:auto;min-height:280px}
+.card.wide .cbody{flex:1;padding:30px 32px;justify-content:center}
+.card.wide h3{font-size:24px}
+.card:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.thumb{aspect-ratio:16/9;background:var(--chip);position:relative;overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .4s}
+.card:hover .thumb img{transform:scale(1.03)}
+.thumb .ph{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(120% 120% at 0% 0%,color-mix(in srgb,var(--accent) 22%,transparent),transparent 60%),var(--chip)}
+.thumb .ph b{font-size:clamp(40px,6vw,64px);font-weight:800;letter-spacing:-.04em;color:var(--accent)}
+.pill{position:absolute;left:14px;bottom:14px;background:rgba(17,20,24,.82);color:#fff;border-radius:10px;padding:6px 11px;font-size:13px;font-weight:700;backdrop-filter:blur(6px)}
+.pill em{font-style:normal;color:#9cc4ff;margin-left:4px;font-weight:600}
+.cbody{padding:20px 22px 22px;display:flex;flex-direction:column;gap:8px;flex:1}
+.cmeta{font-size:13px;color:var(--muted);font-weight:600}
+.card h3{margin:0;font-size:20px;letter-spacing:-.025em;line-height:1.4}
+.card p{margin:0;color:var(--muted);font-size:15px;flex:1}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.tags span,.stack span{font-size:12.5px;padding:3px 10px;border-radius:8px;background:var(--chip);color:var(--muted);font-weight:600}
+dialog{border:0;border-radius:28px;padding:0;max-width:720px;width:calc(100% - 32px);background:var(--surface);color:var(--text);box-shadow:0 30px 80px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(10,12,16,.55);backdrop-filter:blur(3px)}
+dialog img{width:100%;max-height:360px;object-fit:contain;background:var(--chip);display:block}
+dialog .dbody{padding:26px 28px 28px}
+dialog h3{margin:4px 0 10px;font-size:24px;letter-spacing:-.03em;line-height:1.35}
+dialog .close{position:absolute;right:14px;top:14px;border:0;background:rgba(17,20,24,.7);color:#fff;width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer}
+.pts{margin:14px 0;padding-left:18px}.pts li{margin:5px 0}
+.stack{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.plinks{display:flex;flex-wrap:wrap;gap:8px}
+.plinks a{display:inline-flex;padding:9px 14px;border-radius:10px;background:var(--chip);text-decoration:none;font-weight:700;font-size:14px}
+.plinks a:first-child{background:var(--accent);color:var(--on-accent)}
+.posts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.post{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:20px 22px;text-decoration:none;display:flex;flex-direction:column;gap:6px;box-shadow:var(--shadow)}
+.post:hover h4{color:var(--accent)}
+.post .d{font-size:13px;color:var(--muted);font-weight:600}
+.post h4{margin:0;font-size:17px;line-height:1.45;letter-spacing:-.02em}
+.post p{margin:0;font-size:14px;color:var(--muted)}
+.more{display:flex;justify-content:center;margin-top:16px}
+.more button{border:1px solid var(--line);background:var(--surface);color:var(--text);padding:10px 20px;border-radius:12px;font:inherit;font-weight:700;cursor:pointer}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:24px 26px;box-shadow:var(--shadow)}
+.panel h3{margin:0 0 12px;font-size:17px}
+.row{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-top:1px solid var(--line);font-size:15px}
+.row:first-of-type{border-top:0}
+.row small{color:var(--muted);white-space:nowrap}
+.row a{text-decoration:none}.row a:hover{color:var(--accent)}
+.skill{margin-bottom:12px}.skill b{display:block;font-size:13.5px;color:var(--muted);margin-bottom:6px}
+.contact{margin:72px 0 0;background:var(--text);color:var(--bg);border-radius:28px;padding:44px;display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center}
+.contact h2{margin:0 0 6px;font-size:clamp(24px,3vw,32px);letter-spacing:-.03em}
+.contact a.m{color:var(--accent-2);font-weight:700;text-decoration:none;font-size:18px}
+.contact .b.sec{background:transparent;color:var(--bg);border-color:color-mix(in srgb,var(--bg) 30%,transparent)}
+footer{padding:32px 0 48px;color:var(--muted);font-size:13px}
+[hidden]{display:none!important}
+@media (max-width:860px){
+  header.top a.n{display:none}
+  .hero{grid-template-columns:1fr;padding:40px 0 28px;gap:24px}
+  .me{display:flex;gap:14px;align-items:center;padding:14px;border-radius:20px;order:-1}
+  .me .avatar{width:64px;height:64px;border-radius:14px;font-size:24px}
+  .me b{margin:0}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat{padding:16px}.stat b{font-size:21px}
+  .grid,.posts,.two{grid-template-columns:1fr}
+  .card.wide{flex-direction:column}.card.wide .thumb{aspect-ratio:16/9;min-height:0;flex:none}.card.wide .cbody{padding:20px 22px 22px}
+  .contact{padding:30px 24px}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="logo" href="#">{{ profile.name }}</a><a class="n" href="#projects">프로젝트</a><a class="n" href="#writing">글</a><a class="n" href="#about">이력</a>{% if alt_lang %}<a class="n" href="{{ alt_lang.url }}" hreflang="{{ alt_lang.code }}">{{ alt_lang.label }}</a>{% endif %}<button id="theme" type="button">테마</button></div></header>
+
+<main class="wrap">
+<div class="hero">
+  <div>
+    <span class="badge"><i></i>{{ profile.title }} · 채용 기회를 찾고 있습니다</span>
+    <h1>데이터를 모으고,<br>모델로 검증하고,<br><span>결과로 증명합니다.</span></h1>
+    <p>{{ v.intro() }}</p>
+    <div class="cta"><a class="b pri" href="#projects">프로젝트 보기</a><a class="b sec" href="resume-1page.pdf" download>이력서 PDF</a>{% for l in profile.links if 'github' in l.label|lower %}<a class="b sec" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.icon('github', 16) }} GitHub</a>{% endfor %}</div>
+  </div>
+  <div class="me">{{ p.avatar(profile) }}<div><b>{{ profile.name }} · {{ profile.name_en }}</b><span>전북대 석사 · SSAFY 16기</span></div></div>
+</div>
+<div class="stats">{% for h in highlights %}<div class="stat"><b>{{ h.value }}</b><span>{{ h.label }}</span></div>{% endfor %}</div>
+
+<section id="projects">
+  <div class="sh"><h2>프로젝트</h2><p>카드를 누르면 무엇을 했고 어떻게 검증했는지 볼 수 있습니다.</p></div>
+  <div class="filters" role="group" aria-label="분야 필터">{% for k, label in cats %}<button type="button" data-f="{{ k }}" aria-pressed="{{ 'true' if k == 'all' else 'false' }}">{{ label }}</button>{% endfor %}</div>
+  <div class="grid">
+  {% for x in projects_index %}
+    <button class="card{% if loop.first %} wide{% endif %}" type="button" data-cat="{{ x.cat|join(' ') }}" data-open="m-{{ x.id }}">
+      <div class="thumb">{% if x.image %}<img src="{{ x.image }}" alt="" loading="lazy">{% else %}<div class="ph"><b>{{ x.metric.value }}</b></div>{% endif %}<span class="pill">{{ x.metric.value }}<em>{{ x.metric.label }}</em></span></div>
+      <div class="cbody"><span class="cmeta">{{ x.org }} · {{ x.period }}</span><h3>{{ x.title }}</h3><p>{{ x.oneliner }}</p><div class="tags">{% for s in x.stack[:4] %}<span>{{ s }}</span>{% endfor %}</div></div>
+    </button>
+  {% endfor %}
+  </div>
+  {% for x in projects_index %}
+  <dialog id="m-{{ x.id }}" aria-labelledby="t-{{ x.id }}">
+    <button class="close" type="button" aria-label="닫기">✕</button>
+    {% if x.image %}<img src="{{ x.image }}" alt="{{ x.title }}" loading="lazy">{% endif %}
+    <div class="dbody"><span class="cmeta">{{ x.org }} · {{ x.period }} · {{ x.team }}</span><h3 id="t-{{ x.id }}">{{ x.title }}</h3><p style="margin:0;color:var(--muted)">{{ x.oneliner }}</p>{{ v.detail(x, posts, '') }}</div>
+  </dialog>
+  {% endfor %}
+</section>
+
+{% if posts %}
+<section id="writing">
+  <div class="sh"><h2>글</h2><p>프로젝트에서 배운 것을 정리했습니다 · {{ posts|length }}편</p></div>
+  <div class="posts">{% for w in posts %}<a class="post" href="posts/{{ w.slug }}.html"{% if loop.index > 6 %} data-extra hidden{% endif %}><span class="d">{{ w.date }}</span><h4>{{ w.title }}</h4><p>{{ w.summary|truncate(80) }}</p></a>{% endfor %}</div>
+  {% if posts|length > 6 %}<div class="more"><button type="button" id="moreposts">글 {{ posts|length - 6 }}편 더 보기</button></div>{% endif %}
+</section>
+{% endif %}
+
+<section id="about">
+  <div class="sh"><h2>이력</h2><p>학력 · 논문 · 수상 · 기술</p></div>
+  <div class="two">
+    <div class="panel"><h3>학력 · 교육</h3>{% for e in education %}<div class="row"><span>{{ e.school }} <small style="white-space:normal">{{ e.major }} {{ e.degree }}</small></span><small>{{ e.period_str }}</small></div>{% endfor %}</div>
+    <div class="panel"><h3>논문 · 수상</h3>{% for x in papers %}<div class="row">{% if x.url %}<a href="{{ x.url }}" target="_blank" rel="noopener">{{ x.title|truncate(60) }}</a>{% else %}<span>{{ x.title|truncate(60) }}</span>{% endif %}<small>{{ x.year }}</small></div>{% endfor %}{% for x in awards %}<div class="row"><span>🏆 {{ x.name }}</span><small>{{ x.date }}</small></div>{% endfor %}{% for x in certifications %}<div class="row"><span>📜 {{ x.name }}</span><small>{{ x.date }}</small></div>{% endfor %}</div>
+    <div class="panel" style="grid-column:1/-1"><h3>기술</h3>{% for s in skills %}<div class="skill"><b>{{ s.category }}</b><div class="tags">{% for i in s['items'] %}<span>{{ i }}</span>{% endfor %}</div></div>{% endfor %}</div>
+  </div>
+</section>
+
+<div class="contact" id="contact"><div><h2>함께 일할 기회를 기다립니다.</h2>{% if profile.email %}<a class="m" href="mailto:{{ profile.email }}">{{ profile.email }}</a>{% endif %}</div><div class="cta">{% for l in profile.links %}<a class="b sec" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }}</a>{% endfor %}</div></div>
+<footer>© {{ profile.name_en }} · data/portfolio.yaml 에서 자동 생성{% if study_notes %} · <a href="study/index.html">학습 노트</a>{% endif %} · <a href="private/index.html" rel="nofollow">🔒 Private</a></footer>
+</main>
+{{ p.theme_script() }}
+<script>
+(function(){
+var bs=document.querySelectorAll('.filters button'),cs=document.querySelectorAll('.card');
+bs.forEach(function(b){b.addEventListener('click',function(){var f=b.dataset.f;
+bs.forEach(function(x){x.setAttribute('aria-pressed',x===b)});
+cs.forEach(function(c){c.hidden=!(f==='all'||c.dataset.cat.split(' ').indexOf(f)>=0)});});});
+cs.forEach(function(c){c.addEventListener('click',function(){var d=document.getElementById(c.dataset.open);if(d.showModal)d.showModal();});});
+document.querySelectorAll('dialog').forEach(function(d){
+d.querySelector('.close').addEventListener('click',function(){d.close()});
+d.addEventListener('click',function(e){if(e.target===d)d.close()});});
+var m=document.getElementById('moreposts');if(m)m.addEventListener('click',function(){document.querySelectorAll('[data-extra]').forEach(function(x){x.hidden=false});m.parentNode.remove();});
+})();
+</script>
+</body>
+</html>

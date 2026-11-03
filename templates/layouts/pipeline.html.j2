@@ -1,0 +1,209 @@
+{% import "layouts/_parts.j2" as p %}
+{% import "layouts/_v2.j2" as v %}
+{% set stages = [
+  ('01', '수집', '오픈API(XML·EUC-KR) · Selenium · 위키백과'),
+  ('02', '정제', 'pandas · IQR 길이 기준 · 중복 제거'),
+  ('03', '학습 · 색인', 'QLoRA · U-LSTM · ChromaDB'),
+  ('04', '검증', '코드로 LLM 응답 검사 · 테스트 136개'),
+  ('05', '결과', 'VQA 0.96961 · SCIE 제1저자'),
+] %}
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ profile.name }} 포트폴리오</title>
+<meta name="description" content="{{ profile.title }} · {{ profile.headline }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0d12;--surface:#11161d;--surface-2:#161c25;--text:#e6edf3;--muted:#8b97a6;--line:#212a35;--accent:#5eead4;--accent-2:#fbbf24;--on-accent:#04110f;--chip:#18202a;--grid:rgba(94,234,212,.05)}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){--bg:#f7f8fa;--surface:#ffffff;--surface-2:#f1f4f7;--text:#0f1720;--muted:#5b6876;--line:#dfe4ea;--accent:#0f9488;--accent-2:#b7791f;--on-accent:#fff;--chip:#eef2f5;--grid:rgba(15,148,136,.06)}}
+:root[data-theme="light"]{--bg:#f7f8fa;--surface:#ffffff;--surface-2:#f1f4f7;--text:#0f1720;--muted:#5b6876;--line:#dfe4ea;--accent:#0f9488;--accent-2:#b7791f;--on-accent:#fff;--chip:#eef2f5;--grid:rgba(15,148,136,.06)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 "Pretendard Variable",Pretendard,system-ui,sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:40px 40px;background-attachment:fixed}
+a{color:inherit}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+nav.top{display:flex;align-items:center;gap:22px;height:64px;font-family:"JetBrains Mono",monospace;font-size:13px}
+nav.top .logo{margin-right:auto;font-weight:700;text-decoration:none;color:var(--text)}
+nav.top .logo b{color:var(--accent)}
+nav.top a{color:var(--muted);text-decoration:none}nav.top a:hover{color:var(--accent)}
+#theme{background:var(--chip);border:1px solid var(--line);color:var(--muted);border-radius:6px;padding:4px 10px;font:inherit;font-size:12px;cursor:pointer}
+.hero{padding:64px 0 28px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end}
+.prompt{font-family:"JetBrains Mono",monospace;font-size:13.5px;color:var(--accent)}
+.prompt span{color:var(--muted)}
+.hero h1{font-size:clamp(32px,4.6vw,54px);line-height:1.2;letter-spacing:-.035em;font-weight:800;margin:14px 0 18px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p{color:var(--muted);font-size:17.5px;max-width:640px;margin:0 0 24px}
+.hero .avatar{width:150px;height:150px;border-radius:18px;object-fit:cover;border:1px solid var(--line);font-size:44px}
+.cta{display:flex;flex-wrap:wrap;gap:8px}
+.b{display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:8px;font-weight:700;font-size:14.5px;text-decoration:none;border:1px solid var(--line);background:var(--surface);color:var(--text);transition:border-color .15s}
+.b:hover{border-color:var(--accent)}
+.b.pri{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+/* 파이프라인 다이어그램 */
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin:36px 0 12px;position:relative}
+.stage{position:relative;padding:18px 18px 18px;background:var(--surface);border:1px solid var(--line);margin-right:28px;border-radius:12px}
+.stage:last-child{margin-right:0;border-color:color-mix(in srgb,var(--accent-2) 55%,var(--line))}
+.stage::after{content:"";position:absolute;right:-29px;top:50%;width:29px;height:2px;background:repeating-linear-gradient(90deg,var(--accent) 0 6px,transparent 6px 11px);background-size:22px 2px;animation:flow 1s linear infinite}
+.stage:last-child::after{display:none}
+@keyframes flow{to{background-position:22px 0}}
+@media (prefers-reduced-motion: reduce){.stage::after{animation:none}}
+.stage .no{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--accent)}
+.stage:last-child .no{color:var(--accent-2)}
+.stage b{display:block;font-size:17px;margin:2px 0 4px}
+.stage small{display:block;color:var(--muted);font-size:12.5px;line-height:1.5}
+.flowcap{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted);margin:0 0 8px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:12px;background:var(--surface);margin-top:28px;overflow:hidden}
+.kpis div{padding:18px 20px;border-right:1px solid var(--line)}
+.kpis div:last-child{border-right:0}
+.kpis b{display:block;font-family:"JetBrains Mono",monospace;font-size:22px;font-weight:700;letter-spacing:-.02em}
+.kpis span{font-size:12.5px;color:var(--muted)}
+section{padding:80px 0 0;scroll-margin-top:16px}
+.sh{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.sh h2{margin:0;font-size:clamp(24px,3vw,32px);letter-spacing:-.03em;font-weight:800}
+.sh h2::before{content:"# ";color:var(--accent);font-family:"JetBrains Mono",monospace;font-weight:600}
+.sh span{font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--muted)}
+/* 프로젝트 */
+.proj{display:grid;gap:12px}
+.pj{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:border-color .15s}
+.pj:hover,.pj[open]{border-color:color-mix(in srgb,var(--accent) 50%,var(--line))}
+.pj summary{list-style:none;display:grid;grid-template-columns:150px 1fr 190px;gap:20px;padding:20px 22px;cursor:pointer;align-items:center}
+.pj summary::-webkit-details-marker{display:none}
+.pj .when{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted)}
+.pj .when i{display:block;font-style:normal;color:var(--accent);margin-bottom:4px}
+.pj h3{margin:0 0 4px;font-size:19px;letter-spacing:-.02em;line-height:1.4}
+.pj .one{margin:0;color:var(--muted);font-size:14.5px}
+.pj .met{text-align:right;border-left:1px dashed var(--line);padding-left:18px}
+.pj .met b{display:block;font-family:"JetBrains Mono",monospace;font-size:24px;font-weight:700;color:var(--accent-2);letter-spacing:-.02em;line-height:1.2}
+.pj .met span{font-size:12px;color:var(--muted)}
+.pj .inner{display:grid;grid-template-columns:1fr 340px;gap:24px;padding:4px 22px 22px 192px}
+.pj .inner.noimg{grid-template-columns:1fr}
+.pj .inner img{width:100%;border-radius:10px;border:1px solid var(--line);background:#fff;display:block}
+.pts{margin:0 0 14px;padding-left:18px}.pts li{margin:4px 0;font-size:15px}
+.pts li::marker{color:var(--accent)}
+.stack{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.stack span{font-family:"JetBrains Mono",monospace;font-size:11.5px;padding:3px 9px;border-radius:5px;background:var(--chip);border:1px solid var(--line);color:var(--muted)}
+.plinks{display:flex;flex-wrap:wrap;gap:8px}
+.plinks a{font-size:13.5px;font-weight:700;text-decoration:none;color:var(--accent);border:1px solid var(--line);padding:6px 12px;border-radius:7px;background:var(--surface-2)}
+.plinks a:hover{border-color:var(--accent)}
+/* 글: 터미널 목록 */
+.term{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.term .bar{display:flex;gap:6px;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+.term .bar i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.term .bar span{margin-left:8px;font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted)}
+.term ul{list-style:none;margin:0;padding:8px 0}
+.term li a{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:10px 18px;text-decoration:none}
+.term li a:hover{background:var(--surface-2)}
+.term li a:hover b{color:var(--accent)}
+.term .d{font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--muted);padding-top:2px}
+.term b{font-weight:600;font-size:15.5px}
+.term small{display:block;color:var(--muted);font-size:13.5px}
+.term .foot{border-top:1px solid var(--line);padding:12px 18px;font-family:"JetBrains Mono",monospace;font-size:12.5px}
+.term .foot a{color:var(--accent)}
+/* 이력 */
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+.box h3{margin:0 0 10px;font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.06em;color:var(--accent);font-weight:600;text-transform:uppercase}
+.box .it{padding:8px 0;border-top:1px solid var(--line);font-size:14.5px}
+.box .it:first-of-type{border-top:0}
+.box .it small{display:block;color:var(--muted);font-size:12.5px}
+.box .it a{text-decoration:none}.box .it a:hover{color:var(--accent)}
+.skills{margin-top:12px}
+.skills .row{display:grid;grid-template-columns:180px 1fr;gap:16px;padding:10px 0;border-top:1px solid var(--line);font-size:14.5px}
+.skills .row b{font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--muted);font-weight:600;padding-top:2px}
+.contact{margin-top:80px;border:1px solid var(--line);border-radius:16px;padding:36px;background:var(--surface);display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center}
+.contact h2{margin:0 0 6px;font-size:clamp(22px,3vw,30px);letter-spacing:-.03em}
+.contact .m{font-family:"JetBrains Mono",monospace;color:var(--accent);text-decoration:none;font-size:16px}
+footer{padding:28px 0 48px;color:var(--muted);font-size:12.5px;font-family:"JetBrains Mono",monospace}
+footer a{color:var(--muted)}
+@media (max-width:900px){
+  nav.top a.opt{display:none}
+  .hero{grid-template-columns:1fr;padding:32px 0 16px}
+  .hero .avatar{width:88px;height:88px;order:-1}
+  .flow{grid-template-columns:1fr;gap:18px}
+  .stage{margin-right:0}
+  .stage::after{right:auto;left:28px;top:auto;bottom:-19px;width:2px;height:19px;background:repeating-linear-gradient(180deg,var(--accent) 0 5px,transparent 5px 9px)}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .kpis div:nth-child(2){border-right:0}
+  .kpis div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .pj summary{grid-template-columns:1fr;gap:8px}
+  .pj .met{text-align:left;border-left:0;padding-left:0;display:flex;gap:8px;align-items:baseline}
+  .pj .met b{display:inline;font-size:20px}
+  .pj .inner{grid-template-columns:1fr;padding:0 18px 18px}
+  .term li a{grid-template-columns:1fr;gap:0}
+  .cols{grid-template-columns:1fr}
+  .skills .row{grid-template-columns:1fr;gap:2px}
+  .contact{padding:26px 20px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="top"><a class="logo" href="#"><b>~/</b>{{ profile.name_en|lower|replace(' ', '-') }}</a><a class="opt" href="#projects">projects</a><a class="opt" href="#writing">writing</a><a class="opt" href="#cv">cv</a>{% if alt_lang %}<a href="{{ alt_lang.url }}" hreflang="{{ alt_lang.code }}">{{ alt_lang.label|lower }}</a>{% endif %}<button id="theme" type="button">theme</button></nav>
+
+<header>
+  <div class="hero">
+    <div>
+      <div class="prompt">$ whoami <span>→ {{ profile.name }} · {{ profile.title }}</span></div>
+      <h1>데이터를 모으고, 모델로 검증하고,<br><em>결과로 증명합니다.</em></h1>
+      <p>{{ v.intro() }}</p>
+      <div class="cta"><a class="b pri" href="#projects">프로젝트 {{ p.icon('arrow', 14) }}</a><a class="b" href="resume-1page.pdf" download>{{ p.icon('doc', 16) }} 이력서</a>{% for l in profile.links if 'github' in l.label|lower or 'linkedin' in l.label|lower %}<a class="b" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.link_icon(l.label) }} {{ l.label }}</a>{% endfor %}{% if profile.email %}<a class="b" href="mailto:{{ profile.email }}">{{ p.icon('mail', 16) }} 메일</a>{% endif %}</div>
+    </div>
+    {{ p.avatar(profile) }}
+  </div>
+  <div class="flow" aria-label="일하는 방식: 수집부터 결과까지">
+    {% for no, name, ex in stages %}<div class="stage"><span class="no">{{ no }}</span><b>{{ name }}</b><small>{{ ex }}</small></div>{% endfor %}
+  </div>
+  <p class="flowcap">// 아래 프로젝트들에서 실제로 쓴 도구와 결과입니다</p>
+  <div class="kpis">{% for h in highlights %}<div><b>{{ h.value }}</b><span>{{ h.label }}</span></div>{% endfor %}</div>
+</header>
+
+<section id="projects">
+  <div class="sh"><h2>Projects</h2><span>{{ projects_index|length }} items · 눌러서 펼치기</span></div>
+  <div class="proj">
+  {% for x in projects_index %}
+  <details class="pj"{% if loop.first %} open{% endif %}>
+    <summary>
+      <span class="when"><i>{{ '%02d'|format(loop.index) }}</i>{{ x.period }}</span>
+      <div><h3>{{ x.title }}</h3><p class="one">{{ x.org }} · {{ x.team }}</p></div>
+      <div class="met"><b>{{ x.metric.value }}</b><span>{{ x.metric.label }}</span></div>
+    </summary>
+    <div class="inner{% if not x.image %} noimg{% endif %}">
+      <div><p style="margin:0 0 12px">{{ x.oneliner }}</p>{{ v.detail(x, posts, '→') }}</div>
+      {% if x.image %}<img src="{{ x.image }}" alt="{{ x.title }}" loading="lazy">{% endif %}
+    </div>
+  </details>
+  {% endfor %}
+  </div>
+</section>
+
+{% if posts %}
+<section id="writing">
+  <div class="sh"><h2>Writing</h2><span>{{ posts|length }} posts</span></div>
+  <div class="term">
+    <div class="bar"><i></i><i></i><i></i><span>~/posts — ls -t</span></div>
+    <ul>{% for w in posts %}<li><a href="posts/{{ w.slug }}.html"><span class="d">{{ w.date }}</span><div><b>{{ w.title }}</b><small>{{ w.summary|truncate(100) }}</small></div></a></li>{% endfor %}</ul>
+    {% if study_notes %}<div class="foot">$ open <a href="study/index.html">~/study</a> <span style="color:var(--muted)"># SSAFY 강의 노트 {{ study_notes|length }}편</span></div>{% endif %}
+  </div>
+</section>
+{% endif %}
+
+<section id="cv">
+  <div class="sh"><h2>CV</h2><span>education · publications · awards</span></div>
+  <div class="cols">
+    <div class="box"><h3>Education</h3>{% for e in education %}<div class="it">{{ e.school }}<small>{{ e.major }} {{ e.degree }} · {{ e.period_str }}</small></div>{% endfor %}</div>
+    <div class="box"><h3>Publications</h3>{% for x in papers %}<div class="it">{% if x.url %}<a href="{{ x.url }}" target="_blank" rel="noopener">{{ x.title }}</a>{% else %}{{ x.title }}{% endif %}<small>{{ x.venue }} · {{ x.year }}</small></div>{% endfor %}<div class="it"><small>+ 학회 발표 {{ talks|length }}건</small></div></div>
+    <div class="box"><h3>Awards · Certs</h3>{% for x in awards %}<div class="it">{{ x.name }}<small>{{ x.org }} · {{ x.date }}</small></div>{% endfor %}{% for x in certifications %}<div class="it">{{ x.name }}<small>{{ x.org }} · {{ x.date }}</small></div>{% endfor %}</div>
+  </div>
+  <div class="skills">{% for s in skills %}<div class="row"><b>{{ s.category }}</b><span>{{ s['items']|join(' · ') }}</span></div>{% endfor %}</div>
+</section>
+
+<div class="contact" id="contact"><div><h2>함께 일할 기회를 기다립니다.</h2>{% if profile.email %}<a class="m" href="mailto:{{ profile.email }}">{{ profile.email }}</a>{% endif %}</div><div class="cta">{% for l in profile.links %}<a class="b" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.link_icon(l.label) }} {{ l.label }}</a>{% endfor %}</div></div>
+<footer>© {{ profile.name_en }} · built from data/portfolio.yaml · <a href="private/index.html" rel="nofollow">private</a></footer>
+</div>
+{{ p.theme_script() }}
+</body>
+</html>

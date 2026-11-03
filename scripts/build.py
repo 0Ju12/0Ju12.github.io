@@ -102,6 +102,8 @@ def normalize(data):
     data["certifications"] = data.get("certifications") or []
     data["highlights"] = data.get("highlights") or []
     data["awards"] = data.get("awards") or []
+    pi = DATA.parent / "projects_index.yaml"   # 디자인 시안용 프로젝트 단위 목록
+    data["projects_index"] = yaml.safe_load(pi.read_text(encoding="utf-8")) if pi.exists() else []
     return data
 
 
