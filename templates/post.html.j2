@@ -59,7 +59,7 @@ footer{padding:64px 0 40px;color:var(--muted);font-size:13px}
   </header>
   <article>{{ post.html|safe }}</article>
   <div class="endcard">
-    <div><b>{{ post.project_title or '관련 프로젝트' }}</b><span>이 글에서 다룬 코드는 저장소에서 볼 수 있습니다.</span></div>
+    <div><b>{{ post.project_title or '관련 프로젝트' }}</b><span>{% if post.repo %}이 글에서 다룬 코드는 저장소에서 볼 수 있습니다.{% else %}자세한 내용은 포트폴리오의 해당 활동에서 볼 수 있습니다.{% endif %}</span></div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">{% if post.repo %}<a class="btn" href="{{ post.repo }}" target="_blank" rel="noopener">GitHub 저장소 →</a>{% endif %}<a class="btn" href="../index.html#work">포트폴리오로</a></div>
   </div>
   {% set rest = posts|rejectattr('slug', 'equalto', post.slug)|list %}

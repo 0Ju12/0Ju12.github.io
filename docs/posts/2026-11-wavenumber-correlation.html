@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>겹쳐 있는 두 신호를 위상으로 가르기 — 파수 상관 필터링 석사 연구 정리 · 이영주</title>
+<meta name="description" content="중력과 자력 데이터를 같은 주파수 성분끼리 비교해, 함께 움직이는 성분과 반대로 움직이는 성분을 나눴다. 임계값을 감으로 정하지 않으려고 한 일들.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--surface:#f7f7f8;--text:#0d0d0f;--muted:#5d5f66;--line:#e7e7ea;--accent:#0a7c66;--accent-2:#14b8a6;--chip:#eef2f1;--code:#0f1117;--code-text:#e6e6e6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}}
+:root[data-theme="dark"]{--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.85 "Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:740px;margin:0 auto;padding:0 20px}
+nav{display:flex;align-items:center;gap:16px;padding:24px 0;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
+nav .home{font-weight:900;color:var(--text);margin-right:auto}
+#theme{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 12px;font:inherit;font-size:12px;cursor:pointer}
+header.post{padding:56px 0 28px;border-bottom:2px solid var(--text);margin-bottom:36px}
+header.post .meta{color:var(--accent);font-weight:700;font-size:14px;letter-spacing:.04em}
+header.post h1{font-size:clamp(28px,5vw,42px);line-height:1.25;letter-spacing:-.03em;margin:10px 0 14px;font-weight:900}
+header.post p{color:var(--muted);margin:0 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--chip);color:var(--muted)}
+article h2{font-size:24px;letter-spacing:-.02em;margin:48px 0 14px;font-weight:900}
+article h3{font-size:19px;margin:32px 0 10px}
+article p,article li{margin:0 0 16px}
+article ul,article ol{padding-left:22px}
+article li{margin-bottom:6px}
+article blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--surface);border-radius:0 12px 12px 0;font-weight:700}
+article blockquote p{margin:0}
+article code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em;background:var(--chip);padding:2px 6px;border-radius:6px}
+article pre{background:var(--code);color:var(--code-text);padding:18px 20px;border-radius:14px;overflow-x:auto;line-height:1.6;margin:0 0 20px}
+article pre code{background:none;padding:0;font-size:13.5px;color:inherit}
+article table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:15px;display:block;overflow-x:auto}
+article th,article td{border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+article th{background:var(--surface)}
+.endcard{margin:56px 0 0;padding:24px;border:1px solid var(--line);border-radius:18px;background:var(--surface);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.endcard b{display:block}
+.endcard span{color:var(--muted);font-size:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--line);color:var(--text);background:var(--bg)}
+.others{margin:40px 0 0}
+.others a{display:block;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--text);font-weight:700}
+.others a span{display:block;color:var(--muted);font-weight:400;font-size:14px}
+footer{padding:64px 0 40px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a class="home" href="../index.html">Young-Ju Lee</a><a href="../index.html#writing">Writing</a><a href="../index.html#work">Work</a><button id="theme" type="button">테마</button></nav>
+  <header class="post">
+    <div class="meta">WRITING · 2026-11-03</div>
+    <h1>겹쳐 있는 두 신호를 위상으로 가르기 — 파수 상관 필터링 석사 연구 정리</h1>
+    <p>중력과 자력 데이터를 같은 주파수 성분끼리 비교해, 함께 움직이는 성분과 반대로 움직이는 성분을 나눴다. 임계값을 감으로 정하지 않으려고 한 일들.</p>
+    <div class="chips"><span class="chip">신호처리</span><span class="chip">파수 영역</span><span class="chip">데이터 통합</span><span class="chip">지구물리</span><span class="chip">석사 연구</span></div>
+  </header>
+  <article><p>석사 과정에서 아부다비 해상 <strong>가샤(Ghasha) 지역</strong>의 항공 중력·자력 데이터를 분석했습니다. 이 지역은 두꺼운 퇴적층 아래에 <strong>기반암</strong>과 <strong>암염(Hormuz salt)</strong>이 함께 있어서, 한 종류의 데이터만으로는 두 구조가 섞여 보입니다. 기존 해석법으로는 암염 깊이를 약 6,000 m로 추정했는데, 탄성파 자료 기준으로는 약 9,300 m라서 차이가 컸습니다.</p>
+<p>데이터 관점에서 보면 이 문제는 "<strong>서로 다른 원인이 섞인 두 개의 2D 신호에서 원인별 성분을 분리하는 문제</strong>"입니다. 이 글은 그 방법을 어떻게 설계했는지 정리한 것입니다.</p>
+<h2>왜 두 데이터를 같이 봐야 했나</h2>
+<ul>
+<li><strong>중력</strong>은 밀도 차이에 반응합니다. 기반암은 주변보다 무겁고, 암염은 가볍습니다.</li>
+<li><strong>자력</strong>은 자성 광물에 반응합니다. 기반암은 자성이 있고, 암염은 거의 없습니다.</li>
+</ul>
+<p>그래서 기반암 위에서는 두 데이터가 <strong>같은 방향</strong>으로 움직이고, 암염 주변에서는 <strong>어긋나거나 반대로</strong> 움직입니다. 이 차이를 숫자로 잡을 수 있다면 두 구조를 나눌 수 있습니다.</p>
+<h2>5단계 처리 흐름</h2>
+<ol>
+<li><strong>상향 연속(upward continuation)</strong> — 얕은 곳의 잡음을 줄이고 깊은 구조를 강조</li>
+<li><strong>정규화</strong> — 단위가 다른 두 데이터를 직접 비교할 수 있게 표준화</li>
+<li><strong>파수 상관 필터링(WCF)</strong> — 주파수(파수) 영역에서 두 데이터의 상관을 계산하고 성분을 거름</li>
+<li><strong>지표 계산</strong> — 같은 방향 성분으로 SLFI, 반대 방향 성분으로 DLFI를 만듦</li>
+<li><strong>검증</strong> — 기존에 발표된 독립 모델과 비교</li>
+</ol>
+<h2>핵심: 파수별 상관계수</h2>
+<p>두 데이터를 푸리에 변환한 뒤, 같은 파수 k에서 두 신호의 <strong>위상 차이 Δθ</strong>를 봅니다.</p>
+<blockquote>
+<p>CC(k) = cos(Δθₖ)</p>
+</blockquote>
+<ul>
+<li>CC(k) &gt; 0 이면 그 주파수 성분에서 두 데이터가 같은 방향으로 움직입니다 → 기반암 쪽</li>
+<li>CC(k) &lt; 0 이면 반대로 움직입니다 → 암염 쪽</li>
+</ul>
+<p>진폭이 아니라 <strong>위상만</strong> 보기 때문에, 단위나 세기가 다른 데이터끼리도 "같이 움직이는지"를 비교할 수 있다는 점이 이 방법의 장점입니다.</p>
+<h2>임계값을 감으로 정하지 않기</h2>
+<p>연구하면서 가장 신경 쓴 부분은 <strong>숫자를 어디서 자를지</strong>였습니다. 임의로 정하면 결과가 보기 좋게 나와도 설명할 수 없기 때문입니다.</p>
+<p><strong>상향 연속 높이.</strong> 높이를 올릴수록 두 데이터의 상관계수가 변하다가 어느 순간부터 거의 바뀌지 않습니다. 이 변화 곡선의 양 끝을 잇는 직선에서 가장 멀리 떨어진 지점(곡선이 꺾이는 지점)을 계산했고, 그 지점이 <strong>1,500 m</strong>였습니다.</p>
+<p><strong>상관계수 구간.</strong> 구간을 좁히면 상관은 높아지지만 남는 신호 에너지가 줄어듭니다. 그래서 임계값을 바꿔 가며 "상관계수"와 "남는 신호 에너지 비율"을 함께 그려 보고 둘 사이의 균형점을 골랐습니다.</p>
+<ul>
+<li><strong>SLFI</strong>: CC(k)가 0.5 ~ 1.0인 성분 — 원래 신호 에너지의 약 절반을 유지하면서 두 데이터의 상관계수가 0.85</li>
+<li><strong>DLFI</strong>: CC(k)가 −1.0 ~ −0.5인 성분 — 암염 경계 부근의 해상도를 높이는 구간</li>
+</ul>
+<p>이렇게 정하면 "왜 0.5인가?"라는 질문에 그래프로 답할 수 있습니다.</p>
+<h2>검증: 서로 다른 방법으로 만든 모델과 맞춰 보기</h2>
+<p>결과가 맞는지 확인하려고, <strong>다른 해석법으로 만든 기존 모델 3개</strong>와 비교했습니다.</p>
+<ul>
+<li>지도로 겹쳐 보기(공간 비교)</li>
+<li>측선 4개를 따라 값의 변화 비교</li>
+<li>3D 밀도 모델의 깊이별 단면과 비교</li>
+</ul>
+<p>측선 비교에서 SLFI와 기반암 깊이 모델의 상관계수는 처음 0.87~0.95였고, 측선 간 위치 차이를 최적으로 보정한 뒤에는 <strong>0.95~0.98</strong>까지 올라갔습니다. DLFI는 암염층의 분포 모양과 일치했고, 가샤 서쪽에 <strong>추가 암염 융기 가능성</strong>도 새로 보였습니다.</p>
+<h2>데이터 일로 가져가는 것</h2>
+<p>지구물리 연구였지만, 하고 나서 남은 건 데이터 다루는 습관이었습니다.</p>
+<ul>
+<li><strong>단위가 다른 데이터를 합칠 때는 먼저 비교 가능한 형태로 맞춘다</strong> (정규화, 위상 비교)</li>
+<li><strong>임계값은 trade-off 곡선으로 근거를 남긴다</strong> — 정확도 vs 남는 정보량</li>
+<li><strong>결과 검증은 독립적으로 만든 기준과 비교한다</strong> — 같은 데이터로 만든 기준은 검증이 아니다</li>
+</ul>
+<p>이 연구는 캘거리대·칼리파대(UAE)와의 공동연구로 SCIE 국제학술지 SPE Journal에 제1저자로 게재되었고, 같은 내용으로 석사 학위논문을 완성했습니다.</p></article>
+  <div class="endcard">
+    <div><b>중력·자력 데이터 파수 상관 분석으로 지하 구조 규명 (석사 · SPE Journal 제1저자)</b><span>자세한 내용은 포트폴리오의 해당 활동에서 볼 수 있습니다.</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="../index.html#work">포트폴리오로</a></div>
+  </div>
+<div class="others"><b style="font-size:14px;color:var(--muted)">다른 글</b><a href="2026-11-vqa-ensemble-fixes-breaks.html">점수를 지키면서 올리기 — VQA 챌린지에서 앙상블 후보를 고른 기준<span>정확도가 조금 올라도 원래 맞히던 문제를 많이 틀리면 불안정한 개선이다. fixes와 breaks로 순기여를 따져 0.94608에서 시작한 점수를 쌓아 올린 과정.</span></a><a href="2026-11-portfolio-one-yaml.html">YAML 파일 하나로 포트폴리오·이력서·비공개 페이지까지 — 이 사이트를 만든 방식<span>내용은 한 곳에만 쓰고, 웹 페이지·PDF 이력서·노션 문서는 빌드로 만든다. 공개하면 안 되는 내용은 저장소에 평문으로 남기지 않는다.</span></a><a href="2026-11-plate-tectonics-co2-storage.html">데이터를 해석하기 전에 그 데이터가 만들어진 역사를 본다 — 학부 제1저자 논문 회고<span>해외 대규모 CO2 저장소 8곳을 판구조 형성사와 탄성파 영상으로 비교했다. 처리 결과를 &#39;그럴듯한지&#39; 판단하는 기준을 어디서 가져올 것인가에 대한 이야기.</span></a><a href="2026-11-small-data-spatiotemporal.html">산불 4건으로 시공간 딥러닝 학습하기<span>데이터가 35개 시점뿐일 때 어떻게 학습시켰고, 다시 보니 무엇이 부족했는지. U-LSTM 산불 확산 예측 모델 회고.</span></a><a href="2026-11-llm-verify-pipeline.html">LLM 응답을 믿지 않는 파이프라인 설계<span>LLM에는 판단만 맡기고, 결과는 코드로 검증한다. 댓글 분석 파이프라인과 AI 도서 추천을 만들며 정한 네 가지 원칙.</span></a><a href="2026-11-catastrophic-forgetting.html">순차 학습이 성능을 떨어뜨린 이유 — catastrophic forgetting 실험기<span>단어 단위 → 문맥 단위로 차례로 학습하면 더 좋아질 줄 알았는데, BERTScore가 0.47에서 0.32로 떨어졌다. FLAN-T5 LoRA 학습 전략 비교.</span></a></div>  <footer>© Young-Ju Lee · iyju990312@naver.com</footer>
+</div>
+<script>
+(function(){var r=document.documentElement,K='theme';
+try{var s=localStorage.getItem(K);if(s)r.setAttribute('data-theme',s)}catch(e){}
+var b=document.getElementById('theme');if(b)b.addEventListener('click',function(){
+var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YAML 파일 하나로 포트폴리오·이력서·비공개 페이지까지 — 이 사이트를 만든 방식 · 이영주</title>
+<meta name="description" content="내용은 한 곳에만 쓰고, 웹 페이지·PDF 이력서·노션 문서는 빌드로 만든다. 공개하면 안 되는 내용은 저장소에 평문으로 남기지 않는다.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--surface:#f7f7f8;--text:#0d0d0f;--muted:#5d5f66;--line:#e7e7ea;--accent:#0a7c66;--accent-2:#14b8a6;--chip:#eef2f1;--code:#0f1117;--code-text:#e6e6e6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}}
+:root[data-theme="dark"]{--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.85 "Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:740px;margin:0 auto;padding:0 20px}
+nav{display:flex;align-items:center;gap:16px;padding:24px 0;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
+nav .home{font-weight:900;color:var(--text);margin-right:auto}
+#theme{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 12px;font:inherit;font-size:12px;cursor:pointer}
+header.post{padding:56px 0 28px;border-bottom:2px solid var(--text);margin-bottom:36px}
+header.post .meta{color:var(--accent);font-weight:700;font-size:14px;letter-spacing:.04em}
+header.post h1{font-size:clamp(28px,5vw,42px);line-height:1.25;letter-spacing:-.03em;margin:10px 0 14px;font-weight:900}
+header.post p{color:var(--muted);margin:0 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--chip);color:var(--muted)}
+article h2{font-size:24px;letter-spacing:-.02em;margin:48px 0 14px;font-weight:900}
+article h3{font-size:19px;margin:32px 0 10px}
+article p,article li{margin:0 0 16px}
+article ul,article ol{padding-left:22px}
+article li{margin-bottom:6px}
+article blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--surface);border-radius:0 12px 12px 0;font-weight:700}
+article blockquote p{margin:0}
+article code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em;background:var(--chip);padding:2px 6px;border-radius:6px}
+article pre{background:var(--code);color:var(--code-text);padding:18px 20px;border-radius:14px;overflow-x:auto;line-height:1.6;margin:0 0 20px}
+article pre code{background:none;padding:0;font-size:13.5px;color:inherit}
+article table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:15px;display:block;overflow-x:auto}
+article th,article td{border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+article th{background:var(--surface)}
+.endcard{margin:56px 0 0;padding:24px;border:1px solid var(--line);border-radius:18px;background:var(--surface);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.endcard b{display:block}
+.endcard span{color:var(--muted);font-size:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--line);color:var(--text);background:var(--bg)}
+.others{margin:40px 0 0}
+.others a{display:block;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--text);font-weight:700}
+.others a span{display:block;color:var(--muted);font-weight:400;font-size:14px}
+footer{padding:64px 0 40px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a class="home" href="../index.html">Young-Ju Lee</a><a href="../index.html#writing">Writing</a><a href="../index.html#work">Work</a><button id="theme" type="button">테마</button></nav>
+  <header class="post">
+    <div class="meta">WRITING · 2026-11-03</div>
+    <h1>YAML 파일 하나로 포트폴리오·이력서·비공개 페이지까지 — 이 사이트를 만든 방식</h1>
+    <p>내용은 한 곳에만 쓰고, 웹 페이지·PDF 이력서·노션 문서는 빌드로 만든다. 공개하면 안 되는 내용은 저장소에 평문으로 남기지 않는다.</p>
+    <div class="chips"><span class="chip">정적 사이트</span><span class="chip">Python</span><span class="chip">Jinja2</span><span class="chip">GitHub Actions</span><span class="chip">암호화</span></div>
+  </header>
+  <article><p>지금 보고 계신 이 사이트는 <strong>데이터 파일 하나</strong>에서 만들어집니다. 이력서를 고칠 때마다 웹, PDF, 노션을 따로 고치다 보면 어딘가 내용이 어긋나기 마련이라, 처음부터 "내용은 한 곳에만 쓴다"를 원칙으로 잡았습니다.</p>
+<h2>구조</h2>
+<pre><code>data/portfolio.yaml      ← 내용은 여기에만 씀 (활동, 논문, 기술, 수상)
+content/posts/*.md       ← 이런 글
+content/study/           ← 강의 정리 노트
+        │
+        ▼  scripts/build.py (Jinja2 템플릿)
+docs/index.html          ← 웹 포트폴리오
+docs/resume.html → PDF   ← 상세 이력서 (Playwright로 PDF 변환)
+docs/resume-1page → PDF  ← 1장 이력서
+docs/study/              ← 학습 공간
+out/notion.md            ← 노션에 붙여 넣을 문서
+</code></pre>
+<p><code>git push</code>를 하면 GitHub Actions가 빌드하고 GitHub Pages로 배포합니다.</p>
+<h2>데이터 구조를 먼저 정했다</h2>
+<p>활동 하나를 <strong>STAR(상황·과제·행동·결과)</strong> 구조로 적습니다. 같은 데이터를 쓰되, 출력물마다 다르게 보여 줍니다.</p>
+<ul>
+<li><strong>웹</strong>: 카드에는 요약과 성과 지표 하나, "자세히 보기"를 누르면 STAR 전체</li>
+<li><strong>상세 이력서</strong>: 행동과 결과 문장</li>
+<li><strong>1장 이력서</strong>: 활동마다 따로 적어 둔 3줄 요약(<code>brief</code>)</li>
+</ul>
+<p>최근에는 "석사과정 / 학부 / 부트캠프"처럼 <strong>여러 프로젝트를 한 묶음</strong>으로 보여 달라는 요구가 생겨서, 활동 아래에 <code>projects:</code>로 하위 프로젝트를 둘 수 있게 바꿨습니다. 하위 구조를 모르는 출력물(노션 문서 등)에서도 내용이 빠지지 않도록, 빌드 단계에서 하위 프로젝트의 내용을 모아 상위 활동에도 채워 넣습니다.</p>
+<h2>빌드가 잡아 주는 것</h2>
+<p>빌드할 때 <strong>보완 체크리스트</strong>를 같이 만듭니다.</p>
+<ul>
+<li>STAR의 상황·과제·행동·결과 중 빈 칸이 있는 활동</li>
+<li>결과에 <strong>숫자(성과 지표)가 하나도 없는</strong> 활동</li>
+<li>대표 활동이 너무 많거나 적을 때</li>
+<li><code>TODO</code>로 시작하는 문장은 결과물에 내보내지 않고 체크리스트로만 보냄</li>
+</ul>
+<p>글을 쓰다 보면 "열심히 했다"로 끝나는 문장이 많아지는데, 이 체크리스트가 그걸 계속 알려 줍니다.</p>
+<h2>사진은 위치 정보를 지우고 넣는다</h2>
+<p>활동 사진은 <code>photos/&lt;활동 id&gt;/</code>에 원본을 넣으면 스크립트가 웹용 크기로 줄이고 <strong>EXIF(촬영 위치 등)를 모두 지운 뒤</strong> 갤러리에 붙입니다. 파일 이름이 그대로 사진 설명이 됩니다. 원본 사진 폴더는 저장소에 올리지 않습니다.</p>
+<h2>공개하면 안 되는 내용</h2>
+<p>연락처, 증빙 서류 목록, 자기소개서 소재, 면접 답변 연습처럼 <strong>나만 봐야 하는 내용</strong>도 같은 사이트 안에 두고 싶었습니다. 다만 공개 저장소에 평문으로 올리면 안 됩니다.</p>
+<p>그래서 두 단계로 암호화했습니다.</p>
+<ol>
+<li><strong>저장소에 올릴 때</strong>: 평문은 로컬에만 두고(.gitignore), 공개키로 암호화한 파일만 커밋 (RSA-OAEP + AES-GCM). 개인키는 저장소가 아니라 GitHub Secrets에만 있음</li>
+<li><strong>배포할 때</strong>: Actions가 개인키로 복호화해 페이지를 만들고, 이번에는 <strong>비밀번호 기반 키</strong>(PBKDF2-SHA256 60만 회 + AES-GCM)로 다시 암호화해 배포</li>
+</ol>
+<p>방문자 브라우저에는 암호문만 내려가고, 비밀번호를 입력하면 브라우저의 WebCrypto가 그 자리에서 복호화합니다. 서버 없이도 "로그인해야 보이는 페이지"를 만들 수 있었습니다.</p>
+<h2>만들고 나서</h2>
+<ul>
+<li><strong>내용과 형식을 분리하니</strong> 디자인을 세 가지 시안으로 바꿔 보는 것도 템플릿만 바꾸면 됐습니다.</li>
+<li><strong>데이터 스키마를 먼저 정하는 것</strong>이 결국 가장 오래 남는 결정이었습니다. 출력물은 나중에 얼마든지 늘릴 수 있지만, 스키마를 바꾸면 모든 출력물을 다시 봐야 합니다.</li>
+<li>보안이 필요한 부분은 "숨긴다"가 아니라 <strong>"평문이 남는 곳이 어디인지"</strong>를 먼저 따져야 한다는 것도 배웠습니다.</li>
+</ul></article>
+  <div class="endcard">
+    <div><b>관련 프로젝트</b><span>이 글에서 다룬 코드는 저장소에서 볼 수 있습니다.</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="https://github.com/0Ju12/0ju12.github.io" target="_blank" rel="noopener">GitHub 저장소 →</a><a class="btn" href="../index.html#work">포트폴리오로</a></div>
+  </div>
+<div class="others"><b style="font-size:14px;color:var(--muted)">다른 글</b><a href="2026-11-wavenumber-correlation.html">겹쳐 있는 두 신호를 위상으로 가르기 — 파수 상관 필터링 석사 연구 정리<span>중력과 자력 데이터를 같은 주파수 성분끼리 비교해, 함께 움직이는 성분과 반대로 움직이는 성분을 나눴다. 임계값을 감으로 정하지 않으려고 한 일들.</span></a><a href="2026-11-vqa-ensemble-fixes-breaks.html">점수를 지키면서 올리기 — VQA 챌린지에서 앙상블 후보를 고른 기준<span>정확도가 조금 올라도 원래 맞히던 문제를 많이 틀리면 불안정한 개선이다. fixes와 breaks로 순기여를 따져 0.94608에서 시작한 점수를 쌓아 올린 과정.</span></a><a href="2026-11-plate-tectonics-co2-storage.html">데이터를 해석하기 전에 그 데이터가 만들어진 역사를 본다 — 학부 제1저자 논문 회고<span>해외 대규모 CO2 저장소 8곳을 판구조 형성사와 탄성파 영상으로 비교했다. 처리 결과를 &#39;그럴듯한지&#39; 판단하는 기준을 어디서 가져올 것인가에 대한 이야기.</span></a><a href="2026-11-small-data-spatiotemporal.html">산불 4건으로 시공간 딥러닝 학습하기<span>데이터가 35개 시점뿐일 때 어떻게 학습시켰고, 다시 보니 무엇이 부족했는지. U-LSTM 산불 확산 예측 모델 회고.</span></a><a href="2026-11-llm-verify-pipeline.html">LLM 응답을 믿지 않는 파이프라인 설계<span>LLM에는 판단만 맡기고, 결과는 코드로 검증한다. 댓글 분석 파이프라인과 AI 도서 추천을 만들며 정한 네 가지 원칙.</span></a><a href="2026-11-catastrophic-forgetting.html">순차 학습이 성능을 떨어뜨린 이유 — catastrophic forgetting 실험기<span>단어 단위 → 문맥 단위로 차례로 학습하면 더 좋아질 줄 알았는데, BERTScore가 0.47에서 0.32로 떨어졌다. FLAN-T5 LoRA 학습 전략 비교.</span></a></div>  <footer>© Young-Ju Lee · iyju990312@naver.com</footer>
+</div>
+<script>
+(function(){var r=document.documentElement,K='theme';
+try{var s=localStorage.getItem(K);if(s)r.setAttribute('data-theme',s)}catch(e){}
+var b=document.getElementById('theme');if(b)b.addEventListener('click',function(){
+var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});})();
+</script>
+</body>
+</html>

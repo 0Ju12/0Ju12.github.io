@@ -16,7 +16,7 @@ profile:
     학부연구생으로 판구조 형성사를 고려한 해외 대규모 CO2 저장소 탄성파 해석 논문을 제1저자로 썼고,
     IAB 융합전공 캡스톤에서는 시공간 딥러닝(U-LSTM) 기반 산불 확산 경로 예측 모델의 설계와 학습을 맡았습니다.
     석사 과정에서는 중력·자력 데이터의 파수 상관 분석으로 지하 구조를 규명해 SCIE 국제학술지 SPE Journal 제1저자 논문을 냈고,
-    학부·석사를 합쳐 논문 3편과 학회 발표 10건, 학회 우수논문 발표상의 성과를 냈습니다.
+    학부·석사를 합쳐 논문 3편과 학회 발표 6건, 학회 우수논문 발표상의 성과를 냈습니다.
     포스코 청년 AI·BigData 아카데미(POSTECH)에서는 FLAN-T5와 RAG를 결합한 영어 표현 교정 시스템 프로젝트에서 데이터 구축과 모델 실험을 맡았고, 팀은 장려상을 받았습니다.
     캐나다 캘거리대학교에서 두 차례 파견 연구를 하며 해외 연구진과 협업했고, ADsP(데이터분석 준전문가) 자격을 보유하고 있습니다.
   email: "iyju990312@naver.com"
@@ -33,7 +33,7 @@ highlights:
   - { value: "SCIE 1편", label: "국제학술지 제1저자 (SPE Journal)" }
   - { value: "캘거리대 2회", label: "해외 파견 연구 · 국제 공동연구" }
   - { value: "SSAFY 16기", label: "삼성 청년 SW·AI 아카데미 이수 중" }
-  - { value: "3 · 10", label: "논문 · 학회 발표" }
+  - { value: "3 · 6", label: "논문 · 학회 발표" }
 
 # 디자인 테마: minimal | dashboard | editorial
 site:
@@ -100,7 +100,7 @@ activities:
     brief:
       - "파수 영역 상관 분석으로 겹친 중력·자력 신호를 분리하는 지표(SLFI·DLFI) 설계, 기존 독립 모델 3개와 상관계수 0.94 이상 일치"
       - "캘거리대 6개월 파견 · 칼리파대(UAE) 3개 기관 공동연구 → SCIE SPE Journal 제1저자 논문 (2026)"
-      - "학회 발표 5건 · 2024 KSEG 추계학술대회 학생 우수논문(포스터) 발표상"
+      - "학회 발표 3건 · 2024 KSEG 추계학술대회 학생 우수논문(포스터) 발표상"
     tags: [신호처리(파수 영역), 상관 분석, 지표 설계, 중력·자력 데이터, 국제공동연구]
     image: assets/masters_thesis.jpg
     image_caption: "석사 학위논문 (2026.08) — 왼쪽: 표지, 오른쪽: SLFI(기반암)·DLFI(암염) 공간분포 (Fig. 11)"
@@ -123,11 +123,10 @@ activities:
             - 양의 상관 성분을 강조해 기반암을 드러내는 SLFI, 약한·음의 상관 성분으로 암염을 드러내는 DLFI 두 지표를 설계
             - 기존 3개 독립 모델과 공간 비교·측선별 비교·3D 밀도 모델로 결과를 다각도 검증
             - "캐나다 캘거리대학교 장기 파견(2024.06–12, 약 6개월): 측지공학과 연구진과 공동 수행, 칼리파대학교(UAE)와 3개 기관 공동연구로 확장"
-            - "관련 학회 발표: 노르웨이 슬라이프너 탄성파-전자탐사 복합 해석, 스메아하이아 CO2 저장 부지 적합성 분석 (2024)"
           result:
             - SLFI 기반 기반암 구조가 서로 다른 해석법의 기존 독립 모델 3개와 상관계수 0.94 이상으로 일치
             - DLFI로 암염 구조의 공간 분포를 재현하고, 가샤 서쪽의 추가 암염 융기 가능성을 새로 제시
-            - SCIE 국제학술지 SPE Journal 제1저자 논문 (2026, 캘거리대·칼리파대 공동연구) · 학회 발표 5건 (2024)
+            - SCIE 국제학술지 SPE Journal 제1저자 논문 (2026, 캘거리대·칼리파대 공동연구) · 학회 발표 3건 (2024)
             - 2024 KSEG 추계학술대회 학생 우수논문(포스터) 발표상
             - "석사 학위논문 「Characterization of Salt and Basement Structures in the Ghasha Area Using Wavenumber Correlation Analysis of Gravity and Magnetic Anomaly Data」 (전북대학교 대학원 환경에너지융합학과, 2026.08.21 학위 취득)"
         links:
@@ -158,7 +157,7 @@ activities:
   # ── 2. 학부 (학부연구생 + 시공간 딥러닝 캡스톤) ─────────────────
   - id: undergrad
     icon: "🔬"
-    kpi: { value: "제1저자", label: "국내 학술지 논문 · 제2저자 1편 · 학회 발표 5건" }
+    kpi: { value: "제1저자", label: "국내 학술지 논문 · 제2저자 1편 · 학회 발표 3건" }
     title: "학부 — 판구조 기반 해외 CO2 저장소 탄성파 해석 (제1저자) · IAB 융합전공 시공간 딥러닝"
     type: 연구 · AI 프로젝트
     org: 전북대학교 자원에너지공학과 · IAB 융합전공 · 지구물리컴퓨팅연구실
@@ -168,7 +167,7 @@ activities:
     priority: 2
     brief:
       - "제1저자 논문: GPlates로 북미·북해·오세아니아·중동 대규모 CO2 저장소의 판구조 형성사를 복원하고 대표 저장소 탄성파 영상을 해석 (지구물리와 물리탐사, 2024)"
-      - "학부연구생: 4D 탄성파 모니터링·해외 CCS 사례 분석, 캘거리대 단기 파견(Utah FORGE 중력 데이터) → 제2저자 논문 1편 · 학회 발표 5건"
+      - "학부연구생: 4D 탄성파 모니터링·해외 CCS 사례 분석, 캘거리대 단기 파견(Utah FORGE 중력 데이터) → 제2저자 논문 1편 · 학회 발표 3건"
       - "IAB 융합전공 캡스톤: Conv2D 인코더–LSTM–디코더 U-LSTM을 설계·학습해 산불 화선 예측 (ArcGIS 래스터 · 슬라이딩 윈도우 배치 151개)"
     tags: [탄성파 해석, GPlates, CCS, 중력 데이터 처리, Python, TensorFlow, U-LSTM, ArcGIS]
     image: assets/wildfire_test_map.png
@@ -188,13 +187,13 @@ activities:
           situation: 2050년까지 연간 3,000만 톤급 국내 CO2 저장소 확보가 필요하지만, 대규모 저장소가 어떤 지질 형성 과정을 거쳐 만들어지는지에 대한 체계적인 분석이 부족했음
           task: "학부연구생으로 북미·북해·오세아니아·중동의 대규모 CO2 저장소를 판구조론 관점에서 비교 분석하는 연구를 제1저자로 수행 (2023.07 투고 · 2023.12 게재 승인, K-CCUS 온실가스감축 혁신인재양성사업 지원)"
           action:
-            - "GPlates로 북해·북미·오세아니아·중동 4개 지역 CO2 저장소의 지질 형성 과정을 판구조론 관점에서 복원"
-            - "지역별 대표 CCS 프로젝트(북해 Northern Lights·Sleipner, 북미 Quest·Weyburn, 오세아니아 Gorgon·Otway, 중동 Uthmaniyah)의 탄성파 영상화 결과를 저장층·덮개암 지질구조 측면에서 해석"
-            - "선행 연구: 스트리머 해양 4D 탄성파 모니터링의 비반복성 분석, GPU 기반 4D 탄성파 모니터링 적용성 검토 (2022) / 사우디 딥러닝 탄성파 영상화·캐나다 CaMI FRS·노르웨이 슬라이프너 모니터링 연구 동향 분석 (2023)"
+            - "GPlates(PALEOMAP PaleoAtlas)로 북미·북해·오세아니아·중동 4개 지역의 판구조 변천사를 복원해 CO2 저장소가 만들어진 과정을 해석"
+            - "지역별 대표 CCS 프로젝트(북미 Quest·Weyburn-Midale, 북해 Northern Lights·PORTHOS, 오세아니아 Gorgon·Moomba, 중동 Uthmaniyah·카타르 LNG — 지역별 2개씩)의 탄성파 영상화 결과를 저장층·덮개암 지질구조 측면에서 해석"
+            - "선행 연구: GPU 기반 4D 탄성파 모니터링 기술 적용성 검토 (2022) / 사우디아라비아 딥러닝 기반 탄성파 영상화·노르웨이 슬라이프너 지구물리 모니터링 사례 분석 (2023)"
             - "캘거리대학교 단기 파견(2023.12–2024.02): 미국 Utah FORGE 지열 부지 중력 데이터 처리"
           result:
             - "제1저자 논문 「판구조론적 역사를 고려한 해외 대규모 이산화탄소 지중저장소 탄성파 해석 결과 분석」 (Analysis on Seismic Interpretation for Overseas Large-scale CO2 Storage Considering Geological History Related to Plate Tectonics), 지구물리와 물리탐사 27(1), 1–22, 2024 — 학부 과정 연구 성과"
-            - "제2저자 논문 1편 (호주 깁스랜드 분지 CarbonNet CCS 지질학적 분석, 지구물리와 물리탐사, 2023) · 학회 발표 5건 (2022–2023)"
+            - "제2저자 논문 1편 (호주 깁스랜드 분지 CarbonNet CCS 지질학적 분석, 지구물리와 물리탐사, 2023) · 학회 발표 3건 (2022–2023)"
             - "각 프로젝트의 탄성파 영상에 드러난 층서구조가 해당 지역의 판구조적 형성 역사를 반영함을 확인 → 국내 탐사 자료 처리 시 지질학적으로 비현실적인 속도 모델을 배제하는 기준으로 활용할 수 있음을 제시"
         links:
           - { label: 제1저자 논문, url: "https://koreascience.or.kr/article/JAKO202410348585789.page" }
@@ -239,8 +238,8 @@ activities:
       - "ThRead: Selenium 수집 → LLM 판단을 코드로 검증 → pandas 정제·증강·요약 파이프라인, Django 백엔드 · 자동 테스트 86개"
       - "POSPEAK(KILL KONG): 콩글리시 교정 데이터셋 구축, FLAN-T5 LoRA 학습 전략 비교(F1 0.32→0.74) + RAG · 장려상"
     tags: [Python, LLM 파인튜닝, QLoRA, RAG, FAISS, Django, Selenium, Pandas]
-    image: assets/posco_certificate.jpg
-    image_caption: "포스코 청년 AI·BigData 아카데미 30기 수료증 (2025.06.09 – 2025.08.29, 포스코인재창조원·포항공과대학교)"
+    image: "assets/photos/posco-pospeak/2025-08-29_프로젝트_장려상·수료증.jpg"
+    image_caption: "포스코 청년 AI·BigData 아카데미 30기 — 프로젝트 장려상(왼쪽)과 수료증(오른쪽), 2025.08.29"
     summary: SSAFY에서 LLM 데이터 파이프라인·Django 서비스와 VQA 모델 앙상블을, 포스코 아카데미에서 콩글리시 교정 생성 모델+RAG를 구현
     projects:
       - id: ssafy-16
@@ -302,15 +301,11 @@ publications:
   - { kind: 논문, year: 2026, title: "Wavenumber Correlation of Gravity and Magnetic Anomalies for Constraining Salt/Basement Structure in Offshore Abu Dhabi", venue: "SPE Journal (SCIE) · 제1저자 · 게재 승인", url: "https://doi.org/10.2118/236968-PA" }
   - { kind: 논문, year: 2024, title: "판구조론적 역사를 고려한 해외 대규모 이산화탄소 지중저장소 탄성파 해석 결과 분석", venue: "지구물리와 물리탐사 27(1), 1–22 · 제1저자", url: "https://koreascience.or.kr/article/JAKO202410348585789.page" }
   - { kind: 논문, year: 2023, title: "호주 깁스랜드 분지 CarbonNet CCS 프로젝트의 지질학적 분석", venue: "지구물리와 물리탐사 · 제2저자", url: "https://koreascience.or.kr/article/JAKO202335272000266.page" }
-  - { kind: 학회 발표, year: 2024, title: "노르웨이 슬라이프너 프로젝트 모니터링 자료에 대한 탄성파-전자탐사 복합 해석 연구" }
   - { kind: 학회 발표, year: 2024, title: "인공지능과 디지털 트윈 융합을 통한 스마트 이산화탄소 저장소 운영 혁신 글로벌 인력양성사업" }
   - { kind: 학회 발표, year: 2024, title: "해외 CCS 프로젝트 실증 현황 및 국제공동연구 추진 전략" }
   - { kind: 학회 발표, year: 2024, title: "스마트 이산화탄소 지중저장 부지 운영을 위한 글로벌 인력양성사업" }
-  - { kind: 학회 발표, year: 2024, title: "노르웨이 스메아하이아 이산화탄소 지중저장 프로젝트의 적합성 분석" }
   - { kind: 학회 발표, year: 2023, title: "노르웨이 슬라이프너 지구물리 모니터링 적용사례 분석 및 국제공동연구 계획" }
   - { kind: 학회 발표, year: 2023, title: "사우디아라비아 딥러닝 기반 탄성파 영상화 연구 현황과 국제공동연구 계획" }
-  - { kind: 학회 발표, year: 2023, title: "캐나다 CaMI FRS 탄성파 모니터링 연구 현황과 국제공동연구 계획" }
-  - { kind: 학회 발표, year: 2022, title: "스트리머를 이용한 해양 4차원 탄성파 모니터링 비반복성 분석 연구" }
   - { kind: 학회 발표, year: 2022, title: "GPU를 이용한 4차원 탄성파 모니터링 기술 적용성 검토" }
 
 awards:

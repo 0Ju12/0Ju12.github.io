@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>점수를 지키면서 올리기 — VQA 챌린지에서 앙상블 후보를 고른 기준 · 이영주</title>
+<meta name="description" content="정확도가 조금 올라도 원래 맞히던 문제를 많이 틀리면 불안정한 개선이다. fixes와 breaks로 순기여를 따져 0.94608에서 시작한 점수를 쌓아 올린 과정.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--surface:#f7f7f8;--text:#0d0d0f;--muted:#5d5f66;--line:#e7e7ea;--accent:#0a7c66;--accent-2:#14b8a6;--chip:#eef2f1;--code:#0f1117;--code-text:#e6e6e6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}}
+:root[data-theme="dark"]{--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.85 "Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:740px;margin:0 auto;padding:0 20px}
+nav{display:flex;align-items:center;gap:16px;padding:24px 0;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
+nav .home{font-weight:900;color:var(--text);margin-right:auto}
+#theme{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 12px;font:inherit;font-size:12px;cursor:pointer}
+header.post{padding:56px 0 28px;border-bottom:2px solid var(--text);margin-bottom:36px}
+header.post .meta{color:var(--accent);font-weight:700;font-size:14px;letter-spacing:.04em}
+header.post h1{font-size:clamp(28px,5vw,42px);line-height:1.25;letter-spacing:-.03em;margin:10px 0 14px;font-weight:900}
+header.post p{color:var(--muted);margin:0 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--chip);color:var(--muted)}
+article h2{font-size:24px;letter-spacing:-.02em;margin:48px 0 14px;font-weight:900}
+article h3{font-size:19px;margin:32px 0 10px}
+article p,article li{margin:0 0 16px}
+article ul,article ol{padding-left:22px}
+article li{margin-bottom:6px}
+article blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--surface);border-radius:0 12px 12px 0;font-weight:700}
+article blockquote p{margin:0}
+article code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em;background:var(--chip);padding:2px 6px;border-radius:6px}
+article pre{background:var(--code);color:var(--code-text);padding:18px 20px;border-radius:14px;overflow-x:auto;line-height:1.6;margin:0 0 20px}
+article pre code{background:none;padding:0;font-size:13.5px;color:inherit}
+article table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:15px;display:block;overflow-x:auto}
+article th,article td{border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+article th{background:var(--surface)}
+.endcard{margin:56px 0 0;padding:24px;border:1px solid var(--line);border-radius:18px;background:var(--surface);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.endcard b{display:block}
+.endcard span{color:var(--muted);font-size:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--line);color:var(--text);background:var(--bg)}
+.others{margin:40px 0 0}
+.others a{display:block;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--text);font-weight:700}
+.others a span{display:block;color:var(--muted);font-weight:400;font-size:14px}
+footer{padding:64px 0 40px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a class="home" href="../index.html">Young-Ju Lee</a><a href="../index.html#writing">Writing</a><a href="../index.html#work">Work</a><button id="theme" type="button">테마</button></nav>
+  <header class="post">
+    <div class="meta">WRITING · 2026-11-03</div>
+    <h1>점수를 지키면서 올리기 — VQA 챌린지에서 앙상블 후보를 고른 기준</h1>
+    <p>정확도가 조금 올라도 원래 맞히던 문제를 많이 틀리면 불안정한 개선이다. fixes와 breaks로 순기여를 따져 0.94608에서 시작한 점수를 쌓아 올린 과정.</p>
+    <div class="chips"><span class="chip">VQA</span><span class="chip">멀티모달</span><span class="chip">앙상블</span><span class="chip">실험 설계</span><span class="chip">SSAFY</span></div>
+  </header>
+  <article><p>SSAFY 16기 AI 챌린지는 <strong>이미지와 질문을 보고 4지선다 중 정답을 고르는 VQA(Visual Question Answering)</strong> 과제였습니다. 저는 팀에서 <strong>모델 학습과 정제</strong>를 맡았습니다. 이 글은 모델 자체보다, <strong>어떤 실험 결과를 최종 제출에 넣을지 판단한 기준</strong>에 대한 기록입니다.</p>
+<h2>점수 변화</h2>
+<table>
+<thead>
+<tr>
+<th>제출</th>
+<th>Public 점수</th>
+<th>변화</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Qwen 4B 베이스라인</td>
+<td>0.94608</td>
+<td>출발점</td>
+</tr>
+<tr>
+<td>Qwen 27B 단독</td>
+<td>0.95591</td>
+<td>+0.00983 (모델 규모)</td>
+</tr>
+<tr>
+<td>27B + 4B 확률 앙상블</td>
+<td>0.95918</td>
+<td>+0.00327</td>
+</tr>
+<tr>
+<td>질문 유형별 프롬프트</td>
+<td>0.95501</td>
+<td><strong>−0.00417</strong></td>
+</tr>
+</tbody>
+</table>
+<p>여기서 두 가지를 배웠습니다.</p>
+<p><strong>작은 모델도 다른 문제를 맞힌다.</strong> 4B는 27B보다 단독 성능이 낮지만, 두 모델의 선택지 확률을 섞으니 점수가 올랐습니다. 틀리는 문제가 서로 다르기 때문입니다.</p>
+<p><strong>좋아 보이는 아이디어가 점수를 깎기도 한다.</strong> 질문 유형(계산, 개수, 글자 읽기 등)별로 프롬프트를 나누면 당연히 좋아질 것 같았지만, 실제로는 0.004 넘게 떨어졌습니다. 이 방식은 전체 적용에서 빼고 오답 분석용으로만 남겼습니다.</p>
+<h2>판단 기준: 정확도 하나만 보지 않는다</h2>
+<p>새 요소를 넣을지 정할 때, 검증 정확도만 보지 않고 <strong>기존 모델과 문제 단위로 비교</strong>했습니다.</p>
+<ul>
+<li><strong>fixes</strong>: 기존에 틀린 문제를 새 요소가 맞힌 수</li>
+<li><strong>breaks</strong>: 기존에 맞힌 문제를 새 요소가 틀린 수</li>
+<li><strong>순기여 = fixes − breaks</strong></li>
+</ul>
+<p>정확도가 조금 올라도 breaks가 많으면 문제를 맞히는 위치가 크게 흔들린 것이라, 테스트 데이터에서 재현되지 않을 위험이 큽니다. 여기에 두 가지를 더 봤습니다.</p>
+<ul>
+<li><strong>확신하며 틀린 문항</strong>이 늘었는지</li>
+<li><strong>특정 유형(글자 읽기·계산·개수)에서 떨어졌는지</strong> — 전체가 올라도 한 유형이 떨어지면 보류</li>
+</ul>
+<p>그리고 리더보드 점수(Public)는 판단을 <strong>확인하는 용도로만</strong> 썼습니다. Public 점수를 보면서 조정하면 리더보드에 과적합되기 때문입니다.</p>
+<h2>보호 기준선</h2>
+<p>가장 좋은 제출(당시 0.95918)을 <strong>보호 기준선</strong>으로 고정했습니다. 어떤 실험을 하든 이보다 낮은 최종본은 내지 않는다는 원칙입니다. 새 후보는 한 번에 하나씩, 직전 최고 제출과만 비교해 채택하거나 뺐습니다.</p>
+<h2>시간 안에 할 수 있는 것만</h2>
+<p>GPU 시간이 정해져 있어서 시도의 <strong>우선순위</strong>도 먼저 정했습니다.</p>
+<ul>
+<li><strong>선택지 순서 24개 전체 순열 추론</strong> → 2~7일이 걸릴 것으로 예상돼 제외</li>
+<li>대신 <strong>축소 멀티뷰</strong>: 같은 모델로 이미지를 세 가지로 봄</li>
+<li>전체 이미지(최대 1024) — 기존 정답 보존</li>
+<li>고해상도(최대 1536) — 메뉴판 가격처럼 작은 글자·숫자</li>
+<li>중앙 확대(1024) — 시계나 층 표시처럼 가운데의 작은 대상</li>
+<li><strong>다른 계열 모델과 섞기</strong>: 단독 정확도가 아니라, Qwen의 오답을 고치면서 정답을 지키는지로 고름. 섞는 비중은 0.05~0.50 사이에서 검증셋으로만 정함</li>
+<li><strong>OCR 결과 결합</strong>: 모델이 못 읽은 글자·가격·날짜를 보완</li>
+</ul>
+<p>최종적으로 Qwen 27B·4B QLoRA와 Gemma 계열 모델, OCR, 멀티뷰 확률을 결합해 <strong>Public 0.96961</strong>을 기록했습니다.</p>
+<h2>제출 전 자동 검사</h2>
+<p>마지막으로, 제출 파일을 만들기 전에 아래를 자동으로 검사하고 <strong>하나라도 실패하면 제출 생성을 멈추게</strong> 했습니다.</p>
+<ul>
+<li>테스트 6,714행, ID 중복·누락 없음, 샘플 순서와 일치</li>
+<li>답은 a/b/c/d만 존재</li>
+<li>모델별 확률이 같은 ID·같은 선택지 의미로 정렬되어 있고 합이 1</li>
+<li>설정·가중치·코드 버전과 SHA-256 해시를 매니페스트로 기록 → GPU 없이도 같은 제출 파일을 재현</li>
+</ul>
+<h2>남은 것</h2>
+<p>이 챌린지에서 가장 크게 남은 건 <strong>"점수가 올랐다"와 "믿을 수 있게 올랐다"는 다르다</strong>는 감각입니다. fixes·breaks처럼 문제 단위로 변화를 보는 습관은 모델 비교뿐 아니라 프롬프트 수정, 데이터 정제 효과를 판단할 때도 그대로 쓸 수 있습니다.</p></article>
+  <div class="endcard">
+    <div><b>SSAFY 16기 관통 프로젝트 — ThRead: LLM 댓글 분석 파이프라인 · AI 도서 서비스</b><span>자세한 내용은 포트폴리오의 해당 활동에서 볼 수 있습니다.</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="../index.html#work">포트폴리오로</a></div>
+  </div>
+<div class="others"><b style="font-size:14px;color:var(--muted)">다른 글</b><a href="2026-11-wavenumber-correlation.html">겹쳐 있는 두 신호를 위상으로 가르기 — 파수 상관 필터링 석사 연구 정리<span>중력과 자력 데이터를 같은 주파수 성분끼리 비교해, 함께 움직이는 성분과 반대로 움직이는 성분을 나눴다. 임계값을 감으로 정하지 않으려고 한 일들.</span></a><a href="2026-11-portfolio-one-yaml.html">YAML 파일 하나로 포트폴리오·이력서·비공개 페이지까지 — 이 사이트를 만든 방식<span>내용은 한 곳에만 쓰고, 웹 페이지·PDF 이력서·노션 문서는 빌드로 만든다. 공개하면 안 되는 내용은 저장소에 평문으로 남기지 않는다.</span></a><a href="2026-11-plate-tectonics-co2-storage.html">데이터를 해석하기 전에 그 데이터가 만들어진 역사를 본다 — 학부 제1저자 논문 회고<span>해외 대규모 CO2 저장소 8곳을 판구조 형성사와 탄성파 영상으로 비교했다. 처리 결과를 &#39;그럴듯한지&#39; 판단하는 기준을 어디서 가져올 것인가에 대한 이야기.</span></a><a href="2026-11-small-data-spatiotemporal.html">산불 4건으로 시공간 딥러닝 학습하기<span>데이터가 35개 시점뿐일 때 어떻게 학습시켰고, 다시 보니 무엇이 부족했는지. U-LSTM 산불 확산 예측 모델 회고.</span></a><a href="2026-11-llm-verify-pipeline.html">LLM 응답을 믿지 않는 파이프라인 설계<span>LLM에는 판단만 맡기고, 결과는 코드로 검증한다. 댓글 분석 파이프라인과 AI 도서 추천을 만들며 정한 네 가지 원칙.</span></a><a href="2026-11-catastrophic-forgetting.html">순차 학습이 성능을 떨어뜨린 이유 — catastrophic forgetting 실험기<span>단어 단위 → 문맥 단위로 차례로 학습하면 더 좋아질 줄 알았는데, BERTScore가 0.47에서 0.32로 떨어졌다. FLAN-T5 LoRA 학습 전략 비교.</span></a></div>  <footer>© Young-Ju Lee · iyju990312@naver.com</footer>
+</div>
+<script>
+(function(){var r=document.documentElement,K='theme';
+try{var s=localStorage.getItem(K);if(s)r.setAttribute('data-theme',s)}catch(e){}
+var b=document.getElementById('theme');if(b)b.addEventListener('click',function(){
+var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});})();
+</script>
+</body>
+</html>
