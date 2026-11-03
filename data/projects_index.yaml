@@ -77,6 +77,7 @@
     - "분석 코드를 Python 패키지·테스트로 정리해 공개"
   stack: [Python, 신호처리(파수 영역), 중력·자력, 상관 분석]
   image: "assets/photos/masters/2026-08_석사학위논문_Fig11_SLFI(기반암)·DLFI(암염)_공간분포.jpg"
+  caption: "SLFI(기반암)·DLFI(암염) 공간 분포 — 석사 학위논문 Fig. 11"
   links: [{ label: 논문, url: "https://doi.org/10.2118/236968-PA" }, { label: GitHub, url: "https://github.com/0Ju12/gravmag-wcf" }]
   post: 2026-11-wavenumber-correlation
   activity: masters
@@ -92,6 +93,7 @@
     - "ArcGIS로 시계열 래스터 구축, 학습에 쓰지 않은 산불로 일반화 검증"
   stack: [TensorFlow, PyTorch, U-LSTM, ArcGIS]
   image: assets/wildfire_test_map.png
+  caption: "미학습 산불 테스트 — 실제 화선(위) vs 예측(아래)"
   links: [{ label: GitHub, url: "https://github.com/0Ju12/wildfire-spread-prediction" }]
   post: 2026-11-small-data-spatiotemporal
   activity: wildfire-capstone
@@ -107,6 +109,7 @@
     - "제2저자 논문 1편 · 학회 발표 3건 · 캘거리대 단기 파견(Utah FORGE 중력 데이터)"
   stack: [GPlates, 탄성파 해석, CCS]
   image: "assets/photos/undergrad-research/2024-04_유타_FORGE_지열부지_포스터발표.jpg"
+  caption: "Utah FORGE 지열 부지 연구 포스터 발표 (2024.04)"
   links: [{ label: 논문, url: "https://koreascience.or.kr/article/JAKO202410348585789.page" }]
   post: 2026-11-plate-tectonics-co2-storage
   activity: undergrad-research
