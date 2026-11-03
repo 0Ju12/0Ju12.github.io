@@ -12,9 +12,9 @@ OUT = ROOT / "docs" / "study"
 
 TRACKS = [
     ("web", "WEB", "HTML·CSS·Bootstrap·반응형", lambda n: n[:2] in ("01", "02", "03")),
+    ("algo", "SW 알고리즘", "자료구조·탐색·DP·그래프", lambda n: n.startswith("SW")),
     ("django", "Django", "MTV·ORM·Form·인증", lambda n: n[:2].isdigit() and 4 <= int(n[:2]) <= 13),
     ("db", "DB · SQL", "SQL·관계(1:N, M:N)·N+1", lambda n: n[:2].isdigit() and 14 <= int(n[:2]) <= 19),
-    ("algo", "SW 알고리즘", "자료구조·탐색·DP·그래프", lambda n: n.startswith("SW")),
     ("ai", "AI", "데이터 분석·ML·NLP·LLM·비전", lambda n: n.startswith("AI")),
 ]
 SKIP_SECTIONS = ("핵심 키워드", "확인 문제", "참고 내용", "실습 문제")
@@ -41,8 +41,10 @@ def parse(path):
         summary = re.sub(r"^한눈에 보기\s*", "", summary)
         summary = summary[:150].rsplit(" ", 1)[0] + "…" if len(summary) > 150 else summary
     track = next(t for t in TRACKS if t[3](path.stem))
-    return {"file": path.name, "slug": path.stem.lower(), "title": title_clean, "num": num.strip(),
-            "name": name.strip() or title_clean, "date": date, "sections": sections[:8],
+    name = name.strip() or title_clean
+    slug = re.sub(r"^(ai|sw)?\d+_", "", path.stem.lower())          # 앞 번호 없는 파일 이름
+    return {"file": path.name, "slug": slug, "title": name, "num": num.strip(),
+            "name": name, "date": date, "sections": sections[:8],
             "summary": summary, "track": track[0], "raw": s}
 
 
@@ -50,6 +52,9 @@ NAV_CSS = """<style>.st-nav{position:sticky;top:0;z-index:999;display:flex;flex-
 padding:10px 18px;background:rgba(13,13,15,.92);backdrop-filter:blur(8px);font:600 13px/1.4 "Noto Sans KR",system-ui,sans-serif}
 .st-nav a{color:#5eead4;text-decoration:none}.st-nav a:hover{text-decoration:underline}.st-nav .st-t{color:#a1a1aa;margin-right:auto;font-weight:500}
 @media print{.st-nav{display:none}}@media (max-width:600px){.st-nav .st-t{display:none}.st-nav a:first-child{margin-right:auto}}</style>"""
+
+
+NUM_PREFIX = re.compile(r"(<(?:title|h1)[^>]*>)\s*(?:(?:AI|SW)\s*)?\d+\.\s*")
 
 
 def inject(note, prev, nxt):
@@ -60,7 +65,8 @@ def inject(note, prev, nxt):
         links.append(f'<a href="{nxt["slug"]}.html">다음 ›</a>')
     links.append('<a href="../../index.html">포트폴리오</a>')
     bar = NAV_CSS + '<nav class="st-nav">' + "".join(links) + "</nav>"
-    return re.sub(r"(<body[^>]*>)", r"\1" + bar.replace("\\", "\\\\"), note["raw"], count=1)
+    raw = NUM_PREFIX.sub(r"\1", note["raw"])                         # <title>·<h1> 앞 번호 제거
+    return re.sub(r"(<body[^>]*>)", r"\1" + bar.replace("\\", "\\\\"), raw, count=1)
 
 
 def build(env, data):
@@ -68,7 +74,7 @@ def build(env, data):
         return []
     notes = [parse(p) for p in sorted(SRC.glob("*.html"))]
     order = {t[0]: i for i, t in enumerate(TRACKS)}
-    notes.sort(key=lambda n: (order[n["track"]], n["file"]))
+    notes.sort(key=lambda n: (order[n["track"]], n["date"] or "9", n["file"]))   # 수강 날짜 순
     (OUT / "notes").mkdir(parents=True, exist_ok=True)
     for i, n in enumerate(notes):
         same = [x for x in notes if x["track"] == n["track"]]
@@ -77,7 +83,7 @@ def build(env, data):
         nxt = same[j + 1] if j + 1 < len(same) else None
         (OUT / "notes" / f"{n['slug']}.html").write_text(inject(n, prev, nxt), encoding="utf-8")
     tracks = [{"id": t[0], "name": t[1], "desc": t[2], "notes": [n for n in notes if n["track"] == t[0]]} for t in TRACKS]
-    dated = sorted([n for n in notes if n["date"]], key=lambda n: n["date"])
+    dated = sorted([n for n in notes if n["date"]], key=lambda n: (n["date"], order[n["track"]], n["file"]))
     (OUT / "index.html").write_text(
         env.get_template("study.html.j2").render(tracks=tracks, notes=notes, timeline=dated, **data), encoding="utf-8")
     return notes

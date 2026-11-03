@@ -93,7 +93,7 @@ footer{padding:64px 0 40px;color:var(--muted);font-size:13px}
     <div class="notes">
       {% for n in t.notes %}
       <a class="note" href="notes/{{ n.slug }}.html" data-text="{{ (n.title ~ ' ' ~ n.sections|join(' ') ~ ' ' ~ n.summary)|lower }}">
-        <div class="meta"><span>{{ n.num or t.name }}</span><span>{{ n.date }}</span></div>
+        <div class="meta"><span>{{ t.name }}</span><span>{{ n.date }}</span></div>
         <b>{{ n.name }}</b>
         {% if n.summary %}<p>{{ n.summary }}</p>{% endif %}
         <div class="chips">{% for s in n.sections[:4] %}<span class="chip">{{ s|truncate(22, True, '…') }}</span>{% endfor %}</div>
