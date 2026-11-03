@@ -120,6 +120,13 @@ def main():
         "resume-en.html": env.get_template("resume.html.j2").render(**data),
         "resume-1page-en.html": env.get_template("resume-1page.html.j2").render(**data),
     }
+    md = Environment(loader=FileSystemLoader(build.TEMPLATES), trim_blocks=True, lstrip_blocks=True)
+    (build.OUT / "profiles-en.md").write_text(
+        md.get_template("profiles.md.j2").render(**data).replace(
+            "| 석사(SCIE 제1저자) · 시공간 딥러닝 · LLM 파인튜닝·RAG · 데이터 파이프라인",
+            "| M.S. (SCIE first author) · Spatiotemporal deep learning · LLM fine-tuning & RAG · Data pipelines"),
+        encoding="utf-8")
+    print("✔ out/profiles-en.md")
     for name, html in out.items():
         html = to_english(html)
         left = sorted(set(re.findall(r"[가-힣][가-힣 ·]*", re.sub(r"<!--.*?-->|<script.*?</script>|src=\"[^\"]*\"", "", html, flags=re.S))))

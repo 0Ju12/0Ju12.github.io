@@ -1,11 +1,12 @@
-# 채용 플랫폼 프로필 문구
+# 채용 플랫폼 프로필 문구 (LinkedIn · 원티드 · 리멤버)
 
-data/portfolio.yaml에서 자동 생성됩니다. 각 플랫폼의 해당 칸에 그대로 복사해 붙여넣으세요.
+data/portfolio.yaml에서 자동 생성됩니다. 각 칸에 그대로 복사해 붙여넣으세요.
+LinkedIn 경력 설명은 2,000자 제한이 있어서, 묶음 활동은 하위 프로젝트마다 칸을 나누고 핵심 문장만 넣었습니다.
 
-## 1. 한 줄 소개 (LinkedIn 헤드라인 · 원티드 · 리멤버)
+## 1. 한 줄 소개 (LinkedIn 헤드라인, 220자 이내)
 
 ```
-{{ profile.title }} | {{ profile.headline }}
+{{ profile.title }} | 석사(SCIE 제1저자) · 시공간 딥러닝 · LLM 파인튜닝·RAG · 데이터 파이프라인
 ```
 
 ## 2. 자기소개 / About
@@ -13,14 +14,15 @@ data/portfolio.yaml에서 자동 생성됩니다. 각 플랫폼의 해당 칸에
 ```
 {{ profile.summary }}
 
-포트폴리오: (GitHub Pages 주소)
-{% for l in profile.links %}
+포트폴리오: https://0ju12.github.io  (English: https://0ju12.github.io/en.html)
+{% for l in profile.links if 'linkedin' not in l.label|lower %}
 {{ l.label }}: {{ l.url }}
 {% endfor %}
 ```
 
-## 3. 경력·활동 항목 (활동 하나당 칸 하나)
-{% for a in activities %}
+## 3. 경력·활동 항목 (칸 하나씩)
+{% for g in activities %}
+{% for a in (g.projects or [g]) %}
 
 ### {{ a.title }}
 - **직함/역할:** {{ a.role }}
@@ -29,28 +31,41 @@ data/portfolio.yaml에서 자동 생성됩니다. 각 플랫폼의 해당 칸에
 - **설명:**
 ```
 {{ a.summary }}
-{% for x in a.star.action %}
+{% for x in a.star.action[:4] %}
 • {{ x }}
 {% endfor %}
 {% for x in a.star.result %}
-• {{ x }}
+✔ {{ x }}
 {% endfor %}
 {% if a.tags %}
-기술/키워드: {{ a.tags|join(', ') }}
+기술: {{ a.tags|join(', ') }}
 {% endif %}
 ```
 {% endfor %}
+{% endfor %}
 
 {% if papers or talks %}
-## 4. 논문·발표 (LinkedIn "Publications" 항목 등)
-{% for x in papers + talks %}
-- {{ x.title }} ({% if x.venue %}{{ x.venue }}, {% endif %}{{ x.year }})
+## 4. 논문·발표 (LinkedIn "Publications")
+{% for x in papers %}
+- {{ x.title }} ({% if x.venue %}{{ x.venue }}, {% endif %}{{ x.year }}){% if x.url %} — {{ x.url }}{% endif %}
+
+{% endfor %}
+{% for x in talks %}
+- [학회 발표] {{ x.title }} ({{ x.year }})
 {% endfor %}
 
 {% endif %}
-## 5. 스킬 (복사용, 쉼표 구분)
+## 5. 스킬 (LinkedIn Skills — 최대 50개, 상위 5개가 프로필에 노출)
 
 ```
 {% for s in skills %}{{ s['items']|join(', ') }}{% if not loop.last %}, {% endif %}{% endfor %}
 
 ```
+
+## 6. 수상·자격 (LinkedIn "Honors & awards" / "Licenses & certifications")
+{% for x in awards %}
+- {{ x.name }} — {{ x.org }} ({{ x.date }})
+{% endfor %}
+{% for x in certifications %}
+- {{ x.name }} — {{ x.org }} ({{ x.date }})
+{% endfor %}
