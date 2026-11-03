@@ -41,7 +41,7 @@ LinkedIn: https://www.linkedin.com/in/%EC%98%81%EC%A3%BC-%EC%9D%B4-a335ab251/
 기술/키워드: Python, Django, Selenium, Pandas, LLM API, Bootstrap, Kakao Map API
 ```
 
-### 콩글리시 → 원어민 표현 교정 시스템 (FLAN-T5 + RAG)
+### POSPEAK(KILL KONG) — 콩글리시 → 원어민 표현 교정 AI (FLAN-T5·Qwen + RAG)
 - **직함/역할:** 데이터 구축·모델 실험 담당
 - **회사/기관:** 포스코 청년 AI·BigData 아카데미 30기 (포스코인재창조원·POSTECH) · 팀 프로젝트
 - **기간:** 2025.08
@@ -73,7 +73,8 @@ LinkedIn: https://www.linkedin.com/in/%EC%98%81%EC%A3%BC-%EC%9D%B4-a335ab251/
 • SLFI 기반 기반암 구조가 서로 다른 해석법의 기존 독립 모델 3개와 상관계수 0.94 이상으로 일치
 • DLFI로 암염 구조의 공간 분포를 재현하고, 가샤 서쪽의 추가 암염 융기 가능성을 새로 제시
 • SCIE 국제학술지 SPE Journal 제1저자 논문 (2026, 캘거리대·칼리파대 공동연구) · 국내 제1저자 논문 1편 · 학회 발표 5건
-• 2024 KSEG 추계학술대회 학생 우수논문(포스터) 발표상 · 2026년 석사 학위 취득
+• 2024 KSEG 추계학술대회 학생 우수논문(포스터) 발표상
+• 석사 학위논문 「Characterization of Salt and Basement Structures in the Ghasha Area Using Wavenumber Correlation Analysis of Gravity and Magnetic Anomaly Data」 (전북대학교 대학원 환경에너지융합학과, 2026.08.21 학위 취득)
 기술/키워드: 신호처리(파수 영역), 상관 분석, 지표 설계, 중력·자력 데이터, 국제공동연구
 ```
 

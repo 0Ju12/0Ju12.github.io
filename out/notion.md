@@ -29,7 +29,7 @@
 🏷 Python, TensorFlow, PyTorch, U-LSTM, ArcGIS
 🔗 [GitHub 코드](https://github.com/0Ju12/wildfire-spread-prediction)  
 
-### 콩글리시 → 원어민 표현 교정 시스템 (FLAN-T5 + RAG)
+### POSPEAK(KILL KONG) — 콩글리시 → 원어민 표현 교정 AI (FLAN-T5·Qwen + RAG)
 `AI 프로젝트` · 2025.08 · 포스코 청년 AI·BigData 아카데미 30기 (포스코인재창조원·POSTECH) · 팀 프로젝트 · **데이터 구축·모델 실험 담당** · 팀 프로젝트 · 장려상
 
 어색한 영어·콩글리시 문장을 자연스러운 원어민 표현으로 바꿔 주는 생성 모델 + 검색 증강(RAG) 시스템
@@ -89,7 +89,8 @@
   - SLFI 기반 기반암 구조가 서로 다른 해석법의 기존 독립 모델 3개와 상관계수 0.94 이상으로 일치
   - DLFI로 암염 구조의 공간 분포를 재현하고, 가샤 서쪽의 추가 암염 융기 가능성을 새로 제시
   - SCIE 국제학술지 SPE Journal 제1저자 논문 (2026, 캘거리대·칼리파대 공동연구) · 국내 제1저자 논문 1편 · 학회 발표 5건
-  - 2024 KSEG 추계학술대회 학생 우수논문(포스터) 발표상 · 2026년 석사 학위 취득
+  - 2024 KSEG 추계학술대회 학생 우수논문(포스터) 발표상
+  - 석사 학위논문 「Characterization of Salt and Basement Structures in the Ghasha Area Using Wavenumber Correlation Analysis of Gravity and Magnetic Anomaly Data」 (전북대학교 대학원 환경에너지융합학과, 2026.08.21 학위 취득)
 
 🏷 신호처리(파수 영역), 상관 분석, 지표 설계, 중력·자력 데이터, 국제공동연구
 🔗 [SPE Journal 논문](https://doi.org/10.2118/236968-PA)  🔗 [국내 제1저자 논문](https://koreascience.or.kr/article/JAKO202410348585789.page)  🔗 [연구 이력](https://www.geoverselab.com/ko/research-history/13/)  
@@ -119,7 +120,7 @@
 | 기간 | 유형 | 활동 | 기관 | 역할 |
 | --- | --- | --- | --- | --- |
 | 2026.07 – 진행 중 | AI 프로젝트 | SSAFY 16기 관통 프로젝트 — ThRead: LLM 댓글 분석 파이프라인 · AI 도서 서비스 | 삼성 청년 SW·AI 아카데미 (SSAFY) 16기 · 2인 팀 | 백엔드 · 데이터 파이프라인 담당 |
-| 2025.08 | AI 프로젝트 | 콩글리시 → 원어민 표현 교정 시스템 (FLAN-T5 + RAG) | 포스코 청년 AI·BigData 아카데미 30기 (포스코인재창조원·POSTECH) · 팀 프로젝트 | 데이터 구축·모델 실험 담당 |
+| 2025.08 | AI 프로젝트 | POSPEAK(KILL KONG) — 콩글리시 → 원어민 표현 교정 AI (FLAN-T5·Qwen + RAG) | 포스코 청년 AI·BigData 아카데미 30기 (포스코인재창조원·POSTECH) · 팀 프로젝트 | 데이터 구축·모델 실험 담당 |
 | 2024.03 – 2026.08 | 연구 | 중력·자력 데이터 파수 상관 분석으로 지하 구조 규명 (석사 · SPE Journal 제1저자) | 지구물리컴퓨팅연구실 · 환경에너지융합학과 | 석사과정 연구원 |
 | 2024.06 – 2024.12 | 국제협력 | 캐나다 캘거리대학교 장기 파견연구 — 중력·자력 데이터 복합 해석 | University of Calgary | 석사과정 파견연구원 |
 | 2022 – 2024.02 | 연구 | 학부연구생 — 지구물리 데이터 처리와 해외 CCS 사례 분석 | 지구물리컴퓨팅연구실 · 자원에너지공학과 | 학부연구생 |

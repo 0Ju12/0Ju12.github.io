@@ -121,7 +121,7 @@ activities:
   - id: posco-pospeak
     icon: "🗣️"
     kpi: { value: "0.74", label: "BERTScore F1 · 장려상" }
-    title: 콩글리시 → 원어민 표현 교정 시스템 (FLAN-T5 + RAG)
+    title: "POSPEAK(KILL KONG) — 콩글리시 → 원어민 표현 교정 AI (FLAN-T5·Qwen + RAG)"
     type: AI 프로젝트
     org: 포스코 청년 AI·BigData 아카데미 30기 (포스코인재창조원·POSTECH) · 팀 프로젝트
     period: { start: "2025.08", end: "" }
@@ -165,6 +165,8 @@ activities:
       - "캘거리대 6개월 파견 · 칼리파대(UAE) 3개 기관 공동연구 → SCIE SPE Journal 제1저자 논문 (2026)"
       - "국내 제1저자 논문 1편 · 학회 발표 5건 · KSEG 학생 우수논문 발표상"
     tags: [신호처리(파수 영역), 상관 분석, 지표 설계, 중력·자력 데이터, 국제공동연구]
+    image: assets/masters_thesis.jpg
+    image_caption: "석사 학위논문 (2026.08) — 왼쪽: 표지, 오른쪽: SLFI(기반암)·DLFI(암염) 공간분포 (Fig. 11)"
     summary: 겹쳐 있는 중력·자력 신호를 파수 영역 상관 분석으로 분리하는 지표(SLFI·DLFI)를 설계해 암염·기반암 구조를 규명
     star:
       situation: 아부다비 해상 가샤 지역은 암염과 기반암이 8~10 km 두께의 퇴적층 아래에 겹쳐 있어, 중력·자력 신호가 섞이고 기존 해석법은 암염 깊이를 약 6,000 m로 실제(탄성파 기준 약 9,300 m)보다 크게 얕게 추정하는 한계가 있었음
@@ -179,7 +181,8 @@ activities:
         - SLFI 기반 기반암 구조가 서로 다른 해석법의 기존 독립 모델 3개와 상관계수 0.94 이상으로 일치
         - DLFI로 암염 구조의 공간 분포를 재현하고, 가샤 서쪽의 추가 암염 융기 가능성을 새로 제시
         - SCIE 국제학술지 SPE Journal 제1저자 논문 (2026, 캘거리대·칼리파대 공동연구) · 국내 제1저자 논문 1편 · 학회 발표 5건
-        - 2024 KSEG 추계학술대회 학생 우수논문(포스터) 발표상 · 2026년 석사 학위 취득
+        - 2024 KSEG 추계학술대회 학생 우수논문(포스터) 발표상
+        - "석사 학위논문 「Characterization of Salt and Basement Structures in the Ghasha Area Using Wavenumber Correlation Analysis of Gravity and Magnetic Anomaly Data」 (전북대학교 대학원 환경에너지융합학과, 2026.08.21 학위 취득)"
     links:
       - { label: SPE Journal 논문, url: "https://doi.org/10.2118/236968-PA" }
       - { label: 국내 제1저자 논문, url: "https://koreascience.or.kr/article/JAKO202410348585789.page" }
@@ -223,6 +226,8 @@ activities:
       - "캘거리대 단기 파견: 미국 Utah FORGE 지열 부지 중력 데이터 처리"
       - "4D 탄성파 모니터링·해외 CCS 사례 분석 → 제2저자 논문 1편 · 학회 발표 5건"
     tags: [중력 데이터 처리, 4D 탄성파, GPU, 해외 CCS]
+    image: "assets/photos/undergrad-research/2024-04_유타_FORGE_지열부지_포스터발표.jpg"
+    image_caption: "Utah FORGE 지열 부지 탄성파 속도·밀도 모델 정확성 검토 — 포스터 발표 (2024.04)"
     summary: 학부 과정에서 지구물리 데이터 처리와 4D 탄성파 모니터링·해외 CCS 사례를 연구
     star:
       situation: CO2 저장소 모니터링의 핵심인 4D 탄성파 기술은 자료 비반복성과 높은 계산 비용이라는 과제가 있었음
