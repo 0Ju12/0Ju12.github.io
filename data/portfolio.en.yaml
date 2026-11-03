@@ -68,7 +68,7 @@ skills:
   - category: Languages & frameworks
     items: [Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, Django, Selenium, SQL]
   - category: AI & data analysis
-    items: [Spatiotemporal DL (U-LSTM), LLM fine-tuning (LoRA/QLoRA), Model ensembles, RAG (FAISS), F1 · BERTScore]
+    items: [Spatiotemporal DL (U-LSTM), LLM fine-tuning (LoRA/QLoRA), Model ensembles, RAG (LangGraph · ChromaDB · FAISS), F1 · BERTScore]
   - category: Spatial & geophysical data
     items: [ArcGIS, Rasters, Gravity & magnetics, Wavenumber correlation, Seismic interpretation, GPlates]
   - category: Domain
@@ -220,6 +220,7 @@ activities:
     brief:
       - "SSAFY AI Challenge (VQA): Qwen/Gemma QLoRA, OCR, multi-view probability ensemble → public 0.96961"
       - "ThRead: crawling → LLM judgments verified in code → pandas pipeline, Django backend · 86 tests"
+      - "Heritage RAG guide (solo): public-API & Wikipedia collection → LangGraph RAG that shows only citations verified in code · 50 offline tests"
       - "POSPEAK: correction datasets, FLAN-T5 LoRA strategy comparison (BERTScore F1 0.32 → 0.74) + RAG · award"
     tags: [Python, LLM fine-tuning, QLoRA, RAG, FAISS, Django, Selenium, Pandas]
     image: "assets/photos/posco-pospeak/2025-08-29_프로젝트_장려상·수료증.jpg"
@@ -243,12 +244,14 @@ activities:
             - "Comment pipeline: Selenium collects live comments → the LLM returns only the numbers of inappropriate comments and code removes them → pandas/regex cleaning → IQR length thresholds → LLM augmentation (retry on count mismatch) → summary, each step stored"
             - "Streamed progress of 30-second jobs with StreamingHttpResponse (NDJSON) and distinguished failure cases (no company, no comments, LLM failure)"
             - "AI book service: custom Django auth (open-redirect protection), AI recommendations restricted to registered book IDs; 45 mock-based tests without external APIs"
+            - "AI core project 2 · National-treasure RAG guide (2026.10, solo): collected treasures and official descriptions from the Korea Heritage Service open API (XML, EUC-KR) and auto-linked each to Korean Wikipedia; two ChromaDB collections with fixed chunk IDs (idempotent re-indexing); per-question LLM query extraction and document selection with caching and offline fallback; LangGraph retrieve→generate where [evidence N] tags are checked in code and unknown numbers removed; Streamlit + FastAPI UIs; 50 tests with a fake LLM and Streamlit AppTest"
             - "AI Challenge (2026.09, image + question 4-choice VQA, model training & refinement): Qwen 27B/4B QLoRA, Gemma, OCR and multi-view probability ensembling; accepted changes by fixes − breaks and per-type regressions; SHA-256 manifests reproduce the submission without a GPU"
           result:
             - "AI Challenge public score 0.94608 (4B baseline) → 0.96961"
             - "86 automated tests passing; all project-5 requirements implemented, plus progress streaming and analysis history"
         links:
           - { label: GitHub, url: "https://github.com/0Ju12/ssafy-thread" }
+          - { label: "Heritage RAG guide", url: "https://github.com/0Ju12/heritage-rag-guide" }
       - id: posco-pospeak
         short: "POSPEAK (KILL KONG)"
         title: "POSPEAK (KILL KONG) — Konglish → natural English correction AI (FLAN-T5 · Qwen + RAG)"

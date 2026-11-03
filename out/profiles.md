@@ -136,7 +136,7 @@ GPlates로 해외 대규모 CO2 저장소의 지질 형성사를 판구조 관�
 ## 5. 스킬 (LinkedIn Skills — 최대 50개, 상위 5개가 프로필에 노출)
 
 ```
-Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, Django, Selenium, SQL, 시공간 딥러닝(U-LSTM), CNN·LSTM, LLM 파인튜닝(FLAN-T5·Qwen·Gemma, LoRA/QLoRA), 멀티모델 확률 앙상블, RAG(FAISS·임베딩 검색), 모델 평가(F1·BERTScore), ArcGIS, 래스터 데이터 구축, 중력·자력 자료 처리, 파수 상관 분석, 탄성파 자료 해석, GPlates, CCS(이산화탄소 지중저장), 에너지·자원, 재난(산불) 예측
+Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, Django, Selenium, SQL, 시공간 딥러닝(U-LSTM), CNN·LSTM, LLM 파인튜닝(FLAN-T5·Qwen·Gemma, LoRA/QLoRA), 멀티모델 확률 앙상블, RAG(LangGraph·ChromaDB·FAISS), 모델 평가(F1·BERTScore), ArcGIS, 래스터 데이터 구축, 중력·자력 자료 처리, 파수 상관 분석, 탄성파 자료 해석, GPlates, CCS(이산화탄소 지중저장), 에너지·자원, 재난(산불) 예측
 ```
 
 ## 6. 수상·자격 (LinkedIn "Honors & awards" / "Licenses & certifications")

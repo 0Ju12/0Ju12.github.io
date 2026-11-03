@@ -31,7 +31,7 @@ Extended a reading-community service across five projects, from data collection 
 • Comment pipeline: Selenium collects live comments → the LLM returns only the numbers of inappropriate comments and code removes them → pandas/regex cleaning → IQR length thresholds → LLM augmentation (retry on count mismatch) → summary, each step stored
 • Streamed progress of 30-second jobs with StreamingHttpResponse (NDJSON) and distinguished failure cases (no company, no comments, LLM failure)
 • AI book service: custom Django auth (open-redirect protection), AI recommendations restricted to registered book IDs; 45 mock-based tests without external APIs
-• AI Challenge (2026.09, image + question 4-choice VQA, model training & refinement): Qwen 27B/4B QLoRA, Gemma, OCR and multi-view probability ensembling; accepted changes by fixes − breaks and per-type regressions; SHA-256 manifests reproduce the submission without a GPU
+• AI core project 2 · National-treasure RAG guide (2026.10, solo): collected treasures and official descriptions from the Korea Heritage Service open API (XML, EUC-KR) and auto-linked each to Korean Wikipedia; two ChromaDB collections with fixed chunk IDs (idempotent re-indexing); per-question LLM query extraction and document selection with caching and offline fallback; LangGraph retrieve→generate where [evidence N] tags are checked in code and unknown numbers removed; Streamlit + FastAPI UIs; 50 tests with a fake LLM and Streamlit AppTest
 ✔ AI Challenge public score 0.94608 (4B baseline) → 0.96961
 ✔ 86 automated tests passing; all project-5 requirements implemented, plus progress streaming and analysis history
 기술: Python, Django, Selenium, Pandas, LLM API
@@ -130,7 +130,7 @@ A U-LSTM that predicts the next wildfire front from the current front, weather a
 ## 5. 스킬 (LinkedIn Skills — 최대 50개, 상위 5개가 프로필에 노출)
 
 ```
-Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, Django, Selenium, SQL, Spatiotemporal DL (U-LSTM), LLM fine-tuning (LoRA/QLoRA), Model ensembles, RAG (FAISS), F1 · BERTScore, ArcGIS, Rasters, Gravity & magnetics, Wavenumber correlation, Seismic interpretation, GPlates, CCS, Energy & resources, Wildfire prediction
+Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, Django, Selenium, SQL, Spatiotemporal DL (U-LSTM), LLM fine-tuning (LoRA/QLoRA), Model ensembles, RAG (LangGraph · ChromaDB · FAISS), F1 · BERTScore, ArcGIS, Rasters, Gravity & magnetics, Wavenumber correlation, Seismic interpretation, GPlates, CCS, Energy & resources, Wildfire prediction
 ```
 
 ## 6. 수상·자격 (LinkedIn "Honors & awards" / "Licenses & certifications")
