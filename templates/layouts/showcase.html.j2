@@ -101,7 +101,7 @@ footer{padding:96px 0 48px;color:var(--muted);font-size:13px}
 <body>
 <header class="hero">
   <div class="wrap">
-    <div class="topbar"><span class="logo">{{ profile.name_en }}</span><a href="#work">Work</a>{% if posts %}<a href="#writing">Writing</a>{% endif %}{% if study_notes %}<a href="study/index.html">Study</a>{% endif %}<a href="#publications">Publications</a><a href="#about">About</a><a href="#contact">Contact</a><button id="theme" type="button">테마</button></div>
+    <div class="topbar"><span class="logo">{{ profile.name_en }}</span><a href="#work">Work</a>{% if posts %}<a href="#writing">Writing</a>{% endif %}{% if study_notes %}<a href="study/index.html">Study</a>{% endif %}<a href="#publications">Publications</a><a href="#about">About</a><a href="#contact">Contact</a>{% if alt_lang %}<a href="{{ alt_lang.url }}" hreflang="{{ alt_lang.code }}">{{ alt_lang.label }}</a>{% endif %}<button id="theme" type="button">테마</button></div>
     <div class="herobody">
       <div>
         <div class="role">{{ profile.title|upper }} · {{ profile.name }}</div>

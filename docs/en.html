@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Young-Ju Lee Portfolio</title>
+<meta name="description" content="Data &amp; AI Engineer · A data &amp; AI engineer who turns complex geoscience data into answers with deep learning and analysis">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--surface:#f7f7f8;--text:#0d0d0f;--muted:#5d5f66;--line:#e7e7ea;--accent:#0a7c66;--accent-2:#14b8a6;--on-accent:#fff;--chip:#eef2f1;--hero:#0d0d0f;--hero-text:#f4f4f5}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--on-accent:#0d0d0f;--chip:#1f2422;--hero:#000}}
+:root[data-theme="dark"]{--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--on-accent:#0d0d0f;--chip:#1f2422;--hero:#000}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 "Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header.hero{background:var(--hero);color:var(--hero-text);position:relative;overflow:hidden}
+header.hero::after{content:"";position:absolute;inset:auto -10% -40% 40%;height:520px;background:radial-gradient(closest-side,rgba(20,184,166,.35),transparent);pointer-events:none}
+.topbar{display:flex;align-items:center;gap:22px;padding:24px 0;position:relative;z-index:1}
+.topbar .logo{font-weight:900;margin-right:auto;letter-spacing:-.02em}
+.topbar a{color:#a1a1aa;text-decoration:none;font-size:14px;font-weight:500}.topbar a:hover{color:#fff}
+#theme{background:none;border:1px solid #3f3f46;color:#a1a1aa;border-radius:999px;padding:4px 12px;font:inherit;font-size:12px;cursor:pointer}
+.herobody{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;padding:80px 0 56px;position:relative;z-index:1}
+.herobody .role{color:var(--accent-2);font-weight:700;letter-spacing:.08em;font-size:14px}
+.herobody h1{font-size:clamp(34px,5.4vw,68px);line-height:1.08;letter-spacing:-.04em;margin:14px 0 22px;font-weight:900}
+.herobody h1 span{color:var(--accent-2)}
+.herobody p{color:#a1a1aa;max-width:620px;margin:0 0 28px;font-size:17px}
+.herobody .avatar{width:180px;height:180px;border-radius:28px;object-fit:cover;font-size:52px;transform:rotate(3deg);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.cta{display:flex;flex-wrap:wrap;gap:10px}
+.hero .btn.ghost{background:transparent;color:#f4f4f5;border-color:#3f3f46}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #27272a;position:relative;z-index:1}
+.kpis div{padding:26px 22px 30px;border-right:1px solid #27272a}
+.kpis div:last-child{border-right:0}
+.kpis b{display:block;font-size:30px;font-weight:900;letter-spacing:-.03em}
+.kpis span{font-size:13px;color:#a1a1aa}
+section{padding:96px 0 0;scroll-margin-top:20px}
+.sechead{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:40px;border-bottom:2px solid var(--text);padding-bottom:16px}
+.sechead h2{font-size:clamp(28px,4vw,44px);letter-spacing:-.03em;margin:0;font-weight:900;line-height:1.1}
+.sechead span{color:var(--muted);font-size:14px}
+.case{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center;padding:48px 0;border-bottom:1px solid var(--line)}
+.case:nth-of-type(even) .visual{order:2}
+.visual{border-radius:24px;background:var(--surface);aspect-ratio:4/3;display:grid;place-items:center;overflow:hidden;position:relative;border:1px solid var(--line)}
+.visual img{width:100%;height:100%;object-fit:contain;background:#fff}
+.visual .ph{text-align:center}
+.visual .ph .ic{font-size:64px;line-height:1}
+.visual .ph b{display:block;font-size:44px;font-weight:900;letter-spacing:-.03em;margin-top:10px;background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.visual .ph span{color:var(--muted);font-size:14px}
+.case .num{font-size:14px;font-weight:900;color:var(--accent);letter-spacing:.1em}
+.case h3{font-size:clamp(22px,2.6vw,30px);line-height:1.3;letter-spacing:-.02em;margin:8px 0 10px;font-weight:900}
+.case .meta{color:var(--muted);font-size:14px;margin-bottom:16px}
+.case p.sum{font-size:17px;margin:0 0 18px}
+.case .kpi{display:inline-flex;align-items:baseline;gap:10px;background:var(--chip);border-radius:14px;padding:10px 16px;margin-bottom:16px}
+.case .kpi b{font-size:22px;color:var(--accent);font-weight:900}
+.case .kpi span{font-size:13px;color:var(--muted)}
+.more{background:var(--text);color:var(--bg);border:0;font:inherit;font-weight:700;font-size:14px;cursor:pointer;padding:10px 18px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;margin-top:18px}
+.detail{grid-column:1/-1;background:var(--surface);border-radius:20px;padding:26px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px}
+.card h4{margin:0 0 10px;font-size:15px}
+.timeline{display:grid;gap:0}
+.tl{display:grid;grid-template-columns:160px 1fr;gap:20px;padding:18px 0;border-bottom:1px solid var(--line)}
+.tl .when{color:var(--muted);font-size:14px;font-weight:500}
+.tl b{display:block}.tl small{color:var(--muted)}
+footer{padding:96px 0 48px;color:var(--muted);font-size:13px}
+.contactband{margin-top:96px;background:var(--hero);color:var(--hero-text);border-radius:28px;padding:48px;display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between}
+.contactband h2{margin:0;font-size:clamp(24px,3vw,36px);letter-spacing:-.03em;font-weight:900}
+.contactband .mail{display:inline-block;margin-top:8px;color:var(--accent-2);font-size:18px;font-weight:700;text-decoration:none}
+.contactband .btn.ghost{background:transparent;color:#f4f4f5;border-color:#3f3f46}
+.posts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.post{display:flex;flex-direction:column;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px;text-decoration:none;color:var(--text);transition:transform .15s,border-color .15s}
+.post:hover{transform:translateY(-3px);border-color:var(--accent)}
+.post .pdate{font-size:13px;color:var(--accent);font-weight:700}
+.post b{font-size:19px;line-height:1.4;letter-spacing:-.02em}
+.post p{margin:0;color:var(--muted);font-size:14.5px;flex:1}
+.post .read{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;color:var(--accent)}
+.studyband{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;margin-top:16px;padding:24px 28px;border-radius:22px;background:var(--hero);color:var(--hero-text);text-decoration:none}
+.studyband .pdate{font-size:13px;color:var(--accent-2);font-weight:700}
+.studyband b{display:block;font-size:20px;letter-spacing:-.02em;margin:4px 0}
+.studyband p{margin:0;color:#a1a1aa;font-size:14.5px}
+.studyband .read{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--accent-2)}
+.postlink{display:inline-flex;margin:18px 0 0 10px;font-size:14px;font-weight:700;text-decoration:none;color:var(--accent)}
+.subproj{padding:18px 0;border-top:1px solid var(--line)}
+.subproj:first-child{border-top:0;padding-top:0}
+.subhead{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px}
+.subnum{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--on-accent);font-weight:700;font-size:13px;margin-top:2px}
+.subhead h4{margin:0;font-size:17px;line-height:1.4}
+.submeta{color:var(--muted);font-size:13px;margin-top:2px}
+.star{display:grid;gap:14px;margin:0}
+.star dt{font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--accent);margin-bottom:2px}
+.star dd{margin:0}
+.star ul{margin:0;padding-left:18px}
+.star li{margin:3px 0}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:16px}
+.gallery a{color:var(--muted);font-size:12px;text-decoration:none}
+.gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;display:block;margin-bottom:4px}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid transparent;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn.solid{background:var(--accent);color:var(--on-accent)}
+.btn.ghost{border-color:var(--line);color:var(--text);background:var(--surface)}
+.pubs{list-style:none;margin:0;padding:0}
+.pubs li{display:grid;grid-template-columns:52px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.pubs li:last-child{border-bottom:0}
+.pubs .yr{font-weight:700;color:var(--accent);font-size:14px;padding-top:1px}
+.pubs b a{color:inherit;text-decoration:none;background-image:linear-gradient(var(--accent),var(--accent));background-size:0 1px;background-repeat:no-repeat;background-position:0 100%;transition:background-size .2s}
+.pubs b a:hover{background-size:100% 1px}
+.pubs small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+.pubs.compact li{padding:8px 0;font-size:14px}
+.talks{margin-top:10px}
+.talks summary{cursor:pointer;color:var(--accent);font-weight:600;font-size:14px;padding:6px 0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--chip);color:var(--muted)}
+.avatar-fallback{display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:700}
+[hidden]{display:none!important}
+@media (max-width:900px){
+  .herobody{grid-template-columns:1fr;padding:48px 0 40px}
+  .herobody .avatar{width:120px;height:120px;order:-1}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .kpis div:nth-child(2){border-right:0}
+  .kpis div:nth-child(-n+2){border-bottom:1px solid #27272a}
+  .case{grid-template-columns:1fr;gap:24px}
+  .case:nth-of-type(even) .visual{order:0}
+  .grid3,.posts{grid-template-columns:1fr}
+  .postlink{margin-left:0;display:flex}
+  .tl{grid-template-columns:1fr;gap:4px}
+  .topbar a{display:none}
+  .contactband{padding:32px 24px}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar"><span class="logo">Young-Ju Lee</span><a href="#work">Work</a><a href="#publications">Publications</a><a href="#about">About</a><a href="#contact">Contact</a><a href="index.html" hreflang="ko">KO</a><button id="theme" type="button">Theme</button></div>
+    <div class="herobody">
+      <div>
+        <div class="role">DATA &amp; AI ENGINEER · Young-Ju Lee</div>
+        <h1>Geoscience data,<br>solved with <span>deep learning</span>.</h1>
+        <p>M.S. in Environment and Energy (Jeonbuk National University, 2026) with a B.S. in Mineral Resources and Energy Engineering. As an undergraduate researcher I...</p>
+        <div class="cta"><a class="btn solid" href="#work">Selected work <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn ghost" href="resume-1page-en.pdf" download><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v15H6V2Zm8 1.5V8h4.5M9 12h8M9 16h8"/></svg> Resume (1 page)</a><a class="btn ghost" href="resume-en.pdf" download><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v15H6V2Zm8 1.5V8h4.5M9 12h8M9 16h8"/></svg> Full resume</a><a class="btn ghost" href="https://github.com/0Ju12" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg> GitHub</a><a class="btn ghost" href="https://www.linkedin.com/in/%EC%98%81%EC%A3%BC-%EC%9D%B4-a335ab251/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.84-2.05 3.79-2.05 4.05 0 4.8 2.67 4.8 6.13V21h-4v-5.5c0-1.31-.02-3-1.83-3-1.83 0-2.11 1.43-2.11 2.9V21h-4V9Z"/></svg> LinkedIn</a><a class="btn ghost" href="mailto:iyju990312@naver.com"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3V5Zm0 0 9 7 9-7"/></svg> Email</a></div>
+      </div>
+      <img class="avatar" src="assets/photos/profile.jpg" alt="Young-Ju Lee Profile photo">
+
+    </div>
+  </div>
+  <div class="wrap"><div class="kpis"><div><b>1 SCIE</b><span>First-author paper (SPE Journal)</span></div><div><b>2× Calgary</b><span>Research stays · international collaboration</span></div><div><b>SSAFY 16th</b><span>Samsung SW &amp; AI Academy (in progress)</span></div><div><b>3 · 6</b><span>Papers · conference talks</span></div></div></div>
+</header>
+
+<main class="wrap">
+  <section id="work">
+    <div class="sechead"><h2>Selected Work</h2><span>3 projects · problem → role → result</span></div>
+    <article class="case">
+      <div class="visual"><img src="assets/masters_thesis.jpg" alt="M.S. thesis (2026.08) — left: cover, right: SLFI (basement) and DLFI (salt) maps (Fig. 11)" loading="lazy"></div>
+      <div>
+        <div class="num">01 — Research</div>
+        <h3>M.S. — Separating gravity &amp; magnetic signals with wavenumber correlation to resolve subsurface structure (SPE Journal, first author)</h3>
+        <div class="meta">2024.03 – 2026.08 · Graduate researcher · 6-month stay at University of Calgary</div>
+        <p class="sum">Designed wavenumber-correlation indices (SLFI · DLFI) that separate overlapping gravity and magnetic signals to map salt and basement structures; completed an SCIE paper and thesis through a Calgary research stay and a 3-institution collaboration</p>
+<div class="kpi"><b>r ≥ 0.94</b><span>agreement with independent published models</span></div>        <div class="chips"><span class="chip">Signal processing (wavenumber domain)</span><span class="chip">Correlation analysis</span><span class="chip">Index design</span><span class="chip">Gravity &amp; magnetic data</span><span class="chip">International collaboration</span></div>
+        <button class="more" type="button" data-expand="d-grad" aria-expanded="false"><span>Details</span> <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>      </div>
+      <div class="detail" id="d-grad" hidden><article class="subproj">
+  <div class="subhead"><span class="subnum">1</span><div><h4>Wavenumber correlation of gravity &amp; magnetic data for salt/basement structure (M.S. · SPE Journal first author)</h4><div class="submeta">2024.03 – 2026.08 · Geophysical Computing Lab · Dept. of Environment and Energy · Graduate researcher</div></div></div>
+  <dl class="star">
+<div><dt>Problem</dt><dd>In the Ghasha field offshore Abu Dhabi, salt and basement lie under 8–10 km of sediments, so gravity and magnetic signals overlap; earlier methods put the salt at ~6,000 m, far shallower than the ~9,300 m seen in seismic data</dd></div><div><dt>Role</dt><dd>Propose an analysis that separates basement and salt signals in airborne gravity and magnetic data</dd></div><div><dt>Actions</dt><dd><ul><li>Built a wavenumber correlation filtering (WCF) pipeline — upward continuation and normalization, then the correlation coefficient CC(k) between the two signals at each wavenumber</li><li>Designed two indices — SLFI from positively correlated components (basement) and DLFI from weak/negative ones (salt)</li><li>Chose thresholds from energy–correlation trade-off curves instead of by eye (upward continuation 1,500 m at the knee point; SLFI band 0.5–1.0 keeps ~half the energy at correlation 0.85)</li><li>Validated against three independent published models with map, profile and 3-D density comparisons</li></ul></dd></div><div><dt>Results</dt><dd><ul><li>SLFI basement structure agrees with three independent models at r ≥ 0.94 (profile correlation 0.95–0.98 after shift alignment)</li><li>DLFI reproduces the salt distribution and suggests an additional salt uplift west of Ghasha</li><li>First-author paper in SPE Journal (SCIE, 2026, with Univ. of Calgary and Khalifa Univ.) · 3 conference talks (2024)</li><li>Best Student Paper (poster), KSEG Fall Conference 2024 · M.S. degree conferred 2026.08.21</li></ul></dd></div></dl>
+<div class="gallery"><a href="assets/photos/masters/2026-08-21_석사_학위수여식_1.jpg" target="_blank" rel="noopener"><img src="assets/photos/masters/2026-08-21_석사_학위수여식_1.jpg" alt="M.S. commencement" loading="lazy"><span>M.S. commencement</span></a><a href="assets/photos/masters/2026-08-21_석사_학위수여식_2.jpg" target="_blank" rel="noopener"><img src="assets/photos/masters/2026-08-21_석사_학위수여식_2.jpg" alt="M.S. commencement" loading="lazy"><span>M.S. commencement</span></a><a href="assets/photos/masters/2026-08_석사학위논문_(표지)_가샤_지역_암염·기반암_구조_특성화.jpg" target="_blank" rel="noopener"><img src="assets/photos/masters/2026-08_석사학위논문_(표지)_가샤_지역_암염·기반암_구조_특성화.jpg" alt="M.S. thesis — cover" loading="lazy"><span>M.S. thesis — cover</span></a><a href="assets/photos/masters/2026-08_석사학위논문_Fig03_파수상관필터링(WCF)→LFI_5단계_분석흐름.jpg" target="_blank" rel="noopener"><img src="assets/photos/masters/2026-08_석사학위논문_Fig03_파수상관필터링(WCF)→LFI_5단계_분석흐름.jpg" alt="M.S. thesis Fig. 3 — WCF → LFI five-step workflow" loading="lazy"><span>M.S. thesis Fig. 3 — WCF → LFI five-step workflow</span></a><a href="assets/photos/masters/2026-08_석사학위논문_Fig10_상관계수(CC)_구간별_기반암·암염_분류모델.jpg" target="_blank" rel="noopener"><img src="assets/photos/masters/2026-08_석사학위논문_Fig10_상관계수(CC)_구간별_기반암·암염_분류모델.jpg" alt="M.S. thesis Fig. 10 — basement/salt classes by CC(k) band" loading="lazy"><span>M.S. thesis Fig. 10 — basement/salt classes by CC(k) band</span></a><a href="assets/photos/masters/2026-08_석사학위논문_Fig11_SLFI(기반암)·DLFI(암염)_공간분포.jpg" target="_blank" rel="noopener"><img src="assets/photos/masters/2026-08_석사학위논문_Fig11_SLFI(기반암)·DLFI(암염)_공간분포.jpg" alt="M.S. thesis Fig. 11 — SLFI (basement) · DLFI (salt) maps" loading="lazy"><span>M.S. thesis Fig. 11 — SLFI (basement) · DLFI (salt) maps</span></a></div><div class="links"><a class="btn ghost" href="https://doi.org/10.2118/236968-PA" target="_blank" rel="noopener">SPE Journal paper <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn ghost" href="https://github.com/0Ju12/gravmag-wcf" target="_blank" rel="noopener">Code (gravmag-wcf) <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+</article>
+<article class="subproj">
+  <div class="subhead"><span class="subnum">2</span><div><h4>Research stay at the University of Calgary — joint interpretation of gravity &amp; magnetic data</h4><div class="submeta">2024.06 – 2024.12 · University of Calgary · Visiting graduate researcher</div></div></div>
+  <dl class="star">
+<div><dt>Problem</dt><dd>Salt domes and basement are hard to interpret from one type of survey alone</dd></div><div><dt>Role</dt><dd>Carry out joint gravity–magnetic interpretation research during a ~6-month stay</dd></div><div><dt>Actions</dt><dd><ul><li>Funded by the MSIT/IITP Global Talent program in digital fields (AI &amp; digital-twin smart CCS)</li><li>Worked with the Department of Geomatics Engineering on wavenumber correlation of airborne gravity and magnetic data</li><li>Extended the work into a 3-institution collaboration with Khalifa University (UAE)</li></ul></dd></div><div><dt>Results</dt><dd><ul><li>Led to the first-author SPE Journal paper (SCIE, 2026) and the M.S. thesis</li></ul></dd></div></dl>
+<div class="gallery"><a href="assets/photos/calgary-2024/2024-08_캘거리_중력탐사_현장측정.jpg" target="_blank" rel="noopener"><img src="assets/photos/calgary-2024/2024-08_캘거리_중력탐사_현장측정.jpg" alt="Calgary — gravity survey in the field" loading="lazy"><span>Calgary — gravity survey in the field</span></a></div><div class="links"><a class="btn ghost" href="https://doi.org/10.2118/236968-PA" target="_blank" rel="noopener">SPE Journal paper <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+</article>
+</div>
+    </article>
+    <article class="case">
+      <div class="visual"><img src="assets/wildfire_test_map.png" alt="Wildfire spread U-LSTM on an unseen fire — top: observed, bottom: predicted (t1→t5)" loading="lazy"></div>
+      <div>
+        <div class="num">02 — Research · AI project</div>
+        <h3>Undergraduate — Seismic interpretation of overseas CO2 storage with plate-tectonic history (first author) · spatiotemporal deep learning capstone</h3>
+        <div class="meta">2022 – 2024.02 · Undergraduate researcher · capstone model design &amp; training</div>
+        <p class="sum">Wrote a first-author paper on seismic interpretation of overseas CO2 storage sites in light of plate-tectonic history, and designed a spatiotemporal deep learning model for wildfire spread</p>
+<div class="kpi"><b>1st author</b><span>domestic journal paper · 1 second-author paper · 3 talks</span></div>        <div class="chips"><span class="chip">Seismic interpretation</span><span class="chip">GPlates</span><span class="chip">CCS</span><span class="chip">Python</span><span class="chip">TensorFlow</span><span class="chip">U-LSTM</span><span class="chip">ArcGIS</span></div>
+        <button class="more" type="button" data-expand="d-undergrad" aria-expanded="false"><span>Details</span> <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>      </div>
+      <div class="detail" id="d-undergrad" hidden><article class="subproj">
+  <div class="subhead"><span class="subnum">1</span><div><h4>Seismic interpretation of large overseas CO2 storage sites considering plate-tectonic history (first-author paper)</h4><div class="submeta">2022 – 2024.02 · Geophysical Computing Lab (undergraduate researcher) · Undergraduate researcher · first author</div></div></div>
+  <dl class="star">
+<div><dt>Problem</dt><dd>Korea needs ~30 Mt/yr of domestic CO2 storage by 2050, but there was little systematic analysis of how large storage sites form geologically</dd></div><div><dt>Role</dt><dd>As first author, compare large CO2 storage sites in four regions from a plate-tectonic viewpoint (submitted 2023.07, accepted 2023.12)</dd></div><div><dt>Actions</dt><dd><ul><li>Reconstructed the plate-tectonic history of four regions with GPlates (PALEOMAP PaleoAtlas)</li><li>Interpreted seismic images of two representative CCS projects per region — Quest &amp; Weyburn-Midale, Northern Lights &amp; PORTHOS, Gorgon &amp; Moomba, Uthmaniyah &amp; Qatar LNG — focusing on reservoir and cap rock</li><li>Short stay at Univ. of Calgary (2023.12–2024.02): processed gravity data from the Utah FORGE geothermal site</li></ul></dd></div><div><dt>Results</dt><dd><ul><li>First-author paper: Analysis on Seismic Interpretation for Overseas Large-scale CO2 Storage Considering Geological History Related to Plate Tectonics, Geophysics and Geophysical Exploration 27(1), 1–22 (2024)</li><li>Showed that stratigraphy in each seismic image reflects the region&#39;s tectonic history → a basis for rejecting geologically unrealistic velocity models when processing domestic data</li><li>1 second-author paper (CarbonNet CCS, Gippsland Basin, 2023) · 3 conference talks (2022–2023)</li></ul></dd></div></dl>
+<div class="gallery"><a href="assets/photos/undergrad-research/2022-10_학회_참가_(지구물리·물리탐사학회·K-CCUS).jpg" target="_blank" rel="noopener"><img src="assets/photos/undergrad-research/2022-10_학회_참가_(지구물리·물리탐사학회·K-CCUS).jpg" alt="2022 — conference badges (KSEG · K-CCUS)" loading="lazy"><span>2022 — conference badges (KSEG · K-CCUS)</span></a><a href="assets/photos/undergrad-research/2024-04_유타_FORGE_지열부지_포스터발표.jpg" target="_blank" rel="noopener"><img src="assets/photos/undergrad-research/2024-04_유타_FORGE_지열부지_포스터발표.jpg" alt="2024.04 — Utah FORGE poster presentation" loading="lazy"><span>2024.04 — Utah FORGE poster presentation</span></a></div><div class="links"><a class="btn ghost" href="https://koreascience.or.kr/article/JAKO202410348585789.page" target="_blank" rel="noopener">First-author paper <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+</article>
+<article class="subproj">
+  <div class="subhead"><span class="subnum">2</span><div><h4>IAB capstone — Wildfire spread prediction with spatiotemporal deep learning</h4><div class="submeta">2023.09 – 2023.12 · Jeonbuk National University · IAB convergence major · Model design &amp; training · Team of 4</div></div></div>
+  <dl class="star">
+<div><dt>Problem</dt><dd>Wildfires spread quickly with wind and vegetation, yet Korea had no real-time spread prediction model</dd></div><div><dt>Role</dt><dd>Design and train the spatiotemporal model that predicts where the fire will be next</dd></div><div><dt>Actions</dt><dd><ul><li>Rasterized fire fronts from Korea Forest Service maps plus wind, NDVI and elevation in ArcGIS for four large fires (3 for training, 1 held out)</li><li>Designed a shallow U-LSTM (2,736 parameters) to fit the small dataset (4 fires, 35 time steps)</li><li>Expanded the sequences with sliding windows (length 1–19) into 151 training batches; evaluated with Overall Accuracy and F1</li></ul></dd></div><div><dt>Results</dt><dd><ul><li>Unseen fire (Gangneung): Accuracy 0.90 · F1 0.85 (validation 0.95 · 0.81)</li><li>Refactored the team notebooks into a tested Python package and documented the limitations on GitHub</li></ul></dd></div></dl>
+<div class="links"><a class="btn ghost" href="https://github.com/0Ju12/wildfire-spread-prediction" target="_blank" rel="noopener">GitHub <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+</article>
+</div>
+    </article>
+    <article class="case">
+      <div class="visual"><img src="assets/photos/posco-pospeak/2025-08-29_프로젝트_장려상·수료증.jpg" alt="POSCO Youth AI &amp; Big Data Academy — project Excellence Award (left) and certificate of completion (right), 2025.08.29" loading="lazy"></div>
+      <div>
+        <div class="num">03 — AI project</div>
+        <h3>Bootcamps — SSAFY 16th cohort · POSCO Youth AI &amp; Big Data Academy 30th cohort</h3>
+        <div class="meta">2025.06 – present · LLM fine-tuning · data pipelines · backend</div>
+        <p class="sum">LLM data pipelines, a Django service and a VQA model ensemble at SSAFY; a Konglish-correction generator with RAG at the POSCO academy</p>
+<div class="kpi"><b>0.96961</b><span>SSAFY AI Challenge VQA public score · POSCO Excellence Award</span></div>        <div class="chips"><span class="chip">Python</span><span class="chip">LLM fine-tuning</span><span class="chip">QLoRA</span><span class="chip">RAG</span><span class="chip">FAISS</span><span class="chip">Django</span><span class="chip">Selenium</span><span class="chip">Pandas</span></div>
+        <button class="more" type="button" data-expand="d-bootcamp" aria-expanded="false"><span>Details</span> <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>      </div>
+      <div class="detail" id="d-bootcamp" hidden><article class="subproj">
+  <div class="subhead"><span class="subnum">1</span><div><h4>SSAFY — ThRead LLM comment-analysis pipeline · AI Challenge VQA ensemble</h4><div class="submeta">2026.07 – present · Samsung Software &amp; AI Academy for Youth (SSAFY) · team of 2 · Backend &amp; data pipeline · model training (AI Challenge) · Team of 2</div></div></div>
+  <dl class="star">
+<div><dt>Problem</dt><dd>SSAFY&#39;s capstone series grows one service (ThRead) each round — data processing → external APIs → responsive web → Django auth → crawling and LLM pipelines</dd></div><div><dt>Role</dt><dd>Own the Django design, backend, generative-AI and API integration, and the crawling/data pipeline in a team of two</dd></div><div><dt>Actions</dt><dd><ul><li>Comment pipeline: Selenium collects live comments → the LLM returns only the numbers of inappropriate comments and code removes them → pandas/regex cleaning → IQR length thresholds → LLM augmentation (retry on count mismatch) → summary, each step stored</li><li>Streamed progress of 30-second jobs with StreamingHttpResponse (NDJSON) and distinguished failure cases (no company, no comments, LLM failure)</li><li>AI book service: custom Django auth (open-redirect protection), AI recommendations restricted to registered book IDs; 45 mock-based tests without external APIs</li><li>AI Challenge (2026.09, image + question 4-choice VQA, model training &amp; refinement): Qwen 27B/4B QLoRA, Gemma, OCR and multi-view probability ensembling; accepted changes by fixes − breaks and per-type regressions; SHA-256 manifests reproduce the submission without a GPU</li></ul></dd></div><div><dt>Results</dt><dd><ul><li>AI Challenge public score 0.94608 (4B baseline) → 0.96961</li><li>86 automated tests passing; all project-5 requirements implemented, plus progress streaming and analysis history</li></ul></dd></div></dl>
+<div class="gallery"><a href="assets/photos/ssafy-16/관통5_LLM_댓글분석_Results화면.jpg" target="_blank" rel="noopener"><img src="assets/photos/ssafy-16/관통5_LLM_댓글분석_Results화면.jpg" alt="ThRead — LLM comment-analysis result screen" loading="lazy"><span>ThRead — LLM comment-analysis result screen</span></a></div><div class="links"><a class="btn ghost" href="https://github.com/0Ju12/ssafy-thread" target="_blank" rel="noopener">GitHub <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+</article>
+<article class="subproj">
+  <div class="subhead"><span class="subnum">2</span><div><h4>POSPEAK (KILL KONG) — Konglish → natural English correction AI (FLAN-T5 · Qwen + RAG)</h4><div class="submeta">2025.06 – 2025.08 · POSCO Youth AI &amp; Big Data Academy (with POSTECH) · team project · Dataset building &amp; model experiments · Team project · Excellence Award</div></div></div>
+  <dl class="star">
+<div><dt>Problem</dt><dd>Konglish and stiff formal English slip past grammar checkers; learners need natural, context-aware rewrites</dd></div><div><dt>Role</dt><dd>Build the correction data and find a training strategy for T5-family models</dd></div><div><dt>Actions</dt><dd><ul><li>[Own] Built and cleaned word-level and context-level correction pairs</li><li>[Own] Fine-tuned FLAN-T5 with LoRA and compared three strategies (word→context, context→word, joint) with BERTScore</li><li>[Final service KILL KONG] Qwen-2.5 (1.5B) fine-tuning + a 630-entry Konglish RAG DB + per-user memory, combined with LangChain in a React Native · FastAPI app</li></ul></dd></div><div><dt>Results</dt><dd><ul><li>Found catastrophic forgetting in sequential training (BERTScore F1 0.47 → 0.32) and switched to joint training</li><li>Joint training reached validation BERTScore F1 ≈ 0.74 · team Excellence Award</li></ul></dd></div></dl>
+<div class="gallery"><a href="assets/photos/posco-pospeak/2025-08-29_프로젝트_장려상·수료증.jpg" target="_blank" rel="noopener"><img src="assets/photos/posco-pospeak/2025-08-29_프로젝트_장려상·수료증.jpg" alt="POSCO academy — Excellence Award &amp; certificate" loading="lazy"><span>POSCO academy — Excellence Award &amp; certificate</span></a></div><div class="links"><a class="btn ghost" href="https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5" target="_blank" rel="noopener">Team GitHub <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+</article>
+</div>
+    </article>
+  </section>
+
+
+  <section id="publications">
+    <div class="sechead"><h2>Publications</h2><span>3 papers · 6 talks</span></div>
+    <ol class="pubs">
+  <li><span class="yr">2026</span><div><b><a href="https://doi.org/10.2118/236968-PA" target="_blank" rel="noopener">Wavenumber Correlation of Gravity and Magnetic Anomalies for Constraining Salt/Basement Structure in Offshore Abu Dhabi</a></b><small>SPE Journal (SCIE) · first author</small></div></li>
+  <li><span class="yr">2024</span><div><b><a href="https://koreascience.or.kr/article/JAKO202410348585789.page" target="_blank" rel="noopener">Analysis on Seismic Interpretation for Overseas Large-scale CO2 Storage Considering Geological History Related to Plate Tectonics</a></b><small>Geophysics and Geophysical Exploration 27(1), 1–22 · first author (in Korean)</small></div></li>
+  <li><span class="yr">2023</span><div><b><a href="https://koreascience.or.kr/article/JAKO202335272000266.page" target="_blank" rel="noopener">Geological Analysis of the CarbonNet CCS Project in the Gippsland Basin, Australia</a></b><small>Geophysics and Geophysical Exploration · second author (in Korean)</small></div></li>
+</ol>
+<details class="talks"><summary>Show 6 conference talks</summary>
+<ol class="pubs compact"><li><span class="yr">2024</span><div>A global talent program for smart CO2 storage operation through AI and digital-twin convergence</div></li><li><span class="yr">2024</span><div>Status of overseas CCS demonstration projects and strategy for international collaboration</div></li><li><span class="yr">2024</span><div>A global talent program for smart CO2 geological storage site operation</div></li><li><span class="yr">2023</span><div>Geophysical monitoring case analysis of Sleipner, Norway, and international collaboration plan</div></li><li><span class="yr">2023</span><div>Deep-learning seismic imaging research in Saudi Arabia and international collaboration plan</div></li><li><span class="yr">2022</span><div>Applicability of GPU-based 4D seismic monitoring</div></li></ol>
+</details>
+  </section>
+
+  <section id="about">
+    <div class="sechead"><h2>About</h2><span>Skills · Education · Awards</span></div>
+    <div class="grid3"><div class="card"><h4>Languages &amp; frameworks</h4><div class="chips"><span class="chip">Python</span><span class="chip">TensorFlow</span><span class="chip">PyTorch</span><span class="chip">Hugging Face Transformers</span><span class="chip">Pandas</span><span class="chip">Django</span><span class="chip">Selenium</span><span class="chip">SQL</span></div></div><div class="card"><h4>AI &amp; data analysis</h4><div class="chips"><span class="chip">Spatiotemporal DL (U-LSTM)</span><span class="chip">LLM fine-tuning (LoRA/QLoRA)</span><span class="chip">Model ensembles</span><span class="chip">RAG (FAISS)</span><span class="chip">F1 · BERTScore</span></div></div><div class="card"><h4>Spatial &amp; geophysical data</h4><div class="chips"><span class="chip">ArcGIS</span><span class="chip">Rasters</span><span class="chip">Gravity &amp; magnetics</span><span class="chip">Wavenumber correlation</span><span class="chip">Seismic interpretation</span><span class="chip">GPlates</span></div></div></div>
+    <div class="timeline" style="margin-top:32px">
+<div class="tl"><span class="when">2026.07 – present</span><div><b>Samsung SW &amp; AI Academy (SSAFY) · 16th cohort Training program</b><small>AI (ML · NLP · LLM · CNN/ViT) · Python · algorithms · Web/Django · SQL</small></div></div><div class="tl"><span class="when">2024.03 – 2026.08</span><div><b>Jeonbuk National Univ. (Graduate) · Environment and Energy M.S.</b><small>Thesis: Characterization of Salt and Basement Structures in the Ghasha Area Using Wavenumber Correlation Analysis of Gravity and Magnetic Anomaly Data</small></div></div><div class="tl"><span class="when">2025.06 – 2025.08</span><div><b>POSCO Youth AI &amp; Big Data Academy · 30th cohort Completed</b><small>Organized by POSCO Human Resources Development Center · POSTECH · project Excellence Award</small></div></div><div class="tl"><span class="when">~ 2024.02</span><div><b>Jeonbuk National Univ. · Mineral Resources and Energy Engineering B.S.</b><small>IAB convergence major · undergraduate researcher</small></div></div><div class="tl"><span class="when">🏆 2025.08</span><div><b>Project Excellence Award, POSCO Youth AI &amp; Big Data Academy (30th)</b><small>POSCO HRD Center · POSTECH</small></div></div><div class="tl"><span class="when">🏆 2024.11</span><div><b>Best Student Paper (poster), KSEG Fall Conference 2024</b><small>Korean Society of Earth and Exploration Geophysicists</small></div></div><div class="tl"><span class="when">📜 Certifications</span><div><b>ADsP (Advanced Data Analytics Semi-Professional)</b><small>Korea Data Agency</small></div></div>    </div>
+  </section>
+
+  <div class="contactband" id="contact"><div><h2>Looking forward to working together.</h2><a class="mail" href="mailto:iyju990312@naver.com">iyju990312@naver.com</a></div><div class="cta"><a class="btn solid" href="mailto:iyju990312@naver.com"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3V5Zm0 0 9 7 9-7"/></svg> Send email</a><a class="btn ghost" href="https://github.com/0Ju12" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg> GitHub</a><a class="btn ghost" href="https://www.geoverselab.com/ko/research-history/13/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v15H6V2Zm8 1.5V8h4.5M9 12h8M9 16h8"/></svg> Research history</a><a class="btn ghost" href="https://www.linkedin.com/in/%EC%98%81%EC%A3%BC-%EC%9D%B4-a335ab251/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.84-2.05 3.79-2.05 4.05 0 4.8 2.67 4.8 6.13V21h-4v-5.5c0-1.31-.02-3-1.83-3-1.83 0-2.11 1.43-2.11 2.9V21h-4V9Z"/></svg> LinkedIn</a></div></div>
+  <footer>© Young-Ju Lee · generated from data/portfolio.en.yaml · <a href="private/index.html" rel="nofollow">🔒 Private</a></footer>
+</main>
+<script>
+(function(){var r=document.documentElement,K='theme';
+try{var s=localStorage.getItem(K);if(s)r.setAttribute('data-theme',s)}catch(e){}
+var b=document.getElementById('theme');if(b)b.addEventListener('click',function(){
+var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});
+document.querySelectorAll('[data-expand]').forEach(function(btn){btn.addEventListener('click',function(){
+var t=document.getElementById(btn.dataset.expand);var open=t.hasAttribute('hidden');
+if(open){t.removeAttribute('hidden')}else{t.setAttribute('hidden','')}
+btn.setAttribute('aria-expanded',open);btn.querySelector('span').textContent=open?'Close':'Details';});});
+})();
+</script>
+</body>
+</html>

@@ -188,7 +188,7 @@ def main():
     theme = (data.get("site") or {}).get("theme", "minimal")
     layout = (data.get("site") or {}).get("layout")  # sidebar | bento | showcase (templates/layouts/)
     if layout:
-        html = env.get_template(f"layouts/{layout}.html.j2").render(**data)
+        html = env.get_template(f"layouts/{layout}.html.j2").render(alt_lang={"url": "en.html", "label": "EN", "code": "en"}, **data)
     else:
         html = site_tpl.render(theme=theme, **data)
     (DOCS / "index.html").write_text(html, encoding="utf-8")
@@ -197,6 +197,8 @@ def main():
         (DOCS / f"design-{t}.html").write_text(site_tpl.render(theme=t, **data), encoding="utf-8")
     (DOCS / "resume.html").write_text(env.get_template("resume.html.j2").render(**data), encoding="utf-8")
     (DOCS / "resume-1page.html").write_text(env.get_template("resume-1page.html.j2").render(**data), encoding="utf-8")
+    import build_en
+    build_en.main()
     (OUT / "notion.md").write_text(md_env.get_template("notion.md.j2").render(**data), encoding="utf-8")
     (OUT / "profiles.md").write_text(md_env.get_template("profiles.md.j2").render(**data), encoding="utf-8")
 

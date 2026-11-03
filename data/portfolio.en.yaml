@@ -1,0 +1,288 @@
+# English edition of data/portfolio.yaml — same structure, built by scripts/build_en.py
+# (kind values "논문"/"학회 발표" stay Korean: they are internal keys, not shown as text)
+
+profile:
+  name: Young-Ju Lee
+  name_en: Young-Ju Lee
+  title: Data & AI Engineer
+  headline: "A data & AI engineer who turns complex geoscience data into answers with deep learning and analysis"
+  summary: >-
+    M.S. in Environment and Energy (Jeonbuk National University, 2026) with a B.S. in Mineral Resources and Energy Engineering.
+    As an undergraduate researcher I wrote a first-author paper interpreting seismic images of large overseas CO2 storage sites in light of plate-tectonic history,
+    and in the IAB convergence-major capstone I designed and trained a spatiotemporal deep learning model (U-LSTM) that predicts wildfire spread.
+    In my master's I separated overlapping gravity and magnetic signals with wavenumber-domain correlation analysis and published a first-author paper in SPE Journal (SCIE);
+    across both degrees: 3 papers, 6 conference presentations and a best student paper award.
+    At the POSCO Youth AI & Big Data Academy (with POSTECH) I built the training data and ran model experiments for an English expression correction system (FLAN-T5 + RAG) that won an Excellence Award,
+    and at the Samsung Software & AI Academy for Youth (SSAFY) I am building LLM data pipelines and multimodal model ensembles.
+    Two research stays at the University of Calgary; ADsP (Advanced Data Analytics Semi-Professional) certified.
+  email: "iyju990312@naver.com"
+  phone: ""
+  location: Republic of Korea
+  photo: ""
+  links:
+    - { label: GitHub,   url: "https://github.com/0Ju12" }
+    - { label: Research history, url: "https://www.geoverselab.com/ko/research-history/13/" }
+    - { label: LinkedIn, url: "https://www.linkedin.com/in/%EC%98%81%EC%A3%BC-%EC%9D%B4-a335ab251/" }
+
+highlights:
+  - { value: "1 SCIE", label: "First-author paper (SPE Journal)" }
+  - { value: "2× Calgary", label: "Research stays · international collaboration" }
+  - { value: "SSAFY 16th", label: "Samsung SW & AI Academy (in progress)" }
+  - { value: "3 · 6", label: "Papers · conference talks" }
+
+site:
+  theme: editorial
+  layout: "showcase"
+
+education:
+  - school: Samsung SW & AI Academy (SSAFY)
+    major: 16th cohort
+    degree: Training program
+    period: { start: "2026.07", end: "present" }
+    gpa: ""
+    notes:
+      - "AI (ML · NLP · LLM · CNN/ViT) · Python · algorithms · Web/Django · SQL"
+  - school: Jeonbuk National Univ. (Graduate)
+    major: Environment and Energy
+    degree: M.S.
+    period: { start: "2024.03", end: "2026.08" }
+    gpa: ""
+    notes:
+      - "Thesis: Characterization of Salt and Basement Structures in the Ghasha Area Using Wavenumber Correlation Analysis of Gravity and Magnetic Anomaly Data"
+  - school: POSCO Youth AI & Big Data Academy
+    major: 30th cohort
+    degree: Completed
+    period: { start: "2025.06", end: "2025.08" }
+    gpa: ""
+    notes:
+      - "Organized by POSCO Human Resources Development Center · POSTECH · project Excellence Award"
+  - school: Jeonbuk National Univ.
+    major: Mineral Resources and Energy Engineering
+    degree: B.S.
+    period: { start: "", end: "2024.02" }
+    gpa: ""
+    notes:
+      - "IAB convergence major · undergraduate researcher"
+
+skills:
+  - category: Languages & frameworks
+    items: [Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, Django, Selenium, SQL]
+  - category: AI & data analysis
+    items: [Spatiotemporal DL (U-LSTM), LLM fine-tuning (LoRA/QLoRA), Model ensembles, RAG (FAISS), F1 · BERTScore]
+  - category: Spatial & geophysical data
+    items: [ArcGIS, Rasters, Gravity & magnetics, Wavenumber correlation, Seismic interpretation, GPlates]
+  - category: Domain
+    items: [CCS, Energy & resources, Wildfire prediction]
+
+activities:
+  - id: grad
+    icon: "🌍"
+    kpi: { value: "r ≥ 0.94", label: "agreement with independent published models" }
+    title: "M.S. — Separating gravity & magnetic signals with wavenumber correlation to resolve subsurface structure (SPE Journal, first author)"
+    type: Research
+    org: Jeonbuk National University · Geophysical Computing Lab
+    period: { start: "2024.03", end: "2026.08" }
+    role: Graduate researcher · 6-month stay at University of Calgary
+    featured: true
+    priority: 1
+    brief:
+      - "Designed wavenumber-correlation indices (SLFI · DLFI) splitting overlapping gravity/magnetic signals; r ≥ 0.94 vs. 3 independent models · code released"
+      - "6-month stay at Univ. of Calgary, collaboration with Khalifa Univ. (UAE) → first-author SPE Journal paper (SCIE, 2026)"
+      - "Best Student Paper (poster), KSEG 2024 · 3 talks"
+    tags: [Signal processing (wavenumber domain), Correlation analysis, Index design, Gravity & magnetic data, International collaboration]
+    image: assets/masters_thesis.jpg
+    image_caption: "M.S. thesis (2026.08) — left: cover, right: SLFI (basement) and DLFI (salt) maps (Fig. 11)"
+    summary: Designed wavenumber-correlation indices (SLFI · DLFI) that separate overlapping gravity and magnetic signals to map salt and basement structures; completed an SCIE paper and thesis through a Calgary research stay and a 3-institution collaboration
+    projects:
+      - id: masters
+        short: "Thesis research"
+        title: Wavenumber correlation of gravity & magnetic data for salt/basement structure (M.S. · SPE Journal first author)
+        type: Research
+        org: Geophysical Computing Lab · Dept. of Environment and Energy
+        period: { start: "2024.03", end: "2026.08" }
+        role: Graduate researcher
+        tags: [Signal processing, Correlation analysis, Index design, Gravity & magnetic data]
+        summary: Separated overlapping gravity and magnetic signals in the wavenumber domain to resolve salt and basement structures offshore Abu Dhabi
+        star:
+          situation: In the Ghasha field offshore Abu Dhabi, salt and basement lie under 8–10 km of sediments, so gravity and magnetic signals overlap; earlier methods put the salt at ~6,000 m, far shallower than the ~9,300 m seen in seismic data
+          task: Propose an analysis that separates basement and salt signals in airborne gravity and magnetic data
+          action:
+            - Built a wavenumber correlation filtering (WCF) pipeline — upward continuation and normalization, then the correlation coefficient CC(k) between the two signals at each wavenumber
+            - Designed two indices — SLFI from positively correlated components (basement) and DLFI from weak/negative ones (salt)
+            - Chose thresholds from energy–correlation trade-off curves instead of by eye (upward continuation 1,500 m at the knee point; SLFI band 0.5–1.0 keeps ~half the energy at correlation 0.85)
+            - Validated against three independent published models with map, profile and 3-D density comparisons
+          result:
+            - SLFI basement structure agrees with three independent models at r ≥ 0.94 (profile correlation 0.95–0.98 after shift alignment)
+            - DLFI reproduces the salt distribution and suggests an additional salt uplift west of Ghasha
+            - First-author paper in SPE Journal (SCIE, 2026, with Univ. of Calgary and Khalifa Univ.) · 3 conference talks (2024)
+            - Best Student Paper (poster), KSEG Fall Conference 2024 · M.S. degree conferred 2026.08.21
+        links:
+          - { label: SPE Journal paper, url: "https://doi.org/10.2118/236968-PA" }
+          - { label: Code (gravmag-wcf), url: "https://github.com/0Ju12/gravmag-wcf" }
+      - id: calgary-2024
+        short: "Univ. of Calgary stay"
+        title: Research stay at the University of Calgary — joint interpretation of gravity & magnetic data
+        type: International collaboration
+        org: University of Calgary
+        period: { start: "2024.06", end: "2024.12" }
+        role: Visiting graduate researcher
+        tags: [Gravity & magnetic data, Joint interpretation, International collaboration]
+        summary: Combined gravity and magnetic surveys to characterize the Ghasha salt dome and basement
+        star:
+          situation: Salt domes and basement are hard to interpret from one type of survey alone
+          task: Carry out joint gravity–magnetic interpretation research during a ~6-month stay
+          action:
+            - "Funded by the MSIT/IITP Global Talent program in digital fields (AI & digital-twin smart CCS)"
+            - Worked with the Department of Geomatics Engineering on wavenumber correlation of airborne gravity and magnetic data
+            - Extended the work into a 3-institution collaboration with Khalifa University (UAE)
+          result:
+            - Led to the first-author SPE Journal paper (SCIE, 2026) and the M.S. thesis
+        links:
+          - { label: SPE Journal paper, url: "https://doi.org/10.2118/236968-PA" }
+
+  - id: undergrad
+    icon: "🔬"
+    kpi: { value: "1st author", label: "domestic journal paper · 1 second-author paper · 3 talks" }
+    title: "Undergraduate — Seismic interpretation of overseas CO2 storage with plate-tectonic history (first author) · spatiotemporal deep learning capstone"
+    type: Research · AI project
+    org: Jeonbuk National University · IAB convergence major · Geophysical Computing Lab
+    period: { start: "2022", end: "2024.02" }
+    role: Undergraduate researcher · capstone model design & training
+    featured: true
+    priority: 2
+    brief:
+      - "First-author paper: GPlates plate-tectonic reconstruction + seismic interpretation of 8 large CO2 storage sites in 4 regions (2024)"
+      - "4D seismic and CCS case studies, Calgary short stay (Utah FORGE gravity) → 1 second-author paper · 3 talks"
+      - "Capstone: designed a U-LSTM predicting wildfire fronts — Accuracy 0.90 · F1 0.85 on an unseen fire"
+    tags: [Seismic interpretation, GPlates, CCS, Python, TensorFlow, U-LSTM, ArcGIS]
+    image: assets/wildfire_test_map.png
+    image_caption: "Wildfire spread U-LSTM on an unseen fire — top: observed, bottom: predicted (t1→t5)"
+    summary: Wrote a first-author paper on seismic interpretation of overseas CO2 storage sites in light of plate-tectonic history, and designed a spatiotemporal deep learning model for wildfire spread
+    projects:
+      - id: undergrad-research
+        short: "First-author paper"
+        title: "Seismic interpretation of large overseas CO2 storage sites considering plate-tectonic history (first-author paper)"
+        type: Research
+        org: Geophysical Computing Lab (undergraduate researcher)
+        period: { start: "2022", end: "2024.02" }
+        role: Undergraduate researcher · first author
+        tags: [Seismic interpretation, GPlates, Plate reconstruction, CCS]
+        summary: Reconstructed how large overseas CO2 storage sites formed and interpreted their seismic images from a structural-geology perspective
+        star:
+          situation: Korea needs ~30 Mt/yr of domestic CO2 storage by 2050, but there was little systematic analysis of how large storage sites form geologically
+          task: "As first author, compare large CO2 storage sites in four regions from a plate-tectonic viewpoint (submitted 2023.07, accepted 2023.12)"
+          action:
+            - "Reconstructed the plate-tectonic history of four regions with GPlates (PALEOMAP PaleoAtlas)"
+            - "Interpreted seismic images of two representative CCS projects per region — Quest & Weyburn-Midale, Northern Lights & PORTHOS, Gorgon & Moomba, Uthmaniyah & Qatar LNG — focusing on reservoir and cap rock"
+            - "Short stay at Univ. of Calgary (2023.12–2024.02): processed gravity data from the Utah FORGE geothermal site"
+          result:
+            - "First-author paper: Analysis on Seismic Interpretation for Overseas Large-scale CO2 Storage Considering Geological History Related to Plate Tectonics, Geophysics and Geophysical Exploration 27(1), 1–22 (2024)"
+            - "Showed that stratigraphy in each seismic image reflects the region's tectonic history → a basis for rejecting geologically unrealistic velocity models when processing domestic data"
+            - "1 second-author paper (CarbonNet CCS, Gippsland Basin, 2023) · 3 conference talks (2022–2023)"
+        links:
+          - { label: First-author paper, url: "https://koreascience.or.kr/article/JAKO202410348585789.page" }
+      - id: wildfire-capstone
+        short: "IAB capstone"
+        title: "IAB capstone — Wildfire spread prediction with spatiotemporal deep learning"
+        type: AI project
+        org: Jeonbuk National University · IAB convergence major
+        period: { start: "2023.09", end: "2023.12" }
+        team: "Team of 4"
+        role: Model design & training
+        tags: [Python, TensorFlow, PyTorch, U-LSTM, ArcGIS]
+        summary: A U-LSTM that predicts the next wildfire front from the current front, weather and terrain
+        star:
+          situation: Wildfires spread quickly with wind and vegetation, yet Korea had no real-time spread prediction model
+          task: Design and train the spatiotemporal model that predicts where the fire will be next
+          action:
+            - "Rasterized fire fronts from Korea Forest Service maps plus wind, NDVI and elevation in ArcGIS for four large fires (3 for training, 1 held out)"
+            - Designed a shallow U-LSTM (2,736 parameters) to fit the small dataset (4 fires, 35 time steps)
+            - Expanded the sequences with sliding windows (length 1–19) into 151 training batches; evaluated with Overall Accuracy and F1
+          result:
+            - "Unseen fire (Gangneung): Accuracy 0.90 · F1 0.85 (validation 0.95 · 0.81)"
+            - Refactored the team notebooks into a tested Python package and documented the limitations on GitHub
+        links:
+          - { label: GitHub, url: "https://github.com/0Ju12/wildfire-spread-prediction" }
+
+  - id: bootcamp
+    icon: "💻"
+    kpi: { value: "0.96961", label: "SSAFY AI Challenge VQA public score · POSCO Excellence Award" }
+    title: "Bootcamps — SSAFY 16th cohort · POSCO Youth AI & Big Data Academy 30th cohort"
+    type: AI project
+    org: Samsung SSAFY · POSCO HRD Center · POSTECH
+    period: { start: "2025.06", end: "present" }
+    role: LLM fine-tuning · data pipelines · backend
+    featured: true
+    priority: 3
+    brief:
+      - "SSAFY AI Challenge (VQA): Qwen/Gemma QLoRA, OCR, multi-view probability ensemble → public 0.96961"
+      - "ThRead: crawling → LLM judgments verified in code → pandas pipeline, Django backend · 86 tests"
+      - "POSPEAK: correction datasets, FLAN-T5 LoRA strategy comparison (BERTScore F1 0.32 → 0.74) + RAG · award"
+    tags: [Python, LLM fine-tuning, QLoRA, RAG, FAISS, Django, Selenium, Pandas]
+    image: "assets/photos/posco-pospeak/2025-08-29_프로젝트_장려상·수료증.jpg"
+    image_caption: "POSCO Youth AI & Big Data Academy — project Excellence Award (left) and certificate of completion (right), 2025.08.29"
+    summary: LLM data pipelines, a Django service and a VQA model ensemble at SSAFY; a Konglish-correction generator with RAG at the POSCO academy
+    projects:
+      - id: ssafy-16
+        short: "SSAFY 16th"
+        title: "SSAFY — ThRead LLM comment-analysis pipeline · AI Challenge VQA ensemble"
+        type: AI project
+        org: Samsung Software & AI Academy for Youth (SSAFY) · team of 2
+        period: { start: "2026.07", end: "present" }
+        team: "Team of 2"
+        role: Backend & data pipeline · model training (AI Challenge)
+        tags: [Python, Django, Selenium, Pandas, LLM API]
+        summary: Extended a reading-community service across five projects, from data collection to LLM analysis and web service, plus a multimodal QA challenge
+        star:
+          situation: SSAFY's capstone series grows one service (ThRead) each round — data processing → external APIs → responsive web → Django auth → crawling and LLM pipelines
+          task: Own the Django design, backend, generative-AI and API integration, and the crawling/data pipeline in a team of two
+          action:
+            - "Comment pipeline: Selenium collects live comments → the LLM returns only the numbers of inappropriate comments and code removes them → pandas/regex cleaning → IQR length thresholds → LLM augmentation (retry on count mismatch) → summary, each step stored"
+            - "Streamed progress of 30-second jobs with StreamingHttpResponse (NDJSON) and distinguished failure cases (no company, no comments, LLM failure)"
+            - "AI book service: custom Django auth (open-redirect protection), AI recommendations restricted to registered book IDs; 45 mock-based tests without external APIs"
+            - "AI Challenge (2026.09, image + question 4-choice VQA, model training & refinement): Qwen 27B/4B QLoRA, Gemma, OCR and multi-view probability ensembling; accepted changes by fixes − breaks and per-type regressions; SHA-256 manifests reproduce the submission without a GPU"
+          result:
+            - "AI Challenge public score 0.94608 (4B baseline) → 0.96961"
+            - "86 automated tests passing; all project-5 requirements implemented, plus progress streaming and analysis history"
+        links:
+          - { label: GitHub, url: "https://github.com/0Ju12/ssafy-thread" }
+      - id: posco-pospeak
+        short: "POSPEAK (KILL KONG)"
+        title: "POSPEAK (KILL KONG) — Konglish → natural English correction AI (FLAN-T5 · Qwen + RAG)"
+        type: AI project
+        org: POSCO Youth AI & Big Data Academy (with POSTECH) · team project
+        period: { start: "2025.06", end: "2025.08" }
+        team: "Team project · Excellence Award"
+        role: Dataset building & model experiments
+        tags: [Python, Hugging Face, FLAN-T5, LoRA, RAG, FAISS]
+        summary: A generator plus retrieval (RAG) that rewrites awkward or Konglish sentences into natural English
+        star:
+          situation: Konglish and stiff formal English slip past grammar checkers; learners need natural, context-aware rewrites
+          task: Build the correction data and find a training strategy for T5-family models
+          action:
+            - "[Own] Built and cleaned word-level and context-level correction pairs"
+            - "[Own] Fine-tuned FLAN-T5 with LoRA and compared three strategies (word→context, context→word, joint) with BERTScore"
+            - "[Final service KILL KONG] Qwen-2.5 (1.5B) fine-tuning + a 630-entry Konglish RAG DB + per-user memory, combined with LangChain in a React Native · FastAPI app"
+          result:
+            - Found catastrophic forgetting in sequential training (BERTScore F1 0.47 → 0.32) and switched to joint training
+            - Joint training reached validation BERTScore F1 ≈ 0.74 · team Excellence Award
+        links:
+          - { label: Team GitHub, url: "https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5" }
+
+publications:
+  - { kind: 논문, year: 2026, title: "Wavenumber Correlation of Gravity and Magnetic Anomalies for Constraining Salt/Basement Structure in Offshore Abu Dhabi", venue: "SPE Journal (SCIE) · first author", url: "https://doi.org/10.2118/236968-PA" }
+  - { kind: 논문, year: 2024, title: "Analysis on Seismic Interpretation for Overseas Large-scale CO2 Storage Considering Geological History Related to Plate Tectonics", venue: "Geophysics and Geophysical Exploration 27(1), 1–22 · first author (in Korean)", url: "https://koreascience.or.kr/article/JAKO202410348585789.page" }
+  - { kind: 논문, year: 2023, title: "Geological Analysis of the CarbonNet CCS Project in the Gippsland Basin, Australia", venue: "Geophysics and Geophysical Exploration · second author (in Korean)", url: "https://koreascience.or.kr/article/JAKO202335272000266.page" }
+  - { kind: 학회 발표, year: 2024, title: "A global talent program for smart CO2 storage operation through AI and digital-twin convergence" }
+  - { kind: 학회 발표, year: 2024, title: "Status of overseas CCS demonstration projects and strategy for international collaboration" }
+  - { kind: 학회 발표, year: 2024, title: "A global talent program for smart CO2 geological storage site operation" }
+  - { kind: 학회 발표, year: 2023, title: "Geophysical monitoring case analysis of Sleipner, Norway, and international collaboration plan" }
+  - { kind: 학회 발표, year: 2023, title: "Deep-learning seismic imaging research in Saudi Arabia and international collaboration plan" }
+  - { kind: 학회 발표, year: 2022, title: "Applicability of GPU-based 4D seismic monitoring" }
+
+awards:
+  - { name: "Project Excellence Award, POSCO Youth AI & Big Data Academy (30th)", rank: "", org: POSCO HRD Center · POSTECH, date: "2025.08" }
+  - { name: "Best Student Paper (poster), KSEG Fall Conference 2024", rank: "", org: Korean Society of Earth and Exploration Geophysicists, date: "2024.11" }
+
+certifications:
+  - { name: "ADsP (Advanced Data Analytics Semi-Professional)", org: Korea Data Agency, date: "2022.09" }
