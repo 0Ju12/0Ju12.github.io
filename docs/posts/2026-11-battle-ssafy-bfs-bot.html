@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>길찾기에서 의사결정으로 — 배틀싸피 자동 플레이 봇을 세 번 고친 기록 · 이영주</title>
+<meta name="description" content="목표까지 가는 BFS 한 줄짜리 봇이, 사거리·장애물·탄약·보급·암호 해독까지 판단하는 봇이 되기까지. 매 턴 다시 계획하는 구조로 바꾼 이유.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--surface:#f7f7f8;--text:#0d0d0f;--muted:#5d5f66;--line:#e7e7ea;--accent:#0a7c66;--accent-2:#14b8a6;--chip:#eef2f1;--code:#0f1117;--code-text:#e6e6e6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}}
+:root[data-theme="dark"]{--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.85 "Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:740px;margin:0 auto;padding:0 20px}
+nav{display:flex;align-items:center;gap:16px;padding:24px 0;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
+nav .home{font-weight:900;color:var(--text);margin-right:auto}
+#theme{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 12px;font:inherit;font-size:12px;cursor:pointer}
+header.post{padding:56px 0 28px;border-bottom:2px solid var(--text);margin-bottom:36px}
+header.post .meta{color:var(--accent);font-weight:700;font-size:14px;letter-spacing:.04em}
+header.post h1{font-size:clamp(28px,5vw,42px);line-height:1.25;letter-spacing:-.03em;margin:10px 0 14px;font-weight:900}
+header.post p{color:var(--muted);margin:0 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--chip);color:var(--muted)}
+article h2{font-size:24px;letter-spacing:-.02em;margin:48px 0 14px;font-weight:900}
+article h3{font-size:19px;margin:32px 0 10px}
+article p,article li{margin:0 0 16px}
+article ul,article ol{padding-left:22px}
+article li{margin-bottom:6px}
+article blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--surface);border-radius:0 12px 12px 0;font-weight:700}
+article blockquote p{margin:0}
+article code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em;background:var(--chip);padding:2px 6px;border-radius:6px}
+article pre{background:var(--code);color:var(--code-text);padding:18px 20px;border-radius:14px;overflow-x:auto;line-height:1.6;margin:0 0 20px}
+article pre code{background:none;padding:0;font-size:13.5px;color:inherit}
+article table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:15px;display:block;overflow-x:auto}
+article th,article td{border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+article th{background:var(--surface)}
+.endcard{margin:56px 0 0;padding:24px;border:1px solid var(--line);border-radius:18px;background:var(--surface);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.endcard b{display:block}
+.endcard span{color:var(--muted);font-size:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--line);color:var(--text);background:var(--bg)}
+.others{margin:40px 0 0}
+.others a{display:block;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--text);font-weight:700}
+.others a span{display:block;color:var(--muted);font-weight:400;font-size:14px}
+footer{padding:64px 0 40px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a class="home" href="../index.html">Young-Ju Lee</a><a href="../index.html#writing">Writing</a><a href="../index.html#work">Work</a><button id="theme" type="button">테마</button></nav>
+  <header class="post">
+    <div class="meta">WRITING · 2026-11-03</div>
+    <h1>길찾기에서 의사결정으로 — 배틀싸피 자동 플레이 봇을 세 번 고친 기록</h1>
+    <p>목표까지 가는 BFS 한 줄짜리 봇이, 사거리·장애물·탄약·보급·암호 해독까지 판단하는 봇이 되기까지. 매 턴 다시 계획하는 구조로 바꾼 이유.</p>
+    <div class="chips"><span class="chip">알고리즘</span><span class="chip">BFS</span><span class="chip">게임 AI</span><span class="chip">SSAFY</span></div>
+  </header>
+  <article><p>SSAFY 알고리즘 과정의 <strong>배틀싸피</strong>는 격자 지도 위에서 탱크를 움직여 적 포탑을 부수는 대전형 과제입니다. 매 턴 서버가 지도와 상태를 보내 주면, 봇이 <code>이동</code>·<code>발사</code> 같은 명령 하나를 돌려줍니다. 통신 부분은 과정에서 제공하는 기본 코드를 그대로 쓰고, 저는 <strong>"이번 턴에 무엇을 할지"를 정하는 알고리즘 부분</strong>을 세 번에 걸쳐 고쳤습니다.</p>
+<blockquote>
+<p>과정에서 제공한 기본 코드와 문제 명세는 공개하지 않고, 제가 바꾼 판단 로직만 정리합니다.</p>
+</blockquote>
+<h2>v0 — 처음 한 번만 길을 찾는 봇</h2>
+<p>기본 구조는 단순했습니다.</p>
+<ol>
+<li>게임 시작 때 한 번, 내 위치(<code>M</code>)에서 목표(<code>X</code>)까지 <strong>BFS</strong>로 최단 경로를 구한다</li>
+<li>목표 바로 옆에 도착하면 그 방향으로 발사</li>
+<li>이후 매 턴 경로에서 명령을 하나씩 꺼내 보낸다</li>
+</ol>
+<p>문제는 <strong>지도가 바뀌어도 처음 계획을 계속 따른다</strong>는 점이었습니다. 적이 움직이거나 길이 막히면 엉뚱한 방향으로 계속 갔습니다.</p>
+<h2>v1 — 사거리와 장애물을 반영</h2>
+<p>BFS가 "목표 바로 옆"만 보던 것을 실제 규칙에 맞게 바꿨습니다.</p>
+<ul>
+<li><strong>사거리</strong>: 포탑은 직선으로 3칸 앞까지 쏠 수 있으므로, 각 칸에서 네 방향으로 1~3칸을 확인해 목표가 보이면 그 자리에서 발사</li>
+<li><strong>시야 막힘</strong>: 확인하다가 지나갈 수 없는 칸을 만나면 그 방향은 거기서 중단</li>
+<li><strong>이동 가능한 칸</strong>을 "벽이 아닌 칸"에서 "땅·모래처럼 실제로 갈 수 있는 칸"으로 좁힘</li>
+</ul>
+<h2>v2 — 매 턴 다시 판단하는 봇</h2>
+<p>여기서 구조를 크게 바꿨습니다. <strong>매 턴 처음부터 다시 계획</strong>하고, 길찾기 앞에 "지금 무엇을 목표로 할지"를 정하는 단계를 넣었습니다.</p>
+<pre><code>매 턴:
+  내 탄약(일반·메가)과 목표 체력을 읽는다
+  탄이 부족한가?  (일반탄 × 30 + 메가탄 × 70 &lt; 목표 체력)
+    ├─ 부족하고 보급시설 옆이면 → 보급 암호를 해독해 탄 받기
+    ├─ 부족하면 → 목표를 '보급시설'로 바꾼다
+    └─ 충분하면 → 목표는 적 포탑
+  경로 찾기:
+    1차 BFS: 나무를 피해서
+    2차 BFS: 안 되면 나무를 쏘고 지나가는 경로 (쏘기 + 이동 2개 명령)
+  포탑을 맞히는 마지막 발사(또는 일반탄이 없을 때)에는 메가탄
+  예외가 나면 그 턴은 대기 — 봇이 죽지 않게
+</code></pre>
+<h3>두 번 찾는 BFS</h3>
+<p>나무는 쏘면 없어지지만 한 턴이 더 듭니다. 처음부터 나무를 "비용이 큰 칸"으로 넣는 대신, <strong>나무 없이 먼저 찾고 실패할 때만 나무를 뚫는 경로를 허용</strong>했습니다. 가중치를 다루는 알고리즘(다익스트라)으로 바꾸지 않고도, 대부분의 상황에서 원하는 우선순위를 얻을 수 있었습니다.</p>
+<h3>피드백으로 키를 찾는 암호 해독</h3>
+<p>보급시설에서 탄을 받으려면 문자를 일정 칸씩 밀어 쓴 암호(시저 암호)를 풀어야 합니다. 키를 미리 알 수 없어서, <strong>해독 결과가 맞았는지를 다음 턴 상태로 확인</strong>했습니다.</p>
+<ul>
+<li>해독을 보낸 뒤 메가탄 수가 그대로면 → 키가 틀렸다 → 다음 키로</li>
+<li>메가탄이 늘었으면 → 그 키를 유지</li>
+</ul>
+<p>정답을 모르는 상태에서 <strong>행동 → 결과 관찰 → 다음 시도</strong>를 반복하는 작은 탐색 루프입니다.</p>
+<h2>배운 것</h2>
+<ul>
+<li><strong>계획을 한 번 세우고 따르는 구조는 환경이 바뀌면 깨집니다.</strong> 매 턴 다시 계산하는 비용보다, 낡은 계획을 따르는 비용이 훨씬 컸습니다.</li>
+<li><strong>"어디로 갈지"보다 "무엇을 목표로 할지"가 먼저</strong>입니다. 길찾기는 그대로 두고 목표 선택 단계를 앞에 둔 것이 가장 큰 개선이었습니다.</li>
+<li><strong>실패해도 멈추지 않는 기본값</strong>(예외 시 대기)이 실전에서는 정확도만큼 중요했습니다.</li>
+</ul>
+<p>모델 실험에서 "이번 제출이 직전보다 나은가"를 매번 다시 판단하던 것과 결국 같은 습관이었습니다.</p></article>
+  <div class="endcard">
+    <div><b>SSAFY 16기 관통 프로젝트 — ThRead: LLM 댓글 분석 파이프라인 · AI 도서 서비스</b><span>자세한 내용은 포트폴리오의 해당 활동에서 볼 수 있습니다.</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="../index.html#work">포트폴리오로</a></div>
+  </div>
+<div class="others"><b style="font-size:14px;color:var(--muted)">다른 글</b><a href="2026-11-wavenumber-correlation.html">겹쳐 있는 두 신호를 위상으로 가르기 — 파수 상관 필터링 석사 연구 정리<span>중력과 자력 데이터를 같은 주파수 성분끼리 비교해, 함께 움직이는 성분과 반대로 움직이는 성분을 나눴다. 임계값을 감으로 정하지 않으려고 한 일들.</span></a><a href="2026-11-vqa-ensemble-fixes-breaks.html">점수를 지키면서 올리기 — VQA 챌린지에서 앙상블 후보를 고른 기준<span>정확도가 조금 올라도 원래 맞히던 문제를 많이 틀리면 불안정한 개선이다. fixes와 breaks로 순기여를 따져 0.94608에서 시작한 점수를 쌓아 올린 과정.</span></a><a href="2026-11-portfolio-one-yaml.html">YAML 파일 하나로 포트폴리오·이력서·비공개 페이지까지 — 이 사이트를 만든 방식<span>내용은 한 곳에만 쓰고, 웹 페이지·PDF 이력서·노션 문서는 빌드로 만든다. 공개하면 안 되는 내용은 저장소에 평문으로 남기지 않는다.</span></a><a href="2026-11-plate-tectonics-co2-storage.html">데이터를 해석하기 전에 그 데이터가 만들어진 역사를 본다 — 학부 제1저자 논문 회고<span>해외 대규모 CO2 저장소 8곳을 판구조 형성사와 탄성파 영상으로 비교했다. 처리 결과를 &#39;그럴듯한지&#39; 판단하는 기준을 어디서 가져올 것인가에 대한 이야기.</span></a><a href="2026-11-small-data-spatiotemporal.html">산불 4건으로 시공간 딥러닝 학습하기<span>데이터가 35개 시점뿐일 때 어떻게 학습시켰고, 다시 보니 무엇이 부족했는지. U-LSTM 산불 확산 예측 모델 회고.</span></a><a href="2026-11-llm-verify-pipeline.html">LLM 응답을 믿지 않는 파이프라인 설계<span>LLM에는 판단만 맡기고, 결과는 코드로 검증한다. 댓글 분석 파이프라인과 AI 도서 추천을 만들며 정한 네 가지 원칙.</span></a><a href="2026-11-catastrophic-forgetting.html">순차 학습이 성능을 떨어뜨린 이유 — catastrophic forgetting 실험기<span>단어 단위 → 문맥 단위로 차례로 학습하면 더 좋아질 줄 알았는데, BERTScore가 0.47에서 0.32로 떨어졌다. FLAN-T5 LoRA 학습 전략 비교.</span></a></div>  <footer>© Young-Ju Lee · iyju990312@naver.com</footer>
+</div>
+<script>
+(function(){var r=document.documentElement,K='theme';
+try{var s=localStorage.getItem(K);if(s)r.setAttribute('data-theme',s)}catch(e){}
+var b=document.getElementById('theme');if(b)b.addEventListener('click',function(){
+var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});})();
+</script>
+</body>
+</html>
