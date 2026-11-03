@@ -33,6 +33,7 @@ LinkedIn: https://www.linkedin.com/in/%EC%98%81%EC%A3%BC-%EC%9D%B4-a335ab251/
 • 관통 4 · AI 도서 서비스: Django 커스텀 User·인증(오픈 리다이렉트 방어, HTTP Method 제한), 도서 CRUD, 위키피디아+LLM 작가 정보 생성, AI 도서 분석, 등록 도서 안에서만 추천하도록 검증한 AI 맞춤 추천, 알라딘 API 수집 명령
 • 관통 4: Django TestCase와 mock으로 외부 API 없이 요구사항별 동작을 검증하는 자동 테스트 45개 작성
 • 관통 1~3: JSON 도서 데이터 집계·정렬, 알라딘 API 수집(페이지네이션·중복 제거)+LLM 분류+gTTS 음성 변환, Bootstrap 반응형 웹페이지
+• SSAFY 16기 AI 챌린지 (2026.09, 이미지+질문 4지선다 VQA, 팀 B022): Qwen 27B/4B QLoRA·Gemma 31B 파인튜닝·OCR·멀티뷰(해상도·crop) 확률 앙상블로 Public Score 0.96961, GPU 없이 제출을 그대로 재현하는 스크립트(SHA-256 검증)까지 정리
 • 새내기 캠프 3인 팀 프로젝트 「요기유(YOGIU)」 — 대전·충청 AI 여행 커뮤니티 웹 서비스, 개발·발표 담당: 카카오맵 API 기반 동선 플래너(찜·지도), OpenAI API 기반 AI 추천 여행 경로·꿈돌이 테마 챗봇, 테마별 관광 정보·축제·익명 게시판(댓글) 구현
 • SSAFY AI 과정: Perceptron 구현, Transformer·BERT, RAG 검색, 프롬프트 엔지니어링, CNN·ViT / 일타싸피(삼각함수 기반 당구 AI), SWEA 알고리즘
 • LLM 응답을 그대로 믿지 않고 코드로 검증하는 구조(번호 범위 검사, 뒤에서부터 제거, 등록 도서 id만 허용)로 안정적인 AI 기능 구현
@@ -49,6 +50,7 @@ LinkedIn: https://www.linkedin.com/in/%EC%98%81%EC%A3%BC-%EC%9D%B4-a335ab251/
 어색한 영어·콩글리시 문장을 자연스러운 원어민 표현으로 바꿔 주는 생성 모델 + 검색 증강(RAG) 시스템
 • [담당] 콩글리시·어색한 표현 → 원어민 표현 쌍으로 이루어진 단어 단위·문맥 단위 교정 데이터셋 구축 및 정제
 • [담당] FLAN-T5를 LoRA로 파인튜닝하고, 학습 전략 3가지(단어→문맥 순차, 문맥→단어 순차, 통합 학습)를 BERTScore로 비교 실험
+• [팀 최종 결과물 'KILL KONG'] Qwen-2.5(1.5B) 파인튜닝(Friends 대사 기반 회화체 데이터 2,000건) + 콩글리시 RAG DB 630건 + 사용자별 개인화 메모리(오답노트)를 LangChain으로 결합, React Native·FastAPI 모바일 앱으로 구현
 • [팀] 다국어 문장 임베딩(paraphrase-multilingual-MiniLM)과 FAISS로 유사 교정 예문 top-5를 검색해 모델 입력에 제공하는 RAG 파이프라인과 CLI 구성
 • 순차 학습에서 앞 단계 성능이 떨어지는 catastrophic forgetting(BERTScore F1 0.47 → 0.32)을 실험으로 확인하고 통합 학습으로 전환
 • 통합 학습 모델의 검증 BERTScore F1 약 0.74 (순차 학습 0.32~0.47 대비 개선)
@@ -82,6 +84,7 @@ LinkedIn: https://www.linkedin.com/in/%EC%98%81%EC%A3%BC-%EC%9D%B4-a335ab251/
 - **설명:**
 ```
 중력·자력 탐사 자료를 결합해 아부다비 가샤 암염돔과 지하 기반암 구조를 파악
+• 과학기술정보통신부·IITP 디지털분야 글로벌 인재양성사업(AI·디지털트윈 기반 스마트 CCS 운영 글로벌 인재양성 프로그램) 지원으로 파견
 • 캘거리대학교 측지공학과 연구진과 함께 항공 중력·자력 데이터의 파수 상관 분석 연구 수행
 • 칼리파대학교(UAE)와의 3개 기관 공동연구로 확장
 • 파견 연구 결과로 SCIE 국제학술지 SPE Journal 제1저자 논문 게재 승인 (2026)
@@ -138,5 +141,5 @@ LinkedIn: https://www.linkedin.com/in/%EC%98%81%EC%A3%BC-%EC%9D%B4-a335ab251/
 ## 5. 스킬 (복사용, 쉼표 구분)
 
 ```
-Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, Django, Selenium, SQL, 시공간 딥러닝(U-LSTM), CNN·LSTM, LLM 파인튜닝(FLAN-T5·LoRA), RAG(FAISS·임베딩 검색), 모델 평가(F1·BERTScore), ArcGIS, 래스터 데이터 구축, 중력·자력 자료 처리, 파수 상관 분석, 탄성파 자료 해석, GPlates, CCS(이산화탄소 지중저장), 에너지·자원, 재난(산불) 예측
+Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, Django, Selenium, SQL, 시공간 딥러닝(U-LSTM), CNN·LSTM, LLM 파인튜닝(FLAN-T5·Qwen·Gemma, LoRA/QLoRA), 멀티모델 확률 앙상블, RAG(FAISS·임베딩 검색), 모델 평가(F1·BERTScore), ArcGIS, 래스터 데이터 구축, 중력·자력 자료 처리, 파수 상관 분석, 탄성파 자료 해석, GPlates, CCS(이산화탄소 지중저장), 에너지·자원, 재난(산불) 예측
 ```
