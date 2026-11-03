@@ -23,6 +23,17 @@
 {%- endmacro %}
 
 {% macro star(a) -%}
+{% if a.projects %}
+{% for sp in a.projects %}
+<article class="subproj">
+  <div class="subhead"><span class="subnum">{{ loop.index }}</span><div><h4>{{ sp.title }}</h4><div class="submeta">{{ sp.period_str }}{% if sp.org %} · {{ sp.org }}{% endif %}{% if sp.role %} · {{ sp.role }}{% endif %}{% if sp.team %} · {{ sp.team }}{% endif %}</div></div></div>
+  {{ star_one(sp) }}
+</article>
+{% endfor %}
+{% else %}{{ star_one(a) }}{% endif %}
+{%- endmacro %}
+
+{% macro star_one(a) -%}
 <dl class="star">
   {% if a.star.situation %}<div><dt>문제</dt><dd>{{ a.star.situation }}</dd></div>{% endif %}
   {% if a.star.task %}<div><dt>역할</dt><dd>{{ a.star.task }}</dd></div>{% endif %}
@@ -61,6 +72,12 @@ btn.setAttribute('aria-expanded',open);btn.querySelector('span').textContent=ope
 
 {# 공통 하위 요소 스타일 (각 시안의 토큰을 사용) #}
 {% macro base_css() -%}
+.subproj{padding:18px 0;border-top:1px solid var(--line)}
+.subproj:first-child{border-top:0;padding-top:0}
+.subhead{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px}
+.subnum{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--on-accent);font-weight:700;font-size:13px;margin-top:2px}
+.subhead h4{margin:0;font-size:17px;line-height:1.4}
+.submeta{color:var(--muted);font-size:13px;margin-top:2px}
 .star{display:grid;gap:14px;margin:0}
 .star dt{font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--accent);margin-bottom:2px}
 .star dd{margin:0}

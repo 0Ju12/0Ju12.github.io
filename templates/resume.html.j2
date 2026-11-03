@@ -17,7 +17,9 @@ h1{font-size:20pt;margin:0}
 .contact span+span::before{content:" · "}
 h2{font-size:11pt;color:#2f5bd3;border-bottom:1px solid #d9dbe0;padding-bottom:3px;margin:16px 0 8px;letter-spacing:.04em}
 .summary{margin:0}
-.entry{margin-bottom:10px;break-inside:avoid}
+.entry{margin-bottom:10px}
+.entry .sub{margin-top:6px;break-after:avoid}
+.entry ul{break-inside:avoid}
 .row{display:flex;justify-content:space-between;gap:12px}
 .row b{font-size:10.5pt}
 .dim{color:#5c6370;font-size:9pt;white-space:nowrap}
@@ -46,10 +48,17 @@ li{margin:1px 0}
 <div class="entry">
   <div class="row"><b>{{ a.title }}</b><span class="dim">{{ a.period_str }}</span></div>
   <div class="dim">{{ a.type }} · {{ a.org }}{% if a.role %} · {{ a.role }}{% endif %}{% if a.team %} · {{ a.team }}{% endif %}</div>
+  {% if a.projects %}{% for sp in a.projects %}
+  <div class="sub"><b>{{ sp.title }}</b> <span class="dim">{{ sp.period_str }}{% if sp.role %} · {{ sp.role }}{% endif %}</span></div>
+  <ul>
+    {% for x in sp.star.action %}<li>{{ x }}</li>{% endfor %}
+    {% for x in sp.star.result %}<li><b>{{ x }}</b></li>{% endfor %}
+  </ul>
+  {% endfor %}{% else %}
   <ul>
     {% for x in a.star.action %}<li>{{ x }}</li>{% endfor %}
     {% for x in a.star.result %}<li><b>{{ x }}</b></li>{% endfor %}
-  </ul>
+  </ul>{% endif %}
   {% if a.tags %}<div class="tags">{{ a.tags|join(' · ') }}</div>{% endif %}
 </div>
 {% endfor %}

@@ -49,30 +49,46 @@ def sort_key(a):
 def normalize(data):
     data["_todos"] = [
         f'{a.get("title")} — {x}'
-        for a in data.get("activities") or []
+        for g in data.get("activities") or []
+        for a in [g] + (g.get("projects") or [])
         for k in ("action", "result")
         for x in (a.get("star") or {}).get(k) or []
         if str(x).startswith("TODO")
     ]
     data["profile"]["links"] = clean_links(data["profile"].get("links"))
     acts = data.get("activities") or []
-    for a in acts:
+    photos = DOCS / "assets" / "photos"
+
+    def prep(a):
         a["links"] = clean_links(a.get("links"))
         a.setdefault("star", {})
         for k in ("action", "result"):
             # 'TODO' 로 시작하는 항목은 결과물에 표시하지 않고 체크리스트로만 보냄
             a["star"][k] = [x for x in (a["star"].get(k) or []) if x and not str(x).startswith("TODO")]
         a["period_str"] = period_str(a.get("period"))
-    acts.sort(key=sort_key, reverse=True)
-    data["activities"] = acts
-    # 사진 자동 연결: docs/assets/photos/<활동 id>/*.jpg → gallery, profile.jpg → 프로필
-    photos = DOCS / "assets" / "photos"
-    for a in acts:
+        # 사진 자동 연결: docs/assets/photos/<id>/*.jpg → gallery
         d = photos / a.get("id", "")
         a["gallery"] = [
             {"src": f"assets/photos/{a['id']}/{f.name}", "caption": f.stem.replace("_", " ")}
             for f in sorted(d.glob("*.jpg"))
         ] if d.is_dir() else []
+
+    for a in acts:
+        prep(a)
+        # 묶음 활동(projects): 하위 프로젝트를 각각 정리하고, 하위 내용을 모은 star 를 만들어
+        # 하위 구조를 모르는 템플릿(노션·프로필 문구 등)에서도 내용이 빠지지 않게 함
+        subs = a.get("projects") or []
+        for sp in subs:
+            prep(sp)
+        a["projects"] = subs
+        a["project_ids"] = [a["id"]] + [sp["id"] for sp in subs]
+        if subs and not (a["star"]["action"] or a["star"]["result"]):
+            short = lambda sp: sp.get("short") or sp["title"].split(" — ")[0]
+            a["star"]["action"] = [f"[{short(sp)}] {x}" for sp in subs for x in sp["star"]["action"]]
+            a["star"]["result"] = [f"[{short(sp)}] {x}" for sp in subs for x in sp["star"]["result"]]
+            a["links"] = a["links"] or [l for sp in subs for l in sp["links"]]
+    acts.sort(key=sort_key, reverse=True)
+    data["activities"] = acts
     if not data["profile"].get("photo") and (photos / "profile.jpg").exists():
         data["profile"]["photo"] = "assets/photos/profile.jpg"
     data["featured"] = sorted((a for a in acts if a.get("featured")), key=lambda a: a.get("priority", 99))
@@ -113,7 +129,7 @@ def collect_warnings(data):
     elif len(data["featured"]) > 5:
         w.append(f"대표 활동이 {len(data['featured'])}개 — 3~5개로 줄이면 더 효과적입니다")
 
-    for a in data["activities"]:
+    for a in (x for g in data["activities"] for x in (g["projects"] or [g])):
         name = a.get("title", a.get("id"))
         s = a["star"]
         if not s.get("situation") or not s.get("task"):
@@ -132,7 +148,7 @@ def collect_warnings(data):
 def load_posts(acts):
     """content/posts/*.md (YAML front matter + Markdown) → 글 목록"""
     import markdown
-    titles = {a.get("id"): a.get("title") for a in acts}
+    titles = {a.get("id"): a.get("title") for g in acts for a in [g] + (g.get("projects") or [])}
     posts = []
     for f in sorted((ROOT / "content" / "posts").glob("*.md")):
         raw = f.read_text(encoding="utf-8")

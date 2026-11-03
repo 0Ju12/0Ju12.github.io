@@ -128,7 +128,7 @@ footer{padding:96px 0 48px;color:var(--muted);font-size:13px}
         <p class="sum">{{ a.summary }}</p>
         {% if a.kpi and (a.image or a.gallery) %}<div class="kpi"><b>{{ a.kpi.value }}</b><span>{{ a.kpi.label }}</span></div>{% endif %}
         <div class="chips">{% for t in a.tags %}<span class="chip">{{ t }}</span>{% endfor %}</div>
-        <button class="more" type="button" data-expand="d-{{ a.id }}" aria-expanded="false"><span>자세히 보기</span> {{ p.icon('arrow', 14) }}</button>{% for w in posts if w.project == a.id %}<a class="postlink" href="posts/{{ w.slug }}.html">✍️ 글: {{ w.title }}</a>{% endfor %}
+        <button class="more" type="button" data-expand="d-{{ a.id }}" aria-expanded="false"><span>자세히 보기</span> {{ p.icon('arrow', 14) }}</button>{% for w in posts if w.project in a.project_ids %}<a class="postlink" href="posts/{{ w.slug }}.html">✍️ 글: {{ w.title }}</a>{% endfor %}
       </div>
       <div class="detail" id="d-{{ a.id }}" hidden>{{ p.star(a) }}</div>
     </article>
