@@ -1,0 +1,334 @@
+{% import "layouts/_parts.j2" as p %}
+{% import "layouts/_v2.j2" as v %}
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ profile.name }} — {{ profile.title }} 포트폴리오</title>
+<meta name="description" content="{{ profile.title }} · {{ profile.headline }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --bg:#ffffff;--surface:#f6f7f9;--surface-2:#eef0f3;--text:#0b0c0e;--muted:#5b616e;--faint:#8a909b;--line:#e6e8eb;
+  --accent:#0f766e;--accent-2:#2dd4bf;--on-accent:#fff;--chip:#f1f3f5;
+  --hero:#0a0c0f;--hero-2:#12151a;--hero-text:#f3f4f6;--hero-muted:#9ba3af;--hero-line:#22262d;
+  --r-lg:20px;--r-md:14px;--r-sm:10px;--shadow:0 1px 2px rgba(16,24,40,.04),0 12px 32px -12px rgba(16,24,40,.12)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0b0c0e;--surface:#131519;--surface-2:#1a1d22;--text:#eceef1;--muted:#a0a6b0;--faint:#737a85;--line:#23262c;--accent:#2dd4bf;--accent-2:#5eead4;--on-accent:#04201c;--chip:#1a1d22;--hero:#050608;--hero-2:#0d0f12;--shadow:none}}
+:root[data-theme="dark"]{--bg:#0b0c0e;--surface:#131519;--surface-2:#1a1d22;--text:#eceef1;--muted:#a0a6b0;--faint:#737a85;--line:#23262c;--accent:#2dd4bf;--accent-2:#5eead4;--on-accent:#04201c;--chip:#1a1d22;--hero:#050608;--hero-2:#0d0f12;--shadow:none}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 "Pretendard Variable",Pretendard,system-ui,sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all}
+a{color:inherit}
+.num{font-variant-numeric:tabular-nums}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+.eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+
+/* 상단 바 — 스크롤해도 고정 */
+.nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--hero) 86%,transparent);backdrop-filter:saturate(1.6) blur(14px);border-bottom:1px solid var(--hero-line)}
+.nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto;color:var(--hero-text);text-decoration:none;font-weight:700;letter-spacing:-.01em}
+.brand i{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#04201c;font-style:normal;font-size:13px;font-weight:800}
+.nav a.n{color:var(--hero-muted);text-decoration:none;font-size:14px;font-weight:500;transition:color .15s}
+.nav a.n:hover,.nav a.n.on{color:var(--hero-text)}
+.nav .tools{display:flex;gap:8px;align-items:center}
+.iconbtn{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:9px;border:1px solid var(--hero-line);background:transparent;color:var(--hero-muted);cursor:pointer;text-decoration:none;font:inherit;font-size:12px;font-weight:700}
+.iconbtn:hover{color:var(--hero-text);border-color:#3a3f48}
+
+/* 히어로 */
+.hero{background:var(--hero);color:var(--hero-text);position:relative;overflow:hidden;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 70% 80% at 70% 30%,#000 30%,transparent 75%)}
+.hero::after{content:"";position:absolute;z-index:-1;right:-8%;top:-20%;width:620px;height:620px;background:radial-gradient(closest-side,rgba(45,212,191,.16),transparent);pointer-events:none}
+.herobody{display:grid;grid-template-columns:1fr 300px;gap:64px;align-items:center;padding:96px 0 72px}
+.hero .eyebrow{color:var(--accent-2);display:flex;align-items:center;gap:10px}
+.hero .eyebrow::before{content:"";width:24px;height:1px;background:currentColor}
+.hero h1{font-size:clamp(36px,5.2vw,64px);line-height:1.14;letter-spacing:-.045em;margin:20px 0 24px;font-weight:800}
+.hero h1 span{background:linear-gradient(90deg,var(--accent-2),#99f6e4);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{color:var(--hero-muted);max-width:600px;margin:0 0 36px;font-size:18px;line-height:1.75}
+.cta{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 20px;border-radius:12px;font-weight:700;font-size:15px;text-decoration:none;border:1px solid transparent;transition:transform .15s,background .15s,border-color .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn.pri{background:var(--hero-text);color:var(--hero)}
+.btn.pri:hover{background:#fff}
+.btn.sec{border-color:var(--hero-line);color:var(--hero-text);background:rgba(255,255,255,.03)}
+.btn.sec:hover{border-color:#3a3f48}
+.cta .sep{width:1px;height:24px;background:var(--hero-line);margin:0 6px}
+.cta .iconbtn{width:46px;height:46px;border-radius:12px}
+.idcard{background:linear-gradient(180deg,var(--hero-2),var(--hero));border:1px solid var(--hero-line);border-radius:24px;padding:14px;box-shadow:0 30px 80px -30px rgba(0,0,0,.8)}
+.idcard .avatar{width:100%;aspect-ratio:1;border-radius:16px;object-fit:cover;display:block;font-size:64px}
+.idcard .who{padding:16px 6px 6px}
+.idcard b{display:block;font-size:17px}
+.idcard small{display:block;color:var(--hero-muted);font-size:13.5px;margin-top:2px}
+.status{display:inline-flex;align-items:center;gap:8px;margin-top:12px;font-size:12.5px;color:var(--hero-muted);border:1px solid var(--hero-line);border-radius:999px;padding:4px 10px}
+.status::before{content:"";width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.2)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--hero-line)}
+.kpis div{padding:28px 24px 32px 0}
+.kpis div+div{padding-left:24px;border-left:1px solid var(--hero-line)}
+.kpis b{display:block;font-size:30px;font-weight:800;letter-spacing:-.035em;font-variant-numeric:tabular-nums}
+.kpis span{font-size:13px;color:var(--hero-muted)}
+.kpis.focus b{font-size:16px;font-weight:700;letter-spacing:-.01em;margin-bottom:6px}
+.kpis.focus span{display:block;line-height:1.6}
+
+/* 섹션 공통 */
+section{padding:120px 0 0;scroll-margin-top:72px}
+.sechead{display:grid;grid-template-columns:1fr auto;align-items:end;gap:24px;margin-bottom:48px}
+.sechead .eyebrow{color:var(--accent);margin-bottom:10px;display:block}
+.sechead h2{font-size:clamp(30px,3.8vw,44px);letter-spacing:-.04em;margin:0;font-weight:800;line-height:1.15}
+.sechead p{margin:0;color:var(--muted);font-size:15px;max-width:340px;text-align:right}
+
+/* 프로젝트 케이스 */
+.case{display:grid;grid-template-columns:1.08fr 1fr;gap:64px;align-items:center;padding:56px 0;border-top:1px solid var(--line)}
+.case:first-of-type{border-top:0;padding-top:8px}
+.case.flip .visual{order:2}
+.visual{position:relative;border-radius:var(--r-lg);background:var(--surface);border:1px solid var(--line);overflow:hidden;aspect-ratio:16/11;box-shadow:var(--shadow)}
+.visual .frame{position:absolute;inset:0;display:flex;flex-direction:column}
+.visual .bar{display:flex;align-items:center;gap:6px;height:34px;padding:0 14px;border-bottom:1px solid var(--line);background:var(--surface-2);flex:none}
+.visual .bar i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.visual .bar span{margin-left:8px;font-size:12px;color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.visual .shot{flex:1;min-height:0;background:#fff}
+.visual .shot img{width:100%;height:100%;object-fit:contain;display:block}
+.visual .shot.cover img{object-fit:cover;object-position:top}
+.fig{position:absolute;inset:0;margin:0;display:flex;flex-direction:column;background:#fff}
+.fig img{flex:1;min-height:0;width:100%;object-fit:contain;padding:18px}
+.fig figcaption{flex:none;font-size:12.5px;color:#6b7280;padding:10px 16px;border-top:1px solid #eceef1;background:#fafbfc}
+.flowpanel{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:18px;padding:32px 36px;background:radial-gradient(90% 90% at 100% 0%,color-mix(in srgb,var(--accent) 10%,transparent),transparent 60%),var(--surface)}
+.flowpanel .lbl{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.flowpanel .lbl.foot{letter-spacing:0;text-transform:none;font-weight:600;color:var(--faint)}
+.flowpanel ol{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.flowpanel li{display:grid;grid-template-columns:28px 1fr;gap:14px;align-items:center;position:relative;padding:7px 0}
+.flowpanel li+li::before{content:"";position:absolute;left:13.5px;top:-7px;height:14px;width:1px;background:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.flowpanel li i{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:12.5px;font-weight:700;color:var(--accent);background:var(--bg);border:1px solid color-mix(in srgb,var(--accent) 40%,var(--line))}
+.flowpanel li span{font-size:15.5px;font-weight:600;letter-spacing:-.01em}
+.flowpanel li:last-child i{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.metricpanel{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:32px;background:radial-gradient(90% 90% at 100% 0%,color-mix(in srgb,var(--accent) 14%,transparent),transparent 60%),var(--surface)}
+.metricpanel::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:32px 32px;opacity:.55;mask-image:linear-gradient(180deg,transparent,#000 60%)}
+.metricpanel *{position:relative}
+.metricpanel .lbl{font-size:13px;font-weight:600;color:var(--muted)}
+.metricpanel b{display:block;font-size:clamp(52px,7vw,84px);font-weight:800;letter-spacing:-.05em;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
+.metricpanel .sub{font-size:14px;color:var(--muted);margin-top:10px}
+.metricpanel .steps{display:flex;flex-wrap:wrap;gap:6px}
+.metricpanel .steps span{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--muted)}
+.case .idx{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;font-size:13px;color:var(--faint);font-weight:600}
+.case .idx b{color:var(--accent);font-weight:800;letter-spacing:.04em}
+.case .idx i{width:4px;height:4px;border-radius:50%;background:var(--line);display:inline-block}
+.case h3{font-size:clamp(24px,2.6vw,32px);line-height:1.3;letter-spacing:-.035em;margin:12px 0 12px;font-weight:800}
+.case .one{font-size:16.5px;color:var(--muted);margin:0 0 22px}
+.kpi{display:inline-flex;align-items:baseline;gap:10px;padding:10px 14px;border-radius:12px;background:var(--surface);border:1px solid var(--line);margin-bottom:22px}
+.kpi b{font-size:22px;font-weight:800;color:var(--accent);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.kpi span{font-size:13px;color:var(--muted)}
+.pts{list-style:none;margin:0 0 22px;padding:0;display:grid;gap:10px}
+.pts li{display:grid;grid-template-columns:20px 1fr;gap:10px;font-size:15px;line-height:1.6}
+.pts svg{color:var(--accent);margin-top:3px}
+.stack{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+.stack span{font-size:12.5px;font-weight:600;padding:4px 10px;border-radius:8px;background:var(--chip);color:var(--muted)}
+.plinks{display:flex;flex-wrap:wrap;gap:8px}
+.plinks a{display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 14px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;border:1px solid var(--line);background:var(--bg);transition:border-color .15s,color .15s}
+.plinks a:hover{border-color:var(--accent);color:var(--accent)}
+.plinks a.postlink{border-color:transparent;background:transparent;color:var(--accent);padding:0 6px}
+.plinks a.postlink:hover{text-decoration:underline}
+
+/* 글 */
+.posts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.post{display:flex;flex-direction:column;gap:10px;background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);padding:26px;text-decoration:none;transition:border-color .2s,transform .2s,box-shadow .2s}
+.post:hover{border-color:color-mix(in srgb,var(--accent) 40%,var(--line));transform:translateY(-3px);box-shadow:var(--shadow)}
+.post .meta{display:flex;justify-content:space-between;font-size:12.5px;color:var(--faint);font-weight:600}
+.post .meta em{font-style:normal;color:var(--accent)}
+.post b{font-size:18px;line-height:1.45;letter-spacing:-.025em}
+.post p{margin:0;color:var(--muted);font-size:14.5px;flex:1}
+.post .read{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--text)}
+.morebtn{display:flex;justify-content:center;margin-top:20px}
+.morebtn button{height:44px;padding:0 20px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit;font-weight:700;font-size:14.5px;cursor:pointer}
+.morebtn button:hover{border-color:var(--text)}
+.studyband{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;margin-top:24px;padding:28px 32px;border-radius:var(--r-lg);background:var(--hero);color:var(--hero-text);text-decoration:none;position:relative;overflow:hidden}
+.studyband::after{content:"";position:absolute;right:-60px;top:-80px;width:280px;height:280px;background:radial-gradient(closest-side,rgba(45,212,191,.2),transparent)}
+.studyband .eyebrow{color:var(--accent-2)}
+.studyband b{display:block;font-size:20px;letter-spacing:-.02em;margin:6px 0 4px}
+.studyband p{margin:0;color:var(--hero-muted);font-size:14.5px}
+.studyband .go{position:relative;z-index:1;display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 18px;border-radius:12px;background:var(--hero-text);color:var(--hero);font-weight:700;font-size:14.5px}
+
+/* 논문 */
+.pubgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pub{display:grid;grid-template-columns:auto 1fr;gap:18px;padding:24px;border:1px solid var(--line);border-radius:var(--r-lg);text-decoration:none;transition:border-color .2s}
+a.pub:hover{border-color:var(--accent)}
+.pub .yr{font-size:14px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums;padding-top:2px}
+.pub b{display:block;font-size:16px;line-height:1.5;letter-spacing:-.015em}
+.pub small{display:block;color:var(--muted);font-size:13.5px;margin-top:6px}
+.pub.first{grid-column:1/-1;background:var(--surface)}
+.pub.first b{font-size:19px}
+.badge{display:inline-block;font-size:11.5px;font-weight:700;color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);border-radius:6px;padding:1px 7px;margin-left:6px;vertical-align:2px}
+.talks{margin-top:16px;border:1px solid var(--line);border-radius:var(--r-lg);padding:4px 24px}
+.talks summary{cursor:pointer;font-weight:700;font-size:14.5px;padding:14px 0;list-style:none;display:flex;justify-content:space-between}
+.talks summary::-webkit-details-marker{display:none}
+.talks summary::after{content:"+";color:var(--muted);font-weight:400;font-size:18px;line-height:1}
+.talks[open] summary::after{content:"−"}
+.talks ol{list-style:none;margin:0 0 14px;padding:0}
+.talks li{display:grid;grid-template-columns:56px 1fr;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:14.5px}
+.talks li span{color:var(--faint);font-weight:700;font-variant-numeric:tabular-nums}
+
+/* 이력 */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.panel{border:1px solid var(--line);border-radius:var(--r-lg);padding:28px;min-width:0}
+.about>*,.pubgrid>*,.posts>*{min-width:0}
+.panel h3{display:flex;align-items:center;gap:10px;margin:0 0 18px;font-size:16px;letter-spacing:-.01em}
+.panel h3 svg{color:var(--accent)}
+.tl{display:grid;grid-template-columns:1fr auto;gap:4px 16px;padding:14px 0;border-top:1px solid var(--line)}
+.tl:first-of-type{border-top:0;padding-top:0}
+.tl b{font-size:15px}
+.tl small{grid-column:1;color:var(--muted);font-size:13.5px}
+.tl .when{grid-row:1;grid-column:2;color:var(--faint);font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.skillrow{display:grid;grid-template-columns:170px 1fr;gap:16px;padding:14px 0;border-top:1px solid var(--line)}
+.skillrow:first-of-type{border-top:0;padding-top:0}
+.skillrow b{font-size:14px;color:var(--muted);font-weight:600;padding-top:3px}
+.skillrow div{display:flex;flex-wrap:wrap;gap:6px}
+.skillrow span{font-size:13px;font-weight:600;padding:4px 10px;border-radius:8px;background:var(--chip)}
+.panel.wide{grid-column:1/-1}
+
+/* 연락 */
+.contact{margin-top:120px;border-radius:28px;background:var(--hero);color:var(--hero-text);padding:56px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;position:relative;overflow:hidden;isolation:isolate}
+.contact::before{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:40px 40px;mask-image:radial-gradient(ellipse at 100% 0%,#000,transparent 70%)}
+.contact .eyebrow{color:var(--accent-2)}
+.contact h2{margin:10px 0 10px;font-size:clamp(26px,3.4vw,40px);letter-spacing:-.04em;line-height:1.2}
+.contact a.mail{color:var(--hero-text);font-size:18px;font-weight:600;text-decoration:none;border-bottom:1px solid var(--hero-line)}
+.contact a.mail:hover{border-color:var(--accent-2)}
+footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding:40px 0 56px;color:var(--faint);font-size:13px}
+footer a{color:var(--faint)}
+[hidden]{display:none!important}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+@media (max-width:960px){
+  .nav a.n{display:none}
+  .herobody{grid-template-columns:1fr;gap:32px;padding:48px 0 40px}
+  .idcard{display:flex;gap:14px;align-items:center;padding:12px;border-radius:18px;order:-1}
+  .idcard .avatar{width:72px;height:72px;border-radius:12px;font-size:26px}
+  .idcard .who{padding:0}
+  .status{margin-top:6px}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .kpis div,.kpis div+div{padding:20px 16px;border-left:0}
+  .kpis div:nth-child(even){border-left:1px solid var(--hero-line)}
+  .kpis div:nth-child(-n+2){border-bottom:1px solid var(--hero-line)}
+  .kpis.focus b{font-size:15px}
+  section{padding-top:80px}
+  .sechead{grid-template-columns:1fr;margin-bottom:28px}
+  .sechead p{text-align:left}
+  .case{grid-template-columns:1fr;gap:28px;padding:40px 0}
+  .case.flip .visual{order:0}
+  .posts,.pubgrid,.about{grid-template-columns:1fr}
+  .studyband{grid-template-columns:1fr}
+  .skillrow{grid-template-columns:1fr;gap:8px}
+  .contact{grid-template-columns:1fr;padding:36px 24px;margin-top:80px}
+  .cta .sep{display:none}
+}
+@media (max-width:420px){.hero h1{font-size:33px}.btn{padding:0 16px}}
+</style>
+</head>
+<body>
+<header class="nav"><div class="wrap">
+  <a class="brand" href="#top"><i>YJ</i>{{ profile.name }}</a>
+  <a class="n" href="#work">프로젝트</a>{% if posts %}<a class="n" href="#writing">글</a>{% endif %}<a class="n" href="#publications">논문</a><a class="n" href="#about">이력</a>{% if study_notes %}<a class="n" href="study/index.html">학습 노트</a>{% endif %}
+  <div class="tools">{% if alt_lang %}<a class="iconbtn" href="{{ alt_lang.url }}" hreflang="{{ alt_lang.code }}" aria-label="다른 언어">{{ alt_lang.label }}</a>{% endif %}<button class="iconbtn" id="theme" type="button" aria-label="밝은/어두운 테마 전환"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg></button></div>
+</div></header>
+
+<div class="hero" id="top">
+  <div class="wrap">
+    <div class="herobody">
+      <div>
+        <div class="eyebrow">Data &amp; AI Engineer</div>
+        <h1>데이터를 모으고,<br>모델로 검증하고,<br><span>결과로 증명합니다.</span></h1>
+        <p class="lead">{{ v.intro() }}</p>
+        <div class="cta">
+          <a class="btn pri" href="#work">대표 프로젝트 {{ p.icon('arrow', 16) }}</a>
+          <a class="btn sec" href="resume-1page.pdf" download>{{ p.icon('doc', 16) }} 이력서 PDF</a>
+          <span class="sep" aria-hidden="true"></span>
+          {% for l in profile.links if 'github' in l.label|lower or 'linkedin' in l.label|lower %}<a class="iconbtn" href="{{ l.url }}" target="_blank" rel="noopener" aria-label="{{ l.label }}">{{ p.link_icon(l.label) }}</a>{% endfor %}
+          {% if profile.email %}<a class="iconbtn" href="mailto:{{ profile.email }}" aria-label="이메일">{{ p.icon('mail', 18) }}</a>{% endif %}
+        </div>
+      </div>
+      <div class="idcard">{{ p.avatar(profile) }}<div class="who"><b>{{ profile.name }} · {{ profile.name_en }}</b><small>전북대 석사(2026) · SSAFY 16기</small><span class="status">채용 기회를 찾고 있습니다</span></div></div>
+    </div>
+    <div class="kpis focus">{% for t, d in [
+      ('지구물리 데이터 연구', '중력·자력·탄성파 자료를 해석해 SCIE 제1저자 논문으로 완성'),
+      ('국제 공동연구', '캘거리대 파견, 칼리파대(UAE)까지 3개 기관 협업'),
+      ('LLM · RAG 엔지니어링', '수집부터 검증까지, 모델 응답을 코드로 다시 확인하는 파이프라인'),
+      ('딥러닝 모델링', '시공간 U-LSTM, 비전-언어 모델 앙상블, LoRA 파인튜닝'),
+    ] %}<div><b>{{ t }}</b><span>{{ d }}</span></div>{% endfor %}</div>
+  </div>
+</div>
+
+<main class="wrap">
+  <section id="work">
+    <div class="sechead"><div><span class="eyebrow">Selected Work</span><h2>대표 프로젝트</h2></div><p>문제를 어떻게 정의하고, 무엇을 만들고, 어떻게 확인했는지</p></div>
+    {% for x in projects_index %}
+    <article class="case reveal{% if loop.index is even %} flip{% endif %}">
+      <div class="visual">
+        {% if x.image %}
+        {% if 'photos/ssafy-16' in x.image %}
+        <div class="frame"><div class="bar"><i></i><i></i><i></i><span>{{ x.title }}</span></div><div class="shot cover"><img src="{{ x.image }}" alt="{{ x.title }} 화면" loading="lazy"></div></div>
+        {% else %}
+        <figure class="fig"><img src="{{ x.image }}" alt="{{ x.title }} 그림" loading="lazy"><figcaption>{{ x.caption or x.org }}</figcaption></figure>
+        {% endif %}
+        {% else %}
+        <div class="flowpanel"><span class="lbl">접근 과정</span><ol>{% for st in x.flow or x.stack %}<li><i>{{ loop.index }}</i><span>{{ st }}</span></li>{% endfor %}</ol><span class="lbl foot">{{ x.org }}</span></div>
+        {% endif %}
+      </div>
+      <div>
+        <div class="idx"><b>{{ '%02d'|format(loop.index) }}</b><i></i>{{ x.org }}<i></i><span class="num">{{ x.period }}</span><i></i>{{ x.team }}</div>
+        <h3>{{ x.title }}</h3>
+        <p class="one">{{ x.oneliner }}</p>
+        <ul class="pts">{% for t in x.points %}<li>{{ p.icon('check', 16) }}<span>{{ t }}</span></li>{% endfor %}</ul>
+        <div class="stack">{% for s in x.stack %}<span>{{ s }}</span>{% endfor %}</div>
+        <div class="plinks">{% for l in x.links or [] %}<a href="{{ l.url }}" target="_blank" rel="noopener">{% if 'github' in l.label|lower %}{{ p.icon('github', 15) }}{% endif %}{{ l.label }} {{ p.icon('external', 13) }}</a>{% endfor %}{% if x.post %}<a class="postlink" href="posts/{{ x.post }}.html">관련 글 읽기 {{ p.icon('arrow', 14) }}</a>{% endif %}</div>
+      </div>
+    </article>
+    {% endfor %}
+  </section>
+
+  {% if posts %}
+  <section id="writing">
+    <div class="sechead"><div><span class="eyebrow">Writing</span><h2>프로젝트에서 배운 것</h2></div><p>설계 결정과 실패를 기록한 글 {{ posts|length }}편</p></div>
+    <div class="posts">{% for w in posts %}<a class="post reveal" href="posts/{{ w.slug }}.html"{% if loop.index > 6 %} data-extra hidden{% endif %}><span class="meta"><em>{{ (w.tags or ['글'])[0] }}</em><span class="num">{{ w.date }}</span></span><b>{{ w.title }}</b><p>{{ w.summary|truncate(96) }}</p><span class="read">읽기 {{ p.icon('arrow', 14) }}</span></a>{% endfor %}</div>
+    {% if posts|length > 6 %}<div class="morebtn"><button type="button" id="moreposts">글 {{ posts|length - 6 }}편 더 보기</button></div>{% endif %}
+    {% if study_notes %}<a class="studyband" href="study/index.html"><div style="position:relative;z-index:1"><span class="eyebrow">Study Notes</span><b>SSAFY 강의 노트 {{ study_notes|length }}편 · 실습 프로그램</b><p>Web · Django · DB · 알고리즘 · AI를 주제별로 다시 정리한 학습 공간</p></div><span class="go">학습 공간 열기 {{ p.icon('arrow', 14) }}</span></a>{% endif %}
+  </section>
+  {% endif %}
+
+  <section id="publications">
+    <div class="sechead"><div><span class="eyebrow">Publications</span><h2>논문 · 학회 발표</h2></div><p>논문 {{ papers|length }}편 · 학회 발표 {{ talks|length }}건</p></div>
+    <div class="pubgrid">
+    {% for x in papers %}
+      {% if x.url %}<a class="pub{% if loop.first %} first{% endif %}" href="{{ x.url }}" target="_blank" rel="noopener">{% else %}<div class="pub{% if loop.first %} first{% endif %}">{% endif %}
+        <span class="yr">{{ x.year }}</span><div><b>{{ x.title }}{% if loop.first %}<span class="badge">SCIE</span>{% endif %}</b><small>{{ x.venue }}</small></div>
+      {% if x.url %}</a>{% else %}</div>{% endif %}
+    {% endfor %}
+    </div>
+    <details class="talks"><summary>학회 발표 {{ talks|length }}건</summary><ol>{% for x in talks %}<li><span>{{ x.year }}</span>{{ x.title }}</li>{% endfor %}</ol></details>
+  </section>
+
+  <section id="about">
+    <div class="sechead"><div><span class="eyebrow">About</span><h2>학력 · 수상 · 기술</h2></div><p>연구에서 시작해 AI 엔지니어링으로</p></div>
+    <div class="about">
+      <div class="panel reveal"><h3>{{ p.icon('grad', 18) }} 학력 · 교육</h3>{% for e in education %}<div class="tl"><b>{{ e.school }}</b><span class="when">{{ e.period_str }}</span><small>{{ e.major }} {{ e.degree }}</small></div>{% endfor %}</div>
+      <div class="panel reveal"><h3>{{ p.icon('award', 18) }} 수상 · 자격</h3>{% for x in awards %}<div class="tl"><b>{{ x.name }}</b><span class="when">{{ x.date }}</span><small>{{ x.org }}</small></div>{% endfor %}{% for x in certifications %}<div class="tl"><b>{{ x.name }}</b><span class="when">{{ x.date }}</span><small>{{ x.org }}</small></div>{% endfor %}</div>
+      <div class="panel wide reveal"><h3>{{ p.icon('cert', 18) }} 기술</h3>{% for s in skills %}<div class="skillrow"><b>{{ s.category }}</b><div>{% for i in s['items'] %}<span>{{ i }}</span>{% endfor %}</div></div>{% endfor %}</div>
+    </div>
+  </section>
+
+  <div class="contact" id="contact">
+    <div><span class="eyebrow">Contact</span><h2>함께 일할 기회를 기다립니다.</h2>{% if profile.email %}<a class="mail" href="mailto:{{ profile.email }}">{{ profile.email }}</a>{% endif %}</div>
+    <div class="cta">{% if profile.email %}<a class="btn pri" href="mailto:{{ profile.email }}">{{ p.icon('mail', 16) }} 메일 보내기</a>{% endif %}<a class="btn sec" href="resume.pdf" download>{{ p.icon('doc', 16) }} 상세 이력서</a>{% for l in profile.links if 'github' in l.label|lower or 'linkedin' in l.label|lower %}<a class="iconbtn" href="{{ l.url }}" target="_blank" rel="noopener" aria-label="{{ l.label }}">{{ p.link_icon(l.label) }}</a>{% endfor %}</div>
+  </div>
+  <footer><span>© {{ profile.name_en }} · data/portfolio.yaml 에서 자동 생성</span><span>{% for l in profile.links %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }}</a> · {% endfor %}<a href="private/index.html" rel="nofollow">Private</a></span></footer>
+</main>
+{{ p.theme_script() }}
+<script>
+(function(){
+var m=document.getElementById('moreposts');if(m)m.addEventListener('click',function(){document.querySelectorAll('[data-extra]').forEach(function(x){x.hidden=false;x.classList.add('in')});m.parentNode.remove();});
+var els=document.querySelectorAll('.reveal');
+if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});}
+else{var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{rootMargin:'0px 0px -8% 0px'});els.forEach(function(e){io.observe(e)});}
+var links=document.querySelectorAll('.nav a.n[href^="#"]'),secs=[].map.call(links,function(a){return document.querySelector(a.getAttribute('href'))});
+if('IntersectionObserver' in window){var so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-40% 0px -55% 0px'});secs.forEach(function(s){s&&so.observe(s)});}
+})();
+</script>
+</body>
+</html>

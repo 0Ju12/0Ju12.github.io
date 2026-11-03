@@ -40,6 +40,8 @@ def render(names=None):
 DESIGNS = [
     {"id": "showcase", "name": "Showcase (현재)", "ref": "현재 사이트",
      "desc": "어두운 히어로 + 학업 단계별(석사·학부·부트캠프) 큰 사례 카드. 지금 0ju12.github.io 에 적용된 시안."},
+    {"id": "showcase-story", "name": "★ Showcase Story", "ref": "Showcase Pro에서 수치 강조를 뺀 버전",
+     "desc": "Showcase Pro와 같은 구성에서 점수·지표를 크게 보여 주는 요소를 모두 뺐습니다. 첫 화면 숫자 행 대신 '지구물리 데이터 연구 · 국제 공동연구 · LLM·RAG 엔지니어링 · 딥러닝 모델링' 네 분야 소개, 프로젝트는 수치 칩 없이 문제와 접근 위주로, 이미지가 없는 프로젝트는 점수 대신 '접근 과정' 단계도로 보여 줍니다."},
     {"id": "showcase-pro", "name": "★ Showcase Pro", "ref": "현재 시안의 구성·색을 유지하고 다듬은 버전",
      "desc": "현재 느낌(어두운 히어로 + 좌우 교차 사례)을 그대로 두고 다듬었습니다. Pretendard·숫자 정렬, 스크롤해도 따라오는 상단 메뉴, 버튼 7개를 주요 2개 + 아이콘 3개로 정리, 기울어진 사진 대신 프로필 카드, 이모지 대신 아이콘. 프로젝트는 7개로 나눠 화면 캡처는 브라우저 프레임, 그림은 캡션, 이미지가 없으면 핵심 수치 패널로 보여 줍니다."},
     {"id": "report", "name": "A · Report", "ref": "Eugene Yan(eugeneyan.com)처럼 글과 사례 연구가 중심인 ML 엔지니어 사이트",

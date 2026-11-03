@@ -7,9 +7,10 @@
   team: "팀 · 모델 학습·정제 담당"
   cat: [llm, dl]
   metric: { value: "0.96961", label: "Public Score" }
+  flow: ["Qwen 4B 베이스라인", "27B · QLoRA 파인튜닝", "Gemma · OCR · 멀티뷰", "확률 앙상블", "fixes−breaks로 채택 검증"]
   oneliner: "이미지+질문 4지선다 VQA. Qwen QLoRA·Gemma·OCR·멀티뷰를 확률 앙상블하고, 후보는 정확도가 아니라 fixes−breaks로 채택"
   points:
-    - "Qwen 4B 0.94608 → 27B 0.95591 → 27B+4B 앙상블 0.95918 → 최종 0.96961"
+    - "새 모델은 단독 성능이 아니라, 기존 앙상블에 더했을 때 고친 문제와 새로 틀린 문제(fixes−breaks)로 평가"
     - "최고 제출을 보호 기준선으로 고정하고 유형별 회귀를 확인한 뒤에만 교체"
     - "제출 전 자동 검사(6,714행·ID·확률 행합) + SHA-256 매니페스트로 GPU 없이 재현"
   stack: [PyTorch, Hugging Face, QLoRA, Qwen, Gemma, OCR]
@@ -56,6 +57,7 @@
   team: "팀 · 데이터 구축·모델 실험"
   cat: [llm, dl]
   metric: { value: "0.32→0.74", label: "F1 (학습 전략 비교)" }
+  flow: ["콩글리시 교정 데이터셋 구축", "FLAN-T5 LoRA 학습", "순차 vs 통합 학습 비교", "FAISS 예문 RAG 결합"]
   oneliner: "콩글리시→원어민 표현 교정 데이터셋을 만들고 FLAN-T5 LoRA 학습 전략을 비교, catastrophic forgetting을 실험으로 확인 · 장려상"
   points:
     - "순차 학습에서 앞 단계 성능 하락(BERTScore F1 0.47→0.32) 확인 → 통합 학습으로 전환"

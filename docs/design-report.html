@@ -135,7 +135,7 @@ footer small{color:var(--muted)}
       <div class="met"><b>0.96961</b><span>Public Score</span></div>
     </summary>
     <div class="body">
-      <div class="txt"><ul class="pts"><li>Qwen 4B 0.94608 → 27B 0.95591 → 27B+4B 앙상블 0.95918 → 최종 0.96961</li><li>최고 제출을 보호 기준선으로 고정하고 유형별 회귀를 확인한 뒤에만 교체</li><li>제출 전 자동 검사(6,714행·ID·확률 행합) + SHA-256 매니페스트로 GPU 없이 재현</li></ul>
+      <div class="txt"><ul class="pts"><li>새 모델은 단독 성능이 아니라, 기존 앙상블에 더했을 때 고친 문제와 새로 틀린 문제(fixes−breaks)로 평가</li><li>최고 제출을 보호 기준선으로 고정하고 유형별 회귀를 확인한 뒤에만 교체</li><li>제출 전 자동 검사(6,714행·ID·확률 행합) + SHA-256 매니페스트로 GPU 없이 재현</li></ul>
 <div class="stack"><span>PyTorch</span><span>Hugging Face</span><span>QLoRA</span><span>Qwen</span><span>Gemma</span><span>OCR</span></div>
 <div class="plinks">
 <a href="posts/2026-11-vqa-ensemble-fixes-breaks.html">글 · 점수를 지키면서 올리기 — VQA 챌린지에서 앙상블 후보를 고른 기준 →</a></div></div>
