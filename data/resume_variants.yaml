@@ -1,0 +1,56 @@
+# 직무별 1쪽 이력서 변형 — portfolio.yaml 의 사실만 재배치·재서술 (새 사실 추가 금지)
+# build.py 가 docs/resume-<key>.html 로 렌더링, scripts/pdf.js 가 PDF 생성
+data:
+  label: "데이터 엔지니어"
+  headline: "데이터 수집부터 정제·검증·색인까지 파이프라인을 만드는 데이터 엔지니어"
+  highlights:
+    - { value: "파이프라인 3종", label: "오픈API·크롤링 수집 → 정제 → 색인" }
+    - { value: "테스트 136개", label: "ThRead 86 · 국보 RAG 50 (외부 호출 없이)" }
+    - { value: "SCIE 1편", label: "SPE Journal 제1저자 · 분석 코드 공개" }
+    - { value: "SSAFY 16기", label: "삼성 청년 SW·AI 아카데미" }
+  order: [bootcamp, grad, undergrad]
+  brief:
+    bootcamp:
+      - "국보 입문 가이드(개인): 국가유산청 오픈API(XML·EUC-KR)·위키백과 수집 → 정제 → ChromaDB 색인. 청크 ID 고정으로 재실행해도 중복 없는 색인, 질문별 수집 캐시·위키 장애 시 저장본 대체, 429/5xx Retry-After 재시도"
+      - "ThRead: Selenium 댓글 수집 → LLM 판단을 코드로 검증 → pandas 정제·IQR 길이 기준·증강·요약, NDJSON 진행 상황 스트리밍 · 알라딘 API 페이지네이션·중복 제거 수집 · Django 백엔드 · 자동 테스트 86개"
+      - "AI 챌린지(VQA): 제출 전 자동 검사(6,714행·ID·확률 행합) + SHA-256 매니페스트로 GPU 없이 재현 가능한 제출 관리 · Public Score 0.96961"
+      - "POSPEAK(KILL KONG): 콩글리시 교정 데이터셋 구축, FLAN-T5 LoRA 학습 전략 비교(F1 0.32→0.74) + RAG · 장려상"
+    grad:
+      - "항공 중력·자력 격자 자료를 파수 영역에서 처리하는 분석 파이프라인을 만들고, 겹친 신호를 분리하는 지표(SLFI·DLFI) 설계 — 독립 모델 3개와 상관계수 0.94 이상 일치"
+      - "분석 코드를 Python 패키지·테스트로 정리해 공개 · 캘거리대 6개월 파견, 3개 기관 공동연구 → SCIE SPE Journal 제1저자 (2026)"
+      - "국가R&D 과제 연차·진도실적 보고서 초안 작성 · 정기 연구미팅 발표 10회 이상 · 2025 기초연구실 워크숍 발표"
+    undergrad:
+      - "IAB 융합전공 캡스톤: ArcGIS로 산불 래스터 데이터를 구축하고 U-LSTM으로 화선 예측 — 미학습 산불 테스트 Accuracy 0.90 · F1 0.85"
+      - "제1저자 논문: GPlates 판구조 복원 + 대규모 CO2 저장소 탄성파 해석 (지구물리와 물리탐사, 2024) · 제2저자 논문 1편 · 학회 발표 3건"
+  skills:
+    - { category: "수집·처리", items: [Python, Pandas, SQL, Selenium, "오픈API(XML·JSON)", 웹 크롤링] }
+    - { category: "저장·검색", items: [ChromaDB, FAISS, 벡터 색인, Django ORM] }
+    - { category: "품질·운영", items: [pytest 자동 테스트, GitHub Actions CI, "SHA-256 재현성 매니페스트", 오류 로깅] }
+    - { category: "분석·ML", items: [PyTorch, TensorFlow, Hugging Face, LangGraph RAG, "공간 데이터(ArcGIS·래스터)"] }
+
+ai:
+  label: "AI·ML 엔지니어"
+  headline: "LLM 파인튜닝·RAG·시공간 딥러닝을 실험으로 검증하는 AI·ML 엔지니어"
+  highlights:
+    - { value: "0.96961", label: "SSAFY AI 챌린지(VQA) Public Score" }
+    - { value: "F1 0.32→0.74", label: "FLAN-T5 LoRA 학습 전략 비교" }
+    - { value: "SCIE 1편", label: "SPE Journal 제1저자" }
+    - { value: "SSAFY 16기", label: "삼성 청년 SW·AI 아카데미" }
+  order: [bootcamp, undergrad, grad]
+  brief:
+    bootcamp:
+      - "AI 챌린지(VQA): Qwen 4B 0.94608 → 27B 0.95591 → 확률 앙상블 → Qwen QLoRA·Gemma·OCR·멀티뷰 결합으로 Public 0.96961. 후보는 정확도가 아닌 fixes−breaks와 유형별 회귀로 채택"
+      - "국보 입문 가이드(개인): LangGraph retrieve→generate RAG, 출처별 청킹·MMR 검색, 답변의 [근거 N]을 코드로 검증해 없는 번호 제거 · 가짜 LLM 기반 테스트 50개"
+      - "POSPEAK(KILL KONG): 콩글리시 교정 데이터셋 구축, FLAN-T5 LoRA 학습 전략 비교(F1 0.32→0.74)·catastrophic forgetting 분석 + RAG · 장려상"
+      - "ThRead: LLM 판단(부적절 댓글·도서 추천)을 코드로 검증하는 파이프라인 · Django 백엔드 · 자동 테스트 86개"
+    undergrad:
+      - "IAB 융합전공 캡스톤: Conv2D 인코더–LSTM–디코더 U-LSTM을 설계·학습해 산불 4건의 소규모 데이터로 화선 예측 — 미학습 산불 테스트 Accuracy 0.90 · F1 0.85"
+      - "제1저자 논문: GPlates 판구조 복원 + 대규모 CO2 저장소 탄성파 해석 (지구물리와 물리탐사, 2024) · 학회 발표 3건"
+    grad:
+      - "파수 영역 상관 분석으로 겹친 중력·자력 신호를 분리하는 지표(SLFI·DLFI) 설계 — 독립 모델 3개와 상관계수 0.94 이상 일치 · 분석 코드 공개"
+      - "캘거리대 6개월 파견 · 칼리파대(UAE) 3개 기관 공동연구 → SCIE SPE Journal 제1저자 논문 (2026)"
+  skills:
+    - { category: "모델·학습", items: [PyTorch, TensorFlow, Hugging Face Transformers, LoRA/QLoRA, "FLAN-T5·Qwen·Gemma"] }
+    - { category: "LLM 응용", items: ["RAG(LangGraph·ChromaDB·FAISS)", 프롬프트 설계, 응답·인용 검증] }
+    - { category: "딥러닝", items: ["시공간 딥러닝(U-LSTM)", CNN·LSTM, 멀티모델 확률 앙상블] }
+    - { category: "평가·데이터", items: [F1·BERTScore, fixes−breaks 회귀 분석, pytest, Pandas, SQL, ArcGIS] }

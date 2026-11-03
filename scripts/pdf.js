@@ -5,7 +5,7 @@ const path = require('path');
   const root = path.resolve(__dirname, '..');
   const browser = await chromium.launch();
   const page = await browser.newPage();
-  for (const name of ['resume', 'resume-1page', 'resume-en', 'resume-1page-en']) {
+  for (const name of ['resume', 'resume-1page', 'resume-en', 'resume-1page-en', 'resume-data', 'resume-ai']) {
     await page.goto('file://' + path.join(root, 'docs', name + '.html'), { waitUntil: 'networkidle' });
     await page.evaluate(() => document.fonts.ready);
     await page.pdf({ path: path.join(root, 'docs', name + '.pdf'), format: 'A4', printBackground: true, preferCSSPageSize: true });

@@ -197,6 +197,15 @@ def main():
         (DOCS / f"design-{t}.html").write_text(site_tpl.render(theme=t, **data), encoding="utf-8")
     (DOCS / "resume.html").write_text(env.get_template("resume.html.j2").render(**data), encoding="utf-8")
     (DOCS / "resume-1page.html").write_text(env.get_template("resume-1page.html.j2").render(**data), encoding="utf-8")
+    # 직무별 1쪽 이력서: data/resume_variants.yaml → docs/resume-<key>.html (사실은 portfolio.yaml 것만 재배치)
+    variants_file = ROOT / "data" / "resume_variants.yaml"
+    for key, v in (yaml.safe_load(variants_file.read_text(encoding="utf-8")) if variants_file.exists() else {}).items():
+        by_id = {a.get("id"): a for a in data["featured"]}
+        featured = [dict(by_id[i], brief=(v.get("brief") or {}).get(i) or by_id[i].get("brief")) for i in v["order"] if i in by_id]
+        vd = dict(data, featured=featured, profile=dict(data["profile"], headline=v["headline"]),
+                  highlights=v.get("highlights") or data["highlights"], skills=v.get("skills") or data["skills"],
+                  variant_label=v.get("label"))
+        (DOCS / f"resume-{key}.html").write_text(env.get_template("resume-1page.html.j2").render(**vd), encoding="utf-8")
     import build_en
     build_en.main()
     (OUT / "notion.md").write_text(md_env.get_template("notion.md.j2").render(**data), encoding="utf-8")
