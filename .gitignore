@@ -6,3 +6,6 @@ __pycache__/
 # 비공개 원문 (평문) — 절대 커밋 금지. 공개키로 잠근 content/private_sealed/ 만 커밋
 /content/private/
 *.key.pem
+
+# 강의 노트 원본(평문) — 커밋 금지. 공개키로 잠근 content/study_sealed/ 만 커밋 (scripts/study_seal.py)
+/content/study/notes/

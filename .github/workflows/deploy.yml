@@ -27,6 +27,7 @@ jobs:
         env:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           PRIVATE_PASSWORD: ${{ secrets.PRIVATE_PASSWORD }}
+          STUDY_PASSWORD: ${{ secrets.STUDY_PASSWORD }}   # 강의 노트 암호 (비워 두면 PRIVATE_PASSWORD 사용)
       - run: npm install playwright@1.47.2 && npx playwright install --with-deps chromium
       - run: node scripts/pdf.js
       - name: Check links, images, 1-page resumes
