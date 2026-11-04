@@ -245,7 +245,7 @@ button.ev{font:inherit;cursor:pointer;border:0;transition:background .15s,color 
 </style>
 </head>
 <body class="role-all">
-<nav class="top" aria-label="menu"><a class="me" href="#top">{{ p.avatar(profile) }}{{ profile.name }}</a><a class="n" href="#work">{{ T.work }}</a>{% if posts %}<a class="n" href="#writing">{{ T.writing }}</a>{% endif %}<a class="n" href="#about">{{ T.about }}</a>{% if study_notes %}<a class="nk" href="study/index.html">{{ T.notes }}</a>{% endif %}{% if alt_lang %}<a href="{{ alt_lang.url }}" hreflang="{{ alt_lang.code }}">{{ alt_lang.label }}</a>{% endif %}<button id="theme" type="button">{{ T.theme }}</button></nav>
+<nav class="top" aria-label="menu"><a class="me" href="#top">{{ p.avatar(profile) }}{{ profile.name }}</a><a class="n" href="#work">{{ T.work }}</a>{% if posts %}<a class="n" href="#writing">{{ T.writing }}</a>{% endif %}<a class="n" href="#map">{{ 'Map' if en else '지도' }}</a><a class="n" href="#about">{{ T.about }}</a>{% if study_notes %}<a class="nk" href="study/index.html">{{ T.notes }}</a>{% endif %}{% if alt_lang %}<a href="{{ alt_lang.url }}" hreflang="{{ alt_lang.code }}">{{ alt_lang.label }}</a>{% endif %}<button id="theme" type="button">{{ T.theme }}</button></nav>
 
 <div class="w" id="top">
   <header class="hero">
@@ -302,6 +302,8 @@ button.ev{font:inherit;cursor:pointer;border:0;transition:background .15s,color 
     </div>
 
   </section>
+
+  {% include "_map.j2" %}
 
   {% if posts %}
   <section id="writing">

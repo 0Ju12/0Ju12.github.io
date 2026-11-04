@@ -1,0 +1,145 @@
+{# 커리어 지도 — data/career_map.yaml + data/geo/basemap.json (build.py career_map). 사용: {% include "_map.j2" %} (en, career_map 필요) #}
+{% if career_map %}
+{% set M = career_map %}{% set B = M.base %}
+{% set LY = {
+  'stay': ('Where I worked' if en else '머문 곳'),
+  'data': ('Regions I studied with data' if en else '데이터로 연구한 지역'),
+  'partner': ('Partner institution' if en else '협력 기관'),
+} %}
+{% set cnt = {'stay': 0, 'data': 0, 'partner': 0} %}{% for pl in M.places %}{% set _ = cnt.update({pl.layer: cnt[pl.layer] + 1}) %}{% endfor %}
+{% set kcount = M.places|selectattr('inset')|list|length %}
+{% set home = (M.places|selectattr('id', 'equalto', 'jeonju')|first) %}
+<style>
+.cmap{--stay:#5b6cff;--data:#ea7a0c;--partner:#16a34a;--land:color-mix(in srgb,var(--text) 11%,var(--card));--land2:color-mix(in srgb,var(--text) 5%,var(--card))}
+.cmap-f{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.cmap-f button{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);color:var(--muted);font:inherit;font-size:13.5px;font-weight:700;padding:7px 14px;border-radius:999px;cursor:pointer}
+.cmap-f button[aria-pressed="true"]{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.cmap-f i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.cmap-g{display:grid;grid-template-columns:1fr 300px;gap:14px;align-items:start}
+.cmap-card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:26px;overflow:hidden}
+.cmap-world{padding:14px}
+.cmap-stage{position:relative}
+.cmap-stage svg{display:block;width:100%;height:auto}
+.cmap-stage .land{fill:var(--land)}
+.cmap-stage .ctx{fill:var(--land2)}
+.cmap-stage .kr{fill:var(--land);stroke:color-mix(in srgb,var(--text) 20%,transparent);stroke-width:.6}
+.pin{position:absolute;transform:translate(-50%,-50%);width:22px;height:22px;border:0;padding:0;background:none;cursor:pointer;display:grid;place-items:center;z-index:2}
+.pin i{display:block;width:10px;height:10px;border-radius:50%;background:var(--c);box-shadow:0 0 0 2px var(--card);transition:transform .15s}
+.pin.data i{width:8px;height:8px}
+.pin.partner i{border-radius:2px;transform:rotate(45deg)}
+.pin.stay i::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--c);opacity:.45;animation:cmp 2.4s ease-out infinite}
+.pin.stay i{position:relative}
+@keyframes cmp{0%{transform:scale(.6);opacity:.6}100%{transform:scale(1.6);opacity:0}}
+@media (prefers-reduced-motion: reduce){.pin.stay i::after{animation:none}}
+.pin:hover i,.pin:focus-visible i,.pin.on i{transform:scale(1.5)}
+.pin.partner:hover i,.pin.partner.on i{transform:rotate(45deg) scale(1.5)}
+.pin:focus-visible{outline:2px solid var(--text);outline-offset:2px;border-radius:50%}
+.pin.grp{width:28px;height:28px}
+.pin.grp b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--c);color:#fff;font-size:11.5px;font-weight:800;box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 30%,transparent),0 0 0 5px var(--card);transition:transform .15s}
+.pin.grp:hover b,.pin.grp.on b{transform:scale(1.15)}
+.pin.grp.off,.plabel.off{display:none}
+.cmap-info .mlist{list-style:none;margin:6px 0 0;padding:0}
+.cmap-info .mlist button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:none;font:inherit;font-size:14px;color:var(--text);padding:9px 10px;border-radius:12px;cursor:pointer}
+.cmap-info .mlist button:hover{background:var(--bg)}
+.cmap-info .mlist i{flex:none;width:9px;height:9px;border-radius:50%}
+.pin.kgroup{width:auto;height:auto;transform:translate(-8px,-50%)}
+.pin.kgroup span{display:inline-flex;align-items:center;gap:6px;background:var(--ink);color:var(--on-ink);font-size:11.5px;font-weight:700;padding:3px 9px 3px 4px;border-radius:999px;box-shadow:var(--shadow);white-space:nowrap}
+.pin.kgroup span b{width:16px;height:16px;border-radius:50%;background:var(--stay);display:grid;place-items:center;font-size:10px;color:#fff}
+.plabel{position:absolute;transform:translate(10px,-50%);font-size:11.5px;font-weight:700;color:var(--muted);white-space:nowrap;pointer-events:none;z-index:1;text-shadow:0 0 4px var(--card),0 0 4px var(--card)}
+.plabel.left{transform:translate(calc(-100% - 10px),-50%)}
+.cmap.hide-stay .pin.stay:not(.grp),.cmap.hide-data .pin.data:not(.grp),.cmap.hide-partner .pin.partner:not(.grp),.cmap.hide-stay .plabel.stay:not(.grp-l),.cmap.hide-data .plabel.data:not(.grp-l),.cmap.hide-partner .plabel.partner:not(.grp-l){display:none}
+.cmap-side{display:grid;gap:14px}
+.cmap-inset{padding:12px 12px 6px}
+.cmap-inset h4,.cmap-info h4{margin:0 0 6px;font-size:13px;color:var(--faint);font-weight:700;letter-spacing:.02em}
+.cmap-info{padding:18px 20px;min-height:180px}
+.cmap-info .nm{font-size:17px;font-weight:800;letter-spacing:-.02em;line-height:1.4;margin:6px 0 2px}
+.cmap-info .wh{font-size:13px;color:var(--faint);margin-bottom:10px}
+.cmap-info p{margin:0 0 12px;font-size:14px;color:var(--muted);line-height:1.65}
+.cmap-info .lb{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:2px 10px;border-radius:999px;background:color-mix(in srgb,var(--c) 14%,transparent);color:var(--c)}
+.cmap-info a.go{display:inline-flex;font-size:13.5px;font-weight:700;padding:8px 14px;border-radius:999px;background:var(--ink);color:var(--on-ink)}
+.cmap-info .hint{font-size:14px;color:var(--muted);margin:4px 0 12px}
+.cmap-info ul{list-style:none;margin:0;padding:0;font-size:13.5px;color:var(--muted)}
+.cmap-info li{display:flex;align-items:center;gap:8px;padding:3px 0}
+.cmap-info li i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.cmap-swipe{display:none;font-size:12px;color:var(--faint);margin:-6px 2px 8px}
+.pin.kgroup.left{transform:translate(calc(-100% + 8px),-50%)}
+.cmap-note{font-size:12px;color:var(--faint);margin:10px 2px 0}
+@media (max-width:960px){
+  .cmap-g{grid-template-columns:1fr}
+  .cmap-world{padding:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+  .cmap-world .cmap-stage{width:760px}
+  .cmap-swipe{display:block!important}
+  .plabel{font-size:10.5px}
+  .cmap-side{grid-template-columns:1fr}
+}
+</style>
+<section id="map" class="cmap">
+  <div class="sec-t"><h2>{{ 'Footprints' if en else '발자취' }}</h2><p>{{ 'Where I worked and the regions I studied with data — tap a point to see what I did there.' if en else '머문 곳과 데이터로 연구한 지역입니다. 점을 누르면 그곳에서 한 일이 나옵니다.' }}</p></div>
+  <div class="cmap-f" role="group" aria-label="{{ 'Layers' if en else '지도 층' }}">
+    {% for k in ['stay', 'data', 'partner'] %}<button type="button" data-layer="{{ k }}" aria-pressed="true"><i style="background:var(--{{ k }})"></i>{{ LY[k] }} {{ cnt[k] }}</button>{% endfor %}
+  </div>
+  <p class="cmap-swipe">{{ '← Swipe the world map sideways →' if en else '← 세계 지도는 옆으로 밀어서 볼 수 있어요 →' }}</p>
+  <div class="cmap-g">
+    <div class="cmap-card cmap-world">
+      <div class="cmap-stage">
+        <svg viewBox="0 0 {{ B.world.w }} {{ B.world.h }}" role="img" aria-label="{{ 'World map of my career' if en else '커리어 세계 지도' }}"><path class="land" d="{{ B.world.land }}"/></svg>
+        {% set PB = {} %}{% for pl in M.places %}{% set _ = PB.update({pl.id: pl}) %}{% endfor %}
+        {% for gr in M.groups %}{% set pl = PB[gr.members[0]] %}{% set t = pl.en if en else pl.ko %}
+        {% set gx = (gr.x / B.world.w * 100)|round(2) %}{% set gy = (gr.y / B.world.h * 100)|round(2) %}
+        {% if gr.members|length == 1 %}
+        <button type="button" class="pin {{ pl.layer }}" style="left:{{ gx }}%;top:{{ gy }}%;--c:var(--{{ pl.layer }})" data-id="{{ pl.id }}" aria-label="{{ t.name }}" title="{{ t.name }}"><i></i></button>
+        {% if gr.label %}<span class="plabel {{ pl.layer }}{% if gr.x > B.world.w * 0.8 %} left{% endif %}" style="left:{{ gx }}%;top:{{ gy }}%">{{ t.name.split(' (')[0] }}</span>{% endif %}
+        {% else %}{% set rg = (pl.region.en if en else pl.region.ko) if pl.region else t.name.split(' (')[0] %}
+        <button type="button" class="pin grp {{ gr.layers|join(' ') }}" style="left:{{ gx }}%;top:{{ gy }}%;--c:var(--{{ gr.layers[0] }})" data-members="{{ gr.members|join(',') }}" data-region="{{ rg }}" aria-label="{{ rg }} — {{ gr.members|length }}{{ ' places' if en else '곳' }}" title="{{ rg }}"><b>{{ gr.members|length }}</b></button>
+        <span class="plabel grp-l {{ gr.layers|join(' ') }}{% if gr.x > B.world.w * 0.8 %} left{% endif %}" style="left:{{ gx }}%;top:{{ gy }}%;transform:translate(16px,-50%)">{{ rg }}</span>
+        {% endif %}
+        {% endfor %}
+        {% if home %}<button type="button" class="pin kgroup stay{% if home.x > B.world.w * 0.8 %} left{% endif %}" style="left:{{ (home.x / B.world.w * 100)|round(2) }}%;top:{{ (home.y / B.world.h * 100)|round(2) }}%;--c:var(--stay)" data-id="jeonju" aria-label="{{ 'Korea — see the zoomed map' if en else '대한민국 — 확대 지도 보기' }}"><span><b>{{ kcount }}</b>{{ 'Korea' if en else '대한민국' }}</span></button>{% endif %}
+      </div>
+    </div>
+    <div class="cmap-side">
+      <div class="cmap-card cmap-inset" id="cmap-korea">
+        <h4>{{ 'Korea (zoomed)' if en else '한반도 확대' }}</h4>
+        <div class="cmap-stage">
+          <svg viewBox="0 0 {{ B.korea.w }} {{ B.korea.h }}" role="img" aria-label="{{ 'Map of Korea' if en else '한반도 지도' }}"><path class="ctx" d="{{ B.korea.ctx }}"/><path class="kr" d="{{ B.korea.kr }}"/></svg>
+          {% for pl in M.places if pl.inset %}{% set t = pl.en if en else pl.ko %}
+          <button type="button" class="pin {{ pl.layer }}" style="left:{{ (pl.ix / B.korea.w * 100)|round(2) }}%;top:{{ (pl.iy / B.korea.h * 100)|round(2) }}%;--c:var(--{{ pl.layer }})" data-id="{{ pl.id }}" aria-label="{{ t.name }}" title="{{ t.name }}"><i></i></button>
+          <span class="plabel {{ pl.layer }}{% if pl.ix > B.korea.w * 0.7 %} left{% endif %}" style="left:{{ (pl.ix / B.korea.w * 100)|round(2) }}%;top:{{ (pl.iy / B.korea.h * 100)|round(2) }}%">{{ t.name.split(' (')[0] }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="cmap-card cmap-info" id="cmap-info" aria-live="polite">
+        <h4>{{ 'Details' if en else '자세히' }}</h4>
+        <p class="hint">{{ 'Tap a point on the map.' if en else '지도의 점을 눌러 보세요.' }}</p>
+        <ul>{% for k in ['stay', 'data', 'partner'] %}<li><i style="background:var(--{{ k }})"></i>{{ LY[k] }} · {{ cnt[k] }}</li>{% endfor %}</ul>
+      </div>
+    </div>
+  </div>
+  <p class="cmap-note">{{ 'Locations are approximate; offshore fields and storage sites are shown at a nearby point. Countries outlines: Natural Earth via world-atlas.' if en else '위치는 대략적입니다. 해상 광구·저장소는 근처 지점에 표시했습니다. 지도 윤곽: Natural Earth(world-atlas).' }}</p>
+  <script type="application/json" id="cmap-data">{{ M.places|map(attribute='id')|list|tojson }}</script>
+  {% set info = {} %}{% for pl in M.places %}{% set t = pl.en if en else pl.ko %}{% set _ = info.update({pl.id: {'n': t.name, 'w': t.when, 'd': t.desc, 'l': pl.layer, 'u': ('projects/' ~ pl.link ~ ('-en' if en else '') ~ '.html') if pl.link else ''}}) %}{% endfor %}
+  <script type="application/json" id="cmap-info-data">{{ info|tojson }}</script>
+</section>
+<script>
+(function(){
+var root=document.querySelector('.cmap');if(!root)return;
+var INFO=JSON.parse(document.getElementById('cmap-info-data').textContent),box=document.getElementById('cmap-info');
+var LBL={stay:'{{ LY.stay }}',data:'{{ LY.data }}',partner:'{{ LY.partner }}'},GO='{{ "Project details →" if en else "관련 프로젝트 보기 →" }}';
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function pick(id,btn){var p=INFO[id];if(!p)return;
+  root.querySelectorAll('.pin.on').forEach(function(x){x.classList.remove('on')});
+  root.querySelectorAll('.pin[data-id="'+id+'"]').forEach(function(x){if(!x.classList.contains('kgroup'))x.classList.add('on')});
+  box.innerHTML='<h4>{{ "Details" if en else "자세히" }}</h4><span class="lb" style="--c:var(--'+p.l+')">'+esc(LBL[p.l])+'</span><div class="nm">'+esc(p.n)+'</div><div class="wh">'+esc(p.w)+'</div><p>'+esc(p.d)+'</p>'+(p.u?'<a class="go" href="'+p.u+'">'+GO+'</a>':'');
+  if(btn&&btn.classList.contains('kgroup')){var k=document.getElementById('cmap-korea');if(k&&k.scrollIntoView&&matchMedia('(max-width:960px)').matches)k.scrollIntoView({block:'nearest',behavior:'smooth'})}
+}
+var HID={};
+function vis(id){return !HID[INFO[id].l]}
+function list(btn){var ms=btn.dataset.members.split(',').filter(vis);root.querySelectorAll('.pin.on').forEach(function(x){x.classList.remove('on')});btn.classList.add('on');
+  box.innerHTML='<h4>{{ "Details" if en else "자세히" }}</h4><div class="nm">'+esc(btn.dataset.region)+'</div><div class="wh">'+ms.length+'{{ " places — choose one" if en else "곳 — 하나를 골라 보세요" }}</div><ul class="mlist">'+ms.map(function(id){var p=INFO[id];return '<li><button type="button" data-pick="'+id+'"><i style="background:var(--'+p.l+')"></i>'+esc(p.n)+'</button></li>'}).join('')+'</ul>';
+  box.querySelectorAll('[data-pick]').forEach(function(b){b.addEventListener('click',function(){pick(b.dataset.pick);btn.classList.add('on')})});}
+root.querySelectorAll('.pin').forEach(function(b){b.addEventListener('click',function(){if(b.classList.contains('grp'))list(b);else pick(b.dataset.id,b)})});
+function regroup(){root.querySelectorAll('.pin.grp').forEach(function(g){var n=g.dataset.members.split(',').filter(vis).length;g.classList.toggle('off',!n);g.querySelector('b').textContent=n;var l=g.nextElementSibling;if(l&&l.classList.contains('grp-l'))l.classList.toggle('off',!n);})}
+root.querySelectorAll('.cmap-f button').forEach(function(b){b.addEventListener('click',function(){var on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);root.classList.toggle('hide-'+b.dataset.layer,!on);HID[b.dataset.layer]=!on;regroup()})});
+})();
+</script>
+{% endif %}

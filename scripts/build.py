@@ -108,6 +108,7 @@ def normalize(data):
     for g in data.get("activities") or []:
         for sp in g.get("projects") or []:
             sp["case"] = notes.get(sp.get("id")) or {}
+    data["career_map"] = career_map()
     rv = DATA.parent / "resume_variants.yaml"   # 직무별 보기(사이트)·직무별 이력서 공용
     data["role_variants"] = yaml.safe_load(rv.read_text(encoding="utf-8")) if rv.exists() else {}
     pi = DATA.parent / "projects_index.yaml"   # 디자인 시안용 프로젝트 단위 목록
@@ -171,6 +172,51 @@ def load_posts(acts):
         meta["project_title"] = titles.get(meta.get("project"))
         posts.append(meta)
     return sorted(posts, key=lambda p: (str(p.get("date", "")), p["slug"]), reverse=True)
+
+
+def _equal_earth(lon, lat, k, tx, ty):
+    """d3.geoEqualEarth 와 같은 공식 — data/geo/basemap.json 의 k·tx·ty 로 화면 좌표 계산"""
+    import math
+    A1, A2, A3, A4, M = 1.340264, -0.081106, 0.000893, 0.003796, math.sqrt(3) / 2
+    lam, phi = math.radians(lon), math.radians(lat)
+    l = math.asin(M * math.sin(phi)); l2 = l * l; l6 = l2 * l2 * l2
+    x = lam * math.cos(l) / (M * (A1 + 3 * A2 * l2 + l6 * (7 * A3 + 9 * A4 * l2)))
+    y = l * (A1 + A2 * l2 + l6 * (A3 + A4 * l2))
+    return round(x * k + tx, 1), round(-y * k + ty, 1)
+
+
+def _mercator(lon, lat, k, tx, ty):
+    import math
+    lam, phi = math.radians(lon), math.radians(lat)
+    return round(lam * k + tx, 1), round(-math.log(math.tan(math.pi / 4 + phi / 2)) * k + ty, 1)
+
+
+def career_map():
+    """data/career_map.yaml + data/geo/basemap.json → 템플릿용 지도 데이터 (없으면 None)"""
+    f, g = DATA.parent / "career_map.yaml", DATA.parent / "geo" / "basemap.json"
+    if not (f.exists() and g.exists()):
+        return None
+    base = json.loads(g.read_text(encoding="utf-8"))
+    w, kr = base["world"], base["korea"]
+    places = yaml.safe_load(f.read_text(encoding="utf-8")) or []
+    for pl in places:
+        pl["x"], pl["y"] = _equal_earth(pl["lon"], pl["lat"], w["k"], w["tx"], w["ty"])
+        if pl.get("inset"):
+            pl["ix"], pl["iy"] = _mercator(pl["lon"], pl["lat"], kr["k"], kr["tx"], kr["ty"])
+    # 세계 지도에서 가까운 점(30px 이내)은 하나의 묶음 표시로 — 휴대폰에서도 누를 수 있게
+    rank = {"stay": 0, "partner": 1, "data": 2}
+    groups = []
+    for pl in sorted((p for p in places if not p.get("inset")), key=lambda p: rank[p["layer"]]):
+        for gr in groups:
+            if ((gr["x"] - pl["x"]) ** 2 + (gr["y"] - pl["y"]) ** 2) ** 0.5 <= 30:
+                gr["members"].append(pl["id"]); break
+        else:
+            groups.append({"x": pl["x"], "y": pl["y"], "members": [pl["id"]], "layer": pl["layer"], "label": pl.get("label")})
+    byid = {p["id"]: p for p in places}
+    for gr in groups:
+        gr["layers"] = sorted({byid[m]["layer"] for m in gr["members"]}, key=rank.get)
+        gr["label"] = gr["label"] or any(byid[m].get("label") for m in gr["members"])
+    return {"base": base, "places": places, "groups": groups}
 
 
 def evidence_index(data, en=False):

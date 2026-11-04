@@ -1,0 +1,68 @@
+# 커리어 지도 — 메인 페이지 '발자취' 섹션 (templates/_map.j2, 바탕 지도 data/geo/basemap.json)
+# layer: stay(머문 곳) · data(데이터로 연구한 지역) · partner(협력 기관)
+# 좌표는 대략적인 위치입니다(해상 광구·저장소는 근처 지점). 사실은 portfolio.yaml 에 있는 것만.
+# link: 프로젝트 상세 페이지 id(docs/projects/<id>.html) 또는 posts/<slug>
+# inset: true 이면 한반도 확대 지도에 표시하고, 세계 지도에서는 '대한민국' 묶음 표시로 대신함
+
+- id: jeonju
+  layer: stay
+  inset: true
+  lat: 35.846
+  lon: 127.129
+  ko: { name: "전북대학교 (전주)", when: "~2024.02 학부 · 2024.03–2026.08 석사", desc: "자원에너지공학 학사, 환경에너지융합학과 석사. 학부연구생으로 해외 CO2 저장소 탄성파 해석(제1저자), 석사 과정에서 중력·자력 파수 상관 분석(SPE Journal 제1저자)." }
+  en: { name: "Jeonbuk National Univ. (Jeonju)", when: "B.S. ~2024.02 · M.S. 2024.03–2026.08", desc: "B.S. in Mineral Resources & Energy Eng., M.S. in Environment & Energy. First-author papers on CO2-storage seismic interpretation and gravity–magnetic wavenumber correlation (SPE Journal)." }
+  link: masters
+- id: calgary
+  layer: stay
+  lat: 51.078
+  lon: -114.133
+  label: true
+  region: { ko: "서부 캐나다", en: "Western Canada" }
+  ko: { name: "캘거리대학교 (캐나다)", when: "2023.12–2024.02 단기 · 2024.06–12 장기 파견", desc: "학부 때 단기 파견으로 Utah FORGE 중력 데이터 처리, 석사 때 약 6개월 장기 파견으로 측지공학과 연구진과 항공 중력·자력 자료 복합 해석." }
+  en: { name: "University of Calgary (Canada)", when: "2023.12–2024.02 short · 2024.06–12 long stay", desc: "Short undergraduate stay processing Utah FORGE gravity data; ~6-month graduate stay jointly interpreting airborne gravity and magnetic data with the geomatics group." }
+  link: calgary-2024
+- id: kananaskis
+  layer: stay
+  lat: 50.95
+  lon: -115.15
+  ko: { name: "카나나스키스 (캐나다 로키)", when: "2024.08", desc: "현장 지구물리 탐사에 참여하고 영문 현장 탐사 보고서(Field Exploration Report)를 공동 작성." }
+  en: { name: "Kananaskis (Canadian Rockies)", when: "2024.08", desc: "Field geophysical survey; co-wrote the English field exploration report." }
+  link: calgary-2024
+- id: khalifa
+  layer: partner
+  lat: 24.446
+  lon: 54.395
+  region: { ko: "아부다비·페르시아만", en: "Abu Dhabi · Persian Gulf" }
+  ko: { name: "칼리파대학교 (아부다비)", when: "2024–2026 공동연구", desc: "캘거리대·전북대와 3개 기관 공동연구로 SPE Journal 논문." }
+  en: { name: "Khalifa University (Abu Dhabi)", when: "2024–2026 joint research", desc: "Three-institution collaboration with Calgary and Jeonbuk, leading to the SPE Journal paper." }
+  link: masters
+- id: ghasha
+  layer: data
+  lat: 24.25
+  lon: 52.75
+  label: true
+  ko: { name: "가샤 지역 (아부다비 해상, 대략 위치)", when: "2024–2026 석사 연구", desc: "8~10 km 퇴적층 아래 겹친 암염·기반암 신호를 파수 상관 분석(SLFI·DLFI)으로 분리 — 석사 학위논문·SPE Journal." }
+  en: { name: "Ghasha area (offshore Abu Dhabi, approx.)", when: "2024–2026 M.S. research", desc: "Separated overlapping salt and basement signals beneath 8–10 km of sediments with wavenumber correlation (SLFI · DLFI)." }
+  link: masters
+- id: forge
+  layer: data
+  lat: 38.502
+  lon: -112.896
+  label: true
+  ko: { name: "Utah FORGE 지열 부지 (미국)", when: "2023.12–2024.02 · 2024.04 포스터", desc: "캘거리대 단기 파견 중 지열 부지 중력 데이터 처리, 이후 포스터 발표." }
+  en: { name: "Utah FORGE geothermal site (USA)", when: "2023.12–2024.02 · poster 2024.04", desc: "Processed gravity data of the geothermal site during the Calgary stay; poster presentation afterwards." }
+  link: undergrad-research
+- { id: quest, layer: data, lat: 54.0, lon: -112.9, ko: { name: "Quest CCS (캐나다 앨버타)", when: "학부 논문 (2023)", desc: "학부 제1저자 논문에서 판구조 형성사와 함께 탄성파 영상을 해석한 북미 저장소." }, en: { name: "Quest CCS (Alberta, Canada)", when: "B.S. paper (2023)", desc: "North American storage site interpreted with its plate-tectonic history in my first-author paper." }, link: undergrad-research }
+- { id: weyburn, layer: data, lat: 49.6, lon: -103.7, ko: { name: "Weyburn-Midale (캐나다)", when: "학부 논문 (2023)", desc: "학부 제1저자 논문의 북미 대표 저장소." }, en: { name: "Weyburn-Midale (Canada)", when: "B.S. paper (2023)", desc: "North American storage site in my first-author paper." }, link: undergrad-research }
+- { id: northernlights, layer: data, region: { ko: "북해", en: "North Sea" }, lat: 60.6, lon: 3.7, ko: { name: "Northern Lights (노르웨이 해상)", when: "학부 논문 (2023)", desc: "학부 제1저자 논문의 북해 대표 저장소." }, en: { name: "Northern Lights (offshore Norway)", when: "B.S. paper (2023)", desc: "North Sea storage site in my first-author paper." }, link: undergrad-research }
+- { id: sleipner, layer: data, lat: 58.37, lon: 1.9, ko: { name: "Sleipner (북해)", when: "2023 학회 발표", desc: "노르웨이 슬라이프너 지구물리 모니터링 적용 사례 분석." }, en: { name: "Sleipner (North Sea)", when: "2023 talk", desc: "Analysis of geophysical monitoring at Sleipner." }, link: undergrad-research }
+- { id: porthos, layer: data, lat: 52.1, lon: 3.9, ko: { name: "PORTHOS (네덜란드 해상)", when: "학부 논문 (2023)", desc: "학부 제1저자 논문의 북해 대표 저장소." }, en: { name: "PORTHOS (offshore Netherlands)", when: "B.S. paper (2023)", desc: "North Sea storage site in my first-author paper." }, link: undergrad-research }
+- { id: uthmaniyah, layer: data, lat: 25.2, lon: 49.3, ko: { name: "Uthmaniyah (사우디아라비아)", when: "학부 논문 (2023)", desc: "학부 제1저자 논문의 중동 대표 저장소." }, en: { name: "Uthmaniyah (Saudi Arabia)", when: "B.S. paper (2023)", desc: "Middle East storage site in my first-author paper." }, link: undergrad-research }
+- { id: qatar, layer: data, lat: 25.9, lon: 51.55, ko: { name: "카타르 LNG CCS", when: "학부 논문 (2023)", desc: "학부 제1저자 논문의 중동 대표 저장소." }, en: { name: "Qatar LNG CCS", when: "B.S. paper (2023)", desc: "Middle East storage site in my first-author paper." }, link: undergrad-research }
+- { id: gorgon, layer: data, lat: -20.8, lon: 115.4, label: true, ko: { name: "Gorgon (호주 배로섬)", when: "학부 논문 (2023)", desc: "학부 제1저자 논문의 오세아니아 대표 저장소." }, en: { name: "Gorgon (Barrow Island, Australia)", when: "B.S. paper (2023)", desc: "Oceania storage site in my first-author paper." }, link: undergrad-research }
+- { id: moomba, layer: data, lat: -28.11, lon: 140.2, ko: { name: "Moomba (호주)", when: "학부 논문 (2023)", desc: "학부 제1저자 논문의 오세아니아 대표 저장소." }, en: { name: "Moomba (Australia)", when: "B.S. paper (2023)", desc: "Oceania storage site in my first-author paper." }, link: undergrad-research }
+- { id: carbonnet, layer: data, lat: -38.4, lon: 147.5, ko: { name: "CarbonNet (호주 깁스랜드 분지)", when: "2023 제2저자 논문", desc: "깁스랜드 분지 CarbonNet CCS 프로젝트의 지질학적 분석." }, en: { name: "CarbonNet (Gippsland Basin, Australia)", when: "2023 second-author paper", desc: "Geological analysis of the CarbonNet CCS project." }, link: undergrad-research }
+- { id: uljin, layer: data, inset: true, lat: 37.0, lon: 129.3, ko: { name: "울진·삼척 산불", when: "2023 캡스톤", desc: "U-LSTM 산불 확산 예측 학습 데이터 (화선·고도·NDVI·풍향·풍속 래스터)." }, en: { name: "Uljin–Samcheok wildfire", when: "2023 capstone", desc: "Training data for the U-LSTM wildfire-spread model." }, link: wildfire-capstone }
+- { id: gunwi, layer: data, inset: true, lat: 36.24, lon: 128.57, ko: { name: "군위 산불", when: "2023 캡스톤", desc: "U-LSTM 학습 데이터." }, en: { name: "Gunwi wildfire", when: "2023 capstone", desc: "Training data for the U-LSTM model." }, link: wildfire-capstone }
+- { id: miryang, layer: data, inset: true, lat: 35.5, lon: 128.75, ko: { name: "밀양 산불", when: "2023 캡스톤", desc: "U-LSTM 학습 데이터." }, en: { name: "Miryang wildfire", when: "2023 capstone", desc: "Training data for the U-LSTM model." }, link: wildfire-capstone }
+- { id: gangneung, layer: data, inset: true, lat: 37.75, lon: 128.88, ko: { name: "강릉 산불", when: "2023 캡스톤", desc: "학습에 쓰지 않은 미학습 테스트 산불 — 일반화 검증." }, en: { name: "Gangneung wildfire", when: "2023 capstone", desc: "Held-out test fire for checking generalization." }, link: wildfire-capstone }
