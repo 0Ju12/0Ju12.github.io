@@ -14,7 +14,11 @@ Data & AI Engineer | M.S. (SCIE first author) · Spatiotemporal deep learning ·
 ```
 M.S. in Environment and Energy (Jeonbuk National University, 2026) with a B.S. in Mineral Resources and Energy Engineering. As an undergraduate researcher I wrote a first-author paper interpreting seismic images of large overseas CO2 storage sites in light of plate-tectonic history, and in the IAB convergence-major capstone I designed and trained a spatiotemporal deep learning model (U-LSTM) that predicts wildfire spread. In my master's I separated overlapping gravity and magnetic signals with wavenumber-domain correlation analysis and published a first-author paper in SPE Journal (SCIE); across both degrees: 3 papers, 6 conference presentations and a best student paper award. At the POSCO Youth AI & Big Data Academy (with POSTECH) I built the training data and ran model experiments for an English expression correction system (FLAN-T5 + RAG) that won an Excellence Award, and at the Samsung Software & AI Academy for Youth (SSAFY) I am building LLM data pipelines and multimodal model ensembles. Two research stays at the University of Calgary; ADsP (Advanced Data Analytics Semi-Professional) certified.
 
-포트폴리오: https://0ju12.github.io  (English: https://0ju12.github.io/en.html)
+My flagship SSAFY project is a heritage Q&A RAG guide — from collecting the Korea Heritage Service open API to an LLM whose citations are re-checked in code (github.com/0Ju12/heritage-rag-guide).
+
+Looking for: Data Engineer · AI/ML Engineer · Available: H1 2027 · Location: Open to any location
+
+Portfolio: https://0ju12.github.io  (English: https://0ju12.github.io/en.html)
 GitHub: https://github.com/0Ju12
 Research history: https://www.geoverselab.com/ko/research-history/13/
 ```
@@ -34,7 +38,8 @@ Extended a reading-community service across five projects, from data collection 
 • AI core project 2 · National-treasure RAG guide (2026.10, solo): collected treasures and official descriptions from the Korea Heritage Service open API (XML, EUC-KR) and auto-linked each to Korean Wikipedia; two ChromaDB collections with fixed chunk IDs (idempotent re-indexing); per-question LLM query extraction and document selection with caching and offline fallback; LangGraph retrieve→generate where [evidence N] tags are checked in code and unknown numbers removed; Streamlit + FastAPI UIs; 50 tests with a fake LLM and Streamlit AppTest
 ✔ AI Challenge public score 0.94608 (4B baseline) → 0.96961
 ✔ 86 automated tests passing; all project-5 requirements implemented, plus progress streaming and analysis history
-기술: Python, Django, Selenium, Pandas, LLM API
+Skills: Python, Django, Selenium, Pandas, LLM API
+Details: https://0ju12.github.io/projects/ssafy-16-en.html
 ```
 
 ### POSPEAK (KILL KONG) — Konglish → natural English correction AI (FLAN-T5 · Qwen + RAG)
@@ -49,7 +54,8 @@ A generator plus retrieval (RAG) that rewrites awkward or Konglish sentences int
 • [Final service KILL KONG] Qwen-2.5 (1.5B) fine-tuning + a 630-entry Konglish RAG DB + per-user memory, combined with LangChain in a React Native · FastAPI app
 ✔ Found catastrophic forgetting in sequential training (BERTScore F1 0.47 → 0.32) and switched to joint training
 ✔ Joint training reached validation BERTScore F1 ≈ 0.74 · team Excellence Award
-기술: Python, Hugging Face, FLAN-T5, LoRA, RAG, FAISS
+Skills: Python, Hugging Face, FLAN-T5, LoRA, RAG, FAISS
+Details: https://0ju12.github.io/projects/posco-pospeak-en.html
 ```
 
 ### Wavenumber correlation of gravity & magnetic data for salt/basement structure (M.S. · SPE Journal first author)
@@ -67,7 +73,8 @@ Separated overlapping gravity and magnetic signals in the wavenumber domain to r
 ✔ DLFI reproduces the salt distribution and suggests an additional salt uplift west of Ghasha
 ✔ First-author paper in SPE Journal (SCIE, 2026, with Univ. of Calgary and Khalifa Univ.) · 3 conference talks (2024)
 ✔ Best Student Paper (poster), KSEG Fall Conference 2024 · M.S. degree conferred 2026.08.21
-기술: Signal processing, Correlation analysis, Index design, Gravity & magnetic data
+Skills: Signal processing, Correlation analysis, Index design, Gravity & magnetic data
+Details: https://0ju12.github.io/projects/masters-en.html
 ```
 
 ### Research stay at the University of Calgary — joint interpretation of gravity & magnetic data
@@ -82,7 +89,8 @@ Combined gravity and magnetic surveys to characterize the Ghasha salt dome and b
 • Extended the work into a 3-institution collaboration with Khalifa University (UAE)
 • Joined a field geophysical survey in Kananaskis (Canadian Rockies) and co-wrote the English Field Exploration Report (2024.08)
 ✔ Led to the first-author SPE Journal paper (SCIE, 2026) and the M.S. thesis
-기술: Gravity & magnetic data, Joint interpretation, International collaboration
+Skills: Gravity & magnetic data, Joint interpretation, International collaboration
+Details: https://0ju12.github.io/projects/calgary-2024-en.html
 ```
 
 ### Seismic interpretation of large overseas CO2 storage sites considering plate-tectonic history (first-author paper)
@@ -98,7 +106,8 @@ Reconstructed how large overseas CO2 storage sites formed and interpreted their 
 ✔ First-author paper: Analysis on Seismic Interpretation for Overseas Large-scale CO2 Storage Considering Geological History Related to Plate Tectonics, Geophysics and Geophysical Exploration 27(1), 1–22 (2024)
 ✔ Showed that stratigraphy in each seismic image reflects the region's tectonic history → a basis for rejecting geologically unrealistic velocity models when processing domestic data
 ✔ 1 second-author paper (CarbonNet CCS, Gippsland Basin, 2023) · 3 conference talks (2022–2023)
-기술: Seismic interpretation, GPlates, Plate reconstruction, CCS
+Skills: Seismic interpretation, GPlates, Plate reconstruction, CCS
+Details: https://0ju12.github.io/projects/undergrad-research-en.html
 ```
 
 ### IAB capstone — Wildfire spread prediction with spatiotemporal deep learning
@@ -113,7 +122,8 @@ A U-LSTM that predicts the next wildfire front from the current front, weather a
 • Expanded the sequences with sliding windows (length 1–19) into 151 training batches; evaluated with Overall Accuracy and F1
 ✔ Unseen fire (Gangneung): Accuracy 0.90 · F1 0.85 (validation 0.95 · 0.81)
 ✔ Refactored the team notebooks into a tested Python package and documented the limitations on GitHub
-기술: Python, TensorFlow, PyTorch, U-LSTM, ArcGIS
+Skills: Python, TensorFlow, PyTorch, U-LSTM, ArcGIS
+Details: https://0ju12.github.io/projects/wildfire-capstone-en.html
 ```
 
 ## 4. 논문·발표 (LinkedIn "Publications")

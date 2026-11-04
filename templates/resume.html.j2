@@ -12,6 +12,7 @@ a{color:#2f5bd3;text-decoration:none}
 .page{max-width:180mm;margin:0 auto}
 header{border-bottom:2px solid #1b1d21;padding-bottom:10px;margin-bottom:14px}
 h1{font-size:20pt;margin:0}
+a.case{font-size:.82em;color:#2f5bd3;text-decoration:none;white-space:nowrap}
 .title{color:#2f5bd3;font-weight:700;margin:2px 0 6px}
 .contact{color:#5c6370;font-size:9pt}
 .contact span+span::before{content:" · "}
@@ -49,7 +50,7 @@ li{margin:1px 0}
   <div class="row"><b>{{ a.title }}</b><span class="dim">{{ a.period_str }}</span></div>
   <div class="dim">{{ a.type }} · {{ a.org }}{% if a.role %} · {{ a.role }}{% endif %}{% if a.team %} · {{ a.team }}{% endif %}</div>
   {% if a.projects %}{% for sp in a.projects %}
-  <div class="sub"><b>{{ sp.title }}</b> <span class="dim">{{ sp.period_str }}{% if sp.role %} · {{ sp.role }}{% endif %}</span></div>
+  <div class="sub"><b>{{ sp.title }}</b> <span class="dim">{{ sp.period_str }}{% if sp.role %} · {{ sp.role }}{% endif %}</span>{% if sp.case is defined %} <a class="case" href="https://0ju12.github.io/projects/{{ sp.id }}{{ '-en' if profile.name == profile.name_en else '' }}.html">{{ 'details ↗' if profile.name == profile.name_en else '상세 ↗' }}</a>{% endif %}</div>
   <ul>
     {% for x in sp.star.action %}<li>{{ x }}</li>{% endfor %}
     {% for x in sp.star.result %}<li><b>{{ x }}</b></li>{% endfor %}

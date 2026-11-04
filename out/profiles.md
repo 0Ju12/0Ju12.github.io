@@ -14,6 +14,10 @@ LinkedIn 경력 설명은 2,000자 제한이 있어서, 묶음 활동은 하위 
 ```
 자원에너지공학을 전공하고 환경에너지융합학과에서 석사 학위를 받았습니다(2026). 학부연구생으로 판구조 형성사를 고려한 해외 대규모 CO2 저장소 탄성파 해석 논문을 제1저자로 썼고, IAB 융합전공 캡스톤에서는 시공간 딥러닝(U-LSTM) 기반 산불 확산 경로 예측 모델의 설계와 학습을 맡았습니다. 석사 과정에서는 중력·자력 데이터의 파수 상관 분석으로 지하 구조를 규명해 SCIE 국제학술지 SPE Journal 제1저자 논문을 냈고, 학부·석사를 합쳐 논문 3편과 학회 발표 6건, 학회 우수논문 발표상의 성과를 냈습니다. 포스코 청년 AI·BigData 아카데미(POSTECH)에서는 FLAN-T5와 RAG를 결합한 영어 표현 교정 시스템 프로젝트에서 데이터 구축과 모델 실험을 맡았고, 팀은 장려상을 받았습니다. 캐나다 캘거리대학교에서 두 차례 파견 연구를 하며 해외 연구진과 협업했고, ADsP(데이터분석 준전문가) 자격을 보유하고 있습니다.
 
+지금은 삼성 청년 SW·AI 아카데미(SSAFY) 16기에서 LLM 파이프라인·RAG·모델 앙상블을 만들고 있습니다. 국가유산청 오픈API 수집부터, 답변의 인용을 코드로 다시 검사하는 RAG까지 직접 구현한 '국보 입문 가이드'(github.com/0Ju12/heritage-rag-guide)가 대표 작업입니다.
+
+희망 직무: 데이터 엔지니어 · AI/ML 엔지니어 · 입사 가능: 2027년 상반기 · 근무 지역: 무관
+
 포트폴리오: https://0ju12.github.io  (English: https://0ju12.github.io/en.html)
 GitHub: https://github.com/0Ju12
 연구 이력: https://www.geoverselab.com/ko/research-history/13/
@@ -35,6 +39,7 @@ GitHub: https://github.com/0Ju12
 ✔ LLM 응답을 그대로 믿지 않고 코드로 검증하는 구조(번호 범위 검사, 뒤에서부터 제거, 등록 도서 id만 허용)로 안정적인 AI 기능 구현
 ✔ 자동 테스트 관통 4 45개 · 관통 5 41개 통과, 관통 5 요구사항(F601~F611) 전부 구현 + 진행 상황 스트리밍·분석 이력·11가지 화면 테마 추가
 기술: Python, Django, Selenium, Pandas, LLM API, Bootstrap, Kakao Map API
+상세: https://0ju12.github.io/projects/ssafy-16.html
 ```
 
 ### POSPEAK(KILL KONG) — 콩글리시 → 원어민 표현 교정 AI (FLAN-T5·Qwen + RAG)
@@ -52,6 +57,7 @@ GitHub: https://github.com/0Ju12
 ✔ 통합 학습 모델의 검증 BERTScore F1 약 0.74 (순차 학습 0.32~0.47 대비 개선)
 ✔ 팀 프로젝트 장려상 수상
 기술: Python, Hugging Face, FLAN-T5, LoRA, RAG, FAISS
+상세: https://0ju12.github.io/projects/posco-pospeak.html
 ```
 
 ### 중력·자력 데이터 파수 상관 분석으로 지하 구조 규명 (석사 · SPE Journal 제1저자)
@@ -71,6 +77,7 @@ GitHub: https://github.com/0Ju12
 ✔ 2024 KSEG 추계학술대회 학생 우수논문(포스터) 발표상
 ✔ 석사 학위논문 「Characterization of Salt and Basement Structures in the Ghasha Area Using Wavenumber Correlation Analysis of Gravity and Magnetic Anomaly Data」 (전북대학교 대학원 환경에너지융합학과, 2026.08.21 학위 취득)
 기술: 신호처리(파수 영역), 상관 분석, 지표 설계, 중력·자력 데이터, 국제공동연구
+상세: https://0ju12.github.io/projects/masters.html
 ```
 
 ### 캐나다 캘거리대학교 장기 파견연구 — 중력·자력 데이터 복합 해석
@@ -87,6 +94,7 @@ GitHub: https://github.com/0Ju12
 ✔ 파견 연구 결과로 SCIE 국제학술지 SPE Journal 제1저자 논문 게재 승인 (2026)
 ✔ 같은 연구를 석사 학위논문(2026)으로 완성
 기술: 중력·자력 데이터, 복합 해석, 국제공동연구
+상세: https://0ju12.github.io/projects/calgary-2024.html
 ```
 
 ### 판구조 형성사를 고려한 해외 대규모 CO2 저장소 탄성파 해석 (제1저자 논문)
@@ -104,6 +112,7 @@ GPlates로 해외 대규모 CO2 저장소의 지질 형성사를 판구조 관�
 ✔ 제2저자 논문 1편 (호주 깁스랜드 분지 CarbonNet CCS 지질학적 분석, 지구물리와 물리탐사, 2023) · 학회 발표 3건 (2022–2023)
 ✔ 각 프로젝트의 탄성파 영상에 드러난 층서구조가 해당 지역의 판구조적 형성 역사를 반영함을 확인 → 국내 탐사 자료 처리 시 지질학적으로 비현실적인 속도 모델을 배제하는 기준으로 활용할 수 있음을 제시
 기술: 탄성파 해석, GPlates, 판구조 복원, CCS, 중력 데이터 처리, 4D 탄성파
+상세: https://0ju12.github.io/projects/undergrad-research.html
 ```
 
 ### IAB 융합전공 — 시공간 딥러닝 기반 산불 확산 경로 예측 모델 (캡스톤)
@@ -120,6 +129,7 @@ GPlates로 해외 대규모 CO2 저장소의 지질 형성사를 판구조 관�
 ✔ 미학습 산불(강릉) 테스트 Overall Accuracy 0.90 · F1-score 0.85 (검증 0.95 · 0.81) — 초기 시점은 데이터 부족으로 오차가 컸지만 시점이 지날수록 실제 확산 형태를 근접하게 재현
 ✔ 팀 노트북을 설정 파일 기반 Python 패키지로 재구성하고 테스트를 추가해 GitHub에 공개
 기술: Python, TensorFlow, PyTorch, U-LSTM, ArcGIS
+상세: https://0ju12.github.io/projects/wildfire-capstone.html
 ```
 
 ## 4. 논문·발표 (LinkedIn "Publications")

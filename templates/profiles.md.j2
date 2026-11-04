@@ -13,8 +13,20 @@ LinkedIn 경력 설명은 2,000자 제한이 있어서, 묶음 활동은 하위 
 
 ```
 {{ profile.summary }}
+{% set en = profile.name == profile.name_en %}{% set av = profile.availability or {} %}
+{{ '' }}
+{% if en %}
+My flagship SSAFY project is a heritage Q&A RAG guide — from collecting the Korea Heritage Service open API to an LLM whose citations are re-checked in code (github.com/0Ju12/heritage-rag-guide).
+{% else %}
+지금은 삼성 청년 SW·AI 아카데미(SSAFY) 16기에서 LLM 파이프라인·RAG·모델 앙상블을 만들고 있습니다. 국가유산청 오픈API 수집부터, 답변의 인용을 코드로 다시 검사하는 RAG까지 직접 구현한 '국보 입문 가이드'(github.com/0Ju12/heritage-rag-guide)가 대표 작업입니다.
+{% endif %}
+{% if av.role %}
+{{ '' }}
+{{ 'Looking for' if en else '희망 직무' }}: {{ av.role }}{% if av.start %} · {{ 'Available' if en else '입사 가능' }}: {{ av.start }}{% endif %}{% if av.location %} · {{ 'Location' if en else '근무 지역' }}: {{ av.location }}{% endif %}
 
-포트폴리오: https://0ju12.github.io  (English: https://0ju12.github.io/en.html)
+{% endif %}
+{{ '' }}
+{{ 'Portfolio' if en else '포트폴리오' }}: https://0ju12.github.io  (English: https://0ju12.github.io/en.html)
 {% for l in profile.links if 'linkedin' not in l.label|lower %}
 {{ l.label }}: {{ l.url }}
 {% endfor %}
@@ -38,7 +50,10 @@ LinkedIn 경력 설명은 2,000자 제한이 있어서, 묶음 활동은 하위 
 ✔ {{ x }}
 {% endfor %}
 {% if a.tags %}
-기술: {{ a.tags|join(', ') }}
+{{ 'Skills' if profile.name == profile.name_en else '기술' }}: {{ a.tags|join(', ') }}
+{% endif %}
+{% if a.case is defined %}
+{{ 'Details' if profile.name == profile.name_en else '상세' }}: https://0ju12.github.io/projects/{{ a.id }}{{ '-en' if profile.name == profile.name_en else '' }}.html
 {% endif %}
 ```
 {% endfor %}
