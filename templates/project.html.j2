@@ -1,0 +1,167 @@
+{% import "layouts/_parts.j2" as p %}
+{% import "_head.j2" as h %}
+{# 프로젝트 상세 페이지 — docs/projects/<id>.html · <id>-en.html (build.py project_pages) #}
+{% set c = sp.case or {} %}
+{% set cl = (c.en if en else c.ko) or {} %}
+{% set R = '../' %}
+{% set profile = dict(profile, photo=(R ~ profile.photo) if profile.photo else '') %}
+{% set home = R ~ ('en.html' if en else 'index.html') %}
+{% set L = {
+  'back': '← Portfolio' if en else '← 포트폴리오',
+  'problem': 'Problem' if en else '문제',
+  'role': 'My role' if en else '역할',
+  'did': 'What I did' if en else '한 일',
+  'result': 'Results' if en else '결과',
+  'trade': 'Decisions & trade-offs' if en else '설계 판단 · 트레이드오프',
+  'trade_sub': 'What I chose, and what I gave up for it' if en else '무엇을 고르고, 그 대신 무엇을 포기했는지',
+  'next': 'Looking back · open questions' if en else '돌아보면 · 남은 과제',
+  'next_sub': 'What I would change, and what is still open' if en else '다시 한다면 바꿀 것, 아직 남은 것',
+  'media': 'Photos & figures' if en else '사진 · 자료',
+  'posts': 'Related writing' if en else '관련 글',
+  'prev': 'Previous' if en else '이전 프로젝트',
+  'nextp': 'Next' if en else '다음 프로젝트',
+  'demo': 'Demo' if en else '데모',
+  'theme': 'Theme' if en else '테마',
+  'lang': '한국어' if en else 'EN',
+  'gen': 'generated from data/portfolio.en.yaml' if en else 'data/portfolio.yaml 에서 자동 생성',
+} %}
+<!doctype html>
+<html lang="{{ 'en' if en else 'ko' }}">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ sp.title }} — {{ profile.name }}</title>
+{{ h.meta(sp.title ~ ' — ' ~ profile.name, sp.summary or group.summary, 'projects/' ~ sp.id ~ ('-en' if en else '') ~ '.html', R, en) }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--bg:#f7f7f8;--text:#18181b;--muted:#5f5f68;--faint:#9b9ba3;--line:#e4e4e8;--card:#fff;--ink:#18181b;--on-ink:#fafafa;--accent:#5b6cff;--on-accent:#fff;--chip:#f1f1f4;--soft:#eef1ff;--pos:#16a34a;--neg:#db2777;--shadow:0 1px 2px rgba(0,0,0,.04),0 18px 48px -18px rgba(0,0,0,.16)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d10;--text:#f4f4f5;--muted:#a1a1aa;--faint:#71717a;--line:#27272a;--card:#17171a;--ink:#f4f4f5;--on-ink:#0d0d10;--accent:#8b97ff;--on-accent:#0d0d10;--chip:#202024;--soft:#1a1e2e;--pos:#4ade80;--neg:#f472b6;--shadow:0 18px 48px -18px rgba(0,0,0,.6)}}
+:root[data-theme="dark"]{--bg:#0d0d10;--text:#f4f4f5;--muted:#a1a1aa;--faint:#71717a;--line:#27272a;--card:#17171a;--ink:#f4f4f5;--on-ink:#0d0d10;--accent:#8b97ff;--on-accent:#0d0d10;--chip:#202024;--soft:#1a1e2e;--pos:#4ade80;--neg:#f472b6;--shadow:0 18px 48px -18px rgba(0,0,0,.6)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.75 "Pretendard Variable",Pretendard,system-ui,sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all}
+a{color:inherit}
+.w{max-width:960px;margin:0 auto;padding:0 24px}
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.bar .w{display:flex;align-items:center;gap:14px;height:58px;font-size:14px;font-weight:600}
+.bar .back{margin-right:auto;text-decoration:none;display:flex;align-items:center;gap:10px}
+.bar .back .avatar{width:26px;height:26px;border-radius:50%;object-fit:cover;font-size:10px}
+.bar a.l,.bar button{color:var(--muted);text-decoration:none;background:none;border:1px solid var(--line);border-radius:999px;padding:5px 12px;font:inherit;font-size:13px;cursor:pointer}
+.bar a.l:hover,.bar button:hover{color:var(--text)}
+header{padding:56px 0 28px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.chips span{font-size:12.5px;font-weight:700;padding:4px 12px;border-radius:999px;background:var(--soft);color:var(--accent)}
+.chips span+span{background:var(--chip);color:var(--muted)}
+h1{font-size:clamp(28px,4.4vw,44px);line-height:1.22;letter-spacing:-.045em;margin:0 0 16px}
+.lead{font-size:18.5px;color:var(--muted);margin:0 0 18px;max-width:780px}
+.meta{font-size:14px;color:var(--faint);margin-bottom:22px}
+.acts{display:flex;flex-wrap:wrap;gap:8px}
+.acts a{display:inline-flex;align-items:center;gap:6px;height:42px;padding:0 16px;border-radius:999px;font-weight:700;font-size:14px;text-decoration:none;border:1px solid var(--line);background:var(--card)}
+.acts a:first-child{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.acts a:hover{border-color:var(--text)}
+.media{margin:24px 0 8px}
+.media figure{margin:0;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow)}
+.media img{width:100%;display:block;background:#fff}
+.media figcaption{font-size:13px;color:var(--muted);padding:12px 18px;border-top:1px solid var(--line)}
+section{padding:48px 0 0}
+section>h2{font-size:clamp(22px,2.8vw,28px);letter-spacing:-.035em;margin:0 0 4px}
+section>.sub{color:var(--faint);font-size:14px;margin:0 0 18px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px 24px}
+.card h3{margin:0 0 6px;font-size:13px;letter-spacing:.06em;color:var(--accent);text-transform:uppercase}
+.card p{margin:0}
+.list{list-style:none;margin:0;padding:0;counter-reset:n}
+.list li{position:relative;padding:14px 0 14px 44px;border-top:1px solid var(--line)}
+.list li:first-child{border-top:0}
+.list li::before{counter-increment:n;content:counter(n);position:absolute;left:0;top:14px;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:12.5px;font-weight:700;background:var(--chip);color:var(--muted)}
+.list.res li::before{content:"✓";background:var(--soft);color:var(--accent)}
+.boxed{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:6px 24px}
+.trade{display:grid;gap:12px}
+.trade div{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:16px;padding:16px 20px}
+.trade.next div{border-left-color:var(--faint)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.gallery a{text-decoration:none;color:var(--muted);font-size:12.5px}
+.gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;display:block;margin-bottom:6px;border:1px solid var(--line);background:#fff}
+.posts a{display:flex;justify-content:space-between;gap:16px;padding:16px 20px;border:1px solid var(--line);border-radius:18px;background:var(--card);text-decoration:none;margin-bottom:10px;font-weight:600}
+.posts a small{display:block;color:var(--faint);font-weight:500}
+.posts a:hover{border-color:var(--text)}
+.pn{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:64px 0 0}
+.pn a{display:block;padding:18px 22px;border:1px solid var(--line);border-radius:20px;background:var(--card);text-decoration:none;font-weight:700;line-height:1.45}
+.pn a small{display:block;color:var(--faint);font-weight:600;font-size:12.5px;margin-bottom:4px}
+.pn a.r{text-align:right}
+.pn a:hover{border-color:var(--text)}
+footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
+/* 구조도 */
+.diagram{margin:0;padding:24px;border-radius:22px;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow)}
+.dg-row{display:grid;grid-template-columns:200px 28px 1fr 28px 210px;align-items:center;gap:0}
+.dg-col{display:grid;gap:8px}
+.dg-tag{font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.dg-box{padding:10px 12px;border-radius:12px;background:var(--chip);font-size:13.5px;font-weight:700;line-height:1.45}
+.dg-box.p{background:color-mix(in srgb,var(--pos) 14%,transparent)}
+.dg-box.n{background:color-mix(in srgb,var(--neg) 14%,transparent)}
+.dg-col small{font-size:12px;color:var(--muted);line-height:1.5}
+.dg-arrow{height:2px;background:var(--line);position:relative;margin:0 4px}
+.dg-arrow::after{content:"";position:absolute;right:-2px;top:-4px;border:5px solid transparent;border-left:7px solid var(--faint)}
+.dg-steps{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.dg-steps li{display:grid;grid-template-columns:26px 1fr;column-gap:10px;padding:9px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg)}
+.dg-steps li i{grid-row:span 3;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:800;background:var(--accent);color:var(--on-accent)}
+.dg-steps b{font-size:14px;line-height:1.4}
+.dg-steps small{font-size:12px;color:var(--muted);line-height:1.5}
+.dg-pair{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 2px}
+.dg-pair em{font-style:normal;font-size:12px;font-weight:700;padding:2px 8px;border-radius:6px}
+.dg-pair .p{background:color-mix(in srgb,var(--pos) 16%,transparent)}
+.dg-pair .n{background:color-mix(in srgb,var(--neg) 16%,transparent)}
+.diagram figcaption{margin-top:14px;font-size:12.5px;color:var(--faint)}
+@media (max-width:760px){
+  header{padding-top:32px}
+  .two,.pn{grid-template-columns:1fr}
+  .pn a.r{text-align:left}
+  .dg-row{grid-template-columns:1fr;gap:8px}
+  .dg-arrow{width:2px;height:18px;margin:0 auto}
+  .dg-arrow::after{right:-4px;top:auto;bottom:-6px;border:5px solid transparent;border-top:7px solid var(--faint)}
+}
+</style>
+</head>
+<body>
+<nav class="bar"><div class="w"><a class="back" href="{{ home }}#work">{{ p.avatar(profile) }}{{ L.back }}</a><a class="l" href="{{ sp.id }}{{ '' if en else '-en' }}.html" hreflang="{{ 'ko' if en else 'en' }}">{{ L.lang }}</a><button id="theme" type="button">{{ L.theme }}</button></div></nav>
+<main class="w">
+  <header>
+    <div class="chips"><span>{{ group.type }}</span><span>{{ sp.period_str }}</span>{% if sp.team %}<span>{{ sp.team }}</span>{% endif %}</div>
+    <h1>{{ sp.title }}</h1>
+    {% if sp.summary %}<p class="lead">{{ sp.summary }}</p>{% endif %}
+    <div class="meta">{{ sp.org }}{% if sp.role %} · {{ sp.role }}{% endif %}</div>
+    {% if sp.links %}<div class="acts">{% for l in sp.links %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }} ↗</a>{% endfor %}</div>{% endif %}
+  </header>
+
+  {% if c.demo %}
+  <div class="media" id="demo"><figure><img src="{{ R }}{{ c.demo }}" alt="{{ c.demo_caption_en if en else c.demo_caption_ko }}"><figcaption>▶ {{ L.demo }} — {{ c.demo_caption_en if en else c.demo_caption_ko }}</figcaption></figure></div>
+  {% endif %}
+  {% if c.diagram %}
+  <div class="media">{% include "diagrams/" ~ c.diagram ~ ".html.j2" %}</div>
+  {% endif %}
+
+  {% set st = sp.star or {} %}
+  {% if st.situation or st.task %}
+  <div class="two" style="margin-top:28px">
+    {% if st.situation %}<div class="card"><h3>{{ L.problem }}</h3><p>{{ st.situation }}</p></div>{% endif %}
+    {% if st.task %}<div class="card"><h3>{{ L.role }}</h3><p>{{ st.task }}</p></div>{% endif %}
+  </div>
+  {% endif %}
+
+  {% if st.action %}<section><h2>{{ L.did }}</h2><div class="boxed"><ol class="list">{% for x in st.action %}<li>{{ x }}</li>{% endfor %}</ol></div></section>{% endif %}
+  {% if st.result %}<section><h2>{{ L.result }}</h2><div class="boxed"><ul class="list res">{% for x in st.result %}<li>{{ x }}</li>{% endfor %}</ul></div></section>{% endif %}
+
+  {% if cl.tradeoffs %}<section id="tradeoffs"><h2>{{ L.trade }}</h2><p class="sub">{{ L.trade_sub }}</p><div class="trade">{% for x in cl.tradeoffs %}<div>{{ x }}</div>{% endfor %}</div></section>{% endif %}
+  {% if cl.next %}<section id="next"><h2>{{ L.next }}</h2><p class="sub">{{ L.next_sub }}</p><div class="trade next">{% for x in cl.next %}<div>{{ x }}</div>{% endfor %}</div></section>{% endif %}
+
+  {% if sp.gallery %}<section><h2>{{ L.media }}</h2><div class="gallery">{% for g in sp.gallery %}<a href="{{ R }}{{ g.src }}" target="_blank" rel="noopener"><img src="{{ R }}{{ g.src }}" alt="{{ g.caption }}" loading="lazy">{{ g.caption }}</a>{% endfor %}</div></section>{% endif %}
+
+  {% if related %}<section><h2>{{ L.posts }}</h2><div class="posts">{% for w in related %}<a href="{{ R }}posts/{{ w.slug }}.html"><span>{{ w.title }}<small>{{ w.date }}</small></span><span>→</span></a>{% endfor %}</div></section>{% endif %}
+
+  <nav class="pn" aria-label="projects">
+    {% if prev %}<a href="{{ prev.id }}{{ '-en' if en else '' }}.html"><small>← {{ L.prev }}</small>{{ prev.title }}</a>{% else %}<span></span>{% endif %}
+    {% if next %}<a class="r" href="{{ next.id }}{{ '-en' if en else '' }}.html"><small>{{ L.nextp }} →</small>{{ next.title }}</a>{% endif %}
+  </nav>
+  <footer>© {{ profile.name_en }} · {{ L.gen }}</footer>
+</main>
+{{ p.theme_script() }}
+</body>
+</html>

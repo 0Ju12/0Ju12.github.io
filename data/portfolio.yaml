@@ -22,6 +22,11 @@ profile:
   email: "iyju990312@naver.com"
   phone: ""
   location: 대한민국
+  # 지원 정보 — 비워 둔 항목은 사이트에 표시되지 않음 (근무 지역·입사 가능 시기는 확인 후 입력)
+  availability:
+    role: "데이터 엔지니어 · AI/ML 엔지니어"
+    location: ""
+    start: ""
   photo: ""
   links:
     - { label: GitHub,   url: "https://github.com/0Ju12" }

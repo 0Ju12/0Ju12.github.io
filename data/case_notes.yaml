@@ -1,0 +1,98 @@
+# 프로젝트 상세 페이지(docs/projects/<id>.html)용 보충 내용 — portfolio.yaml 의 하위 프로젝트 id 기준
+# tradeoffs: 설계 판단 · 트레이드오프 / next: 다시 한다면 · 남은 과제
+# 근거: content/posts 의 각 글('배운 것' · '지금 돌아보면' · '데이터 일로 가져가는 것')과 portfolio.yaml 의 STAR 내용
+# demo: 데모 GIF 경로, diagram: 구조도 이름(templates/diagrams/<이름>.html.j2)
+
+masters:
+  diagram: masters
+  ko:
+    tradeoffs:
+      - "상관계수 구간: 구간을 좁히면 두 데이터의 상관은 높아지지만 남는 신호 에너지가 줄어듦 → '상관계수'와 '남는 에너지 비율'을 함께 그려 균형점(SLFI는 CC 0.5~1.0, 신호 에너지 약 절반 유지)을 고름. 임계값을 감으로 정하지 않고 그래프로 설명할 수 있게 함"
+      - "상향 연속 높이: 높일수록 얕은 잡음은 줄지만 해상도가 떨어짐 → 상관계수 변화 곡선이 꺾이는 지점(1,500 m)을 계산해 선택"
+      - "검증 기준: 같은 데이터로 만든 기준은 검증이 될 수 없다고 보고, 해석법이 다른 독립 모델 3개와 공간·측선·3D 밀도 단면으로 비교 — 기준을 구하기 어려운 대신 순환 검증을 피함"
+    next:
+      - "DLFI가 새로 보여 준 가샤 서쪽의 추가 암염 융기 가능성은 탄성파 등 다른 자료로 확인이 필요한 가설로 남아 있음"
+      - "실제 자료는 공동연구 데이터라 공개하지 않고, 같은 흐름을 합성 데이터로 재현하는 코드(gravmag-wcf)로 정리 — 다른 지역 자료에도 같은 절차를 적용해 보는 것이 다음 단계"
+  en:
+    tradeoffs:
+      - "Correlation band: a narrower band raises the correlation but leaves less signal energy, so I plotted correlation and retained-energy ratio together and picked the balance point (SLFI: CC 0.5–1.0, keeping about half the energy) — a threshold that can be explained with a graph, not by feel."
+      - "Upward-continuation height: higher reduces shallow noise but blurs resolution; I chose the knee of the correlation-change curve (1,500 m)."
+      - "Validation reference: a reference built from the same data is not validation, so I compared against three independent models from different methods (map overlay, four profiles, 3D density sections) — harder to obtain, but avoids circular validation."
+    next:
+      - "The additional salt uplift west of Ghasha suggested by DLFI remains a hypothesis to confirm with other data such as seismic."
+      - "The real data belong to the joint project and stay private; the workflow is reproduced on synthetic data in gravmag-wcf. Applying the same procedure to another region is the next step."
+
+calgary-2024:
+  ko:
+    tradeoffs:
+      - "단위도 깊이 감도도 다른 두 물리량(중력·자력)을 함께 쓰는 대신, 먼저 정규화하고 파수 영역의 상관(위상)으로 비교 가능한 형태로 맞추는 과정을 거침"
+  en:
+    tradeoffs:
+      - "Using two quantities with different units and depth sensitivity (gravity and magnetics) meant first normalizing them and comparing them through wavenumber-domain correlation (phase)."
+
+undergrad-research:
+  ko:
+    tradeoffs:
+      - "저장소 하나를 깊게 파는 대신 4개 지역 8개 프로젝트를 같은 틀(판구조 형성사 → 저장층·덮개암 구조)로 비교 — 개별 정량 분석보다 공통 패턴을 찾는 데 우선순위를 둠"
+    next:
+      - "지금 돌아보면: 결과가 수치상 좋아 보여도 '생성 과정을 알고 보니 말이 된다'가 더 강한 근거였음. 머신러닝에서 도메인 제약·사전 지식이 하는 역할과 같아서, 이후 석사 연구에서 독립 모델과 비교하는 습관으로 이어짐"
+      - "제시한 기준(지질학적으로 비현실적인 속도 모델 배제)을 실제 국내 탐사 자료 처리에 적용해 보는 것은 남은 과제"
+  en:
+    tradeoffs:
+      - "Instead of going deep on one site, I compared eight projects in four regions with the same frame (plate-tectonic history → reservoir and caprock structure), prioritizing common patterns over per-site quantitative analysis."
+    next:
+      - "Looking back: even when results look good numerically, 'it makes sense once you know how it formed' is the stronger evidence — the role domain constraints play in ML. It became the habit of comparing with independent models in my M.S. work."
+      - "Applying the proposed criterion (ruling out geologically unrealistic velocity models) to real domestic survey data remains open."
+
+wildfire-capstone:
+  ko:
+    tradeoffs:
+      - "산불 4건뿐인 적은 데이터 → 모델 용량을 키우는 대신 파라미터 2,736개의 얕은 네트워크로 줄이고, 길이 1~19 슬라이딩 윈도우로 학습 샘플(배치 151개)을 늘림"
+      - "일반화 검증을 위해 산불 1건(강릉)을 학습에서 통째로 빼서 테스트 — 학습 데이터는 더 줄지만 '처음 보는 산불'에서의 성능을 확인"
+    next:
+      - "당시에는 구조 이름만 보고 텐서가 실제로 흐르는 축을 끝까지 확인하지 않았음 — LSTM이 시간이 아니라 공간 축을 보고 있었다는 점을 나중에 알게 됨"
+      - "다시 만든다면 ConvLSTM, 사건(산불) 단위 교차검증, Dice loss + IoU, 위성 영상 기반 화선 자료부터 추가"
+  en:
+    tradeoffs:
+      - "Only four fires of data: instead of a bigger model, a shallow network with 2,736 parameters, and sliding windows of length 1–19 to grow the training set to 151 batches."
+      - "For a fair generalization check, one entire fire (Gangneung) was held out for testing — less training data, but a real 'unseen fire' result."
+    next:
+      - "I didn't trace which axis the tensors actually flowed along; I later realized the LSTM was looking at the spatial axis rather than time."
+      - "If I rebuilt it: ConvLSTM, event-level cross-validation, Dice loss + IoU, and satellite-based fire-front data."
+
+ssafy-16:
+  demo: assets/demo/heritage-rag-demo.gif
+  demo_caption_ko: "국보 입문 가이드 — 국보를 고르고 질문하면 실제로 인용한 근거만 표시 (API 키 없이 도는 데모 모드)"
+  demo_caption_en: "Heritage RAG guide — pick a national treasure, ask, and see only the evidence actually cited (offline demo mode, no API key)"
+  ko:
+    tradeoffs:
+      - "ThRead: LLM에는 '어떤 댓글이 부적절한가' 같은 판단(번호)만 맡기고, 삭제·채택은 코드가 원본에서 처리 — LLM이 직접 고쳐 쓰는 방식보다 유연성은 줄지만 원본 보존과 개수 보장을 얻음"
+      - "국보 가이드: 근거 번호를 검색 단계에서 고정하고 LLM은 가리키기만 하게 함 — 답변 표현의 자유는 줄지만 인용 검증이 단순한 집합 비교가 됨"
+      - "VQA 챌린지: 새 후보를 정확도 대신 고친 문제와 새로 틀린 문제(fixes−breaks)·유형별 회귀로 채택 — 점수 상승 폭만 보는 것보다 느리지만 '믿을 수 있게 오른' 제출만 남김"
+      - "테스트: 외부 API 대신 mock·가짜 LLM으로 결정적인 테스트를 만듦 — 빠르고 매번 같은 결과가 나오는 대신, 실제 모델의 답변 품질은 측정하지 않음"
+    next:
+      - "가짜 LLM 테스트는 규칙(인용 검증·예외 처리)을 보장하지만 답변 품질 자체는 재지 못함 — 실제 모델로 질문 세트를 만들어 검색 적중·인용 정확도를 평가하는 것이 다음 단계"
+      - "배운 것: 실패했을 때의 기본값(JSON이 깨지면, 선별이 실패하면, 인용이 없으면)을 먼저 정해 두니 LLM 응답이 흔들려도 서비스는 안정적으로 동작함"
+  en:
+    tradeoffs:
+      - "ThRead: the LLM only judges (returns numbers, e.g. which comments are inappropriate) and code removes or keeps items from the original — less flexible than letting the LLM rewrite, but the original is preserved and counts are guaranteed."
+      - "Heritage guide: evidence numbers are fixed at retrieval and the LLM only points to them — less freedom in phrasing, but citation checking becomes a simple set comparison."
+      - "VQA challenge: candidates were adopted by fixes−breaks and per-type regressions instead of accuracy — slower than chasing the score, but only 'reliably better' submissions remain."
+      - "Tests: mocks and a fake LLM instead of external APIs — fast and deterministic, but they don't measure the real model's answer quality."
+    next:
+      - "Fake-LLM tests guarantee the rules (citation checks, error handling) but not answer quality; the next step is a question set evaluated on a real model for retrieval hits and citation accuracy."
+      - "Lesson: deciding failure defaults first (broken JSON, failed selection, no citations) kept the service stable even when LLM output wavered."
+
+posco-pospeak:
+  ko:
+    tradeoffs:
+      - "'쉬운 단어 교정부터 어려운 문맥 교정으로' 순차 학습이 직관적이었지만, 같은 조건에서 3가지 전략을 비교해 보고 결정 — 실험 비용은 들었지만 catastrophic forgetting을 발견하고 통합 학습으로 전환"
+      - "각 학습 단계 직후의 성능을 따로 기록 — 마지막 점수만 봤다면 '그냥 성능이 낮다'로 끝났을 원인을 찾을 수 있었음"
+    next:
+      - "순차 학습이 꼭 필요한 상황이라면 이전 데이터를 일부 섞는 replay나 가중치 변화를 제한하는 정규화(EWC 등)를 검토 — 이번에는 데이터가 크지 않아 통합 학습이 가장 단순하고 효과적이었음"
+  en:
+    tradeoffs:
+      - "Sequential training (easy word-level first, then context) felt intuitive, but I compared three strategies under the same conditions — extra experiments, but it surfaced catastrophic forgetting and led to joint training."
+      - "Performance was logged right after each stage; looking only at the final score would have ended at 'it's just low'."
+    next:
+      - "If sequential training is required, consider replay (mixing in earlier data) or regularization such as EWC; here the data were small enough that joint training was simplest and best."

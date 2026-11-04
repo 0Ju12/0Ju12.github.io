@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>중력·자력 데이터 파수 상관 분석으로 지하 구조 규명 (석사 · SPE Journal 제1저자) — 이영주</title>
+<meta name="description" content="겹쳐 있는 중력·자력 신호를 파수 영역 상관 분석으로 분리하는 지표(SLFI·DLFI)를 설계해 암염·기반암 구조를 규명">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="이영주 포트폴리오">
+<meta property="og:title" content="중력·자력 데이터 파수 상관 분석으로 지하 구조 규명 (석사 · SPE Journal 제1저자) — 이영주">
+<meta property="og:description" content="겹쳐 있는 중력·자력 신호를 파수 영역 상관 분석으로 분리하는 지표(SLFI·DLFI)를 설계해 암염·기반암 구조를 규명">
+<meta property="og:url" content="https://0ju12.github.io/projects/masters.html">
+<meta property="og:image" content="https://0ju12.github.io/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#18181b">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--bg:#f7f7f8;--text:#18181b;--muted:#5f5f68;--faint:#9b9ba3;--line:#e4e4e8;--card:#fff;--ink:#18181b;--on-ink:#fafafa;--accent:#5b6cff;--on-accent:#fff;--chip:#f1f1f4;--soft:#eef1ff;--pos:#16a34a;--neg:#db2777;--shadow:0 1px 2px rgba(0,0,0,.04),0 18px 48px -18px rgba(0,0,0,.16)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d10;--text:#f4f4f5;--muted:#a1a1aa;--faint:#71717a;--line:#27272a;--card:#17171a;--ink:#f4f4f5;--on-ink:#0d0d10;--accent:#8b97ff;--on-accent:#0d0d10;--chip:#202024;--soft:#1a1e2e;--pos:#4ade80;--neg:#f472b6;--shadow:0 18px 48px -18px rgba(0,0,0,.6)}}
+:root[data-theme="dark"]{--bg:#0d0d10;--text:#f4f4f5;--muted:#a1a1aa;--faint:#71717a;--line:#27272a;--card:#17171a;--ink:#f4f4f5;--on-ink:#0d0d10;--accent:#8b97ff;--on-accent:#0d0d10;--chip:#202024;--soft:#1a1e2e;--pos:#4ade80;--neg:#f472b6;--shadow:0 18px 48px -18px rgba(0,0,0,.6)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.75 "Pretendard Variable",Pretendard,system-ui,sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all}
+a{color:inherit}
+.w{max-width:960px;margin:0 auto;padding:0 24px}
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.bar .w{display:flex;align-items:center;gap:14px;height:58px;font-size:14px;font-weight:600}
+.bar .back{margin-right:auto;text-decoration:none;display:flex;align-items:center;gap:10px}
+.bar .back .avatar{width:26px;height:26px;border-radius:50%;object-fit:cover;font-size:10px}
+.bar a.l,.bar button{color:var(--muted);text-decoration:none;background:none;border:1px solid var(--line);border-radius:999px;padding:5px 12px;font:inherit;font-size:13px;cursor:pointer}
+.bar a.l:hover,.bar button:hover{color:var(--text)}
+header{padding:56px 0 28px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.chips span{font-size:12.5px;font-weight:700;padding:4px 12px;border-radius:999px;background:var(--soft);color:var(--accent)}
+.chips span+span{background:var(--chip);color:var(--muted)}
+h1{font-size:clamp(28px,4.4vw,44px);line-height:1.22;letter-spacing:-.045em;margin:0 0 16px}
+.lead{font-size:18.5px;color:var(--muted);margin:0 0 18px;max-width:780px}
+.meta{font-size:14px;color:var(--faint);margin-bottom:22px}
+.acts{display:flex;flex-wrap:wrap;gap:8px}
+.acts a{display:inline-flex;align-items:center;gap:6px;height:42px;padding:0 16px;border-radius:999px;font-weight:700;font-size:14px;text-decoration:none;border:1px solid var(--line);background:var(--card)}
+.acts a:first-child{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.acts a:hover{border-color:var(--text)}
+.media{margin:24px 0 8px}
+.media figure{margin:0;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow)}
+.media img{width:100%;display:block;background:#fff}
+.media figcaption{font-size:13px;color:var(--muted);padding:12px 18px;border-top:1px solid var(--line)}
+section{padding:48px 0 0}
+section>h2{font-size:clamp(22px,2.8vw,28px);letter-spacing:-.035em;margin:0 0 4px}
+section>.sub{color:var(--faint);font-size:14px;margin:0 0 18px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px 24px}
+.card h3{margin:0 0 6px;font-size:13px;letter-spacing:.06em;color:var(--accent);text-transform:uppercase}
+.card p{margin:0}
+.list{list-style:none;margin:0;padding:0;counter-reset:n}
+.list li{position:relative;padding:14px 0 14px 44px;border-top:1px solid var(--line)}
+.list li:first-child{border-top:0}
+.list li::before{counter-increment:n;content:counter(n);position:absolute;left:0;top:14px;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:12.5px;font-weight:700;background:var(--chip);color:var(--muted)}
+.list.res li::before{content:"✓";background:var(--soft);color:var(--accent)}
+.boxed{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:6px 24px}
+.trade{display:grid;gap:12px}
+.trade div{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:16px;padding:16px 20px}
+.trade.next div{border-left-color:var(--faint)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.gallery a{text-decoration:none;color:var(--muted);font-size:12.5px}
+.gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;display:block;margin-bottom:6px;border:1px solid var(--line);background:#fff}
+.posts a{display:flex;justify-content:space-between;gap:16px;padding:16px 20px;border:1px solid var(--line);border-radius:18px;background:var(--card);text-decoration:none;margin-bottom:10px;font-weight:600}
+.posts a small{display:block;color:var(--faint);font-weight:500}
+.posts a:hover{border-color:var(--text)}
+.pn{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:64px 0 0}
+.pn a{display:block;padding:18px 22px;border:1px solid var(--line);border-radius:20px;background:var(--card);text-decoration:none;font-weight:700;line-height:1.45}
+.pn a small{display:block;color:var(--faint);font-weight:600;font-size:12.5px;margin-bottom:4px}
+.pn a.r{text-align:right}
+.pn a:hover{border-color:var(--text)}
+footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
+/* 구조도 */
+.diagram{margin:0;padding:24px;border-radius:22px;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow)}
+.dg-row{display:grid;grid-template-columns:200px 28px 1fr 28px 210px;align-items:center;gap:0}
+.dg-col{display:grid;gap:8px}
+.dg-tag{font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.dg-box{padding:10px 12px;border-radius:12px;background:var(--chip);font-size:13.5px;font-weight:700;line-height:1.45}
+.dg-box.p{background:color-mix(in srgb,var(--pos) 14%,transparent)}
+.dg-box.n{background:color-mix(in srgb,var(--neg) 14%,transparent)}
+.dg-col small{font-size:12px;color:var(--muted);line-height:1.5}
+.dg-arrow{height:2px;background:var(--line);position:relative;margin:0 4px}
+.dg-arrow::after{content:"";position:absolute;right:-2px;top:-4px;border:5px solid transparent;border-left:7px solid var(--faint)}
+.dg-steps{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.dg-steps li{display:grid;grid-template-columns:26px 1fr;column-gap:10px;padding:9px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg)}
+.dg-steps li i{grid-row:span 3;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:800;background:var(--accent);color:var(--on-accent)}
+.dg-steps b{font-size:14px;line-height:1.4}
+.dg-steps small{font-size:12px;color:var(--muted);line-height:1.5}
+.dg-pair{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 2px}
+.dg-pair em{font-style:normal;font-size:12px;font-weight:700;padding:2px 8px;border-radius:6px}
+.dg-pair .p{background:color-mix(in srgb,var(--pos) 16%,transparent)}
+.dg-pair .n{background:color-mix(in srgb,var(--neg) 16%,transparent)}
+.diagram figcaption{margin-top:14px;font-size:12.5px;color:var(--faint)}
+@media (max-width:760px){
+  header{padding-top:32px}
+  .two,.pn{grid-template-columns:1fr}
+  .pn a.r{text-align:left}
+  .dg-row{grid-template-columns:1fr;gap:8px}
+  .dg-arrow{width:2px;height:18px;margin:0 auto}
+  .dg-arrow::after{right:-4px;top:auto;bottom:-6px;border:5px solid transparent;border-top:7px solid var(--faint)}
+}
+</style>
+</head>
+<body>
+<nav class="bar"><div class="w"><a class="back" href="../index.html#work"><img class="avatar" src="../assets/photos/profile.jpg" alt="이영주 프로필 사진">
+← 포트폴리오</a><a class="l" href="masters-en.html" hreflang="en">EN</a><button id="theme" type="button">테마</button></div></nav>
+<main class="w">
+  <header>
+    <div class="chips"><span>연구</span><span>2024.03 – 2026.08</span></div>
+    <h1>중력·자력 데이터 파수 상관 분석으로 지하 구조 규명 (석사 · SPE Journal 제1저자)</h1>
+<p class="lead">겹쳐 있는 중력·자력 신호를 파수 영역 상관 분석으로 분리하는 지표(SLFI·DLFI)를 설계해 암염·기반암 구조를 규명</p>    <div class="meta">지구물리컴퓨팅연구실 · 환경에너지융합학과 · 석사과정 연구원</div>
+<div class="acts"><a href="https://doi.org/10.2118/236968-PA" target="_blank" rel="noopener">SPE Journal 논문 ↗</a><a href="https://github.com/0Ju12/gravmag-wcf" target="_blank" rel="noopener">GitHub 코드 (WCF·SLFI·DLFI) ↗</a><a href="https://www.geoverselab.com/ko/research-history/13/" target="_blank" rel="noopener">연구 이력 ↗</a></div>  </header>
+
+  <div class="media"><figure class="diagram" aria-label="분석 흐름">
+  <div class="dg-row">
+    <div class="dg-col dg-in"><span class="dg-tag">입력</span><div class="dg-box">항공 중력 자료</div><div class="dg-box">항공 자력 자료</div><small>아부다비 해상 가샤 — 8~10 km 퇴적층 아래 암염·기반암 신호가 겹침</small></div>
+    <div class="dg-arrow" aria-hidden="true"></div>
+    <ol class="dg-steps">
+      <li><i>1</i><b>상향 연속</b><small>상관계수 변화 곡선이 꺾이는 높이 1,500 m</small></li>
+      <li><i>2</i><b>정규화</b><small>단위가 다른 두 자료를 같은 척도로</small></li>
+      <li><i>3</i><b>파수 상관 필터링 (WCF)</b><small>파수별 상관계수 CC(k) 계산</small></li>
+      <li class="split"><i>4</i><b>지표 설계</b><span class="dg-pair"><em class="p">SLFI · CC(k) 0.5 ~ 1.0 → 기반암</em><em class="n">DLFI · CC(k) −1.0 ~ −0.5 → 암염</em></span><small>상관계수 vs 남는 신호 에너지 곡선의 균형점으로 구간 결정</small></li>
+      <li><i>5</i><b>독립 검증</b><small>해석법이 다른 기존 모델 3개 — 공간 비교 · 측선 4개 · 3D 밀도 단면</small></li>
+    </ol>
+    <div class="dg-arrow" aria-hidden="true"></div>
+    <div class="dg-col dg-out"><span class="dg-tag">결과</span><div class="dg-box p">기반암 구조(SLFI) — 독립 모델 3개와 일치</div><div class="dg-box n">암염 분포(DLFI) 재현 + 가샤 서쪽 추가 융기 가능성</div></div>
+  </div>
+  <figcaption>분석 흐름 — 석사 학위논문 Fig. 3 · SPE Journal 논문 기준으로 정리</figcaption>
+</figure></div>
+
+  <div class="two" style="margin-top:28px">
+<div class="card"><h3>문제</h3><p>아부다비 해상 가샤 지역은 암염과 기반암이 8~10 km 두께의 퇴적층 아래에 겹쳐 있어, 중력·자력 신호가 섞이고 기존 해석법은 암염 깊이를 약 6,000 m로 실제(탄성파 기준 약 9,300 m)보다 크게 얕게 추정하는 한계가 있었음</p></div><div class="card"><h3>역할</h3><p>항공 중력·자력 데이터에서 기반암과 암염의 신호를 분리해 각 구조를 규명하는 분석 방법을 제안</p></div>  </div>
+
+<section><h2>한 일</h2><div class="boxed"><ol class="list"><li>상향 연속·정규화로 중력·자력 데이터를 전처리하고, 파수(wavenumber) 영역에서 두 신호의 상관계수 CC(k)를 계산하는 파수 상관 필터링(WCF) 파이프라인 구축</li><li>양의 상관 성분을 강조해 기반암을 드러내는 SLFI, 약한·음의 상관 성분으로 암염을 드러내는 DLFI 두 지표를 설계</li><li>기존 3개 독립 모델과 공간 비교·측선별 비교·3D 밀도 모델로 결과를 다각도 검증</li><li>정기 연구미팅에서 아부다비 자료 처리·분석 결과를 10회 이상 발표(2024.05–2026.01)하고, 2025.11 기초연구실 워크숍에서 연구 성과 발표</li><li>IITP 글로벌 인재양성사업 등 참여 국가R&amp;D 과제의 연차·진도실적 보고서 초안 작성과 연구실 행정 실무 담당</li><li>캐나다 캘거리대학교 장기 파견(2024.06–12, 약 6개월): 측지공학과 연구진과 공동 수행, 칼리파대학교(UAE)와 3개 기관 공동연구로 확장</li></ol></div></section><section><h2>결과</h2><div class="boxed"><ul class="list res"><li>SLFI 기반 기반암 구조가 서로 다른 해석법의 기존 독립 모델 3개와 상관계수 0.94 이상으로 일치</li><li>DLFI로 암염 구조의 공간 분포를 재현하고, 가샤 서쪽의 추가 암염 융기 가능성을 새로 제시</li><li>SCIE 국제학술지 SPE Journal 제1저자 논문 (2026, 캘거리대·칼리파대 공동연구) · 학회 발표 3건 (2024)</li><li>2024 KSEG 추계학술대회 학생 우수논문(포스터) 발표상</li><li>석사 학위논문 「Characterization of Salt and Basement Structures in the Ghasha Area Using Wavenumber Correlation Analysis of Gravity and Magnetic Anomaly Data」 (전북대학교 대학원 환경에너지융합학과, 2026.08.21 학위 취득)</li></ul></div></section>
+<section id="tradeoffs"><h2>설계 판단 · 트레이드오프</h2><p class="sub">무엇을 고르고, 그 대신 무엇을 포기했는지</p><div class="trade"><div>상관계수 구간: 구간을 좁히면 두 데이터의 상관은 높아지지만 남는 신호 에너지가 줄어듦 → &#39;상관계수&#39;와 &#39;남는 에너지 비율&#39;을 함께 그려 균형점(SLFI는 CC 0.5~1.0, 신호 에너지 약 절반 유지)을 고름. 임계값을 감으로 정하지 않고 그래프로 설명할 수 있게 함</div><div>상향 연속 높이: 높일수록 얕은 잡음은 줄지만 해상도가 떨어짐 → 상관계수 변화 곡선이 꺾이는 지점(1,500 m)을 계산해 선택</div><div>검증 기준: 같은 데이터로 만든 기준은 검증이 될 수 없다고 보고, 해석법이 다른 독립 모델 3개와 공간·측선·3D 밀도 단면으로 비교 — 기준을 구하기 어려운 대신 순환 검증을 피함</div></div></section><section id="next"><h2>돌아보면 · 남은 과제</h2><p class="sub">다시 한다면 바꿀 것, 아직 남은 것</p><div class="trade next"><div>DLFI가 새로 보여 준 가샤 서쪽의 추가 암염 융기 가능성은 탄성파 등 다른 자료로 확인이 필요한 가설로 남아 있음</div><div>실제 자료는 공동연구 데이터라 공개하지 않고, 같은 흐름을 합성 데이터로 재현하는 코드(gravmag-wcf)로 정리 — 다른 지역 자료에도 같은 절차를 적용해 보는 것이 다음 단계</div></div></section>
+<section><h2>사진 · 자료</h2><div class="gallery"><a href="../assets/photos/masters/2026-08-21_석사_학위수여식_1.jpg" target="_blank" rel="noopener"><img src="../assets/photos/masters/2026-08-21_석사_학위수여식_1.jpg" alt="2026-08-21 석사 학위수여식 1" loading="lazy">2026-08-21 석사 학위수여식 1</a><a href="../assets/photos/masters/2026-08-21_석사_학위수여식_2.jpg" target="_blank" rel="noopener"><img src="../assets/photos/masters/2026-08-21_석사_학위수여식_2.jpg" alt="2026-08-21 석사 학위수여식 2" loading="lazy">2026-08-21 석사 학위수여식 2</a><a href="../assets/photos/masters/2026-08_석사학위논문_(표지)_가샤_지역_암염·기반암_구조_특성화.jpg" target="_blank" rel="noopener"><img src="../assets/photos/masters/2026-08_석사학위논문_(표지)_가샤_지역_암염·기반암_구조_특성화.jpg" alt="2026-08 석사학위논문 (표지) 가샤 지역 암염·기반암 구조 특성화" loading="lazy">2026-08 석사학위논문 (표지) 가샤 지역 암염·기반암 구조 특성화</a><a href="../assets/photos/masters/2026-08_석사학위논문_Fig03_파수상관필터링(WCF)→LFI_5단계_분석흐름.jpg" target="_blank" rel="noopener"><img src="../assets/photos/masters/2026-08_석사학위논문_Fig03_파수상관필터링(WCF)→LFI_5단계_분석흐름.jpg" alt="2026-08 석사학위논문 Fig03 파수상관필터링(WCF)→LFI 5단계 분석흐름" loading="lazy">2026-08 석사학위논문 Fig03 파수상관필터링(WCF)→LFI 5단계 분석흐름</a><a href="../assets/photos/masters/2026-08_석사학위논문_Fig10_상관계수(CC)_구간별_기반암·암염_분류모델.jpg" target="_blank" rel="noopener"><img src="../assets/photos/masters/2026-08_석사학위논문_Fig10_상관계수(CC)_구간별_기반암·암염_분류모델.jpg" alt="2026-08 석사학위논문 Fig10 상관계수(CC) 구간별 기반암·암염 분류모델" loading="lazy">2026-08 석사학위논문 Fig10 상관계수(CC) 구간별 기반암·암염 분류모델</a><a href="../assets/photos/masters/2026-08_석사학위논문_Fig11_SLFI(기반암)·DLFI(암염)_공간분포.jpg" target="_blank" rel="noopener"><img src="../assets/photos/masters/2026-08_석사학위논문_Fig11_SLFI(기반암)·DLFI(암염)_공간분포.jpg" alt="2026-08 석사학위논문 Fig11 SLFI(기반암)·DLFI(암염) 공간분포" loading="lazy">2026-08 석사학위논문 Fig11 SLFI(기반암)·DLFI(암염) 공간분포</a></div></section>
+<section><h2>관련 글</h2><div class="posts"><a href="../posts/2026-11-wavenumber-correlation.html"><span>겹쳐 있는 두 신호를 위상으로 가르기 — 파수 상관 필터링 석사 연구 정리<small>2026-11-03</small></span><span>→</span></a></div></section>
+  <nav class="pn" aria-label="projects">
+<span></span><a class="r" href="calgary-2024.html"><small>다음 프로젝트 →</small>캐나다 캘거리대학교 장기 파견연구 — 중력·자력 데이터 복합 해석</a>  </nav>
+  <footer>© Young-Ju Lee · data/portfolio.yaml 에서 자동 생성</footer>
+</main>
+<script>
+(function(){var r=document.documentElement,K='theme';
+try{var s=localStorage.getItem(K);if(s)r.setAttribute('data-theme',s)}catch(e){}
+var b=document.getElementById('theme');if(b)b.addEventListener('click',function(){
+var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});
+document.querySelectorAll('[data-expand]').forEach(function(btn){btn.addEventListener('click',function(){
+var t=document.getElementById(btn.dataset.expand);var open=t.hasAttribute('hidden');
+if(open){t.removeAttribute('hidden')}else{t.setAttribute('hidden','')}
+btn.setAttribute('aria-expanded',open);btn.querySelector('span').textContent=open?'접기':'자세히 보기';});});
+})();
+</script>
+</body>
+</html>

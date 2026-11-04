@@ -135,6 +135,9 @@ def main():
             "| M.S. (SCIE first author) · Spatiotemporal deep learning · LLM fine-tuning & RAG · Data pipelines"),
         encoding="utf-8")
     print("✔ out/profiles-en.md")
+    for name, html in build.project_pages(env, data, en=True).items():
+        (build.DOCS / "projects" / name).write_text(to_english(html), encoding="utf-8")
+    print("✔ docs/projects/*-en.html")
     for name, html in out.items():
         html = to_english(html)
         left = sorted(set(re.findall(r"[가-힣][가-힣 ·]*", re.sub(r"<!--.*?-->|<script.*?</script>|src=\"[^\"]*\"", "", html, flags=re.S))))

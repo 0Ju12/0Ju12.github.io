@@ -1,5 +1,6 @@
 {% import "layouts/_parts.j2" as p %}
 {% import "layouts/_v2.j2" as v %}
+{% import "_head.j2" as h %}
 {# Card Stack — 석사 / 학부 / 부트캠프 3개 묶음(featured 활동)을 카드로 쌓고, 카드 안에서 세부 프로젝트를 탭으로 보여 줌 #}
 {% set en = alt_lang is defined and alt_lang and alt_lang.code == 'ko' %}
 {% set T = {
@@ -30,6 +31,13 @@
   'notes': 'Study notes' if en else '학습 노트',
   'gen': 'generated from data/portfolio.yaml' if not en else 'generated from data/portfolio.en.yaml',
   'theme': 'Theme' if en else '테마',
+  'roles': 'By role (1 page):' if en else '직무별 이력서(1장):',
+  'r_data': 'Data Engineer' if en else '데이터 엔지니어',
+  'r_ai': 'AI/ML Engineer' if en else 'AI·ML 엔지니어',
+  'want': 'Looking for' if en else '희망 직무',
+  'loc': 'Location' if en else '근무 지역',
+  'start': 'Available' if en else '입사 가능',
+  'demo': 'Demo' if en else '데모',
 } %}
 {% set tints = ['#eef1ff', '#eafaf3', '#fff4e8'] %}
 {% set tints_d = ['#1a1e2e', '#132520', '#2a1f14'] %}
@@ -39,7 +47,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ profile.name }} — {{ profile.title }}</title>
-<meta name="description" content="{{ profile.title }} · {{ profile.headline }}">
+{{ h.meta(profile.name ~ ' — ' ~ profile.title, ('Data & AI engineer — geophysical research to LLM pipelines and RAG.' if en else profile.headline), ('en.html' if en else ''), '', en) }}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 :root{--bg:#f7f7f8;--text:#18181b;--muted:#5f5f68;--faint:#9b9ba3;--line:#e4e4e8;--card:#fff;--ink:#18181b;--on-ink:#fafafa;--shadow:0 1px 2px rgba(0,0,0,.04),0 18px 48px -18px rgba(0,0,0,.16){% for t in tints %};--t{{ loop.index }}:{{ t }}{% endfor %}}
@@ -81,7 +89,11 @@ a{color:inherit;text-decoration:none}
 .btn{display:inline-flex;align-items:center;gap:8px;height:50px;padding:0 24px;border-radius:999px;font-weight:700;font-size:15px;border:1px solid var(--line);background:var(--card);color:var(--text);transition:transform .15s}
 .btn:hover{transform:translateY(-2px)}
 .btn.pri{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
-.scroll{margin-top:52px;font-size:13px;color:var(--faint);display:flex;flex-direction:column;align-items:center;gap:8px}
+.avail{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin-top:22px;font-size:13.5px;color:var(--muted)}
+.avail b{color:var(--faint);font-weight:600;margin-right:6px}
+.avail .roles a{color:var(--text);font-weight:700;border-bottom:1px solid var(--line);margin-right:10px}
+.avail .roles a:hover{border-color:var(--text)}
+.scroll{margin-top:44px;font-size:13px;color:var(--faint);display:flex;flex-direction:column;align-items:center;gap:8px}
 .scroll::after{content:"";width:1px;height:36px;background:linear-gradient(var(--faint),transparent)}
 
 /* 섹션 제목 */
@@ -126,17 +138,10 @@ section{scroll-margin-top:80px}
 .panel .res li::before{content:"";position:absolute;left:0;top:14px;width:6px;height:6px;border-radius:50%;background:var(--c)}
 .acts{display:flex;flex-wrap:wrap;gap:8px}
 .acts a,.acts button{font:inherit;font-size:12.5px;font-weight:700;padding:7px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--text);cursor:pointer;transition:border-color .15s}
-.acts button{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.acts a.go{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
 .acts a:hover{border-color:var(--text)}
 
 /* 자세히 (STAR) */
-dialog{border:0;border-radius:28px;padding:0;width:min(760px,calc(100% - 32px));max-height:calc(100vh - 48px);background:var(--card);color:var(--text);box-shadow:0 40px 100px rgba(0,0,0,.35)}
-dialog::backdrop{background:rgba(10,10,14,.5);backdrop-filter:blur(4px)}
-dialog .dh{position:sticky;top:0;display:flex;justify-content:space-between;gap:16px;align-items:start;padding:24px 26px 16px;background:var(--card);border-bottom:1px solid var(--line);z-index:1}
-dialog .dh h3{margin:0;font-size:21px;line-height:1.4;letter-spacing:-.03em}
-dialog .dh small{display:block;color:var(--faint);font-size:13px;margin-top:4px}
-dialog .x{flex:none;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--text);font-size:16px;cursor:pointer}
-dialog .db{padding:20px 26px 28px}
 {{ p.base_css() }}
 .star{gap:16px}
 .star dt{color:var(--muted)}
@@ -216,6 +221,8 @@ footer a:hover{color:var(--text)}
       <p>{{ T.intro }}</p>
       <div class="areas">{% for t in T.areas %}<span><i style="background:{{ [dots[0], dots[1], dots[3], dots[2]][loop.index0] }}"></i>{{ t }}</span>{% endfor %}</div>
       <div class="cta"><a class="btn pri" href="#work">{{ T.see }}</a><a class="btn" href="resume-1page.pdf" download>{{ T.resume }}</a>{% for l in profile.links if 'github' in l.label|lower %}<a class="btn" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.icon('github', 16) }} GitHub</a>{% endfor %}</div>
+      {% set av = profile.availability or {} %}
+      <div class="avail">{% if av.role %}<span><b>{{ T.want }}</b>{{ av.role }}</span>{% endif %}{% if av.location %}<span><b>{{ T.loc }}</b>{{ av.location }}</span>{% endif %}{% if av.start %}<span><b>{{ T.start }}</b>{{ av.start }}</span>{% endif %}{% if not en %}<span class="roles"><b>{{ T.roles }}</b><a href="resume-data.pdf" download>{{ T.r_data }}</a><a href="resume-ai.pdf" download>{{ T.r_ai }}</a></span>{% endif %}</div>
       <div class="scroll">{{ T.scroll }}</div>
     </div>
   </header>
@@ -244,7 +251,7 @@ footer a:hover{color:var(--text)}
               <div class="meta">{{ sp.period_str }}{% if sp.org %} · {{ sp.org }}{% endif %}{% if sp.role %} · {{ sp.role }}{% endif %}{% if sp.team %} · {{ sp.team }}{% endif %}</div>
               {% if sp.summary %}<p class="sum">{{ sp.summary }}</p>{% endif %}
               <ul class="res">{% for r in (sp.star.result or [])[:2] %}<li>{{ r }}</li>{% endfor %}</ul>
-              <div class="acts"><button type="button" data-open="dlg-{{ sp.id }}">{{ T.detail }}</button>{% for l in sp.links or [] %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }} ↗</a>{% endfor %}{% for w in posts if w.project == sp.id %}<a href="posts/{{ w.slug }}.html" title="{{ w.title }}">✎ {{ T.post }}{% if loop.length > 1 %} {{ loop.index }}{% endif %}</a>{% endfor %}</div>
+              <div class="acts"><a class="go" href="projects/{{ sp.id }}{{ '-en' if en else '' }}.html">{{ T.detail }} →</a>{% if sp.case and sp.case.demo %}<a href="projects/{{ sp.id }}{{ '-en' if en else '' }}.html#demo">▶ {{ T.demo }}</a>{% endif %}{% for l in sp.links or [] %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }} ↗</a>{% endfor %}{% for w in posts if w.project == sp.id %}<a href="posts/{{ w.slug }}.html" title="{{ w.title }}">✎ {{ T.post }}{% if loop.length > 1 %} {{ loop.index }}{% endif %}</a>{% endfor %}</div>
             </div>
           </div>
           {% endfor %}
@@ -252,12 +259,7 @@ footer a:hover{color:var(--text)}
       </article>
     {% endfor %}
     </div>
-    {% for a in featured %}{% for sp in a.projects or [a] %}
-    <dialog id="dlg-{{ sp.id }}" aria-labelledby="dt-{{ sp.id }}">
-      <div class="dh"><div><h3 id="dt-{{ sp.id }}">{{ sp.title }}</h3><small>{{ sp.period_str }}{% if sp.org %} · {{ sp.org }}{% endif %}{% if sp.role %} · {{ sp.role }}{% endif %}</small></div><button class="x" type="button" aria-label="{{ T.close }}">✕</button></div>
-      <div class="db">{{ p.star_one(sp) }}</div>
-    </dialog>
-    {% endfor %}{% endfor %}
+
   </section>
 
   {% if posts %}
@@ -278,7 +280,7 @@ footer a:hover{color:var(--text)}
     </div>
   </section>
 
-  <div class="end" id="contact"><h2>{{ T.end|safe }}</h2><p>{{ profile.email }}</p><div class="cta">{% if profile.email %}<a class="btn" href="mailto:{{ profile.email }}">{{ T.mail }}</a>{% endif %}<a class="btn ghost" href="resume.pdf" download>{{ T.full }}</a>{% for l in profile.links if 'linkedin' in l.label|lower %}<a class="btn ghost" href="{{ l.url }}" target="_blank" rel="noopener">LinkedIn</a>{% endfor %}</div></div>
+  <div class="end" id="contact"><h2>{{ T.end|safe }}</h2><p>{{ profile.email }}</p><div class="cta">{% if profile.email %}<a class="btn" href="mailto:{{ profile.email }}">{{ T.mail }}</a>{% endif %}<a class="btn ghost" href="resume.pdf" download>{{ T.full }}</a>{% if not en %}<a class="btn ghost" href="resume-data.pdf" download>{{ T.r_data }} 이력서</a><a class="btn ghost" href="resume-ai.pdf" download>{{ T.r_ai }} 이력서</a>{% endif %}{% for l in profile.links if 'linkedin' in l.label|lower %}<a class="btn ghost" href="{{ l.url }}" target="_blank" rel="noopener">LinkedIn</a>{% endfor %}</div></div>
   <footer>© {{ profile.name_en }} · {{ T.gen }}{% if study_notes %} · <a href="study/index.html">{{ T.notes }}</a>{% endif %} · <a href="private/index.html" rel="nofollow">Private</a></footer>
 </div>
 <nav class="rail" id="rail" aria-label="chapters">{% for a in featured %}<a href="#c{{ loop.index }}" style="--c:{{ dots[loop.index0] }}"><span>{{ a.type }}</span><i></i></a>{% endfor %}</nav>
@@ -310,9 +312,6 @@ document.querySelectorAll('.tabs').forEach(function(tl){
   function sel(t){tabs.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;document.getElementById(x.getAttribute('aria-controls')).hidden=!on;});fit();}
   tabs.forEach(function(t,i){t.tabIndex=i?-1:0;t.addEventListener('click',function(){sel(t)});t.addEventListener('keydown',function(e){var k=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(k){var n=tabs[(i+k+tabs.length)%tabs.length];sel(n);n.focus();}});});
 });
-/* 자세히 */
-document.querySelectorAll('[data-open]').forEach(function(b){b.addEventListener('click',function(){var d=document.getElementById(b.dataset.open);if(d&&d.showModal)d.showModal();})});
-document.querySelectorAll('dialog').forEach(function(d){d.querySelector('.x').addEventListener('click',function(){d.close()});d.addEventListener('click',function(e){if(e.target===d)d.close()});});
 /* 글 넘기기 */
 var car=document.getElementById('carousel');document.querySelectorAll('.carr button').forEach(function(b){b.addEventListener('click',function(){car.scrollBy({left:car.clientWidth*0.9*(+b.dataset.dir),behavior:reduce.matches?'auto':'smooth'})})});
 var links=document.querySelectorAll('.top a.n');if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)})})},{rootMargin:'-45% 0px -50% 0px'});document.querySelectorAll('section[id]').forEach(function(s){io.observe(s)});}

@@ -1,0 +1,39 @@
+{# 석사 연구 분석 흐름 구조도 — 근거: content/posts/2026-11-wavenumber-correlation.md, portfolio.yaml masters STAR #}
+{% set D = {
+  'title': 'Analysis workflow' if en else '분석 흐름',
+  'in': 'Input' if en else '입력',
+  'in1': 'Airborne gravity data' if en else '항공 중력 자료',
+  'in2': 'Airborne magnetic data' if en else '항공 자력 자료',
+  'in3': 'Ghasha, offshore Abu Dhabi — salt and basement overlap under 8–10 km of sediments' if en else '아부다비 해상 가샤 — 8~10 km 퇴적층 아래 암염·기반암 신호가 겹침',
+  's1': 'Upward continuation' if en else '상향 연속',
+  's1d': 'Height = knee of the correlation-change curve (1,500 m)' if en else '상관계수 변화 곡선이 꺾이는 높이 1,500 m',
+  's2': 'Normalization' if en else '정규화',
+  's2d': 'Put two different units on one scale' if en else '단위가 다른 두 자료를 같은 척도로',
+  's3': 'Wavenumber correlation filtering (WCF)' if en else '파수 상관 필터링 (WCF)',
+  's3d': 'Correlation CC(k) per wavenumber' if en else '파수별 상관계수 CC(k) 계산',
+  's4': 'Indices' if en else '지표 설계',
+  'slfi': 'CC(k) 0.5 ~ 1.0 → basement' if en else 'CC(k) 0.5 ~ 1.0 → 기반암',
+  'dlfi': 'CC(k) −1.0 ~ −0.5 → salt' if en else 'CC(k) −1.0 ~ −0.5 → 암염',
+  's4d': 'Band chosen from the correlation vs. retained-energy curve' if en else '상관계수 vs 남는 신호 에너지 곡선의 균형점으로 구간 결정',
+  's5': 'Independent validation' if en else '독립 검증',
+  's5d': 'Three existing models from different methods — map overlay · 4 profiles · 3D density sections' if en else '해석법이 다른 기존 모델 3개 — 공간 비교 · 측선 4개 · 3D 밀도 단면',
+  'out': 'Output' if en else '결과',
+  'o1': 'Basement structure (SLFI) agrees with 3 independent models' if en else '기반암 구조(SLFI) — 독립 모델 3개와 일치',
+  'o2': 'Salt distribution (DLFI) + possible extra uplift west of Ghasha' if en else '암염 분포(DLFI) 재현 + 가샤 서쪽 추가 융기 가능성',
+} %}
+<figure class="diagram" aria-label="{{ D.title }}">
+  <div class="dg-row">
+    <div class="dg-col dg-in"><span class="dg-tag">{{ D.in }}</span><div class="dg-box">{{ D.in1 }}</div><div class="dg-box">{{ D.in2 }}</div><small>{{ D.in3 }}</small></div>
+    <div class="dg-arrow" aria-hidden="true"></div>
+    <ol class="dg-steps">
+      <li><i>1</i><b>{{ D.s1 }}</b><small>{{ D.s1d }}</small></li>
+      <li><i>2</i><b>{{ D.s2 }}</b><small>{{ D.s2d }}</small></li>
+      <li><i>3</i><b>{{ D.s3 }}</b><small>{{ D.s3d }}</small></li>
+      <li class="split"><i>4</i><b>{{ D.s4 }}</b><span class="dg-pair"><em class="p">SLFI · {{ D.slfi }}</em><em class="n">DLFI · {{ D.dlfi }}</em></span><small>{{ D.s4d }}</small></li>
+      <li><i>5</i><b>{{ D.s5 }}</b><small>{{ D.s5d }}</small></li>
+    </ol>
+    <div class="dg-arrow" aria-hidden="true"></div>
+    <div class="dg-col dg-out"><span class="dg-tag">{{ D.out }}</span><div class="dg-box p">{{ D.o1 }}</div><div class="dg-box n">{{ D.o2 }}</div></div>
+  </div>
+  <figcaption>{{ D.title }} — {{ 'based on the M.S. thesis (Fig. 3) and the SPE Journal paper' if en else '석사 학위논문 Fig. 3 · SPE Journal 논문 기준으로 정리' }}</figcaption>
+</figure>

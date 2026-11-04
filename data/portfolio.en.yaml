@@ -19,6 +19,10 @@ profile:
   phone: ""
   location: Republic of Korea
   photo: ""
+  availability:
+    role: "Data Engineer · AI/ML Engineer"
+    location: ""
+    start: ""
   links:
     - { label: GitHub,   url: "https://github.com/0Ju12" }
     - { label: Research history, url: "https://www.geoverselab.com/ko/research-history/13/" }

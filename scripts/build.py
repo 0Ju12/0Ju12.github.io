@@ -102,6 +102,11 @@ def normalize(data):
     data["certifications"] = data.get("certifications") or []
     data["highlights"] = data.get("highlights") or []
     data["awards"] = data.get("awards") or []
+    cn = DATA.parent / "case_notes.yaml"   # 프로젝트 상세 페이지용 트레이드오프·회고·데모·구조도
+    notes = yaml.safe_load(cn.read_text(encoding="utf-8")) if cn.exists() else {}
+    for g in data.get("activities") or []:
+        for sp in g.get("projects") or []:
+            sp["case"] = notes.get(sp.get("id")) or {}
     pi = DATA.parent / "projects_index.yaml"   # 디자인 시안용 프로젝트 단위 목록
     data["projects_index"] = yaml.safe_load(pi.read_text(encoding="utf-8")) if pi.exists() else []
     return data
@@ -165,6 +170,20 @@ def load_posts(acts):
     return sorted(posts, key=lambda p: (str(p.get("date", "")), p["slug"]), reverse=True)
 
 
+def project_pages(env, data, en=False):
+    """대표 활동의 하위 프로젝트마다 상세 페이지: docs/projects/<id>.html (영문은 <id>-en.html). 생성된 HTML 사전 반환."""
+    subs = [(g, sp) for g in data.get("featured") or [] for sp in (g.get("projects") or [])]
+    out = {}
+    for i, (g, sp) in enumerate(subs):
+        prev = subs[i - 1][1] if i > 0 else None
+        nxt = subs[i + 1][1] if i + 1 < len(subs) else None
+        related = [w for w in data.get("posts") or [] if w.get("project") == sp.get("id")]
+        html = env.get_template("project.html.j2").render(
+            sp=sp, group=g, prev=prev, next=nxt, related=related, en=en, **data)
+        out[f"{sp['id']}{'-en' if en else ''}.html"] = html
+    return out
+
+
 def main():
     data = normalize(yaml.safe_load(DATA.read_text(encoding="utf-8")))
     env = Environment(
@@ -197,6 +216,9 @@ def main():
     # 디자인 비교용 미리보기: python3 scripts/build.py --previews  → docs/design-<테마>.html
     for t in [] if "--previews" not in sys.argv else sorted(x.stem for x in (TEMPLATES / "themes").glob("*.css")):
         (DOCS / f"design-{t}.html").write_text(site_tpl.render(theme=t, **data), encoding="utf-8")
+    (DOCS / "projects").mkdir(exist_ok=True)
+    for name, html in project_pages(env, data).items():
+        (DOCS / "projects" / name).write_text(html, encoding="utf-8")
     (DOCS / "resume.html").write_text(env.get_template("resume.html.j2").render(**data), encoding="utf-8")
     (DOCS / "resume-1page.html").write_text(env.get_template("resume-1page.html.j2").render(**data), encoding="utf-8")
     # 직무별 1쪽 이력서: data/resume_variants.yaml → docs/resume-<key>.html (사실은 portfolio.yaml 것만 재배치)
