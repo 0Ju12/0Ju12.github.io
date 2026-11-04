@@ -28,7 +28,7 @@
   'end': 'Looking forward to<br>working together.' if en else '함께 일할 기회를<br>기다립니다.',
   'mail': 'Send email' if en else '메일 보내기',
   'full': 'Full resume' if en else '상세 이력서',
-  'notes': 'Study notes' if en else '학습 노트',
+  'notes': 'Lecture notes' if en else '강의 노트',
   'gen': 'generated from data/portfolio.yaml' if not en else 'generated from data/portfolio.en.yaml',
   'theme': 'Theme' if en else '테마',
   'roles': 'By role (1 page):' if en else '직무별 이력서(1장):',
@@ -179,8 +179,6 @@ section{scroll-margin-top:80px}
 .carr{display:flex;gap:8px}
 .carr button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-size:18px;cursor:pointer}
 .carr button:hover{border-color:var(--text)}
-.studylink{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:14px;padding:20px 24px;border-radius:22px;background:var(--card);border:1px solid var(--line);font-weight:700}
-.studylink small{display:block;font-weight:500;color:var(--muted);font-size:13.5px}
 
 /* 이력 */
 .bento{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
@@ -247,7 +245,7 @@ button.ev{font:inherit;cursor:pointer;border:0;transition:background .15s,color 
 </style>
 </head>
 <body class="role-all">
-<nav class="top" aria-label="menu"><a class="me" href="#top">{{ p.avatar(profile) }}{{ profile.name }}</a><a class="n" href="#work">{{ T.work }}</a>{% if posts %}<a class="n" href="#writing">{{ T.writing }}</a>{% endif %}<a class="n" href="#about">{{ T.about }}</a>{% if alt_lang %}<a href="{{ alt_lang.url }}" hreflang="{{ alt_lang.code }}">{{ alt_lang.label }}</a>{% endif %}<button id="theme" type="button">{{ T.theme }}</button></nav>
+<nav class="top" aria-label="menu"><a class="me" href="#top">{{ p.avatar(profile) }}{{ profile.name }}</a><a class="n" href="#work">{{ T.work }}</a>{% if posts %}<a class="n" href="#writing">{{ T.writing }}</a>{% endif %}<a class="n" href="#about">{{ T.about }}</a>{% if study_notes %}<a class="nk" href="study/index.html">{{ T.notes }}</a>{% endif %}{% if alt_lang %}<a href="{{ alt_lang.url }}" hreflang="{{ alt_lang.code }}">{{ alt_lang.label }}</a>{% endif %}<button id="theme" type="button">{{ T.theme }}</button></nav>
 
 <div class="w" id="top">
   <header class="hero">
@@ -309,7 +307,6 @@ button.ev{font:inherit;cursor:pointer;border:0;transition:background .15s,color 
   <section id="writing">
     <div class="sec-t"><h2>{{ T.writing }}</h2><div class="carr"><button type="button" data-dir="-1" aria-label="이전 글">←</button><button type="button" data-dir="1" aria-label="다음 글">→</button></div></div>
     <div class="carousel" id="carousel">{% for w in posts %}{% set c = dots[loop.index0 % 7] %}<a class="post" href="posts/{{ w.slug }}.html"><span class="tag" style="color:{{ c }};background:color-mix(in srgb,{{ c }} 12%,transparent)">{{ (w.tags or ['글'])[0] }}</span><b>{{ w.title }}</b><p>{{ w.summary|truncate(90) }}</p><small>{{ w.date }} · {{ T.read }}</small></a>{% endfor %}</div>
-    {% if study_notes %}<a class="studylink" href="study/index.html"><span>SSAFY 강의 노트 {{ study_notes|length }}편 · 실습 프로그램<small>Web · Django · DB · 알고리즘 · AI를 주제별로 다시 정리한 학습 공간</small></span><span>→</span></a>{% endif %}
   </section>
   {% endif %}
 
@@ -324,7 +321,7 @@ button.ev{font:inherit;cursor:pointer;border:0;transition:background .15s,color 
   </section>
 
   <div class="end" id="contact"><h2>{{ T.end|safe }}</h2><p>{{ profile.email }}</p><div class="cta">{% if profile.email %}<a class="btn" href="mailto:{{ profile.email }}">{{ T.mail }}</a>{% endif %}<a class="btn ghost" href="resume.pdf" download>{{ T.full }}</a>{% if not en %}<a class="btn ghost" href="resume-data.pdf" download>{{ T.r_data }} 이력서</a><a class="btn ghost" href="resume-ai.pdf" download>{{ T.r_ai }} 이력서</a>{% endif %}{% for l in profile.links if 'linkedin' in l.label|lower %}<a class="btn ghost" href="{{ l.url }}" target="_blank" rel="noopener">LinkedIn</a>{% endfor %}</div></div>
-  <footer>© {{ profile.name_en }} · {{ T.gen }}{% if study_notes %} · <a href="study/index.html">{{ T.notes }}</a>{% endif %} · <a href="private/index.html" rel="nofollow">Private</a></footer>
+  <footer>© {{ profile.name_en }} · {{ T.gen }} · <a href="private/index.html" rel="nofollow">Private</a></footer>
 </div>
 <div class="evp" id="evp" role="dialog" aria-modal="false" aria-labelledby="evt" hidden><div class="evh"><span id="evt"></span><button type="button" id="evx" aria-label="{{ T.close }}">✕</button></div><ul id="evl"></ul></div>
 <script type="application/json" id="ev-data">{{ evidence|default([])|tojson }}</script>
