@@ -283,9 +283,10 @@ button.ev{font:inherit;cursor:pointer;border:0;transition:background .15s,color 
         {% set subs = a.projects or [a] %}
         <div class="window">
           <div class="tabs" role="tablist" aria-label="{{ a.title }}">{% for sp in subs %}<button type="button" role="tab" id="tab-{{ sp.id }}" aria-controls="pn-{{ sp.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}"><i></i>{{ sp.short or sp.title }}</button>{% endfor %}</div>
-          {% for sp in subs %}{% set ns = namespace(img=none) %}{% for kw in ['Fig11', '결과화면', '질의응답', '포스터발표', '현장측정'] %}{% for g in sp.gallery or [] %}{% if ns.img is none and kw in g.src %}{% set ns.img = g %}{% endif %}{% endfor %}{% endfor %}{% set img = ns.img or (sp.gallery or [])|first %}
+          {% for sp in subs %}{% set ns = namespace(img=none) %}{% for kw in ['GPlates', 'Fig11', '결과화면', '질의응답', '포스터발표', '현장측정'] %}{% for g in sp.gallery or [] %}{% if ns.img is none and kw in g.src %}{% set ns.img = g %}{% endif %}{% endfor %}{% endfor %}{% set img = ns.img or (sp.gallery or [])|first %}
           <div class="panel" role="tabpanel" id="pn-{{ sp.id }}" aria-labelledby="tab-{{ sp.id }}"{% if not loop.first %} hidden{% endif %}>
-            {% if img %}<figure class="shot" style="margin:0"><img{% if 'ssafy-16' not in img.src %} style="object-position:center 45%"{% endif %} src="{{ img.src }}" alt="{{ img.caption }}" loading="lazy"><figcaption>{{ img.caption }}</figcaption></figure>
+            {% if sp.case and sp.case.demo %}<figure class="shot" style="margin:0"><img src="{{ sp.case.demo }}" alt="{{ sp.case.demo_caption_en if en else sp.case.demo_caption_ko }}" loading="lazy"><figcaption>▶ {{ 'Demo — Heritage RAG guide' if en else '시연 — 국보 입문 가이드' }}</figcaption></figure>
+            {% elif img %}<figure class="shot" style="margin:0"><img{% if 'ssafy-16' not in img.src %} style="object-position:center 45%"{% endif %} src="{{ img.src }}" alt="{{ img.caption }}" loading="lazy"><figcaption>{{ img.caption }}</figcaption></figure>
             {% elif loop.first and a.image %}<figure class="shot" style="margin:0"><img src="{{ a.image }}" alt="{{ a.image_caption or a.title }}" loading="lazy">{% if a.image_caption %}<figcaption>{{ a.image_caption }}</figcaption>{% endif %}</figure>{% endif %}
             <div class="pb">
               <h4>{{ sp.title }}</h4>
