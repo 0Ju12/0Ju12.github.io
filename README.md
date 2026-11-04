@@ -2,6 +2,8 @@
 
 **🔗 https://0ju12.github.io**
 
+[![Deploy portfolio](https://github.com/0Ju12/0Ju12.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/0Ju12/0Ju12.github.io/actions/workflows/deploy.yml) — push할 때마다 빌드 → 점검(깨진 링크·이미지, 1쪽 이력서, 휴대폰·데스크톱 화면 넘침) → 통과하면 배포
+
 복잡한 지구과학 데이터를 딥러닝과 분석으로 풀어내는 데이터·AI 엔지니어 이영주의 포트폴리오 사이트 소스입니다.
 
 | | |

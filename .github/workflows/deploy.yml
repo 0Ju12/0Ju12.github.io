@@ -1,4 +1,4 @@
-# main 브랜치에 push하면 포트폴리오를 다시 빌드해서 GitHub Pages에 배포합니다.
+# main 브랜치에 push하면 포트폴리오를 다시 빌드하고, 점검(링크·이미지·1쪽 이력서·화면 넘침)을 통과해야 GitHub Pages에 배포합니다.
 # 최초 1회: 저장소 Settings → Pages → Source 를 "GitHub Actions" 로 설정
 name: Deploy portfolio
 on:
@@ -21,13 +21,18 @@ jobs:
         with: { python-version: "3.12" }
       - uses: actions/setup-node@v4
         with: { node-version: "20" }
-      - run: pip install pyyaml jinja2 markdown cryptography
-      - run: python scripts/build.py
+      - run: pip install pyyaml jinja2 markdown cryptography pypdf
+      - name: Build site
+        run: python scripts/build.py --strict
         env:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           PRIVATE_PASSWORD: ${{ secrets.PRIVATE_PASSWORD }}
       - run: npm install playwright@1.47.2 && npx playwright install --with-deps chromium
       - run: node scripts/pdf.js
+      - name: Check links, images, 1-page resumes
+        run: python scripts/check_site.py
+      - name: Check mobile/desktop layout overflow
+        run: node scripts/check_layout.js
       - uses: actions/upload-pages-artifact@v3
         with: { path: docs }
   deploy:
