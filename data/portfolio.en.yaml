@@ -121,7 +121,7 @@ activities:
             - SLFI basement structure agrees with three independent models at r ≥ 0.94 (profile correlation 0.95–0.98 after shift alignment)
             - DLFI reproduces the salt distribution and suggests an additional salt uplift west of Ghasha
             - First-author paper in SPE Journal (SCIE, 2026, with Univ. of Calgary and Khalifa Univ.) · 3 conference talks (2024)
-            - Best Student Paper (poster), KSEG Fall Conference 2024 · M.S. degree conferred 2026.08.21
+            - Best Student Paper Award (poster), KSEG Spring Conference 2024 — Utah FORGE velocity/density model accuracy · M.S. degree conferred 2026.08.21
         links:
           - { label: SPE Journal paper, url: "https://doi.org/10.2118/236968-PA" }
           - { label: Code (gravmag-wcf), url: "https://github.com/0Ju12/gravmag-wcf" }
@@ -292,7 +292,7 @@ publications:
 
 awards:
   - { name: "Project Excellence Award, POSCO Youth AI & Big Data Academy (30th)", rank: "", org: POSCO HRD Center · POSTECH, date: "2025.08" }
-  - { name: "Best Student Paper (poster), KSEG Fall Conference 2024", rank: "", org: Korean Society of Earth and Exploration Geophysicists, date: "2024.11" }
+  - { name: "Best Student Paper Award (poster), KSEG Spring Conference 2024 — accuracy of seismic velocity and density models at the Utah FORGE geothermal site", rank: "", org: Korean Society of Earth and Exploration Geophysicists, date: "2024.10" }
 
 certifications:
   - { name: "ADsP (Advanced Data Analytics Semi-Professional)", org: Korea Data Agency, date: "2022.09" }
