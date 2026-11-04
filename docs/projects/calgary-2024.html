@@ -42,6 +42,13 @@ h1{font-size:clamp(28px,4.4vw,44px);line-height:1.22;letter-spacing:-.045em;marg
 .acts a{display:inline-flex;align-items:center;gap:6px;height:42px;padding:0 16px;border-radius:999px;font-weight:700;font-size:14px;text-decoration:none;border:1px solid var(--line);background:var(--card)}
 .acts a:first-child{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
 .acts a:hover{border-color:var(--text)}
+.keyline{display:flex;gap:10px;align-items:flex-start;font-size:16px;font-weight:700;margin:0 0 18px;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:var(--card);max-width:780px}
+.keyline i{font-style:normal;font-size:12px;font-weight:800;letter-spacing:.04em;padding:3px 8px;border-radius:6px;background:var(--ink);color:var(--on-ink);flex:none;margin-top:1px}
+.toc{position:sticky;top:58px;z-index:5;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:10px 0;margin:6px 0 0;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px)}
+.toc::-webkit-scrollbar{display:none}
+.toc a{flex:none;font-size:13px;font-weight:700;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);text-decoration:none;color:var(--muted)}
+.toc a:hover{color:var(--text);border-color:var(--text)}
+section,.two{scroll-margin-top:110px}
 .media{margin:24px 0 8px}
 .media figure{margin:0;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow)}
 .media img{width:100%;display:block;background:#fff}
@@ -113,15 +120,16 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
     <div class="chips"><span>연구</span><span>2024.06 – 2024.12</span></div>
     <h1>캐나다 캘거리대학교 장기 파견연구 — 중력·자력 데이터 복합 해석</h1>
 <p class="lead">중력·자력 탐사 자료를 결합해 아부다비 가샤 암염돔과 지하 기반암 구조를 파악</p>    <div class="meta">University of Calgary · 석사과정 파견연구원</div>
-<div class="acts"><a href="https://doi.org/10.2118/236968-PA" target="_blank" rel="noopener">SPE Journal 논문 ↗</a></div>  </header>
+<p class="keyline"><i>핵심</i><span>공동연구 성과로 SPE Journal 제1저자 논문 (2026)</span></p><div class="acts"><a href="https://doi.org/10.2118/236968-PA" target="_blank" rel="noopener">SPE Journal 논문 ↗</a></div>  </header>
 
+  <nav class="toc" aria-label="이 페이지"><a href="#story">문제 · 역할</a><a href="#did">한 일</a><a href="#result">결과</a><a href="#tradeoffs">설계 판단 · 트레이드오프</a><a href="#media">사진 · 자료</a></nav>
 
-  <div class="two" style="margin-top:28px">
+  <div class="two" id="story" style="margin-top:28px">
 <div class="card"><h3>문제</h3><p>암염돔과 기반암 구조는 단일 탐사 자료로 해석하기 어려워 서로 다른 물리량을 함께 분석할 필요가 있었음</p></div><div class="card"><h3>역할</h3><p>약 6개월간 캘거리대학교에 파견되어, 중력·자력 탐사 자료의 복합 해석 연구를 수행</p></div>  </div>
 
-<section><h2>한 일</h2><div class="boxed"><ol class="list"><li>과학기술정보통신부·IITP 디지털분야 글로벌 인재양성사업(AI·디지털트윈 기반 스마트 CCS 운영 글로벌 인재양성 프로그램) 지원으로 파견</li><li>캘거리대학교 측지공학과 연구진과 함께 항공 중력·자력 데이터의 파수 상관 분석 연구 수행</li><li>칼리파대학교(UAE)와의 3개 기관 공동연구로 확장</li><li>캐나다 로키 카나나스키스(Kananaskis) 지역 현장 지구물리 탐사에 참여하고 영문 현장 탐사 보고서(Field Exploration Report) 공동 작성 (2024.08)</li></ol></div></section><section><h2>결과</h2><div class="boxed"><ul class="list res"><li>파견 연구 결과로 SCIE 국제학술지 SPE Journal 제1저자 논문 게재 승인 (2026)</li><li>같은 연구를 석사 학위논문(2026)으로 완성</li></ul></div></section>
+<section id="did"><h2>한 일</h2><div class="boxed"><ol class="list"><li>과학기술정보통신부·IITP 디지털분야 글로벌 인재양성사업(AI·디지털트윈 기반 스마트 CCS 운영 글로벌 인재양성 프로그램) 지원으로 파견</li><li>캘거리대학교 측지공학과 연구진과 함께 항공 중력·자력 데이터의 파수 상관 분석 연구 수행</li><li>칼리파대학교(UAE)와의 3개 기관 공동연구로 확장</li><li>캐나다 로키 카나나스키스(Kananaskis) 지역 현장 지구물리 탐사에 참여하고 영문 현장 탐사 보고서(Field Exploration Report) 공동 작성 (2024.08)</li></ol></div></section><section id="result"><h2>결과</h2><div class="boxed"><ul class="list res"><li>파견 연구 결과로 SCIE 국제학술지 SPE Journal 제1저자 논문 게재 승인 (2026)</li><li>같은 연구를 석사 학위논문(2026)으로 완성</li></ul></div></section>
 <section id="tradeoffs"><h2>설계 판단 · 트레이드오프</h2><p class="sub">무엇을 고르고, 그 대신 무엇을 포기했는지</p><div class="trade"><div>단위도 깊이 감도도 다른 두 물리량(중력·자력)을 함께 쓰는 대신, 먼저 정규화하고 파수 영역의 상관(위상)으로 비교 가능한 형태로 맞추는 과정을 거침</div></div></section>
-<section><h2>사진 · 자료</h2><div class="gallery"><a href="../assets/photos/calgary-2024/2024-08_캘거리_중력탐사_현장측정.jpg" target="_blank" rel="noopener"><img src="../assets/photos/calgary-2024/2024-08_캘거리_중력탐사_현장측정.jpg" alt="2024-08 캘거리 중력탐사 현장측정" loading="lazy">2024-08 캘거리 중력탐사 현장측정</a></div></section>
+<section id="media"><h2>사진 · 자료</h2><div class="gallery"><a href="../assets/photos/calgary-2024/2024-08_캘거리_중력탐사_현장측정.jpg" target="_blank" rel="noopener"><img src="../assets/photos/calgary-2024/2024-08_캘거리_중력탐사_현장측정.jpg" alt="2024-08 캘거리 중력탐사 현장측정" loading="lazy">2024-08 캘거리 중력탐사 현장측정</a></div></section>
 
   <nav class="pn" aria-label="projects">
 <a href="masters.html"><small>← 이전 프로젝트</small>중력·자력 데이터 파수 상관 분석으로 지하 구조 규명 (석사 · SPE Journal 제1저자)</a><a class="r" href="undergrad-research.html"><small>다음 프로젝트 →</small>판구조 형성사를 고려한 해외 대규모 CO2 저장소 탄성파 해석 (제1저자 논문)</a>  </nav>

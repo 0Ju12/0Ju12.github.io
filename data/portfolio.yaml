@@ -93,6 +93,8 @@ skills:
 activities:
   # ── 1. 석사과정 ──────────────────────────────────────────────
   - id: grad
+    tagline: "겹친 중력·자력 신호를 분리하는 지표를 설계해 지하 구조를 규명"
+    highlights: ["SCIE 제1저자 (SPE Journal)", "기존 모델과 상관계수 0.94 이상", "캘거리대 6개월 파견"]
     icon: "🌍"
     kpi: { value: "r ≥ 0.94", label: "기존 독립 모델과의 상관계수" }
     title: "석사과정 — 중력·자력 데이터 파수 상관 분석으로 지하 구조 규명 (SPE Journal 제1저자)"
@@ -112,6 +114,8 @@ activities:
     summary: 겹쳐 있는 중력·자력 신호를 파수 영역 상관 분석으로 분리하는 지표(SLFI·DLFI)를 설계해 암염·기반암 구조를 규명하고, 캘거리대 파견·3개 기관 공동연구로 SCIE 논문과 학위논문을 완성
     projects:
       - id: masters
+        tagline: "파수 영역 상관 분석으로 기반암(SLFI)·암염(DLFI) 지표 설계"
+        key: "기존 독립 모델 3개와 상관계수 0.94 이상 일치"
         short: "석사 학위논문 연구"
         title: 중력·자력 데이터 파수 상관 분석으로 지하 구조 규명 (석사 · SPE Journal 제1저자)
         type: 연구
@@ -140,6 +144,8 @@ activities:
           - { label: GitHub 코드 (WCF·SLFI·DLFI), url: "https://github.com/0Ju12/gravmag-wcf" }
           - { label: 연구 이력, url: "https://www.geoverselab.com/ko/research-history/13/" }
       - id: calgary-2024
+        tagline: "중력·자력 자료를 결합해 아부다비 가샤 암염돔·기반암 구조 파악"
+        key: "공동연구 성과로 SPE Journal 제1저자 논문 (2026)"
         short: "캘거리대 장기 파견"
         title: 캐나다 캘거리대학교 장기 파견연구 — 중력·자력 데이터 복합 해석
         type: 국제협력
@@ -164,6 +170,8 @@ activities:
 
   # ── 2. 학부 (학부연구생 + 시공간 딥러닝 캡스톤) ─────────────────
   - id: undergrad
+    tagline: "판구조 관점의 CO2 저장소 해석과 시공간 딥러닝 산불 예측"
+    highlights: ["국내 학술지 제1저자", "KSEG 학생 우수논문 발표상", "산불 예측 F1 0.85"]
     icon: "🔬"
     kpi: { value: "제1저자", label: "국내 학술지 논문 · 제2저자 1편 · 학회 발표 3건" }
     title: "학부 — 판구조 기반 해외 CO2 저장소 탄성파 해석 (제1저자) · IAB 융합전공 시공간 딥러닝"
@@ -183,6 +191,8 @@ activities:
     summary: 학부연구생으로 판구조 형성사를 고려한 해외 대규모 CO2 저장소 탄성파 해석 논문(제1저자)을 쓰고, IAB 융합전공에서 시공간 딥러닝(U-LSTM) 산불 확산 예측 모델을 설계·학습
     projects:
       - id: undergrad-research
+        tagline: "GPlates로 해외 CO2 저장소의 형성사를 복원하고 탄성파 영상을 해석"
+        key: "제1저자 논문 (지구물리와 물리탐사, 2024) · 학생 우수논문 발표상"
         short: "학부 연구 (제1저자 논문)"
         title: "판구조 형성사를 고려한 해외 대규모 CO2 저장소 탄성파 해석 (제1저자 논문)"
         type: 연구
@@ -209,6 +219,8 @@ activities:
           - { label: 제2저자 논문, url: "https://koreascience.or.kr/article/JAKO202335272000266.page" }
 
       - id: wildfire-capstone
+        tagline: "이전 시점의 화선·기상·지형으로 다음 시점 화선을 예측하는 U-LSTM"
+        key: "학습에 쓰지 않은 강릉 산불에서 F1 0.85"
         short: "IAB 융합전공 캡스톤"
         title: "IAB 융합전공 — 시공간 딥러닝 기반 산불 확산 경로 예측 모델 (캡스톤)"
         type: AI 프로젝트
@@ -234,6 +246,8 @@ activities:
           - { label: GitHub 코드, url: "https://github.com/0Ju12/wildfire-spread-prediction" }
   # ── 3. 부트캠프 (SSAFY 16기 + 포스코 AI·BigData 아카데미) ────────
   - id: bootcamp
+    tagline: "LLM 데이터 파이프라인·RAG·파인튜닝을 서비스까지 구현"
+    highlights: ["LLM 응답을 코드로 검증", "QLoRA·RAG·Django", "포스코 아카데미 장려상"]
     icon: "💻"
     kpi: { value: "0.96961", label: "SSAFY AI 챌린지 VQA Public Score · 포스코 장려상" }
     title: "부트캠프 — SSAFY 16기 · 포스코 청년 AI·BigData 아카데미 30기"
@@ -254,6 +268,8 @@ activities:
     summary: SSAFY에서 LLM 데이터 파이프라인·Django 서비스와 VQA 모델 앙상블을, 포스코 아카데미에서 콩글리시 교정 생성 모델+RAG를 구현
     projects:
       - id: ssafy-16
+        tagline: "수집 → LLM 분석 → 웹 서비스까지 직접 만든 독서 커뮤니티"
+        key: "LLM 판단을 코드로 검증 · 자동 테스트 86개"
         short: "SSAFY 16기"
         title: "SSAFY 16기 관통 프로젝트 — ThRead: LLM 댓글 분석 파이프라인 · AI 도서 서비스"
         type: AI 프로젝트
@@ -283,6 +299,8 @@ activities:
           - { label: "GitHub 저장소", url: "https://github.com/0Ju12/ssafy-thread" }
           - { label: "국보 입문 가이드 (RAG)", url: "https://github.com/0Ju12/heritage-rag-guide" }
       - id: posco-pospeak
+        tagline: "콩글리시를 원어민 표현으로 바꾸는 생성 모델 + RAG"
+        key: "학습 전략 비교로 BERTScore F1 0.32 → 0.74 · 장려상"
         short: "POSPEAK(KILL KONG)"
         title: "POSPEAK(KILL KONG) — 콩글리시 → 원어민 표현 교정 AI (FLAN-T5·Qwen + RAG)"
         type: AI 프로젝트

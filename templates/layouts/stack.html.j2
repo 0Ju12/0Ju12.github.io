@@ -146,6 +146,12 @@ section{scroll-margin-top:80px}
 .panel .res{list-style:none;margin:0 0 12px;padding:0;font-size:13px}
 .panel .res li{padding:5px 0 5px 14px;position:relative;border-top:1px solid var(--line);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .panel .res li::before{content:"";position:absolute;left:0;top:14px;width:6px;height:6px;border-radius:50%;background:var(--c)}
+.card .keys{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px;padding:0;list-style:none}
+.card .keys li{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:650;padding:7px 12px;border-radius:999px;background:color-mix(in srgb,var(--card) 70%,transparent);border:1px solid color-mix(in srgb,var(--text) 10%,transparent)}
+.card .keys li i{width:7px;height:7px;border-radius:50%;background:var(--c);flex:none}
+.card .pts.rv li span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.panel .key{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;font-weight:650;margin:0 0 14px;padding:9px 12px;border-radius:12px;background:color-mix(in srgb,var(--c) 9%,transparent)}
+.panel .key i{width:7px;height:7px;border-radius:50%;background:var(--c);flex:none;margin-top:7px}
 .acts{display:flex;flex-wrap:wrap;gap:8px}
 .acts a,.acts button{font:inherit;font-size:12.5px;font-weight:700;padding:7px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--text);cursor:pointer;transition:border-color .15s}
 .acts a.go{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
@@ -275,10 +281,10 @@ button.ev{font:inherit;cursor:pointer;border:0;transition:background .15s,color 
         <div>
           <div class="head"><span class="n" style="color:{{ c }}">{{ '%02d'|format(loop.index) }} / {{ '%02d'|format(featured|length) }}</span><span class="chip">{{ a.type }}</span><span class="chip">{{ a.period_str }}</span></div>
           <h3>{{ a.title }}</h3>
-          <p class="one">{{ a.summary }}</p>
-          {% for k, rv in RV.items() %}{% set rb = (rv.brief or {}).get(a.id) %}{% if rb %}<ul class="pts rv rv-{{ k }}">{% for t in rb %}<li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:{{ c }}"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>{{ t }}</span></li>{% endfor %}</ul>{% endif %}{% endfor %}
-          <ul class="pts rv rv-all">{% for t in (a.brief or a.star.result or [])[:4] %}<li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:{{ c }}"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>{{ t }}</span></li>{% endfor %}</ul>
-          <div class="tags">{% for t in a.tags[:8] %}<button type="button" class="ev" title="{{ T.ev_hint }}">{{ t }}</button>{% endfor %}</div>
+          <p class="one">{{ a.tagline or a.summary }}</p>
+          {% for k, rv in RV.items() %}{% set rb = (rv.brief or {}).get(a.id) %}{% if rb %}<ul class="pts rv rv-{{ k }}">{% for t in rb[:2] %}<li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:{{ c }}"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>{{ t }}</span></li>{% endfor %}</ul>{% endif %}{% endfor %}
+          {% if a.highlights %}<ul class="keys rv rv-all">{% for t in a.highlights %}<li><i></i>{{ t }}</li>{% endfor %}</ul>{% else %}<ul class="pts rv rv-all">{% for t in (a.brief or a.star.result or [])[:3] %}<li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:{{ c }}"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>{{ t }}</span></li>{% endfor %}</ul>{% endif %}
+          <div class="tags">{% for t in a.tags[:5] %}<button type="button" class="ev" title="{{ T.ev_hint }}">{{ t }}</button>{% endfor %}</div>
         </div>
         {% set subs = a.projects or [a] %}
         <div class="window">
@@ -290,10 +296,10 @@ button.ev{font:inherit;cursor:pointer;border:0;transition:background .15s,color 
             {% elif loop.first and a.image %}<figure class="shot" style="margin:0"><img src="{{ a.image }}" alt="{{ a.image_caption or a.title }}" loading="lazy">{% if a.image_caption %}<figcaption>{{ a.image_caption }}</figcaption>{% endif %}</figure>{% endif %}
             <div class="pb">
               <h4>{{ sp.title }}</h4>
-              <div class="meta">{{ sp.period_str }}{% if sp.org %} · {{ sp.org }}{% endif %}{% if sp.role %} · {{ sp.role }}{% endif %}{% if sp.team %} · {{ sp.team }}{% endif %}</div>
-              {% if sp.summary %}<p class="sum">{{ sp.summary }}</p>{% endif %}
-              <ul class="res">{% for r in (sp.star.result or [])[:2] %}<li>{{ r }}</li>{% endfor %}</ul>
-              <div class="acts"><a class="go" href="projects/{{ sp.id }}{{ '-en' if en else '' }}.html">{{ T.detail }} →</a>{% if sp.case and sp.case.demo %}<a href="projects/{{ sp.id }}{{ '-en' if en else '' }}.html#demo">▶ {{ T.demo }}</a>{% endif %}{% for l in sp.links or [] %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }} ↗</a>{% endfor %}{% for w in posts if w.project == sp.id %}<a href="posts/{{ w.slug }}.html" title="{{ w.title }}">✎ {{ T.post }}{% if loop.length > 1 %} {{ loop.index }}{% endif %}</a>{% endfor %}</div>
+              <div class="meta">{{ sp.period_str }}{% if sp.role %} · {{ sp.role }}{% endif %}</div>
+              {% if sp.tagline or sp.summary %}<p class="sum">{{ sp.tagline or sp.summary }}</p>{% endif %}
+              {% if sp.key %}<p class="key"><i></i>{{ sp.key }}</p>{% else %}<ul class="res">{% for r in (sp.star.result or [])[:1] %}<li>{{ r }}</li>{% endfor %}</ul>{% endif %}
+              <div class="acts"><a class="go" href="projects/{{ sp.id }}{{ '-en' if en else '' }}.html">{{ T.detail }} →</a>{% if sp.case and sp.case.demo %}<a href="projects/{{ sp.id }}{{ '-en' if en else '' }}.html#demo">▶ {{ T.demo }}</a>{% endif %}{% for l in (sp.links or [])[:1] %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }} ↗</a>{% endfor %}{% set np = posts|selectattr('project', 'equalto', sp.id)|list %}{% if np %}<a href="projects/{{ sp.id }}{{ '-en' if en else '' }}.html#posts">✎ {{ T.post }}{% if np|length > 1 %} {{ np|length }}{{ '' if en else '편' }}{% endif %}</a>{% endif %}</div>
             </div>
           </div>
           {% endfor %}

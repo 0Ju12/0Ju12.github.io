@@ -80,6 +80,8 @@ skills:
 
 activities:
   - id: grad
+    tagline: "Designed indices that separate overlapping gravity and magnetic signals to map subsurface structure"
+    highlights: ["SCIE first author (SPE Journal)", "r ≥ 0.94 vs. existing models", "6-month stay at Calgary"]
     icon: "🌍"
     kpi: { value: "r ≥ 0.94", label: "agreement with independent published models" }
     title: "M.S. — Separating gravity & magnetic signals with wavenumber correlation to resolve subsurface structure (SPE Journal, first author)"
@@ -99,6 +101,8 @@ activities:
     summary: Designed wavenumber-correlation indices (SLFI · DLFI) that separate overlapping gravity and magnetic signals to map salt and basement structures; completed an SCIE paper and thesis through a Calgary research stay and a 3-institution collaboration
     projects:
       - id: masters
+        tagline: "Wavenumber-domain correlation → basement (SLFI) and salt (DLFI) indices"
+        key: "Agrees with 3 independent models at r ≥ 0.94"
         short: "Thesis research"
         title: Wavenumber correlation of gravity & magnetic data for salt/basement structure (M.S. · SPE Journal first author)
         type: Research
@@ -126,6 +130,8 @@ activities:
           - { label: SPE Journal paper, url: "https://doi.org/10.2118/236968-PA" }
           - { label: Code (gravmag-wcf), url: "https://github.com/0Ju12/gravmag-wcf" }
       - id: calgary-2024
+        tagline: "Joint gravity–magnetic interpretation of the Ghasha salt domes and basement"
+        key: "First-author SPE Journal paper from the collaboration (2026)"
         short: "Univ. of Calgary stay"
         title: Research stay at the University of Calgary — joint interpretation of gravity & magnetic data
         type: International collaboration
@@ -148,6 +154,8 @@ activities:
           - { label: SPE Journal paper, url: "https://doi.org/10.2118/236968-PA" }
 
   - id: undergrad
+    tagline: "Plate-tectonic interpretation of CO2 storage sites and spatiotemporal deep learning for wildfire spread"
+    highlights: ["First-author journal paper", "KSEG best student paper award", "Wildfire model F1 0.85"]
     icon: "🔬"
     kpi: { value: "1st author", label: "domestic journal paper · 1 second-author paper · 3 talks" }
     title: "Undergraduate — Seismic interpretation of overseas CO2 storage with plate-tectonic history (first author) · spatiotemporal deep learning capstone"
@@ -167,6 +175,8 @@ activities:
     summary: Wrote a first-author paper on seismic interpretation of overseas CO2 storage sites in light of plate-tectonic history, and designed a spatiotemporal deep learning model for wildfire spread
     projects:
       - id: undergrad-research
+        tagline: "Reconstructed the geological history of CO2 storage sites with GPlates and interpreted their seismic images"
+        key: "First-author paper (2024) · best student paper award"
         short: "First-author paper"
         title: "Seismic interpretation of large overseas CO2 storage sites considering plate-tectonic history (first-author paper)"
         type: Research
@@ -190,6 +200,8 @@ activities:
         links:
           - { label: First-author paper, url: "https://koreascience.or.kr/article/JAKO202410348585789.page" }
       - id: wildfire-capstone
+        tagline: "U-LSTM that predicts the next fire front from past fronts, weather and terrain"
+        key: "F1 0.85 on an unseen wildfire (Gangneung)"
         short: "IAB capstone"
         title: "IAB capstone — Wildfire spread prediction with spatiotemporal deep learning"
         type: AI project
@@ -213,6 +225,8 @@ activities:
           - { label: GitHub, url: "https://github.com/0Ju12/wildfire-spread-prediction" }
 
   - id: bootcamp
+    tagline: "LLM data pipelines, RAG and fine-tuning, built through to a working service"
+    highlights: ["LLM output checked in code", "QLoRA · RAG · Django", "Excellence Award (POSCO)"]
     icon: "💻"
     kpi: { value: "0.96961", label: "SSAFY AI Challenge VQA public score · POSCO Excellence Award" }
     title: "Bootcamps — SSAFY 16th cohort · POSCO Youth AI & Big Data Academy 30th cohort"
@@ -233,6 +247,8 @@ activities:
     summary: LLM data pipelines, a Django service and a VQA model ensemble at SSAFY; a Konglish-correction generator with RAG at the POSCO academy
     projects:
       - id: ssafy-16
+        tagline: "A reading community built end to end — collection → LLM analysis → web service"
+        key: "LLM judgments verified in code · 86 automated tests"
         short: "SSAFY 16th"
         title: "SSAFY — ThRead LLM comment-analysis pipeline · AI Challenge VQA ensemble"
         type: AI project
@@ -258,6 +274,8 @@ activities:
           - { label: GitHub, url: "https://github.com/0Ju12/ssafy-thread" }
           - { label: "Heritage RAG guide", url: "https://github.com/0Ju12/heritage-rag-guide" }
       - id: posco-pospeak
+        tagline: "Generator + RAG that rewrites Konglish into natural English"
+        key: "Training-strategy comparison: BERTScore F1 0.32 → 0.74 · award"
         short: "POSPEAK (KILL KONG)"
         title: "POSPEAK (KILL KONG) — Konglish → natural English correction AI (FLAN-T5 · Qwen + RAG)"
         type: AI project
