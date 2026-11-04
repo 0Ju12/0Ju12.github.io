@@ -21,8 +21,8 @@ profile:
   photo: ""
   availability:
     role: "Data Engineer · AI/ML Engineer"
-    location: ""
-    start: ""
+    location: "Open to any location"
+    start: "H1 2027"
   links:
     - { label: GitHub,   url: "https://github.com/0Ju12" }
     - { label: Research history, url: "https://www.geoverselab.com/ko/research-history/13/" }
@@ -116,7 +116,7 @@ activities:
             - Chose thresholds from energy–correlation trade-off curves instead of by eye (upward continuation 1,500 m at the knee point; SLFI band 0.5–1.0 keeps ~half the energy at correlation 0.85)
             - Validated against three independent published models with map, profile and 3-D density comparisons
             - "Presented Abu Dhabi processing and analysis results at 10+ regular lab research meetings (2024.05–2026.01) and at the 2025.11 Basic Research Lab workshop"
-            - "Drafted annual and progress reports for national R&D projects (incl. the IITP global talent program) and handled lab administration"
+            - "Researcher on national R&D projects, including the IITP global talent program"
           result:
             - SLFI basement structure agrees with three independent models at r ≥ 0.94 (profile correlation 0.95–0.98 after shift alignment)
             - DLFI reproduces the salt distribution and suggests an additional salt uplift west of Ghasha
