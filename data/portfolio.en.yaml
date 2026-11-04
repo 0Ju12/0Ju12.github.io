@@ -32,7 +32,7 @@ highlights:
 
 site:
   theme: editorial
-  layout: "showcase"
+  layout: "stack"
 
 education:
   - school: Samsung SW & AI Academy (SSAFY)

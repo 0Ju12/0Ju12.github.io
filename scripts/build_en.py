@@ -72,10 +72,17 @@ REGEX = [
 
 def to_english(html: str) -> str:
     html = html.replace('<html lang="ko">', '<html lang="en">')
+    # 파일 경로(src/href)는 번역하지 않도록 잠시 빼 둔다 — 예: "..._결과화면.jpg" 가 "Results화면" 으로 깨지는 문제
+    kept = []
+    def _keep(m):
+        kept.append(m.group(0))
+        return f"\x00{len(kept) - 1}\x00"
+    html = re.sub(r'(?:src|href)="[^"]*"', _keep, html)
     for pat, rep in REGEX:
         html = re.sub(pat, rep, html)
     for ko, en in LABELS:
         html = html.replace(ko, en)
+    html = re.sub(r"\x00(\d+)\x00", lambda m: kept[int(m.group(1))], html)
     # Korean-only pages: point resume buttons at the English PDFs
     html = html.replace('href="resume-1page.pdf"', 'href="resume-1page-en.pdf"').replace('href="resume.pdf"', 'href="resume-en.pdf"')
     return html

@@ -1,7 +1,38 @@
 {% import "layouts/_parts.j2" as p %}
 {% import "layouts/_v2.j2" as v %}
-{% set tints = ['#eef1ff', '#eafaf3', '#fff4e8', '#fdf0f6', '#ebf6fd', '#f3fae6', '#f6f0fd'] %}
-{% set tints_d = ['#1a1e2e', '#132520', '#2a1f14', '#2a1622', '#13222c', '#1d2414', '#221a2c'] %}
+{# Card Stack — 석사 / 학부 / 부트캠프 3개 묶음(featured 활동)을 카드로 쌓고, 카드 안에서 세부 프로젝트를 탭으로 보여 줌 #}
+{% set en = alt_lang is defined and alt_lang and alt_lang.code == 'ko' %}
+{% set T = {
+  'avail': 'Open to new opportunities' if en else '함께 일할 곳을 찾고 있습니다',
+  'h1': 'Collect the data,<br>verify with models,<br><em>prove it with results.</em>' if en else '데이터를 모으고,<br>모델로 검증하고,<br><em>결과로 증명합니다.</em>',
+  'intro': 'M.S. (2026) in geophysical data analysis with a first-author SCIE paper. Now building LLM pipelines, RAG and model ensembles at the Samsung SW·AI Academy (SSAFY). I don\'t take a model\'s answer as-is — I check it again with code and tests.' if en else v.intro(),
+  'areas': ['Geophysical data research', 'International collaboration', 'LLM · RAG engineering', 'Deep learning modeling'] if en else ['지구물리 데이터 연구', '국제 공동연구', 'LLM · RAG 엔지니어링', '딥러닝 모델링'],
+  'work': 'Work' if en else '작업',
+  'work_sub': 'Three chapters — graduate research, undergraduate research and bootcamps. Use the tabs inside each card for individual projects.' if en else '석사 · 학부 · 부트캠프 세 묶음입니다. 카드 안의 탭에서 세부 프로젝트를 볼 수 있습니다.',
+  'see': 'See work' if en else '작업 보기',
+  'resume': 'Resume PDF' if en else '이력서 PDF',
+  'scroll': 'Scroll — the cards stack one by one' if en else '스크롤하면 카드가 한 장씩 쌓입니다',
+  'detail': 'Full story' if en else '자세히',
+  'post': 'Related post' if en else '관련 글',
+  'close': 'Close' if en else '닫기',
+  'writing': 'Writing' if en else '글',
+  'read': 'Read →' if en else '읽기 →',
+  'about': 'Background' if en else '이력',
+  'about_sub': 'Education · publications · awards · skills' if en else '학력 · 논문 · 수상 · 기술',
+  'edu': 'Education' if en else '학력 · 교육',
+  'pubs': 'Publications' if en else '논문',
+  'talks': 'conference talks' if en else '학회 발표',
+  'awards': 'Awards · Certifications' if en else '수상 · 자격',
+  'skills': 'Skills' if en else '기술',
+  'end': 'Looking forward to<br>working together.' if en else '함께 일할 기회를<br>기다립니다.',
+  'mail': 'Send email' if en else '메일 보내기',
+  'full': 'Full resume' if en else '상세 이력서',
+  'notes': 'Study notes' if en else '학습 노트',
+  'gen': 'generated from data/portfolio.yaml' if not en else 'generated from data/portfolio.en.yaml',
+  'theme': 'Theme' if en else '테마',
+} %}
+{% set tints = ['#eef1ff', '#eafaf3', '#fff4e8'] %}
+{% set tints_d = ['#1a1e2e', '#132520', '#2a1f14'] %}
 {% set dots = ['#5b6cff', '#16a34a', '#ea7a0c', '#db2777', '#0284c7', '#65a30d', '#9333ea'] %}
 <!doctype html>
 <html lang="ko">
@@ -17,10 +48,10 @@
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 "Pretendard Variable",Pretendard,system-ui,sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all}
 a{color:inherit;text-decoration:none}
-.w{max-width:1160px;margin:0 auto;padding:0 24px}
+.w{max-width:1180px;margin:0 auto;padding:0 24px}
 
 /* 떠 있는 메뉴 */
-.top{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:2px;padding:6px;border-radius:999px;background:color-mix(in srgb,var(--card) 78%,transparent);backdrop-filter:blur(16px) saturate(1.4);border:1px solid var(--line);box-shadow:var(--shadow);font-size:14px;font-weight:600}
+.top{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:2px;padding:6px;border-radius:999px;background:color-mix(in srgb,var(--card) 78%,transparent);backdrop-filter:blur(16px) saturate(1.4);border:1px solid var(--line);box-shadow:var(--shadow);font-size:14px;font-weight:600;white-space:nowrap}
 .top a,.top button{padding:7px 14px;border-radius:999px;color:var(--muted);background:none;border:0;font:inherit;cursor:pointer;transition:background .2s,color .2s}
 .top a:hover,.top button:hover{color:var(--text)}
 .top a.on{background:var(--bg);color:var(--text)}
@@ -31,10 +62,10 @@ a{color:inherit;text-decoration:none}
 /* 히어로 */
 .hero{position:relative;min-height:92vh;display:grid;place-items:center;text-align:center;padding:120px 0 48px;isolation:isolate}
 .blobs{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
-.blobs i{position:absolute;width:520px;height:520px;border-radius:50%;filter:blur(80px);opacity:.45;animation:drift 18s ease-in-out infinite alternate}
-.blobs i:nth-child(1){background:var(--t1);left:-120px;top:40px;opacity:.9}
-.blobs i:nth-child(2){background:var(--t3);right:-140px;top:120px;animation-delay:-6s;opacity:.9}
-.blobs i:nth-child(3){background:var(--t2);left:30%;bottom:-200px;animation-delay:-12s;opacity:.9}
+.blobs i{position:absolute;width:520px;height:520px;border-radius:50%;filter:blur(80px);opacity:.9;animation:drift 18s ease-in-out infinite alternate}
+.blobs i:nth-child(1){background:var(--t1);left:-120px;top:40px}
+.blobs i:nth-child(2){background:var(--t3);right:-140px;top:120px;animation-delay:-6s}
+.blobs i:nth-child(3){background:var(--t2);left:30%;bottom:-200px;animation-delay:-12s}
 @keyframes drift{to{transform:translate(60px,-40px) scale(1.1)}}
 @media (prefers-reduced-motion: reduce){.blobs i{animation:none}html{scroll-behavior:auto}}
 .hero .avatar.big{width:104px;height:104px;border-radius:30px;object-fit:cover;margin:0 auto 22px;display:block;font-size:32px;box-shadow:var(--shadow);border:4px solid var(--card)}
@@ -42,12 +73,12 @@ a{color:inherit;text-decoration:none}
 .hero .k::before{content:"";width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.18)}
 .hero h1{font-size:clamp(40px,7vw,88px);line-height:1.04;letter-spacing:-.055em;margin:20px 0 22px;font-weight:800}
 .hero h1 em{font-style:normal;background:linear-gradient(90deg,#5b6cff,#db2777 55%,#ea7a0c);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{color:var(--muted);font-size:18px;max-width:620px;margin:0 auto 26px}
+.hero p{color:var(--muted);font-size:18px;max-width:640px;margin:0 auto 26px}
 .areas{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 0 30px}
 .areas span{font-size:13.5px;font-weight:600;padding:6px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line)}
 .areas span i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;vertical-align:1px}
 .cta{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
-.btn{display:inline-flex;align-items:center;gap:8px;height:50px;padding:0 24px;border-radius:999px;font-weight:700;font-size:15px;border:1px solid var(--line);background:var(--card);transition:transform .15s}
+.btn{display:inline-flex;align-items:center;gap:8px;height:50px;padding:0 24px;border-radius:999px;font-weight:700;font-size:15px;border:1px solid var(--line);background:var(--card);color:var(--text);transition:transform .15s}
 .btn:hover{transform:translateY(-2px)}
 .btn.pri{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
 .scroll{margin-top:52px;font-size:13px;color:var(--faint);display:flex;flex-direction:column;align-items:center;gap:8px}
@@ -57,46 +88,70 @@ a{color:inherit;text-decoration:none}
 section{scroll-margin-top:80px}
 .sec-t{display:flex;align-items:end;justify-content:space-between;gap:20px;margin:48px 0 28px}
 .sec-t h2{font-size:clamp(30px,4vw,48px);letter-spacing:-.05em;margin:0;line-height:1.1}
-.sec-t p{color:var(--muted);margin:0;max-width:360px;text-align:right;font-size:15px}
+.sec-t p{color:var(--muted);margin:0;max-width:420px;text-align:right;font-size:15px}
 
-/* 카드 스택 */
+/* 묶음 카드 */
 .deck{position:relative;padding-bottom:24px}
-.card{position:sticky;display:grid;grid-template-columns:1fr 1.05fr;gap:44px;align-items:center;min-height:540px;padding:44px;border-radius:32px;border:1px solid color-mix(in srgb,var(--text) 6%,transparent);margin-bottom:56px;box-shadow:0 -12px 40px -12px rgba(0,0,0,.08);transform-origin:center top;will-change:transform}
-.card .head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.card .n{font-size:13px;font-weight:800;letter-spacing:.06em}
-.card .org{font-size:12.5px;font-weight:600;color:var(--muted);background:color-mix(in srgb,var(--card) 70%,transparent);border-radius:999px;padding:3px 10px}
-.card h3{font-size:clamp(26px,3vw,38px);line-height:1.2;letter-spacing:-.045em;margin:14px 0 14px}
-.card .one{color:var(--muted);font-size:16.5px;margin:0 0 18px}
-.card .pts{list-style:none;margin:0 0 18px;padding:0;font-size:14.5px}
-.card .pts li{display:grid;grid-template-columns:20px 1fr;gap:8px;padding:8px 0;border-top:1px solid color-mix(in srgb,var(--text) 9%,transparent)}
+.card{position:sticky;display:grid;grid-template-columns:1fr 1.08fr;gap:36px;align-items:start;padding:32px 34px;border-radius:32px;border:1px solid color-mix(in srgb,var(--text) 6%,transparent);margin-bottom:64px;box-shadow:0 -12px 40px -12px rgba(0,0,0,.08);transform-origin:center top;will-change:transform}
+.card.flat{position:relative;top:auto!important}
+.card .head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card .n{font-size:13px;font-weight:800;letter-spacing:.06em;margin-right:4px}
+.chip{font-size:12.5px;font-weight:600;color:var(--muted);background:color-mix(in srgb,var(--card) 70%,transparent);border-radius:999px;padding:3px 10px}
+.card h3{font-size:clamp(22px,2.2vw,29px);line-height:1.25;letter-spacing:-.04em;margin:12px 0 10px}
+.card .one{color:var(--muted);font-size:15px;line-height:1.65;margin:0 0 12px}
+.card .pts{list-style:none;margin:0 0 12px;padding:0;font-size:13.5px}
+.card .pts li{display:grid;grid-template-columns:18px 1fr;gap:6px;padding:6px 0;border-top:1px solid color-mix(in srgb,var(--text) 9%,transparent);line-height:1.6}
 .card .pts svg{margin-top:4px}
-.card .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
-.card .tags span{font-size:12.5px;font-weight:600;padding:3px 10px;border-radius:8px;background:color-mix(in srgb,var(--card) 75%,transparent);color:var(--muted)}
-.card .plinks{display:flex;flex-wrap:wrap;gap:8px}
-.card .plinks a{font-size:13.5px;font-weight:700;padding:9px 15px;border-radius:999px;background:var(--card);border:1px solid var(--line);transition:border-color .15s}
-.card .plinks a:first-child{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
-.card .plinks a:hover{border-color:var(--text)}
-.window{border-radius:18px;overflow:hidden;background:var(--card);box-shadow:0 30px 60px -20px rgba(0,0,0,.25);border:1px solid var(--line)}
-.window .bar{display:flex;gap:6px;align-items:center;height:32px;padding:0 14px;border-bottom:1px solid var(--line)}
-.window .bar i{width:10px;height:10px;border-radius:50%;background:var(--line)}
-.window .bar i:nth-child(1){background:#ff5f57}.window .bar i:nth-child(2){background:#febc2e}.window .bar i:nth-child(3){background:#28c840}
-.window .bar span{margin-left:8px;font-size:12px;color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.vis{margin:0}
-.vis img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top;display:block;background:#fff}
-.vis figcaption{font-size:12.5px;color:var(--muted);padding:10px 14px;border-top:1px solid var(--line)}
-.window .vis.flow{padding:26px 26px 22px}
-.flow-l{display:block;font-size:12.5px;font-weight:800;letter-spacing:.08em;color:var(--muted);margin-bottom:16px}
-.vis.flow ol{list-style:none;margin:0;padding:0;display:grid;gap:10px;position:relative}
-.vis.flow li{display:flex;gap:14px;align-items:center;font-weight:700;font-size:16px;padding:10px 14px;border-radius:14px;background:var(--bg)}
-.vis.flow li i{font-style:normal;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--card);font-size:12.5px;flex:none;border:1px solid var(--line)}
-.vis.flow li:last-child{background:var(--ink);color:var(--on-ink)}
-.vis.flow li:last-child i{background:var(--on-ink);color:var(--ink);border-color:transparent}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags span{font-size:12px;font-weight:600;padding:3px 10px;border-radius:8px;background:color-mix(in srgb,var(--card) 75%,transparent);color:var(--muted)}
+
+/* 카드 안 세부 프로젝트 탭 */
+.window{border-radius:20px;overflow:hidden;background:var(--card);box-shadow:0 30px 60px -20px rgba(0,0,0,.22);border:1px solid var(--line)}
+.tabs{display:flex;gap:4px;padding:8px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;border:0;background:none;font:inherit;font-size:13.5px;font-weight:700;color:var(--muted);padding:8px 14px;border-radius:12px;cursor:pointer;white-space:nowrap}
+.tabs button[aria-selected="true"]{background:var(--bg);color:var(--text)}
+.tabs button i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;vertical-align:1px;background:var(--line)}
+.tabs button[aria-selected="true"] i{background:var(--c)}
+.panel{padding:0}
+.panel .shot{position:relative;background:var(--bg);border-bottom:1px solid var(--line)}
+.panel .shot img{width:100%;height:190px;object-fit:cover;object-position:top;display:block;background:#fff}
+.panel .shot figcaption{position:absolute;left:10px;bottom:10px;font-size:11.5px;font-weight:600;background:rgba(17,17,20,.72);color:#fff;border-radius:8px;padding:3px 9px;backdrop-filter:blur(4px);max-width:calc(100% - 20px)}
+.panel .pb{padding:16px 20px 18px}
+.panel h4{margin:0 0 4px;font-size:17px;line-height:1.4;letter-spacing:-.02em}
+.panel .meta{font-size:12.5px;color:var(--faint);margin-bottom:10px}
+.panel .sum{font-size:14px;color:var(--muted);margin:0 0 10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.panel .res{list-style:none;margin:0 0 12px;padding:0;font-size:13px}
+.panel .res li{padding:5px 0 5px 14px;position:relative;border-top:1px solid var(--line);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.panel .res li::before{content:"";position:absolute;left:0;top:14px;width:6px;height:6px;border-radius:50%;background:var(--c)}
+.acts{display:flex;flex-wrap:wrap;gap:8px}
+.acts a,.acts button{font:inherit;font-size:12.5px;font-weight:700;padding:7px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--text);cursor:pointer;transition:border-color .15s}
+.acts button{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.acts a:hover{border-color:var(--text)}
+
+/* 자세히 (STAR) */
+dialog{border:0;border-radius:28px;padding:0;width:min(760px,calc(100% - 32px));max-height:calc(100vh - 48px);background:var(--card);color:var(--text);box-shadow:0 40px 100px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(10,10,14,.5);backdrop-filter:blur(4px)}
+dialog .dh{position:sticky;top:0;display:flex;justify-content:space-between;gap:16px;align-items:start;padding:24px 26px 16px;background:var(--card);border-bottom:1px solid var(--line);z-index:1}
+dialog .dh h3{margin:0;font-size:21px;line-height:1.4;letter-spacing:-.03em}
+dialog .dh small{display:block;color:var(--faint);font-size:13px;margin-top:4px}
+dialog .x{flex:none;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--text);font-size:16px;cursor:pointer}
+dialog .db{padding:20px 26px 28px}
+{{ p.base_css() }}
+.star{gap:16px}
+.star dt{color:var(--muted)}
+.gallery img{border-radius:12px}
+.links .btn{height:auto;padding:8px 14px;font-size:13.5px}
 
 /* 진행 표시 */
-.rail{position:fixed;right:28px;top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:10px;opacity:0;transition:opacity .3s;pointer-events:none}
+.rail{position:fixed;right:28px;top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:12px;opacity:0;transition:opacity .3s;pointer-events:none}
 .rail.show{opacity:1;pointer-events:auto}
-.rail a{width:10px;height:10px;border-radius:50%;background:var(--line);transition:transform .2s,background .2s}
-.rail a.on{transform:scale(1.5)}
+.rail a{display:flex;align-items:center;justify-content:flex-end;gap:10px;font-size:12px;font-weight:700;color:var(--faint)}
+.rail a span{opacity:0;transition:opacity .2s}
+.rail a:hover span,.rail a.on span{opacity:1}
+.rail a i{width:10px;height:10px;border-radius:50%;background:var(--line);transition:transform .2s}
+.rail a.on{color:var(--text)}
+.rail a.on i{transform:scale(1.4);background:var(--c)}
 
 /* 글 캐러셀 */
 .carousel{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 32px)/3);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 18px;scrollbar-width:thin}
@@ -109,6 +164,8 @@ section{scroll-margin-top:80px}
 .carr{display:flex;gap:8px}
 .carr button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-size:18px;cursor:pointer}
 .carr button:hover{border-color:var(--text)}
+.studylink{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:14px;padding:20px 24px;border-radius:22px;background:var(--card);border:1px solid var(--line);font-weight:700}
+.studylink small{display:block;font-weight:500;color:var(--muted);font-size:13.5px}
 
 /* 이력 */
 .bento{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
@@ -132,11 +189,13 @@ section{scroll-margin-top:80px}
 .end .btn{background:var(--on-ink);color:var(--ink);border-color:transparent}
 .end .btn.ghost{background:transparent;color:var(--on-ink);border-color:color-mix(in srgb,var(--on-ink) 30%,transparent)}
 footer{text-align:center;color:var(--faint);font-size:13px;padding:32px 0 40px}
-@media (max-width:900px){
+footer a:hover{color:var(--text)}
+@media (max-width:960px){
   .top{font-size:13px;top:12px}.top a.n{display:none}
   .hero{min-height:auto;padding-top:104px}
   .sec-t{flex-direction:column;align-items:flex-start}.sec-t p{text-align:left}
-  .card{grid-template-columns:1fr;gap:22px;padding:24px;min-height:0;border-radius:26px;position:relative;top:auto!important;transform:none!important;filter:none!important;margin-bottom:20px}
+  .card{grid-template-columns:1fr;gap:22px;padding:22px;border-radius:26px;position:relative;top:auto!important;transform:none!important;filter:none!important;margin-bottom:20px}
+  .panel .shot img{height:190px}
   .rail{display:none}
   .carousel{grid-auto-columns:82%}
   .bento,.skills{grid-template-columns:1fr}
@@ -145,82 +204,116 @@ footer{text-align:center;color:var(--faint);font-size:13px;padding:32px 0 40px}
 </style>
 </head>
 <body>
-<nav class="top" aria-label="메뉴"><a class="me" href="#top">{{ p.avatar(profile) }}{{ profile.name }}</a><a class="n" href="#work">작업</a>{% if posts %}<a class="n" href="#writing">글</a>{% endif %}<a class="n" href="#about">이력</a>{% if alt_lang %}<a href="{{ alt_lang.url }}">{{ alt_lang.label }}</a>{% endif %}{{ v.theme_btn() }}</nav>
+<nav class="top" aria-label="menu"><a class="me" href="#top">{{ p.avatar(profile) }}{{ profile.name }}</a><a class="n" href="#work">{{ T.work }}</a>{% if posts %}<a class="n" href="#writing">{{ T.writing }}</a>{% endif %}<a class="n" href="#about">{{ T.about }}</a>{% if alt_lang %}<a href="{{ alt_lang.url }}" hreflang="{{ alt_lang.code }}">{{ alt_lang.label }}</a>{% endif %}<button id="theme" type="button">{{ T.theme }}</button></nav>
 
 <div class="w" id="top">
   <header class="hero">
     <div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
     <div>
       {{ p.avatar(profile, 'avatar big') }}
-      <span class="k">{{ profile.title }} · 함께 일할 곳을 찾고 있습니다</span>
-      <h1>데이터를 모으고,<br>모델로 검증하고,<br><em>결과로 증명합니다.</em></h1>
-      <p>{{ v.intro() }}</p>
-      <div class="areas">{% for t, c in [('지구물리 데이터 연구', dots[0]), ('국제 공동연구', dots[1]), ('LLM · RAG 엔지니어링', dots[3]), ('딥러닝 모델링', dots[2])] %}<span><i style="background:{{ c }}"></i>{{ t }}</span>{% endfor %}</div>
-      <div class="cta"><a class="btn pri" href="#work">작업 보기</a><a class="btn" href="resume-1page.pdf" download>이력서 PDF</a>{% for l in profile.links if 'github' in l.label|lower %}<a class="btn" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.icon('github', 16) }} GitHub</a>{% endfor %}</div>
-      <div class="scroll">스크롤하면 카드가 한 장씩 쌓입니다</div>
+      <span class="k">{{ profile.title }} · {{ T.avail }}</span>
+      <h1>{{ T.h1|safe }}</h1>
+      <p>{{ T.intro }}</p>
+      <div class="areas">{% for t in T.areas %}<span><i style="background:{{ [dots[0], dots[1], dots[3], dots[2]][loop.index0] }}"></i>{{ t }}</span>{% endfor %}</div>
+      <div class="cta"><a class="btn pri" href="#work">{{ T.see }}</a><a class="btn" href="resume-1page.pdf" download>{{ T.resume }}</a>{% for l in profile.links if 'github' in l.label|lower %}<a class="btn" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.icon('github', 16) }} GitHub</a>{% endfor %}</div>
+      <div class="scroll">{{ T.scroll }}</div>
     </div>
   </header>
 
   <section id="work">
-    <div class="sec-t"><h2>작업</h2><p>연구 프로젝트부터 LLM 서비스까지 — 무엇을 만들었고 어떻게 확인했는지</p></div>
+    <div class="sec-t"><h2>{{ T.work }}</h2><p>{{ T.work_sub }}</p></div>
     <div class="deck">
-    {% for x in projects_index %}
-      <article class="card" id="c{{ loop.index }}" style="top:{{ 96 + loop.index0 * 14 }}px;background:var(--t{{ loop.index }})">
+    {% for a in featured %}{% set ci = loop.index0 %}{% set c = dots[ci] %}
+      <article class="card" id="c{{ loop.index }}" style="top:{{ 96 + ci * 14 }}px;background:var(--t{{ (ci % 3) + 1 }});--c:{{ c }}">
         <div>
-          <div class="head"><span class="n" style="color:{{ dots[loop.index0] }}">{{ '%02d'|format(loop.index) }} / {{ '%02d'|format(projects_index|length) }}</span><span class="org">{{ x.org }}</span><span class="org">{{ x.period }}</span></div>
-          <h3>{{ x.title }}</h3>
-          <p class="one">{{ x.oneliner }}</p>
-          {% set ci = loop.index0 %}<ul class="pts">{% for t in x.points[:3] %}<li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:{{ dots[ci] }}"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>{{ t }}</span></li>{% endfor %}</ul>
-          <div class="tags">{% for s in x.stack %}<span>{{ s }}</span>{% endfor %}<span>{{ x.team }}</span></div>
-          <div class="plinks">{{ v.links(x, posts) }}</div>
+          <div class="head"><span class="n" style="color:{{ c }}">{{ '%02d'|format(loop.index) }} / {{ '%02d'|format(featured|length) }}</span><span class="chip">{{ a.type }}</span><span class="chip">{{ a.period_str }}</span></div>
+          <h3>{{ a.title }}</h3>
+          <p class="one">{{ a.summary }}</p>
+          <ul class="pts">{% for t in (a.brief or a.star.result or [])[:4] %}<li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:{{ c }}"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>{{ t }}</span></li>{% endfor %}</ul>
+          <div class="tags">{% for t in a.tags[:8] %}<span>{{ t }}</span>{% endfor %}</div>
         </div>
-        <div class="window"><div class="bar"><i></i><i></i><i></i><span>{{ x.title.split(' — ')[0] }}</span></div>{{ v.visual(x) }}</div>
+        {% set subs = a.projects or [a] %}
+        <div class="window">
+          <div class="tabs" role="tablist" aria-label="{{ a.title }}">{% for sp in subs %}<button type="button" role="tab" id="tab-{{ sp.id }}" aria-controls="pn-{{ sp.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}"><i></i>{{ sp.short or sp.title }}</button>{% endfor %}</div>
+          {% for sp in subs %}{% set ns = namespace(img=none) %}{% for kw in ['Fig11', '결과화면', '질의응답', '포스터발표', '현장측정'] %}{% for g in sp.gallery or [] %}{% if ns.img is none and kw in g.src %}{% set ns.img = g %}{% endif %}{% endfor %}{% endfor %}{% set img = ns.img or (sp.gallery or [])|first %}
+          <div class="panel" role="tabpanel" id="pn-{{ sp.id }}" aria-labelledby="tab-{{ sp.id }}"{% if not loop.first %} hidden{% endif %}>
+            {% if img %}<figure class="shot" style="margin:0"><img{% if 'ssafy-16' not in img.src %} style="object-position:center 45%"{% endif %} src="{{ img.src }}" alt="{{ img.caption }}" loading="lazy"><figcaption>{{ img.caption }}</figcaption></figure>
+            {% elif loop.first and a.image %}<figure class="shot" style="margin:0"><img src="{{ a.image }}" alt="{{ a.image_caption or a.title }}" loading="lazy">{% if a.image_caption %}<figcaption>{{ a.image_caption }}</figcaption>{% endif %}</figure>{% endif %}
+            <div class="pb">
+              <h4>{{ sp.title }}</h4>
+              <div class="meta">{{ sp.period_str }}{% if sp.org %} · {{ sp.org }}{% endif %}{% if sp.role %} · {{ sp.role }}{% endif %}{% if sp.team %} · {{ sp.team }}{% endif %}</div>
+              {% if sp.summary %}<p class="sum">{{ sp.summary }}</p>{% endif %}
+              <ul class="res">{% for r in (sp.star.result or [])[:2] %}<li>{{ r }}</li>{% endfor %}</ul>
+              <div class="acts"><button type="button" data-open="dlg-{{ sp.id }}">{{ T.detail }}</button>{% for l in sp.links or [] %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }} ↗</a>{% endfor %}{% for w in posts if w.project == sp.id %}<a href="posts/{{ w.slug }}.html" title="{{ w.title }}">✎ {{ T.post }}{% if loop.length > 1 %} {{ loop.index }}{% endif %}</a>{% endfor %}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
       </article>
     {% endfor %}
     </div>
+    {% for a in featured %}{% for sp in a.projects or [a] %}
+    <dialog id="dlg-{{ sp.id }}" aria-labelledby="dt-{{ sp.id }}">
+      <div class="dh"><div><h3 id="dt-{{ sp.id }}">{{ sp.title }}</h3><small>{{ sp.period_str }}{% if sp.org %} · {{ sp.org }}{% endif %}{% if sp.role %} · {{ sp.role }}{% endif %}</small></div><button class="x" type="button" aria-label="{{ T.close }}">✕</button></div>
+      <div class="db">{{ p.star_one(sp) }}</div>
+    </dialog>
+    {% endfor %}{% endfor %}
   </section>
 
   {% if posts %}
   <section id="writing">
-    <div class="sec-t"><h2>글</h2><div class="carr"><button type="button" data-dir="-1" aria-label="이전 글">←</button><button type="button" data-dir="1" aria-label="다음 글">→</button></div></div>
-    <div class="carousel" id="carousel">{% for w in posts %}{% set c = dots[loop.index0 % 7] %}<a class="post" href="posts/{{ w.slug }}.html"><span class="tag" style="color:{{ c }};background:color-mix(in srgb,{{ c }} 12%,transparent)">{{ (w.tags or ['글'])[0] }}</span><b>{{ w.title }}</b><p>{{ w.summary|truncate(90) }}</p><small>{{ w.date }} · 읽기 →</small></a>{% endfor %}</div>
+    <div class="sec-t"><h2>{{ T.writing }}</h2><div class="carr"><button type="button" data-dir="-1" aria-label="이전 글">←</button><button type="button" data-dir="1" aria-label="다음 글">→</button></div></div>
+    <div class="carousel" id="carousel">{% for w in posts %}{% set c = dots[loop.index0 % 7] %}<a class="post" href="posts/{{ w.slug }}.html"><span class="tag" style="color:{{ c }};background:color-mix(in srgb,{{ c }} 12%,transparent)">{{ (w.tags or ['글'])[0] }}</span><b>{{ w.title }}</b><p>{{ w.summary|truncate(90) }}</p><small>{{ w.date }} · {{ T.read }}</small></a>{% endfor %}</div>
+    {% if study_notes %}<a class="studylink" href="study/index.html"><span>SSAFY 강의 노트 {{ study_notes|length }}편 · 실습 프로그램<small>Web · Django · DB · 알고리즘 · AI를 주제별로 다시 정리한 학습 공간</small></span><span>→</span></a>{% endif %}
   </section>
   {% endif %}
 
   <section id="about">
-    <div class="sec-t"><h2>이력</h2><p>학력 · 논문 · 수상 · 기술</p></div>
+    <div class="sec-t"><h2>{{ T.about }}</h2><p>{{ T.about_sub }}</p></div>
     <div class="bento">
-      <div class="box"><h4><i style="background:{{ dots[0] }}"></i>학력 · 교육</h4>{% for e in education %}<div class="it">{{ e.school }}<small>{{ e.major }} {{ e.degree }} · {{ e.period_str }}</small></div>{% endfor %}</div>
-      <div class="box"><h4><i style="background:{{ dots[3] }}"></i>논문</h4>{% for x in papers %}<div class="it">{% if x.url %}<a href="{{ x.url }}" target="_blank" rel="noopener">{{ x.title }}</a>{% else %}{{ x.title }}{% endif %}<small>{{ x.venue }} · {{ x.year }}</small></div>{% endfor %}<div class="it"><small>학회 발표 {{ talks|length }}건</small></div></div>
-      <div class="box"><h4><i style="background:{{ dots[2] }}"></i>수상 · 자격</h4>{% for x in awards + certifications %}<div class="it">{{ x.name }}<small>{{ x.org }} · {{ x.date }}</small></div>{% endfor %}</div>
-      <div class="box wide"><h4><i style="background:{{ dots[1] }}"></i>기술</h4><div class="skills">{% for s in skills %}<div><b>{{ s.category }}</b>{{ s['items']|join(', ') }}</div>{% endfor %}</div></div>
+      <div class="box"><h4><i style="background:{{ dots[0] }}"></i>{{ T.edu }}</h4>{% for e in education %}<div class="it">{{ e.school }}<small>{{ e.major }} {{ e.degree }} · {{ e.period_str }}</small></div>{% endfor %}</div>
+      <div class="box"><h4><i style="background:{{ dots[3] }}"></i>{{ T.pubs }}</h4>{% for x in papers %}<div class="it">{% if x.url %}<a href="{{ x.url }}" target="_blank" rel="noopener">{{ x.title }}</a>{% else %}{{ x.title }}{% endif %}<small>{{ x.venue }} · {{ x.year }}</small></div>{% endfor %}<div class="it"><small>{{ T.talks }} {{ talks|length }}</small></div></div>
+      <div class="box"><h4><i style="background:{{ dots[2] }}"></i>{{ T.awards }}</h4>{% for x in awards + certifications %}<div class="it">{{ x.name }}<small>{{ x.org }} · {{ x.date }}</small></div>{% endfor %}</div>
+      <div class="box wide"><h4><i style="background:{{ dots[1] }}"></i>{{ T.skills }}</h4><div class="skills">{% for s in skills %}<div><b>{{ s.category }}</b>{{ s['items']|join(', ') }}</div>{% endfor %}</div></div>
     </div>
   </section>
 
-  <div class="end" id="contact"><h2>함께 일할 기회를<br>기다립니다.</h2><p>{{ profile.email }}</p><div class="cta">{% if profile.email %}<a class="btn" href="mailto:{{ profile.email }}">메일 보내기</a>{% endif %}<a class="btn ghost" href="resume.pdf" download>상세 이력서</a>{% for l in profile.links if 'linkedin' in l.label|lower %}<a class="btn ghost" href="{{ l.url }}" target="_blank" rel="noopener">LinkedIn</a>{% endfor %}</div></div>
-  <footer>© {{ profile.name_en }} · data/portfolio.yaml 에서 자동 생성{% if study_notes %} · <a href="study/index.html">학습 노트</a>{% endif %} · <a href="private/index.html" rel="nofollow">Private</a></footer>
+  <div class="end" id="contact"><h2>{{ T.end|safe }}</h2><p>{{ profile.email }}</p><div class="cta">{% if profile.email %}<a class="btn" href="mailto:{{ profile.email }}">{{ T.mail }}</a>{% endif %}<a class="btn ghost" href="resume.pdf" download>{{ T.full }}</a>{% for l in profile.links if 'linkedin' in l.label|lower %}<a class="btn ghost" href="{{ l.url }}" target="_blank" rel="noopener">LinkedIn</a>{% endfor %}</div></div>
+  <footer>© {{ profile.name_en }} · {{ T.gen }}{% if study_notes %} · <a href="study/index.html">{{ T.notes }}</a>{% endif %} · <a href="private/index.html" rel="nofollow">Private</a></footer>
 </div>
-<nav class="rail" id="rail" aria-label="프로젝트 위치">{% for x in projects_index %}<a href="#c{{ loop.index }}" style="--c:{{ dots[loop.index0] }}" aria-label="{{ x.title }}"></a>{% endfor %}</nav>
+<nav class="rail" id="rail" aria-label="chapters">{% for a in featured %}<a href="#c{{ loop.index }}" style="--c:{{ dots[loop.index0] }}"><span>{{ a.type }}</span><i></i></a>{% endfor %}</nav>
 {{ p.theme_script() }}
 <script>
 (function(){
 var cards=[].slice.call(document.querySelectorAll('.card')),rail=document.getElementById('rail'),dots=rail?[].slice.call(rail.children):[];
-var deck=document.querySelector('.deck'),wide=matchMedia('(min-width:901px)'),reduce=matchMedia('(prefers-reduced-motion: reduce)');
+var deck=document.querySelector('.deck'),wide=matchMedia('(min-width:961px)'),reduce=matchMedia('(prefers-reduced-motion: reduce)');
+function fit(){cards.forEach(function(c){if(!c.dataset.top)c.dataset.top=parseFloat(c.style.top)||0;var base=+c.dataset.top;c.style.top=Math.min(base,window.innerHeight-c.offsetHeight-16+(base-96))+'px';});}
 function tick(){
   if(!wide.matches)return;
   var cur=0;
   cards.forEach(function(c,i){
     var next=cards[i+1],r=c.getBoundingClientRect();
     if(r.top<window.innerHeight*0.5)cur=i;
-    if(!next||reduce.matches){c.style.transform='';c.style.filter='';return;}
+    if(!next||reduce.matches||c.classList.contains('flat')){c.style.transform='';c.style.filter='';return;}
     var nr=next.getBoundingClientRect(),stick=parseFloat(c.style.top)||0;
-    var p=Math.min(1,Math.max(0,1-(nr.top-stick)/r.height));
-    c.style.transform='scale('+(1-p*0.06)+')';c.style.filter='brightness('+(1-p*0.12)+')';
+    var pr=Math.min(1,Math.max(0,1-(nr.top-stick)/r.height));
+    c.style.transform='scale('+(1-pr*0.05)+')';c.style.filter='brightness('+(1-pr*0.12)+')';
   });
   var d=deck.getBoundingClientRect();rail.classList.toggle('show',d.top<window.innerHeight*0.5&&d.bottom>window.innerHeight*0.5);
-  dots.forEach(function(a,i){a.classList.toggle('on',i===cur);a.style.background=i===cur?a.style.getPropertyValue('--c'):''});
+  dots.forEach(function(a,i){a.classList.toggle('on',i===cur)});
 }
-document.addEventListener('scroll',function(){requestAnimationFrame(tick)},{passive:true});window.addEventListener('resize',tick);tick();
+document.addEventListener('scroll',function(){requestAnimationFrame(tick)},{passive:true});
+window.addEventListener('resize',function(){fit();tick()});fit();tick();
+/* 탭 */
+document.querySelectorAll('.tabs').forEach(function(tl){
+  var tabs=[].slice.call(tl.querySelectorAll('[role=tab]'));
+  function sel(t){tabs.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;document.getElementById(x.getAttribute('aria-controls')).hidden=!on;});fit();}
+  tabs.forEach(function(t,i){t.tabIndex=i?-1:0;t.addEventListener('click',function(){sel(t)});t.addEventListener('keydown',function(e){var k=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(k){var n=tabs[(i+k+tabs.length)%tabs.length];sel(n);n.focus();}});});
+});
+/* 자세히 */
+document.querySelectorAll('[data-open]').forEach(function(b){b.addEventListener('click',function(){var d=document.getElementById(b.dataset.open);if(d&&d.showModal)d.showModal();})});
+document.querySelectorAll('dialog').forEach(function(d){d.querySelector('.x').addEventListener('click',function(){d.close()});d.addEventListener('click',function(e){if(e.target===d)d.close()});});
+/* 글 넘기기 */
 var car=document.getElementById('carousel');document.querySelectorAll('.carr button').forEach(function(b){b.addEventListener('click',function(){car.scrollBy({left:car.clientWidth*0.9*(+b.dataset.dir),behavior:reduce.matches?'auto':'smooth'})})});
 var links=document.querySelectorAll('.top a.n');if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)})})},{rootMargin:'-45% 0px -50% 0px'});document.querySelectorAll('section[id]').forEach(function(s){io.observe(s)});}
 })();

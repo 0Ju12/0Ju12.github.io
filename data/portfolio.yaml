@@ -38,7 +38,7 @@ highlights:
 # 디자인 테마: minimal | dashboard | editorial
 site:
   theme: editorial
-  layout: "showcase"        # 확정 후: sidebar | bento | showcase
+  layout: "stack"           # 2026-11-04 선택: Card Stack v2 (석사·학부·부트캠프 3묶음). 이전: showcase
 
 education:
   - school: 삼성 청년 SW·AI 아카데미 (SSAFY)
