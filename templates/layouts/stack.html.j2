@@ -101,6 +101,8 @@ a{color:inherit;text-decoration:none}
 .avail b{color:var(--faint);font-weight:600;margin-right:6px}
 .avail .roles a{color:var(--text);font-weight:700;border-bottom:1px solid var(--line);margin-right:10px}
 .avail .roles a:hover{border-color:var(--text)}
+.asklink{display:inline-flex;align-items:center;gap:8px;margin-top:22px;border:1px dashed var(--line);background:color-mix(in srgb,var(--card) 70%,transparent);color:var(--muted);font:inherit;font-size:14px;font-weight:600;padding:9px 16px;border-radius:999px;cursor:pointer}
+.asklink:hover{color:var(--text);border-color:var(--text)}
 .scroll{margin-top:44px;font-size:13px;color:var(--faint);display:flex;flex-direction:column;align-items:center;gap:8px}
 .scroll::after{content:"";width:1px;height:36px;background:linear-gradient(var(--faint),transparent)}
 
@@ -262,6 +264,7 @@ button.ev{font:inherit;cursor:pointer;border:0;transition:background .15s,color 
       <div class="cta"><a class="btn pri" href="#work">{{ T.see }}</a><a class="btn" id="resume-btn" href="resume-1page.pdf" data-all="resume-1page.pdf"{% for k in RV %} data-{{ k }}="resume-{{ k }}.pdf"{% endfor %} download>{{ T.resume }}</a>{% for l in profile.links if 'github' in l.label|lower %}<a class="btn" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.icon('github', 16) }} GitHub</a>{% endfor %}</div>
       {% set av = profile.availability or {} %}
       <div class="avail">{% if av.role %}<span><b>{{ T.want }}</b>{{ av.role }}</span>{% endif %}{% if av.location %}<span><b>{{ T.loc }}</b>{{ av.location }}</span>{% endif %}{% if av.start %}<span><b>{{ T.start }}</b>{{ av.start }}</span>{% endif %}{% if not en %}<span class="roles"><b>{{ T.roles }}</b><a href="resume-data.pdf" download>{{ T.r_data }}</a><a href="resume-ai.pdf" download>{{ T.r_ai }}</a></span>{% endif %}</div>
+      <button type="button" class="asklink" data-ask><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>{{ 'Ask my portfolio anything — answers come with sources' if en else '포트폴리오에 질문해 보세요 — 출처가 붙은 답을 바로 찾아 드립니다' }}</button>
       <div class="scroll">{{ T.scroll }}</div>
     </div>
   </header>
@@ -326,6 +329,7 @@ button.ev{font:inherit;cursor:pointer;border:0;transition:background .15s,color 
 <div class="evp" id="evp" role="dialog" aria-modal="false" aria-labelledby="evt" hidden><div class="evh"><span id="evt"></span><button type="button" id="evx" aria-label="{{ T.close }}">✕</button></div><ul id="evl"></ul></div>
 <script type="application/json" id="ev-data">{{ evidence|default([])|tojson }}</script>
 {% set ro = {} %}{% for k, rv in (RV or {}).items() %}{% set _ = ro.update({k: rv.order}) %}{% endfor %}<script type="application/json" id="rv-data">{{ ro|tojson }}</script>
+{% include "_ask.j2" %}
 <nav class="rail" id="rail" aria-label="chapters">{% for a in featured %}<a href="#c{{ loop.index }}" style="--c:{{ dots[loop.index0] }}"><span>{{ a.type }}</span><i></i></a>{% endfor %}</nav>
 {{ p.theme_script() }}
 <script>

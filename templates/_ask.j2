@@ -1,0 +1,92 @@
+{# 포트폴리오에 질문하기 — LLM 없이 사이트 문단을 브라우저에서 검색(BM25, 한글 2글자 단위)하고 출처와 함께 보여 줌.
+   색인: docs/search.json · search-en.json (build.py search_index). 사용: {% include "_ask.j2" %} (변수 en 필요) #}
+{% set A = {
+  'open': 'Ask my portfolio' if en else '포트폴리오에 질문하기',
+  'ph': 'e.g. How did you prevent hallucination in RAG?' if en else '예: RAG에서 할루시네이션은 어떻게 막았나요?',
+  'note': 'No LLM — answers are passages found on this site, each with its source. Nothing is generated.' if en else 'LLM 없이 이 사이트의 문단을 찾아 보여 줍니다. 모든 답에 출처가 붙고, 지어낸 문장은 없습니다.',
+  'best': 'Closest passage' if en else '가장 가까운 답',
+  'more': 'Other sources' if en else '다른 근거',
+  'none': 'Nothing on the site matches. Try other words — a tool name, project name or topic.' if en else '사이트에서 맞는 내용을 찾지 못했습니다. 기술 이름·프로젝트 이름·주제어로 다시 물어봐 주세요.',
+  'loading': 'Loading index…' if en else '색인을 불러오는 중…',
+  'fail': 'Could not load the search index.' if en else '검색 색인을 불러오지 못했습니다.',
+  'go': 'Open' if en else '보기',
+  'close': 'Close' if en else '닫기',
+  'ex': ['How did you prevent hallucination in RAG?', 'How did you choose the threshold in your M.S. research?', 'Experience with data pipelines?', 'Why did sequential training fail?'] if en else ['RAG에서 할루시네이션은 어떻게 막았나요?', '석사 연구에서 임계값은 어떻게 정했나요?', '데이터 파이프라인 경험이 있나요?', '순차 학습이 왜 성능을 떨어뜨렸나요?', '테스트는 어떻게 했나요?', '입사 가능 시기는?'],
+} %}
+<style>
+.askbtn{display:inline-flex;align-items:center;gap:8px}
+.askfab{position:fixed;right:22px;bottom:22px;z-index:45;display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 18px;border-radius:999px;border:0;background:var(--ink);color:var(--on-ink);font:inherit;font-weight:700;font-size:14.5px;cursor:pointer;box-shadow:0 14px 40px -10px rgba(0,0,0,.45)}
+.askfab:hover{transform:translateY(-2px)}
+.askfab kbd{font:inherit;font-size:11px;opacity:.6;border:1px solid currentColor;border-radius:5px;padding:0 5px}
+dialog.ask{border:0;padding:0;border-radius:26px;width:min(720px,calc(100% - 24px));max-height:min(86vh,760px);background:var(--card);color:var(--text);box-shadow:0 40px 110px rgba(0,0,0,.4);overflow:hidden}
+dialog.ask::backdrop{background:rgba(10,10,14,.5);backdrop-filter:blur(4px)}
+.ask-in{display:flex;flex-direction:column;max-height:min(86vh,760px)}
+.ask-h{display:flex;gap:10px;align-items:center;padding:16px 16px 12px 20px;border-bottom:1px solid var(--line)}
+.ask-h svg{flex:none;color:var(--faint)}
+.ask-h input{flex:1;min-width:0;border:0;background:none;color:var(--text);font:inherit;font-size:17px;padding:8px 0;outline:none}
+.ask-h button{flex:none;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--text);cursor:pointer;font:inherit}
+.ask-b{overflow:auto;padding:14px 20px 20px}
+.ask-note{font-size:12.5px;color:var(--faint);margin:0 0 12px}
+.ask-ex{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.ask-ex button{border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit;font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;cursor:pointer}
+.ask-ex button:hover{border-color:var(--text)}
+.ask-lbl{font-size:12px;font-weight:800;letter-spacing:.06em;color:var(--faint);margin:16px 0 8px;text-transform:uppercase}
+.ask-best{display:block;padding:16px 18px;border-radius:18px;background:var(--bg);border:1px solid var(--line);text-decoration:none;color:var(--text)}
+.ask-best p{margin:0 0 10px;font-size:15.5px;line-height:1.7}
+.ask-src{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;color:var(--muted)}
+.ask-src b{color:var(--text);font-weight:700}
+.ask-src span:last-child{white-space:nowrap;font-weight:700;color:var(--text)}
+.ask-list{list-style:none;margin:0;padding:0}
+.ask-list a{display:block;padding:11px 12px;border-radius:12px;text-decoration:none;color:var(--text)}
+.ask-list a:hover,.ask-best:hover{background:color-mix(in srgb,var(--text) 5%,var(--bg))}
+.ask-list p{margin:0 0 4px;font-size:14px;line-height:1.6;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+mark.hl{background:color-mix(in srgb,#fbbf24 40%,transparent);color:inherit;border-radius:3px;padding:0 1px}
+.ask-msg{color:var(--muted);font-size:14.5px;padding:10px 2px}
+@media (max-width:960px){.askfab{right:14px;bottom:14px;height:44px;padding:0 14px}.askfab kbd{display:none}}
+</style>
+<button class="askfab" id="ask-open" type="button" aria-haspopup="dialog"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>{{ A.open }} <kbd>/</kbd></button>
+<dialog class="ask" id="ask" aria-label="{{ A.open }}">
+  <div class="ask-in">
+    <form class="ask-h" id="ask-form" role="search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="ask-q" type="text" enterkeyhint="search" placeholder="{{ A.ph }}" autocomplete="off" aria-label="{{ A.open }}"><button type="button" id="ask-x" aria-label="{{ A.close }}">✕</button></form>
+    <div class="ask-b">
+      <p class="ask-note">{{ A.note }}</p>
+      <div class="ask-ex" id="ask-ex">{% for q in A.ex %}<button type="button">{{ q }}</button>{% endfor %}</div>
+      <div id="ask-out" aria-live="polite"></div>
+    </div>
+  </div>
+</dialog>
+<script>
+(function(){
+var SRC='{{ "search-en.json" if en else "search.json" }}',T={best:'{{ A.best }}',more:'{{ A.more }}',none:'{{ A.none }}',loading:'{{ A.loading }}',fail:'{{ A.fail }}',go:'{{ A.go }}'};
+var dlg=document.getElementById('ask'),inp=document.getElementById('ask-q'),out=document.getElementById('ask-out'),docs=null,idx=null,timer=null;
+var SK=new Set('어떻 떻게 했나 나요 무엇 엇을 엇인 있나 었나 인가 가요 니까 습니 합니 했는 는지 에서 으로 하고 그리 리고 대해 해서 해주 주세 세요 알려 려주 을까 할까 있었 었는 어요 해요 하나 이었 였나 무슨 어떤 떤가 인지 한가 건가 했어 어떻게 는가'.split(' '));
+var SE=new Set('what how did does do the and for with you your are was were why which who when where a an of to in on is it i me my can could would about tell'.split(' '));
+var PT=/(으로서|으로|에서|에게|까지|부터|처럼|이나|이랑|하고|은|는|이|가|을|를|에|의|로|와|과|도|만|요)$/;
+var SYN={'할루시네이션':['환각','근거','인용','hallucination'],'환각':['할루시네이션','근거','인용'],'hallucination':['근거','인용','환각','citation','citations','evidence','verified'],'hallucinate':['citation','evidence'],'start':['available','availability'],'join':['available','availability'],'location':['location'],'relocate':['location'],'시기':['입사','가능'],'test':['tests','pytest','mock','fake'],'tests':['test','pytest','mock'],'pipeline':['pipelines','collection','crawling'],'threshold':['band','correlation'],'team':['collaboration','joint'],'테스트':['test','pytest','검증','mock'],'크롤링':['selenium','수집'],'수집':['crawling','api'],'평가':['검증','evaluation'],'협업':['팀','공동연구'],'팀':['협업','공동연구'],'입사':['지원','희망'],'연락':['메일','email'],'파이프라인':['pipeline','수집','정제'],'앙상블':['ensemble'],'임계값':['threshold','구간'],'배포':['deploy','fastapi','streamlit']};
+function stem(w){var x=w.replace(PT,'');return x.length>=2?x:w}
+function toks(s,q){s=(s||'').toLowerCase();var o=[];(s.match(/[a-z0-9][a-z0-9+#]*/g)||[]).forEach(function(w){if(w.length>=2&&!SE.has(w))o.push(w)});(s.match(/[가-힣]+/g)||[]).forEach(function(w){if(w.length>=2){var st=stem(w);if(!SK.has(st)){o.push('w:'+st);o.push('w:'+st)}}for(var i=0;i<w.length-1;i++){var b=w.substr(i,2);if(!SK.has(b))o.push(b)}});
+  if(q){o.slice().forEach(function(k){var key=k.indexOf('w:')===0?k.slice(2):k;(SYN[key]||[]).forEach(function(y){toks(y).forEach(function(t){o.push(t)})})})}return o;}
+function build(d){docs=d;var N=d.length,df={},tot=0;idx=d.map(function(x){var t=toks(x.t+' '+x.s+' '+x.x+' '+x.t),tf={};t.forEach(function(k){tf[k]=(tf[k]||0)+1});Object.keys(tf).forEach(function(k){df[k]=(df[k]||0)+1});tot+=t.length;return{tf:tf,len:t.length}});idx.avg=tot/N;idx.df=df;idx.N=N;}
+function search(q){var qt=toks(q,true);if(!qt.length)return[];var k1=1.2,b=0.45,sc=[];var ql=toks(q).filter(function(k){return /^[a-z0-9][a-z0-9+#]*$/.test(k)&&idx.df[k]});idx.forEach(function(d,i){if(ql.length&&!ql.some(function(k){return d.tf[k]}))return;var s=0;qt.forEach(function(k){var f=d.tf[k];if(!f)return;var n=idx.df[k],idf=Math.log(1+(idx.N-n+.5)/(n+.5));s+=idf*f*(k1+1)/(f+k1*(1-b+b*d.len/idx.avg))});if(s>0){var sec=docs[i].s;if(sec==='기술'||sec==='Skills'||sec==='Tools')s*=0.55;sc.push([s,i])}});sc.sort(function(a,b){return b[0]-a[0]});
+  var seen={},res=[];for(var j=0;j<sc.length&&res.length<6;j++){var x=docs[sc[j][1]],u=x.u.split('#')[0];seen[u]=(seen[u]||0)+1;if(seen[u]>2)continue;res.push({x:x,s:sc[j][0]})}
+  if(res.length&&res[0].s<1.2)return[];return res;}
+function esc(s){return s.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function hl(text,q){var e=esc(text),ws=[];(q.toLowerCase().match(/[a-z0-9][a-z0-9+#]+/g)||[]).forEach(function(w){if(!SE.has(w))ws.push(w)});(q.match(/[가-힣]{2,}/g)||[]).forEach(function(w){w=w.replace(/(은|는|이|가|을|를|에|의|로|와|과|도|만|요|나요|했나요|인가요|에서|으로)$/,'');if(w.length>=2&&!SK.has(w))ws.push(w)});if(!ws.length)return e;var r=new RegExp('('+ws.map(function(w){return w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}).join('|')+')','gi');return e.replace(r,'<mark class="hl">$1</mark>');}
+function clip(s,n){return s.length>n?s.slice(0,n)+'…':s}
+function render(q){if(!q.trim()){out.innerHTML='';return}var r=search(q);if(!r.length){out.innerHTML='<p class="ask-msg">'+T.none+'</p>';return}
+  var f=r[0].x,h='<div class="ask-lbl">'+T.best+'</div><a class="ask-best" href="'+f.u+'"><p>'+hl(clip(f.x,420),q)+'</p><div class="ask-src"><span><b>'+esc(f.t)+'</b> · '+esc(f.s)+'</span><span>'+T.go+' →</span></div></a>';
+  if(r.length>1){h+='<div class="ask-lbl">'+T.more+'</div><ul class="ask-list">'+r.slice(1).map(function(o){return '<li><a href="'+o.x.u+'"><p>'+hl(clip(o.x.x,200),q)+'</p><div class="ask-src"><span><b>'+esc(o.x.t)+'</b> · '+esc(o.x.s)+'</span><span>→</span></div></a></li>'}).join('')+'</ul>'}
+  out.innerHTML=h;}
+function load(){if(docs)return Promise.resolve();out.innerHTML='<p class="ask-msg">'+T.loading+'</p>';return fetch(SRC).then(function(r){return r.json()}).then(function(d){build(d);out.innerHTML=''}).catch(function(){out.innerHTML='<p class="ask-msg">'+T.fail+'</p>'})}
+function open(q){if(!dlg.open)dlg.showModal();load().then(function(){if(q!=null){inp.value=q}if(inp.value)render(inp.value)});inp.focus()}
+document.getElementById('ask-open').addEventListener('click',function(){open()});
+document.querySelectorAll('[data-ask]').forEach(function(b){b.addEventListener('click',function(e){e.preventDefault();open()})});
+document.getElementById('ask-x').addEventListener('click',function(){dlg.close()});
+dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close()});
+document.getElementById('ask-form').addEventListener('submit',function(e){e.preventDefault();if(docs)render(inp.value)});
+inp.addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(function(){if(docs)render(inp.value)},180)});
+document.querySelectorAll('#ask-ex button').forEach(function(b){b.addEventListener('click',function(){open(b.textContent)})});
+document.addEventListener('keydown',function(e){if(e.key==='/'&&!dlg.open&&!/input|textarea|select/i.test((document.activeElement||{}).tagName||'')){e.preventDefault();open()}});
+var q0=new URLSearchParams(location.search).get('ask');if(q0)open(q0);
+})();
+</script>

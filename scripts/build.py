@@ -8,6 +8,7 @@
   out/profiles.md   LinkedIn·원티드·리멤버용 프로필 문구
   out/warnings.md   보완이 필요한 항목 체크리스트
 """
+import json
 import re
 import sys
 from pathlib import Path
@@ -194,6 +195,75 @@ def evidence_index(data, en=False):
     return items
 
 
+def _plain(md_text):
+    """Markdown → 검색용 평문 (코드 블록·표·링크 문법 제거)"""
+    t = re.sub(r"```.*?```", " ", md_text, flags=re.S)
+    t = re.sub(r"!\[[^\]]*\]\([^)]*\)", " ", t)
+    t = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", t)
+    t = re.sub(r"[`*_>#|]+", " ", t)
+    t = re.sub(r"^\s*[-:]{3,}\s*$", " ", t, flags=re.M)
+    return re.sub(r"\s+", " ", t).strip()
+
+
+def search_index(data, en=False):
+    """'포트폴리오에 질문하기'용 문단 색인 → docs/search.json (영문 search-en.json). 브라우저에서 BM25로 검색."""
+    sfx = "-en" if en else ""
+    home = "en.html" if en else "index.html"
+    L = (lambda ko, e: e if en else ko)
+    out = []
+    def add(text, title, url, sec):
+        text = re.sub(r"\s+", " ", str(text or "")).strip()
+        if len(text) >= 8:
+            out.append({"x": text, "t": title, "u": url, "s": sec})
+    prof = data.get("profile") or {}
+    add(prof.get("summary"), L("소개", "About"), home + "#top", L("소개", "About"))
+    av = prof.get("availability") or {}
+    if av.get("role"):
+        add(L(f"희망 직무 {av.get('role')} · 입사 가능 {av.get('start','')} · 근무 지역 {av.get('location','')}",
+              f"Looking for {av.get('role')} · available {av.get('start','')} · location {av.get('location','')}"),
+            L("지원 정보", "Availability"), home + "#top", L("지원 정보", "Availability"))
+    for g in data.get("featured") or []:
+        add(f"{g.get('title','')} — {g.get('summary','')}", g.get("title", ""), home + "#work", g.get("type", ""))
+        for sp in g.get("projects") or []:
+            u = f"projects/{sp['id']}{sfx}.html"
+            st = sp.get("star") or {}
+            add(sp.get("summary"), sp["title"], u, L("요약", "Summary"))
+            add(st.get("situation"), sp["title"], u, L("문제", "Problem"))
+            add(st.get("task"), sp["title"], u, L("역할", "Role"))
+            for x in st.get("action") or []:
+                add(x, sp["title"], u, L("한 일", "What I did"))
+            for x in st.get("result") or []:
+                add(x, sp["title"], u, L("결과", "Results"))
+            cl = ((sp.get("case") or {}).get("en" if en else "ko")) or {}
+            for x in cl.get("tradeoffs") or []:
+                add(x, sp["title"], u + "#tradeoffs", L("설계 판단", "Decisions"))
+            for x in cl.get("next") or []:
+                add(x, sp["title"], u + "#next", L("돌아보면", "Looking back"))
+            if sp.get("tags"):
+                add(L("사용 기술: ", "Tools: ") + ", ".join(sp["tags"]), sp["title"], u, L("기술", "Tools"))
+    for w in data.get("posts") or []:
+        src = (ROOT / "content" / "posts" / f"{w['slug']}.md").read_text(encoding="utf-8").split("---", 2)[-1]
+        u = f"posts/{w['slug']}.html"
+        add(w.get("summary"), w["title"], u, L("글 요약", "Post"))
+        for part in re.split(r"^## ", src, flags=re.M)[1:]:
+            head, _, body = part.partition("\n")
+            body = _plain(body)
+            for i in range(0, len(body), 520):          # 긴 절은 520자 단위로 나눔
+                add(body[i:i + 560], w["title"], u, head.strip())
+    for x in data.get("papers") or []:
+        add(f"{x.get('title','')} — {x.get('venue','')} {x.get('year','')}", L("논문", "Publications"), home + "#about", L("논문", "Paper"))
+    for x in data.get("talks") or []:
+        add(f"{x.get('title','')} ({x.get('year','')})", L("학회 발표", "Talks"), home + "#about", L("학회 발표", "Talk"))
+    for e in data.get("education") or []:
+        add(f"{e.get('school','')} {e.get('major','')} {e.get('degree','')} {e.get('period_str','')} " + " ".join(e.get("notes") or []),
+            L("학력", "Education"), home + "#about", L("학력", "Education"))
+    for x in (data.get("awards") or []) + (data.get("certifications") or []):
+        add(f"{x.get('name','')} — {x.get('org','')} {x.get('date','')}", L("수상·자격", "Awards"), home + "#about", L("수상·자격", "Awards"))
+    for sk in data.get("skills") or []:
+        add(f"{sk.get('category','')}: " + ", ".join(sk.get("items") or []), L("기술", "Skills"), home + "#about", L("기술", "Skills"))
+    return out
+
+
 def project_pages(env, data, en=False):
     """대표 활동의 하위 프로젝트마다 상세 페이지: docs/projects/<id>.html (영문은 <id>-en.html). 생성된 HTML 사전 반환."""
     subs = [(g, sp) for g in data.get("featured") or [] for sp in (g.get("projects") or [])]
@@ -241,6 +311,7 @@ def main():
     # 디자인 비교용 미리보기: python3 scripts/build.py --previews  → docs/design-<테마>.html
     for t in [] if "--previews" not in sys.argv else sorted(x.stem for x in (TEMPLATES / "themes").glob("*.css")):
         (DOCS / f"design-{t}.html").write_text(site_tpl.render(theme=t, **data), encoding="utf-8")
+    (DOCS / "search.json").write_text(json.dumps(search_index(data), ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     (DOCS / "projects").mkdir(exist_ok=True)
     for name, html in project_pages(env, data).items():
         (DOCS / "projects" / name).write_text(html, encoding="utf-8")

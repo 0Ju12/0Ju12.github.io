@@ -44,7 +44,7 @@ except ImportError:
 
 # 3) 꼭 있어야 하는 파일
 for rel in ["index.html", "en.html", "resume.pdf", "resume-en.pdf", "og.png", "og-en.png", "favicon.svg",
-            "apple-touch-icon.png", "study/index.html", "private/index.html"]:
+            "apple-touch-icon.png", "study/index.html", "private/index.html", "search.json", "search-en.json"]:
     if not (DOCS / rel).exists():
         errors.append(f"필수 파일 없음: {rel}")
 if not list((DOCS / "projects").glob("*.html")):
