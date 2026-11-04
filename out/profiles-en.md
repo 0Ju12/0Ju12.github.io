@@ -72,7 +72,7 @@ Separated overlapping gravity and magnetic signals in the wavenumber domain to r
 ✔ SLFI basement structure agrees with three independent models at r ≥ 0.94 (profile correlation 0.95–0.98 after shift alignment)
 ✔ DLFI reproduces the salt distribution and suggests an additional salt uplift west of Ghasha
 ✔ First-author paper in SPE Journal (SCIE, 2026, with Univ. of Calgary and Khalifa Univ.) · 3 conference talks (2024)
-✔ Best Student Paper (poster), KSEG Fall Conference 2024 · M.S. degree conferred 2026.08.21
+✔ Best Student Paper Award (poster), KSEG Spring Conference 2024 — Utah FORGE velocity/density model accuracy · M.S. degree conferred 2026.08.21
 Skills: Signal processing, Correlation analysis, Index design, Gravity & magnetic data
 Details: https://0ju12.github.io/projects/masters-en.html
 ```
@@ -145,5 +145,5 @@ Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, Django, Selenium
 
 ## 6. 수상·자격 (LinkedIn "Honors & awards" / "Licenses & certifications")
 - Project Excellence Award, POSCO Youth AI & Big Data Academy (30th) — POSCO HRD Center · POSTECH (2025.08)
-- Best Student Paper (poster), KSEG Fall Conference 2024 — Korean Society of Earth and Exploration Geophysicists (2024.11)
+- Best Student Paper Award (poster), KSEG Spring Conference 2024 — accuracy of seismic velocity and density models at the Utah FORGE geothermal site — Korean Society of Earth and Exploration Geophysicists (2024.10)
 - ADsP (Advanced Data Analytics Semi-Professional) — Korea Data Agency (2022.09)

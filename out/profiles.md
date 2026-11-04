@@ -74,7 +74,7 @@ GitHub: https://github.com/0Ju12
 ✔ SLFI 기반 기반암 구조가 서로 다른 해석법의 기존 독립 모델 3개와 상관계수 0.94 이상으로 일치
 ✔ DLFI로 암염 구조의 공간 분포를 재현하고, 가샤 서쪽의 추가 암염 융기 가능성을 새로 제시
 ✔ SCIE 국제학술지 SPE Journal 제1저자 논문 (2026, 캘거리대·칼리파대 공동연구) · 학회 발표 3건 (2024)
-✔ 2024 KSEG 추계학술대회 학생 우수논문(포스터) 발표상
+✔ 2024 KSEG 봄 학술대회 학생 우수논문 발표상 (포스터 부문, 「유타 FORGE 지열발전 부지 탄성파 속도 모델과 밀도 모델의 정확성 검토」)
 ✔ 석사 학위논문 「Characterization of Salt and Basement Structures in the Ghasha Area Using Wavenumber Correlation Analysis of Gravity and Magnetic Anomaly Data」 (전북대학교 대학원 환경에너지융합학과, 2026.08.21 학위 취득)
 기술: 신호처리(파수 영역), 상관 분석, 지표 설계, 중력·자력 데이터, 국제공동연구
 상세: https://0ju12.github.io/projects/masters.html
@@ -151,5 +151,5 @@ Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, Django, Selenium
 
 ## 6. 수상·자격 (LinkedIn "Honors & awards" / "Licenses & certifications")
 - 포스코 청년 AI·BigData 아카데미 30기 프로젝트 장려상 — 포스코인재창조원 · 포항공과대학교 (2025.08)
-- 2024 한국지구물리·물리탐사학회(KSEG) 추계학술대회 학생 우수논문(포스터) 발표상 — 한국지구물리·물리탐사학회 (2024.11)
+- 2024 한국지구물리·물리탐사학회(KSEG) 봄 학술대회 학생 우수논문 발표상 (포스터 부문 · 「유타 FORGE 지열발전 부지 탄성파 속도 모델과 밀도 모델의 정확성 검토」) — 한국지구물리·물리탐사학회 (2024.10)
 - ADsP (데이터분석 준전문가) — 한국데이터산업진흥원 (2022.09)
