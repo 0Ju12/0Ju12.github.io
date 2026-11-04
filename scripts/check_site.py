@@ -17,7 +17,7 @@ link_pages = [p for p in pages if "study/notes" not in p.as_posix()]
 for page in link_pages:
     html = page.read_text(encoding="utf-8", errors="ignore")
     for url in set(re.findall(r'(?:src|href)="([^"]+)"', html)):
-        if url.startswith(("http:", "https:", "mailto:", "tel:", "data:", "#", "javascript:")) or "{{" in url:
+        if url.startswith(("http:", "https:", "mailto:", "tel:", "data:", "#", "javascript:")) or "{{" in url or "'" in url:  # 스크립트 속 문자열 제외
             continue
         path = url.split("#")[0].split("?")[0]
         if not path:

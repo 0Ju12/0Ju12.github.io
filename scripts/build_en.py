@@ -119,6 +119,7 @@ def main():
     data["posts"] = []          # Writing is Korean-only
     data["study_notes"] = []
     data["private_ready"] = False
+    data["evidence"] = build.evidence_index(data, en=True)
     env = Environment(loader=FileSystemLoader(build.TEMPLATES),
                       autoescape=select_autoescape(["html", "j2"], default_for_string=False),
                       trim_blocks=True, lstrip_blocks=True)

@@ -107,6 +107,8 @@ def normalize(data):
     for g in data.get("activities") or []:
         for sp in g.get("projects") or []:
             sp["case"] = notes.get(sp.get("id")) or {}
+    rv = DATA.parent / "resume_variants.yaml"   # 직무별 보기(사이트)·직무별 이력서 공용
+    data["role_variants"] = yaml.safe_load(rv.read_text(encoding="utf-8")) if rv.exists() else {}
     pi = DATA.parent / "projects_index.yaml"   # 디자인 시안용 프로젝트 단위 목록
     data["projects_index"] = yaml.safe_load(pi.read_text(encoding="utf-8")) if pi.exists() else []
     return data
@@ -170,6 +172,28 @@ def load_posts(acts):
     return sorted(posts, key=lambda p: (str(p.get("date", "")), p["slug"]), reverse=True)
 
 
+def evidence_index(data, en=False):
+    """기술 태그 → 근거 연결용: 하위 프로젝트(상세 페이지)와 글의 검색용 텍스트. 사이트 JS가 태그와 대조."""
+    stacks = {}
+    for x in data.get("projects_index") or []:   # 시안용 프로젝트 목록의 도구 이름도 해당 하위 프로젝트의 근거로
+        stacks.setdefault(x.get("activity"), []).extend(x.get("stack") or [])
+    items = []
+    for g in data.get("featured") or []:
+        for sp in g.get("projects") or []:
+            st = sp.get("star") or {}
+            words = [sp.get("title", ""), sp.get("summary", ""), st.get("situation", ""), st.get("task", "")]
+            words += (st.get("action") or []) + (st.get("result") or []) + (sp.get("tags") or [])
+            if not en:
+                words += stacks.get(sp.get("id"), [])
+            items.append({"k": "p", "t": sp.get("title", ""), "u": f"projects/{sp['id']}{'-en' if en else ''}.html",
+                          "s": " ".join(str(w) for w in words).lower()})
+    for w in data.get("posts") or []:
+        words = [w.get("title", ""), w.get("summary", "")] + list(w.get("tags") or [])
+        items.append({"k": "w", "t": w.get("title", ""), "u": f"posts/{w['slug']}.html",
+                      "s": " ".join(str(x) for x in words).lower()})
+    return items
+
+
 def project_pages(env, data, en=False):
     """대표 활동의 하위 프로젝트마다 상세 페이지: docs/projects/<id>.html (영문은 <id>-en.html). 생성된 HTML 사전 반환."""
     subs = [(g, sp) for g in data.get("featured") or [] for sp in (g.get("projects") or [])]
@@ -197,6 +221,7 @@ def main():
     DOCS.mkdir(exist_ok=True)
     OUT.mkdir(exist_ok=True)
     data["posts"] = load_posts(data.get("activities", []))
+    data["evidence"] = evidence_index(data)
     (DOCS / "posts").mkdir(exist_ok=True)
     import study
     data["study_notes"] = study.build(env, data)
