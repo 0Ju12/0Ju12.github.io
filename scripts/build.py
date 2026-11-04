@@ -73,6 +73,10 @@ def normalize(data):
             {"src": f"assets/photos/{a['id']}/{f.name}", "caption": f.stem.replace("_", " ")}
             for f in sorted(d.glob("*.jpg"))
         ] if d.is_dir() else []
+        # 카드 전용 잘라낸 그림: docs/assets/photos/<id>/card/*.jpg (갤러리에는 넣지 않음)
+        cards = sorted((d / "card").glob("*.jpg")) if (d / "card").is_dir() else []
+        if cards:
+            a["card_image"] = f"assets/photos/{a['id']}/card/{cards[0].name}"
 
     for a in acts:
         prep(a)

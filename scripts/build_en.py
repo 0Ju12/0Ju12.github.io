@@ -89,7 +89,8 @@ def to_english(html: str) -> str:
 
 
 CAPTIONS = {
-    "GPlates": "B.S. first-author paper — plate-tectonic reconstruction with GPlates (PALEOMAP, Scotese 2016)",
+    "GPlates_①": "B.S. first-author paper, Fig. 2 — geological history of North America reconstructed with GPlates (Scotese, 2016)",
+    "GPlates_②": "B.S. first-author paper, Fig. 7 — geological history of the North Sea reconstructed with GPlates (Scotese, 2016)",
     "캘거리_중력탐사_현장측정": "Calgary — gravity survey in the field",
     "석사_학위수여식": "M.S. commencement",
     "석사학위논문_(표지)": "M.S. thesis — cover",
