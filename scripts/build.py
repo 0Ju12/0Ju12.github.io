@@ -77,6 +77,7 @@ def normalize(data):
         cards = sorted((d / "card").glob("*.jpg")) if (d / "card").is_dir() else []
         if cards:
             a["card_image"] = f"assets/photos/{a['id']}/card/{cards[0].name}"
+            a["card_caption"] = cards[0].stem.replace("_", " ")
 
     for a in acts:
         prep(a)

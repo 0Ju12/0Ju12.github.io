@@ -89,6 +89,14 @@ def to_english(html: str) -> str:
 
 
 CAPTIONS = {
+    "KILLKONG_①": "KILL KONG app — home · chat correction · word list · practice dashboard",
+    "KILLKONG_②": "KILL KONG system — LoRA fine-tuned Qwen2.5 + RAG hint list + SQLite/FAISS memory",
+    "KILLKONG_③": "Same Konglish sentence: GPT-5 misses it, KILL KONG corrects it and suggests natural phrasing",
+    "KILLKONG_앱": "KILL KONG app — home · chat correction · word list · practice dashboard",
+    "U-LSTM_①": "U-LSTM on an unseen wildfire — top: actual spread, bottom: prediction (t1→t5)",
+    "U-LSTM_②": "U-LSTM training curves — accuracy and loss",
+    "U-LSTM_미학습": "U-LSTM on an unseen wildfire — top: actual spread, bottom: prediction (t1→t5)",
+    "GPlates_북미": "B.S. first-author paper, Fig. 2 — geological history of North America reconstructed with GPlates",
     "GPlates_①": "B.S. first-author paper, Fig. 2 — geological history of North America reconstructed with GPlates (Scotese, 2016)",
     "GPlates_②": "B.S. first-author paper, Fig. 7 — geological history of the North Sea reconstructed with GPlates (Scotese, 2016)",
     "캘거리_중력탐사_현장측정": "Calgary — gravity survey in the field",
@@ -108,6 +116,10 @@ CAPTIONS = {
 def translate_captions(acts):
     for g in acts:
         for a in [g] + (g.get("projects") or []):
+            for key, en in CAPTIONS.items():
+                if a.get("card_image") and key in a["card_image"]:
+                    a["card_caption"] = en
+                    break
             for item in a.get("gallery") or []:
                 for key, en in CAPTIONS.items():
                     if key in item["src"]:
