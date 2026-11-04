@@ -74,7 +74,6 @@ GitHub: https://github.com/0Ju12
 ✔ SLFI 기반 기반암 구조가 서로 다른 해석법의 기존 독립 모델 3개와 상관계수 0.94 이상으로 일치
 ✔ DLFI로 암염 구조의 공간 분포를 재현하고, 가샤 서쪽의 추가 암염 융기 가능성을 새로 제시
 ✔ SCIE 국제학술지 SPE Journal 제1저자 논문 (2026, 캘거리대·칼리파대 공동연구) · 학회 발표 3건 (2024)
-✔ 2024 KSEG 봄 학술대회 학생 우수논문 발표상 (포스터 부문, 「유타 FORGE 지열발전 부지 탄성파 속도 모델과 밀도 모델의 정확성 검토」)
 ✔ 석사 학위논문 「Characterization of Salt and Basement Structures in the Ghasha Area Using Wavenumber Correlation Analysis of Gravity and Magnetic Anomaly Data」 (전북대학교 대학원 환경에너지융합학과, 2026.08.21 학위 취득)
 기술: 신호처리(파수 영역), 상관 분석, 지표 설계, 중력·자력 데이터, 국제공동연구
 상세: https://0ju12.github.io/projects/masters.html
@@ -107,9 +106,10 @@ GPlates로 해외 대규모 CO2 저장소의 지질 형성사를 판구조 관�
 • GPlates(PALEOMAP PaleoAtlas)로 북미·북해·오세아니아·중동 4개 지역의 판구조 변천사를 복원해 CO2 저장소가 만들어진 과정을 해석
 • 지역별 대표 CCS 프로젝트(북미 Quest·Weyburn-Midale, 북해 Northern Lights·PORTHOS, 오세아니아 Gorgon·Moomba, 중동 Uthmaniyah·카타르 LNG — 지역별 2개씩)의 탄성파 영상화 결과를 저장층·덮개암 지질구조 측면에서 해석
 • 선행 연구: GPU 기반 4D 탄성파 모니터링 기술 적용성 검토 (2022) / 사우디아라비아 딥러닝 기반 탄성파 영상화·노르웨이 슬라이프너 지구물리 모니터링 사례 분석 (2023)
-• 캘거리대학교 단기 파견(2023.12–2024.02): 미국 Utah FORGE 지열 부지 중력 데이터 처리
+• 캘거리대학교 단기 파견(2023.12–2024.02): 미국 Utah FORGE 지열 부지 중력 데이터 처리 → 2024 봄 학술대회 포스터 발표
 ✔ 제1저자 논문 「판구조론적 역사를 고려한 해외 대규모 이산화탄소 지중저장소 탄성파 해석 결과 분석」 (Analysis on Seismic Interpretation for Overseas Large-scale CO2 Storage Considering Geological History Related to Plate Tectonics), 지구물리와 물리탐사 27(1), 1–22, 2024 — 학부 과정 연구 성과
 ✔ 제2저자 논문 1편 (호주 깁스랜드 분지 CarbonNet CCS 지질학적 분석, 지구물리와 물리탐사, 2023) · 학회 발표 3건 (2022–2023)
+✔ 2024 KSEG 봄 학술대회 학생 우수논문 발표상 (포스터 부문, 「유타 FORGE 지열발전 부지 탄성파 속도 모델과 밀도 모델의 정확성 검토」)
 ✔ 각 프로젝트의 탄성파 영상에 드러난 층서구조가 해당 지역의 판구조적 형성 역사를 반영함을 확인 → 국내 탐사 자료 처리 시 지질학적으로 비현실적인 속도 모델을 배제하는 기준으로 활용할 수 있음을 제시
 기술: 탄성파 해석, GPlates, 판구조 복원, CCS, 중력 데이터 처리, 4D 탄성파
 상세: https://0ju12.github.io/projects/undergrad-research.html

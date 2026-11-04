@@ -72,7 +72,7 @@ Separated overlapping gravity and magnetic signals in the wavenumber domain to r
 ✔ SLFI basement structure agrees with three independent models at r ≥ 0.94 (profile correlation 0.95–0.98 after shift alignment)
 ✔ DLFI reproduces the salt distribution and suggests an additional salt uplift west of Ghasha
 ✔ First-author paper in SPE Journal (SCIE, 2026, with Univ. of Calgary and Khalifa Univ.) · 3 conference talks (2024)
-✔ Best Student Paper Award (poster), KSEG Spring Conference 2024 — Utah FORGE velocity/density model accuracy · M.S. degree conferred 2026.08.21
+✔ M.S. degree conferred 2026.08.21
 Skills: Signal processing, Correlation analysis, Index design, Gravity & magnetic data
 Details: https://0ju12.github.io/projects/masters-en.html
 ```
@@ -102,10 +102,11 @@ Details: https://0ju12.github.io/projects/calgary-2024-en.html
 Reconstructed how large overseas CO2 storage sites formed and interpreted their seismic images from a structural-geology perspective
 • Reconstructed the plate-tectonic history of four regions with GPlates (PALEOMAP PaleoAtlas)
 • Interpreted seismic images of two representative CCS projects per region — Quest & Weyburn-Midale, Northern Lights & PORTHOS, Gorgon & Moomba, Uthmaniyah & Qatar LNG — focusing on reservoir and cap rock
-• Short stay at Univ. of Calgary (2023.12–2024.02): processed gravity data from the Utah FORGE geothermal site
+• Short stay at Univ. of Calgary (2023.12–2024.02): processed gravity data from the Utah FORGE geothermal site → poster at the KSEG Spring Conference 2024
 ✔ First-author paper: Analysis on Seismic Interpretation for Overseas Large-scale CO2 Storage Considering Geological History Related to Plate Tectonics, Geophysics and Geophysical Exploration 27(1), 1–22 (2024)
 ✔ Showed that stratigraphy in each seismic image reflects the region's tectonic history → a basis for rejecting geologically unrealistic velocity models when processing domestic data
 ✔ 1 second-author paper (CarbonNet CCS, Gippsland Basin, 2023) · 3 conference talks (2022–2023)
+✔ Best Student Paper Award (poster), KSEG Spring Conference 2024 — accuracy of seismic velocity and density models at the Utah FORGE site
 Skills: Seismic interpretation, GPlates, Plate reconstruction, CCS
 Details: https://0ju12.github.io/projects/undergrad-research-en.html
 ```

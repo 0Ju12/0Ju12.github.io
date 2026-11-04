@@ -92,7 +92,7 @@ activities:
     brief:
       - "Designed wavenumber-correlation indices (SLFI · DLFI) splitting overlapping gravity/magnetic signals; r ≥ 0.94 vs. 3 independent models · code released"
       - "6-month stay at Univ. of Calgary, collaboration with Khalifa Univ. (UAE) → first-author SPE Journal paper (SCIE, 2026)"
-      - "Best Student Paper (poster), KSEG 2024 · 3 talks · 10+ lab research-meeting talks · 2025 Basic Research Lab workshop talk"
+      - "3 talks · 10+ lab research-meeting talks · 2025 Basic Research Lab workshop talk"
     tags: [Signal processing (wavenumber domain), Correlation analysis, Index design, Gravity & magnetic data, International collaboration]
     image: assets/masters_thesis.jpg
     image_caption: "M.S. thesis (2026.08) — left: cover, right: SLFI (basement) and DLFI (salt) maps (Fig. 11)"
@@ -121,7 +121,7 @@ activities:
             - SLFI basement structure agrees with three independent models at r ≥ 0.94 (profile correlation 0.95–0.98 after shift alignment)
             - DLFI reproduces the salt distribution and suggests an additional salt uplift west of Ghasha
             - First-author paper in SPE Journal (SCIE, 2026, with Univ. of Calgary and Khalifa Univ.) · 3 conference talks (2024)
-            - Best Student Paper Award (poster), KSEG Spring Conference 2024 — Utah FORGE velocity/density model accuracy · M.S. degree conferred 2026.08.21
+            - M.S. degree conferred 2026.08.21
         links:
           - { label: SPE Journal paper, url: "https://doi.org/10.2118/236968-PA" }
           - { label: Code (gravmag-wcf), url: "https://github.com/0Ju12/gravmag-wcf" }
@@ -159,7 +159,7 @@ activities:
     priority: 2
     brief:
       - "First-author paper: GPlates plate-tectonic reconstruction + seismic interpretation of 8 large CO2 storage sites in 4 regions (2024)"
-      - "4D seismic and CCS case studies, Calgary short stay (Utah FORGE gravity) → 1 second-author paper · 3 talks"
+      - "4D seismic and CCS case studies, Calgary short stay (Utah FORGE gravity) → 1 second-author paper · 3 talks · KSEG 2024 Best Student Paper (poster)"
       - "Capstone: designed a U-LSTM predicting wildfire fronts — Accuracy 0.90 · F1 0.85 on an unseen fire"
     tags: [Seismic interpretation, GPlates, CCS, Python, TensorFlow, U-LSTM, ArcGIS]
     image: assets/wildfire_test_map.png
@@ -181,11 +181,12 @@ activities:
           action:
             - "Reconstructed the plate-tectonic history of four regions with GPlates (PALEOMAP PaleoAtlas)"
             - "Interpreted seismic images of two representative CCS projects per region — Quest & Weyburn-Midale, Northern Lights & PORTHOS, Gorgon & Moomba, Uthmaniyah & Qatar LNG — focusing on reservoir and cap rock"
-            - "Short stay at Univ. of Calgary (2023.12–2024.02): processed gravity data from the Utah FORGE geothermal site"
+            - "Short stay at Univ. of Calgary (2023.12–2024.02): processed gravity data from the Utah FORGE geothermal site → poster at the KSEG Spring Conference 2024"
           result:
             - "First-author paper: Analysis on Seismic Interpretation for Overseas Large-scale CO2 Storage Considering Geological History Related to Plate Tectonics, Geophysics and Geophysical Exploration 27(1), 1–22 (2024)"
             - "Showed that stratigraphy in each seismic image reflects the region's tectonic history → a basis for rejecting geologically unrealistic velocity models when processing domestic data"
             - "1 second-author paper (CarbonNet CCS, Gippsland Basin, 2023) · 3 conference talks (2022–2023)"
+            - "Best Student Paper Award (poster), KSEG Spring Conference 2024 — accuracy of seismic velocity and density models at the Utah FORGE site"
         links:
           - { label: First-author paper, url: "https://koreascience.or.kr/article/JAKO202410348585789.page" }
       - id: wildfire-capstone
