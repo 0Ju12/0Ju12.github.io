@@ -53,7 +53,12 @@ def main():
     places = yaml.safe_load((ROOT / "data" / "career_map.yaml").read_text(encoding="utf-8"))
     OUT.mkdir(parents=True, exist_ok=True)
     found = {}
+    only = set(sys.argv[1:])
+    if only and (ROOT / "data" / "places_fetched.yaml").exists():
+        found = yaml.safe_load((ROOT / "data" / "places_fetched.yaml").read_text(encoding="utf-8")) or {}
     for pl in places:
+        if only and pl["id"] not in only:
+            continue
         w = pl.get("wiki")
         if not w:
             continue
@@ -73,7 +78,9 @@ def main():
             try:
                 import io
                 from PIL import Image
-                im = Image.open(io.BytesIO(get(img, raw=True))).convert("RGB")   # 원본(upload.wikimedia.org) → 로컬에서 축소
+                thumb = ((s.get("thumbnail") or {}).get("source") or "").split("?")[0]
+                thumb = re.sub(r"/\d+px-", "/960px-", thumb) if thumb else img   # 위키미디어 권장: 정해진 크기의 썸네일
+                im = Image.open(io.BytesIO(get(thumb, raw=True))).convert("RGB")
                 im.thumbnail((960, 960))
                 im.save(OUT / f"{pl['id']}.jpg", quality=84)
                 rec["photo"] = {"src": f"assets/places/{pl['id']}.jpg", "file": fname, **credit("File:" + fname)}

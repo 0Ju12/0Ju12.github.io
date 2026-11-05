@@ -23,11 +23,23 @@ sleipner:
     2,500 metres (8,200 ft) below sea level. It is operated by Equinor. The field
     is named after the eight-legged steed Sleipnir of Odin, a widely revered god in
     Norse mythology.
+  photo:
+    src: assets/places/sleipner.jpg
+    file: Sleipner_oil_field.jpg
+    author: Bair175
+    license: CC BY-SA 3.0
+    page: https://commons.wikimedia.org/wiki/File%3ASleipner_oil_field.jpg
 qatar:
   wiki_title: Ras Laffan Industrial City
   wiki_url: https://en.wikipedia.org/wiki/Ras_Laffan_Industrial_City
   extract: Ras Laffan Industrial City is a Qatari industrial hub located 80 kilometres
     (50 mi) north of Doha. It is administered by QatarEnergy.
+  photo:
+    src: assets/places/qatar.jpg
+    file: Ras_Laffan_LNG_terminal_in_2012.jpg
+    author: Matthew Smith @ Flickr
+    license: CC BY 2.0
+    page: https://commons.wikimedia.org/wiki/File%3ARas_Laffan_LNG_terminal_in_2012.jpg
 gorgon:
   wiki_title: Gorgon gas project
   wiki_url: https://en.wikipedia.org/wiki/Gorgon_gas_project
@@ -36,6 +48,12 @@ gorgon:
     gas-gathering infrastructure, and a liquefied natural gas (LNG) plant on Barrow
     Island. The project also includes a domestic gas component. Construction was completed
     in 2017. It is Australia's most expensive ever resources development.
+  photo:
+    src: assets/places/gorgon.jpg
+    file: Gorgon_Barrow_Island.png
+    author: Glen Dillon
+    license: CC BY-SA 3.0
+    page: https://commons.wikimedia.org/wiki/File%3AGorgon_Barrow_Island.png
 moomba:
   wiki_title: Moomba, South Australia
   wiki_url: https://en.wikipedia.org/wiki/Moomba%2C_South_Australia
