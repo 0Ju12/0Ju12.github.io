@@ -1,0 +1,413 @@
+{# 2026-11-05 백업: Hallmark 테마 적용 전 기존 메인 디자인 (커밋 5ba8f3e). 복원: data/portfolio.yaml site.layout 을 stack-classic 으로 #}
+{% import "layouts/_parts.j2" as p %}
+{% import "layouts/_v2.j2" as v %}
+{% import "_head.j2" as h %}
+{# Card Stack — 석사 / 학부 / 부트캠프 3개 묶음(featured 활동)을 카드로 쌓고, 카드 안에서 세부 프로젝트를 탭으로 보여 줌 #}
+{% set en = alt_lang is defined and alt_lang and alt_lang.code == 'ko' %}
+{% set T = {
+  'avail': 'Open to new opportunities' if en else '함께 일할 곳을 찾고 있습니다',
+  'h1': 'Collect the data,<br>verify with models,<br><em>prove it with results.</em>' if en else '데이터를 모으고,<br>모델로 검증하고,<br><em>결과로 증명합니다.</em>',
+  'intro': 'I\'m an engineer who starts by asking where the data came from. My geophysics research led to a first-author SCIE paper, and at the Samsung SW·AI Academy (SSAFY) I\'m building the skills to run LLM data pipelines end to end, from collection to service. What I pursue is results you can trust: I check a model\'s answer another way before relying on it, and I value being able to explain why a result is right over a result that merely looks good.' if en else v.intro(),
+  'areas': ['Geophysical data research', 'International collaboration', 'LLM · RAG engineering', 'Deep learning modeling'] if en else ['지구물리 데이터 연구', '국제 공동연구', 'LLM · RAG 엔지니어링', '딥러닝 모델링'],
+  'work': 'Work' if en else '작업',
+  'work_sub': 'Three chapters — graduate research, undergraduate research and bootcamps. Use the tabs inside each card for individual projects.' if en else '석사 · 학부 · 부트캠프 세 묶음입니다. 카드 안의 탭에서 세부 프로젝트를 볼 수 있습니다.',
+  'see': 'See work' if en else '작업 보기',
+  'resume': 'Resume PDF' if en else '이력서 PDF',
+  'scroll': 'Scroll — the cards stack one by one' if en else '스크롤하면 카드가 한 장씩 쌓입니다',
+  'detail': 'Full story' if en else '자세히',
+  'post': 'Related post' if en else '관련 글',
+  'close': 'Close' if en else '닫기',
+  'writing': 'Writing' if en else '글',
+  'read': 'Read →' if en else '읽기 →',
+  'about': 'Background' if en else '이력',
+  'about_sub': 'Education · publications · awards · skills' if en else '학력 · 논문 · 수상 · 기술',
+  'edu': 'Education' if en else '학력 · 교육',
+  'pubs': 'Publications' if en else '논문',
+  'talks': 'conference talks' if en else '학회 발표',
+  'awards': 'Awards · Certifications' if en else '수상 · 자격',
+  'skills': 'Skills' if en else '기술',
+  'end': 'Looking forward to<br>working together.' if en else '함께 일할 기회를<br>기다립니다.',
+  'mail': 'Send email' if en else '메일 보내기',
+  'full': 'Full resume' if en else '상세 이력서',
+  'notes': 'Lecture notes' if en else '강의 노트',
+  'gen': 'generated from data/portfolio.yaml' if not en else 'generated from data/portfolio.en.yaml',
+  'theme': 'Theme' if en else '테마',
+  'roles': 'By role (1 page):' if en else '직무별 이력서(1장):',
+  'r_data': 'Data Engineer' if en else '데이터 엔지니어',
+  'r_ai': 'AI/ML Engineer' if en else 'AI·ML 엔지니어',
+  'want': 'Looking for' if en else '희망 직무',
+  'loc': 'Location' if en else '근무 지역',
+  'start': 'Available' if en else '입사 가능',
+  'demo': 'Demo' if en else '데모',
+  'role_all': 'All' if en else '전체 보기',
+  'role_aria': 'View by role' if en else '직무별 보기',
+  'role_note': 'Order, highlights and skills are tailored to this role.' if en else '이 직무에 맞춘 순서·핵심 문장·기술로 보는 중입니다.',
+  'ev_title': 'Where I used' if en else '근거',
+  'ev_none': 'No project or post on this site mentions it yet.' if en else '이 기술이 나오는 프로젝트·글이 아직 없습니다.',
+  'ev_p': 'Project' if en else '프로젝트',
+  'ev_w': 'Post' if en else '글',
+  'ev_hint': 'Click a skill to see where I used it' if en else '기술을 누르면 실제로 쓴 프로젝트·글이 나옵니다',
+} %}
+{% set tints = ['#eef1ff', '#eafaf3', '#fff4e8'] %}
+{% set tints_d = ['#1a1e2e', '#132520', '#2a1f14'] %}
+{% set dots = ['#5b6cff', '#16a34a', '#ea7a0c', '#db2777', '#0284c7', '#65a30d', '#9333ea'] %}
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ profile.name }} — {{ profile.title }}</title>
+{{ h.meta(profile.name ~ ' — ' ~ profile.title, ('Data & AI engineer — geophysical research to LLM pipelines and RAG.' if en else profile.headline), ('en.html' if en else ''), '', en) }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--bg:#f7f7f8;--text:#18181b;--muted:#5f5f68;--faint:#9b9ba3;--line:#e4e4e8;--card:#fff;--ink:#18181b;--on-ink:#fafafa;--shadow:0 1px 2px rgba(0,0,0,.04),0 18px 48px -18px rgba(0,0,0,.16){% for t in tints %};--t{{ loop.index }}:{{ t }}{% endfor %}}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d10;--text:#f4f4f5;--muted:#a1a1aa;--faint:#71717a;--line:#27272a;--card:#17171a;--ink:#f4f4f5;--on-ink:#0d0d10;--shadow:0 18px 48px -18px rgba(0,0,0,.6){% for t in tints_d %};--t{{ loop.index }}:{{ t }}{% endfor %}}}
+:root[data-theme="dark"]{--bg:#0d0d10;--text:#f4f4f5;--muted:#a1a1aa;--faint:#71717a;--line:#27272a;--card:#17171a;--ink:#f4f4f5;--on-ink:#0d0d10;--shadow:0 18px 48px -18px rgba(0,0,0,.6){% for t in tints_d %};--t{{ loop.index }}:{{ t }}{% endfor %}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 "Pretendard Variable",Pretendard,system-ui,sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:anywhere}
+a{color:inherit;text-decoration:none}
+.w{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* 떠 있는 메뉴 */
+.top{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:2px;padding:6px;border-radius:999px;background:color-mix(in srgb,var(--card) 78%,transparent);backdrop-filter:blur(16px) saturate(1.4);border:1px solid var(--line);box-shadow:var(--shadow);font-size:14px;font-weight:600;white-space:nowrap}
+.top a,.top button{padding:7px 14px;border-radius:999px;color:var(--muted);background:none;border:0;font:inherit;cursor:pointer;transition:background .2s,color .2s}
+.top a:hover,.top button:hover{color:var(--text)}
+.top a.on{background:var(--bg);color:var(--text)}
+.top .me{background:var(--ink);color:var(--on-ink);display:flex;align-items:center;gap:8px}
+.top .me:hover{color:var(--on-ink)}
+.top .me .avatar{width:22px;height:22px;border-radius:50%;object-fit:cover;font-size:9px}
+
+/* 히어로 */
+.hero{position:relative;min-height:92vh;display:grid;place-items:center;text-align:center;padding:120px 0 48px;isolation:isolate}
+.blobs{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.blobs i{position:absolute;width:520px;height:520px;border-radius:50%;filter:blur(80px);opacity:.9;animation:drift 18s ease-in-out infinite alternate}
+.blobs i:nth-child(1){background:var(--t1);left:-120px;top:40px}
+.blobs i:nth-child(2){background:var(--t3);right:-140px;top:120px;animation-delay:-6s}
+.blobs i:nth-child(3){background:var(--t2);left:30%;bottom:-200px;animation-delay:-12s}
+@keyframes drift{to{transform:translate(60px,-40px) scale(1.1)}}
+@media (prefers-reduced-motion: reduce){.blobs i{animation:none}html{scroll-behavior:auto}}
+.hero .avatar.big{width:104px;height:104px;border-radius:30px;object-fit:cover;margin:0 auto 22px;display:block;font-size:32px;box-shadow:var(--shadow);border:4px solid var(--card)}
+.hero .k{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 14px 5px 10px}
+.hero .k::before{content:"";width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.18)}
+.hero h1{font-size:clamp(40px,7vw,88px);line-height:1.04;letter-spacing:-.055em;margin:20px 0 22px;font-weight:800}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,#5b6cff,#db2777 55%,#ea7a0c);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);font-size:18px;max-width:640px;margin:0 auto 26px}
+.areas{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 0 30px}
+.areas span{font-size:13.5px;font-weight:600;padding:6px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line)}
+.areas span i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;vertical-align:1px}
+.cta{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.btn{display:inline-flex;align-items:center;gap:8px;height:50px;padding:0 24px;border-radius:999px;font-weight:700;font-size:15px;border:1px solid var(--line);background:var(--card);color:var(--text);transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.pri{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.avail{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin-top:22px;font-size:13.5px;color:var(--muted)}
+.avail b{color:var(--faint);font-weight:600;margin-right:6px}
+.avail .roles a{color:var(--text);font-weight:700;border-bottom:1px solid var(--line);margin-right:10px}
+.avail .roles a:hover{border-color:var(--text)}
+.asklink{display:inline-flex;align-items:center;gap:8px;margin-top:22px;border:1px dashed var(--line);background:color-mix(in srgb,var(--card) 70%,transparent);color:var(--muted);font:inherit;font-size:14px;font-weight:600;padding:9px 16px;border-radius:999px;cursor:pointer}
+.asklink:hover{color:var(--text);border-color:var(--text)}
+.scroll{margin-top:44px;font-size:13px;color:var(--faint);display:flex;flex-direction:column;align-items:center;gap:8px}
+.scroll::after{content:"";width:1px;height:36px;background:linear-gradient(var(--faint),transparent)}
+
+/* 섹션 제목 */
+section{scroll-margin-top:80px}
+.sec-t{display:flex;align-items:end;justify-content:space-between;gap:20px;margin:48px 0 28px}
+.sec-t h2{font-size:clamp(30px,4vw,48px);letter-spacing:-.05em;margin:0;line-height:1.1}
+.sec-t p{color:var(--muted);margin:0;max-width:420px;text-align:right;font-size:15px}
+
+/* 묶음 카드 */
+.deck{position:relative;padding-bottom:24px}
+.card{position:sticky;display:grid;grid-template-columns:1fr 1.08fr;gap:36px;align-items:start;padding:32px 34px;border-radius:32px;border:1px solid color-mix(in srgb,var(--text) 6%,transparent);margin-bottom:64px;box-shadow:0 -12px 40px -12px rgba(0,0,0,.08);transform-origin:center top;will-change:transform}
+.card.flat{position:relative;top:auto!important}
+.card .head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card .n{font-size:13px;font-weight:800;letter-spacing:.06em;margin-right:4px}
+.chip{font-size:12.5px;font-weight:600;color:var(--muted);background:color-mix(in srgb,var(--card) 70%,transparent);border-radius:999px;padding:3px 10px}
+.card h3{font-size:clamp(22px,2.2vw,29px);line-height:1.25;letter-spacing:-.04em;margin:12px 0 10px}
+.card .one{color:var(--muted);font-size:15px;line-height:1.65;margin:0 0 12px}
+.card .pts{list-style:none;margin:0 0 12px;padding:0;font-size:13.5px}
+.card .pts li{display:grid;grid-template-columns:18px 1fr;gap:6px;padding:6px 0;border-top:1px solid color-mix(in srgb,var(--text) 9%,transparent);line-height:1.6}
+.card .pts svg{margin-top:4px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags span{font-size:12px;font-weight:600;padding:3px 10px;border-radius:8px;background:color-mix(in srgb,var(--card) 75%,transparent);color:var(--muted)}
+
+/* 카드 안 세부 프로젝트 탭 */
+.window{border-radius:20px;overflow:hidden;background:var(--card);box-shadow:0 30px 60px -20px rgba(0,0,0,.22);border:1px solid var(--line)}
+.tabs{display:flex;gap:4px;padding:8px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;border:0;background:none;font:inherit;font-size:13.5px;font-weight:700;color:var(--muted);padding:8px 14px;border-radius:12px;cursor:pointer;white-space:nowrap}
+.tabs button[aria-selected="true"]{background:var(--bg);color:var(--text)}
+.tabs button i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;vertical-align:1px;background:var(--line)}
+.tabs button[aria-selected="true"] i{background:var(--c)}
+.panel{padding:0}
+.panel .shot{position:relative;background:var(--bg);border-bottom:1px solid var(--line)}
+.panel .shot img{width:100%;height:190px;object-fit:cover;object-position:top;display:block;background:#fff}
+.panel .shot figcaption{position:absolute;left:10px;bottom:10px;font-size:11.5px;font-weight:600;background:rgba(17,17,20,.72);color:#fff;border-radius:8px;padding:3px 9px;backdrop-filter:blur(4px);max-width:calc(100% - 20px)}
+.panel .pb{padding:16px 20px 18px}
+.panel h4{margin:0 0 4px;font-size:17px;line-height:1.4;letter-spacing:-.02em}
+.panel .meta{font-size:12.5px;color:var(--faint);margin-bottom:10px}
+.panel .sum{font-size:14px;color:var(--muted);margin:0 0 10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.panel .res{list-style:none;margin:0 0 12px;padding:0;font-size:13px}
+.panel .res li{padding:5px 0 5px 14px;position:relative;border-top:1px solid var(--line);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.panel .res li::before{content:"";position:absolute;left:0;top:14px;width:6px;height:6px;border-radius:50%;background:var(--c)}
+.card .keys{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px;padding:0;list-style:none}
+.card .keys li{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:650;padding:7px 12px;border-radius:999px;background:color-mix(in srgb,var(--card) 70%,transparent);border:1px solid color-mix(in srgb,var(--text) 10%,transparent)}
+.card .keys li i{width:7px;height:7px;border-radius:50%;background:var(--c);flex:none}
+.card .pts.rv li span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.panel .key{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;font-weight:650;margin:0 0 14px;padding:9px 12px;border-radius:12px;background:color-mix(in srgb,var(--c) 9%,transparent)}
+.panel .key i{width:7px;height:7px;border-radius:50%;background:var(--c);flex:none;margin-top:7px}
+.acts{display:flex;flex-wrap:wrap;gap:8px}
+.acts a,.acts button{font:inherit;font-size:12.5px;font-weight:700;padding:7px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--text);cursor:pointer;transition:border-color .15s}
+.acts a.go{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.acts a:hover{border-color:var(--text)}
+
+/* 자세히 (STAR) */
+{{ p.base_css() }}
+.star{gap:16px}
+.star dt{color:var(--muted)}
+.gallery img{border-radius:12px}
+.links .btn{height:auto;padding:8px 14px;font-size:13.5px}
+
+/* 진행 표시 */
+.rail{position:fixed;right:28px;top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:12px;opacity:0;transition:opacity .3s;pointer-events:none}
+.rail.show{opacity:1;pointer-events:auto}
+.rail a{display:flex;align-items:center;justify-content:flex-end;gap:10px;font-size:12px;font-weight:700;color:var(--faint)}
+.rail a span{opacity:0;transition:opacity .2s}
+.rail a:hover span,.rail a.on span{opacity:1}
+.rail a i{width:10px;height:10px;border-radius:50%;background:var(--line);transition:transform .2s}
+.rail a.on{color:var(--text)}
+.rail a.on i{transform:scale(1.4);background:var(--c)}
+
+/* 글 캐러셀 */
+.carousel{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 32px)/3);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 18px;scrollbar-width:thin}
+.post{scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:26px;padding:26px;display:flex;flex-direction:column;gap:10px;min-height:250px;transition:transform .2s,box-shadow .2s}
+.post:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.post .tag{align-self:flex-start;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px}
+.post b{font-size:18px;line-height:1.45;letter-spacing:-.03em}
+.post p{margin:0;color:var(--muted);font-size:14px;flex:1}
+.post small{color:var(--faint);font-weight:600}
+.carr{display:flex;gap:8px}
+.carr button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-size:18px;cursor:pointer}
+.carr button:hover{border-color:var(--text)}
+
+/* 이력 */
+.bento{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:26px}
+.box.wide{grid-column:1/-1}
+.box h4{margin:0 0 12px;font-size:14px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.box h4 i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.box .it{padding:9px 0;border-top:1px solid var(--line);font-size:14.5px}
+.box .it:first-of-type{border-top:0}
+.box .it small{display:block;color:var(--faint);font-size:13px}
+.box .it a:hover{text-decoration:underline}
+.skills{display:grid;grid-template-columns:repeat(2,1fr);gap:4px 28px}
+.skills div{padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+.skills b{display:block;font-size:13px;color:var(--muted);font-weight:600}
+
+/* 연락 */
+.end{margin:120px 0 0;border-radius:36px;background:var(--ink);color:var(--on-ink);padding:72px 40px;text-align:center;position:relative;overflow:hidden;isolation:isolate}
+.end::before{content:"";position:absolute;inset:-40%;z-index:-1;background:conic-gradient(from 180deg,#5b6cff33,#db277733,#ea7a0c33,#16a34a33,#5b6cff33);filter:blur(60px)}
+.end h2{font-size:clamp(32px,5vw,60px);letter-spacing:-.05em;margin:0 0 14px;line-height:1.1}
+.end p{opacity:.7;margin:0 0 28px}
+.end .btn{background:var(--on-ink);color:var(--ink);border-color:transparent}
+.end .btn.ghost{background:transparent;color:var(--on-ink);border-color:color-mix(in srgb,var(--on-ink) 30%,transparent)}
+footer{text-align:center;color:var(--faint);font-size:13px;padding:32px 0 40px}
+footer a:hover{color:var(--text)}
+
+/* 직무 보기 */
+.rv{display:none}
+body.role-all .rv-all,body.role-data .rv-data,body.role-ai .rv-ai{display:block}
+body.role-all .skills.rv-all,body.role-data .skills.rv-data,body.role-ai .skills.rv-ai{display:grid}
+.roleswitch{display:inline-flex;gap:4px;padding:5px;border-radius:999px;background:var(--card);border:1px solid var(--line);margin:0 0 20px;box-shadow:var(--shadow)}
+.roleswitch button{border:0;background:none;font:inherit;font-size:14px;font-weight:700;color:var(--muted);padding:8px 16px;border-radius:999px;cursor:pointer;transition:background .2s,color .2s}
+.roleswitch button[aria-pressed="true"]{background:var(--ink);color:var(--on-ink)}
+.rolehead{max-width:680px;margin:0 auto 26px}
+.rolehead b{display:block;font-size:20px;color:var(--text);letter-spacing:-.02em;line-height:1.45}
+.rolehead small{display:block;font-size:14px;color:var(--faint);margin-top:6px}
+/* 기술 → 근거 */
+button.ev{font:inherit;cursor:pointer;border:0;transition:background .15s,color .15s}
+.tags button.ev{font-size:12px;font-weight:600;padding:3px 10px;border-radius:8px;background:color-mix(in srgb,var(--card) 75%,transparent);color:var(--muted)}
+.tags button.ev:hover,.skills button.ev:hover,button.ev.on{background:var(--ink);color:var(--on-ink)}
+.skills div{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.skills b{flex-basis:100%}
+.skills button.ev{font-size:13px;font-weight:600;padding:4px 10px;border-radius:8px;background:var(--bg);color:var(--text);border:1px solid var(--line)}
+.evhint{margin:-4px 0 10px;font-size:13px;color:var(--faint)}
+.evp{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:60;width:min(460px,calc(100% - 24px));max-height:min(60vh,420px);overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:0 24px 70px rgba(0,0,0,.28)}
+.evh{position:sticky;top:0;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 16px 10px 20px;background:var(--card);border-bottom:1px solid var(--line);font-weight:700}
+.evh small{color:var(--faint);font-weight:600;margin-left:6px}
+#evx{width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--text);cursor:pointer;font:inherit}
+#evl{list-style:none;margin:0;padding:6px 8px 10px}
+#evl li a{display:flex;gap:10px;align-items:baseline;padding:10px 12px;border-radius:12px;font-size:14.5px;line-height:1.45}
+#evl li a:hover{background:var(--bg)}
+#evl li a i{flex:none;font-style:normal;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--chip,#f1f1f4);color:var(--muted)}
+#evl li.none{padding:12px 14px;color:var(--muted);font-size:14px}
+@media (max-width:960px){
+  .top{font-size:13px;top:12px}.top a.n{display:none}
+  .hero{min-height:auto;padding-top:104px}
+  .sec-t{flex-direction:column;align-items:flex-start}.sec-t p{text-align:left}
+  .card{grid-template-columns:1fr;gap:22px;padding:22px;border-radius:26px;position:relative;top:auto!important;transform:none!important;filter:none!important;margin-bottom:20px}
+  .panel .shot img{height:190px}
+  .rail{display:none}
+  .carousel{grid-auto-columns:82%}
+  .bento,.skills{grid-template-columns:1fr}
+  .end{padding:48px 22px;border-radius:28px}
+}
+</style>
+</head>
+<body class="role-all">
+<nav class="top" aria-label="menu"><a class="me" href="#top">{{ p.avatar(profile) }}{{ profile.name }}</a><a class="n" href="#work">{{ T.work }}</a>{% if posts %}<a class="n" href="#writing">{{ T.writing }}</a>{% endif %}<a class="n" href="#map">{{ 'Map' if en else '지도' }}</a><a class="n" href="#about">{{ T.about }}</a>{% if study_notes %}<a class="nk" href="study/index.html">{{ T.notes }}</a>{% endif %}{% if alt_lang %}<a href="{{ alt_lang.url }}" hreflang="{{ alt_lang.code }}">{{ alt_lang.label }}</a>{% endif %}<button id="theme" type="button">{{ T.theme }}</button></nav>
+
+<div class="w" id="top">
+  <header class="hero">
+    <div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div>
+      {{ p.avatar(profile, 'avatar big') }}
+      <span class="k">{{ profile.title }} · {{ T.avail }}</span>
+      <h1>{{ T.h1|safe }}</h1>
+      {% set RV = {} if en else (role_variants or {}) %}
+      {% if RV %}<div class="roleswitch" role="group" aria-label="{{ T.role_aria }}"><button type="button" data-role="all" aria-pressed="true">{{ T.role_all }}</button>{% for k, rv in RV.items() %}<button type="button" data-role="{{ k }}" aria-pressed="false">{{ rv.label }}</button>{% endfor %}</div>{% endif %}
+      <p class="rv rv-all">{{ T.intro }}</p>
+      {% for k, rv in RV.items() %}<p class="rv rv-{{ k }} rolehead"><b>{{ rv.headline }}</b><small>{{ T.role_note }}</small></p>{% endfor %}
+      <div class="areas">{% for t in T.areas %}<span><i style="background:{{ [dots[0], dots[1], dots[3], dots[2]][loop.index0] }}"></i>{{ t }}</span>{% endfor %}</div>
+      <div class="cta"><a class="btn pri" href="#work">{{ T.see }}</a><a class="btn" id="resume-btn" href="resume-1page.pdf" data-all="resume-1page.pdf"{% for k in RV %} data-{{ k }}="resume-{{ k }}.pdf"{% endfor %} download>{{ T.resume }}</a>{% for l in profile.links if 'github' in l.label|lower %}<a class="btn" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.icon('github', 16) }} GitHub</a>{% endfor %}</div>
+      {% set av = profile.availability or {} %}
+      <div class="avail">{% if av.role %}<span><b>{{ T.want }}</b>{{ av.role }}</span>{% endif %}{% if av.location %}<span><b>{{ T.loc }}</b>{{ av.location }}</span>{% endif %}{% if av.start %}<span><b>{{ T.start }}</b>{{ av.start }}</span>{% endif %}{% if not en %}<span class="roles"><b>{{ T.roles }}</b><a href="resume-data.pdf" download>{{ T.r_data }}</a><a href="resume-ai.pdf" download>{{ T.r_ai }}</a></span>{% endif %}</div>
+      <button type="button" class="asklink" data-ask><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>{{ 'Ask my portfolio anything — answers come with sources' if en else '포트폴리오에 질문해 보세요 — 출처가 붙은 답을 바로 찾아 드립니다' }}</button>
+      <div class="scroll">{{ T.scroll }}</div>
+    </div>
+  </header>
+
+  <section id="work">
+    <div class="sec-t"><h2>{{ T.work }}</h2><p>{{ T.work_sub }}</p></div>
+    <div class="deck">
+    {% for a in featured %}{% set ci = loop.index0 %}{% set c = dots[ci] %}
+      <article class="card" id="c{{ loop.index }}" data-gid="{{ a.id }}" style="top:{{ 96 + ci * 14 }}px;background:var(--t{{ (ci % 3) + 1 }});--c:{{ c }}">
+        <div>
+          <div class="head"><span class="n" style="color:{{ c }}">{{ '%02d'|format(loop.index) }} / {{ '%02d'|format(featured|length) }}</span><span class="chip">{{ a.type }}</span><span class="chip">{{ a.period_str }}</span></div>
+          <h3>{{ a.card_title or a.title }}</h3>
+          <p class="one">{{ a.tagline or a.summary }}</p>
+          {% for k, rv in RV.items() %}{% set rb = (rv.brief or {}).get(a.id) %}{% if rb %}<ul class="pts rv rv-{{ k }}">{% for t in rb[:2] %}<li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:{{ c }}"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>{{ t }}</span></li>{% endfor %}</ul>{% endif %}{% endfor %}
+          {% if a.highlights %}<ul class="keys rv rv-all">{% for t in a.highlights %}<li><i></i>{{ t }}</li>{% endfor %}</ul>{% else %}<ul class="pts rv rv-all">{% for t in (a.brief or a.star.result or [])[:3] %}<li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:{{ c }}"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>{{ t }}</span></li>{% endfor %}</ul>{% endif %}
+          <div class="tags" hidden>{% for t in a.tags[:5] %}<button type="button" class="ev" title="{{ T.ev_hint }}">{{ t }}</button>{% endfor %}</div>
+        </div>
+        {% set subs = a.projects or [a] %}
+        <div class="window">
+          <div class="tabs" role="tablist" aria-label="{{ a.title }}">{% for sp in subs %}<button type="button" role="tab" id="tab-{{ sp.id }}" aria-controls="pn-{{ sp.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}"><i></i>{{ sp.short or sp.title }}</button>{% endfor %}</div>
+          {% for sp in subs %}{% set ns = namespace(img=none) %}{% for kw in ['GPlates', 'Fig11', '결과화면', '질의응답', '포스터발표', '현장측정'] %}{% for g in sp.gallery or [] %}{% if ns.img is none and kw in g.src %}{% set ns.img = g %}{% endif %}{% endfor %}{% endfor %}{% set img = ns.img or (sp.gallery or [])|first %}
+          <div class="panel" role="tabpanel" id="pn-{{ sp.id }}" aria-labelledby="tab-{{ sp.id }}"{% if not loop.first %} hidden{% endif %}>
+            {% if sp.case and sp.case.demo %}<figure class="shot" style="margin:0"><img src="{{ sp.case.demo }}" alt="{{ sp.case.demo_caption_en if en else sp.case.demo_caption_ko }}" loading="lazy"><figcaption>▶ {{ 'Demo — Heritage RAG guide' if en else '시연 — 국보 입문 가이드' }}</figcaption></figure>
+            {% elif img or sp.card_image %}<figure class="shot" style="margin:0"><img{% if sp.card_image %} style="object-position:center"{% elif 'ssafy-16' not in img.src %} style="object-position:center 45%"{% endif %} src="{{ sp.card_image or img.src }}" alt="{{ sp.card_caption or img.caption }}" loading="lazy"><figcaption>{{ sp.card_caption or img.caption }}</figcaption></figure>
+            {% elif loop.first and a.image %}<figure class="shot" style="margin:0"><img src="{{ a.image }}" alt="{{ a.image_caption or a.title }}" loading="lazy">{% if a.image_caption %}<figcaption>{{ a.image_caption }}</figcaption>{% endif %}</figure>{% endif %}
+            <div class="pb">
+              <h4>{{ sp.tagline or sp.title }}</h4>
+              {% if sp.key %}<p class="key"><i></i>{{ sp.key }}</p>{% else %}<ul class="res">{% for r in (sp.star.result or [])[:1] %}<li>{{ r }}</li>{% endfor %}</ul>{% endif %}
+              <div class="acts"><a class="go" href="projects/{{ sp.id }}{{ '-en' if en else '' }}.html">{{ T.detail }} →</a>{% if sp.case and sp.case.demo %}<a href="projects/{{ sp.id }}{{ '-en' if en else '' }}.html#demo">▶ {{ T.demo }}</a>{% endif %}{% for l in (sp.links or [])[:1] %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }} ↗</a>{% endfor %}{% set np = posts|selectattr('project', 'equalto', sp.id)|list %}{% if np %}<a href="projects/{{ sp.id }}{{ '-en' if en else '' }}.html#posts">✎ {{ T.post }}{% if np|length > 1 %} {{ np|length }}{{ '' if en else '편' }}{% endif %}</a>{% endif %}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </article>
+    {% endfor %}
+    </div>
+
+  </section>
+
+  {% include "_map.j2" %}
+
+  {% if posts %}
+  <section id="writing">
+    <div class="sec-t"><h2>{{ T.writing }}</h2><div class="carr"><button type="button" data-dir="-1" aria-label="이전 글">←</button><button type="button" data-dir="1" aria-label="다음 글">→</button></div></div>
+    <div class="carousel" id="carousel">{% for w in posts %}{% set c = dots[loop.index0 % 7] %}<a class="post" href="posts/{{ w.slug }}.html"><span class="tag" style="color:{{ c }};background:color-mix(in srgb,{{ c }} 12%,transparent)">{{ (w.tags or ['글'])[0] }}</span><b>{{ w.title }}</b><p>{{ w.summary|truncate(90) }}</p><small>{{ w.date }} · {{ T.read }}</small></a>{% endfor %}</div>
+  </section>
+  {% endif %}
+
+  <section id="about">
+    <div class="sec-t"><h2>{{ T.about }}</h2><p>{{ T.about_sub }}</p></div>
+    <div class="bento">
+      <div class="box"><h4><i style="background:{{ dots[0] }}"></i>{{ T.edu }}</h4>{% for e in education %}<div class="it">{{ e.school }}<small>{{ e.major }} {{ e.degree }} · {{ e.period_str }}</small></div>{% endfor %}</div>
+      <div class="box"><h4><i style="background:{{ dots[3] }}"></i>{{ T.pubs }}</h4>{% for x in papers %}<div class="it">{% if x.url %}<a href="{{ x.url }}" target="_blank" rel="noopener">{{ x.title }}</a>{% else %}{{ x.title }}{% endif %}<small>{{ x.venue }} · {{ x.year }}</small></div>{% endfor %}<div class="it"><small>{{ T.talks }} {{ talks|length }}</small></div></div>
+      <div class="box"><h4><i style="background:{{ dots[2] }}"></i>{{ T.awards }}</h4>{% for x in awards + certifications %}<div class="it">{{ x.name }}<small>{{ x.org }} · {{ x.date }}</small></div>{% endfor %}</div>
+      <div class="box wide"><h4><i style="background:{{ dots[1] }}"></i>{{ T.skills }}</h4><p class="evhint">{{ T.ev_hint }}</p><div class="skills rv rv-all">{% for s in skills %}<div><b>{{ s.category }}</b>{% for i in s['items'] %}<button type="button" class="ev">{{ i }}</button>{% endfor %}</div>{% endfor %}</div>{% for k, rv in RV.items() %}<div class="skills rv rv-{{ k }}">{% for s in rv.skills %}<div><b>{{ s.category }}</b>{% for i in s['items'] %}<button type="button" class="ev">{{ i }}</button>{% endfor %}</div>{% endfor %}</div>{% endfor %}</div>
+    </div>
+  </section>
+
+  <div class="end" id="contact"><h2>{{ T.end|safe }}</h2><p>{{ profile.email }}</p><div class="cta">{% if profile.email %}<a class="btn" href="mailto:{{ profile.email }}">{{ T.mail }}</a>{% endif %}<a class="btn ghost" href="resume.pdf" download>{{ T.full }}</a>{% if not en %}<a class="btn ghost" href="resume-data.pdf" download>{{ T.r_data }} 이력서</a><a class="btn ghost" href="resume-ai.pdf" download>{{ T.r_ai }} 이력서</a>{% endif %}{% for l in profile.links if 'linkedin' in l.label|lower %}<a class="btn ghost" href="{{ l.url }}" target="_blank" rel="noopener">LinkedIn</a>{% endfor %}</div></div>
+  <footer>© {{ profile.name_en }} · {{ T.gen }} · <a href="private/index.html" rel="nofollow">Private</a></footer>
+</div>
+<div class="evp" id="evp" role="dialog" aria-modal="false" aria-labelledby="evt" hidden><div class="evh"><span id="evt"></span><button type="button" id="evx" aria-label="{{ T.close }}">✕</button></div><ul id="evl"></ul></div>
+<script type="application/json" id="ev-data">{{ evidence|default([])|tojson }}</script>
+{% set ro = {} %}{% for k, rv in (RV or {}).items() %}{% set _ = ro.update({k: rv.order}) %}{% endfor %}<script type="application/json" id="rv-data">{{ ro|tojson }}</script>
+{% include "_ask.j2" %}
+<nav class="rail" id="rail" aria-label="chapters">{% for a in featured %}<a href="#c{{ loop.index }}" style="--c:{{ dots[loop.index0] }}"><span>{{ a.type }}</span><i></i></a>{% endfor %}</nav>
+{{ p.theme_script() }}
+<script>
+(function(){
+var cards=[].slice.call(document.querySelectorAll('.card')),rail=document.getElementById('rail'),dots=rail?[].slice.call(rail.children):[];
+var deck=document.querySelector('.deck'),wide=matchMedia('(min-width:961px)'),reduce=matchMedia('(prefers-reduced-motion: reduce)');
+function fit(){cards.forEach(function(c){if(!c.dataset.top)c.dataset.top=parseFloat(c.style.top)||0;var base=+c.dataset.top;c.style.top=Math.min(base,window.innerHeight-c.offsetHeight-16+(base-96))+'px';});}
+function tick(){
+  if(!wide.matches)return;
+  var cur=0;
+  cards.forEach(function(c,i){
+    var next=cards[i+1],r=c.getBoundingClientRect();
+    if(r.top<window.innerHeight*0.5)cur=i;
+    if(!next||reduce.matches||c.classList.contains('flat')){c.style.transform='';c.style.filter='';return;}
+    var nr=next.getBoundingClientRect(),stick=parseFloat(c.style.top)||0;
+    var pr=Math.min(1,Math.max(0,1-(nr.top-stick)/r.height));
+    c.style.transform='scale('+(1-pr*0.05)+')';c.style.filter='brightness('+(1-pr*0.12)+')';
+  });
+  var d=deck.getBoundingClientRect();rail.classList.toggle('show',d.top<window.innerHeight*0.5&&d.bottom>window.innerHeight*0.5);
+  dots.forEach(function(a,i){a.classList.toggle('on',i===cur)});
+}
+document.addEventListener('scroll',function(){requestAnimationFrame(tick)},{passive:true});
+window.addEventListener('resize',function(){fit();tick()});fit();tick();
+/* 탭 */
+document.querySelectorAll('.tabs').forEach(function(tl){
+  var tabs=[].slice.call(tl.querySelectorAll('[role=tab]'));
+  function sel(t){tabs.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;document.getElementById(x.getAttribute('aria-controls')).hidden=!on;});fit();}
+  tabs.forEach(function(t,i){t.tabIndex=i?-1:0;t.addEventListener('click',function(){sel(t)});t.addEventListener('keydown',function(e){var k=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(k){var n=tabs[(i+k+tabs.length)%tabs.length];sel(n);n.focus();}});});
+});
+
+/* 직무 보기 */
+var RO=JSON.parse((document.getElementById('rv-data')||{}).textContent||'{}');
+var base=cards.map(function(c){return c.dataset.gid});
+var rbtn=document.getElementById('resume-btn');
+function setRole(r,keep){
+  if(r!=='all'&&!RO[r])r='all';
+  document.body.className=document.body.className.replace(/\brole-\w+/,'').trim()+' role-'+r;
+  document.querySelectorAll('.roleswitch button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.role===r)});
+  if(rbtn)rbtn.href=rbtn.getAttribute('data-'+r)||rbtn.getAttribute('data-all');
+  var order=r==='all'?base:RO[r];
+  var byId={};cards.forEach(function(c){byId[c.dataset.gid]=c});
+  var rl={};dots.forEach(function(a){rl[a.getAttribute('href')]=a});
+  cards=order.filter(function(id){return byId[id]}).map(function(id){return byId[id]});
+  cards.forEach(function(c,i){deck.appendChild(c);c.dataset.top=96+i*14;c.style.top=c.dataset.top+'px';var n=c.querySelector('.n');if(n)n.textContent=String(i+1).padStart(2,'0')+' / '+String(cards.length).padStart(2,'0');var a=rl['#'+c.id];if(a)rail.appendChild(a);});
+  dots=[].slice.call(rail.children);
+  if(!keep){var u=new URL(location.href);if(r==='all')u.searchParams.delete('role');else u.searchParams.set('role',r);history.replaceState(null,'',u);}
+  fit();tick();
+}
+document.querySelectorAll('.roleswitch button').forEach(function(b){b.addEventListener('click',function(){setRole(b.dataset.role)})});
+var q=new URLSearchParams(location.search).get('role');if(q)setRole(q,true);
+/* 기술 → 근거 */
+var EV=JSON.parse((document.getElementById('ev-data')||{}).textContent||'[]'),evp=document.getElementById('evp'),evl=document.getElementById('evl'),evt=document.getElementById('evt'),evOn=null;
+var LBL={p:'{{ T.ev_p }}',w:'{{ T.ev_w }}'};
+function keys(t){var out=[];t.toLowerCase().split(/[\/·,()]+/).forEach(function(x){x=x.trim();if(x.length<2)return;out.push(x);var w=x.split(/\s+/);if(w.length>2)out.push(w.slice(0,2).join(' '));});return out;}
+function rx(k){var e=k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');return /^[a-z0-9 .+#\-]+$/.test(k)?new RegExp('(^|[^a-z0-9])'+e+'([^a-z0-9]|$)'):new RegExp(e);}
+function evidence(t){var rs=keys(t).map(rx);return EV.filter(function(it){return rs.some(function(r){return r.test(it.s)})});}
+function esc(s){return s.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function showEv(btn){
+  var t=btn.textContent.trim(),hits=evidence(t);
+  if(evOn)evOn.classList.remove('on');evOn=btn;btn.classList.add('on');
+  evt.innerHTML='‘'+esc(t)+'’ {{ T.ev_title }}<small>'+hits.length+'</small>';
+  evl.innerHTML=hits.length?hits.map(function(h){return '<li><a href="'+h.u+'"><i>'+LBL[h.k]+'</i><span>'+esc(h.t)+'</span></a></li>'}).join(''):'<li class="none">{{ T.ev_none }}</li>';
+  evp.hidden=false;
+}
+function hideEv(){evp.hidden=true;if(evOn){evOn.classList.remove('on');evOn=null;}}
+document.querySelectorAll('button.ev').forEach(function(b){b.addEventListener('click',function(e){e.stopPropagation();if(evOn===b){hideEv();return;}showEv(b)})});
+document.getElementById('evx').addEventListener('click',hideEv);
+document.addEventListener('keydown',function(e){if(e.key==='Escape')hideEv()});
+document.addEventListener('click',function(e){if(!evp.hidden&&!evp.contains(e.target))hideEv()});
+/* 글 넘기기 */
+var car=document.getElementById('carousel');document.querySelectorAll('.carr button').forEach(function(b){b.addEventListener('click',function(){car.scrollBy({left:car.clientWidth*0.9*(+b.dataset.dir),behavior:reduce.matches?'auto':'smooth'})})});
+var links=document.querySelectorAll('.top a.n');if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)})})},{rootMargin:'-45% 0px -50% 0px'});document.querySelectorAll('section[id]').forEach(function(s){io.observe(s)});}
+})();
+</script>
+</body>
+</html>
