@@ -80,6 +80,7 @@ skills:
 
 activities:
   - id: grad
+    card_title: "M.S. — Separating gravity and magnetic signals to map the subsurface"
     tagline: "Designed indices that separate overlapping gravity and magnetic signals to map subsurface structure"
     highlights: ["SCIE first author (SPE Journal)", "r ≥ 0.94 vs. existing models", "6-month stay at Calgary"]
     icon: "🌍"
@@ -154,6 +155,7 @@ activities:
           - { label: SPE Journal paper, url: "https://doi.org/10.2118/236968-PA" }
 
   - id: undergrad
+    card_title: "B.S. — CO2 storage seismic interpretation · wildfire deep learning"
     tagline: "Plate-tectonic interpretation of CO2 storage sites and spatiotemporal deep learning for wildfire spread"
     highlights: ["First-author journal paper", "KSEG best student paper award", "Wildfire model F1 0.85"]
     icon: "🔬"
@@ -225,6 +227,7 @@ activities:
           - { label: GitHub, url: "https://github.com/0Ju12/wildfire-spread-prediction" }
 
   - id: bootcamp
+    card_title: "Bootcamps — SSAFY · POSCO AI·BigData Academy"
     tagline: "LLM data pipelines, RAG and fine-tuning, built through to a working service"
     highlights: ["LLM output checked in code", "QLoRA · RAG · Django", "Excellence Award (POSCO)"]
     icon: "💻"

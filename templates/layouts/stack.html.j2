@@ -280,11 +280,11 @@ button.ev{font:inherit;cursor:pointer;border:0;transition:background .15s,color 
       <article class="card" id="c{{ loop.index }}" data-gid="{{ a.id }}" style="top:{{ 96 + ci * 14 }}px;background:var(--t{{ (ci % 3) + 1 }});--c:{{ c }}">
         <div>
           <div class="head"><span class="n" style="color:{{ c }}">{{ '%02d'|format(loop.index) }} / {{ '%02d'|format(featured|length) }}</span><span class="chip">{{ a.type }}</span><span class="chip">{{ a.period_str }}</span></div>
-          <h3>{{ a.title }}</h3>
+          <h3>{{ a.card_title or a.title }}</h3>
           <p class="one">{{ a.tagline or a.summary }}</p>
           {% for k, rv in RV.items() %}{% set rb = (rv.brief or {}).get(a.id) %}{% if rb %}<ul class="pts rv rv-{{ k }}">{% for t in rb[:2] %}<li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:{{ c }}"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>{{ t }}</span></li>{% endfor %}</ul>{% endif %}{% endfor %}
           {% if a.highlights %}<ul class="keys rv rv-all">{% for t in a.highlights %}<li><i></i>{{ t }}</li>{% endfor %}</ul>{% else %}<ul class="pts rv rv-all">{% for t in (a.brief or a.star.result or [])[:3] %}<li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:{{ c }}"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>{{ t }}</span></li>{% endfor %}</ul>{% endif %}
-          <div class="tags">{% for t in a.tags[:5] %}<button type="button" class="ev" title="{{ T.ev_hint }}">{{ t }}</button>{% endfor %}</div>
+          <div class="tags" hidden>{% for t in a.tags[:5] %}<button type="button" class="ev" title="{{ T.ev_hint }}">{{ t }}</button>{% endfor %}</div>
         </div>
         {% set subs = a.projects or [a] %}
         <div class="window">
@@ -295,9 +295,7 @@ button.ev{font:inherit;cursor:pointer;border:0;transition:background .15s,color 
             {% elif img or sp.card_image %}<figure class="shot" style="margin:0"><img{% if sp.card_image %} style="object-position:center"{% elif 'ssafy-16' not in img.src %} style="object-position:center 45%"{% endif %} src="{{ sp.card_image or img.src }}" alt="{{ sp.card_caption or img.caption }}" loading="lazy"><figcaption>{{ sp.card_caption or img.caption }}</figcaption></figure>
             {% elif loop.first and a.image %}<figure class="shot" style="margin:0"><img src="{{ a.image }}" alt="{{ a.image_caption or a.title }}" loading="lazy">{% if a.image_caption %}<figcaption>{{ a.image_caption }}</figcaption>{% endif %}</figure>{% endif %}
             <div class="pb">
-              <h4>{{ sp.title }}</h4>
-              <div class="meta">{{ sp.period_str }}{% if sp.role %} · {{ sp.role }}{% endif %}</div>
-              {% if sp.tagline or sp.summary %}<p class="sum">{{ sp.tagline or sp.summary }}</p>{% endif %}
+              <h4>{{ sp.tagline or sp.title }}</h4>
               {% if sp.key %}<p class="key"><i></i>{{ sp.key }}</p>{% else %}<ul class="res">{% for r in (sp.star.result or [])[:1] %}<li>{{ r }}</li>{% endfor %}</ul>{% endif %}
               <div class="acts"><a class="go" href="projects/{{ sp.id }}{{ '-en' if en else '' }}.html">{{ T.detail }} →</a>{% if sp.case and sp.case.demo %}<a href="projects/{{ sp.id }}{{ '-en' if en else '' }}.html#demo">▶ {{ T.demo }}</a>{% endif %}{% for l in (sp.links or [])[:1] %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }} ↗</a>{% endfor %}{% set np = posts|selectattr('project', 'equalto', sp.id)|list %}{% if np %}<a href="projects/{{ sp.id }}{{ '-en' if en else '' }}.html#posts">✎ {{ T.post }}{% if np|length > 1 %} {{ np|length }}{{ '' if en else '편' }}{% endif %}</a>{% endif %}</div>
             </div>
