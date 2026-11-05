@@ -146,5 +146,5 @@ Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, Django, Selenium
 
 ## 6. 수상·자격 (LinkedIn "Honors & awards" / "Licenses & certifications")
 - Project Excellence Award, POSCO Youth AI & Big Data Academy (30th) — POSCO HRD Center · POSTECH (2025.08)
-- Best Student Paper Award (poster), KSEG Spring Conference 2024 — accuracy of seismic velocity and density models at the Utah FORGE geothermal site — Korean Society of Earth and Exploration Geophysicists (2024.10)
+- Best Student Paper Award (poster), KSEG Spring Conference 2024 — Korean Society of Earth and Exploration Geophysicists (2024.10)
 - ADsP (Advanced Data Analytics Semi-Professional) — Korea Data Agency (2022.09)

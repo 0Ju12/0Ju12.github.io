@@ -320,7 +320,7 @@ publications:
 
 awards:
   - { name: "Project Excellence Award, POSCO Youth AI & Big Data Academy (30th)", rank: "", org: POSCO HRD Center · POSTECH, date: "2025.08" }
-  - { name: "Best Student Paper Award (poster), KSEG Spring Conference 2024 — accuracy of seismic velocity and density models at the Utah FORGE geothermal site", rank: "", org: Korean Society of Earth and Exploration Geophysicists, date: "2024.10" }
+  - { name: "Best Student Paper Award (poster), KSEG Spring Conference 2024", rank: "", org: Korean Society of Earth and Exploration Geophysicists, date: "2024.10" }
 
 certifications:
   - { name: "ADsP (Advanced Data Analytics Semi-Professional)", org: Korea Data Agency, date: "2022.09" }

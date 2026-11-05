@@ -80,7 +80,7 @@ skills:
   - category: 언어·프레임워크
     items: [Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, Django, Selenium, SQL]
   - category: AI·데이터 분석
-    items: [시공간 딥러닝(U-LSTM), CNN·LSTM, LLM 파인튜닝(FLAN-T5·Qwen·Gemma, LoRA/QLoRA), 멀티모델 확률 앙상블, RAG(LangGraph·ChromaDB·FAISS), 모델 평가(F1·BERTScore)]
+    items: [시공간 딥러닝(U-LSTM), CNN·LSTM, "LLM 파인튜닝(FLAN-T5·Qwen·Gemma, LoRA·QLoRA)", 멀티모델 확률 앙상블, RAG(LangGraph·ChromaDB·FAISS), 모델 평가(F1·BERTScore)]
   - category: 공간·지구물리 데이터
     items: [ArcGIS, 래스터 데이터 구축, 중력·자력 자료 처리, 파수 상관 분석, 탄성파 자료 해석, GPlates]
   - category: 도메인

@@ -125,7 +125,7 @@ SSAFY에서 LLM 데이터 파이프라인·Django 서비스와 VQA 모델 앙상
 
 ## 🛠 역량
 - **언어·프레임워크** Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, Django, Selenium, SQL
-- **AI·데이터 분석** 시공간 딥러닝(U-LSTM), CNN·LSTM, LLM 파인튜닝(FLAN-T5·Qwen·Gemma, LoRA/QLoRA), 멀티모델 확률 앙상블, RAG(LangGraph·ChromaDB·FAISS), 모델 평가(F1·BERTScore)
+- **AI·데이터 분석** 시공간 딥러닝(U-LSTM), CNN·LSTM, LLM 파인튜닝(FLAN-T5·Qwen·Gemma, LoRA·QLoRA), 멀티모델 확률 앙상블, RAG(LangGraph·ChromaDB·FAISS), 모델 평가(F1·BERTScore)
 - **공간·지구물리 데이터** ArcGIS, 래스터 데이터 구축, 중력·자력 자료 처리, 파수 상관 분석, 탄성파 자료 해석, GPlates
 - **도메인** CCS(이산화탄소 지중저장), 에너지·자원, 재난(산불) 예측
 

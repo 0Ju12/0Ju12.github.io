@@ -1,76 +1,52 @@
+{% import "_resume.j2" as R %}
+{% set en = profile.name == profile.name_en %}
+{% set L = R.LEN if en else R.LKO %}
 <!doctype html>
-<html lang="ko">
+<html lang="{{ 'en' if en else 'ko' }}">
 <head>
 <meta charset="utf-8">
-<title>{{ profile.name }} 이력서 ({{ variant_label or '요약' }})</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-@page{size:A4;margin:11mm 13mm}
-*{box-sizing:border-box}
-body{margin:0;font:9pt/1.5 "Noto Sans KR",sans-serif;color:#1b1d21;background:#fff}
-a{color:#2f5bd3;text-decoration:none}
-.page{max-width:184mm;margin:0 auto}
-header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #1b1d21;padding-bottom:6px;margin-bottom:6px}
-h1{font-size:17pt;margin:0;line-height:1.1}
-h1 small{font-size:9.5pt;color:#5c6370;font-weight:400}
-.title{color:#2f5bd3;font-weight:700;font-size:9.5pt;margin-top:2px}
-.contact{color:#5c6370;font-size:8pt;text-align:right;line-height:1.5}
-h2{font-size:9.6pt;color:#2f5bd3;border-bottom:1px solid #d9dbe0;padding-bottom:1px;margin:10px 0 5px;letter-spacing:.05em}
-.summary{margin:0}
-.entry{margin-bottom:7px;break-inside:avoid}
-.row{display:flex;justify-content:space-between;gap:10px}
-.row b{font-size:9pt}
-.dim{color:#5c6370;font-size:7.8pt;white-space:nowrap}
-.sub{color:#5c6370;font-size:7.8pt}
-ul{margin:1px 0 0;padding-left:13px}
-li{margin:0}
-.cols{display:grid;grid-template-columns:1.15fr 1fr;gap:0 16px}
-.skill b{margin-right:4px}
-.kv{display:flex;gap:6px;flex-wrap:wrap;margin-top:3px}
-.kv span{border:1px solid #d9dbe0;border-radius:3px;padding:0 5px;font-size:7.8pt}
-</style>
+<meta name="robots" content="noindex">
+<title>{{ profile.name }} {{ 'Resume' if en else '이력서' }}{% if variant_label %} ({{ variant_label }}){% endif %}</title>
+{{ R.style(dense=true, en=en) }}
 </head>
 <body><div class="page">
-<header>
-  <div>
-    <h1>{{ profile.name }} <small>{{ profile.name_en }}</small></h1>
-    <div class="title">{{ profile.headline }}</div>
-  </div>
-  <div class="contact">
-    {% if profile.email %}{{ profile.email }}<br>{% endif %}
-    {% for l in profile.links %}<a href="{{ l.url }}">{% if 'github' in l.url %}{{ l.url|replace('https://','') }}{% else %}{{ l.label }}{% endif %}</a>{% if not loop.last %} · {% endif %}{% endfor %}<br>
-    포트폴리오 <a href="https://0ju12.github.io">0ju12.github.io</a>
-  </div>
-</header>
+{{ R.head(profile, L, en, profile.headline) }}
+<div class="facts">{% for h in highlights %}<span><b>{{ h.value }}</b>{{ h.label }}</span>{% endfor %}</div>
 
-<div class="kv">{% for h in highlights %}<span><b>{{ h.value }}</b> {{ h.label }}</span>{% endfor %}</div>
-
-<h2>PROJECTS · 핵심 경험</h2>
+<h2>{{ L.exp }}</h2>
 {% for a in featured %}
-<div class="entry">
-  <div class="row"><b>{{ a.title }}</b><span class="dim">{{ a.period_str }}</span></div>
-  <div class="sub">{{ a.org }}{% if a.role %} · {{ a.role }}{% endif %}{% if a.tags %} · {{ a.tags[:4]|join(', ') }}{% endif %}</div>
-  <ul>{% for x in (a.brief or a.star.result) %}<li>{{ x }}</li>{% endfor %}</ul>
+<div class="it">
+  <div class="when">{{ a.period_str }}</div>
+  <div>
+    <div class="t">{{ a.title }}</div>
+    <div class="s">{{ a.org }}{% if a.role %} · {{ a.role }}{% endif %}</div>
+    <ul class="b">{% for x in (a.brief or a.star.result) %}<li>{{ x }}</li>{% endfor %}</ul>
+  </div>
+</div>
+{% endfor %}
+
+<h2>{{ L.edu }}</h2>
+{% for e in education %}
+<div class="it" style="margin-bottom:1.2mm">
+  <div class="when">{{ e.period_str }}</div>
+  <div><span class="t" style="font-size:8.8pt">{{ e.school }}</span> <span class="s" style="display:inline">· {{ e.major }} {{ e.degree }}</span></div>
 </div>
 {% endfor %}
 
 <div class="cols">
 <div>
-<h2>EDUCATION · 교육</h2>
-{% for e in education %}
-<div class="row"><span><b>{{ e.school }}</b> <span class="sub">{{ e.major }} {{ e.degree }}</span></span><span class="dim">{{ e.period_str }}</span></div>
-{% endfor %}
-<h2>SKILLS · 기술</h2>
-{% for s in skills %}<div class="skill"><b>{{ s.category }}</b> {{ s['items']|join(', ') }}</div>{% endfor %}
+<h2>{{ L.pubs }}</h2>
+{% for x in papers %}<div class="ln"><span><span class="k">{{ L.paper }}</span>{{ x.title }}{% if x.venue %} <span class="v">— {{ x.venue }}</span>{% endif %}</span><span class="y">{{ x.year }}</span></div>{% endfor %}
+<div class="note">{{ '+ ' if en else '외 ' }}{{ L.talks_more }} {{ talks|length }}{{ '' if en else '건' }}</div>
 </div>
 <div>
-<h2>PUBLICATIONS · 연구 성과</h2>
-{% for x in papers %}<div class="row"><span>{{ x.title }}{% if x.venue %} <span class="sub">— {{ x.venue }}</span>{% endif %}</span><span class="dim">{{ x.year }}</span></div>{% endfor %}
-<div class="sub" style="margin-top:2px">외 학회 발표 {{ talks|length }}건 (전체 목록은 포트폴리오 참고)</div>
-<h2>AWARDS · CERTIFICATIONS</h2>
-{% for x in awards %}<div class="row"><span>{{ x.name }}</span><span class="dim">{{ x.date }}</span></div>{% endfor %}
-{% for x in certifications %}<div class="row"><span>{{ x.name }}</span><span class="dim">{{ x.date }}</span></div>{% endfor %}
+<h2>{{ L.awards }}</h2>
+{% for x in awards %}<div class="ln"><span>{{ x.name }}</span><span class="y">{{ x.date }}</span></div>{% endfor %}
+{% for x in certifications %}<div class="ln"><span>{{ x.name }}</span><span class="y">{{ x.date }}</span></div>{% endfor %}
 </div>
 </div>
+
+<h2>{{ L.skills }}</h2>
+<div class="skg">{% for s in skills %}<div><b>{{ s.category }}</b>{{ s['items']|join(' · ') }}</div>{% endfor %}</div>
 </div></body>
 </html>

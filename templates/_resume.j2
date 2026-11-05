@@ -1,0 +1,78 @@
+{# 이력서 공통: 라벨(국/영)과 스타일. resume.html.j2 · resume-1page.html.j2 가 import #}
+{% set LKO = {'summary': '요약', 'edu': '학력', 'exp': '핵심 경험', 'research': '연구 · 프로젝트 경력', 'other': '기타 활동', 'pubs': '논문 · 발표', 'awards': '수상 · 자격', 'skills': '기술', 'role': '희망 직무', 'start': '입사 가능', 'site': '포트폴리오', 'paper': '논문', 'talk': '발표', 'detail': '상세', 'talks_more': '학회 발표'} %}
+{% set LEN = {'summary': 'Summary', 'edu': 'Education', 'exp': 'Experience', 'research': 'Research & projects', 'other': 'Other activities', 'pubs': 'Publications & talks', 'awards': 'Awards & certifications', 'skills': 'Skills', 'role': 'Target role', 'start': 'Available', 'site': 'Portfolio', 'paper': 'Paper', 'talk': 'Talk', 'detail': 'details', 'talks_more': 'conference talks'} %}
+
+{% macro style(dense=false, en=false) %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+<style>
+@page{size:A4;margin:{{ (('9mm 12mm 8mm' if en else '10mm 12mm 9mm') if dense else '14mm 15mm 13mm') }}}
+:root{--ink:#1c2128;--ink2:#3b4350;--mute:#6b7280;--line:#d8dce3;--navy:#1f3a5f;--wash:#f3f5f8}
+*{box-sizing:border-box}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{margin:0;background:#fff;color:var(--ink);font:{{ ('8.15pt/1.42' if en else '8.45pt/1.46') if dense else '9.6pt/1.62' }} "Noto Sans KR",system-ui,sans-serif;word-break:keep-all;overflow-wrap:break-word;font-variant-numeric:tabular-nums}
+a{color:var(--navy);text-decoration:none}
+.page{max-width:{{ '184mm' if dense else '180mm' }};margin:0 auto}
+/* 머리 */
+.head{display:grid;grid-template-columns:1fr auto;gap:6mm;align-items:end;padding-bottom:{{ '3.2mm' if dense else '4.5mm' }};border-bottom:1.3pt solid var(--navy)}
+.head h1{font-family:"Noto Serif KR",serif;font-weight:700;font-size:{{ '19pt' if dense else '23pt' }};line-height:1.1;letter-spacing:-.01em;margin:0}
+.head h1 small{font-family:"Noto Sans KR",sans-serif;font-size:{{ '9pt' if dense else '10pt' }};font-weight:400;color:var(--mute);letter-spacing:0;margin-left:2mm}
+.head .tag{margin-top:{{ '1.4mm' if dense else '2mm' }};font-weight:500;color:var(--ink2);font-size:{{ '9.2pt' if dense else '10.4pt' }}}
+.head dl{margin:0;display:grid;grid-template-columns:auto auto;gap:{{ '.2mm 3mm' if dense else '.5mm 4mm' }};font-size:{{ '7.8pt' if dense else '8.6pt' }};line-height:1.45}
+.head dt{color:var(--mute);text-align:right}
+.head dd{margin:0;color:var(--ink)}
+.facts{display:flex;flex-wrap:wrap;gap:{{ '1mm 4mm' if dense else '1.5mm 5mm' }};margin:{{ '2mm 0 0' if dense else '3.5mm 0 0' }};font-size:{{ '8pt' if dense else '8.8pt' }};color:var(--ink2)}
+.facts b{color:var(--navy);font-weight:700;margin-right:1mm}
+.lede{margin:{{ '2.6mm 0 0' if dense else '4mm 0 0' }};color:var(--ink2)}
+/* 섹션 */
+h2{display:flex;align-items:center;gap:3mm;font-family:"Noto Serif KR",serif;font-weight:700;font-size:{{ '10pt' if dense else '11.5pt' }};color:var(--navy);margin:{{ '3.4mm 0 1.4mm' if dense else '7mm 0 3mm' }};break-after:avoid}
+h2::after{content:"";flex:1;height:.6pt;background:var(--line)}
+.it{display:grid;grid-template-columns:{{ '23mm' if dense else '27mm' }} minmax(0,1fr);gap:{{ '3mm' if dense else '4mm' }};margin-bottom:{{ '1.7mm' if dense else '3.6mm' }};break-inside:{{ 'avoid' if dense else 'auto' }}}
+.it .when{color:var(--mute);font-size:{{ '7.6pt' if dense else '8.4pt' }};padding-top:{{ '.4mm' if dense else '.6mm' }};white-space:nowrap}
+.it .t{font-weight:700;font-size:{{ '9pt' if dense else '10.4pt' }};line-height:1.4}
+.it .s{color:var(--mute);font-size:{{ '7.8pt' if dense else '8.6pt' }};margin-top:.3mm}
+.it .s a{color:var(--navy)}
+ul.b{list-style:none;margin:{{ '1mm 0 0' if dense else '1.6mm 0 0' }};padding:0}
+ul.b li{position:relative;padding-left:{{ '3.2mm' if dense else '3.8mm' }};margin:{{ '.15mm 0' if dense else '.6mm 0' }}}
+ul.b li::before{content:"";position:absolute;left:.4mm;top:.62em;width:{{ '1.1mm' if dense else '1.3mm' }};height:.5pt;background:var(--ink2)}
+ul.b li.r::before{background:var(--navy);height:1pt}
+ul.b li.r{color:var(--ink)}
+.sub{break-inside:avoid;margin-top:{{ '1.6mm' if dense else '2.6mm' }}}
+.sub > .st{font-weight:700;font-size:{{ '8.8pt' if dense else '9.8pt' }}}
+.sub > .st span{font-weight:400;color:var(--mute);font-size:{{ '7.8pt' if dense else '8.4pt' }};margin-left:1.5mm}
+.kw{color:var(--mute);font-size:{{ '7.6pt' if dense else '8.2pt' }};margin-top:1mm}
+.cols{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);gap:0 {{ '7mm' if dense else '9mm' }}}
+.ln{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3mm;margin-bottom:{{ '1.1mm' if dense else '1.8mm' }};break-inside:avoid}
+.ln .y{color:var(--mute);font-size:{{ '7.6pt' if dense else '8.4pt' }}}
+.ln .v{color:var(--mute);font-size:{{ '7.6pt' if dense else '8.4pt' }}}
+.ln .k{display:inline-block;font-size:{{ '7pt' if dense else '7.6pt' }};color:var(--navy);border:.6pt solid var(--navy);border-radius:1mm;padding:0 1mm;margin-right:1.2mm;line-height:1.35}
+table.sk{width:100%;border-collapse:collapse}
+table.sk th{text-align:left;font-weight:700;color:var(--ink2);white-space:nowrap;vertical-align:top;padding:{{ '.5mm 4mm .5mm 0' if dense else '1mm 5mm 1mm 0' }};width:1%}
+table.sk td{padding:{{ '.5mm 0' if dense else '1mm 0' }};color:var(--ink)}
+table.sk tr+tr th,table.sk tr+tr td{border-top:.5pt solid var(--wash)}
+.skg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1mm 7mm}
+.skg b{color:var(--ink2);margin-right:1.6mm}
+.note{color:var(--mute);font-size:{{ '7.4pt' if dense else '8pt' }};margin-top:1mm}
+@media screen{body{background:#eef0f3;padding:10mm 0}.page{background:#fff;padding:{{ '11mm 13mm' if dense else '14mm 15mm' }};box-shadow:0 2mm 8mm rgba(0,0,0,.08);max-width:210mm}}
+@media print{body{background:#fff;padding:0}.page{box-shadow:none;padding:0}}
+</style>
+{% endmacro %}
+
+{% macro head(profile, L, en, tagline) %}
+{% set av = profile.availability or {} %}
+<header class="head">
+  <div>
+    <h1>{{ profile.name }}{% if profile.name != profile.name_en %}<small>{{ profile.name_en }}</small>{% endif %}</h1>
+    <div class="tag">{{ tagline }}</div>
+  </div>
+  <dl>
+    {% if profile.email %}<dt>Email</dt><dd>{{ profile.email }}</dd>{% endif %}
+    {% if profile.phone %}<dt>{{ 'Phone' if en else '연락처' }}</dt><dd>{{ profile.phone }}</dd>{% endif %}
+    {% for l in profile.links if 'github' in l.url %}<dt>GitHub</dt><dd><a href="{{ l.url }}">{{ l.url|replace('https://','') }}</a></dd>{% endfor %}
+    <dt>{{ L.site }}</dt><dd><a href="https://0ju12.github.io{{ '/en.html' if en else '' }}">0ju12.github.io</a></dd>
+    {% for l in profile.links if 'linkedin' in l.url %}<dt>LinkedIn</dt><dd><a href="{{ l.url }}">{{ profile.name_en }}</a></dd>{% endfor %}
+    {% if av.role %}<dt>{{ L.role }}</dt><dd>{{ av.role }}</dd>{% endif %}
+    {% if av.start %}<dt>{{ L.start }}</dt><dd>{{ av.start }}</dd>{% endif %}
+  </dl>
+</header>
+{% endmacro %}
