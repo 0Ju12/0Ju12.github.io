@@ -112,6 +112,11 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
 .diagram figcaption{margin-top:14px;font-size:12.5px;color:var(--faint)}
 @media (max-width:760px){
   header{padding-top:32px}
+  .boxed{padding:2px 16px;border-radius:18px}
+  .list li{padding:12px 0 12px 36px}
+  .list li::before{top:13px;width:24px;height:24px;font-size:11.5px}
+  .acts a{height:36px;padding:0 13px;font-size:13px}
+  .lead{font-size:17px}
   .two,.pn{grid-template-columns:1fr}
   .pn a.r{text-align:left}
   .dg-row{grid-template-columns:1fr;gap:8px}
@@ -130,13 +135,13 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
 <p class="lead">도서·독서 커뮤니티 서비스 ThRead를 5회에 걸쳐 확장하며, 데이터 수집부터 LLM 분석·웹 서비스까지 직접 구현</p>    <div class="meta">삼성 청년 SW·AI 아카데미 (SSAFY) 16기 · 2인 팀 · 백엔드 · 데이터 파이프라인 담당</div>
 <p class="keyline"><i>핵심</i><span>LLM 판단을 코드로 검증 · 자동 테스트 86개</span></p><div class="acts"><a href="https://github.com/0Ju12/ssafy-thread" target="_blank" rel="noopener">GitHub 저장소 ↗</a><a href="https://github.com/0Ju12/heritage-rag-guide" target="_blank" rel="noopener">국보 입문 가이드 (RAG) ↗</a></div>  </header>
 
-  <nav class="toc" aria-label="이 페이지"><a href="#demo">▶ 데모</a><a href="#story">문제 · 역할</a><a href="#did">한 일</a><a href="#result">결과</a><a href="#media">사진 · 자료</a><a href="#posts">관련 글</a><a href="#full">전체 기록</a></nav>
+  <nav class="toc" aria-label="이 페이지"><a href="#demo">▶ 데모</a><a href="#story">문제 · 역할</a><a href="#result">결과</a><a href="#did">한 일</a><a href="#media">사진 · 자료</a><a href="#posts">관련 글</a><a href="#full">전체 기록</a></nav>
   <div class="media" id="demo"><figure><img src="../assets/demo/heritage-rag-demo.gif" alt="국보 입문 가이드 — 국보를 고르고 질문하면 실제로 인용한 근거만 표시 (API 키 없이 도는 데모 모드)"><figcaption>▶ 데모 — 국보 입문 가이드 — 국보를 고르고 질문하면 실제로 인용한 근거만 표시 (API 키 없이 도는 데모 모드)</figcaption></figure></div>
 
   <div class="two" id="story" style="margin-top:28px">
 <div class="card"><h3>문제</h3><p>서비스 하나(ThRead)를 회차마다 확장하면서, LLM 기능을 믿을 수 있게 만드는 것이 과제</p></div><div class="card"><h3>역할</h3><p>2인 팀에서 Django 백엔드 · LLM 연동 · 크롤링 파이프라인 담당</p></div>  </div>
 
-<section id="did"><h2>한 일</h2><div class="boxed"><ol class="list"><li>댓글 수집(Selenium) → LLM 판단 → 코드 검증 → 정제·증강·요약 파이프라인</li><li>오래 걸리는 작업은 진행 상황을 실시간 스트리밍</li><li>Django 인증 · 도서 CRUD · 등록 도서 안에서만 추천하도록 검증한 AI 추천</li><li>개인 RAG 프로젝트 「국보 입문 가이드」 · AI 챌린지 VQA 앙상블</li></ol></div></section><section id="result"><h2>결과</h2><div class="boxed"><ul class="list res"><li>LLM 답을 코드로 검증하는 구조로 안정적인 AI 기능 구현</li><li>자동 테스트 86개 통과 (관통 4·5) · 요구사항 전부 구현</li><li>AI 챌린지(VQA) Public Score 0.96961</li></ul></div></section>
+<section id="result"><h2>결과</h2><div class="boxed"><ul class="list res"><li>LLM 답을 코드로 검증하는 구조로 안정적인 AI 기능 구현</li><li>자동 테스트 86개 통과 (관통 4·5) · 요구사항 전부 구현</li><li>AI 챌린지(VQA) Public Score 0.96961</li></ul></div></section><section id="did"><h2>한 일</h2><div class="boxed"><ol class="list"><li>댓글 수집(Selenium) → LLM 판단 → 코드 검증 → 정제·증강·요약 파이프라인</li><li>오래 걸리는 작업은 진행 상황을 실시간 스트리밍</li><li>Django 인증 · 도서 CRUD · 등록 도서 안에서만 추천하도록 검증한 AI 추천</li><li>개인 RAG 프로젝트 「국보 입문 가이드」 · AI 챌린지 VQA 앙상블</li></ol></div></section>
 <section id="media"><h2>사진 · 자료</h2><div class="gallery"><a href="../assets/photos/ssafy-16/관통5_LLM_댓글분석_결과화면.jpg" target="_blank" rel="noopener"><img src="../assets/photos/ssafy-16/관통5_LLM_댓글분석_결과화면.jpg" alt="관통5 LLM 댓글분석 결과화면" loading="lazy">관통5 LLM 댓글분석 결과화면</a><a href="../assets/photos/ssafy-16/국보입문가이드_RAG_질의응답_화면.jpg" target="_blank" rel="noopener"><img src="../assets/photos/ssafy-16/국보입문가이드_RAG_질의응답_화면.jpg" alt="국보입문가이드 RAG 질의응답 화면" loading="lazy">국보입문가이드 RAG 질의응답 화면</a></div></section>
 <section id="posts"><h2>관련 글</h2><div class="posts"><a href="../posts/2026-11-vqa-ensemble-fixes-breaks.html"><span>점수를 지키면서 올리기 — VQA 챌린지에서 앙상블 후보를 고른 기준<small>2026-11-03</small></span><span>→</span></a><a href="../posts/2026-11-rag-citation-verify.html"><span>LLM이 붙인 [근거 N]을 코드로 다시 검사하기 — 국보 RAG 가이드의 인용 설계<small>2026-11-03</small></span><span>→</span></a><a href="../posts/2026-11-battle-ssafy-bfs-bot.html"><span>길찾기에서 의사결정으로 — 배틀싸피 자동 플레이 봇을 세 번 고친 기록<small>2026-11-03</small></span><span>→</span></a><a href="../posts/2026-11-llm-verify-pipeline.html"><span>LLM 응답을 믿지 않는 파이프라인 설계<small>2026-11-02</small></span><span>→</span></a></div></section>
   <details class="full" id="full"><summary>전체 기록 · 설계 판단 보기</summary>

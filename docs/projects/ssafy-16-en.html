@@ -112,6 +112,11 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
 .diagram figcaption{margin-top:14px;font-size:12.5px;color:var(--faint)}
 @media (max-width:760px){
   header{padding-top:32px}
+  .boxed{padding:2px 16px;border-radius:18px}
+  .list li{padding:12px 0 12px 36px}
+  .list li::before{top:13px;width:24px;height:24px;font-size:11.5px}
+  .acts a{height:36px;padding:0 13px;font-size:13px}
+  .lead{font-size:17px}
   .two,.pn{grid-template-columns:1fr}
   .pn a.r{text-align:left}
   .dg-row{grid-template-columns:1fr;gap:8px}
@@ -130,13 +135,13 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
 <p class="lead">Extended a reading-community service across five projects, from data collection to LLM analysis and web service, plus a multimodal QA challenge</p>    <div class="meta">Samsung Software &amp; AI Academy for Youth (SSAFY) · team of 2 · Backend &amp; data pipeline · model training (AI Challenge)</div>
 <p class="keyline"><i>KEY</i><span>LLM judgments verified in code · 86 automated tests</span></p><div class="acts"><a href="https://github.com/0Ju12/ssafy-thread" target="_blank" rel="noopener">GitHub ↗</a><a href="https://github.com/0Ju12/heritage-rag-guide" target="_blank" rel="noopener">Heritage RAG guide ↗</a></div>  </header>
 
-  <nav class="toc" aria-label="On this page"><a href="#demo">▶ Demo</a><a href="#story">Problem · My role</a><a href="#did">What I did</a><a href="#result">Results</a><a href="#media">Photos &amp; figures</a><a href="#full">Full record</a></nav>
+  <nav class="toc" aria-label="On this page"><a href="#demo">▶ Demo</a><a href="#story">Problem · My role</a><a href="#result">Results</a><a href="#did">What I did</a><a href="#media">Photos &amp; figures</a><a href="#full">Full record</a></nav>
   <div class="media" id="demo"><figure><img src="../assets/demo/heritage-rag-demo.gif" alt="Heritage RAG guide — pick a national treasure, ask, and see only the evidence actually cited (offline demo mode, no API key)"><figcaption>▶ Demo — Heritage RAG guide — pick a national treasure, ask, and see only the evidence actually cited (offline demo mode, no API key)</figcaption></figure></div>
 
   <div class="two" id="story" style="margin-top:28px">
 <div class="card"><h3>Problem</h3><p>Grow one service (ThRead) every round while keeping its LLM features trustworthy</p></div><div class="card"><h3>My role</h3><p>Django backend · LLM integration · crawling pipeline in a team of two</p></div>  </div>
 
-<section id="did"><h2>What I did</h2><div class="boxed"><ol class="list"><li>Comment collection (Selenium) → LLM judgment → code check → cleaning, augmentation, summary</li><li>Live progress streaming for long jobs</li><li>Django auth · book CRUD · AI recommendations limited to registered books</li><li>Personal RAG project (Heritage guide) · AI challenge VQA ensemble</li></ol></div></section><section id="result"><h2>Results</h2><div class="boxed"><ul class="list res"><li>Stable AI features by verifying LLM output in code</li><li>86 automated tests passing · every requirement implemented</li><li>AI challenge (VQA) public score 0.96961</li></ul></div></section>
+<section id="result"><h2>Results</h2><div class="boxed"><ul class="list res"><li>Stable AI features by verifying LLM output in code</li><li>86 automated tests passing · every requirement implemented</li><li>AI challenge (VQA) public score 0.96961</li></ul></div></section><section id="did"><h2>What I did</h2><div class="boxed"><ol class="list"><li>Comment collection (Selenium) → LLM judgment → code check → cleaning, augmentation, summary</li><li>Live progress streaming for long jobs</li><li>Django auth · book CRUD · AI recommendations limited to registered books</li><li>Personal RAG project (Heritage guide) · AI challenge VQA ensemble</li></ol></div></section>
 <section id="media"><h2>Photos &amp; figures</h2><div class="gallery"><a href="../assets/photos/ssafy-16/관통5_LLM_댓글분석_결과화면.jpg" target="_blank" rel="noopener"><img src="../assets/photos/ssafy-16/관통5_LLM_댓글분석_결과화면.jpg" alt="ThRead — LLM comment-analysis result screen" loading="lazy">ThRead — LLM comment-analysis result screen</a><a href="../assets/photos/ssafy-16/국보입문가이드_RAG_질의응답_화면.jpg" target="_blank" rel="noopener"><img src="../assets/photos/ssafy-16/국보입문가이드_RAG_질의응답_화면.jpg" alt="Heritage RAG guide — Q&amp;A showing only verified citations" loading="lazy">Heritage RAG guide — Q&amp;A showing only verified citations</a></div></section>
 
   <details class="full" id="full"><summary>Full record · design decisions</summary>

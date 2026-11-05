@@ -112,6 +112,11 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
 .diagram figcaption{margin-top:14px;font-size:12.5px;color:var(--faint)}
 @media (max-width:760px){
   header{padding-top:32px}
+  .boxed{padding:2px 16px;border-radius:18px}
+  .list li{padding:12px 0 12px 36px}
+  .list li::before{top:13px;width:24px;height:24px;font-size:11.5px}
+  .acts a{height:36px;padding:0 13px;font-size:13px}
+  .lead{font-size:17px}
   .two,.pn{grid-template-columns:1fr}
   .pn a.r{text-align:left}
   .dg-row{grid-template-columns:1fr;gap:8px}
@@ -130,12 +135,12 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
 <p class="lead">A U-LSTM that predicts the next wildfire front from the current front, weather and terrain</p>    <div class="meta">Jeonbuk National University · IAB convergence major · Model design &amp; training</div>
 <p class="keyline"><i>KEY</i><span>F1 0.85 on an unseen wildfire (Gangneung)</span></p><div class="acts"><a href="https://github.com/0Ju12/wildfire-spread-prediction" target="_blank" rel="noopener">GitHub ↗</a></div>  </header>
 
-  <nav class="toc" aria-label="On this page"><a href="#story">Problem · My role</a><a href="#did">What I did</a><a href="#result">Results</a><a href="#media">Photos &amp; figures</a><a href="#full">Full record</a></nav>
+  <nav class="toc" aria-label="On this page"><a href="#story">Problem · My role</a><a href="#result">Results</a><a href="#did">What I did</a><a href="#media">Photos &amp; figures</a><a href="#full">Full record</a></nav>
 
   <div class="two" id="story" style="margin-top:28px">
 <div class="card"><h3>Problem</h3><p>No model in Korea predicted wildfire spread in real time</p></div><div class="card"><h3>My role</h3><p>Designed and trained the spatiotemporal model in a team of four</p></div>  </div>
 
-<section id="did"><h2>What I did</h2><div class="boxed"><ol class="list"><li>Rasterized fire fronts, elevation, NDVI and wind for 4 large wildfires in ArcGIS</li><li>Designed a Conv2D encoder–LSTM–decoder U-LSTM (2,736 parameters)</li><li>Built 151 training batches with sliding windows; held one fire out for testing</li></ol></div></section><section id="result"><h2>Results</h2><div class="boxed"><ul class="list res"><li>Accuracy 0.90 · F1 0.85 on the unseen Gangneung fire</li><li>Repackaged the team notebook as a tested Python package</li></ul></div></section>
+<section id="result"><h2>Results</h2><div class="boxed"><ul class="list res"><li>Accuracy 0.90 · F1 0.85 on the unseen Gangneung fire</li><li>Repackaged the team notebook as a tested Python package</li></ul></div></section><section id="did"><h2>What I did</h2><div class="boxed"><ol class="list"><li>Rasterized fire fronts, elevation, NDVI and wind for 4 large wildfires in ArcGIS</li><li>Designed a Conv2D encoder–LSTM–decoder U-LSTM (2,736 parameters)</li><li>Built 151 training batches with sliding windows; held one fire out for testing</li></ol></div></section>
 <section id="media"><h2>Photos &amp; figures</h2><div class="gallery"><a href="../assets/photos/wildfire-capstone/2023_U-LSTM_①_강릉_산불(미학습)_GIS_실제·예측_비교_(t0~t5).jpg" target="_blank" rel="noopener"><img src="../assets/photos/wildfire-capstone/2023_U-LSTM_①_강릉_산불(미학습)_GIS_실제·예측_비교_(t0~t5).jpg" alt="Unseen Gangneung wildfire on GIS imagery — actual spread vs U-LSTM prediction (t0→t5)" loading="lazy">Unseen Gangneung wildfire on GIS imagery — actual spread vs U-LSTM prediction (t0→t5)</a><a href="../assets/photos/wildfire-capstone/2023_U-LSTM_②_미학습_산불_예측_마스크_(위_실제·아래_예측).jpg" target="_blank" rel="noopener"><img src="../assets/photos/wildfire-capstone/2023_U-LSTM_②_미학습_산불_예측_마스크_(위_실제·아래_예측).jpg" alt="U-LSTM on an unseen wildfire — burn masks, top: actual, bottom: prediction (t1→t5)" loading="lazy">U-LSTM on an unseen wildfire — burn masks, top: actual, bottom: prediction (t1→t5)</a><a href="../assets/photos/wildfire-capstone/2023_U-LSTM_③_학습_곡선_(정확도·손실).jpg" target="_blank" rel="noopener"><img src="../assets/photos/wildfire-capstone/2023_U-LSTM_③_학습_곡선_(정확도·손실).jpg" alt="U-LSTM training curves — accuracy and loss" loading="lazy">U-LSTM training curves — accuracy and loss</a></div></section>
 
   <details class="full" id="full"><summary>Full record · design decisions</summary>

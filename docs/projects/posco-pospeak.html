@@ -112,6 +112,11 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
 .diagram figcaption{margin-top:14px;font-size:12.5px;color:var(--faint)}
 @media (max-width:760px){
   header{padding-top:32px}
+  .boxed{padding:2px 16px;border-radius:18px}
+  .list li{padding:12px 0 12px 36px}
+  .list li::before{top:13px;width:24px;height:24px;font-size:11.5px}
+  .acts a{height:36px;padding:0 13px;font-size:13px}
+  .lead{font-size:17px}
   .two,.pn{grid-template-columns:1fr}
   .pn a.r{text-align:left}
   .dg-row{grid-template-columns:1fr;gap:8px}
@@ -130,12 +135,12 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
 <p class="lead">어색한 영어·콩글리시 문장을 자연스러운 원어민 표현으로 바꿔 주는 생성 모델 + 검색 증강(RAG) 시스템</p>    <div class="meta">포스코 청년 AI·BigData 아카데미 30기 (포스코인재창조원·POSTECH) · 팀 프로젝트 · 데이터 구축·모델 실험 담당</div>
 <p class="keyline"><i>핵심</i><span>학습 전략 비교로 BERTScore F1 0.32 → 0.74 · 장려상</span></p><div class="acts"><a href="https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5" target="_blank" rel="noopener">팀 GitHub ↗</a></div>  </header>
 
-  <nav class="toc" aria-label="이 페이지"><a href="#story">문제 · 역할</a><a href="#did">한 일</a><a href="#result">결과</a><a href="#media">사진 · 자료</a><a href="#posts">관련 글</a><a href="#full">전체 기록</a></nav>
+  <nav class="toc" aria-label="이 페이지"><a href="#story">문제 · 역할</a><a href="#result">결과</a><a href="#did">한 일</a><a href="#media">사진 · 자료</a><a href="#posts">관련 글</a><a href="#full">전체 기록</a></nav>
 
   <div class="two" id="story" style="margin-top:28px">
 <div class="card"><h3>문제</h3><p>콩글리시·어색한 격식체 영어는 문법 교정기로 잡히지 않음</p></div><div class="card"><h3>역할</h3><p>팀에서 교정 데이터 구축과 모델 실험 담당</p></div>  </div>
 
-<section id="did"><h2>한 일</h2><div class="boxed"><ol class="list"><li>단어·문맥 단위 교정 데이터셋 구축·정제</li><li>FLAN-T5 LoRA로 학습 전략 3가지를 BERTScore로 비교</li><li>최종 앱 KILL KONG: Qwen-2.5 + RAG + 개인 오답노트</li></ol></div></section><section id="result"><h2>결과</h2><div class="boxed"><ul class="list res"><li>순차 학습의 catastrophic forgetting 확인 → 통합 학습으로 전환</li><li>BERTScore F1 0.32 → 0.74</li><li>팀 프로젝트 장려상</li></ul></div></section>
+<section id="result"><h2>결과</h2><div class="boxed"><ul class="list res"><li>순차 학습의 catastrophic forgetting 확인 → 통합 학습으로 전환</li><li>BERTScore F1 0.32 → 0.74</li><li>팀 프로젝트 장려상</li></ul></div></section><section id="did"><h2>한 일</h2><div class="boxed"><ol class="list"><li>단어·문맥 단위 교정 데이터셋 구축·정제</li><li>FLAN-T5 LoRA로 학습 전략 3가지를 BERTScore로 비교</li><li>최종 앱 KILL KONG: Qwen-2.5 + RAG + 개인 오답노트</li></ol></div></section>
 <section id="media"><h2>사진 · 자료</h2><div class="gallery"><a href="../assets/photos/posco-pospeak/2025-08-29_프로젝트_장려상·수료증.jpg" target="_blank" rel="noopener"><img src="../assets/photos/posco-pospeak/2025-08-29_프로젝트_장려상·수료증.jpg" alt="2025-08-29 프로젝트 장려상·수료증" loading="lazy">2025-08-29 프로젝트 장려상·수료증</a><a href="../assets/photos/posco-pospeak/2025-08_KILLKONG_①_앱_화면_(홈·채팅·단어·연습).jpg" target="_blank" rel="noopener"><img src="../assets/photos/posco-pospeak/2025-08_KILLKONG_①_앱_화면_(홈·채팅·단어·연습).jpg" alt="2025-08 KILLKONG ① 앱 화면 (홈·채팅·단어·연습)" loading="lazy">2025-08 KILLKONG ① 앱 화면 (홈·채팅·단어·연습)</a><a href="../assets/photos/posco-pospeak/2025-08_KILLKONG_②_시스템_구조_(LoRA_Qwen2.5·RAG·Memory).jpg" target="_blank" rel="noopener"><img src="../assets/photos/posco-pospeak/2025-08_KILLKONG_②_시스템_구조_(LoRA_Qwen2.5·RAG·Memory).jpg" alt="2025-08 KILLKONG ② 시스템 구조 (LoRA Qwen2.5·RAG·Memory)" loading="lazy">2025-08 KILLKONG ② 시스템 구조 (LoRA Qwen2.5·RAG·Memory)</a><a href="../assets/photos/posco-pospeak/2025-08_KILLKONG_③_GPT-5와_교정_결과_비교.jpg" target="_blank" rel="noopener"><img src="../assets/photos/posco-pospeak/2025-08_KILLKONG_③_GPT-5와_교정_결과_비교.jpg" alt="2025-08 KILLKONG ③ GPT-5와 교정 결과 비교" loading="lazy">2025-08 KILLKONG ③ GPT-5와 교정 결과 비교</a></div></section>
 <section id="posts"><h2>관련 글</h2><div class="posts"><a href="../posts/2026-11-catastrophic-forgetting.html"><span>순차 학습이 성능을 떨어뜨린 이유 — catastrophic forgetting 실험기<small>2026-11-02</small></span><span>→</span></a></div></section>
   <details class="full" id="full"><summary>전체 기록 · 설계 판단 보기</summary>

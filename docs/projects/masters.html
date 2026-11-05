@@ -112,6 +112,11 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
 .diagram figcaption{margin-top:14px;font-size:12.5px;color:var(--faint)}
 @media (max-width:760px){
   header{padding-top:32px}
+  .boxed{padding:2px 16px;border-radius:18px}
+  .list li{padding:12px 0 12px 36px}
+  .list li::before{top:13px;width:24px;height:24px;font-size:11.5px}
+  .acts a{height:36px;padding:0 13px;font-size:13px}
+  .lead{font-size:17px}
   .two,.pn{grid-template-columns:1fr}
   .pn a.r{text-align:left}
   .dg-row{grid-template-columns:1fr;gap:8px}
@@ -130,7 +135,7 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
 <p class="lead">겹쳐 있는 중력·자력 신호를 파수 영역 상관 분석으로 분리하는 지표(SLFI·DLFI)를 설계해 암염·기반암 구조를 규명</p>    <div class="meta">지구물리컴퓨팅연구실 · 환경에너지융합학과 · 석사과정 연구원</div>
 <p class="keyline"><i>핵심</i><span>기존 독립 모델 3개와 상관계수 0.94 이상 일치</span></p><div class="acts"><a href="https://doi.org/10.2118/236968-PA" target="_blank" rel="noopener">SPE Journal 논문 ↗</a><a href="https://github.com/0Ju12/gravmag-wcf" target="_blank" rel="noopener">GitHub 코드 (WCF·SLFI·DLFI) ↗</a><a href="https://www.geoverselab.com/ko/research-history/13/" target="_blank" rel="noopener">연구 이력 ↗</a></div>  </header>
 
-  <nav class="toc" aria-label="이 페이지"><a href="#story">문제 · 역할</a><a href="#did">한 일</a><a href="#result">결과</a><a href="#media">사진 · 자료</a><a href="#posts">관련 글</a><a href="#full">전체 기록</a></nav>
+  <nav class="toc" aria-label="이 페이지"><a href="#story">문제 · 역할</a><a href="#result">결과</a><a href="#did">한 일</a><a href="#media">사진 · 자료</a><a href="#posts">관련 글</a><a href="#full">전체 기록</a></nav>
   <div class="media"><figure class="diagram" aria-label="분석 흐름">
   <div class="dg-row">
     <div class="dg-col dg-in"><span class="dg-tag">입력</span><div class="dg-box">항공 중력 자료</div><div class="dg-box">항공 자력 자료</div><small>아부다비 해상 가샤 — 8~10 km 퇴적층 아래 암염·기반암 신호가 겹침</small></div>
@@ -151,7 +156,7 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
   <div class="two" id="story" style="margin-top:28px">
 <div class="card"><h3>문제</h3><p>암염·기반암 신호가 8~10 km 퇴적층 아래에서 겹쳐, 기존 해석은 암염 깊이를 실제(약 9,300 m)보다 크게 얕게(약 6,000 m) 추정</p></div><div class="card"><h3>역할</h3><p>항공 중력·자력 데이터에서 두 신호를 분리하는 분석 방법 제안 (석사 연구원)</p></div>  </div>
 
-<section id="did"><h2>한 일</h2><div class="boxed"><ol class="list"><li>파수 영역에서 중력·자력 상관계수 CC(k)를 계산하는 WCF 파이프라인 구축</li><li>기반암을 드러내는 SLFI, 암염을 드러내는 DLFI 두 지표 설계</li><li>기존 독립 모델 3개·측선 비교·3D 밀도 모델로 교차 검증</li><li>캘거리대 파견 · 칼리파대 포함 3개 기관 공동연구</li></ol></div></section><section id="result"><h2>결과</h2><div class="boxed"><ul class="list res"><li>SLFI 기반암 구조가 기존 모델 3개와 상관계수 0.94 이상 일치</li><li>가샤 서쪽 추가 암염 융기 가능성 제시</li><li>SPE Journal(SCIE) 제1저자 논문 · 석사 학위논문 (2026)</li></ul></div></section>
+<section id="result"><h2>결과</h2><div class="boxed"><ul class="list res"><li>SLFI 기반암 구조가 기존 모델 3개와 상관계수 0.94 이상 일치</li><li>가샤 서쪽 추가 암염 융기 가능성 제시</li><li>SPE Journal(SCIE) 제1저자 논문 · 석사 학위논문 (2026)</li></ul></div></section><section id="did"><h2>한 일</h2><div class="boxed"><ol class="list"><li>파수 영역에서 중력·자력 상관계수 CC(k)를 계산하는 WCF 파이프라인 구축</li><li>기반암을 드러내는 SLFI, 암염을 드러내는 DLFI 두 지표 설계</li><li>기존 독립 모델 3개·측선 비교·3D 밀도 모델로 교차 검증</li><li>캘거리대 파견 · 칼리파대 포함 3개 기관 공동연구</li></ol></div></section>
 <section id="media"><h2>사진 · 자료</h2><div class="gallery"><a href="../assets/photos/masters/2026-08-21_석사_학위수여식_1.jpg" target="_blank" rel="noopener"><img src="../assets/photos/masters/2026-08-21_석사_학위수여식_1.jpg" alt="2026-08-21 석사 학위수여식 1" loading="lazy">2026-08-21 석사 학위수여식 1</a><a href="../assets/photos/masters/2026-08-21_석사_학위수여식_2.jpg" target="_blank" rel="noopener"><img src="../assets/photos/masters/2026-08-21_석사_학위수여식_2.jpg" alt="2026-08-21 석사 학위수여식 2" loading="lazy">2026-08-21 석사 학위수여식 2</a><a href="../assets/photos/masters/2026-08_석사학위논문_(표지)_가샤_지역_암염·기반암_구조_특성화.jpg" target="_blank" rel="noopener"><img src="../assets/photos/masters/2026-08_석사학위논문_(표지)_가샤_지역_암염·기반암_구조_특성화.jpg" alt="2026-08 석사학위논문 (표지) 가샤 지역 암염·기반암 구조 특성화" loading="lazy">2026-08 석사학위논문 (표지) 가샤 지역 암염·기반암 구조 특성화</a><a href="../assets/photos/masters/2026-08_석사학위논문_Fig03_파수상관필터링(WCF)→LFI_5단계_분석흐름.jpg" target="_blank" rel="noopener"><img src="../assets/photos/masters/2026-08_석사학위논문_Fig03_파수상관필터링(WCF)→LFI_5단계_분석흐름.jpg" alt="2026-08 석사학위논문 Fig03 파수상관필터링(WCF)→LFI 5단계 분석흐름" loading="lazy">2026-08 석사학위논문 Fig03 파수상관필터링(WCF)→LFI 5단계 분석흐름</a><a href="../assets/photos/masters/2026-08_석사학위논문_Fig10_상관계수(CC)_구간별_기반암·암염_분류모델.jpg" target="_blank" rel="noopener"><img src="../assets/photos/masters/2026-08_석사학위논문_Fig10_상관계수(CC)_구간별_기반암·암염_분류모델.jpg" alt="2026-08 석사학위논문 Fig10 상관계수(CC) 구간별 기반암·암염 분류모델" loading="lazy">2026-08 석사학위논문 Fig10 상관계수(CC) 구간별 기반암·암염 분류모델</a><a href="../assets/photos/masters/2026-08_석사학위논문_Fig11_SLFI(기반암)·DLFI(암염)_공간분포.jpg" target="_blank" rel="noopener"><img src="../assets/photos/masters/2026-08_석사학위논문_Fig11_SLFI(기반암)·DLFI(암염)_공간분포.jpg" alt="2026-08 석사학위논문 Fig11 SLFI(기반암)·DLFI(암염) 공간분포" loading="lazy">2026-08 석사학위논문 Fig11 SLFI(기반암)·DLFI(암염) 공간분포</a></div></section>
 <section id="posts"><h2>관련 글</h2><div class="posts"><a href="../posts/2026-11-wavenumber-correlation.html"><span>겹쳐 있는 두 신호를 위상으로 가르기 — 파수 상관 필터링 석사 연구 정리<small>2026-11-03</small></span><span>→</span></a></div></section>
   <details class="full" id="full"><summary>전체 기록 · 설계 판단 보기</summary>

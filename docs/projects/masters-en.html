@@ -112,6 +112,11 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
 .diagram figcaption{margin-top:14px;font-size:12.5px;color:var(--faint)}
 @media (max-width:760px){
   header{padding-top:32px}
+  .boxed{padding:2px 16px;border-radius:18px}
+  .list li{padding:12px 0 12px 36px}
+  .list li::before{top:13px;width:24px;height:24px;font-size:11.5px}
+  .acts a{height:36px;padding:0 13px;font-size:13px}
+  .lead{font-size:17px}
   .two,.pn{grid-template-columns:1fr}
   .pn a.r{text-align:left}
   .dg-row{grid-template-columns:1fr;gap:8px}
@@ -130,7 +135,7 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
 <p class="lead">Separated overlapping gravity and magnetic signals in the wavenumber domain to resolve salt and basement structures offshore Abu Dhabi</p>    <div class="meta">Geophysical Computing Lab · Dept. of Environment and Energy · Graduate researcher</div>
 <p class="keyline"><i>KEY</i><span>Agrees with 3 independent models at r ≥ 0.94</span></p><div class="acts"><a href="https://doi.org/10.2118/236968-PA" target="_blank" rel="noopener">SPE Journal paper ↗</a><a href="https://github.com/0Ju12/gravmag-wcf" target="_blank" rel="noopener">Code (gravmag-wcf) ↗</a></div>  </header>
 
-  <nav class="toc" aria-label="On this page"><a href="#story">Problem · My role</a><a href="#did">What I did</a><a href="#result">Results</a><a href="#media">Photos &amp; figures</a><a href="#full">Full record</a></nav>
+  <nav class="toc" aria-label="On this page"><a href="#story">Problem · My role</a><a href="#result">Results</a><a href="#did">What I did</a><a href="#media">Photos &amp; figures</a><a href="#full">Full record</a></nav>
   <div class="media"><figure class="diagram" aria-label="Analysis workflow">
   <div class="dg-row">
     <div class="dg-col dg-in"><span class="dg-tag">Input</span><div class="dg-box">Airborne gravity data</div><div class="dg-box">Airborne magnetic data</div><small>Ghasha, offshore Abu Dhabi — salt and basement overlap under 8–10 km of sediments</small></div>
@@ -151,7 +156,7 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
   <div class="two" id="story" style="margin-top:28px">
 <div class="card"><h3>Problem</h3><p>Salt and basement signals overlap beneath 8–10 km of sediment; earlier interpretation put the salt far too shallow (~6,000 m vs ~9,300 m)</p></div><div class="card"><h3>My role</h3><p>Proposed a method to separate the two signals in airborne gravity and magnetic data (M.S. researcher)</p></div>  </div>
 
-<section id="did"><h2>What I did</h2><div class="boxed"><ol class="list"><li>Built a WCF pipeline computing the gravity–magnetic correlation CC(k) in the wavenumber domain</li><li>Designed two indices: SLFI for basement, DLFI for salt</li><li>Cross-checked against 3 independent models, profiles and a 3D density model</li><li>Calgary stay · three-institution collaboration incl. Khalifa Univ.</li></ol></div></section><section id="result"><h2>Results</h2><div class="boxed"><ul class="list res"><li>SLFI basement agrees with 3 existing models at r ≥ 0.94</li><li>Suggested an additional salt uplift west of Ghasha</li><li>First-author SPE Journal (SCIE) paper · M.S. thesis (2026)</li></ul></div></section>
+<section id="result"><h2>Results</h2><div class="boxed"><ul class="list res"><li>SLFI basement agrees with 3 existing models at r ≥ 0.94</li><li>Suggested an additional salt uplift west of Ghasha</li><li>First-author SPE Journal (SCIE) paper · M.S. thesis (2026)</li></ul></div></section><section id="did"><h2>What I did</h2><div class="boxed"><ol class="list"><li>Built a WCF pipeline computing the gravity–magnetic correlation CC(k) in the wavenumber domain</li><li>Designed two indices: SLFI for basement, DLFI for salt</li><li>Cross-checked against 3 independent models, profiles and a 3D density model</li><li>Calgary stay · three-institution collaboration incl. Khalifa Univ.</li></ol></div></section>
 <section id="media"><h2>Photos &amp; figures</h2><div class="gallery"><a href="../assets/photos/masters/2026-08-21_석사_학위수여식_1.jpg" target="_blank" rel="noopener"><img src="../assets/photos/masters/2026-08-21_석사_학위수여식_1.jpg" alt="M.S. commencement" loading="lazy">M.S. commencement</a><a href="../assets/photos/masters/2026-08-21_석사_학위수여식_2.jpg" target="_blank" rel="noopener"><img src="../assets/photos/masters/2026-08-21_석사_학위수여식_2.jpg" alt="M.S. commencement" loading="lazy">M.S. commencement</a><a href="../assets/photos/masters/2026-08_석사학위논문_(표지)_가샤_지역_암염·기반암_구조_특성화.jpg" target="_blank" rel="noopener"><img src="../assets/photos/masters/2026-08_석사학위논문_(표지)_가샤_지역_암염·기반암_구조_특성화.jpg" alt="M.S. thesis — cover" loading="lazy">M.S. thesis — cover</a><a href="../assets/photos/masters/2026-08_석사학위논문_Fig03_파수상관필터링(WCF)→LFI_5단계_분석흐름.jpg" target="_blank" rel="noopener"><img src="../assets/photos/masters/2026-08_석사학위논문_Fig03_파수상관필터링(WCF)→LFI_5단계_분석흐름.jpg" alt="M.S. thesis Fig. 3 — WCF → LFI five-step workflow" loading="lazy">M.S. thesis Fig. 3 — WCF → LFI five-step workflow</a><a href="../assets/photos/masters/2026-08_석사학위논문_Fig10_상관계수(CC)_구간별_기반암·암염_분류모델.jpg" target="_blank" rel="noopener"><img src="../assets/photos/masters/2026-08_석사학위논문_Fig10_상관계수(CC)_구간별_기반암·암염_분류모델.jpg" alt="M.S. thesis Fig. 10 — basement/salt classes by CC(k) band" loading="lazy">M.S. thesis Fig. 10 — basement/salt classes by CC(k) band</a><a href="../assets/photos/masters/2026-08_석사학위논문_Fig11_SLFI(기반암)·DLFI(암염)_공간분포.jpg" target="_blank" rel="noopener"><img src="../assets/photos/masters/2026-08_석사학위논문_Fig11_SLFI(기반암)·DLFI(암염)_공간분포.jpg" alt="M.S. thesis Fig. 11 — SLFI (basement) · DLFI (salt) maps" loading="lazy">M.S. thesis Fig. 11 — SLFI (basement) · DLFI (salt) maps</a></div></section>
 
   <details class="full" id="full"><summary>Full record · design decisions</summary>

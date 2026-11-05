@@ -112,6 +112,11 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
 .diagram figcaption{margin-top:14px;font-size:12.5px;color:var(--faint)}
 @media (max-width:760px){
   header{padding-top:32px}
+  .boxed{padding:2px 16px;border-radius:18px}
+  .list li{padding:12px 0 12px 36px}
+  .list li::before{top:13px;width:24px;height:24px;font-size:11.5px}
+  .acts a{height:36px;padding:0 13px;font-size:13px}
+  .lead{font-size:17px}
   .two,.pn{grid-template-columns:1fr}
   .pn a.r{text-align:left}
   .dg-row{grid-template-columns:1fr;gap:8px}
@@ -130,12 +135,12 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
 <p class="lead">A generator plus retrieval (RAG) that rewrites awkward or Konglish sentences into natural English</p>    <div class="meta">POSCO Youth AI &amp; Big Data Academy (with POSTECH) · team project · Dataset building &amp; model experiments</div>
 <p class="keyline"><i>KEY</i><span>Training-strategy comparison: BERTScore F1 0.32 → 0.74 · award</span></p><div class="acts"><a href="https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5" target="_blank" rel="noopener">Team GitHub ↗</a></div>  </header>
 
-  <nav class="toc" aria-label="On this page"><a href="#story">Problem · My role</a><a href="#did">What I did</a><a href="#result">Results</a><a href="#media">Photos &amp; figures</a><a href="#full">Full record</a></nav>
+  <nav class="toc" aria-label="On this page"><a href="#story">Problem · My role</a><a href="#result">Results</a><a href="#did">What I did</a><a href="#media">Photos &amp; figures</a><a href="#full">Full record</a></nav>
 
   <div class="two" id="story" style="margin-top:28px">
 <div class="card"><h3>Problem</h3><p>Konglish and stiff formal English slip past grammar checkers</p></div><div class="card"><h3>My role</h3><p>Built the correction dataset and ran model experiments for the team</p></div>  </div>
 
-<section id="did"><h2>What I did</h2><div class="boxed"><ol class="list"><li>Built and cleaned word- and context-level correction pairs</li><li>Compared 3 FLAN-T5 LoRA training strategies with BERTScore</li><li>Final app KILL KONG: Qwen-2.5 + RAG + personal mistake notes</li></ol></div></section><section id="result"><h2>Results</h2><div class="boxed"><ul class="list res"><li>Found catastrophic forgetting in sequential training → switched to joint training</li><li>BERTScore F1 0.32 → 0.74</li><li>Team Excellence Award</li></ul></div></section>
+<section id="result"><h2>Results</h2><div class="boxed"><ul class="list res"><li>Found catastrophic forgetting in sequential training → switched to joint training</li><li>BERTScore F1 0.32 → 0.74</li><li>Team Excellence Award</li></ul></div></section><section id="did"><h2>What I did</h2><div class="boxed"><ol class="list"><li>Built and cleaned word- and context-level correction pairs</li><li>Compared 3 FLAN-T5 LoRA training strategies with BERTScore</li><li>Final app KILL KONG: Qwen-2.5 + RAG + personal mistake notes</li></ol></div></section>
 <section id="media"><h2>Photos &amp; figures</h2><div class="gallery"><a href="../assets/photos/posco-pospeak/2025-08-29_프로젝트_장려상·수료증.jpg" target="_blank" rel="noopener"><img src="../assets/photos/posco-pospeak/2025-08-29_프로젝트_장려상·수료증.jpg" alt="POSCO academy — Excellence Award &amp; certificate" loading="lazy">POSCO academy — Excellence Award &amp; certificate</a><a href="../assets/photos/posco-pospeak/2025-08_KILLKONG_①_앱_화면_(홈·채팅·단어·연습).jpg" target="_blank" rel="noopener"><img src="../assets/photos/posco-pospeak/2025-08_KILLKONG_①_앱_화면_(홈·채팅·단어·연습).jpg" alt="KILL KONG app — home · chat correction · word list · practice dashboard" loading="lazy">KILL KONG app — home · chat correction · word list · practice dashboard</a><a href="../assets/photos/posco-pospeak/2025-08_KILLKONG_②_시스템_구조_(LoRA_Qwen2.5·RAG·Memory).jpg" target="_blank" rel="noopener"><img src="../assets/photos/posco-pospeak/2025-08_KILLKONG_②_시스템_구조_(LoRA_Qwen2.5·RAG·Memory).jpg" alt="KILL KONG system — LoRA fine-tuned Qwen2.5 + RAG hint list + SQLite/FAISS memory" loading="lazy">KILL KONG system — LoRA fine-tuned Qwen2.5 + RAG hint list + SQLite/FAISS memory</a><a href="../assets/photos/posco-pospeak/2025-08_KILLKONG_③_GPT-5와_교정_결과_비교.jpg" target="_blank" rel="noopener"><img src="../assets/photos/posco-pospeak/2025-08_KILLKONG_③_GPT-5와_교정_결과_비교.jpg" alt="Same Konglish sentence: GPT-5 misses it, KILL KONG corrects it and suggests natural phrasing" loading="lazy">Same Konglish sentence: GPT-5 misses it, KILL KONG corrects it and suggests natural phrasing</a></div></section>
 
   <details class="full" id="full"><summary>Full record · design decisions</summary>

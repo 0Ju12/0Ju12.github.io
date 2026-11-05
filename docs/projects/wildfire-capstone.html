@@ -112,6 +112,11 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
 .diagram figcaption{margin-top:14px;font-size:12.5px;color:var(--faint)}
 @media (max-width:760px){
   header{padding-top:32px}
+  .boxed{padding:2px 16px;border-radius:18px}
+  .list li{padding:12px 0 12px 36px}
+  .list li::before{top:13px;width:24px;height:24px;font-size:11.5px}
+  .acts a{height:36px;padding:0 13px;font-size:13px}
+  .lead{font-size:17px}
   .two,.pn{grid-template-columns:1fr}
   .pn a.r{text-align:left}
   .dg-row{grid-template-columns:1fr;gap:8px}
@@ -130,12 +135,12 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
 <p class="lead">이전 시점의 화선·기상·지형 데이터로 다음 시점의 산불 화선을 예측하는 U-LSTM 모델</p>    <div class="meta">전북대학교 IAB 융합전공 · 창의적공학설계 (캡스톤) · 모델 설계·학습 담당</div>
 <p class="keyline"><i>핵심</i><span>학습에 쓰지 않은 강릉 산불에서 F1 0.85</span></p><div class="acts"><a href="https://github.com/0Ju12/wildfire-spread-prediction" target="_blank" rel="noopener">GitHub 코드 ↗</a></div>  </header>
 
-  <nav class="toc" aria-label="이 페이지"><a href="#story">문제 · 역할</a><a href="#did">한 일</a><a href="#result">결과</a><a href="#media">사진 · 자료</a><a href="#posts">관련 글</a><a href="#full">전체 기록</a></nav>
+  <nav class="toc" aria-label="이 페이지"><a href="#story">문제 · 역할</a><a href="#result">결과</a><a href="#did">한 일</a><a href="#media">사진 · 자료</a><a href="#posts">관련 글</a><a href="#full">전체 기록</a></nav>
 
   <div class="two" id="story" style="margin-top:28px">
 <div class="card"><h3>문제</h3><p>국내에 실시간 산불 확산 경로를 예측하는 모델이 없음</p></div><div class="card"><h3>역할</h3><p>4인 팀에서 시공간 딥러닝 모델 설계·학습 담당</p></div>  </div>
 
-<section id="did"><h2>한 일</h2><div class="boxed"><ol class="list"><li>대형 산불 4건의 화선·고도·NDVI·풍향·풍속을 ArcGIS로 래스터화</li><li>Conv2D 인코더–LSTM–디코더 U-LSTM 설계 (파라미터 2,736개)</li><li>슬라이딩 윈도우로 학습 배치 151개 구성, 산불 1건은 테스트용으로 제외</li></ol></div></section><section id="result"><h2>결과</h2><div class="boxed"><ul class="list res"><li>학습에 쓰지 않은 강릉 산불에서 정확도 0.90 · F1 0.85</li><li>팀 노트북을 Python 패키지와 테스트로 재구성해 공개</li></ul></div></section>
+<section id="result"><h2>결과</h2><div class="boxed"><ul class="list res"><li>학습에 쓰지 않은 강릉 산불에서 정확도 0.90 · F1 0.85</li><li>팀 노트북을 Python 패키지와 테스트로 재구성해 공개</li></ul></div></section><section id="did"><h2>한 일</h2><div class="boxed"><ol class="list"><li>대형 산불 4건의 화선·고도·NDVI·풍향·풍속을 ArcGIS로 래스터화</li><li>Conv2D 인코더–LSTM–디코더 U-LSTM 설계 (파라미터 2,736개)</li><li>슬라이딩 윈도우로 학습 배치 151개 구성, 산불 1건은 테스트용으로 제외</li></ol></div></section>
 <section id="media"><h2>사진 · 자료</h2><div class="gallery"><a href="../assets/photos/wildfire-capstone/2023_U-LSTM_①_강릉_산불(미학습)_GIS_실제·예측_비교_(t0~t5).jpg" target="_blank" rel="noopener"><img src="../assets/photos/wildfire-capstone/2023_U-LSTM_①_강릉_산불(미학습)_GIS_실제·예측_비교_(t0~t5).jpg" alt="2023 U-LSTM ① 강릉 산불(미학습) GIS 실제·예측 비교 (t0~t5)" loading="lazy">2023 U-LSTM ① 강릉 산불(미학습) GIS 실제·예측 비교 (t0~t5)</a><a href="../assets/photos/wildfire-capstone/2023_U-LSTM_②_미학습_산불_예측_마스크_(위_실제·아래_예측).jpg" target="_blank" rel="noopener"><img src="../assets/photos/wildfire-capstone/2023_U-LSTM_②_미학습_산불_예측_마스크_(위_실제·아래_예측).jpg" alt="2023 U-LSTM ② 미학습 산불 예측 마스크 (위 실제·아래 예측)" loading="lazy">2023 U-LSTM ② 미학습 산불 예측 마스크 (위 실제·아래 예측)</a><a href="../assets/photos/wildfire-capstone/2023_U-LSTM_③_학습_곡선_(정확도·손실).jpg" target="_blank" rel="noopener"><img src="../assets/photos/wildfire-capstone/2023_U-LSTM_③_학습_곡선_(정확도·손실).jpg" alt="2023 U-LSTM ③ 학습 곡선 (정확도·손실)" loading="lazy">2023 U-LSTM ③ 학습 곡선 (정확도·손실)</a></div></section>
 <section id="posts"><h2>관련 글</h2><div class="posts"><a href="../posts/2026-11-small-data-spatiotemporal.html"><span>산불 4건으로 시공간 딥러닝 학습하기<small>2026-11-02</small></span><span>→</span></a></div></section>
   <details class="full" id="full"><summary>전체 기록 · 설계 판단 보기</summary>
