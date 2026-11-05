@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>근거 번호 검증 데모 — 이영주</title>
+<meta name="description" content="LLM에게 &#34;[근거 N]을 붙여 답하라&#34;고 해도 없는 번호를 붙일 때가 있습니다. 국보 입문 가이드(RAG)가 쓰는 규칙 — 근거 번호를 검색 단계에서 고정하고, 답변의 인용을 코드로 파싱해 없는 번호를 지우고, 실제로 인용한 근거만 보여 주는 과정 — 을 브라우저에서 그대로 재현합니다.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="이영주 포트폴리오">
+<meta property="og:title" content="근거 번호 검증 데모 — 이영주">
+<meta property="og:description" content="LLM에게 &#34;[근거 N]을 붙여 답하라&#34;고 해도 없는 번호를 붙일 때가 있습니다. 국보 입문 가이드(RAG)가 쓰는 규칙 — 근거 번호를 검색 단계에서 고정하고, 답변의 인용을 코드로 파싱해 없는 번호를 지우고, 실제로 인용한 근거만 보여 주는 과정 — 을 브라우저에서 그대로 재현합니다.">
+<meta property="og:url" content="https://0ju12.github.io/demo.html">
+<meta property="og:image" content="https://0ju12.github.io/og/ssafy-16.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#18181b">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--text:#18181b;--muted:#5f6670;--faint:#9aa1ab;--line:#e2e5ea;--ink:#1f3a5f;--on-ink:#fff;--ok:#15803d;--ok-bg:#e8f5ec;--bad:#b42318;--bad-bg:#fdecea;--mark:#e8edf5;--mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0e1116;--card:#171b22;--text:#eef1f5;--muted:#a3abb7;--faint:#6f7884;--line:#2a313b;--ink:#9db8dd;--on-ink:#0e1116;--ok:#4ade80;--ok-bg:#14271b;--bad:#f87171;--bad-bg:#2c1414;--mark:#1d2633}}
+:root[data-theme="dark"]{--bg:#0e1116;--card:#171b22;--text:#eef1f5;--muted:#a3abb7;--faint:#6f7884;--line:#2a313b;--ink:#9db8dd;--on-ink:#0e1116;--ok:#4ade80;--ok-bg:#14271b;--bad:#f87171;--bad-bg:#2c1414;--mark:#1d2633}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 "Pretendard Variable",Pretendard,system-ui,sans-serif;word-break:keep-all;overflow-wrap:break-word}
+.w{max-width:980px;margin:0 auto;padding:0 20px}
+.bar{border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--bg) 88%,transparent);position:sticky;top:0;z-index:5;backdrop-filter:blur(10px)}
+.bar .w{display:flex;align-items:center;gap:12px;height:56px;font-size:14px;font-weight:600}
+.bar a{color:inherit;text-decoration:none}.bar a.back{margin-right:auto}
+.bar a.l{color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:13px}
+header{padding:48px 0 18px}
+h1{font-size:clamp(28px,4.4vw,42px);line-height:1.2;letter-spacing:-.035em;margin:0 0 14px;text-wrap:balance}
+.lead{color:var(--muted);font-size:17px;max-width:68ch;margin:0 0 10px}
+.note{font-size:13.5px;color:var(--faint);margin:0}
+.picks{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 8px}
+.picks button{font:inherit;font-size:14px;font-weight:600;border:1px solid var(--line);background:var(--card);color:var(--text);padding:9px 14px;border-radius:12px;cursor:pointer;text-align:left}
+.picks button[aria-pressed="true"]{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.step{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin:14px 0}
+.step h2{display:flex;align-items:center;gap:10px;font-size:15.5px;margin:0 0 12px}
+.step h2 i{flex:none;font-style:normal;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:13px;background:var(--ink);color:var(--on-ink)}
+.ev{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.ev li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:baseline;font-size:14.5px;padding:8px 10px;border-radius:10px;background:var(--bg)}
+.ev li.used{background:var(--ok-bg)}
+.ev b{font-family:var(--mono);font-size:12.5px;color:var(--ink);white-space:nowrap}
+.ev small{display:block;color:var(--faint);font-size:12px}
+textarea{width:100%;min-height:118px;font:15px/1.7 inherit;font-family:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;resize:vertical}
+textarea:focus,button:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+.row{display:flex;justify-content:flex-end;margin-top:8px}
+.row button{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:999px;padding:5px 12px;cursor:pointer}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px 6px;border-top:1px solid var(--line);vertical-align:top}
+th{font-size:12.5px;color:var(--faint);font-weight:600;border-top:0}
+td code{font-family:var(--mono);font-size:13px;background:var(--mark);padding:1px 6px;border-radius:6px}
+.n{display:inline-block;font-family:var(--mono);font-size:12.5px;padding:1px 7px;border-radius:6px;margin:0 3px 3px 0}
+.n.ok{background:var(--ok-bg);color:var(--ok)}.n.bad{background:var(--bad-bg);color:var(--bad);text-decoration:line-through}
+.final{font-size:16px;line-height:1.8}
+.final mark{background:var(--mark);color:var(--ink);font-weight:700;border-radius:5px;padding:0 4px}
+.count{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 6px;font-size:14px}
+.count span{padding:4px 10px;border-radius:999px;background:var(--bg);border:1px solid var(--line)}
+.count b{color:var(--ink)}
+.flag{display:inline-block;font-size:13px;font-weight:700;color:var(--ink);background:var(--mark);border-radius:8px;padding:3px 10px;margin-bottom:10px}
+.empty{color:var(--muted);font-size:14px}
+.limit{font-size:13.5px;color:var(--muted);border-left:3px solid var(--line);padding:2px 0 2px 12px;margin:18px 0 0}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 60px}
+.links a{font-size:14px;font-weight:700;text-decoration:none;padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--text)}
+.links a:first-child{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+@media (max-width:640px){.step{padding:14px}.ev li{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="bar"><div class="w"><a class="back" href="index.html">← 포트폴리오</a><a class="l" href="demo-en.html">EN</a></div></nav>
+<main class="w">
+  <header>
+    <h1>근거 번호 검증 데모</h1>
+    <p class="lead">LLM에게 &#34;[근거 N]을 붙여 답하라&#34;고 해도 없는 번호를 붙일 때가 있습니다. 국보 입문 가이드(RAG)가 쓰는 규칙 — 근거 번호를 검색 단계에서 고정하고, 답변의 인용을 코드로 파싱해 없는 번호를 지우고, 실제로 인용한 근거만 보여 주는 과정 — 을 브라우저에서 그대로 재현합니다.</p>
+    <p class="note">예시 데이터로 동작합니다. 파싱·검사 규칙은 실제 서비스와 같고, 이 페이지는 LLM을 호출하지 않습니다.</p>
+  </header>
+  <div class="picks" role="group" aria-label="예시 질문 고르기"><button type="button" data-i="0" aria-pressed="true">숭례문은 언제 지어졌고, 최근에 어떤 일이 있었나요?</button><button type="button" data-i="1" aria-pressed="false">다보탑은 어느 시대의 탑인가요?</button><button type="button" data-i="2" aria-pressed="false">훈민정음 해례본의 현재 가격은 얼마인가요?</button></div>
+
+  <section class="step"><h2><i>1</i>검색 단계에서 고정한 근거 번호</h2><ul class="ev" id="ev"></ul></section>
+  <section class="step"><h2><i>2</i>LLM 답변 원문 — 직접 고쳐 보면 아래 검사가 바로 다시 돌아갑니다</h2><label class="sr" for="ans" hidden>LLM 답변 원문 — 직접 고쳐 보면 아래 검사가 바로 다시 돌아갑니다</label><textarea id="ans" spellcheck="false"></textarea><div class="row"><button type="button" id="reset">원래 답으로</button></div></section>
+  <section class="step"><h2><i>3</i>코드가 찾은 인용</h2><div id="parse"></div></section>
+  <section class="step"><h2><i>4</i>사용자에게 보여 주는 답</h2><div id="final"></div></section>
+  <p class="limit">코드는 인용한 번호가 실제로 있는지를 검사합니다. 문장이 그 근거로 뒷받침되는지는 답변 생성 규칙과 가짜 LLM 테스트로 따로 다룹니다.</p>
+  <div class="links"><a href="posts/2026-11-rag-citation-verify.html">설계 글 읽기 →</a><a href="https://github.com/0Ju12/heritage-rag-guide" target="_blank" rel="noopener">소스 코드 ↗</a><a href="projects/ssafy-16.html">SSAFY 16 →</a></div>
+</main>
+<script type="application/json" id="sc">[{"a": "\uc22d\ub840\ubb38\uc740 \uc870\uc120 \ud0dc\uc870 7\ub144(1398)\uc5d0 \uc644\uacf5\ub41c \ud55c\uc591 \ub3c4\uc131\uc758 \uc815\ubb38\uc785\ub2c8\ub2e4[\uadfc\uac70 1, 2]. 2008\ub144 \ubc29\ud654\ub85c \ub204\uac01\uc774 \ud06c\uac8c \ud6fc\uc190\ub418\uc5c8\ub2e4\uac00 2013\ub144\uc5d0 \ubcf5\uad6c\ub418\uc5c8\uc2b5\ub2c8\ub2e4[\uadfc\uac70 3, 8]. \ud754\ud788 \ub0a8\ub300\ubb38\uc774\ub77c\uace0\ub3c4 \ubd80\ub985\ub2c8\ub2e4[\uadfc\uac704][\uadfc\uac70 7].", "ev": [{"s": "\uad6d\ubcf4 \uba54\ud0c0\ub370\uc774\ud130", "t": "\uc22d\ub840\ubb38 \u00b7 \uad6d\ubcf4 \u00b7 \uc720\uc801\uac74\uc870\ubb3c \u00b7 \uc870\uc120 \ud0dc\uc870 7\ub144(1398) \u00b7 \uc11c\uc6b8 \uc911\uad6c"}, {"s": "Wikipedia", "t": "\uc22d\ub840\ubb38\uc740 \uc870\uc120\uc758 \uc218\ub3c4 \ud55c\uc591 \ub3c4\uc131\uc758 \uc815\ubb38\uc73c\ub85c, 1398\ub144\uc5d0 \uc644\uacf5\ub418\uc5c8\ub2e4."}, {"s": "Wikipedia", "t": "2008\ub144 2\uc6d4 \ubc29\ud654\ub85c \ub204\uac01\uc774 \ud06c\uac8c \ud6fc\uc190\ub418\uc5c8\uace0, \ubcf5\uad6c\ub97c \uac70\uccd0 2013\ub144 5\uc6d4 \ub2e4\uc2dc \uacf5\uac1c\ub418\uc5c8\ub2e4."}, {"s": "\uad6d\uac00\uc720\uc0b0\uccad \uc124\uba85", "t": "\ud55c\uc591 \ub3c4\uc131\uc758 \ub0a8\ucabd \uc815\ubb38\uc73c\ub85c \ub0a8\ub300\ubb38\uc774\ub77c\uace0\ub3c4 \ubd80\ub978\ub2e4."}, {"s": "Wikipedia", "t": "\ud765\uc778\uc9c0\ubb38\uc740 \ud55c\uc591 \ub3c4\uc131\uc758 \ub3d9\ucabd \uc815\ubb38\uc774\ub2e4."}, {"s": "Wikipedia", "t": "\uc22d\ub840\ubb38\uc758 \ud604\ud310\uc740 \uc138\ub85c\ub85c \uc4f0\uc5ec \uc788\ub2e4."}], "q": "\uc22d\ub840\ubb38\uc740 \uc5b8\uc81c \uc9c0\uc5b4\uc84c\uace0, \ucd5c\uadfc\uc5d0 \uc5b4\ub5a4 \uc77c\uc774 \uc788\uc5c8\ub098\uc694?"}, {"a": "\ub2e4\ubcf4\ud0d1\uc740 \ud1b5\uc77c\uc2e0\ub77c \uc2dc\ub300\uc758 \uc11d\ud0d1\uc785\ub2c8\ub2e4[\uadfc\uac70 1]. 751\ub144 \ubb34\ub835 \ubd88\uad6d\uc0ac\ub97c \uc9c0\uc744 \ub54c \ud568\uaed8 \uc138\uc6b4 \uac83\uc73c\ub85c \ubcf4\uba70[\uadfc\uac70 3\u20139], \uc11d\uac00\ud0d1\uacfc \ub9c8\uc8fc \uc11c \uc788\uc2b5\ub2c8\ub2e4[\uadfc\uac70 2\u30014]. 10\uc6d0 \ub3d9\uc804\uc5d0\ub3c4 \uc0c8\uaca8\uc838 \uc788\uc2b5\ub2c8\ub2e4[\uadfc\uac705].", "ev": [{"s": "\uad6d\ubcf4 \uba54\ud0c0\ub370\uc774\ud130", "t": "\ubd88\uad6d\uc0ac \ub2e4\ubcf4\ud0d1 \u00b7 \uad6d\ubcf4 \u00b7 \uc11d\uc870 \u00b7 \ud1b5\uc77c\uc2e0\ub77c \u00b7 \uacbd\ubd81 \uacbd\uc8fc\uc2dc"}, {"s": "Wikipedia", "t": "\ubd88\uad6d\uc0ac \ub300\uc6c5\uc804 \uc55e\ub9c8\ub2f9\uc5d0 \uc11d\uac00\ud0d1\uacfc \ub3d9\uc11c\ub85c \ub9c8\uc8fc \uc11c \uc788\ub2e4."}, {"s": "Wikipedia", "t": "751\ub144 \ubb34\ub835 \ubd88\uad6d\uc0ac\ub97c \uc9c0\uc744 \ub54c \ud568\uaed8 \uc138\uc6b4 \uac83\uc73c\ub85c \ubcf8\ub2e4."}, {"s": "Wikipedia", "t": "\uc11d\uac00\ud0d1\uc758 \uc815\uc2dd \uc774\ub984\uc740 \ubd88\uad6d\uc0ac \uc0bc\uce35\uc11d\ud0d1\uc774\ub2e4."}, {"s": "Wikipedia", "t": "10\uc6d0 \ub3d9\uc804 \uc55e\uba74\uc5d0 \ub2e4\ubcf4\ud0d1\uc774 \uc0c8\uaca8\uc838 \uc788\ub2e4."}], "q": "\ub2e4\ubcf4\ud0d1\uc740 \uc5b4\ub290 \uc2dc\ub300\uc758 \ud0d1\uc778\uac00\uc694?"}, {"a": "\uc81c\uacf5\ub41c \ubb38\uc11c\uc5d0\uc11c \ud655\uc778\ub418\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4. \ucc38\uace0\ub85c 1997\ub144 \uc720\ub124\uc2a4\ucf54 \uc138\uacc4\uae30\ub85d\uc720\uc0b0\uc5d0 \ub4f1\uc7ac\ub418\uc5c8\uc2b5\ub2c8\ub2e4[\uadfc\uac70 2][\uadfc\uac70 12].", "ev": [{"s": "\uad6d\ubcf4 \uba54\ud0c0\ub370\uc774\ud130", "t": "\ud6c8\ubbfc\uc815\uc74c \u00b7 \uad6d\ubcf4 \u00b7 \uae30\ub85d\uc720\uc0b0 \u00b7 \uc870\uc120 \uc138\uc885 28\ub144(1446) \u00b7 \uc11c\uc6b8 \uc131\ubd81\uad6c"}, {"s": "Wikipedia", "t": "1997\ub144 \uc720\ub124\uc2a4\ucf54 \uc138\uacc4\uae30\ub85d\uc720\uc0b0\uc5d0 \ub4f1\uc7ac\ub418\uc5c8\ub2e4."}, {"s": "Wikipedia", "t": "\uae00\uc790\ub97c \ub9cc\ub4e0 \ubaa9\uc801\uacfc \uc6d0\ub9ac\ub97c \uc124\uba85\ud55c \ud574\ub840\uac00 \ud568\uaed8 \uc2e4\ub824 \uc788\ub2e4."}], "q": "\ud6c8\ubbfc\uc815\uc74c \ud574\ub840\ubcf8\uc758 \ud604\uc7ac \uac00\uaca9\uc740 \uc5bc\ub9c8\uc778\uac00\uc694?"}]</script>
+<script>
+(function(){
+var SC=JSON.parse(document.getElementById('sc').textContent),L={"back": "\ud3ec\ud2b8\ud3f4\ub9ac\uc624", "code": "\uc18c\uc2a4 \ucf54\ub4dc", "drop": "\uc0ad\uc81c \u2014 \uc5c6\ub294 \uadfc\uac70", "ev": "\uadfc\uac70", "found": "\uac80\uc0c9\ub41c \uadfc\uac70", "kept": "\uc720\uc9c0", "lead": "LLM\uc5d0\uac8c \"[\uadfc\uac70 N]\uc744 \ubd99\uc5ec \ub2f5\ud558\ub77c\"\uace0 \ud574\ub3c4 \uc5c6\ub294 \ubc88\ud638\ub97c \ubd99\uc77c \ub54c\uac00 \uc788\uc2b5\ub2c8\ub2e4. \uad6d\ubcf4 \uc785\ubb38 \uac00\uc774\ub4dc(RAG)\uac00 \uc4f0\ub294 \uaddc\uce59 \u2014 \uadfc\uac70 \ubc88\ud638\ub97c \uac80\uc0c9 \ub2e8\uacc4\uc5d0\uc11c \uace0\uc815\ud558\uace0, \ub2f5\ubcc0\uc758 \uc778\uc6a9\uc744 \ucf54\ub4dc\ub85c \ud30c\uc2f1\ud574 \uc5c6\ub294 \ubc88\ud638\ub97c \uc9c0\uc6b0\uace0, \uc2e4\uc81c\ub85c \uc778\uc6a9\ud55c \uadfc\uac70\ub9cc \ubcf4\uc5ec \uc8fc\ub294 \uacfc\uc815 \u2014 \uc744 \ube0c\ub77c\uc6b0\uc800\uc5d0\uc11c \uadf8\ub300\ub85c \uc7ac\ud604\ud569\ub2c8\ub2e4.", "limit": "\ucf54\ub4dc\ub294 \uc778\uc6a9\ud55c \ubc88\ud638\uac00 \uc2e4\uc81c\ub85c \uc788\ub294\uc9c0\ub97c \uac80\uc0ac\ud569\ub2c8\ub2e4. \ubb38\uc7a5\uc774 \uadf8 \uadfc\uac70\ub85c \ub4b7\ubc1b\uce68\ub418\ub294\uc9c0\ub294 \ub2f5\ubcc0 \uc0dd\uc131 \uaddc\uce59\uacfc \uac00\uc9dc LLM \ud14c\uc2a4\ud2b8\ub85c \ub530\ub85c \ub2e4\ub8f9\ub2c8\ub2e4.", "none": "\ub2f5\ubcc0\uc5d0 \uc778\uc6a9\ub41c \uadfc\uac70\uac00 \uc5c6\uc2b5\ub2c8\ub2e4.", "none_found": "[\uadfc\uac70 N] \ud45c\uae30\uac00 \uc5c6\uc2b5\ub2c8\ub2e4.", "note": "\uc608\uc2dc \ub370\uc774\ud130\ub85c \ub3d9\uc791\ud569\ub2c8\ub2e4. \ud30c\uc2f1\u00b7\uac80\uc0ac \uaddc\uce59\uc740 \uc2e4\uc81c \uc11c\ube44\uc2a4\uc640 \uac19\uace0, \uc774 \ud398\uc774\uc9c0\ub294 LLM\uc744 \ud638\ucd9c\ud558\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4.", "pick": "\uc608\uc2dc \uc9c8\ubb38 \uace0\ub974\uae30", "read": "\uc124\uacc4 \uae00 \uc77d\uae30", "refusal": "\ubb38\uc11c\uc5d0 \uc5c6\ub294 \uc9c8\ubb38 \u2192 \uace0\uc815 \ubb38\uc7a5\uc73c\ub85c \ub2f5\ud568", "reset": "\uc6d0\ub798 \ub2f5\uc73c\ub85c", "s1": "\uac80\uc0c9 \ub2e8\uacc4\uc5d0\uc11c \uace0\uc815\ud55c \uadfc\uac70 \ubc88\ud638", "s2": "LLM \ub2f5\ubcc0 \uc6d0\ubb38 \u2014 \uc9c1\uc811 \uace0\uccd0 \ubcf4\uba74 \uc544\ub798 \uac80\uc0ac\uac00 \ubc14\ub85c \ub2e4\uc2dc \ub3cc\uc544\uac11\ub2c8\ub2e4", "s3": "\ucf54\ub4dc\uac00 \ucc3e\uc740 \uc778\uc6a9", "s4": "\uc0ac\uc6a9\uc790\uc5d0\uac8c \ubcf4\uc5ec \uc8fc\ub294 \ub2f5", "title": "\uadfc\uac70 \ubc88\ud638 \uac80\uc99d \ub370\ubaa8", "used": "\ub2f5\ubcc0\uc5d0 \uc0ac\uc6a9\ud55c \uadfc\uac70"},EN=false;
+var WORD=EN?'Evidence':'근거',REFUSAL=EN?'not confirmed in the provided documents':'제공된 문서에서 확인되지 않습니다';
+// 실제 서비스와 같은 규칙: [근거 …] 묶음을 찾고, 2,4 / 2·4 / 2、4 는 나열, 3~5 / 3-5 / 3–5 는 범위(최대 20개)
+var RE=new RegExp('\\['+WORD+'\\s*([0-9][0-9\\s,·、~\\-–]*)\\]','g');
+function nums(body){var out=[];body.split(/[,·、]/).forEach(function(part){part=part.trim();if(!part)return;var m=part.match(/^(\d+)\s*[~\-–]\s*(\d+)$/);
+  if(m){var a=+m[1],b=+m[2];if(b<a){var t=a;a=b;b=t}for(var k=a;k<=b&&k<a+20;k++)out.push(k)}else if(/^\d+$/.test(part))out.push(+part)});return out}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+var cur=0,ta=document.getElementById('ans');
+function run(){var s=SC[cur],n=s.ev.length,text=ta.value,rows=[],used={};
+  var final=text.replace(RE,function(all,body){var got=nums(body),keep=[],drop=[];got.forEach(function(k){if(k>=1&&k<=n){if(keep.indexOf(k)<0)keep.push(k)}else drop.push(k)});
+    keep.forEach(function(k){used[k]=1});rows.push({raw:all,got:got,keep:keep,drop:drop});
+    return keep.length?'\u0000'+WORD+' '+keep.join(', ')+'\u0001':''});
+  var P=document.getElementById('parse');
+  P.innerHTML=rows.length?'<table><thead><tr><th>'+(EN?'Found in answer':'답변 속 표기')+'</th><th>'+(EN?'Numbers':'풀어낸 번호')+'</th></tr></thead><tbody>'+rows.map(function(r){
+      return '<tr><td><code>'+esc(r.raw)+'</code></td><td>'+r.keep.map(function(k){return '<span class="n ok" title="'+L.kept+'">'+k+'</span>'}).join('')+r.drop.map(function(k){return '<span class="n bad" title="'+L.drop+'">'+k+'</span>'}).join('')+'</td></tr>'}).join('')+'</tbody></table>'
+    :'<p class="empty">'+L.none_found+'</p>';
+  var ids=Object.keys(used).map(Number).sort(function(a,b){return a-b});
+  document.querySelectorAll('#ev li').forEach(function(li,i){li.classList.toggle('used',!!used[i+1])});
+  var html=esc(final.replace(/\s+([.,])/g,'$1')).replace(/\u0000([^\u0001]*)\u0001/g,'<mark>[$1]</mark>');
+  var F=document.getElementById('final');
+  F.innerHTML=(text.indexOf(REFUSAL)>=0?'<span class="flag">'+L.refusal+'</span>':'')+'<div class="final">'+html+'</div>'
+    +'<div class="count"><span><b>'+ids.length+'</b> '+L.used+'</span><span><b>'+n+'</b> '+L.found+'</span></div>'
+    +(ids.length?'<ul class="ev">'+ids.map(function(k){var e=s.ev[k-1];return '<li class="used"><b>['+WORD+' '+k+']</b><span>'+esc(e.t)+'<small>'+esc(e.s)+'</small></span></li>'}).join('')+'</ul>':'<p class="empty">'+L.none+'</p>');
+}
+function load(i){cur=i;var s=SC[i];
+  document.querySelectorAll('.picks button').forEach(function(b){b.setAttribute('aria-pressed',+b.dataset.i===i)});
+  document.getElementById('ev').innerHTML=s.ev.map(function(e,k){return '<li><b>['+WORD+' '+(k+1)+']</b><span>'+esc(e.t)+'<small>'+esc(e.s)+'</small></span></li>'}).join('');
+  ta.value=s.a;run()}
+document.querySelectorAll('.picks button').forEach(function(b){b.addEventListener('click',function(){load(+b.dataset.i)})});
+ta.addEventListener('input',run);document.getElementById('reset').addEventListener('click',function(){load(cur)});
+load(0);
+})();
+</script>
+</body>
+</html>

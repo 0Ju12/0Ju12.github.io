@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Citation check demo — Young-Ju Lee</title>
+<meta name="description" content="The LLM is told to cite evidence as [Evidence N], yet it sometimes cites numbers that do not exist. This page replays, in your browser, the rule my Heritage RAG guide uses: fix the numbers at retrieval, parse every citation in the answer, drop the ones that do not exist, and show only the evidence the answer actually used.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Young-Ju Lee — Portfolio">
+<meta property="og:title" content="Citation check demo — Young-Ju Lee">
+<meta property="og:description" content="The LLM is told to cite evidence as [Evidence N], yet it sometimes cites numbers that do not exist. This page replays, in your browser, the rule my Heritage RAG guide uses: fix the numbers at retrieval, parse every citation in the answer, drop the ones that do not exist, and show only the evidence the answer actually used.">
+<meta property="og:url" content="https://0ju12.github.io/demo-en.html">
+<meta property="og:image" content="https://0ju12.github.io/og/ssafy-16-en.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#18181b">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--text:#18181b;--muted:#5f6670;--faint:#9aa1ab;--line:#e2e5ea;--ink:#1f3a5f;--on-ink:#fff;--ok:#15803d;--ok-bg:#e8f5ec;--bad:#b42318;--bad-bg:#fdecea;--mark:#e8edf5;--mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0e1116;--card:#171b22;--text:#eef1f5;--muted:#a3abb7;--faint:#6f7884;--line:#2a313b;--ink:#9db8dd;--on-ink:#0e1116;--ok:#4ade80;--ok-bg:#14271b;--bad:#f87171;--bad-bg:#2c1414;--mark:#1d2633}}
+:root[data-theme="dark"]{--bg:#0e1116;--card:#171b22;--text:#eef1f5;--muted:#a3abb7;--faint:#6f7884;--line:#2a313b;--ink:#9db8dd;--on-ink:#0e1116;--ok:#4ade80;--ok-bg:#14271b;--bad:#f87171;--bad-bg:#2c1414;--mark:#1d2633}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 "Pretendard Variable",Pretendard,system-ui,sans-serif;word-break:keep-all;overflow-wrap:break-word}
+.w{max-width:980px;margin:0 auto;padding:0 20px}
+.bar{border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--bg) 88%,transparent);position:sticky;top:0;z-index:5;backdrop-filter:blur(10px)}
+.bar .w{display:flex;align-items:center;gap:12px;height:56px;font-size:14px;font-weight:600}
+.bar a{color:inherit;text-decoration:none}.bar a.back{margin-right:auto}
+.bar a.l{color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:13px}
+header{padding:48px 0 18px}
+h1{font-size:clamp(28px,4.4vw,42px);line-height:1.2;letter-spacing:-.035em;margin:0 0 14px;text-wrap:balance}
+.lead{color:var(--muted);font-size:17px;max-width:68ch;margin:0 0 10px}
+.note{font-size:13.5px;color:var(--faint);margin:0}
+.picks{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 8px}
+.picks button{font:inherit;font-size:14px;font-weight:600;border:1px solid var(--line);background:var(--card);color:var(--text);padding:9px 14px;border-radius:12px;cursor:pointer;text-align:left}
+.picks button[aria-pressed="true"]{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.step{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin:14px 0}
+.step h2{display:flex;align-items:center;gap:10px;font-size:15.5px;margin:0 0 12px}
+.step h2 i{flex:none;font-style:normal;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:13px;background:var(--ink);color:var(--on-ink)}
+.ev{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.ev li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:baseline;font-size:14.5px;padding:8px 10px;border-radius:10px;background:var(--bg)}
+.ev li.used{background:var(--ok-bg)}
+.ev b{font-family:var(--mono);font-size:12.5px;color:var(--ink);white-space:nowrap}
+.ev small{display:block;color:var(--faint);font-size:12px}
+textarea{width:100%;min-height:118px;font:15px/1.7 inherit;font-family:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;resize:vertical}
+textarea:focus,button:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+.row{display:flex;justify-content:flex-end;margin-top:8px}
+.row button{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:999px;padding:5px 12px;cursor:pointer}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px 6px;border-top:1px solid var(--line);vertical-align:top}
+th{font-size:12.5px;color:var(--faint);font-weight:600;border-top:0}
+td code{font-family:var(--mono);font-size:13px;background:var(--mark);padding:1px 6px;border-radius:6px}
+.n{display:inline-block;font-family:var(--mono);font-size:12.5px;padding:1px 7px;border-radius:6px;margin:0 3px 3px 0}
+.n.ok{background:var(--ok-bg);color:var(--ok)}.n.bad{background:var(--bad-bg);color:var(--bad);text-decoration:line-through}
+.final{font-size:16px;line-height:1.8}
+.final mark{background:var(--mark);color:var(--ink);font-weight:700;border-radius:5px;padding:0 4px}
+.count{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 6px;font-size:14px}
+.count span{padding:4px 10px;border-radius:999px;background:var(--bg);border:1px solid var(--line)}
+.count b{color:var(--ink)}
+.flag{display:inline-block;font-size:13px;font-weight:700;color:var(--ink);background:var(--mark);border-radius:8px;padding:3px 10px;margin-bottom:10px}
+.empty{color:var(--muted);font-size:14px}
+.limit{font-size:13.5px;color:var(--muted);border-left:3px solid var(--line);padding:2px 0 2px 12px;margin:18px 0 0}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 60px}
+.links a{font-size:14px;font-weight:700;text-decoration:none;padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--text)}
+.links a:first-child{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+@media (max-width:640px){.step{padding:14px}.ev li{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="bar"><div class="w"><a class="back" href="en.html">← Portfolio</a><a class="l" href="demo.html">KO</a></div></nav>
+<main class="w">
+  <header>
+    <h1>Citation check demo</h1>
+    <p class="lead">The LLM is told to cite evidence as [Evidence N], yet it sometimes cites numbers that do not exist. This page replays, in your browser, the rule my Heritage RAG guide uses: fix the numbers at retrieval, parse every citation in the answer, drop the ones that do not exist, and show only the evidence the answer actually used.</p>
+    <p class="note">Example data. The parsing and filtering code is the same rule as the real service; no LLM is called here.</p>
+  </header>
+  <div class="picks" role="group" aria-label="Pick a question"><button type="button" data-i="0" aria-pressed="true">When was Sungnyemun built, and what happened to it recently?</button><button type="button" data-i="1" aria-pressed="false">Which period is the Dabotap pagoda from?</button><button type="button" data-i="2" aria-pressed="false">How much is the Hunminjeongeum Haerye edition worth today?</button></div>
+
+  <section class="step"><h2><i>1</i>Evidence numbers fixed at retrieval</h2><ul class="ev" id="ev"></ul></section>
+  <section class="step"><h2><i>2</i>Raw LLM answer — edit it and watch the check rerun</h2><label class="sr" for="ans" hidden>Raw LLM answer — edit it and watch the check rerun</label><textarea id="ans" spellcheck="false"></textarea><div class="row"><button type="button" id="reset">Reset answer</button></div></section>
+  <section class="step"><h2><i>3</i>Citations parsed by code</h2><div id="parse"></div></section>
+  <section class="step"><h2><i>4</i>Answer shown to the user</h2><div id="final"></div></section>
+  <p class="limit">The code checks that a cited number exists. Whether the sentence is supported by that evidence is handled by the answer rules and by tests with a fake LLM.</p>
+  <div class="links"><a href="https://github.com/0Ju12/heritage-rag-guide" target="_blank" rel="noopener">Source code ↗</a><a href="projects/ssafy-16-en.html">SSAFY 16 →</a></div>
+</main>
+<script type="application/json" id="sc">[{"a": "Sungnyemun is the main gate of Hanyang, completed in 1398 [Evidence 1, 2]. Its pavilion was damaged by arson in 2008 and restored in 2013 [Evidence 3, 8]. It is also called Namdaemun [Evidence4][Evidence 7].", "ev": [{"s": "Heritage metadata", "t": "Sungnyemun \u00b7 National Treasure \u00b7 architecture \u00b7 7th year of King Taejo of Joseon (1398) \u00b7 Jung-gu, Seoul"}, {"s": "Wikipedia", "t": "Sungnyemun was the main gate of Hanyang, the Joseon capital, completed in 1398."}, {"s": "Wikipedia", "t": "Its pavilion was badly damaged by arson in February 2008 and reopened in May 2013 after restoration."}, {"s": "Heritage Service description", "t": "The south gate of the city wall, also called Namdaemun."}, {"s": "Wikipedia", "t": "Heunginjimun is the east gate of the city wall."}, {"s": "Wikipedia", "t": "The name plaque of Sungnyemun is written vertically."}], "q": "When was Sungnyemun built, and what happened to it recently?"}, {"a": "Dabotap is a stone pagoda from Unified Silla [Evidence 1]. It is thought to date from around 751 [Evidence 3\u20139] and faces Seokgatap [Evidence 2\u30014]. It is on the 10-won coin [Evidence5].", "ev": [{"s": "Heritage metadata", "t": "Dabotap Pagoda of Bulguksa \u00b7 National Treasure \u00b7 stone \u00b7 Unified Silla \u00b7 Gyeongju"}, {"s": "Wikipedia", "t": "It stands in front of the main hall of Bulguksa, facing Seokgatap to the east and west."}, {"s": "Wikipedia", "t": "It is thought to have been built around 751, when Bulguksa was built."}, {"s": "Wikipedia", "t": "The official name of Seokgatap is the Three-story Stone Pagoda of Bulguksa."}, {"s": "Wikipedia", "t": "Dabotap appears on the front of the Korean 10-won coin."}], "q": "Which period is the Dabotap pagoda from?"}, {"a": "This is not confirmed in the provided documents. For reference, it was inscribed on the UNESCO Memory of the World Register in 1997 [Evidence 2][Evidence 12].", "ev": [{"s": "Heritage metadata", "t": "Hunminjeongeum \u00b7 National Treasure \u00b7 documentary heritage \u00b7 28th year of King Sejong (1446) \u00b7 Seongbuk-gu, Seoul"}, {"s": "Wikipedia", "t": "Inscribed on the UNESCO Memory of the World Register in 1997."}, {"s": "Wikipedia", "t": "It includes the Haerye, which explains why and how the script was made."}], "q": "How much is the Hunminjeongeum Haerye edition worth today?"}]</script>
+<script>
+(function(){
+var SC=JSON.parse(document.getElementById('sc').textContent),L={"back": "Portfolio", "code": "Source code", "drop": "removed \u2014 no such evidence", "ev": "Evidence", "found": "evidence retrieved", "kept": "kept", "lead": "The LLM is told to cite evidence as [Evidence N], yet it sometimes cites numbers that do not exist. This page replays, in your browser, the rule my Heritage RAG guide uses: fix the numbers at retrieval, parse every citation in the answer, drop the ones that do not exist, and show only the evidence the answer actually used.", "limit": "The code checks that a cited number exists. Whether the sentence is supported by that evidence is handled by the answer rules and by tests with a fake LLM.", "none": "No evidence was cited in this answer.", "none_found": "No [Evidence N] tags found.", "note": "Example data. The parsing and filtering code is the same rule as the real service; no LLM is called here.", "pick": "Pick a question", "read": "Read how it was built", "refusal": "Fixed \u201cnot in the documents\u201d sentence detected", "reset": "Reset answer", "s1": "Evidence numbers fixed at retrieval", "s2": "Raw LLM answer \u2014 edit it and watch the check rerun", "s3": "Citations parsed by code", "s4": "Answer shown to the user", "title": "Citation check demo", "used": "evidence used in the answer"},EN=true;
+var WORD=EN?'Evidence':'근거',REFUSAL=EN?'not confirmed in the provided documents':'제공된 문서에서 확인되지 않습니다';
+// 실제 서비스와 같은 규칙: [근거 …] 묶음을 찾고, 2,4 / 2·4 / 2、4 는 나열, 3~5 / 3-5 / 3–5 는 범위(최대 20개)
+var RE=new RegExp('\\['+WORD+'\\s*([0-9][0-9\\s,·、~\\-–]*)\\]','g');
+function nums(body){var out=[];body.split(/[,·、]/).forEach(function(part){part=part.trim();if(!part)return;var m=part.match(/^(\d+)\s*[~\-–]\s*(\d+)$/);
+  if(m){var a=+m[1],b=+m[2];if(b<a){var t=a;a=b;b=t}for(var k=a;k<=b&&k<a+20;k++)out.push(k)}else if(/^\d+$/.test(part))out.push(+part)});return out}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+var cur=0,ta=document.getElementById('ans');
+function run(){var s=SC[cur],n=s.ev.length,text=ta.value,rows=[],used={};
+  var final=text.replace(RE,function(all,body){var got=nums(body),keep=[],drop=[];got.forEach(function(k){if(k>=1&&k<=n){if(keep.indexOf(k)<0)keep.push(k)}else drop.push(k)});
+    keep.forEach(function(k){used[k]=1});rows.push({raw:all,got:got,keep:keep,drop:drop});
+    return keep.length?'\u0000'+WORD+' '+keep.join(', ')+'\u0001':''});
+  var P=document.getElementById('parse');
+  P.innerHTML=rows.length?'<table><thead><tr><th>'+(EN?'Found in answer':'답변 속 표기')+'</th><th>'+(EN?'Numbers':'풀어낸 번호')+'</th></tr></thead><tbody>'+rows.map(function(r){
+      return '<tr><td><code>'+esc(r.raw)+'</code></td><td>'+r.keep.map(function(k){return '<span class="n ok" title="'+L.kept+'">'+k+'</span>'}).join('')+r.drop.map(function(k){return '<span class="n bad" title="'+L.drop+'">'+k+'</span>'}).join('')+'</td></tr>'}).join('')+'</tbody></table>'
+    :'<p class="empty">'+L.none_found+'</p>';
+  var ids=Object.keys(used).map(Number).sort(function(a,b){return a-b});
+  document.querySelectorAll('#ev li').forEach(function(li,i){li.classList.toggle('used',!!used[i+1])});
+  var html=esc(final.replace(/\s+([.,])/g,'$1')).replace(/\u0000([^\u0001]*)\u0001/g,'<mark>[$1]</mark>');
+  var F=document.getElementById('final');
+  F.innerHTML=(text.indexOf(REFUSAL)>=0?'<span class="flag">'+L.refusal+'</span>':'')+'<div class="final">'+html+'</div>'
+    +'<div class="count"><span><b>'+ids.length+'</b> '+L.used+'</span><span><b>'+n+'</b> '+L.found+'</span></div>'
+    +(ids.length?'<ul class="ev">'+ids.map(function(k){var e=s.ev[k-1];return '<li class="used"><b>['+WORD+' '+k+']</b><span>'+esc(e.t)+'<small>'+esc(e.s)+'</small></span></li>'}).join('')+'</ul>':'<p class="empty">'+L.none+'</p>');
+}
+function load(i){cur=i;var s=SC[i];
+  document.querySelectorAll('.picks button').forEach(function(b){b.setAttribute('aria-pressed',+b.dataset.i===i)});
+  document.getElementById('ev').innerHTML=s.ev.map(function(e,k){return '<li><b>['+WORD+' '+(k+1)+']</b><span>'+esc(e.t)+'<small>'+esc(e.s)+'</small></span></li>'}).join('');
+  ta.value=s.a;run()}
+document.querySelectorAll('.picks button').forEach(function(b){b.addEventListener('click',function(){load(+b.dataset.i)})});
+ta.addEventListener('input',run);document.getElementById('reset').addEventListener('click',function(){load(cur)});
+load(0);
+})();
+</script>
+</body>
+</html>

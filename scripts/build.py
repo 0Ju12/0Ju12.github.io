@@ -341,8 +341,7 @@ def sitemap(data):
         for sp in g.get("projects") or []:
             urls += [f"projects/{sp['id']}.html", f"projects/{sp['id']}-en.html"]
     urls += [f"posts/{w['slug']}.html" for w in data.get("posts") or []]
-    if (DOCS / "demo.html").exists():
-        urls.append("demo.html")
+    urls += [d for d in ("demo.html", "demo-en.html") if (DOCS / d).exists()]
     xml = "\n".join(f"  <url><loc>{base}{u}</loc></url>" for u in urls)
     (DOCS / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{xml}\n</urlset>\n', encoding="utf-8")
     (DOCS / "robots.txt").write_text(f"User-agent: *\nDisallow: /cv.html\nDisallow: /cv/\nDisallow: /study/\nDisallow: /private/\nSitemap: {base}sitemap.xml\n", encoding="utf-8")
@@ -405,6 +404,7 @@ def main():
     (DOCS / "projects").mkdir(exist_ok=True)
     for name, html in project_pages(env, data).items():
         (DOCS / "projects" / name).write_text(html, encoding="utf-8")
+    (DOCS / "demo.html").write_text(env.get_template("demo.html.j2").render(en=False, **data), encoding="utf-8")
     (DOCS / "resume.html").write_text(env.get_template("resume.html.j2").render(**data), encoding="utf-8")
     (DOCS / "resume-1page.html").write_text(env.get_template("resume-1page.html.j2").render(**data), encoding="utf-8")
     # 직무별 1쪽 이력서: data/resume_variants.yaml → docs/resume-<key>.html (사실은 portfolio.yaml 것만 재배치)

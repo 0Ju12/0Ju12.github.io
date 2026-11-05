@@ -76,7 +76,14 @@ a{color:inherit;text-decoration:none}
 .top .me .avatar{width:22px;height:22px;border-radius:50%;object-fit:cover;font-size:9px}
 
 /* 히어로 */
-.hero{position:relative;padding:136px 0 72px}
+.hero{position:relative;padding:136px 0 72px;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:48px;align-items:end}
+.try{display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:20px;background:var(--card);border:1px solid var(--line);text-decoration:none;color:var(--text);transition:border-color .2s,transform .2s}
+.try:hover{border-color:var(--text);transform:translateY(-2px)}
+.try .tl{font-size:12.5px;font-weight:700;color:var(--muted)}
+.try b{font-size:17px;line-height:1.45;letter-spacing:-.02em}
+.try code{display:block;font:13px/1.6 ui-monospace,Menlo,Consolas,monospace;background:var(--bg);border-radius:10px;padding:10px 12px;color:var(--text)}
+.try s{color:#c2410c}
+.try .tx{font-size:13.5px;color:var(--muted)}
 .hero-in{max-width:900px}
 .who{display:flex;align-items:center;gap:14px;margin:0 0 30px}
 .who span{display:flex;flex-direction:column;font-size:14.5px;color:var(--muted);line-height:1.45}
@@ -238,7 +245,7 @@ button.ev{font:inherit;cursor:pointer;border:0;transition:background .15s,color 
 #evl li.none{padding:12px 14px;color:var(--muted);font-size:14px}
 @media (max-width:960px){
   .top{font-size:13px;top:12px}.top a.n{display:none}
-  .hero{padding:104px 0 48px}
+  .hero{padding:104px 0 48px;grid-template-columns:1fr;gap:28px}
   .sec-t{flex-direction:column;align-items:flex-start}.sec-t p{text-align:left}
   .card{grid-template-columns:1fr;gap:22px;padding:22px;border-radius:26px;position:relative;top:auto!important;transform:none!important;filter:none!important;margin-bottom:20px}
   .panel .shot img{height:190px}
@@ -264,6 +271,12 @@ button.ev{font:inherit;cursor:pointer;border:0;transition:background .15s,color 
       {% set av = profile.availability or {} %}
       <div class="avail">{% if av.role %}<span><b>{{ T.want }}</b>{{ av.role }}</span>{% endif %}{% if av.location %}<span><b>{{ T.loc }}</b>{{ av.location }}</span>{% endif %}{% if av.start %}<span><b>{{ T.start }}</b>{{ av.start }}</span>{% endif %}</div>
     </div>
+    <a class="try" href="demo{{ '-en' if en else '' }}.html">
+      <span class="tl">{{ 'Try it' if en else '직접 해 보기' }}</span>
+      <b>{{ 'Does the LLM cite evidence that exists?' if en else 'LLM이 붙인 [근거 N], 정말 있는 근거일까?' }}</b>
+      <span class="demo"><code>{{ '…restored in 2013 [Evidence 3, ' if en else '…2013년에 복구되었습니다[근거 3, ' }}<s>8</s>]</code></span>
+      <span class="tx">{{ 'Replay the citation check from my RAG guide in your browser →' if en else '국보 RAG 가이드의 인용 검사를 브라우저에서 재현해 보세요 →' }}</span>
+    </a>
   </header>
 
   <section id="work">

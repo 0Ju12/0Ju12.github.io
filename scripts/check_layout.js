@@ -3,7 +3,7 @@
 const { chromium } = require('playwright');
 const fs = require('fs'), path = require('path');
 const docs = path.resolve(__dirname, '..', 'docs');
-const list = ['index.html', 'en.html', 'study/index.html']
+const list = ['index.html', 'en.html', 'demo.html', 'demo-en.html', 'study/index.html']
   .concat(fs.readdirSync(path.join(docs, 'projects')).filter(f => f.endsWith('.html')).map(f => 'projects/' + f))
   .concat(fs.readdirSync(path.join(docs, 'posts')).filter(f => f.endsWith('.html')).map(f => 'posts/' + f));
 (async () => {
