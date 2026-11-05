@@ -1,9 +1,3 @@
-ghasha:
-  wiki_title: Ghasha va Shiryul
-  wiki_url: https://en.wikipedia.org/wiki/Ghasha_va_Shiryul
-  extract: Ghasha va Shiryul is a village in Chenaneh Rural District, Fath Olmobin
-    District, Shush County, Khuzestan Province, Iran. At the 2006 census, its population
-    was 469, in 76 families. The Karkheh River flows to the east.
 forge:
   wiki_title: Frontier Observatory for Research in Geothermal Energy
   wiki_url: https://en.wikipedia.org/wiki/Frontier_Observatory_for_Research_in_Geothermal_Energy
@@ -19,19 +13,6 @@ weyburn:
     storage project. It has however been overtaken in terms of carbon capture capacity
     by projects such as the Shute Creek project and the Century Plant. It is located
     in Midale, Saskatchewan, Canada.
-northernlights:
-  wiki_title: Carbon capture and storage
-  wiki_url: https://en.wikipedia.org/wiki/Carbon_capture_and_storage
-  extract: Carbon capture and storage (CCS) is a process by which carbon dioxide (CO2)
-    from industrial installations or natural sources is separated before it is released
-    into the atmosphere, then transported to a long-term storage location. The CO2
-    is captured from a large point source, such as a natural gas processing plant
-    and is typically stored in a deep geological formation. Around 80% of the CO2
-    captured annually is used for enhanced oil recovery (EOR), a process by which
-    CO2 is injected into partially depleted oil reservoirs in order to extract more
-    oil and then is largely left underground. Since EOR utilizes the CO2 in addition
-    to storing it, CCS is also known as carbon capture, utilization, and storage (CCUS).
-  image_skipped: https://upload.wikimedia.org/wikipedia/commons/5/5e/CBO-how-carbon-capture-works.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled
 sleipner:
   wiki_title: Sleipner gas field
   wiki_url: https://en.wikipedia.org/wiki/Sleipner_gas_field
@@ -42,23 +23,11 @@ sleipner:
     2,500 metres (8,200 ft) below sea level. It is operated by Equinor. The field
     is named after the eight-legged steed Sleipnir of Odin, a widely revered god in
     Norse mythology.
-  image_skipped: https://upload.wikimedia.org/wikipedia/commons/5/5e/Sleipner_oil_field.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled
-porthos:
-  wiki_title: Carbon Connect Delta Program
-  wiki_url: https://en.wikipedia.org/wiki/Carbon_Connect_Delta_Program
-  extract: The Carbon Connect Delta Program is a proposed carbon sequestration program
-    to aid Belgium and the Netherlands in achieving carbon neutrality by 2030. It
-    aims to capture, transport, and store 6.5 million tones of CO2 by 2030 using carbon
-    capture and storage (CCS) in the transboundary area of the North Sea Port area
-    of the Scheldt-Delta region connecting Belgium and the Netherlands.
-uthmaniyah:
-  wiki_title: Osman I
-  wiki_url: https://en.wikipedia.org/wiki/Osman_I
-  extract: Osman I or Osman Ghazi was the eponymous founder of the Ottoman Empire.
-    While initially a small Turkoman principality during Osman's lifetime, his beylik
-    transformed into a vast empire in the centuries after his death. It existed until
-    1922, shortly after the end of World War I, when the sultanate was abolished.
-  image_skipped: https://upload.wikimedia.org/wikipedia/commons/4/4a/I_Osman.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled
+qatar:
+  wiki_title: Ras Laffan Industrial City
+  wiki_url: https://en.wikipedia.org/wiki/Ras_Laffan_Industrial_City
+  extract: Ras Laffan Industrial City is a Qatari industrial hub located 80 kilometres
+    (50 mi) north of Doha. It is administered by QatarEnergy.
 gorgon:
   wiki_title: Gorgon gas project
   wiki_url: https://en.wikipedia.org/wiki/Gorgon_gas_project
@@ -67,7 +36,6 @@ gorgon:
     gas-gathering infrastructure, and a liquefied natural gas (LNG) plant on Barrow
     Island. The project also includes a domestic gas component. Construction was completed
     in 2017. It is Australia's most expensive ever resources development.
-  image_skipped: https://upload.wikimedia.org/wikipedia/commons/4/4d/Gorgon_Barrow_Island.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled
 moomba:
   wiki_title: Moomba, South Australia
   wiki_url: https://en.wikipedia.org/wiki/Moomba%2C_South_Australia
@@ -76,31 +44,6 @@ moomba:
     (480 mi) north of the state capital of Adelaide. It is operated by Santos Limited
     for the purpose of exploration and processing of natural gas found in and recovered
     from the Cooper and Eromanga Basins.
-carbonnet:
-  wiki_title: Net-zero emissions
-  wiki_url: https://en.wikipedia.org/wiki/Net-zero_emissions
-  extract: Global net-zero emissions are reached when greenhouse gas emissions and
-    removals due to human activities are in balance. Net-zero emissions is often shortened
-    to net zero. Once global net zero is achieved, further global warming is expected
-    to significantly slow down, but the effects of existing atmospheric greenhouse
-    gases will still contribute to continued warming.
-  image_skipped: https://thumb.wikimedia.org/wikipedia/commons/thumb/1/13/Global_CO2_Pathways_Using_Remaining_Carbon_Budgets.svg/960px-Global_CO2_Pathways_Using_Remaining_Carbon_Budgets.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail
-uljin:
-  wiki_title: 2022년 울진-삼척 산불
-  wiki_url: https://ko.wikipedia.org/wiki/2022%EB%85%84_%EC%9A%B8%EC%A7%84-%EC%82%BC%EC%B2%99_%EC%82%B0%EB%B6%88
-  extract: 2022년 울진-삼척 산불은 2022년 3월 4일부터 3월 13일까지 발생한 방화로 인한 대형 산불이다.
-gunwi:
-  wiki_title: 2025년 대구 북구 산불
-  wiki_url: https://ko.wikipedia.org/wiki/2025%EB%85%84_%EB%8C%80%EA%B5%AC_%EB%B6%81%EA%B5%AC_%EC%82%B0%EB%B6%88
-  extract: 2025년 대구 북구 산불은 2025년 4월 28일 오후 2시 1분 대한민국 대구광역시 북구 노곡동 함지산에서 발생한 산불이다.
-miryang:
-  wiki_title: 문재인 정부
-  wiki_url: https://ko.wikipedia.org/wiki/%EB%AC%B8%EC%9E%AC%EC%9D%B8_%EC%A0%95%EB%B6%80
-  extract: 문재인 정부(文在寅政府, 2017년~2022년)는 대한민국 제6공화국의 일곱 번째 대한민국 정부이다. 임기는 2017년 5월 10일부터
-    2022년 5월 9일까지였다. 박근혜 대통령 탄핵 인용 후, 2017년 5월 9일에 치러진 대한민국 제19대 대통령 선거에서 문재인이 제19대
-    대통령으로 당선되면서 이전 정부들과 달리 대한민국 대통령직인수위원회 설치 없이 선거 결과 확정 직후인 5월 10일에 출범했다. 문재인 정부는
-    2022년 5월 9일 자정에 맞춰 임기가 만료되었다.
-  image_skipped: https://upload.wikimedia.org/wikipedia/commons/0/0d/President_Moon_Jae_In.jpg?utm_source=ko.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled
 gangneung:
   wiki_title: 2023년 강릉 산불
   wiki_url: https://ko.wikipedia.org/wiki/2023%EB%85%84_%EA%B0%95%EB%A6%89_%EC%82%B0%EB%B6%88
