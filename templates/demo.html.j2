@@ -115,7 +115,7 @@ td code{font-family:var(--mono);font-size:13px;background:var(--mark);padding:1p
   <section class="step"><h2><i>3</i>{{ T.s3 }}</h2><div id="parse"></div></section>
   <section class="step"><h2><i>4</i>{{ T.s4 }}</h2><div id="final"></div></section>
   <p class="limit">{{ T.limit }}</p>
-  <div class="links">{% for w in posts if w.slug and 'rag-citation' in w.slug %}<a href="posts/{{ w.slug }}.html">{{ T.read }} →</a>{% endfor %}<a href="https://github.com/0Ju12/heritage-rag-guide" target="_blank" rel="noopener">{{ T.code }} ↗</a><a href="projects/ssafy-16{{ '-en' if en else '' }}.html">SSAFY 16 →</a></div>
+  <div class="links">{% if en %}<a href="posts/2026-11-rag-citation-verify.html" hreflang="ko">How it was built (article in Korean) →</a>{% else %}{% for w in posts if w.slug and 'rag-citation' in w.slug %}<a href="posts/{{ w.slug }}.html">{{ T.read }} →</a>{% endfor %}{% endif %}<a href="https://github.com/0Ju12/heritage-rag-guide" target="_blank" rel="noopener">{{ T.code }} ↗</a><a href="projects/ssafy-16{{ '-en' if en else '' }}.html">SSAFY 16 →</a></div>
 </main>
 <script type="application/json" id="sc">{{ SC|tojson }}</script>
 <script>

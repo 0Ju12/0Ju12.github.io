@@ -91,4 +91,6 @@ DESIGNS = [
 
 
 if __name__ == "__main__":
-    print("✔", ", ".join(render(sys.argv[1:] or None)))
+    # 기본: 기존 디자인 백업(stack-classic)만 공개. 시안 전체 비교가 필요하면 --all (비교 후에는 지울 것)
+    args = sys.argv[1:]
+    print("✔", ", ".join(render(None if "--all" in args else (args or ["stack-classic"]))))

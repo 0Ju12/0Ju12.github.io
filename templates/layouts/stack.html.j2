@@ -148,6 +148,7 @@ section{scroll-margin-top:80px}
 .panel .pb{padding:16px 20px 18px}
 .panel h4{margin:0 0 4px;font-size:17px;line-height:1.4;letter-spacing:-.02em}
 .panel .meta{font-size:12.5px;color:var(--faint);margin-bottom:10px}
+.panel .sum .why{display:inline-block;font-size:11.5px;font-weight:800;color:var(--c);background:color-mix(in srgb,var(--c) 12%,transparent);border-radius:6px;padding:0 6px;margin-right:6px;vertical-align:1px}
 .panel .sum{font-size:14px;color:var(--muted);margin:0 0 10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .panel .res{list-style:none;margin:0 0 12px;padding:0;font-size:13px}
 .panel .res li{padding:5px 0 5px 14px;position:relative;border-top:1px solid var(--line);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -304,7 +305,7 @@ button.ev{font:inherit;cursor:pointer;border:0;transition:background .15s,color 
             <div class="pb">
               <h4>{{ sp.tagline or sp.title }}</h4>
               <div class="meta">{{ sp.period_str }}{% if sp.role %} · {{ sp.role }}{% endif %}</div>
-              {% if sp.tagline and sp.summary %}<p class="sum">{{ sp.summary }}</p>{% endif %}
+              {% if sp.digest and sp.digest.problem %}<p class="sum"><b class="why">{{ 'Why' if en else '문제' }}</b>{{ sp.digest.problem }}</p>{% elif sp.tagline and sp.summary %}<p class="sum">{{ sp.summary }}</p>{% endif %}
               {% if sp.key %}<p class="key"><i></i>{{ sp.key }}</p>{% else %}<ul class="res">{% for r in (sp.star.result or [])[:1] %}<li>{{ r }}</li>{% endfor %}</ul>{% endif %}
               <div class="acts"><a class="go" href="projects/{{ sp.id }}{{ '-en' if en else '' }}.html">{{ T.detail }} →</a>{% if sp.case and sp.case.demo %}<a href="projects/{{ sp.id }}{{ '-en' if en else '' }}.html#demo">▶ {{ T.demo }}</a>{% endif %}{% for l in (sp.links or [])[:1] %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }} ↗</a>{% endfor %}{% set np = posts|selectattr('project', 'equalto', sp.id)|list %}{% if np %}<a href="projects/{{ sp.id }}{{ '-en' if en else '' }}.html#posts">✎ {{ T.post }}{% if np|length > 1 %} {{ np|length }}{{ '' if en else '편' }}{% endif %}</a>{% endif %}</div>
             </div>
