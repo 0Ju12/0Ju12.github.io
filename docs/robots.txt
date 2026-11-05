@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /cv.html
+Disallow: /cv/
+Disallow: /study/
+Disallow: /private/
+Sitemap: https://0ju12.github.io/sitemap.xml

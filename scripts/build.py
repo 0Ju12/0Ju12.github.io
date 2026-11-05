@@ -321,6 +321,33 @@ def search_index(data, en=False):
     return out
 
 
+def _og_image(sp):
+    """카드와 같은 우선순위: 카드 전용 그림 → 대표 그림 키워드 → 첫 사진"""
+    if sp.get("card_image"):
+        return sp["card_image"]
+    gal = sp.get("gallery") or []
+    for kw in ("GPlates", "Fig11", "결과화면", "질의응답"):
+        for g in gal:
+            if kw in g["src"]:
+                return g["src"]
+    return gal[0]["src"] if gal else ""
+
+
+def sitemap(data):
+    """검색 노출용 docs/sitemap.xml · docs/robots.txt (잠긴 이력서·강의 노트는 제외)"""
+    base = "https://0ju12.github.io/"
+    urls = ["", "en.html"]
+    for g in data.get("featured") or []:
+        for sp in g.get("projects") or []:
+            urls += [f"projects/{sp['id']}.html", f"projects/{sp['id']}-en.html"]
+    urls += [f"posts/{w['slug']}.html" for w in data.get("posts") or []]
+    if (DOCS / "demo.html").exists():
+        urls.append("demo.html")
+    xml = "\n".join(f"  <url><loc>{base}{u}</loc></url>" for u in urls)
+    (DOCS / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{xml}\n</urlset>\n', encoding="utf-8")
+    (DOCS / "robots.txt").write_text(f"User-agent: *\nDisallow: /cv.html\nDisallow: /cv/\nDisallow: /study/\nDisallow: /private/\nSitemap: {base}sitemap.xml\n", encoding="utf-8")
+
+
 def project_pages(env, data, en=False):
     """대표 활동의 하위 프로젝트마다 상세 페이지: docs/projects/<id>.html (영문은 <id>-en.html). 생성된 HTML 사전 반환."""
     subs = [(g, sp) for g in data.get("featured") or [] for sp in (g.get("projects") or [])]
@@ -332,6 +359,12 @@ def project_pages(env, data, en=False):
         html = env.get_template("project.html.j2").render(
             sp=sp, group=g, prev=prev, next=nxt, related=related, en=en, **data)
         out[f"{sp['id']}{'-en' if en else ''}.html"] = html
+    # 링크 미리보기 이미지 재료 (scripts/og.js 가 docs/og/<id>[-en].png 로 렌더링)
+    meta = [{"id": sp["id"] + ("-en" if en else ""), "title": sp.get("title", ""), "tagline": sp.get("tagline") or sp.get("summary", ""),
+             "key": sp.get("key", ""), "period": sp.get("period_str", ""), "group": g.get("card_title") or g.get("title", ""),
+             "image": _og_image(sp)} for g, sp in subs]
+    f = OUT / f"og_projects{'-en' if en else ''}.json"
+    f.write_text(json.dumps(meta, ensure_ascii=False, indent=1), encoding="utf-8")
     return out
 
 
@@ -386,7 +419,8 @@ def main():
     import build_en
     build_en.main()
     import lock_resumes
-    lock_resumes.placeholder()   # 배포 시 CI 가 scripts/lock_resumes.py 로 실제 잠금 페이지를 만듦
+    lock_resumes.placeholder()
+    sitemap(data)   # 배포 시 CI 가 scripts/lock_resumes.py 로 실제 잠금 페이지를 만듦
     (OUT / "notion.md").write_text(md_env.get_template("notion.md.j2").render(**data), encoding="utf-8")
     (OUT / "profiles.md").write_text(md_env.get_template("profiles.md.j2").render(**data), encoding="utf-8")
 
