@@ -48,7 +48,15 @@ h1{font-size:clamp(28px,4.4vw,44px);line-height:1.22;letter-spacing:-.045em;marg
 .toc::-webkit-scrollbar{display:none}
 .toc a{flex:none;font-size:13px;font-weight:700;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);text-decoration:none;color:var(--muted)}
 .toc a:hover{color:var(--text);border-color:var(--text)}
-section,.two{scroll-margin-top:110px}
+section,.two,details.full{scroll-margin-top:110px}
+details.full{margin:44px 0 0;border:1px solid var(--line);border-radius:16px;background:var(--card);padding:0 20px}
+details.full summary{cursor:pointer;font-weight:700;font-size:15px;padding:16px 0;list-style:none}
+details.full summary::-webkit-details-marker{display:none}
+details.full summary::before{content:'+ ';color:var(--muted)}
+details.full[open] summary::before{content:'– '}
+details.full h3{font-size:15px;margin:18px 0 6px}
+details.full p{margin:0;color:var(--muted);font-size:14.5px}
+details.full[open]{padding-bottom:20px}
 .media{margin:24px 0 8px}
 .media figure{margin:0;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow)}
 .media img{width:100%;display:block;background:#fff}
@@ -122,14 +130,16 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
 <p class="lead">Combined gravity and magnetic surveys to characterize the Ghasha salt dome and basement</p>    <div class="meta">University of Calgary · Visiting graduate researcher</div>
 <p class="keyline"><i>KEY</i><span>First-author SPE Journal paper from the collaboration (2026)</span></p><div class="acts"><a href="https://doi.org/10.2118/236968-PA" target="_blank" rel="noopener">SPE Journal paper ↗</a></div>  </header>
 
-  <nav class="toc" aria-label="On this page"><a href="#story">Problem · My role</a><a href="#did">What I did</a><a href="#result">Results</a><a href="#tradeoffs">Decisions &amp; trade-offs</a><a href="#media">Photos &amp; figures</a></nav>
+  <nav class="toc" aria-label="On this page"><a href="#story">Problem · My role</a><a href="#did">What I did</a><a href="#result">Results</a><a href="#media">Photos &amp; figures</a><a href="#full">Full record</a></nav>
 
   <div class="two" id="story" style="margin-top:28px">
-<div class="card"><h3>Problem</h3><p>Salt domes and basement are hard to interpret from one type of survey alone</p></div><div class="card"><h3>My role</h3><p>Carry out joint gravity–magnetic interpretation research during a ~6-month stay</p></div>  </div>
+<div class="card"><h3>Problem</h3><p>Salt domes and basement are hard to interpret from one kind of survey data</p></div><div class="card"><h3>My role</h3><p>~6-month stay at Univ. of Calgary on joint gravity–magnetic interpretation (IITP global talent program)</p></div>  </div>
 
-<section id="did"><h2>What I did</h2><div class="boxed"><ol class="list"><li>Funded by the MSIT/IITP Global Talent program in digital fields (AI &amp; digital-twin smart CCS)</li><li>Worked with the Department of Geomatics Engineering on wavenumber correlation of airborne gravity and magnetic data</li><li>Extended the work into a 3-institution collaboration with Khalifa University (UAE)</li><li>Joined a field geophysical survey in Kananaskis (Canadian Rockies) and co-wrote the English Field Exploration Report (2024.08)</li></ol></div></section><section id="result"><h2>Results</h2><div class="boxed"><ul class="list res"><li>Led to the first-author SPE Journal paper (SCIE, 2026) and the M.S. thesis</li></ul></div></section>
-<section id="tradeoffs"><h2>Decisions &amp; trade-offs</h2><p class="sub">What I chose, and what I gave up for it</p><div class="trade"><div>Using two quantities with different units and depth sensitivity (gravity and magnetics) meant first normalizing them and comparing them through wavenumber-domain correlation (phase).</div></div></section>
+<section id="did"><h2>What I did</h2><div class="boxed"><ol class="list"><li>Wavenumber correlation of airborne gravity and magnetics with the geomatics group</li><li>Extended to a three-institution study with Khalifa Univ. (UAE)</li><li>Kananaskis field survey · co-wrote the English field report</li></ol></div></section><section id="result"><h2>Results</h2><div class="boxed"><ul class="list res"><li>First-author SPE Journal paper accepted (2026)</li><li>Completed the same study as the M.S. thesis</li></ul></div></section>
 <section id="media"><h2>Photos &amp; figures</h2><div class="gallery"><a href="../assets/photos/calgary-2024/2024-08_캘거리_중력탐사_현장측정.jpg" target="_blank" rel="noopener"><img src="../assets/photos/calgary-2024/2024-08_캘거리_중력탐사_현장측정.jpg" alt="Calgary — gravity survey in the field" loading="lazy">Calgary — gravity survey in the field</a></div></section>
+
+  <details class="full" id="full"><summary>Full record · design decisions</summary>
+<h3>Problem</h3><p>Salt domes and basement are hard to interpret from one type of survey alone</p><h3>My role</h3><p>Carry out joint gravity–magnetic interpretation research during a ~6-month stay</p><h3>What I did</h3><ol class="list"><li>Funded by the MSIT/IITP Global Talent program in digital fields (AI &amp; digital-twin smart CCS)</li><li>Worked with the Department of Geomatics Engineering on wavenumber correlation of airborne gravity and magnetic data</li><li>Extended the work into a 3-institution collaboration with Khalifa University (UAE)</li><li>Joined a field geophysical survey in Kananaskis (Canadian Rockies) and co-wrote the English Field Exploration Report (2024.08)</li></ol><h3>Results</h3><ul class="list res"><li>Led to the first-author SPE Journal paper (SCIE, 2026) and the M.S. thesis</li></ul><h3 id="tradeoffs">Decisions &amp; trade-offs</h3><div class="trade"><div>Using two quantities with different units and depth sensitivity (gravity and magnetics) meant first normalizing them and comparing them through wavenumber-domain correlation (phase).</div></div>  </details>
 
   <nav class="pn" aria-label="projects">
 <a href="masters-en.html"><small>← Previous</small>Wavenumber correlation of gravity &amp; magnetic data for salt/basement structure (M.S. · SPE Journal first author)</a><a class="r" href="undergrad-research-en.html"><small>Next →</small>Seismic interpretation of large overseas CO2 storage sites considering plate-tectonic history (first-author paper)</a>  </nav>

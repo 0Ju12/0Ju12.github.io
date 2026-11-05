@@ -48,7 +48,15 @@ h1{font-size:clamp(28px,4.4vw,44px);line-height:1.22;letter-spacing:-.045em;marg
 .toc::-webkit-scrollbar{display:none}
 .toc a{flex:none;font-size:13px;font-weight:700;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);text-decoration:none;color:var(--muted)}
 .toc a:hover{color:var(--text);border-color:var(--text)}
-section,.two{scroll-margin-top:110px}
+section,.two,details.full{scroll-margin-top:110px}
+details.full{margin:44px 0 0;border:1px solid var(--line);border-radius:16px;background:var(--card);padding:0 20px}
+details.full summary{cursor:pointer;font-weight:700;font-size:15px;padding:16px 0;list-style:none}
+details.full summary::-webkit-details-marker{display:none}
+details.full summary::before{content:'+ ';color:var(--muted)}
+details.full[open] summary::before{content:'– '}
+details.full h3{font-size:15px;margin:18px 0 6px}
+details.full p{margin:0;color:var(--muted);font-size:14.5px}
+details.full[open]{padding-bottom:20px}
 .media{margin:24px 0 8px}
 .media figure{margin:0;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow)}
 .media img{width:100%;display:block;background:#fff}
@@ -122,15 +130,17 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
 <p class="lead">어색한 영어·콩글리시 문장을 자연스러운 원어민 표현으로 바꿔 주는 생성 모델 + 검색 증강(RAG) 시스템</p>    <div class="meta">포스코 청년 AI·BigData 아카데미 30기 (포스코인재창조원·POSTECH) · 팀 프로젝트 · 데이터 구축·모델 실험 담당</div>
 <p class="keyline"><i>핵심</i><span>학습 전략 비교로 BERTScore F1 0.32 → 0.74 · 장려상</span></p><div class="acts"><a href="https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5" target="_blank" rel="noopener">팀 GitHub ↗</a></div>  </header>
 
-  <nav class="toc" aria-label="이 페이지"><a href="#story">문제 · 역할</a><a href="#did">한 일</a><a href="#result">결과</a><a href="#tradeoffs">설계 판단 · 트레이드오프</a><a href="#media">사진 · 자료</a><a href="#posts">관련 글</a></nav>
+  <nav class="toc" aria-label="이 페이지"><a href="#story">문제 · 역할</a><a href="#did">한 일</a><a href="#result">결과</a><a href="#media">사진 · 자료</a><a href="#posts">관련 글</a><a href="#full">전체 기록</a></nav>
 
   <div class="two" id="story" style="margin-top:28px">
-<div class="card"><h3>문제</h3><p>한국 학습자가 쓰는 콩글리시와 어색한 격식체 영어는 문법 교정기로 잡히지 않아, 문맥에 맞는 자연스러운 표현으로 바꿔 주는 도구가 필요했음</p></div><div class="card"><h3>역할</h3><p>팀에서 교정 학습 데이터 구축과 모델 실험을 맡아, 단어 단위·문맥 단위 교정 데이터로 T5 계열 모델의 학습 전략을 찾는 것이 목표</p></div>  </div>
+<div class="card"><h3>문제</h3><p>콩글리시·어색한 격식체 영어는 문법 교정기로 잡히지 않음</p></div><div class="card"><h3>역할</h3><p>팀에서 교정 데이터 구축과 모델 실험 담당</p></div>  </div>
 
-<section id="did"><h2>한 일</h2><div class="boxed"><ol class="list"><li>[담당] 콩글리시·어색한 표현 → 원어민 표현 쌍으로 이루어진 단어 단위·문맥 단위 교정 데이터셋 구축 및 정제</li><li>[담당] FLAN-T5를 LoRA로 파인튜닝하고, 학습 전략 3가지(단어→문맥 순차, 문맥→단어 순차, 통합 학습)를 BERTScore로 비교 실험</li><li>[최종 서비스 &#39;KILL KONG&#39; — POSPEAK의 최종 버전] Qwen-2.5(1.5B) 파인튜닝(Friends 대사 기반 회화체 데이터 2,000건) + 콩글리시 RAG DB 630건 + 사용자별 개인화 메모리(오답노트)를 LangChain으로 결합, React Native·FastAPI 모바일 앱으로 구현</li><li>[팀] 다국어 문장 임베딩(paraphrase-multilingual-MiniLM)과 FAISS로 유사 교정 예문 top-5를 검색해 모델 입력에 제공하는 RAG 파이프라인과 CLI 구성</li></ol></div></section><section id="result"><h2>결과</h2><div class="boxed"><ul class="list res"><li>순차 학습에서 앞 단계 성능이 떨어지는 catastrophic forgetting(BERTScore F1 0.47 → 0.32)을 실험으로 확인하고 통합 학습으로 전환</li><li>통합 학습 모델의 검증 BERTScore F1 약 0.74 (순차 학습 0.32~0.47 대비 개선)</li><li>팀 프로젝트 장려상 수상</li></ul></div></section>
-<section id="tradeoffs"><h2>설계 판단 · 트레이드오프</h2><p class="sub">무엇을 고르고, 그 대신 무엇을 포기했는지</p><div class="trade"><div>&#39;쉬운 단어 교정부터 어려운 문맥 교정으로&#39; 순차 학습이 직관적이었지만, 같은 조건에서 3가지 전략을 비교해 보고 결정 — 실험 비용은 들었지만 catastrophic forgetting을 발견하고 통합 학습으로 전환</div><div>각 학습 단계 직후의 성능을 따로 기록 — 마지막 점수만 봤다면 &#39;그냥 성능이 낮다&#39;로 끝났을 원인을 찾을 수 있었음</div></div></section><section id="next"><h2>돌아보면 · 남은 과제</h2><p class="sub">다시 한다면 바꿀 것, 아직 남은 것</p><div class="trade next"><div>순차 학습이 꼭 필요한 상황이라면 이전 데이터를 일부 섞는 replay나 가중치 변화를 제한하는 정규화(EWC 등)를 검토 — 이번에는 데이터가 크지 않아 통합 학습이 가장 단순하고 효과적이었음</div></div></section>
+<section id="did"><h2>한 일</h2><div class="boxed"><ol class="list"><li>단어·문맥 단위 교정 데이터셋 구축·정제</li><li>FLAN-T5 LoRA로 학습 전략 3가지를 BERTScore로 비교</li><li>최종 앱 KILL KONG: Qwen-2.5 + RAG + 개인 오답노트</li></ol></div></section><section id="result"><h2>결과</h2><div class="boxed"><ul class="list res"><li>순차 학습의 catastrophic forgetting 확인 → 통합 학습으로 전환</li><li>BERTScore F1 0.32 → 0.74</li><li>팀 프로젝트 장려상</li></ul></div></section>
 <section id="media"><h2>사진 · 자료</h2><div class="gallery"><a href="../assets/photos/posco-pospeak/2025-08-29_프로젝트_장려상·수료증.jpg" target="_blank" rel="noopener"><img src="../assets/photos/posco-pospeak/2025-08-29_프로젝트_장려상·수료증.jpg" alt="2025-08-29 프로젝트 장려상·수료증" loading="lazy">2025-08-29 프로젝트 장려상·수료증</a><a href="../assets/photos/posco-pospeak/2025-08_KILLKONG_①_앱_화면_(홈·채팅·단어·연습).jpg" target="_blank" rel="noopener"><img src="../assets/photos/posco-pospeak/2025-08_KILLKONG_①_앱_화면_(홈·채팅·단어·연습).jpg" alt="2025-08 KILLKONG ① 앱 화면 (홈·채팅·단어·연습)" loading="lazy">2025-08 KILLKONG ① 앱 화면 (홈·채팅·단어·연습)</a><a href="../assets/photos/posco-pospeak/2025-08_KILLKONG_②_시스템_구조_(LoRA_Qwen2.5·RAG·Memory).jpg" target="_blank" rel="noopener"><img src="../assets/photos/posco-pospeak/2025-08_KILLKONG_②_시스템_구조_(LoRA_Qwen2.5·RAG·Memory).jpg" alt="2025-08 KILLKONG ② 시스템 구조 (LoRA Qwen2.5·RAG·Memory)" loading="lazy">2025-08 KILLKONG ② 시스템 구조 (LoRA Qwen2.5·RAG·Memory)</a><a href="../assets/photos/posco-pospeak/2025-08_KILLKONG_③_GPT-5와_교정_결과_비교.jpg" target="_blank" rel="noopener"><img src="../assets/photos/posco-pospeak/2025-08_KILLKONG_③_GPT-5와_교정_결과_비교.jpg" alt="2025-08 KILLKONG ③ GPT-5와 교정 결과 비교" loading="lazy">2025-08 KILLKONG ③ GPT-5와 교정 결과 비교</a></div></section>
 <section id="posts"><h2>관련 글</h2><div class="posts"><a href="../posts/2026-11-catastrophic-forgetting.html"><span>순차 학습이 성능을 떨어뜨린 이유 — catastrophic forgetting 실험기<small>2026-11-02</small></span><span>→</span></a></div></section>
+  <details class="full" id="full"><summary>전체 기록 · 설계 판단 보기</summary>
+<h3>문제</h3><p>한국 학습자가 쓰는 콩글리시와 어색한 격식체 영어는 문법 교정기로 잡히지 않아, 문맥에 맞는 자연스러운 표현으로 바꿔 주는 도구가 필요했음</p><h3>역할</h3><p>팀에서 교정 학습 데이터 구축과 모델 실험을 맡아, 단어 단위·문맥 단위 교정 데이터로 T5 계열 모델의 학습 전략을 찾는 것이 목표</p><h3>한 일</h3><ol class="list"><li>[담당] 콩글리시·어색한 표현 → 원어민 표현 쌍으로 이루어진 단어 단위·문맥 단위 교정 데이터셋 구축 및 정제</li><li>[담당] FLAN-T5를 LoRA로 파인튜닝하고, 학습 전략 3가지(단어→문맥 순차, 문맥→단어 순차, 통합 학습)를 BERTScore로 비교 실험</li><li>[최종 서비스 &#39;KILL KONG&#39; — POSPEAK의 최종 버전] Qwen-2.5(1.5B) 파인튜닝(Friends 대사 기반 회화체 데이터 2,000건) + 콩글리시 RAG DB 630건 + 사용자별 개인화 메모리(오답노트)를 LangChain으로 결합, React Native·FastAPI 모바일 앱으로 구현</li><li>[팀] 다국어 문장 임베딩(paraphrase-multilingual-MiniLM)과 FAISS로 유사 교정 예문 top-5를 검색해 모델 입력에 제공하는 RAG 파이프라인과 CLI 구성</li></ol><h3>결과</h3><ul class="list res"><li>순차 학습에서 앞 단계 성능이 떨어지는 catastrophic forgetting(BERTScore F1 0.47 → 0.32)을 실험으로 확인하고 통합 학습으로 전환</li><li>통합 학습 모델의 검증 BERTScore F1 약 0.74 (순차 학습 0.32~0.47 대비 개선)</li><li>팀 프로젝트 장려상 수상</li></ul><h3 id="tradeoffs">설계 판단 · 트레이드오프</h3><div class="trade"><div>&#39;쉬운 단어 교정부터 어려운 문맥 교정으로&#39; 순차 학습이 직관적이었지만, 같은 조건에서 3가지 전략을 비교해 보고 결정 — 실험 비용은 들었지만 catastrophic forgetting을 발견하고 통합 학습으로 전환</div><div>각 학습 단계 직후의 성능을 따로 기록 — 마지막 점수만 봤다면 &#39;그냥 성능이 낮다&#39;로 끝났을 원인을 찾을 수 있었음</div></div><h3 id="next">돌아보면 · 남은 과제</h3><div class="trade next"><div>순차 학습이 꼭 필요한 상황이라면 이전 데이터를 일부 섞는 replay나 가중치 변화를 제한하는 정규화(EWC 등)를 검토 — 이번에는 데이터가 크지 않아 통합 학습이 가장 단순하고 효과적이었음</div></div>  </details>
+
   <nav class="pn" aria-label="projects">
 <a href="ssafy-16.html"><small>← 이전 프로젝트</small>SSAFY 16기 관통 프로젝트 — ThRead: LLM 댓글 분석 파이프라인 · AI 도서 서비스</a>  </nav>
   <footer>© Young-Ju Lee · data/portfolio.yaml 에서 자동 생성</footer>

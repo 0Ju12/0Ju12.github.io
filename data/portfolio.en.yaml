@@ -102,6 +102,7 @@ activities:
     summary: Designed wavenumber-correlation indices (SLFI · DLFI) that separate overlapping gravity and magnetic signals to map salt and basement structures; completed an SCIE paper and thesis through a Calgary research stay and a 3-institution collaboration
     projects:
       - id: masters
+        digest: {"problem": "Salt and basement signals overlap beneath 8–10 km of sediment; earlier interpretation put the salt far too shallow (~6,000 m vs ~9,300 m)", "role": "Proposed a method to separate the two signals in airborne gravity and magnetic data (M.S. researcher)", "did": ["Built a WCF pipeline computing the gravity–magnetic correlation CC(k) in the wavenumber domain", "Designed two indices: SLFI for basement, DLFI for salt", "Cross-checked against 3 independent models, profiles and a 3D density model", "Calgary stay · three-institution collaboration incl. Khalifa Univ."], "result": ["SLFI basement agrees with 3 existing models at r ≥ 0.94", "Suggested an additional salt uplift west of Ghasha", "First-author SPE Journal (SCIE) paper · M.S. thesis (2026)"]}
         tagline: "Wavenumber-domain correlation → basement (SLFI) and salt (DLFI) indices"
         key: "Agrees with 3 independent models at r ≥ 0.94"
         short: "Thesis research"
@@ -131,6 +132,7 @@ activities:
           - { label: SPE Journal paper, url: "https://doi.org/10.2118/236968-PA" }
           - { label: Code (gravmag-wcf), url: "https://github.com/0Ju12/gravmag-wcf" }
       - id: calgary-2024
+        digest: {"problem": "Salt domes and basement are hard to interpret from one kind of survey data", "role": "~6-month stay at Univ. of Calgary on joint gravity–magnetic interpretation (IITP global talent program)", "did": ["Wavenumber correlation of airborne gravity and magnetics with the geomatics group", "Extended to a three-institution study with Khalifa Univ. (UAE)", "Kananaskis field survey · co-wrote the English field report"], "result": ["First-author SPE Journal paper accepted (2026)", "Completed the same study as the M.S. thesis"]}
         tagline: "Joint gravity–magnetic interpretation of the Ghasha salt domes and basement"
         key: "First-author SPE Journal paper from the collaboration (2026)"
         short: "Univ. of Calgary stay"
@@ -177,6 +179,7 @@ activities:
     summary: Wrote a first-author paper on seismic interpretation of overseas CO2 storage sites in light of plate-tectonic history, and designed a spatiotemporal deep learning model for wildfire spread
     projects:
       - id: undergrad-research
+        digest: {"problem": "Little systematic analysis of how large CO2 storage sites formed geologically", "role": "Undergraduate researcher · first author of a four-region comparison", "did": ["Reconstructed plate-tectonic history of North America, North Sea, Oceania and Middle East with GPlates", "Interpreted seismic images of 8 flagship CCS sites (2 per region) for reservoir and seal", "Calgary short stay: processed Utah FORGE gravity data"], "result": ["First-author paper (2024) · one second-author paper", "KSEG 2024 best student paper award (poster)", "Showed seismic stratigraphy reflects tectonic history → a check against unrealistic velocity models"]}
         tagline: "Reconstructed the geological history of CO2 storage sites with GPlates and interpreted their seismic images"
         key: "First-author paper (2024) · best student paper award"
         short: "First-author paper"
@@ -202,6 +205,7 @@ activities:
         links:
           - { label: First-author paper, url: "https://koreascience.or.kr/article/JAKO202410348585789.page" }
       - id: wildfire-capstone
+        digest: {"problem": "No model in Korea predicted wildfire spread in real time", "role": "Designed and trained the spatiotemporal model in a team of four", "did": ["Rasterized fire fronts, elevation, NDVI and wind for 4 large wildfires in ArcGIS", "Designed a Conv2D encoder–LSTM–decoder U-LSTM (2,736 parameters)", "Built 151 training batches with sliding windows; held one fire out for testing"], "result": ["Accuracy 0.90 · F1 0.85 on the unseen Gangneung fire", "Repackaged the team notebook as a tested Python package"]}
         tagline: "U-LSTM that predicts the next fire front from past fronts, weather and terrain"
         key: "F1 0.85 on an unseen wildfire (Gangneung)"
         short: "IAB capstone"
@@ -250,6 +254,7 @@ activities:
     summary: LLM data pipelines, a Django service and a VQA model ensemble at SSAFY; a Konglish-correction generator with RAG at the POSCO academy
     projects:
       - id: ssafy-16
+        digest: {"problem": "Grow one service (ThRead) every round while keeping its LLM features trustworthy", "role": "Django backend · LLM integration · crawling pipeline in a team of two", "did": ["Comment collection (Selenium) → LLM judgment → code check → cleaning, augmentation, summary", "Live progress streaming for long jobs", "Django auth · book CRUD · AI recommendations limited to registered books", "Personal RAG project (Heritage guide) · AI challenge VQA ensemble"], "result": ["Stable AI features by verifying LLM output in code", "86 automated tests passing · every requirement implemented", "AI challenge (VQA) public score 0.96961"]}
         tagline: "A reading community built end to end — collection → LLM analysis → web service"
         key: "LLM judgments verified in code · 86 automated tests"
         short: "SSAFY 16th"
@@ -277,6 +282,7 @@ activities:
           - { label: GitHub, url: "https://github.com/0Ju12/ssafy-thread" }
           - { label: "Heritage RAG guide", url: "https://github.com/0Ju12/heritage-rag-guide" }
       - id: posco-pospeak
+        digest: {"problem": "Konglish and stiff formal English slip past grammar checkers", "role": "Built the correction dataset and ran model experiments for the team", "did": ["Built and cleaned word- and context-level correction pairs", "Compared 3 FLAN-T5 LoRA training strategies with BERTScore", "Final app KILL KONG: Qwen-2.5 + RAG + personal mistake notes"], "result": ["Found catastrophic forgetting in sequential training → switched to joint training", "BERTScore F1 0.32 → 0.74", "Team Excellence Award"]}
         tagline: "Generator + RAG that rewrites Konglish into natural English"
         key: "Training-strategy comparison: BERTScore F1 0.32 → 0.74 · award"
         short: "POSPEAK (KILL KONG)"

@@ -63,7 +63,15 @@ h1{font-size:clamp(28px,4.4vw,44px);line-height:1.22;letter-spacing:-.045em;marg
 .toc::-webkit-scrollbar{display:none}
 .toc a{flex:none;font-size:13px;font-weight:700;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);text-decoration:none;color:var(--muted)}
 .toc a:hover{color:var(--text);border-color:var(--text)}
-section,.two{scroll-margin-top:110px}
+section,.two,details.full{scroll-margin-top:110px}
+details.full{margin:44px 0 0;border:1px solid var(--line);border-radius:16px;background:var(--card);padding:0 20px}
+details.full summary{cursor:pointer;font-weight:700;font-size:15px;padding:16px 0;list-style:none}
+details.full summary::-webkit-details-marker{display:none}
+details.full summary::before{content:'+ ';color:var(--muted)}
+details.full[open] summary::before{content:'– '}
+details.full h3{font-size:15px;margin:18px 0 6px}
+details.full p{margin:0;color:var(--muted);font-size:14.5px}
+details.full[open]{padding-bottom:20px}
 .media{margin:24px 0 8px}
 .media figure{margin:0;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow)}
 .media img{width:100%;display:block;background:#fff}
@@ -140,7 +148,7 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
   </header>
 
   {% set st0 = sp.star or {} %}
-  <nav class="toc" aria-label="{{ 'On this page' if en else '이 페이지' }}">{% if c.demo %}<a href="#demo">▶ {{ L.demo }}</a>{% endif %}{% if st0.situation or st0.task %}<a href="#story">{{ L.problem }} · {{ L.role }}</a>{% endif %}{% if st0.action %}<a href="#did">{{ L.did }}</a>{% endif %}{% if st0.result %}<a href="#result">{{ L.result }}</a>{% endif %}{% if cl.tradeoffs %}<a href="#tradeoffs">{{ L.trade }}</a>{% endif %}{% if sp.gallery %}<a href="#media">{{ L.media }}</a>{% endif %}{% if related %}<a href="#posts">{{ L.posts }}</a>{% endif %}</nav>
+  <nav class="toc" aria-label="{{ 'On this page' if en else '이 페이지' }}">{% if c.demo %}<a href="#demo">▶ {{ L.demo }}</a>{% endif %}{% if st0.situation or st0.task or sp.digest %}<a href="#story">{{ L.problem }} · {{ L.role }}</a>{% endif %}{% if st0.action or sp.digest %}<a href="#did">{{ L.did }}</a>{% endif %}{% if st0.result or sp.digest %}<a href="#result">{{ L.result }}</a>{% endif %}{% if sp.gallery %}<a href="#media">{{ L.media }}</a>{% endif %}{% if related %}<a href="#posts">{{ L.posts }}</a>{% endif %}{% if sp.digest or cl.tradeoffs %}<a href="#full">{{ 'Full record' if en else '전체 기록' }}</a>{% endif %}</nav>
   {% if c.demo %}
   <div class="media" id="demo"><figure><img src="{{ R }}{{ c.demo }}" alt="{{ c.demo_caption_en if en else c.demo_caption_ko }}"><figcaption>▶ {{ L.demo }} — {{ c.demo_caption_en if en else c.demo_caption_ko }}</figcaption></figure></div>
   {% endif %}
@@ -149,22 +157,35 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
   {% endif %}
 
   {% set st = sp.star or {} %}
-  {% if st.situation or st.task %}
+  {% set dg = sp.digest or {} %}
+  {% set d_prob = dg.problem or st.situation %}{% set d_role = dg.role or st.task %}
+  {% set d_did = dg.did or st.action %}{% set d_res = dg.result or st.result %}
+  {% if d_prob or d_role %}
   <div class="two" id="story" style="margin-top:28px">
-    {% if st.situation %}<div class="card"><h3>{{ L.problem }}</h3><p>{{ st.situation }}</p></div>{% endif %}
-    {% if st.task %}<div class="card"><h3>{{ L.role }}</h3><p>{{ st.task }}</p></div>{% endif %}
+    {% if d_prob %}<div class="card"><h3>{{ L.problem }}</h3><p>{{ d_prob }}</p></div>{% endif %}
+    {% if d_role %}<div class="card"><h3>{{ L.role }}</h3><p>{{ d_role }}</p></div>{% endif %}
   </div>
   {% endif %}
 
-  {% if st.action %}<section id="did"><h2>{{ L.did }}</h2><div class="boxed"><ol class="list">{% for x in st.action %}<li>{{ x }}</li>{% endfor %}</ol></div></section>{% endif %}
-  {% if st.result %}<section id="result"><h2>{{ L.result }}</h2><div class="boxed"><ul class="list res">{% for x in st.result %}<li>{{ x }}</li>{% endfor %}</ul></div></section>{% endif %}
-
-  {% if cl.tradeoffs %}<section id="tradeoffs"><h2>{{ L.trade }}</h2><p class="sub">{{ L.trade_sub }}</p><div class="trade">{% for x in cl.tradeoffs %}<div>{{ x }}</div>{% endfor %}</div></section>{% endif %}
-  {% if cl.next %}<section id="next"><h2>{{ L.next }}</h2><p class="sub">{{ L.next_sub }}</p><div class="trade next">{% for x in cl.next %}<div>{{ x }}</div>{% endfor %}</div></section>{% endif %}
+  {% if d_did %}<section id="did"><h2>{{ L.did }}</h2><div class="boxed"><ol class="list">{% for x in d_did %}<li>{{ x }}</li>{% endfor %}</ol></div></section>{% endif %}
+  {% if d_res %}<section id="result"><h2>{{ L.result }}</h2><div class="boxed"><ul class="list res">{% for x in d_res %}<li>{{ x }}</li>{% endfor %}</ul></div></section>{% endif %}
 
   {% if sp.gallery %}<section id="media"><h2>{{ L.media }}</h2><div class="gallery">{% for g in sp.gallery %}<a href="{{ R }}{{ g.src }}" target="_blank" rel="noopener"><img src="{{ R }}{{ g.src }}" alt="{{ g.caption }}" loading="lazy">{{ g.caption }}</a>{% endfor %}</div></section>{% endif %}
 
   {% if related %}<section id="posts"><h2>{{ L.posts }}</h2><div class="posts">{% for w in related %}<a href="{{ R }}posts/{{ w.slug }}.html"><span>{{ w.title }}<small>{{ w.date }}</small></span><span>→</span></a>{% endfor %}</div></section>{% endif %}
+
+  {% if dg or cl.tradeoffs or cl.next %}
+  <details class="full" id="full"><summary>{{ 'Full record · design decisions' if en else '전체 기록 · 설계 판단 보기' }}</summary>
+    {% if dg %}
+    {% if st.situation %}<h3>{{ L.problem }}</h3><p>{{ st.situation }}</p>{% endif %}
+    {% if st.task %}<h3>{{ L.role }}</h3><p>{{ st.task }}</p>{% endif %}
+    {% if st.action %}<h3>{{ L.did }}</h3><ol class="list">{% for x in st.action %}<li>{{ x }}</li>{% endfor %}</ol>{% endif %}
+    {% if st.result %}<h3>{{ L.result }}</h3><ul class="list res">{% for x in st.result %}<li>{{ x }}</li>{% endfor %}</ul>{% endif %}
+    {% endif %}
+    {% if cl.tradeoffs %}<h3 id="tradeoffs">{{ L.trade }}</h3><div class="trade">{% for x in cl.tradeoffs %}<div>{{ x }}</div>{% endfor %}</div>{% endif %}
+    {% if cl.next %}<h3 id="next">{{ L.next }}</h3><div class="trade next">{% for x in cl.next %}<div>{{ x }}</div>{% endfor %}</div>{% endif %}
+  </details>
+  {% endif %}
 
   <nav class="pn" aria-label="projects">
     {% if prev %}<a href="{{ prev.id }}{{ '-en' if en else '' }}.html"><small>← {{ L.prev }}</small>{{ prev.title }}</a>{% else %}<span></span>{% endif %}
