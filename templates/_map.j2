@@ -15,7 +15,17 @@
 .cmap-f button{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);color:var(--muted);font:inherit;font-size:13.5px;font-weight:700;padding:7px 14px;border-radius:999px;cursor:pointer}
 .cmap-f button[aria-pressed="true"]{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
 .cmap-f i{width:9px;height:9px;border-radius:50%;display:inline-block}
-.cmap-g{display:grid;grid-template-columns:1fr 300px;gap:14px;align-items:start}
+.cmap-g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) 340px;grid-template-areas:'world world info' 'korea list info';gap:14px;align-items:start}
+.cmap-world{grid-area:world}.cmap-inset{grid-area:korea}.cmap-list{grid-area:list}.cmap-info{grid-area:info;align-self:stretch}
+.cmap-list{padding:16px 16px 12px}
+.cmap-list ul{list-style:none;margin:0;padding:0;columns:2;column-gap:10px}
+.cmap-list li{break-inside:avoid}
+.cmap-list button{display:flex;align-items:flex-start;gap:9px;width:100%;text-align:left;border:0;background:none;font:inherit;color:var(--text);padding:6px 8px;border-radius:10px;cursor:pointer}
+.cmap-list button:hover,.cmap-list button.on{background:var(--bg)}
+.cmap-list button i{flex:none;width:8px;height:8px;border-radius:50%;background:var(--c);margin-top:6px}
+.cmap-list button span{font-size:13.5px;font-weight:600;line-height:1.4;min-width:0}
+.cmap-list button small{display:block;font-size:11.5px;font-weight:500;color:var(--faint)}
+.cmap.hide-stay .cmap-list li.stay,.cmap.hide-data .cmap-list li.data,.cmap.hide-partner .cmap-list li.partner{display:none}
 .cmap-card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:26px;overflow:hidden}
 .cmap-world{padding:14px}
 .cmap-stage{position:relative}
@@ -48,9 +58,9 @@
 .plabel{position:absolute;transform:translate(10px,-50%);font-size:11.5px;font-weight:700;color:var(--muted);white-space:nowrap;pointer-events:none;z-index:1;text-shadow:0 0 4px var(--card),0 0 4px var(--card)}
 .plabel.left{transform:translate(calc(-100% - 10px),-50%)}
 .cmap.hide-stay .pin.stay:not(.grp),.cmap.hide-data .pin.data:not(.grp),.cmap.hide-partner .pin.partner:not(.grp),.cmap.hide-stay .plabel.stay:not(.grp-l),.cmap.hide-data .plabel.data:not(.grp-l),.cmap.hide-partner .plabel.partner:not(.grp-l){display:none}
-.cmap-side{display:grid;gap:14px}
-.cmap-inset{padding:12px 12px 6px}
-.cmap-inset h4,.cmap-info h4{margin:0 0 6px;font-size:13px;color:var(--faint);font-weight:700;letter-spacing:.02em}
+.cmap-inset{padding:12px 12px 6px;align-self:stretch}
+.cmap-list{align-self:stretch}
+.cmap-inset h4,.cmap-info h4,.cmap-list h4{margin:0 0 6px;font-size:13px;color:var(--faint);font-weight:700;letter-spacing:.02em}
 .cmap-info{padding:18px 20px;min-height:180px}
 .cmap-info .nm{font-size:17px;font-weight:800;letter-spacing:-.02em;line-height:1.4;margin:6px 0 2px}
 .cmap-info .wh{font-size:13px;color:var(--faint);margin-bottom:10px}
@@ -71,12 +81,13 @@
 .pin.kgroup.left{transform:translate(calc(-100% + 8px),-50%)}
 .cmap-note{font-size:12px;color:var(--faint);margin:10px 2px 0}
 @media (max-width:960px){
-  .cmap-g{grid-template-columns:1fr}
+  .cmap-g{grid-template-columns:1fr;grid-template-areas:'world' 'info' 'korea' 'list'}
+  .cmap-info{position:static}
   .cmap-world{padding:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
   .cmap-world .cmap-stage{width:760px}
   .cmap-swipe{display:block!important}
   .plabel{font-size:10.5px}
-  .cmap-side{grid-template-columns:1fr}
+  .cmap-list ul{columns:1}
 }
 </style>
 <section id="map" class="cmap">
@@ -103,7 +114,6 @@
         {% if home %}<button type="button" class="pin kgroup stay{% if home.x > B.world.w * 0.8 %} left{% endif %}" style="left:{{ (home.x / B.world.w * 100)|round(2) }}%;top:{{ (home.y / B.world.h * 100)|round(2) }}%;--c:var(--stay)" data-id="jeonju" aria-label="{{ 'Korea — see the zoomed map' if en else '대한민국 — 확대 지도 보기' }}"><span><b>{{ kcount }}</b>{{ 'Korea' if en else '대한민국' }}</span></button>{% endif %}
       </div>
     </div>
-    <div class="cmap-side">
       <div class="cmap-card cmap-inset" id="cmap-korea">
         <h4>{{ 'Korea (zoomed)' if en else '한반도 확대' }}</h4>
         <div class="cmap-stage">
@@ -114,12 +124,15 @@
           {% endfor %}
         </div>
       </div>
+      <div class="cmap-card cmap-list">
+        <h4>{{ 'All places' if en else '장소 목록' }}</h4>
+        <ul>{% for k in ['stay', 'partner', 'data'] %}{% for pl in M.places if pl.layer == k %}{% set t = pl.en if en else pl.ko %}<li class="{{ k }}"><button type="button" data-goto="{{ pl.id }}" style="--c:var(--{{ k }})" title="{{ t.when }}"><i></i><span>{{ t.name.split(' (')[0] }}</span></button></li>{% endfor %}{% endfor %}</ul>
+      </div>
       <div class="cmap-card cmap-info" id="cmap-info" aria-live="polite">
         <h4>{{ 'Details' if en else '자세히' }}</h4>
         <p class="hint">{{ 'Tap a point on the map.' if en else '지도의 점을 눌러 보세요.' }}</p>
         <ul>{% for k in ['stay', 'data', 'partner'] %}<li><i style="background:var(--{{ k }})"></i>{{ LY[k] }} · {{ cnt[k] }}</li>{% endfor %}</ul>
       </div>
-    </div>
   </div>
   <p class="cmap-note">{{ 'Locations are approximate; offshore fields and storage sites are shown at a nearby point. Countries outlines: Natural Earth via world-atlas.' if en else '위치는 대략적입니다. 해상 광구·저장소는 근처 지점에 표시했습니다. 지도 윤곽: Natural Earth(world-atlas).' }}</p>
   <script type="application/json" id="cmap-data">{{ M.places|map(attribute='id')|list|tojson }}</script>
@@ -133,6 +146,7 @@ var INFO=JSON.parse(document.getElementById('cmap-info-data').textContent),box=d
 var LBL={stay:'{{ LY.stay }}',data:'{{ LY.data }}',partner:'{{ LY.partner }}'},GO='{{ "Project details →" if en else "관련 프로젝트 보기 →" }}';
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function pick(id,btn){var p=INFO[id];if(!p)return;
+  root.querySelectorAll('[data-goto]').forEach(function(x){x.classList.toggle('on',x.dataset.goto===id)});
   root.querySelectorAll('.pin.on').forEach(function(x){x.classList.remove('on')});
   root.querySelectorAll('.pin[data-id="'+id+'"]').forEach(function(x){if(!x.classList.contains('kgroup'))x.classList.add('on')});
   box.innerHTML='<h4>{{ "Details" if en else "자세히" }}</h4><span class="lb" style="--c:var(--'+p.l+')">'+esc(LBL[p.l])+'</span><div class="nm">'+esc(p.n)+'</div><div class="wh">'+esc(p.w)+'</div>'+(p.ph?'<figure><img src="'+esc(p.ph)+'" alt="'+esc(p.n)+'" loading="lazy">'+(p.cr?'<figcaption>'+(p.pg?'<a href="'+esc(p.pg)+'" target="_blank" rel="noopener">':'')+esc(p.cr)+(p.pg?'</a>':'')+'</figcaption>':'')+'</figure>':'')+(p.a?'<p class="ab">'+esc(p.a)+(p.as?' <a class="src" href="'+esc(p.as)+'" target="_blank" rel="noopener">{{ "Wikipedia" if en else "출처: 위키백과" }} ↗</a>':'')+'</p>':'')+'<p>'+esc(p.d)+'</p>'+(p.u?'<a class="go" href="'+p.u+'">'+GO+'</a>':'');
@@ -143,6 +157,8 @@ function vis(id){return !HID[INFO[id].l]}
 function list(btn){var ms=btn.dataset.members.split(',').filter(vis);root.querySelectorAll('.pin.on').forEach(function(x){x.classList.remove('on')});btn.classList.add('on');
   box.innerHTML='<h4>{{ "Details" if en else "자세히" }}</h4><div class="nm">'+esc(btn.dataset.region)+'</div><div class="wh">'+ms.length+'{{ " places — choose one" if en else "곳 — 하나를 골라 보세요" }}</div><ul class="mlist">'+ms.map(function(id){var p=INFO[id];return '<li><button type="button" data-pick="'+id+'"><i style="background:var(--'+p.l+')"></i>'+esc(p.n)+'</button></li>'}).join('')+'</ul>';
   box.querySelectorAll('[data-pick]').forEach(function(b){b.addEventListener('click',function(){pick(b.dataset.pick);btn.classList.add('on')})});}
+root.querySelectorAll('[data-goto]').forEach(function(b){b.addEventListener('click',function(){pick(b.dataset.goto)})});
+if(INFO.ghasha)pick('ghasha');
 root.querySelectorAll('.pin').forEach(function(b){b.addEventListener('click',function(){if(b.classList.contains('grp'))list(b);else pick(b.dataset.id,b)})});
 function regroup(){root.querySelectorAll('.pin.grp').forEach(function(g){var n=g.dataset.members.split(',').filter(vis).length;g.classList.toggle('off',!n);g.querySelector('b').textContent=n;var l=g.nextElementSibling;if(l&&l.classList.contains('grp-l'))l.classList.toggle('off',!n);})}
 root.querySelectorAll('.cmap-f button').forEach(function(b){b.addEventListener('click',function(){var on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);root.classList.toggle('hide-'+b.dataset.layer,!on);HID[b.dataset.layer]=!on;regroup()})});
