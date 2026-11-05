@@ -69,8 +69,11 @@ def normalize(data):
         a["period_str"] = period_str(a.get("period"))
         # 사진 자동 연결: docs/assets/photos/<id>/*.jpg → gallery
         d = photos / a.get("id", "")
+        # 인터넷 사진 출처: docs/assets/photos/<id>/credits.yaml (파일 이름 → credit · credit_en · page)
+        cr = yaml.safe_load((d / "credits.yaml").read_text(encoding="utf-8")) if (d / "credits.yaml").exists() else {}
+        cr = cr or {}
         a["gallery"] = [
-            {"src": f"assets/photos/{a['id']}/{f.name}", "caption": f.stem.replace("_", " ")}
+            {"src": f"assets/photos/{a['id']}/{f.name}", "caption": f.stem.replace("_", " "), **(cr.get(f.name) or {})}
             for f in sorted(d.glob("*.jpg"))
         ] if d.is_dir() else []
         # 카드 전용 잘라낸 그림: docs/assets/photos/<id>/card/*.jpg (갤러리에는 넣지 않음)
@@ -78,6 +81,9 @@ def normalize(data):
         if cards:
             a["card_image"] = f"assets/photos/{a['id']}/card/{cards[0].name}"
             a["card_caption"] = cards[0].stem.replace("_", " ")
+            c = cr.get(f"card/{cards[0].name}") if d.is_dir() else None
+            if c:
+                a["card_credit"], a["card_credit_en"] = c.get("credit"), c.get("credit_en")
 
     for a in acts:
         prep(a)

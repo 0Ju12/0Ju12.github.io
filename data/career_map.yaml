@@ -15,6 +15,7 @@
   en: { name: "Jeonbuk National Univ. (Jeonju)", when: "B.S. ~2024.02 · M.S. 2024.03–2026.08", desc: "B.S. in Mineral Resources & Energy Eng., M.S. in Environment & Energy. First-author papers on CO2-storage seismic interpretation and gravity–magnetic wavenumber correlation (SPE Journal)." }
   link: masters
 - id: calgary
+  photo: { src: "assets/places/calgary.jpg", credit: "캘거리대학교 캠퍼스 · 사진: Jgcab · CC BY-SA 4.0 (위키미디어 공용)", credit_en: "University of Calgary campus · Photo: Jgcab · CC BY-SA 4.0 (Wikimedia Commons)", page: "https://commons.wikimedia.org/wiki/File:University_of_Calgary_Campus.jpg" }
   layer: stay
   lat: 51.078
   lon: -114.133
@@ -24,6 +25,7 @@
   en: { name: "University of Calgary (Canada)", when: "2023.12–2024.02 short · 2024.06–12 long stay", desc: "Short undergraduate stay processing Utah FORGE gravity data; ~6-month graduate stay jointly interpreting airborne gravity and magnetic data with the geomatics group." }
   link: calgary-2024
 - id: kananaskis
+  photo: { src: "assets/places/kananaskis.jpg", credit: "카나나스키스 전경 · 사진: KaleighAlysse · CC BY-SA 4.0 (위키미디어 공용)", credit_en: "Kananaskis Country · Photo: KaleighAlysse · CC BY-SA 4.0 (Wikimedia Commons)", page: "https://commons.wikimedia.org/wiki/File:Kananaskis_Country_from_above.jpg" }
   layer: stay
   lat: 50.95
   lon: -115.15
@@ -49,7 +51,7 @@
   link: masters
 - id: forge
   about_src: "https://en.wikipedia.org/wiki/Frontier_Observatory_for_Research_in_Geothermal_Energy"
-  photo: { src: "assets/photos/undergrad-research/2024-04_유타_FORGE_지열부지_포스터발표.jpg", credit: "2024.04 학회 포스터 발표 — 이 포스터로 KSEG 학생 우수논문 발표상", credit_en: "2024.04 conference poster — KSEG best student paper award" }
+  photo: { src: "assets/places/forge.jpg", credit: "FORGE 부지 인근 Blundell 지열 발전소 · 사진: Dr. Jonathan Ajo-Franklin · CC0 (위키미디어 공용)", credit_en: "Blundell geothermal plant next to the FORGE site · Photo: Dr. Jonathan Ajo-Franklin · CC0 (Wikimedia Commons)", page: "https://commons.wikimedia.org/wiki/File:Blundell_Geothermal_Power_Plant_Cooling_System.jpg" }
   wiki: "Frontier Observatory for Research in Geothermal Energy"
   layer: data
   lat: 38.502
