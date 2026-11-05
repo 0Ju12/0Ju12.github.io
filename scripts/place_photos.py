@@ -19,7 +19,7 @@ UA = {"User-Agent": "0ju12-portfolio-place-photos/1.0 (https://0ju12.github.io)"
 
 def get(url, raw=False):
     for i in range(5):
-        time.sleep(1.0)
+        time.sleep(2.0)
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=30) as r:
                 b = r.read()
@@ -34,11 +34,9 @@ def summary(lang, title):
     try:
         return get(f"https://{lang}.wikipedia.org/api/rest_v1/page/summary/{urllib.parse.quote(title.replace(' ', '_'))}")
     except urllib.error.HTTPError as e:
-        if e.code != 404:
-            raise
-        q = get(f"https://{lang}.wikipedia.org/w/api.php?action=query&list=search&format=json&srlimit=1&srsearch={urllib.parse.quote(title)}")
-        hits = q.get("query", {}).get("search", [])
-        return summary(lang, hits[0]["title"]) if hits and hits[0]["title"] != title else None
+        if e.code == 404:
+            return None   # 검색으로 대신 찾지 않음 — 엉뚱한 문서가 걸리는 것을 막기 위해 정확한 제목만 사용
+        raise
 
 
 def credit(file_title):
@@ -69,6 +67,7 @@ def main():
         rec = {"wiki_title": s.get("title"), "wiki_url": s.get("content_urls", {}).get("desktop", {}).get("page"),
                "extract": s.get("extract")}
         img = (s.get("originalimage") or {}).get("source")
+        img = img.split("?")[0] if img else img
         if img and img.lower().endswith((".jpg", ".jpeg", ".png")):
             fname = urllib.parse.unquote(img.rsplit("/", 1)[-1])
             try:
