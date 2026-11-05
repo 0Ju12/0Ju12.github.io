@@ -1,0 +1,56 @@
+[
+ {
+  "id": "masters-en",
+  "title": "Wavenumber correlation of gravity & magnetic data for salt/basement structure (M.S. · SPE Journal first author)",
+  "tagline": "Wavenumber-domain correlation → basement (SLFI) and salt (DLFI) indices",
+  "key": "Agrees with 3 independent models at r ≥ 0.94",
+  "period": "2024.03 – 2026.08",
+  "group": "M.S. — Separating gravity and magnetic signals to map the subsurface",
+  "image": "assets/photos/masters/2026-08_석사학위논문_Fig11_SLFI(기반암)·DLFI(암염)_공간분포.jpg"
+ },
+ {
+  "id": "calgary-2024-en",
+  "title": "Research stay at the University of Calgary — joint interpretation of gravity & magnetic data",
+  "tagline": "Joint gravity–magnetic interpretation of the Ghasha salt domes and basement",
+  "key": "First-author SPE Journal paper from the collaboration (2026)",
+  "period": "2024.06 – 2024.12",
+  "group": "M.S. — Separating gravity and magnetic signals to map the subsurface",
+  "image": "assets/photos/calgary-2024/card/카나나스키스_(캐나다_로키).jpg"
+ },
+ {
+  "id": "undergrad-research-en",
+  "title": "Seismic interpretation of large overseas CO2 storage sites considering plate-tectonic history (first-author paper)",
+  "tagline": "Reconstructed the geological history of CO2 storage sites with GPlates and interpreted their seismic images",
+  "key": "First-author paper (2024) · best student paper award",
+  "period": "2022 – 2024.02",
+  "group": "B.S. — CO2 storage seismic interpretation · wildfire deep learning",
+  "image": "assets/photos/undergrad-research/card/논문_GPlates_북미_판구조_형성사_(Fig.2).jpg"
+ },
+ {
+  "id": "wildfire-capstone-en",
+  "title": "IAB capstone — Wildfire spread prediction with spatiotemporal deep learning",
+  "tagline": "U-LSTM that predicts the next fire front from past fronts, weather and terrain",
+  "key": "F1 0.85 on an unseen wildfire (Gangneung)",
+  "period": "2023.09 – 2023.12",
+  "group": "B.S. — CO2 storage seismic interpretation · wildfire deep learning",
+  "image": "assets/photos/wildfire-capstone/card/U-LSTM_강릉_산불_GIS_실제·예측_비교_(t1~t5).jpg"
+ },
+ {
+  "id": "ssafy-16-en",
+  "title": "SSAFY — ThRead LLM comment-analysis pipeline · AI Challenge VQA ensemble",
+  "tagline": "A reading community built end to end — collection → LLM analysis → web service",
+  "key": "LLM judgments verified in code · 86 automated tests",
+  "period": "2026.07 – present",
+  "group": "Bootcamps — SSAFY · POSCO AI·BigData Academy",
+  "image": "assets/photos/ssafy-16/관통5_LLM_댓글분석_결과화면.jpg"
+ },
+ {
+  "id": "posco-pospeak-en",
+  "title": "POSPEAK (KILL KONG) — Konglish → natural English correction AI (FLAN-T5 · Qwen + RAG)",
+  "tagline": "Generator + RAG that rewrites Konglish into natural English",
+  "key": "Training-strategy comparison: BERTScore F1 0.32 → 0.74 · award",
+  "period": "2025.06 – 2025.08",
+  "group": "Bootcamps — SSAFY · POSCO AI·BigData Academy",
+  "image": "assets/photos/posco-pospeak/card/KILLKONG_앱_화면_(홈·채팅·단어·연습).jpg"
+ }
+]
