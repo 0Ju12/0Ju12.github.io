@@ -333,6 +333,14 @@ def _og_image(sp):
     return gal[0]["src"] if gal else ""
 
 
+def goatcounter():
+    """방문 통계: data/portfolio.yaml site.goatcounter (예: "youngju") 가 있으면 모든 공개 페이지에 쿠키 없는 카운터"""
+    try:
+        return ((yaml.safe_load(DATA.read_text(encoding="utf-8")) or {}).get("site") or {}).get("goatcounter") or ""
+    except Exception:
+        return ""
+
+
 def sitemap(data):
     """검색 노출용 docs/sitemap.xml · docs/robots.txt (잠긴 이력서·강의 노트는 제외)"""
     base = "https://0ju12.github.io/"
@@ -375,6 +383,7 @@ def main():
         trim_blocks=True,
         lstrip_blocks=True,
     )
+    env.globals["goatcounter"] = goatcounter()
     md_env = Environment(loader=FileSystemLoader(TEMPLATES), trim_blocks=True, lstrip_blocks=True)
 
     DOCS.mkdir(exist_ok=True)

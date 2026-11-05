@@ -24,7 +24,11 @@ ITEMS = [
 
 
 def env():
-    return Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=select_autoescape(["html", "j2"]))
+    e = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=select_autoescape(["html", "j2"]))
+    import yaml
+    site = (yaml.safe_load((ROOT / "data" / "portfolio.yaml").read_text(encoding="utf-8")) or {}).get("site") or {}
+    e.globals["goatcounter"] = site.get("goatcounter") or ""
+    return e
 
 
 def placeholder():

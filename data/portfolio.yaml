@@ -44,6 +44,7 @@ highlights:
 site:
   theme: editorial
   layout: "stack"           # 2026-11-04 선택: Card Stack v2 (석사·학부·부트캠프 3묶음). 이전: showcase
+  goatcounter: ""           # 방문 통계: goatcounter.com 에서 만든 코드(예: "youngju")를 넣으면 모든 페이지·이력서 페이지에 쿠키 없는 카운터가 붙음
 
 education:
   - school: 삼성 청년 SW·AI 아카데미 (SSAFY)
