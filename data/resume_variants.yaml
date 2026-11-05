@@ -5,14 +5,14 @@ data:
   headline: "데이터 수집부터 정제·검증·색인까지 파이프라인을 만드는 데이터 엔지니어"
   highlights:
     - { value: "파이프라인 3종", label: "오픈API·크롤링 수집 → 정제 → 색인" }
-    - { value: "테스트 136개", label: "ThRead 86 · 국보 RAG 50 (외부 호출 없이)" }
+    - { value: "테스트 172개", label: "ThRead 122 · 국보 RAG 50 (외부 호출 없이)" }
     - { value: "SCIE 1편", label: "SPE Journal 제1저자 · 분석 코드 공개" }
     - { value: "SSAFY 16기", label: "삼성 청년 SW·AI 아카데미" }
   order: [bootcamp, grad, undergrad]
   brief:
     bootcamp:
       - "국보 입문 가이드(개인): 국가유산청 오픈API(XML·EUC-KR)·위키백과 수집 → 정제 → ChromaDB 색인. 청크 ID 고정으로 재실행해도 중복 없는 색인, 질문별 수집 캐시·위키 장애 시 저장본 대체, 429/5xx Retry-After 재시도"
-      - "ThRead: Selenium 댓글 수집 → LLM 판단을 코드로 검증 → pandas 정제·IQR 길이 기준·증강·요약, NDJSON 진행 상황 스트리밍 · 알라딘 API 페이지네이션·중복 제거 수집 · Django 백엔드 · 자동 테스트 86개"
+      - "ThRead: Selenium 댓글 수집 → LLM 판단을 코드로 검증 → pandas 정제·IQR 길이 기준·증강·요약, NDJSON 진행 상황 스트리밍 · 알라딘 API 페이지네이션·중복 제거 수집 · Django 백엔드 · 관계형 DB 설계 · 자동 테스트 122개"
       - "AI 챌린지(VQA): 제출 전 자동 검사(6,714행·ID·확률 행합) + SHA-256 매니페스트로 GPU 없이 재현 가능한 제출 관리 · Public Score 0.96961"
       - "POSPEAK(KILL KONG): 콩글리시 교정 데이터셋 구축, FLAN-T5 LoRA 학습 전략 비교(F1 0.32→0.74) + RAG · 장려상"
     grad:
@@ -42,7 +42,7 @@ ai:
       - "AI 챌린지(VQA): Qwen 4B 0.94608 → 27B 0.95591 → 확률 앙상블 → Qwen QLoRA·Gemma·OCR·멀티뷰 결합으로 Public 0.96961. 후보는 정확도가 아닌 fixes−breaks와 유형별 회귀로 채택"
       - "국보 입문 가이드(개인): LangGraph retrieve→generate RAG, 출처별 청킹·MMR 검색, 답변의 [근거 N]을 코드로 검증해 없는 번호 제거 · 가짜 LLM 기반 테스트 50개"
       - "POSPEAK(KILL KONG): 콩글리시 교정 데이터셋 구축, FLAN-T5 LoRA 학습 전략 비교(F1 0.32→0.74)·catastrophic forgetting 분석 + RAG · 장려상"
-      - "ThRead: LLM 판단(부적절 댓글·도서 추천)을 코드로 검증하는 파이프라인 · Django 백엔드 · 자동 테스트 86개"
+      - "ThRead: LLM 판단(부적절 댓글·도서 추천)을 코드로 검증하는 파이프라인 · Django 백엔드 · 관계형 DB 설계 · 자동 테스트 122개"
     undergrad:
       - "IAB 융합전공 캡스톤: Conv2D 인코더–LSTM–디코더 U-LSTM을 설계·학습해 산불 4건의 소규모 데이터로 화선 예측 — 미학습 산불 테스트 Accuracy 0.90 · F1 0.85"
       - "제1저자 논문: GPlates 판구조 복원 + 대규모 CO2 저장소 탄성파 해석 (지구물리와 물리탐사, 2024) · 학회 발표 3건"

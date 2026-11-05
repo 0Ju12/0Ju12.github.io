@@ -39,7 +39,7 @@
   "id": "ssafy-16",
   "title": "SSAFY 16기 관통 프로젝트 — ThRead: LLM 댓글 분석 파이프라인 · AI 도서 서비스",
   "tagline": "수집 → LLM 분석 → 웹 서비스까지 직접 만든 독서 커뮤니티",
-  "key": "LLM 판단을 코드로 검증 · 자동 테스트 86개",
+  "key": "LLM 판단을 코드로 검증 · 자동 테스트 122개",
   "period": "2026.07 – 진행 중",
   "group": "부트캠프 — SSAFY 16기 · 포스코 AI 아카데미",
   "image": "assets/photos/ssafy-16/관통5_LLM_댓글분석_결과화면.jpg"

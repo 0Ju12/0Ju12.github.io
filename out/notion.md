@@ -77,6 +77,8 @@ SSAFY에서 LLM 데이터 파이프라인·Django 서비스와 VQA 모델 앙상
 - **한 일**
   - [SSAFY 16기] 관통 5 · 댓글 분석 파이프라인: Selenium으로 토스증권 커뮤니티 댓글 20개를 실시간 수집 → LLM이 부적절 댓글 번호만 판단하고 코드가 원본에서 제거 → pandas·정규식 정제 → IQR로 길이 이상치 기준 계산 → LLM 증강(개수 불일치 시 재시도) → 요약까지 단계별로 DB 저장
   - [SSAFY 16기] 관통 5: 30초 이상 걸리는 작업의 진행 상황을 StreamingHttpResponse(NDJSON)+스레드·큐로 실시간 표시, 회사 없음·댓글 없음·LLM 실패 등 예외 상황을 구분해 안내
+  - [SSAFY 16기] 관통 6 · 관계형 DB 설계: AbstractUser 커스텀 User, 회원→도서→쓰레드→댓글 1:N과 팔로우(symmetrical=False)·좋아요·선호 장르 M:N 설계, User↔Category 순환 참조를 피하도록 마이그레이션을 3단계로 분리, 장르 삭제 시 도서는 SET_NULL로 보존
+  - [SSAFY 16기] 관통 6: 수정·삭제는 작성자 조건으로 조회해 타인 글은 404, 변경 요청은 POST 전용, 알라딘 검색 결과는 서명 토큰(1시간)으로 넘겨 제목·저자가 일치할 때만 ISBN·표지 저장 — 자동 테스트 36개
   - [SSAFY 16기] 관통 4 · AI 도서 서비스: Django 커스텀 User·인증(오픈 리다이렉트 방어, HTTP Method 제한), 도서 CRUD, 위키피디아+LLM 작가 정보 생성, AI 도서 분석, 등록 도서 안에서만 추천하도록 검증한 AI 맞춤 추천, 알라딘 API 수집 명령
   - [SSAFY 16기] 관통 4: Django TestCase와 mock으로 외부 API 없이 요구사항별 동작을 검증하는 자동 테스트 45개 작성
   - [SSAFY 16기] 관통 1~3: JSON 도서 데이터 집계·정렬, 알라딘 API 수집(페이지네이션·중복 제거)+LLM 분류+gTTS 음성 변환, Bootstrap 반응형 웹페이지
@@ -90,7 +92,7 @@ SSAFY에서 LLM 데이터 파이프라인·Django 서비스와 VQA 모델 앙상
   - [POSPEAK(KILL KONG)] [팀] 다국어 문장 임베딩(paraphrase-multilingual-MiniLM)과 FAISS로 유사 교정 예문 top-5를 검색해 모델 입력에 제공하는 RAG 파이프라인과 CLI 구성
 - **결과**
   - [SSAFY 16기] LLM 응답을 그대로 믿지 않고 코드로 검증하는 구조(번호 범위 검사, 뒤에서부터 제거, 등록 도서 id만 허용)로 안정적인 AI 기능 구현
-  - [SSAFY 16기] 자동 테스트 관통 4 45개 · 관통 5 41개 통과, 관통 5 요구사항(F601~F611) 전부 구현 + 진행 상황 스트리밍·분석 이력·11가지 화면 테마 추가
+  - [SSAFY 16기] 자동 테스트 관통 4 45개 · 관통 5 41개 · 관통 6 36개 통과, 관통 5 요구사항(F601~F611) 전부 구현 + 진행 상황 스트리밍·분석 이력·11가지 화면 테마 추가
   - [POSPEAK(KILL KONG)] 순차 학습에서 앞 단계 성능이 떨어지는 catastrophic forgetting(BERTScore F1 0.47 → 0.32)을 실험으로 확인하고 통합 학습으로 전환
   - [POSPEAK(KILL KONG)] 통합 학습 모델의 검증 BERTScore F1 약 0.74 (순차 학습 0.32~0.47 대비 개선)
   - [POSPEAK(KILL KONG)] 팀 프로젝트 장려상 수상

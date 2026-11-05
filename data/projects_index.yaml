@@ -39,12 +39,13 @@
   period: "2026.07 – 진행 중"
   team: "2인 · 백엔드·데이터 파이프라인"
   cat: [llm, data]
-  metric: { value: "86", label: "자동 테스트" }
-  oneliner: "Selenium 수집 → LLM 판단(번호만) → 코드 검증 → pandas 정제·증강·요약. 도서 서비스를 5회에 걸쳐 확장"
+  metric: { value: "122", label: "자동 테스트" }
+  oneliner: "Selenium 수집 → LLM 판단(번호만) → 코드 검증 → pandas 정제·증강·요약. 도서 서비스를 6회에 걸쳐 확장"
   points:
     - "LLM에는 판단만, 삭제·채택은 코드가 — 번호 범위 검사·등록 도서 id만 허용·개수 불일치 재시도"
     - "IQR 길이 기준 정제, NDJSON 진행 상황 스트리밍, 예외 안내"
     - "Django 커스텀 User·오픈 리다이렉트 방어, 알라딘 API 페이지네이션·중복 제거"
+    - "관계형 DB 설계: 1:N·M:N(팔로우·좋아요·선호 장르), 작성자 권한(타인 글 404), 서명 토큰으로 외부 메타데이터 위조 방지"
   stack: [Python, Django, Selenium, Pandas, LLM API]
   image: assets/photos/ssafy-16/관통5_LLM_댓글분석_결과화면.jpg
   links: [{ label: GitHub, url: "https://github.com/0Ju12/ssafy-thread" }]

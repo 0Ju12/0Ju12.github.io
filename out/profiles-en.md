@@ -31,13 +31,13 @@ Research history: https://www.geoverselab.com/ko/research-history/13/
 - **기간:** 2026.07 – present
 - **설명:**
 ```
-Extended a reading-community service across five projects, from data collection to LLM analysis and web service, plus a multimodal QA challenge
+Extended a reading-community service across six projects, from data collection to LLM analysis and web service, plus a multimodal QA challenge
 • Comment pipeline: Selenium collects live comments → the LLM returns only the numbers of inappropriate comments and code removes them → pandas/regex cleaning → IQR length thresholds → LLM augmentation (retry on count mismatch) → summary, each step stored
 • Streamed progress of 30-second jobs with StreamingHttpResponse (NDJSON) and distinguished failure cases (no company, no comments, LLM failure)
+• Relational DB design (project 6): custom AbstractUser; user→book→thread→comment 1:N plus follow (asymmetric), like and favorite-genre M:N; migrations split in three steps to avoid a User↔Category cycle; owner-scoped lookups return 404 for other users' posts; Aladin search results passed through a signed, 1-hour token so ISBN/cover are saved only when title and author still match — 36 tests
 • AI book service: custom Django auth (open-redirect protection), AI recommendations restricted to registered book IDs; 45 mock-based tests without external APIs
-• AI core project 2 · National-treasure RAG guide (2026.10, solo): collected treasures and official descriptions from the Korea Heritage Service open API (XML, EUC-KR) and auto-linked each to Korean Wikipedia; two ChromaDB collections with fixed chunk IDs (idempotent re-indexing); per-question LLM query extraction and document selection with caching and offline fallback; LangGraph retrieve→generate where [evidence N] tags are checked in code and unknown numbers removed; Streamlit + FastAPI UIs; 50 tests with a fake LLM and Streamlit AppTest
 ✔ AI Challenge public score 0.94608 (4B baseline) → 0.96961
-✔ 86 automated tests passing; all project-5 requirements implemented, plus progress streaming and analysis history
+✔ 122 automated tests passing (45 + 41 + 36); all project-5 requirements implemented, plus progress streaming and analysis history
 Skills: Python, Django, Selenium, Pandas, LLM API
 Details: https://0ju12.github.io/projects/ssafy-16-en.html
 ```
