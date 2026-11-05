@@ -34,6 +34,11 @@ jobs:
         run: python scripts/check_site.py
       - name: Check mobile/desktop layout overflow
         run: node scripts/check_layout.js
+      - name: Lock resumes (password only)
+        run: python scripts/lock_resumes.py
+        env:
+          RESUME_PASSWORD: ${{ secrets.RESUME_PASSWORD }}   # 이력서 암호 (비워 두면 PRIVATE_PASSWORD 사용)
+          PRIVATE_PASSWORD: ${{ secrets.PRIVATE_PASSWORD }}
       - uses: actions/upload-pages-artifact@v3
         with: { path: docs }
   deploy:

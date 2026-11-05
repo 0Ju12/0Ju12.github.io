@@ -379,6 +379,8 @@ def main():
         (DOCS / f"resume-{key}.html").write_text(env.get_template("resume-1page.html.j2").render(**vd), encoding="utf-8")
     import build_en
     build_en.main()
+    import lock_resumes
+    lock_resumes.placeholder()   # 배포 시 CI 가 scripts/lock_resumes.py 로 실제 잠금 페이지를 만듦
     (OUT / "notion.md").write_text(md_env.get_template("notion.md.j2").render(**data), encoding="utf-8")
     (OUT / "profiles.md").write_text(md_env.get_template("profiles.md.j2").render(**data), encoding="utf-8")
 
