@@ -16,12 +16,14 @@ SEALED = ROOT / "content" / "study_sealed" / "notes.sealed.json"
 ITER = 600_000
 OUT = ROOT / "docs" / "study"
 
-TRACKS = [
-    ("web", "WEB", "HTML·CSS·Bootstrap·반응형", lambda n: n[:2] in ("01", "02", "03")),
+TRACKS = [   # 파일 이름으로 분류 — 새 강의 노트가 들어와도 규칙에 맞으면 자동으로 해당 트랙에
+    ("web", "WEB", "HTML·CSS·Bootstrap·반응형", lambda n: n[:3] in ("01_", "02_", "03_")),
+    ("js", "JavaScript", "기본 문법·DOM·이벤트", lambda n: "_JS_" in n or "_JavaScript_" in n),
     ("algo", "SW 알고리즘", "자료구조·탐색·DP·그래프", lambda n: n.startswith("SW")),
-    ("django", "Django", "MTV·ORM·Form·인증", lambda n: n[:2].isdigit() and 4 <= int(n[:2]) <= 13),
-    ("db", "DB · SQL", "SQL·관계(1:N, M:N)·N+1", lambda n: n[:2].isdigit() and 14 <= int(n[:2]) <= 19),
-    ("ai", "AI", "데이터 분석·ML·NLP·LLM·비전", lambda n: n.startswith("AI")),
+    ("django", "Django", "MTV·ORM·Form·인증·DRF", lambda n: "_Django_" in n),
+    ("db", "DB · SQL", "SQL·관계(1:N, M:N)·N+1", lambda n: "_DB_" in n),
+    ("ai", "AI", "데이터 분석·ML·NLP·LLM·비전·에이전트", lambda n: n.startswith("AI")),
+    ("etc", "기타", "분류 규칙에 없는 노트", lambda n: True),
 ]
 SKIP_SECTIONS = ("핵심 키워드", "확인 문제", "참고 내용", "실습 문제")
 
@@ -78,7 +80,11 @@ def inject(note, prev, nxt):
 
 
 def _source():
-    """평문 원본 폴더 — 로컬 원본이 있으면 그대로, 없으면 잠긴 묶음을 PRIVATE_KEY 로 풀어 임시 폴더에"""
+    """평문 원본 폴더 — 로컬 원본이 있으면 그대로, 없으면 잠긴 묶음들을 PRIVATE_KEY 로 풀어 임시 폴더에
+
+    notes.sealed.json(전체) 다음 notes-*.sealed.json(추가분)을 이름 순서대로 풀어 덮어씀 → 정기 작업이
+    개인키 없이 새 노트만 추가 묶음으로 잠가 올려도 배포 빌드에서 합쳐짐
+    """
     if SRC.exists() and any(SRC.glob("*.html")):
         return SRC
     pem = os.environ.get("PRIVATE_KEY")
@@ -87,12 +93,13 @@ def _source():
     from cryptography.hazmat.primitives import hashes, serialization
     from cryptography.hazmat.primitives.asymmetric import padding
     from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-    r = json.loads(SEALED.read_text(encoding="utf-8"))
     priv = serialization.load_pem_private_key(pem.encode(), password=None)
-    key = priv.decrypt(base64.b64decode(r["key"]), padding.OAEP(mgf=padding.MGF1(hashes.SHA256()), algorithm=hashes.SHA256(), label=None))
-    raw = AESGCM(key).decrypt(base64.b64decode(r["nonce"]), base64.b64decode(r["ct"]), None)
     tmp = Path(tempfile.mkdtemp(prefix="study-"))
-    zipfile.ZipFile(io.BytesIO(raw)).extractall(tmp)
+    for f in [SEALED] + sorted(SEALED.parent.glob("notes-*.sealed.json")):
+        r = json.loads(f.read_text(encoding="utf-8"))
+        key = priv.decrypt(base64.b64decode(r["key"]), padding.OAEP(mgf=padding.MGF1(hashes.SHA256()), algorithm=hashes.SHA256(), label=None))
+        raw = AESGCM(key).decrypt(base64.b64decode(r["nonce"]), base64.b64decode(r["ct"]), None)
+        zipfile.ZipFile(io.BytesIO(raw)).extractall(tmp)
     return tmp
 
 
