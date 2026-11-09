@@ -9,6 +9,7 @@ __pycache__/
 
 # 강의 노트 원본(평문) — 커밋 금지. 공개키로 잠근 content/study_sealed/ 만 커밋 (scripts/study_seal.py)
 /content/study/notes/
+/content/study/quiz/
 
 # 이력서 평문은 올리지 않음 — CI 에서 생성 후 scripts/lock_resumes.py 로 암호화
 /docs/resume*.html

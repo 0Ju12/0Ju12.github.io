@@ -20,6 +20,8 @@ buf = io.BytesIO()
 with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
     for f in sorted(SRC.glob("*.html")):
         z.write(f, f.name)
+    for f in sorted((SRC.parent / "quiz").glob("*.json")):          # 문제·개념 데이터도 함께 잠금
+        z.write(f, f"quiz/{f.name}")
 pub = serialization.load_pem_public_key((ROOT / "keys" / "private_seal_pub.pem").read_bytes())
 key, nonce = AESGCM.generate_key(256), os.urandom(12)
 rec = {"v": 1, "name": "notes.zip", "key": b64(pub.encrypt(key, OAEP)), "nonce": b64(nonce),

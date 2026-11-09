@@ -1,4 +1,4 @@
-"""content/study/notes/*.html (노션 강의 요약) → docs/study/ 학습 공간 (암호로 잠김)
+"""content/study/notes/*.html (노션 강의 요약) + quiz/lessons.json → docs/study/ 학습 앱 (암호로 잠김)
 
 - 원본: 로컬의 content/study/notes/ (커밋 금지) 또는 잠긴 content/study_sealed/notes.sealed.json (배포 빌드에서 PRIVATE_KEY 로 풂)
 - 출력: 모든 노트·목록 페이지를 암호(STUDY_PASSWORD, 없으면 PRIVATE_PASSWORD)로 AES-GCM 암호화한 잠금 페이지.
@@ -69,6 +69,8 @@ def inject(note, prev, nxt):
         links.append(f'<a href="{prev["slug"]}.html">‹ 이전</a>')
     if nxt:
         links.append(f'<a href="{nxt["slug"]}.html">다음 ›</a>')
+    if note.get("nq"):
+        links.append(f'<a href="../index.html#/quiz/{note["slug"]}">문제 {note["nq"]}개 풀기</a>')
     links.append('<a href="../../index.html">포트폴리오</a>')
     bar = NAV_CSS + '<nav class="st-nav">' + "".join(links) + "</nav>"
     raw = NUM_PREFIX.sub(r"\1", note["raw"])                         # <title>·<h1> 앞 번호 제거
@@ -120,6 +122,13 @@ def build(env, data):
         return []
     locker = Locker(env, os.environ.get("STUDY_PASSWORD") or os.environ.get("PRIVATE_PASSWORD"))
     notes = [parse(p) for p in sorted(src.glob("*.html"))]
+    import study_quiz
+    quiz_file = src / "quiz" / "lessons.json"
+    if not quiz_file.exists():
+        quiz_file = ROOT / "content" / "study" / "quiz" / "lessons.json"
+    units = study_quiz.build(notes, quiz_file)
+    for n in notes:
+        n["nq"] = len(units[n["slug"]]["questions"])
     order = {t[0]: i for i, t in enumerate(TRACKS)}
     notes.sort(key=lambda n: (order[n["track"]], n["date"] or "9", n["file"]))   # 수강 날짜 순
     (OUT / "notes").mkdir(parents=True, exist_ok=True)
@@ -131,6 +140,9 @@ def build(env, data):
         (OUT / "notes" / f"{n['slug']}.html").write_text(locker.page(n["title"], inject(n, prev, nxt), "../../index.html"), encoding="utf-8")
     tracks = [{"id": t[0], "name": t[1], "desc": t[2], "notes": [n for n in notes if n["track"] == t[0]]} for t in TRACKS]
     dated = sorted([n for n in notes if n["date"]], key=lambda n: (n["date"], order[n["track"]], n["file"]))
-    hub = env.get_template("study.html.j2").render(tracks=tracks, notes=notes, timeline=dated, **data)
+    app = {"tracks": [{"id": t[0], "name": t[1], "desc": t[2]} for t in TRACKS],
+           "notes": [{k: n[k] for k in ("slug", "title", "num", "date", "sections", "summary", "track", "nq")} for n in notes],
+           "units": units}
+    hub = env.get_template("study.html.j2").render(tracks=tracks, notes=notes, timeline=dated, app=app, **data)
     (OUT / "index.html").write_text(locker.page("강의 노트", hub, "../index.html"), encoding="utf-8")
     return notes
