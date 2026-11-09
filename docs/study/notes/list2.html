@@ -4,6 +4,10 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>List 2: 2차원 배열, 델타, 부분집합, 검색, 선택 정렬 · 잠김</title>
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#1f3a5f">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="학습 노트">
 <style>
 :root{--bg:#f7f7f8;--card:#fff;--text:#18181b;--muted:#5f5f68;--faint:#9b9ba3;--line:#e4e4e8;--ink:#18181b;--on-ink:#fafafa;--err:#dc2626}
 @media (prefers-color-scheme: dark){:root{--bg:#0d0d10;--card:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--faint:#71717a;--line:#27272a;--ink:#f4f4f5;--on-ink:#0d0d10;--err:#f87171}}
@@ -18,6 +22,8 @@ input{flex:1;min-width:0;height:46px;border:1px solid var(--line);border-radius:
 input:focus{outline:2px solid var(--text);outline-offset:1px}
 button{height:46px;border:0;border-radius:12px;background:var(--ink);color:var(--on-ink);font:inherit;font-weight:700;padding:0 18px;cursor:pointer}
 button:disabled{opacity:.6;cursor:wait}
+.keep{display:flex;gap:7px;align-items:center;margin-top:12px;font-size:13.5px;color:var(--muted);cursor:pointer}
+.keep input{flex:none;width:16px;height:16px;margin:0}
 .msg{min-height:22px;margin-top:10px;font-size:13.5px;color:var(--err)}
 .back{display:inline-block;margin-top:14px;font-size:14px;color:var(--muted)}
 </style>
@@ -29,5 +35,6 @@ button:disabled{opacity:.6;cursor:wait}
   <p>이 빌드에는 암호가 설정되지 않아 내용을 넣지 않았습니다. 배포된 사이트에서 암호로 열 수 있습니다.</p>
   <a class="back" href="../../index.html">← 포트폴리오로 돌아가기</a>
 </main>
+<script>if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'))navigator.serviceWorker.register('../sw.js',{scope:'../'}).catch(function(){});</script>
 </body>
 </html>

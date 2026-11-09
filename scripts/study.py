@@ -5,7 +5,9 @@
   암호가 없는 빌드(로컬 등)에서는 내용 없는 '잠김' 페이지만 만들어 평문이 docs/ 에 남지 않음.
 
 - 각 노트에 학습 공간 내비게이션(목록·이전·다음)을 끼워 docs/study/notes/ 로 복사
-- 제목·날짜·목차·요약을 뽑아 docs/study/index.html 허브 페이지 생성 (검색·트랙 필터)
+- 제목·날짜·목차·요약을 뽑아 docs/study/index.html 학습 앱 생성 (문제·키워드 카드·약점 리포트·모의고사)
+- 본문 검색 색인은 같은 키로 암호화해 docs/study/search.enc.json 에 (암호 없는 빌드엔 만들지 않음)
+- manifest.webmanifest · sw.js 로 홈 화면 설치·오프라인 사용
 """
 import base64, html, io, json, os, re, tempfile, zipfile
 from pathlib import Path
@@ -62,6 +64,14 @@ padding:10px 18px;background:rgba(13,13,15,.92);backdrop-filter:blur(8px);font:6
 @media print{.st-nav{display:none}}@media (max-width:600px){.st-nav .st-t{display:none}.st-nav a:first-child{margin-right:auto}}</style>"""
 
 
+# 잠금 페이지가 document.write 로 그린 뒤에는 브라우저가 #절 로 스크롤하지 않음 → 직접 이동하고 잠깐 강조
+HASH_JS = """<style>h2[id]{scroll-margin-top:64px}.st-hit{outline:3px solid #f59e0b;outline-offset:6px;border-radius:4px;transition:outline-color 1.6s}</style>
+<script>(function(){function go(){var h=decodeURIComponent(location.hash.slice(1));if(!h)return;var el=document.getElementById(h);if(!el)return;
+el.scrollIntoView({block:'start'});el.classList.add('st-hit');setTimeout(function(){el.style.outlineColor='transparent'},1800)}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(go,30)});else setTimeout(go,30);
+window.addEventListener('hashchange',go)})();</script>"""
+
+
 NUM_PREFIX = re.compile(r"(<(?:title|h1)[^>]*>)\s*(?:(?:AI|SW)\s*)?\d+\.\s*")
 
 
@@ -74,7 +84,7 @@ def inject(note, prev, nxt):
     if note.get("nq"):
         links.append(f'<a href="../index.html#/quiz/{note["slug"]}">문제 {note["nq"]}개 풀기</a>')
     links.append('<a href="../../index.html">포트폴리오</a>')
-    bar = NAV_CSS + '<nav class="st-nav">' + "".join(links) + "</nav>"
+    bar = NAV_CSS + HASH_JS + '<nav class="st-nav">' + "".join(links) + "</nav>"
     raw = NUM_PREFIX.sub(r"\1", note["raw"])                         # <title>·<h1> 앞 번호 제거
     return re.sub(r"(<body[^>]*>)", r"\1" + bar.replace("\\", "\\\\"), raw, count=1)
 
@@ -120,7 +130,40 @@ class Locker:
             iv = os.urandom(12)
             e = lambda b: base64.b64encode(b).decode()
             box = {"salt": e(self.salt), "iv": e(iv), "iter": ITER, "ct": e(AESGCM(self.key).encrypt(iv, inner_html.encode(), None))}
-        return self.env.get_template("study_lock.html.j2").render(title=title, box=box, home=home)
+        root = "../" if home.startswith("../../") else ""
+        return self.env.get_template("study_lock.html.j2").render(title=title, box=box, home=home, root=root)
+
+    def blob(self, obj):
+        """검색 색인 같은 큰 데이터 → gzip 후 같은 키로 암호화 (브라우저가 sessionStorage 의 키로 풂)"""
+        import gzip
+        from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+        iv = os.urandom(12)
+        raw = gzip.compress(json.dumps(obj, ensure_ascii=False, separators=(",", ":")).encode(), 9)
+        e = lambda b: base64.b64encode(b).decode()
+        return {"iv": e(iv), "gz": 1, "ct": e(AESGCM(self.key).encrypt(iv, raw, None))}
+
+
+def pwa(out, slugs):
+    """홈 화면 설치·오프라인용 manifest 와 service worker (페이지는 이미 암호화돼 있어 캐시해도 평문이 남지 않음)"""
+    import hashlib
+    man = {"name": "학습 노트 · SSAFY 16기", "short_name": "학습 노트", "start_url": "./index.html", "scope": "./",
+           "display": "standalone", "background_color": "#0e1116", "theme_color": "#1f3a5f", "lang": "ko",
+           "icons": [{"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
+                     {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"}]}
+    (out / "manifest.webmanifest").write_text(json.dumps(man, ensure_ascii=False, indent=1), encoding="utf-8")
+    ver = hashlib.sha1((out / "index.html").read_bytes() if (out / "index.html").exists() else b"").hexdigest()[:10]
+    (out / "sw.js").write_text(SW_JS.replace("__VER__", ver), encoding="utf-8")
+
+
+# 페이지: 네트워크 먼저(새 노트 반영) → 실패하면 캐시. 그 밖의 파일: 캐시 먼저 + 뒤에서 갱신
+SW_JS = """const C='study-__VER__';
+self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(['./','./index.html','./manifest.webmanifest','./icon-192.png'])).then(()=>self.skipWaiting()))});
+self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.startsWith('study-')&&k!==C).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
+self.addEventListener('fetch',e=>{const r=e.request;if(r.method!=='GET')return;const u=new URL(r.url);if(u.origin!==location.origin)return;
+ const put=res=>{if(res&&res.ok){const cp=res.clone();caches.open(C).then(c=>c.put(r,cp))}return res};
+ if(r.mode==='navigate'||u.pathname.endsWith('.json')){e.respondWith(fetch(r).then(put).catch(()=>caches.match(r,{ignoreSearch:true}).then(m=>m||caches.match('./index.html'))));return}
+ e.respondWith(caches.match(r).then(m=>{const f=fetch(r).then(put).catch(()=>m);return m||f}))});
+"""
 
 
 def build(env, data):
@@ -134,6 +177,7 @@ def build(env, data):
     if not quiz_file.exists():
         quiz_file = ROOT / "content" / "study" / "quiz" / "lessons.json"
     units = study_quiz.build(notes, quiz_file)
+    index = study_quiz.enrich(notes, units)
     for n in notes:
         n["nq"] = len(units[n["slug"]]["questions"])
     order = {t[0]: i for i, t in enumerate(TRACKS)}
@@ -149,7 +193,13 @@ def build(env, data):
     dated = sorted([n for n in notes if n["date"]], key=lambda n: (n["date"], order[n["track"]], n["file"]))
     app = {"tracks": [{"id": t[0], "name": t[1], "desc": t[2]} for t in TRACKS],
            "notes": [{k: n[k] for k in ("slug", "title", "num", "date", "sections", "summary", "track", "nq")} for n in notes],
-           "units": units}
+           "units": units, "salt": base64.b64encode(locker.salt).decode() if locker.password else ""}
+    search = OUT / "search.enc.json"
+    if locker.password:
+        search.write_text(json.dumps(locker.blob(index)), encoding="utf-8")
+    elif search.exists():
+        search.unlink()                                           # 암호 없는 빌드엔 색인을 남기지 않음
     hub = env.get_template("study.html.j2").render(tracks=tracks, notes=notes, timeline=dated, app=app, **data)
     (OUT / "index.html").write_text(locker.page("강의 노트", hub, "../index.html"), encoding="utf-8")
+    pwa(OUT, [n["slug"] for n in notes])
     return notes
