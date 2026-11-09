@@ -109,6 +109,7 @@ CAPTIONS = {
     "석사학위논문_(표지)": "M.S. thesis — cover",
     "Fig03_": "M.S. thesis Fig. 3 — WCF → LFI five-step workflow",
     "Fig10_": "M.S. thesis Fig. 10 — basement/salt classes by CC(k) band",
+    "Fig01_": "M.S. thesis Fig. 1 — offshore Abu Dhabi fields and the Ghasha area",
     "Fig11_": "M.S. thesis Fig. 11 — SLFI (basement) · DLFI (salt) maps",
     "프로젝트_장려상·수료증": "POSCO academy — Excellence Award & certificate",
     "관통5_LLM_댓글분석_결과화면": "ThRead — LLM comment-analysis result screen",

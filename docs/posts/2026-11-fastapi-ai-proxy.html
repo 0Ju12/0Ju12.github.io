@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>모델 호출을 프록시 한곳에 모으고, 모델의 대답부터 의심하기 · 이영주</title>
+<meta name="description" content="관통 7에서 Django와 AI 모델 사이에 FastAPI 프록시를 두며 정한 것들 — Guardrail이 고장 나면 막는 쪽으로, API마다 다른 이미지 응답을 한 모양으로, 로그에는 구조만 남기기.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="이영주 포트폴리오">
+<meta property="og:title" content="모델 호출을 프록시 한곳에 모으고, 모델의 대답부터 의심하기 · 이영주">
+<meta property="og:description" content="관통 7에서 Django와 AI 모델 사이에 FastAPI 프록시를 두며 정한 것들 — Guardrail이 고장 나면 막는 쪽으로, API마다 다른 이미지 응답을 한 모양으로, 로그에는 구조만 남기기.">
+<meta property="og:url" content="https://0ju12.github.io/posts/2026-11-fastapi-ai-proxy.html">
+<meta property="og:image" content="https://0ju12.github.io/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#18181b">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--surface:#f7f7f8;--text:#0d0d0f;--muted:#5d5f66;--line:#e7e7ea;--accent:#0a7c66;--accent-2:#14b8a6;--chip:#eef2f1;--code:#0f1117;--code-text:#e6e6e6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}}
+:root[data-theme="dark"]{--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.85 "Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:740px;margin:0 auto;padding:0 20px}
+nav{display:flex;align-items:center;gap:16px;padding:24px 0;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
+nav .home{font-weight:900;color:var(--text);margin-right:auto}
+#theme{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 12px;font:inherit;font-size:12px;cursor:pointer}
+header.post{padding:56px 0 28px;border-bottom:2px solid var(--text);margin-bottom:36px}
+header.post .meta{color:var(--accent);font-weight:700;font-size:14px;letter-spacing:.04em}
+header.post h1{font-size:clamp(28px,5vw,42px);line-height:1.25;letter-spacing:-.03em;margin:10px 0 14px;font-weight:900}
+header.post p{color:var(--muted);margin:0 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--chip);color:var(--muted)}
+article h2{font-size:24px;letter-spacing:-.02em;margin:48px 0 14px;font-weight:900}
+article h3{font-size:19px;margin:32px 0 10px}
+article p,article li{margin:0 0 16px}
+article ul,article ol{padding-left:22px}
+article li{margin-bottom:6px}
+article blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--surface);border-radius:0 12px 12px 0;font-weight:700}
+article blockquote p{margin:0}
+article code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em;background:var(--chip);padding:2px 6px;border-radius:6px}
+article pre{background:var(--code);color:var(--code-text);padding:18px 20px;border-radius:14px;overflow-x:auto;line-height:1.6;margin:0 0 20px}
+article pre code{background:none;padding:0;font-size:13.5px;color:inherit}
+article table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:15px;display:block;overflow-x:auto}
+article th,article td{border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+article th{background:var(--surface)}
+.endcard{margin:56px 0 0;padding:24px;border:1px solid var(--line);border-radius:18px;background:var(--surface);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.endcard b{display:block}
+.endcard span{color:var(--muted);font-size:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--line);color:var(--text);background:var(--bg)}
+.others{margin:40px 0 0}
+.others a{display:block;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--text);font-weight:700}
+.others a span{display:block;color:var(--muted);font-weight:400;font-size:14px}
+footer{padding:64px 0 40px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a class="home" href="../index.html">Young-Ju Lee</a><a href="../index.html#writing">Writing</a><a href="../index.html#work">Work</a><button id="theme" type="button">테마</button></nav>
+  <header class="post">
+    <div class="meta">WRITING · 2026-11-06</div>
+    <h1>모델 호출을 프록시 한곳에 모으고, 모델의 대답부터 의심하기</h1>
+    <p>관통 7에서 Django와 AI 모델 사이에 FastAPI 프록시를 두며 정한 것들 — Guardrail이 고장 나면 막는 쪽으로, API마다 다른 이미지 응답을 한 모양으로, 로그에는 구조만 남기기.</p>
+    <div class="chips"><span class="chip">FastAPI</span><span class="chip">LLM</span><span class="chip">Guardrail</span><span class="chip">설계</span></div>
+  </header>
+  <article><p>SSAFY 관통 프로젝트 7회차는 <strong>AI 기능을 별도 서버로 떼어 내는 것</strong>이었습니다. 지난 회차까지는 Django 뷰가 외부 AI를 직접 불렀는데, 이번에는 Django → FastAPI 프록시 → SSAFY GMS 순서로 요청이 지나가게 바꿨습니다.</p>
+<p>2인 팀에서 FastAPI 프록시와 AI 연동, 테스트를 맡았습니다. 화면(Django)은 팀원이 맡았습니다.</p>
+<pre><code>Django (8080) ──▶ FastAPI 프록시 (8081) ──▶ GMS
+                   ├─ Guardrail          (부적절한 요청은 생성 전에 403)
+                   ├─ 라우트 결정        (텍스트 추천 / 표지 이미지)
+                   ├─ 난이도별 모델      (간단 nano · 복잡 mini)
+                   └─ 텍스트·분석·TTS는 OpenAI 호환 API, 이미지는 Gemini API
+</code></pre>
+<h2>1. 키와 모델 선택을 한곳에</h2>
+<p>프록시를 두는 이유는 단순했습니다. GMS 키는 프록시의 <code>.env</code>에만 있고, 어떤 모델을 쓸지, 응답이 쓸 만한지 판단하는 코드도 프록시에만 있습니다. Django는 "추천해 줘", "표지 만들어 줘"라고 보내고 정해진 모양의 결과만 받습니다.</p>
+<p>시간 제한도 층마다 따로 두었습니다. 프록시 → GMS는 120초, Django → 프록시는 180초입니다. 안쪽이 먼저 끊겨야 바깥에서 원인이 보이는 오류 화면을 띄울 수 있기 때문입니다.</p>
+<h2>2. Guardrail이 고장 나면 막는 쪽으로</h2>
+<p>Guardrail은 요청이 적절한지 모델에게 묻는 단계입니다. 답은 JSON Schema(<code>strict</code>)로 <code>is_appropriate</code> 불리언 하나만 받도록 했습니다.</p>
+<p>고민한 건 <strong>모델이 엉뚱한 답을 줄 때</strong>였습니다. JSON이 깨지거나 불리언 대신 문자열이 오면, "판단 실패니까 그냥 통과"로 처리하면 Guardrail이 없는 것과 같습니다. 그래서 형식이 맞지 않으면 생성을 진행하지 않고 503을 돌려주도록 했습니다(fail-closed).</p>
+<pre><code class="language-python">data = structured_answer(messages, &quot;guardrail_response&quot;, {&quot;is_appropriate&quot;: {&quot;type&quot;: &quot;boolean&quot;}}, model)
+if type(data[&quot;is_appropriate&quot;]) is not bool:
+    raise HTTPException(503, &quot;model server error&quot;)
+</code></pre>
+<p>라우트 결정(enum 두 값), 점수(0~100 정수), 모델 등급(simple/complex)도 같은 방식입니다. 스키마로 한 번, 코드로 한 번 더 확인합니다. LLM 응답을 코드로 검증하던 관통 4·5의 원칙을 그대로 가져왔습니다.</p>
+<h2>3. 이미지 응답은 네 가지 모양이었다</h2>
+<p>표지 이미지는 처음에 명세서의 모델로 요청했는데 GMS에서 지원하지 않아 400이 났고, Gemini 이미지 모델로 바꿨습니다. 그러자 문제가 하나씩 드러났습니다.</p>
+<ul>
+<li>Gemini는 OpenAI 호환 주소가 아니라 <strong>별도 게이트웨이</strong>로, <code>Authorization: Bearer</code>가 아니라 <code>x-goog-api-key</code> 헤더로 보내야 합니다.</li>
+<li>응답 안에서 이미지가 들어 있는 자리가 API·버전마다 달랐습니다. <code>candidates</code> 아래 <code>inlineData</code>, <code>output_image</code>, <code>steps</code> 아래 <code>content</code>, <code>outputs</code> 네 가지였습니다.</li>
+<li>받은 이미지는 PNG나 WEBP인데, Django는 <code>.jpg</code>로 저장하고 있었습니다.</li>
+</ul>
+<p>그래서 네 형태를 모두 찾아보는 추출 함수를 두고, 찾은 이미지는 크기(20MB)·픽셀 수(2,500만) 제한을 확인한 뒤 Pillow로 <strong>실제 JPEG로 다시 인코딩</strong>해서 넘겼습니다. Django는 어느 API가 쓰였는지 몰라도 항상 같은 <code>image_base64</code>를 받습니다.</p>
+<h2>4. 디버깅 로그에도 비밀은 남기지 않는다</h2>
+<p>이미지가 왜 안 나오는지 보려면 GMS 응답을 봐야 했습니다. 하지만 응답을 그대로 찍으면 base64 이미지나 인증 관련 문자열이 로그에 남을 수 있습니다.</p>
+<p>그래서 응답의 <strong>구조만</strong> 요약하는 함수를 따로 만들었습니다. 정해진 키 이름, 리스트 길이, 문자열 길이만 출력하고 값은 출력하지 않습니다.</p>
+<pre><code>[GMS 이미지 응답 구조] {&quot;candidates&quot;: {&quot;_list_length&quot;: 0, &quot;_sample&quot;: []}, &quot;_field_count&quot;: 1}
+</code></pre>
+<p>이 로그 덕분에 "인증은 통과했는데 이미지가 비어 있다"와 "인증부터 실패했다(401)"를 구분할 수 있었습니다.</p>
+<h2>5. 확인한 것과 못 한 것</h2>
+<p>테스트 20개는 GMS를 부르지 않고 mock으로 계약을 확인합니다. Guardrail true/false, 형식 오류 시 503, 거부되면 이미지 생성을 아예 호출하지 않는지(호출 1회), 라우트 2종, 난이도별 모델 선택, 점수 범위, 이미지 MIME 판별과 잘못된 base64(422), TTS, Gemini 게이트웨이 주소·헤더, PNG→JPEG 변환, 401을 안전한 503으로 바꾸는 것까지 다룹니다.</p>
+<p>다만 <strong>실제 GMS에서 이미지 생성이 끝까지 성공하는 것은 확인하지 못했습니다.</strong> 응답에 이미지가 담기지 않은 사례가 있었고, 팀 README에도 미확인으로 남겼습니다.</p>
+<p>저장소에는 직접 구현한 프록시 코드와 테스트만 올렸습니다. SSAFY가 제공한 GMS 호출 함수와 스키마 원본, 팀원이 맡은 Django 화면은 빼고, 빠진 자리는 공개용 대체 코드라고 표시했습니다.</p>
+<h2>정리</h2>
+<ul>
+<li>모델 호출을 프록시 한곳에 모으면 키 관리·모델 선택·응답 검증이 한 파일에 모인다.</li>
+<li>안전장치가 판단을 못 하면 통과가 아니라 차단이 기본값이어야 한다.</li>
+<li>외부 API의 응답 모양이 여러 가지라면 그 차이는 프록시가 흡수하고, 뒤쪽에는 한 가지 모양만 넘긴다.</li>
+</ul></article>
+  <div class="endcard">
+    <div><b>SSAFY 16기 관통 프로젝트 — ThRead: LLM 댓글 분석 파이프라인 · AI 도서 서비스</b><span>이 글에서 다룬 코드는 저장소에서 볼 수 있습니다.</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="https://github.com/0Ju12/ssafy-thread/tree/main/07-ai-proxy" target="_blank" rel="noopener">GitHub 저장소 →</a><a class="btn" href="../index.html#work">포트폴리오로</a></div>
+  </div>
+<div class="others"><b style="font-size:14px;color:var(--muted)">다른 글</b><a href="2026-11-django-relational-db.html">책·쓰레드·댓글을 하나의 관계형 모델로 묶기<span>관통 6에서 회원·도서·쓰레드·댓글 관계를 설계하며 정한 것들 — 순환 참조 마이그레이션, 지워질 때 남길 것과 지울 것, 남의 글에 404를 주는 이유, 외부 도서 정보를 서명 토큰으로 묶은 방법.</span></a><a href="2026-11-wavenumber-correlation.html">겹쳐 있는 두 신호를 위상으로 가르기 — 파수 상관 필터링 석사 연구 정리<span>중력과 자력 데이터를 같은 주파수 성분끼리 비교해, 함께 움직이는 성분과 반대로 움직이는 성분을 나눴다. 임계값을 감으로 정하지 않으려고 한 일들.</span></a><a href="2026-11-vqa-ensemble-fixes-breaks.html">점수를 지키면서 올리기 — VQA 챌린지에서 앙상블 후보를 고른 기준<span>정확도가 조금 올라도 원래 맞히던 문제를 많이 틀리면 불안정한 개선이다. fixes와 breaks로 순기여를 따져 0.94608에서 시작한 점수를 쌓아 올린 과정.</span></a><a href="2026-11-rag-citation-verify.html">LLM이 붙인 [근거 N]을 코드로 다시 검사하기 — 국보 RAG 가이드의 인용 설계<span>근거를 인용하라고 프롬프트에 써도 LLM은 없는 번호를 붙입니다. 근거 번호를 검색 단계에서 고정하고, 답변의 인용을 코드로 파싱해 없는 번호는 지우고 실제로 인용한 근거만 보여 주는 구조를 만든 기록.</span></a><a href="2026-11-portfolio-one-yaml.html">YAML 파일 하나로 포트폴리오·이력서·비공개 페이지까지 — 이 사이트를 만든 방식<span>내용은 한 곳에만 쓰고, 웹 페이지·PDF 이력서·노션 문서는 빌드로 만든다. 공개하면 안 되는 내용은 저장소에 평문으로 남기지 않는다.</span></a><a href="2026-11-plate-tectonics-co2-storage.html">데이터를 해석하기 전에 그 데이터가 만들어진 역사를 본다 — 학부 제1저자 논문 회고<span>해외 대규모 CO2 저장소 8곳을 판구조 형성사와 탄성파 영상으로 비교했다. 처리 결과를 &#39;그럴듯한지&#39; 판단하는 기준을 어디서 가져올 것인가에 대한 이야기.</span></a><a href="2026-11-battle-ssafy-bfs-bot.html">길찾기에서 의사결정으로 — 배틀싸피 자동 플레이 봇을 세 번 고친 기록<span>목표까지 가는 BFS 한 줄짜리 봇이, 사거리·장애물·탄약·보급·암호 해독까지 판단하는 봇이 되기까지. 매 턴 다시 계획하는 구조로 바꾼 이유.</span></a><a href="2026-11-small-data-spatiotemporal.html">산불 4건으로 시공간 딥러닝 학습하기<span>데이터가 35개 시점뿐일 때 어떻게 학습시켰고, 다시 보니 무엇이 부족했는지. U-LSTM 산불 확산 예측 모델 회고.</span></a><a href="2026-11-llm-verify-pipeline.html">LLM 응답을 믿지 않는 파이프라인 설계<span>LLM에는 판단만 맡기고, 결과는 코드로 검증한다. 댓글 분석 파이프라인과 AI 도서 추천을 만들며 정한 네 가지 원칙.</span></a><a href="2026-11-catastrophic-forgetting.html">순차 학습이 성능을 떨어뜨린 이유 — catastrophic forgetting 실험기<span>단어 단위 → 문맥 단위로 차례로 학습하면 더 좋아질 줄 알았는데, BERTScore가 0.47에서 0.32로 떨어졌다. FLAN-T5 LoRA 학습 전략 비교.</span></a></div>  <footer>© Young-Ju Lee · iyju990312@naver.com</footer>
+</div>
+<script>
+(function(){var r=document.documentElement,K='theme';
+try{var s=localStorage.getItem(K);if(s)r.setAttribute('data-theme',s)}catch(e){}
+var b=document.getElementById('theme');if(b)b.addEventListener('click',function(){
+var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});})();
+</script>
+</body>
+</html>

@@ -245,7 +245,7 @@ activities:
     priority: 3
     brief:
       - "SSAFY AI Challenge (VQA): Qwen/Gemma QLoRA, OCR, multi-view probability ensemble → public 0.96961"
-      - "ThRead: crawling → LLM judgments verified in code → pandas pipeline, Django backend · 122 tests"
+      - "ThRead: crawling → LLM judgments verified in code → pandas pipeline, Django backend · 142 tests"
       - "Heritage RAG guide (solo): public-API & Wikipedia collection → LangGraph RAG that shows only citations verified in code · 50 offline tests"
       - "POSPEAK: correction datasets, FLAN-T5 LoRA strategy comparison (BERTScore F1 0.32 → 0.74) + RAG · award"
     tags: [Python, LLM fine-tuning, QLoRA, RAG, FAISS, Django, Selenium, Pandas]
@@ -254,9 +254,9 @@ activities:
     summary: LLM data pipelines, a Django service and a VQA model ensemble at SSAFY; a Konglish-correction generator with RAG at the POSCO academy
     projects:
       - id: ssafy-16
-        digest: {"problem": "Grow one service (ThRead) every round while keeping its LLM features trustworthy", "role": "Django backend · LLM integration · crawling pipeline in a team of two", "did": ["Comment collection (Selenium) → LLM judgment → code check → cleaning, augmentation, summary", "Live progress streaming for long jobs", "Django auth · book CRUD · AI recommendations limited to registered books", "Relational model for users, books, threads and comments (1:N, M:N) · owner-only edits", "Personal RAG project (Heritage guide) · AI challenge VQA ensemble"], "result": ["Stable AI features by verifying LLM output in code", "122 automated tests passing · every requirement implemented", "AI challenge (VQA) public score 0.96961"]}
+        digest: {"problem": "Grow one service (ThRead) every round while keeping its LLM features trustworthy", "role": "Django backend · LLM integration · crawling pipeline in a team of two", "did": ["Comment collection (Selenium) → LLM judgment → code check → cleaning, augmentation, summary", "Live progress streaming for long jobs", "Django auth · book CRUD · AI recommendations limited to registered books", "Relational model for users, books, threads and comments (1:N, M:N) · owner-only edits", "Personal RAG project (Heritage guide) · AI challenge VQA ensemble"], "result": ["Stable AI features by verifying LLM output in code", "142 automated tests passing · every requirement implemented", "AI challenge (VQA) public score 0.96961"]}
         tagline: "A reading community built end to end — collection → LLM analysis → web service"
-        key: "LLM judgments verified in code · 122 automated tests"
+        key: "LLM judgments verified in code · 142 automated tests"
         short: "SSAFY 16th"
         title: "SSAFY — ThRead LLM comment-analysis pipeline · AI Challenge VQA ensemble"
         type: AI project
@@ -265,20 +265,21 @@ activities:
         team: "Team of 2"
         role: Backend & data pipeline · model training (AI Challenge)
         tags: [Python, Django, Selenium, Pandas, LLM API]
-        summary: Extended a reading-community service across six projects, from data collection to LLM analysis and web service, plus a multimodal QA challenge
+        summary: Extended a reading-community service across seven projects, from data collection to LLM analysis and web service, plus a multimodal QA challenge
         star:
-          situation: SSAFY's capstone series grows one service (ThRead) each round — data processing → external APIs → responsive web → Django auth → crawling and LLM pipelines → relational database design
+          situation: SSAFY's capstone series grows one service (ThRead) each round — data processing → external APIs → responsive web → Django auth → crawling and LLM pipelines → relational database design → AI proxy server
           task: Own the Django design, backend, generative-AI and API integration, and the crawling/data pipeline in a team of two
           action:
             - "Comment pipeline: Selenium collects live comments → the LLM returns only the numbers of inappropriate comments and code removes them → pandas/regex cleaning → IQR length thresholds → LLM augmentation (retry on count mismatch) → summary, each step stored"
             - "Streamed progress of 30-second jobs with StreamingHttpResponse (NDJSON) and distinguished failure cases (no company, no comments, LLM failure)"
             - "Relational DB design (project 6): custom AbstractUser; user→book→thread→comment 1:N plus follow (asymmetric), like and favorite-genre M:N; migrations split in three steps to avoid a User↔Category cycle; owner-scoped lookups return 404 for other users' posts; Aladin search results passed through a signed, 1-hour token so ISBN/cover are saved only when title and author still match — 36 tests"
+            - "AI proxy server (project 7, FastAPI owner): Django → FastAPI → GMS so keys, model choice and output checks live in one place; JSON-Schema guardrail that fails closed (503) on malformed output; text/image routing and nano/mini model tiers; four Gemini image response shapes normalized to real JPEG; 20 tests"
             - "AI book service: custom Django auth (open-redirect protection), AI recommendations restricted to registered book IDs; 45 mock-based tests without external APIs"
             - "AI core project 2 · National-treasure RAG guide (2026.10, solo): collected treasures and official descriptions from the Korea Heritage Service open API (XML, EUC-KR) and auto-linked each to Korean Wikipedia; two ChromaDB collections with fixed chunk IDs (idempotent re-indexing); per-question LLM query extraction and document selection with caching and offline fallback; LangGraph retrieve→generate where [evidence N] tags are checked in code and unknown numbers removed; Streamlit + FastAPI UIs; 50 tests with a fake LLM and Streamlit AppTest"
             - "AI Challenge (2026.09, image + question 4-choice VQA, model training & refinement): Qwen 27B/4B QLoRA, Gemma, OCR and multi-view probability ensembling; accepted changes by fixes − breaks and per-type regressions; SHA-256 manifests reproduce the submission without a GPU"
           result:
             - "AI Challenge public score 0.94608 (4B baseline) → 0.96961"
-            - "122 automated tests passing (45 + 41 + 36); all project-5 requirements implemented, plus progress streaming and analysis history"
+            - "142 automated tests passing (45 + 41 + 36 + 20); all project-5 requirements implemented, plus progress streaming and analysis history"
         links:
           - { label: GitHub, url: "https://github.com/0Ju12/ssafy-thread" }
           - { label: "Heritage RAG guide", url: "https://github.com/0Ju12/heritage-rag-guide" }

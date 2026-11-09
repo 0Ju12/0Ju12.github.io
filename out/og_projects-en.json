@@ -39,7 +39,7 @@
   "id": "ssafy-16-en",
   "title": "SSAFY — ThRead LLM comment-analysis pipeline · AI Challenge VQA ensemble",
   "tagline": "A reading community built end to end — collection → LLM analysis → web service",
-  "key": "LLM judgments verified in code · 122 automated tests",
+  "key": "LLM judgments verified in code · 142 automated tests",
   "period": "2026.07 – present",
   "group": "Bootcamps — SSAFY · POSCO AI·BigData Academy",
   "image": "assets/photos/ssafy-16/관통5_LLM_댓글분석_결과화면.jpg"

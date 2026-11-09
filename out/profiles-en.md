@@ -31,13 +31,13 @@ Research history: https://www.geoverselab.com/ko/research-history/13/
 - **기간:** 2026.07 – present
 - **설명:**
 ```
-Extended a reading-community service across six projects, from data collection to LLM analysis and web service, plus a multimodal QA challenge
+Extended a reading-community service across seven projects, from data collection to LLM analysis and web service, plus a multimodal QA challenge
 • Comment pipeline: Selenium collects live comments → the LLM returns only the numbers of inappropriate comments and code removes them → pandas/regex cleaning → IQR length thresholds → LLM augmentation (retry on count mismatch) → summary, each step stored
 • Streamed progress of 30-second jobs with StreamingHttpResponse (NDJSON) and distinguished failure cases (no company, no comments, LLM failure)
 • Relational DB design (project 6): custom AbstractUser; user→book→thread→comment 1:N plus follow (asymmetric), like and favorite-genre M:N; migrations split in three steps to avoid a User↔Category cycle; owner-scoped lookups return 404 for other users' posts; Aladin search results passed through a signed, 1-hour token so ISBN/cover are saved only when title and author still match — 36 tests
-• AI book service: custom Django auth (open-redirect protection), AI recommendations restricted to registered book IDs; 45 mock-based tests without external APIs
+• AI proxy server (project 7, FastAPI owner): Django → FastAPI → GMS so keys, model choice and output checks live in one place; JSON-Schema guardrail that fails closed (503) on malformed output; text/image routing and nano/mini model tiers; four Gemini image response shapes normalized to real JPEG; 20 tests
 ✔ AI Challenge public score 0.94608 (4B baseline) → 0.96961
-✔ 122 automated tests passing (45 + 41 + 36); all project-5 requirements implemented, plus progress streaming and analysis history
+✔ 142 automated tests passing (45 + 41 + 36 + 20); all project-5 requirements implemented, plus progress streaming and analysis history
 Skills: Python, Django, Selenium, Pandas, LLM API
 Details: https://0ju12.github.io/projects/ssafy-16-en.html
 ```

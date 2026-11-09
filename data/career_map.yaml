@@ -34,6 +34,7 @@
   en: { name: "Kananaskis (Canadian Rockies)", when: "2024.08", desc: "Field geophysical survey; co-wrote the English field exploration report." }
   link: calgary-2024
 - id: khalifa
+  photo: { src: "assets/photos/masters/2026-08_석사학위논문_Fig01_아부다비_탄화수소_광구와_가샤_위치.jpg", credit: "석사 학위논문 Fig. 1 — 공동연구 대상인 아부다비 해상 광구와 가샤 지역 (Kabirzadeh et al., 2021 수정)", credit_en: "M.S. thesis Fig. 1 — offshore Abu Dhabi fields and the Ghasha area studied in the joint research (modified from Kabirzadeh et al., 2021)" }
   layer: partner
   lat: 24.446
   lon: 54.395
