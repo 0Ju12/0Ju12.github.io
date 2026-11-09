@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 트렌드 노트 · 이영주</title>
+<meta name="description" content="AI 에이전트 개념부터 하루 두 편씩 이어서 정리하는 기술 노트">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="이영주 포트폴리오">
+<meta property="og:title" content="AI 트렌드 노트 · 이영주">
+<meta property="og:description" content="AI 에이전트 개념부터 하루 두 편씩 이어서 정리하는 기술 노트">
+<meta property="og:url" content="https://0ju12.github.io/posts/ai-trend.html">
+<meta property="og:image" content="https://0ju12.github.io/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#18181b">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--surface:#f7f7f8;--text:#0d0d0f;--muted:#5d5f66;--line:#e7e7ea;--accent:#0a7c66;--accent-2:#14b8a6;--chip:#eef2f1;--code:#0f1117;--code-text:#e6e6e6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}}
+:root[data-theme="dark"]{--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.85 "Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:740px;margin:0 auto;padding:0 20px}
+nav{display:flex;align-items:center;gap:16px;padding:24px 0;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
+nav .home{font-weight:900;color:var(--text);margin-right:auto}
+#theme{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 12px;font:inherit;font-size:12px;cursor:pointer}
+header.post{padding:56px 0 28px;border-bottom:2px solid var(--text);margin-bottom:36px}
+header.post .meta{color:var(--accent);font-weight:700;font-size:14px;letter-spacing:.04em}
+header.post h1{font-size:clamp(28px,5vw,42px);line-height:1.25;letter-spacing:-.03em;margin:10px 0 14px;font-weight:900}
+header.post p{color:var(--muted);margin:0 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--chip);color:var(--muted)}
+article h2{font-size:24px;letter-spacing:-.02em;margin:48px 0 14px;font-weight:900}
+article h3{font-size:19px;margin:32px 0 10px}
+article p,article li{margin:0 0 16px}
+article ul,article ol{padding-left:22px}
+article li{margin-bottom:6px}
+article blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--surface);border-radius:0 12px 12px 0;font-weight:700}
+article blockquote p{margin:0}
+article code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em;background:var(--chip);padding:2px 6px;border-radius:6px}
+article pre{background:var(--code);color:var(--code-text);padding:18px 20px;border-radius:14px;overflow-x:auto;line-height:1.6;margin:0 0 20px}
+article pre code{background:none;padding:0;font-size:13.5px;color:inherit}
+article table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:15px;display:block;overflow-x:auto}
+article th,article td{border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+article th{background:var(--surface)}
+.endcard{margin:56px 0 0;padding:24px;border:1px solid var(--line);border-radius:18px;background:var(--surface);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.endcard b{display:block}
+.endcard span{color:var(--muted);font-size:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--line);color:var(--text);background:var(--bg)}
+.others{margin:40px 0 0}
+.others a{display:block;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--text);font-weight:700}
+.others a span{display:block;color:var(--muted);font-weight:400;font-size:14px}
+footer{padding:64px 0 40px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a class="home" href="../index.html">Young-Ju Lee</a><a href="../index.html#writing">Writing</a><a href="../index.html#work">Work</a><button id="theme" type="button">테마</button></nav>
+  <header class="post">
+    <div class="meta">SERIES · 2편</div>
+    <h1>AI 트렌드 노트</h1>
+    <p>AI 에이전트의 기본 개념부터 시작해, 하루 두 편씩 이어서 정리하는 기술 노트입니다. 편마다 최근 동향(출처 포함), 동작 구조, 한계, 그리고 제가 만든 프로젝트와의 연결을 적습니다.</p>
+  </header>
+  <div class="others"><a href="2026-11-ai-trend-02-tool-use.html">#2 · Tool use — 모델은 함수를 실행하지 않는다<span>2026-11-09 · Function calling의 실제 동작(모델은 호출 &#39;요청&#39;만 만들고 실행은 내 코드가 한다), strict 스키마와 Structured Outputs의 관계, 도구를 쓸 때와 출력 형식만 고정할 때를 구분했습니다.</span></a><a href="2026-11-ai-trend-01-agent.html">#1 · AI 에이전트란 무엇인가 — LLM이 도구를 쥐고 반복할 때<span>2026-11-09 · 에이전트를 &#39;도구를 쓰며 스스로 다음 단계를 정하는 LLM 루프&#39;로 정의하고, 워크플로와 무엇이 다른지, 기업 도입 숫자가 왜 엇갈리는지 정리했습니다.</span></a></div>
+  <footer>© Young-Ju Lee · iyju990312@naver.com</footer>
+</div>
+<script>
+(function(){var r=document.documentElement,K='theme';
+try{var s=localStorage.getItem(K);if(s)r.setAttribute('data-theme',s)}catch(e){}
+var b=document.getElementById('theme');if(b)b.addEventListener('click',function(){
+var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});})();
+</script>
+</body>
+</html>

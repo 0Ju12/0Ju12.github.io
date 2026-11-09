@@ -348,7 +348,9 @@ def sitemap(data):
     for g in data.get("featured") or []:
         for sp in g.get("projects") or []:
             urls += [f"projects/{sp['id']}.html", f"projects/{sp['id']}-en.html"]
-    urls += [f"posts/{w['slug']}.html" for w in data.get("posts") or []]
+    urls += [f"posts/{w['slug']}.html" for w in (data.get("posts") or []) + (data.get("trend_posts") or [])]
+    if data.get("trend_posts"):
+        urls.append("posts/ai-trend.html")
     urls += [d for d in ("demo.html", "demo-en.html") if (DOCS / d).exists()]
     xml = "\n".join(f"  <url><loc>{base}{u}</loc></url>" for u in urls)
     (DOCS / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{xml}\n</urlset>\n', encoding="utf-8")
@@ -388,16 +390,21 @@ def main():
 
     DOCS.mkdir(exist_ok=True)
     OUT.mkdir(exist_ok=True)
-    data["posts"] = load_posts(data.get("activities", []))
+    allposts = load_posts(data.get("activities", []))
+    # AI 트렌드 노트(series: ai-trend)는 메인 글 목록과 섞지 않고 시리즈 목록 페이지로 따로 모음
+    data["trend_posts"] = sorted([w for w in allposts if w.get("series") == "ai-trend"], key=lambda w: w.get("episode", 0))
+    data["posts"] = [w for w in allposts if w.get("series") != "ai-trend"]
     data["evidence"] = evidence_index(data)
     (DOCS / "posts").mkdir(exist_ok=True)
     import study
     data["study_notes"] = study.build(env, data)
     import private_build
     data["private_ready"] = private_build.build(env, data)
-    for post in data["posts"]:
+    for post in data["posts"] + data["trend_posts"]:
         (DOCS / "posts" / f"{post['slug']}.html").write_text(
             env.get_template("post.html.j2").render(post=post, **data), encoding="utf-8")
+    if data["trend_posts"]:
+        (DOCS / "posts" / "ai-trend.html").write_text(env.get_template("trend.html.j2").render(**data), encoding="utf-8")
     site_tpl = env.get_template("site.html.j2")
     theme = (data.get("site") or {}).get("theme", "minimal")
     layout = (data.get("site") or {}).get("layout")  # sidebar | bento | showcase (templates/layouts/)
