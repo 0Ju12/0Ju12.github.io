@@ -59,6 +59,23 @@ textarea{width:100%;border:1px solid var(--line);border-radius:12px;background:v
 .grade .g-ok{border-color:var(--ok);color:var(--ok)}.grade .g-mid{border-color:var(--mid);color:var(--mid)}.grade .g-bad{border-color:var(--bad);color:var(--bad)}
 .rec{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--bad);font-weight:700}.rec i{width:9px;height:9px;border-radius:50%;background:var(--bad);animation:bl 1s infinite}
 @keyframes bl{50%{opacity:.25}}
+.tag.bank{background:var(--ok-soft);color:var(--ok)}
+.lbl{font-size:12.5px;font-weight:800;color:var(--muted);margin:14px 0 4px;letter-spacing:.02em}
+.ans.exp{background:transparent;border:1px dashed var(--line);color:var(--muted)}
+.ans.best{background:var(--ok-soft)}
+.intent{font-size:13.5px;color:var(--ink);background:var(--ink-soft);border-radius:8px;padding:6px 10px;margin-top:12px}
+.tails{margin:4px 0 0;padding-left:18px;font-size:14px;color:var(--muted)}
+.co{display:flex;flex-direction:column;gap:10px}
+.co h3{margin:0;font-size:17px;letter-spacing:-.02em}
+.co ul{margin:0;padding-left:18px;font-size:14px;line-height:1.6}
+.co li{margin:2px 0}
+.src{font-size:11.5px;color:var(--faint);margin-left:6px}
+.flow{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12.5px}
+.flow span{background:var(--soft);border-radius:6px;padding:2px 8px;font-weight:600}
+.flow i{color:var(--faint);font-style:normal}
+.fit{border-left:3px solid var(--ok);background:var(--ok-soft);padding:8px 12px;border-radius:0 8px 8px 0;font-size:14px}
+.links{display:flex;flex-wrap:wrap;gap:6px}
+.links a{font-size:13px;border:1px solid var(--line);border-radius:8px;padding:3px 9px;text-decoration:none;background:var(--card)}
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:11px;font-size:14px;display:none;z-index:90}
 .empty{text-align:center;padding:40px 16px;color:var(--muted)}
 .setup label{display:block;font-weight:700;font-size:14px;margin:16px 0 8px}
@@ -108,7 +125,7 @@ textarea{width:100%;border:1px solid var(--line);border-radius:12px;background:v
 <body>
 <header class="top"><div class="in">
   <a class="brand" href="#/">면접 준비</a>
-  <nav class="tabs" id="tabs" aria-label="면접 준비 메뉴"><a href="#/" data-v="home">오늘</a><a href="#/questions" data-v="questions">질문</a><a href="#/mock" data-v="mock">모의 면접</a><a href="#/decks" data-v="decks">발표</a><a href="#/log" data-v="log">기록</a></nav>
+  <nav class="tabs" id="tabs" aria-label="면접 준비 메뉴"><a href="#/" data-v="home">오늘</a><a href="#/questions" data-v="questions">질문</a><a href="#/mock" data-v="mock">모의 면접</a><a href="#/decks" data-v="decks">발표</a><a href="#/jobs" data-v="jobs">공채 정보</a><a href="#/log" data-v="log">기록</a></nav>
   <select class="iconbtn" id="role" aria-label="지원 직무"></select>
   <button class="iconbtn" id="theme" type="button" aria-label="화면 테마 바꾸기">◐</button>
   <a class="iconbtn hide-m" href="../study/index.html">강의 노트</a>
@@ -125,8 +142,22 @@ var D=JSON.parse(document.getElementById('data').textContent),QS=D.questions,DEC
 var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 var Q={};QS.forEach(function(q){Q[q.id]=q});
+var CATS=D.cats||['인성','프로젝트','전문지식','기타'];
 var GROUPS=[];QS.forEach(function(q){if(GROUPS.indexOf(q.g)<0)GROUPS.push(q.g)});
-var KIND={mine:'내 답변',skeleton:'답변 뼈대',trend:'AI 트렌드'};
+function groupsOf(c){var g=[];QS.forEach(function(q){if((!c||q.c===c)&&g.indexOf(q.g)<0)g.push(q.g)});return g}
+var KIND={mine:'내 답변',skeleton:'답변 뼈대',trend:'AI 트렌드',bank:'예상·합격 답변'};
+function answerHTML(q,full){
+  var h='';
+  if(q.intent)h+='<div class="intent"><b>질문 의도</b> · '+esc(q.intent)+'</div>';
+  if(q.kind==='bank'){
+    if(q.exp)h+='<div class="lbl">예상 답변 (흔히 나오는 답)</div><div class="ans exp" style="margin-top:0">'+esc(q.exp)+'</div>';
+    h+='<div class="lbl">합격 답변 (구조·근거를 갖춘 답)</div><div class="ans best" style="margin-top:0">'+esc(q.a)+'</div>';
+  }else if(q.a)h+='<div class="lbl">'+(q.kind==='mine'?'내 답변':q.kind==='skeleton'?'답변 뼈대 (포트폴리오 사실)':'답변 예시')+'</div><div class="ans" style="margin-top:0">'+esc(q.a)+'</div>';
+  else h+='<p class="muted small">아직 답변이 없습니다. 아래에 내 답을 적어 보세요.</p>';
+  if(q.guide)h+='<div class="lbl">'+(q.kind==='bank'?'왜 이렇게 답하나':'답변 가이드')+'</div><div class="guide" style="margin-top:0">'+esc(q.guide)+'</div>';
+  if(full!==false&&q.tail&&q.tail.length)h+='<div class="lbl">예상 꼬리질문</div><ul class="tails">'+q.tail.map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul>';
+  return h;
+}
 var INTERVAL=[0,1,3,7,14,30];
 
 /* ---------- 저장 (이 브라우저에만) ---------- */
@@ -155,7 +186,8 @@ function route(){
   var h=location.hash.replace(/^#\/?/,''),p=h.split('/'),v=p[0]||'home';
   $$('#tabs a').forEach(function(a){a.classList.toggle('on',a.dataset.v===(v==='deck'?'decks':v))});
   keyHandler=null;window.scrollTo(0,0);
-  if(v==='questions')return questions(decodeURIComponent(p[1]||''));
+  if(v==='questions')return questions(decodeURIComponent(p[1]||''),decodeURIComponent(p[2]||''));
+  if(v==='jobs')return jobs(p[1]||'');
   if(v==='mock')return p[1]==='play'&&mock?mockPlay():mockSetup();
   if(v==='decks')return decks();
   if(v==='deck'){var d=DECKS.filter(function(x){return x.id===p[1]})[0];if(d)return deck(d,+(p[2]||0))}
@@ -173,7 +205,8 @@ function home(){
   h+='<div class="grid g2"><div class="card hero">'+(d.length?'<h2>다시 연습할 질문 '+d.length+'개</h2><p>복습 차례가 된 질문입니다. 시간을 재고 소리 내어 답해 보세요.</p><div class="row"><button class="btn" id="hdue">복습 모의 면접</button><a class="btn ghost" href="#/mock">범위 고르기</a></div>':'<h2>모의 면접 5문항</h2><p>질문이 나오면 60초 안에 소리 내어 답하고, 답변 뼈대와 비교해 스스로 채점합니다.</p><div class="row"><button class="btn" id="hquick">바로 시작</button><a class="btn ghost" href="#/mock">범위 고르기</a></div>')+'</div>';
   h+='<div class="card"><b>발표 연습</b><p class="muted small" style="margin:6px 0 12px">'+esc(D.roles[S.role]||'')+' 기준 자기소개부터 시작하세요. 발표자 모드에서는 메모와 경과 시간이 함께 보입니다.</p><div class="row">'+(intro?'<a class="btn" href="#/deck/'+intro.id+'">'+esc(intro.title)+'</a>':'')+'<a class="btn ghost" href="#/decks">전체 발표 자료</a></div></div></div>';
   h+='<div class="grid g4" style="margin-top:12px"><div class="card kpi"><b>'+tried+'<span class="small"> / '+QS.length+'</span></b><span>연습한 질문</span></div><div class="card kpi"><b>'+ok+'</b><span>익힌 질문 (3번 이상 알았다)</span></div><div class="card kpi"><b>'+Object.keys(S.memo).filter(function(k){return S.memo[k]}).length+'</b><span>내 메모를 단 질문</span></div><div class="card kpi"><b>'+S.mocks.length+'</b><span>모의 면접 횟수</span></div></div>';
-  h+='<h2>질문 묶음</h2><div class="grid g3">'+GROUPS.map(function(g){var qs=QS.filter(function(q){return q.g===g}),t=qs.filter(function(q){return S.q[q.id]}).length;return '<a class="card" style="text-decoration:none;color:inherit" href="#/questions/'+encodeURIComponent(g)+'"><b>'+esc(g)+'</b><div class="muted small">'+qs.length+'문항 · 연습 '+t+'</div></a>'}).join('')+'</div>';
+  h+='<h2>질문 분류</h2><div class="grid g4">'+CATS.map(function(c){var qs=QS.filter(function(q){return q.c===c}),t=qs.filter(function(q){return S.q[q.id]}).length;return '<a class="card" style="text-decoration:none;color:inherit" href="#/questions/'+encodeURIComponent(c)+'"><b>'+esc(c)+'</b><div class="muted small">'+qs.length+'문항 · 연습 '+t+'</div><div class="faint small" style="margin-top:4px">'+esc(groupsOf(c).slice(0,4).join(' · '))+'</div></a>'}).join('')+'</div>';
+  h+='<h2>공채 정보</h2><a class="card" style="display:block;text-decoration:none;color:inherit" href="#/jobs"><b>IT · 금융 · 자원개발 지원 조건과 면접 질문 예시</b><div class="muted small">'+(D.recruit&&D.recruit.sectors?D.recruit.sectors.map(function(x){return x.name+' '+x.companies.length+'곳'}).join(' · '):'')+' · 출처 링크 포함 · 확인일 '+esc((D.recruit||{}).checked||'')+'</div></a>';
   $('#app').innerHTML=h;
   var a=$('#hdue');if(a)a.onclick=function(){startMock(shuffle(d.slice()).slice(0,10),{sec:90,rec:false,label:'복습'})};
   var b=$('#hquick');if(b)b.onclick=function(){startMock(shuffle(QS.slice()).slice(0,5),{sec:60,rec:false,label:'바로 시작'})};
@@ -181,17 +214,21 @@ function home(){
 
 /* ---------- 질문 ---------- */
 var qq='';
-function questions(g){
-  g=GROUPS.indexOf(g)>=0?g:'';
-  var h='<h1>질문 은행</h1><p class="sub"><span class="tag mine">내 답변</span> 면접 노트에 써 둔 답 · <span class="tag skeleton">답변 뼈대</span> 포트폴리오 사실로 만든 구성 · <span class="tag trend">AI 트렌드</span> 연재 글의 질문. 뼈대는 외우지 말고 내 말로 바꿔 메모해 두세요.</p>';
+function questions(c,g){
+  if(GROUPS.indexOf(c)>=0&&CATS.indexOf(c)<0){g=c;c=(QS.filter(function(q){return q.g===g})[0]||{}).c||''}
+  c=CATS.indexOf(c)>=0?c:'';var gs=groupsOf(c);g=gs.indexOf(g)>=0?g:'';
+  var h='<h1>질문 은행</h1><p class="sub"><span class="tag bank">예상·합격 답변</span> 흔한 답과 합격 수준 답 비교 · <span class="tag mine">내 답변</span> 면접 노트 · <span class="tag skeleton">답변 뼈대</span> 포트폴리오 사실 · <span class="tag trend">AI 트렌드</span> 연재 글. 합격 답변은 외우지 말고 내 말로 바꿔 메모하세요.</p>';
   h+='<input class="search" id="qs" type="search" placeholder="질문 · 답변 검색" value="'+esc(qq)+'" aria-label="질문 검색">';
-  h+='<div class="chips" style="margin:12px 0 16px"><button class="chip'+(g?'':' on')+'" data-g="">전체 '+QS.length+'</button>'+GROUPS.map(function(x){return '<button class="chip'+(x===g?' on':'')+'" data-g="'+esc(x)+'">'+esc(x)+' '+QS.filter(function(q){return q.g===x}).length+'</button>'}).join('')+'</div><div class="grid" id="ql"></div>';
+  h+='<div class="chips" style="margin:12px 0 8px"><button class="chip'+(c?'':' on')+'" data-c="">전체 '+QS.length+'</button>'+CATS.map(function(x){return '<button class="chip'+(x===c?' on':'')+'" data-c="'+esc(x)+'">'+esc(x)+' '+QS.filter(function(q){return q.c===x}).length+'</button>'}).join('')+'</div>';
+  if(c)h+='<div class="chips" style="margin:0 0 16px"><button class="chip'+(g?'':' on')+'" data-g="">'+esc(c)+' 전체</button>'+gs.map(function(x){return '<button class="chip'+(x===g?' on':'')+'" data-g="'+esc(x)+'">'+esc(x)+' '+QS.filter(function(q){return q.c===c&&q.g===x}).length+'</button>'}).join('')+'</div>';
+  h+='<div class="grid" id="ql" style="margin-top:12px"></div>';
   $('#app').innerHTML=h;
-  $$('[data-g]').forEach(function(b){b.onclick=function(){location.hash='#/questions/'+encodeURIComponent(b.dataset.g)}});
+  $$('[data-c]').forEach(function(b){b.onclick=function(){location.hash='#/questions/'+encodeURIComponent(b.dataset.c)}});
+  $$('[data-g]').forEach(function(b){b.onclick=function(){location.hash='#/questions/'+encodeURIComponent(c)+(b.dataset.g?'/'+encodeURIComponent(b.dataset.g):'')}});
   var draw=function(){var s=qq.trim().toLowerCase();
-    var list=QS.filter(function(q){return (!g||q.g===g)&&(!s||(q.q+' '+q.a+' '+(S.memo[q.id]||'')).toLowerCase().indexOf(s)>=0)});
-    $('#ql').innerHTML=list.length?list.map(function(q){var r=S.q[q.id];return '<details class="card qcard"><summary><b>'+esc(q.q)+'</b><span class="tag '+q.kind+'">'+KIND[q.kind]+'</span>'+(r?'<span class="tag">'+r.ok+'/'+r.n+'</span>':'')+'</summary><div class="qbody">'+
-      (q.a?'<div class="ans">'+esc(q.a)+'</div>':'<p class="muted small">아직 답변이 없습니다. 아래에 내 답을 적어 보세요.</p>')+(q.guide?'<p class="small" style="margin:10px 0 0"><b>답변 가이드</b></p><div class="guide" style="margin-top:4px">'+esc(q.guide)+'</div>':'')+
+    var list=QS.filter(function(q){return (!c||q.c===c)&&(!g||q.g===g)&&(!s||(q.q+' '+q.a+' '+(q.exp||'')+' '+(S.memo[q.id]||'')).toLowerCase().indexOf(s)>=0)});
+    $('#ql').innerHTML=list.length?list.map(function(q){var r=S.q[q.id];return '<details class="card qcard"><summary><b>'+esc(q.q)+'</b><span class="tag">'+esc(q.c)+'</span><span class="tag '+q.kind+'">'+KIND[q.kind]+'</span>'+(r?'<span class="tag">'+r.ok+'/'+r.n+'</span>':'')+'</summary><div class="qbody">'+
+      answerHTML(q)+
       '<textarea rows="3" data-memo="'+esc(q.id)+'" placeholder="내 말로 바꾼 답변 메모 (이 브라우저에 저장)">'+esc(S.memo[q.id]||'')+'</textarea>'+
       '<div class="row" style="margin-top:8px;justify-content:space-between"><span class="row"><button class="star'+(S.star[q.id]?' on':'')+'" data-star="'+esc(q.id)+'" aria-label="별표">★</button>'+(q.link?'<a class="small" href="'+esc(q.link)+'">'+(q.src?esc(q.src):'근거 보기')+' →</a>':'')+'</span><button class="btn sm" data-one="'+esc(q.id)+'">이 질문 연습</button></div></div></details>'}).join(''):'<div class="card empty">맞는 질문이 없습니다.</div>';
     $$('[data-memo]').forEach(function(t){t.oninput=function(){S.memo[t.dataset.memo]=t.value;clearTimeout(t._s);t._s=setTimeout(save,400)}});
@@ -205,7 +242,7 @@ function questions(g){
 var mock=null,mcfg={groups:[],count:5,sec:60,rec:false,mode:'new'};
 function mockSetup(){
   var h='<h1>모의 면접</h1><p class="sub">질문이 나오면 [답변 시작]을 누르고 소리 내어 답합니다. 시간이 끝나거나 [답변 끝]을 누르면 답변 뼈대와 비교해 스스로 채점합니다.</p><div class="card setup">';
-  h+='<label>질문 묶음</label><div class="chips" id="mg">'+GROUPS.map(function(g){return '<button class="chip'+(mcfg.groups.indexOf(g)>=0?' on':'')+'" data-g="'+esc(g)+'">'+esc(g)+'</button>'}).join('')+'</div><p class="faint small" style="margin:6px 0 0">고르지 않으면 전체에서 냅니다.</p>';
+  h+='<label>질문 분류</label><div class="chips" id="mg">'+CATS.map(function(g){return '<button class="chip'+(mcfg.groups.indexOf(g)>=0?' on':'')+'" data-g="'+esc(g)+'">'+esc(g)+' '+QS.filter(function(q){return q.c===g}).length+'</button>'}).join('')+'</div><p class="faint small" style="margin:6px 0 0">고르지 않으면 전체에서 냅니다.</p>';
   h+='<label>어떤 질문부터</label><div class="chips" id="mm">'+[['new','안 해 본 질문 먼저'],['weak','헷갈렸거나 몰랐던 질문'],['star','별표한 질문'],['all','무작위']].map(function(m){return '<button class="chip'+(mcfg.mode===m[0]?' on':'')+'" data-m="'+m[0]+'">'+m[1]+'</button>'}).join('')+'</div>';
   h+='<label>문항 수</label><div class="chips" id="mc">'+[3,5,10].map(function(c){return '<button class="chip'+(mcfg.count===c?' on':'')+'" data-c="'+c+'">'+c+'문항</button>'}).join('')+'</div>';
   h+='<label>답변 시간</label><div class="chips" id="ms">'+[45,60,90,120].map(function(c){return '<button class="chip'+(mcfg.sec===c?' on':'')+'" data-s="'+c+'">'+c+'초</button>'}).join('')+'</div>';
@@ -213,7 +250,7 @@ function mockSetup(){
   h+='<div class="row" style="margin-top:20px;justify-content:space-between"><span class="muted small" id="mav"></span><button class="btn" id="mgo">시작</button></div></div>';
   if(S.mocks.length)h+='<h2>지난 모의 면접</h2><div class="card"><table style="width:100%;border-collapse:collapse;font-size:14px">'+S.mocks.slice(-8).reverse().map(function(m){return '<tr><td style="padding:6px 0">'+esc(m.d)+'</td><td>'+esc(m.label||'')+'</td><td>'+m.n+'문항</td><td>알았다 '+m.ok+' · 헷갈림 '+m.mid+' · 몰랐다 '+m.bad+'</td></tr>'}).join('')+'</table></div>';
   $('#app').innerHTML=h;
-  var pool=function(){var qs=QS.filter(function(q){return !mcfg.groups.length||mcfg.groups.indexOf(q.g)>=0});
+  var pool=function(){var qs=QS.filter(function(q){return !mcfg.groups.length||mcfg.groups.indexOf(q.c)>=0});
     if(mcfg.mode==='weak')qs=qs.filter(function(q){var r=S.q[q.id];return r&&r.s!=='ok'});
     if(mcfg.mode==='star')qs=qs.filter(function(q){return S.star[q.id]});
     return qs};
@@ -237,7 +274,7 @@ function mockPlay(){
   else if(m.st==='talk')h+='<div class="clock" id="mclock">'+fmt(m.left)+'</div><div class="row" style="justify-content:center">'+(m.opt.rec?'<span class="rec"><i></i>녹음 중</span>':'')+'<button class="btn" id="mend">답변 끝 <span class="small" style="opacity:.7">Space</span></button></div>';
   else{
     h+=(m.url?'<audio controls src="'+m.url+'" style="width:100%;margin:6px 0 4px"></audio>':'')+'<p class="muted small" style="margin:6px 0 0">'+(m.used!=null?'답변 시간 '+m.used+'초 · ':'')+'아래 답과 비교해 보세요.</p>';
-    h+=(q.a?'<div class="ans">'+esc(q.a)+'</div>':'<p class="muted">저장된 답변이 없습니다.</p>')+(S.memo[q.id]?'<p class="small" style="margin:10px 0 0"><b>내 메모</b></p><div class="ans">'+esc(S.memo[q.id])+'</div>':'')+(q.guide?'<p class="small" style="margin:10px 0 0"><b>답변 가이드</b></p><div class="guide" style="margin-top:4px">'+esc(q.guide)+'</div>':'');
+    h+=answerHTML(q)+(S.memo[q.id]?'<div class="lbl">내 메모</div><div class="ans" style="margin-top:0">'+esc(S.memo[q.id])+'</div>':'');
     h+='<div class="grade"><button class="g-ok" data-gr="ok">알았다 1</button><button class="g-mid" data-gr="mid">헷갈렸다 2</button><button class="g-bad" data-gr="bad">몰랐다 3</button></div>';
   }
   h+='<div class="row" style="margin-top:18px"><a class="btn ghost sm" href="#/mock">그만하기</a></div></div>';
@@ -335,6 +372,32 @@ function pptx(d,btn){
       if(s.note)sl.addNotes(s.note)});
     return P.writeFile({fileName:'발표_'+d.title.replace(/[\\/:*?"<>| ]+/g,'_')+'.pptx'});
   }).then(function(){toast('PPTX를 내려받았습니다. 발표자 메모도 들어 있습니다.')}).catch(function(){toast('PPTX를 만들지 못했습니다. 인터넷 연결을 확인하고 다시 눌러 주세요.')}).then(function(){btn.disabled=false;btn.textContent='PPTX'});
+}
+
+/* ---------- 공채 정보 ---------- */
+function jobs(sec){
+  var R=D.recruit||{},SS=R.sectors||[];var cur=SS.filter(function(x){return x.id===sec})[0];
+  var h='<h1>공채 정보</h1><p class="sub">IT · 금융 · 자원개발 공개채용의 지원 조건, 전형, 면접 형식과 질문 예시를 모았습니다. 확인일 '+esc(R.checked||'')+'. 회색 글씨는 출처 종류이며, 포털 요약·후기는 공고 원문과 다를 수 있으니 <b>지원 전 공식 공고를 꼭 확인</b>하세요.</p>';
+  if(R.me)h+='<div class="card" style="margin-bottom:12px"><b>내 준비 상태</b><div class="grid g4" style="margin-top:8px">'+R.me.map(function(m){return '<div><div class="faint small">'+esc(m.k)+'</div><div style="font-size:14px">'+esc(m.v)+'</div></div>'}).join('')+'</div></div>';
+  h+='<div class="chips" style="margin-bottom:14px"><button class="chip'+(cur?'':' on')+'" data-s="">전체</button>'+SS.map(function(x){return '<button class="chip'+(cur&&cur.id===x.id?' on':'')+'" data-s="'+x.id+'">'+esc(x.name)+' '+x.companies.length+'</button>'}).join('')+'</div>';
+  (cur?[cur]:SS).forEach(function(x){
+    h+='<h2>'+esc(x.name)+'</h2><p class="muted small" style="margin:-6px 0 12px">'+esc(x.tip||'')+'</p><div class="grid g2">';
+    x.companies.forEach(function(co,ci){var key=x.id+'-'+ci;
+      h+='<div class="card co"><div><h3>'+esc(co.name)+'</h3><div class="faint small">'+esc(co.status||'')+'</div></div>';
+      if(co.conditions&&co.conditions.length)h+='<div><div class="lbl" style="margin-top:0">지원 조건</div><ul>'+co.conditions.map(function(c){return '<li>'+esc(c.t)+(c.src?'<span class="src">· '+esc(c.src)+'</span>':'')+'</li>'}).join('')+'</ul></div>';
+      if(co.process&&co.process.length)h+='<div><div class="lbl" style="margin-top:0">전형</div><div class="flow">'+co.process.map(function(t){return '<span>'+esc(t)+'</span>'}).join('<i>→</i>')+'</div></div>';
+      if(co.interview&&co.interview.length)h+='<div><div class="lbl" style="margin-top:0">면접 형식 (후기·공고)</div><ul>'+co.interview.map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul></div>';
+      if(co.questions&&co.questions.length)h+='<div><div class="lbl" style="margin-top:0">질문 예시</div><ul>'+co.questions.map(function(t){return '<li>'+esc(t.q)+(t.src?'<span class="src">· '+esc(t.src)+'</span>':'')+'</li>'}).join('')+'</ul><button class="btn sm ghost" style="margin-top:8px" data-jq="'+key+'">이 회사 질문으로 모의 면접</button></div>';
+      if(co.fit)h+='<div class="fit"><b>내 준비 포인트</b> · '+esc(co.fit)+'</div>';
+      if(co.links&&co.links.length)h+='<div class="links">'+co.links.map(function(l){return '<a href="'+esc(l.url)+'" target="_blank" rel="noopener">'+esc(l.label)+' ↗</a>'}).join('')+'</div>';
+      h+='</div>';});
+    h+='</div>';});
+  if(R.guides)h+='<h2>답변 구조 참고</h2><div class="grid">'+R.guides.map(function(g){return '<div class="card"><a href="'+esc(g.url)+'" target="_blank" rel="noopener"><b>'+esc(g.label)+' ↗</b></a><div class="muted small">'+esc(g.note||'')+'</div></div>'}).join('')+'</div>';
+  $('#app').innerHTML=h;
+  $$('[data-s]').forEach(function(b){b.onclick=function(){location.hash='#/jobs'+(b.dataset.s?'/'+b.dataset.s:'')}});
+  $$('[data-jq]').forEach(function(b){b.onclick=function(){var k=b.dataset.jq.split('-'),x=SS.filter(function(s){return s.id===k[0]})[0],co=x.companies[+k[1]];
+    var qs=co.questions.map(function(t,i){var id='j:'+k[0]+':'+k[1]+':'+i;var q={id:id,c:'기타',g:co.name,q:t.q,a:'',guide:'출처: '+(t.src||'')+' / '+(co.fit||''),kind:'skeleton'};Q[id]=q;return q});
+    startMock(qs,{sec:90,rec:false,label:co.name})}});
 }
 
 /* ---------- 기록 ---------- */

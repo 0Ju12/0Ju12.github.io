@@ -11,20 +11,31 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "docs" / "interview"
 PRIVATE_JSON = ROOT / "content" / "private" / "interview.json"
+BANK_JSON = ROOT / "content" / "private" / "interview_bank.json"
+CATS = ["인성", "프로젝트", "전문지식", "기타"]
+GROUP_CAT = {"인성 질문": "인성", "설계 판단 · 트레이드오프": "프로젝트", "RAG · 국보 입문 가이드": "프로젝트", "포트폴리오 기술 질문": "프로젝트"}
 PHOTOS = ROOT / "docs" / "assets" / "photos"
 
 
-def _private_questions():
-    if PRIVATE_JSON.exists():
-        return json.loads(PRIVATE_JSON.read_text(encoding="utf-8")).get("questions", [])
+_UNSEALED = None
+
+
+def _private(name, path):
+    """로컬 평문이 있으면 그것을, 없으면 잠긴 묶음(content/private_sealed)을 PRIVATE_KEY 로 풀어 씀"""
+    global _UNSEALED
+    if path.exists():
+        return json.loads(path.read_text(encoding="utf-8")).get("questions", [])
     pem = os.environ.get("PRIVATE_KEY")
     if not pem:
         return []
-    import private_build
-    for name, text in private_build.unseal_all(pem):
-        if name.endswith("interview.json"):
-            return json.loads(text).get("questions", [])
-    return []
+    if _UNSEALED is None:
+        import private_build
+        _UNSEALED = dict(private_build.unseal_all(pem))
+    return json.loads(_UNSEALED[name]).get("questions", []) if name in _UNSEALED else []
+
+
+def _private_questions():
+    return _private("interview.json", PRIVATE_JSON)
 
 
 def _group(g):
@@ -57,8 +68,14 @@ def questions(data, trend_posts):
     qs = []
     for q in _private_questions():
         vs = q.get("versions") or []
-        qs.append({"id": "n:" + q.get("id", ""), "g": _group(q.get("group")), "q": q.get("title", ""),
+        g = _group(q.get("group"))
+        qs.append({"id": "n:" + q.get("id", ""), "c": GROUP_CAT.get(g, "기타"), "g": g, "q": q.get("title", ""),
                    "a": vs[-1]["text"] if vs else "", "guide": q.get("guide", ""), "kind": "mine"})
+    import hashlib
+    for b in _private("interview_bank.json", BANK_JSON):
+        qs.append({"id": "b:" + hashlib.sha1(b["q"].encode()).hexdigest()[:10], "c": b["c"] if b.get("c") in CATS else "기타",
+                   "g": b.get("g") or b["c"], "q": b["q"], "a": b.get("best", ""), "exp": b.get("exp", ""),
+                   "intent": b.get("intent", ""), "tail": b.get("tail") or [], "guide": b.get("tip", ""), "kind": "bank"})
     cases = data.get("case_notes") or {}
     for g, p in _projects(data):
         d, short, cn = p["digest"], p.get("short") or p.get("title"), (cases.get(p["id"]) or {}).get("ko") or {}
@@ -66,22 +83,22 @@ def questions(data, trend_posts):
         a = "\n".join([f"상황 · {d['problem']}", f"역할 · {d['role']}"] + [f"한 일 · {x}" for x in d.get("did", [])[:3]]
                       + [f"결과 · {x}" for x in d.get("result", [])[:2]])
         qs.append({"id": f"p:{p['id']}:intro", "g": "프로젝트 · " + short, "q": f"{short} — 1분 안에 소개해 주세요.", "a": a,
-                   "kind": "skeleton", "link": link, "proj": p["id"]})
+                   "kind": "skeleton", "link": link, "proj": p["id"], "c": "프로젝트"})
         if cn.get("tradeoffs"):
             qs.append({"id": f"p:{p['id']}:trade", "g": "프로젝트 · " + short, "q": f"{short}에서 가장 고민한 설계 판단은 무엇이었나요?",
-                       "a": "\n".join("· " + t for t in cn["tradeoffs"][:2]), "kind": "skeleton", "link": link, "proj": p["id"]})
+                       "a": "\n".join("· " + t for t in cn["tradeoffs"][:2]), "kind": "skeleton", "link": link, "proj": p["id"], "c": "프로젝트"})
         if cn.get("next"):
             qs.append({"id": f"p:{p['id']}:next", "g": "프로젝트 · " + short, "q": f"{short}의 한계는 무엇이고, 다시 한다면 무엇을 바꾸겠습니까?",
-                       "a": "\n".join("· " + t for t in cn["next"][:2]), "kind": "skeleton", "link": link, "proj": p["id"]})
+                       "a": "\n".join("· " + t for t in cn["next"][:2]), "kind": "skeleton", "link": link, "proj": p["id"], "c": "프로젝트"})
         if d.get("result"):
             qs.append({"id": f"p:{p['id']}:verify", "g": "프로젝트 · " + short, "q": f"{short}의 결과는 어떻게 확인했나요? 숫자로 말해 주세요.",
-                       "a": "\n".join("· " + t for t in d["result"]), "kind": "skeleton", "link": link, "proj": p["id"]})
+                       "a": "\n".join("· " + t for t in d["result"]), "kind": "skeleton", "link": link, "proj": p["id"], "c": "프로젝트"})
     for w in trend_posts:
         src = (ROOT / "content" / "posts" / f"{w['slug']}.md").read_text(encoding="utf-8")
         m = re.search(r"## 면접 질문\s+\*\*Q\.\s*(.+?)\*\*\s+((?:>.*\n?)+)", src)
         if m:
             ans = re.sub(r"^>\s?", "", m.group(2).strip(), flags=re.M).strip()
-            qs.append({"id": "t:" + w["slug"], "g": "AI 트렌드", "q": m.group(1).strip(), "a": ans, "kind": "trend",
+            qs.append({"id": "t:" + w["slug"], "c": "전문지식", "g": "AI 트렌드", "q": m.group(1).strip(), "a": ans, "kind": "trend",
                        "link": f"../posts/{w['slug']}.html", "src": f"AI 트렌드 노트 #{w.get('episode')}"})
     return qs
 
@@ -140,7 +157,8 @@ def build(env, data):
     data = dict(data)
     data["case_notes"] = yaml.safe_load((ROOT / "data" / "case_notes.yaml").read_text(encoding="utf-8")) or {}
     app = {"questions": questions(data, data.get("trend_posts") or []), "decks": decks(data, variants),
-           "roles": {k: v.get("label", k) for k, v in variants.items()}, "name": data["profile"]["name"]}
+           "roles": {k: v.get("label", k) for k, v in variants.items()}, "name": data["profile"]["name"], "cats": CATS,
+           "recruit": yaml.safe_load((ROOT / "data" / "recruit.yaml").read_text(encoding="utf-8")) or {}}
     html = env.get_template("interview.html.j2").render(app=app, **data)
     (OUT / "index.html").write_text(locker.page("면접 준비", html, "../index.html", pwa=False), encoding="utf-8")
     return {"questions": len(app["questions"]), "decks": len(app["decks"])} if locker.password else None

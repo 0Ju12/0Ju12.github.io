@@ -34,7 +34,8 @@ def render(docs):
     pages = []
     for name, t in docs:
         if name.endswith(".json"):
-            pages.append(interview_page(json.loads(t)))
+            if name == "interview.json":
+                pages.append(interview_page(json.loads(t)))
             continue
         meta, body = {}, t
         if t.startswith("---"):
