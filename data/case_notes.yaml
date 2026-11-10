@@ -132,3 +132,21 @@ prep-apps:
     next:
       - "Automatic sync across devices needs a small store for end-to-end encrypted progress — currently only file transfer is implemented."
       - "Speech-to-text on OPIc recordings to show answer length and repeated phrases."
+
+data-projects:
+  ko:
+    tradeoffs:
+      - "평가 분할: 이웃한 시점이 거의 같은 시계열에서 무작위 분할은 성능을 부풀림 → 센서 진단과 수요 예측 모두 '과거로 학습해 미래를 시험'하는 시간 분할을 기본으로 하고, 무작위 분할 결과를 옆에 같이 보고"
+      - "지진 파이프라인 저장: 사람이 읽고 diff 할 수 있는 CSV 를 원본으로, SQLite 는 매번 다시 만드는 질의용으로 — 파일은 조금 커지지만 변경 이력이 저장소에 그대로 남음"
+      - "DART 근거 검색: 생성형 답변 대신 원문 문단과 출처만 돌려줌 — 문장이 매끄럽지 않은 대신 틀린 요약을 만들 위험이 없음"
+    next:
+      - "축압기 진단(0.55)은 모델보다 압력 상승 구간의 시정수 같은 특징이 더 필요해 보임"
+      - "전력 수요는 1년치만 공개돼 같은 계절을 두 번 학습하지 못함 — 여러 해 자료와 실제 기온 예보로 다시 평가할 계획"
+  en:
+    tradeoffs:
+      - "Evaluation split: in time series where neighbouring points are nearly identical, random splits inflate scores, so both the sensor diagnosis and the demand forecast default to time-ordered splits (train on the past, test on the future), with random-split results reported alongside."
+      - "Earthquake storage: a human-readable, diff-able CSV is the source of truth and SQLite is rebuilt for queries — slightly larger files, but every change stays visible in the repository history."
+      - "DART evidence search returns source paragraphs instead of generated answers — less fluent, but no risk of a wrong summary."
+    next:
+      - "Accumulator diagnosis (0.55) seems to need features such as the time constant of pressure build-up more than a different model."
+      - "Only one year of demand data is public, so no season is seen twice; I plan to re-evaluate with several years and real temperature forecasts."

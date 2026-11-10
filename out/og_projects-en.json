@@ -59,7 +59,7 @@
   "tagline": "Korean/English site and resume PDFs generated from one YAML source",
   "key": "One edit updates the site and all 5 resume PDFs",
   "period": "2026.11 – present",
-  "group": "Personal projects — a data-driven portfolio · encrypted study & interview apps",
+  "group": "Personal projects — public-data projects · portfolio generator · encrypted study & interview apps",
   "image": "assets/photos/portfolio-site/card/포트폴리오_메인.jpg"
  },
  {
@@ -68,7 +68,16 @@
   "tagline": "Web apps that use private study and interview material while keeping it encrypted",
   "key": "PBKDF2 600k + AES-GCM · no server, no plaintext",
   "period": "2026.11 – present",
-  "group": "Personal projects — a data-driven portfolio · encrypted study & interview apps",
+  "group": "Personal projects — public-data projects · portfolio generator · encrypted study & interview apps",
   "image": "assets/photos/prep-apps/card/면접준비_발표자료.jpg"
+ },
+ {
+  "id": "data-projects-en",
+  "title": "Four public-data projects — earthquake pipeline · equipment anomaly detection · power demand forecasting · DART data mart",
+  "tagline": "Four projects on public data — collection, cleaning, modelling and validation",
+  "key": "Power demand MAPE 3.23% · inflated scores exposed by time-ordered splits",
+  "period": "2026.11 – present",
+  "group": "Personal projects — public-data projects · portfolio generator · encrypted study & interview apps",
+  "image": "assets/photos/data-projects/card/지진_파이프라인_지도.jpg"
  }
 ]

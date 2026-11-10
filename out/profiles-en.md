@@ -59,6 +59,24 @@ Skills: JavaScript, Web Crypto, PWA, Python, cryptography, Playwright
 Details: https://0ju12.github.io/projects/prep-apps-en.html
 ```
 
+### Four public-data projects — earthquake pipeline · equipment anomaly detection · power demand forecasting · DART data mart
+- **직함/역할:** Collection · cleaning · modelling · validation · automation
+- **회사/기관:** Personal · GitHub (data-projects)
+- **기간:** 2026.11 – present
+- **설명:**
+```
+Data pipelines, anomaly detection, demand forecasting and a SQL data mart built on public data from energy, resources, manufacturing and finance, validated with time-ordered evaluation
+• Earthquake pipeline: incremental collection from the USGS FDSN API with per-region minimum magnitude and start date (re-fetching the last 3 days so runs are idempotent); only newer revisions replace an event; events without magnitude, out of range or non-earthquake are quarantined and counted; CSV (source) and SQLite (query) storage; Mc and b-value (Aki–Utsu, Shi & Bolt error); a Leaflet dashboard refreshed daily by GitHub Actions
+• Equipment anomaly detection: 136 cycle features from 2,205 cycles × 17 sensors of the UCI hydraulic rig; per-component normal models (Ledoit-Wolf Mahalanobis, 1% false-alarm threshold) with a k-consecutive alert rule; RandomForest vs LDA diagnosis under random and time-block splits
+• Power demand forecasting: day-ahead 24-hour forecasts from KPX 2025 national hourly demand and Open-Meteo temperature — features use only values at least 24 hours old (with a leakage test), holidays included; baseline, linear, GBM and ensemble tested on October–December
+• DART data mart: OpenDART collection (status-code handling, rate-limit waits), standardised accounts, pivot/LAG/RANK SQL views, and evidence search over business-report paragraphs with character-bigram BM25, returned with sources (API key only via Secrets)
+✔ Power demand: MAPE 6.17% for the same-hour-last-week baseline → 3.23% for the ensemble; daily-peak error 2.64%
+✔ Sensor diagnosis: RandomForest scored 0.99+ on every component with a random split but 0.46 on the valve with a time-block split; LDA kept 1.00 on cooler, valve and pump, while the accumulator (0.55) remains open
+✔ Earthquakes: 2,446 events of M4+ in East Asia, b = 1.11 ± 0.05 · 35 tests across the four projects
+Skills: Python, SQL, scikit-learn, GitHub Actions, Leaflet, Time series
+Details: https://0ju12.github.io/projects/data-projects-en.html
+```
+
 ### SSAFY — ThRead LLM comment-analysis pipeline · AI Challenge VQA ensemble
 - **직함/역할:** Backend & data pipeline · model training (AI Challenge)
 - **회사/기관:** Samsung Software & AI Academy for Youth (SSAFY) · team of 2

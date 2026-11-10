@@ -122,6 +122,9 @@ CAPTIONS = {
     "면접준비_발표자료": "Interview app — deck with presenter notes, generated from portfolio data",
     "면접준비_공채정보_휴대폰": "Interview app — recruiting info on a phone",
     "잠금_화면": "Lock screen — pages encrypted with PBKDF2 · AES-GCM",
+    "지진_파이프라인": "Earthquake pipeline — dashboard of USGS M4+ events in East Asia",
+    "설비_센서": "Equipment sensors — anomaly score per component (UCI hydraulic rig)",
+    "전력_수요_예측": "Power demand — actual vs models (Oct–Dec 2025 test)",
 }
 
 

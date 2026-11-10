@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>공개 데이터 프로젝트 4종 — 지진 파이프라인 · 설비 이상 탐지 · 전력 수요 예측 · DART 데이터 마트 — 이영주</title>
+<meta name="description" content="에너지·자원·제조·금융 분야의 공개 데이터로 데이터 파이프라인, 이상 탐지, 수요 예측, SQL 데이터 마트를 만들고 시간 순서를 지킨 평가로 검증한 프로젝트 모음">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="이영주 포트폴리오">
+<meta property="og:title" content="공개 데이터 프로젝트 4종 — 지진 파이프라인 · 설비 이상 탐지 · 전력 수요 예측 · DART 데이터 마트 — 이영주">
+<meta property="og:description" content="에너지·자원·제조·금융 분야의 공개 데이터로 데이터 파이프라인, 이상 탐지, 수요 예측, SQL 데이터 마트를 만들고 시간 순서를 지킨 평가로 검증한 프로젝트 모음">
+<meta property="og:url" content="https://0ju12.github.io/projects/data-projects.html">
+<meta property="og:image" content="https://0ju12.github.io/og/data-projects.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#18181b">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--bg:#f7f7f8;--text:#18181b;--muted:#5f5f68;--faint:#9b9ba3;--line:#e4e4e8;--card:#fff;--ink:#18181b;--on-ink:#fafafa;--accent:#5b6cff;--on-accent:#fff;--chip:#f1f1f4;--soft:#eef1ff;--pos:#16a34a;--neg:#db2777;--shadow:0 1px 2px rgba(0,0,0,.04),0 18px 48px -18px rgba(0,0,0,.16)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d10;--text:#f4f4f5;--muted:#a1a1aa;--faint:#71717a;--line:#27272a;--card:#17171a;--ink:#f4f4f5;--on-ink:#0d0d10;--accent:#8b97ff;--on-accent:#0d0d10;--chip:#202024;--soft:#1a1e2e;--pos:#4ade80;--neg:#f472b6;--shadow:0 18px 48px -18px rgba(0,0,0,.6)}}
+:root[data-theme="dark"]{--bg:#0d0d10;--text:#f4f4f5;--muted:#a1a1aa;--faint:#71717a;--line:#27272a;--card:#17171a;--ink:#f4f4f5;--on-ink:#0d0d10;--accent:#8b97ff;--on-accent:#0d0d10;--chip:#202024;--soft:#1a1e2e;--pos:#4ade80;--neg:#f472b6;--shadow:0 18px 48px -18px rgba(0,0,0,.6)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.75 "Pretendard Variable",Pretendard,system-ui,sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:anywhere}
+a{color:inherit}
+.w{max-width:960px;margin:0 auto;padding:0 24px}
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.bar .w{display:flex;align-items:center;gap:14px;height:58px;font-size:14px;font-weight:600}
+.bar .back{margin-right:auto;text-decoration:none;display:flex;align-items:center;gap:10px;min-height:40px}
+.bar .back .avatar{width:26px;height:26px;border-radius:50%;object-fit:cover;font-size:10px}
+.bar a.l,.bar button{color:var(--muted);text-decoration:none;background:none;border:1px solid var(--line);border-radius:999px;padding:5px 12px;font:inherit;font-size:13px;cursor:pointer}
+.bar a.l:hover,.bar button:hover{color:var(--text)}
+header{padding:56px 0 28px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.chips span{font-size:12.5px;font-weight:700;padding:4px 12px;border-radius:999px;background:var(--soft);color:var(--accent)}
+.chips span+span{background:var(--chip);color:var(--muted)}
+h1{font-size:clamp(28px,4.4vw,44px);line-height:1.22;letter-spacing:-.045em;margin:0 0 16px}
+.lead{font-size:18.5px;color:var(--muted);margin:0 0 18px;max-width:780px}
+.meta{font-size:14px;color:var(--faint);margin-bottom:22px}
+.acts{display:flex;flex-wrap:wrap;gap:8px}
+.acts a{display:inline-flex;align-items:center;gap:6px;height:42px;padding:0 16px;border-radius:999px;font-weight:700;font-size:14px;text-decoration:none;border:1px solid var(--line);background:var(--card)}
+.acts a:first-child{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.acts a:hover{border-color:var(--text)}
+.keyline{display:flex;gap:10px;align-items:flex-start;font-size:16px;font-weight:700;margin:0 0 18px;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:var(--card);max-width:780px}
+.keyline i{font-style:normal;font-size:12px;font-weight:800;letter-spacing:.04em;padding:3px 8px;border-radius:6px;background:var(--ink);color:var(--on-ink);flex:none;margin-top:1px}
+.toc{position:sticky;top:58px;z-index:5;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:10px 0;margin:6px 0 0;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px)}
+.toc::-webkit-scrollbar{display:none}
+.toc a{flex:none;font-size:13px;font-weight:700;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);text-decoration:none;color:var(--muted)}
+.toc a:hover{color:var(--text);border-color:var(--text)}
+section,.two{scroll-margin-top:110px}
+.glance .gl{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.glance .gl div{display:flex;gap:10px;align-items:flex-start;padding:14px 16px;border-radius:16px;background:var(--card);border:1px solid var(--line);font-weight:600;font-size:15px;line-height:1.55}
+.glance .gl i{flex:none;font-style:normal;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:12px;background:var(--soft);color:var(--accent);margin-top:1px}
+details.full{margin:44px 0 0;border:1px solid var(--line);border-radius:16px;background:var(--card);padding:0 20px}
+details.full summary{cursor:pointer;font-weight:700;font-size:15px;padding:16px 0;list-style:none}
+details.full summary::-webkit-details-marker{display:none}
+details.full summary::before{content:'+ ';color:var(--muted)}
+details.full[open] summary::before{content:'– '}
+details.full h3{font-size:15px;margin:18px 0 6px}
+details.full p{margin:0;color:var(--muted);font-size:14.5px}
+details.full[open]{padding-bottom:20px}
+.media{margin:24px 0 8px}
+.media figure{margin:0;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow)}
+.media img{width:100%;display:block;background:#fff}
+.media figcaption{font-size:13px;color:var(--muted);padding:12px 18px;border-top:1px solid var(--line)}
+section{padding:48px 0 0}
+section>h2{font-size:clamp(22px,2.8vw,28px);letter-spacing:-.035em;margin:0 0 4px}
+section>.sub{color:var(--faint);font-size:14px;margin:0 0 18px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px 24px}
+.card h3{margin:0 0 6px;font-size:13px;letter-spacing:.06em;color:var(--accent);text-transform:uppercase}
+.card p{margin:0}
+.list{list-style:none;margin:0;padding:0;counter-reset:n}
+.list li{position:relative;padding:14px 0 14px 44px;border-top:1px solid var(--line)}
+.list li:first-child{border-top:0}
+.list li::before{counter-increment:n;content:counter(n);position:absolute;left:0;top:14px;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:12.5px;font-weight:700;background:var(--chip);color:var(--muted)}
+.list.res li::before{content:"✓";background:var(--soft);color:var(--accent)}
+.boxed{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:6px 24px}
+.trade{display:grid;gap:12px}
+.trade div{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:16px;padding:16px 20px}
+.trade.next div{border-left-color:var(--faint)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.gallery a{text-decoration:none;color:var(--muted);font-size:12.5px}
+.gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;display:block;margin-bottom:6px;border:1px solid var(--line);background:#fff}
+.posts a{display:flex;justify-content:space-between;gap:16px;padding:16px 20px;border:1px solid var(--line);border-radius:18px;background:var(--card);text-decoration:none;margin-bottom:10px;font-weight:600}
+.posts a small{display:block;color:var(--faint);font-weight:500}
+.posts a:hover{border-color:var(--text)}
+.pn{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:64px 0 0}
+.pn a{display:block;padding:18px 22px;border:1px solid var(--line);border-radius:20px;background:var(--card);text-decoration:none;font-weight:700;line-height:1.45}
+.pn a small{display:block;color:var(--faint);font-weight:600;font-size:12.5px;margin-bottom:4px}
+.pn a.r{text-align:right}
+.pn a:hover{border-color:var(--text)}
+footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
+/* 구조도 */
+.diagram{margin:0;padding:24px;border-radius:22px;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow)}
+.dg-row{display:grid;grid-template-columns:200px 28px 1fr 28px 210px;align-items:center;gap:0}
+.dg-col{display:grid;gap:8px}
+.dg-tag{font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.dg-box{padding:10px 12px;border-radius:12px;background:var(--chip);font-size:13.5px;font-weight:700;line-height:1.45}
+.dg-box.p{background:color-mix(in srgb,var(--pos) 14%,transparent)}
+.dg-box.n{background:color-mix(in srgb,var(--neg) 14%,transparent)}
+.dg-col small{font-size:12px;color:var(--muted);line-height:1.5}
+.dg-arrow{height:2px;background:var(--line);position:relative;margin:0 4px}
+.dg-arrow::after{content:"";position:absolute;right:-2px;top:-4px;border:5px solid transparent;border-left:7px solid var(--faint)}
+.dg-steps{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.dg-steps li{display:grid;grid-template-columns:26px 1fr;column-gap:10px;padding:9px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg)}
+.dg-steps li i{grid-row:span 3;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:800;background:var(--accent);color:var(--on-accent)}
+.dg-steps b{font-size:14px;line-height:1.4}
+.dg-steps small{font-size:12px;color:var(--muted);line-height:1.5}
+.dg-pair{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 2px}
+.dg-pair em{font-style:normal;font-size:12px;font-weight:700;padding:2px 8px;border-radius:6px}
+.dg-pair .p{background:color-mix(in srgb,var(--pos) 16%,transparent)}
+.dg-pair .n{background:color-mix(in srgb,var(--neg) 16%,transparent)}
+.diagram figcaption{margin-top:14px;font-size:12.5px;color:var(--faint)}
+@media (max-width:760px){
+  header{padding-top:32px}
+  .boxed{padding:2px 16px;border-radius:18px}
+  .list li{padding:12px 0 12px 36px}
+  .list li::before{top:13px;width:24px;height:24px;font-size:11.5px}
+  .acts a{height:36px;padding:0 13px;font-size:13px}
+  .lead{font-size:17px}
+  .two,.pn{grid-template-columns:1fr}
+  .pn a.r{text-align:left}
+  .dg-row{grid-template-columns:1fr;gap:8px}
+  .dg-arrow{width:2px;height:18px;margin:0 auto}
+  .dg-arrow::after{right:-4px;top:auto;bottom:-6px;border:5px solid transparent;border-top:7px solid var(--faint)}
+}
+</style>
+</head>
+<body>
+<nav class="bar"><div class="w"><a class="back" href="../index.html#work"><img class="avatar" src="../assets/photos/profile.jpg" alt="이영주 프로필 사진">
+← 포트폴리오</a><a class="l" href="data-projects-en.html" hreflang="en">EN</a><button id="theme" type="button">테마</button></div></nav>
+<main class="w">
+  <header>
+    <div class="chips"><span>개인 프로젝트</span><span>2026.11 – 진행 중</span><span>개인</span></div>
+    <h1>공개 데이터 프로젝트 4종 — 지진 파이프라인 · 설비 이상 탐지 · 전력 수요 예측 · DART 데이터 마트</h1>
+<p class="lead">에너지·자원·제조·금융 분야의 공개 데이터로 데이터 파이프라인, 이상 탐지, 수요 예측, SQL 데이터 마트를 만들고 시간 순서를 지킨 평가로 검증한 프로젝트 모음</p>    <div class="meta">개인 · GitHub (data-projects) · 수집 · 정제 · 모델링 · 검증 · 자동화</div>
+<p class="keyline"><i>핵심</i><span>전력 수요 MAPE 3.23% · 시간 분할로 부풀려진 성능 확인</span></p><div class="acts"><a href="https://github.com/0Ju12/data-projects" target="_blank" rel="noopener">GitHub 저장소 ↗</a></div>  </header>
+
+  <nav class="toc" aria-label="이 페이지"><a href="#glance">한눈에</a><a href="#story">문제 · 역할</a><a href="#did">한 일</a><a href="#result">결과</a><a href="#tradeoffs">설계 판단 · 트레이드오프</a><a href="#media">사진 · 자료</a></nav>
+
+  <section class="glance" id="glance"><h2>한눈에 보기</h2>
+    <div class="gl"><div><i>1</i><span>전력 수요 앙상블 MAPE 3.23% · 일 최대수요 2.64%</span></div><div><i>2</i><span>센서 진단: 무작위 분할 0.99가 시간 분할에서 0.46으로 — 평가 분할이 결론을 바꿈</span></div><div><i>3</i><span>테스트 35개 · GitHub Actions 로 매일 수집·배포</span></div></div>
+  </section>
+  <div class="two" id="story" style="margin-top:28px">
+<div class="card"><h3>문제</h3><p>지원 분야(자원개발·에너지·제조 IT·금융)의 실제 데이터로 수집부터 검증까지 해 본 사례가 필요했고, 공동연구 데이터는 공개할 수 없었음</p></div><div class="card"><h3>역할</h3><p>누구나 받을 수 있는 공개 데이터만으로, 실무처럼 반복 실행되고 정직하게 평가된 프로젝트를 만드는 것이 목표</p></div>  </div>
+
+<section id="did"><h2>한 일</h2><div class="boxed"><ol class="list"><li>지진 데이터 파이프라인: USGS FDSN API 를 지역별 최소 규모·시작일로 증분 수집(마지막 실행 3일 전부터 겹쳐 받아 멱등), 같은 id 는 더 늦은 수정본만 교체, 규모 없음·범위 밖·발파는 격리해 개수만 보고, CSV(원본)·SQLite(질의용) 저장, Mc·b값(Aki–Utsu, Shi &amp; Bolt 오차) 분석, Leaflet 지도 대시보드를 매일 GitHub Actions 로 갱신</li><li>설비 센서 이상 탐지: UCI 유압 설비 2,205 사이클 × 17 센서에서 사이클 특징 136개 추출, 부품별 정상 모델(Ledoit-Wolf 마할라노비스, 1% 오경보 임계값)과 k 연속 경보 규칙, RandomForest·LDA 진단을 무작위 분할과 시간 구간 분할로 비교</li><li>전력 수요 예측: 전력거래소 2025년 시간별 전국 수요와 Open-Meteo 기온으로 하루 전 24시간 예측 — 24시간 이상 지난 값만 쓰도록 특징을 만들고(누수 검사 테스트), 공휴일·연휴를 반영해 기준선·선형·GBM·앙상블을 10~12월로 시험</li><li>DART 데이터 마트: OpenDART 수집(오류 코드별 처리·한도 대기), 표준 계정 정규화, 피벗·LAG·RANK SQL 뷰, 사업보고서 문단을 글자 2-gram BM25 로 찾아 출처와 함께 보여 주는 근거 검색 (인증키는 Secrets 로만)</li></ol></div></section><section id="result"><h2>결과</h2><div class="boxed"><ul class="list res"><li>전력 수요: 지난주 같은 시각 기준선 MAPE 6.17% → 앙상블 3.23%, 일 최대수요 오차 2.64%</li><li>센서 진단: 무작위 분할에서 모든 부품 0.99 이상이던 RandomForest 가 시간 구간 분할에서 밸브 0.46 — LDA 는 냉각기·밸브·펌프 1.00 유지, 축압기 0.55 로 남은 과제 확인</li><li>지진: 동아시아 M4+ 2,446건, b = 1.11 ± 0.05 · 테스트 35개(4개 프로젝트 합계)</li></ul></div></section>
+<section id="tradeoffs"><h2>설계 판단 · 트레이드오프</h2><p class="sub">무엇을 고르고, 그 대신 무엇을 포기했는지</p><div class="trade"><div>평가 분할: 이웃한 시점이 거의 같은 시계열에서 무작위 분할은 성능을 부풀림 → 센서 진단과 수요 예측 모두 &#39;과거로 학습해 미래를 시험&#39;하는 시간 분할을 기본으로 하고, 무작위 분할 결과를 옆에 같이 보고</div><div>지진 파이프라인 저장: 사람이 읽고 diff 할 수 있는 CSV 를 원본으로, SQLite 는 매번 다시 만드는 질의용으로 — 파일은 조금 커지지만 변경 이력이 저장소에 그대로 남음</div><div>DART 근거 검색: 생성형 답변 대신 원문 문단과 출처만 돌려줌 — 문장이 매끄럽지 않은 대신 틀린 요약을 만들 위험이 없음</div></div></section><section id="next"><h2>돌아보면 · 남은 과제</h2><p class="sub">다시 한다면 바꿀 것, 아직 남은 것</p><div class="trade next"><div>축압기 진단(0.55)은 모델보다 압력 상승 구간의 시정수 같은 특징이 더 필요해 보임</div><div>전력 수요는 1년치만 공개돼 같은 계절을 두 번 학습하지 못함 — 여러 해 자료와 실제 기온 예보로 다시 평가할 계획</div></div></section>
+<section id="media"><h2>사진 · 자료</h2><div class="gallery"><a href="../assets/photos/data-projects/설비_센서_부품별_이상_점수_(UCI_유압_설비).jpg" target="_blank" rel="noopener"><img src="../assets/photos/data-projects/설비_센서_부품별_이상_점수_(UCI_유압_설비).jpg" alt="설비 센서 부품별 이상 점수 (UCI 유압 설비)" loading="lazy">설비 센서 부품별 이상 점수 (UCI 유압 설비)</a><a href="../assets/photos/data-projects/전력_수요_예측_실제_vs_모델_(2025_10~12월_시험).jpg" target="_blank" rel="noopener"><img src="../assets/photos/data-projects/전력_수요_예측_실제_vs_모델_(2025_10~12월_시험).jpg" alt="전력 수요 예측 실제 vs 모델 (2025 10~12월 시험)" loading="lazy">전력 수요 예측 실제 vs 모델 (2025 10~12월 시험)</a><a href="../assets/photos/data-projects/지진_파이프라인_대시보드_(USGS_동아시아_M4+).jpg" target="_blank" rel="noopener"><img src="../assets/photos/data-projects/지진_파이프라인_대시보드_(USGS_동아시아_M4+).jpg" alt="지진 파이프라인 대시보드 (USGS 동아시아 M4+)" loading="lazy">지진 파이프라인 대시보드 (USGS 동아시아 M4+)</a></div></section>
+
+
+  <nav class="pn" aria-label="projects">
+<a href="prep-apps.html"><small>← 이전 프로젝트</small>암호화 학습 노트 · 면접 준비 앱 — 정적 호스팅 위의 PBKDF2·AES-GCM PWA</a>  </nav>
+  <footer>© Young-Ju Lee · data/portfolio.yaml 에서 자동 생성</footer>
+</main>
+<script>
+(function(){var r=document.documentElement,K='theme';
+try{var s=localStorage.getItem(K);if(s)r.setAttribute('data-theme',s)}catch(e){}
+var b=document.getElementById('theme');if(b)b.addEventListener('click',function(){
+var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});
+document.querySelectorAll('[data-expand]').forEach(function(btn){btn.addEventListener('click',function(){
+var t=document.getElementById(btn.dataset.expand);var open=t.hasAttribute('hidden');
+if(open){t.removeAttribute('hidden')}else{t.setAttribute('hidden','')}
+btn.setAttribute('aria-expanded',open);btn.querySelector('span').textContent=open?'접기':'자세히 보기';});});
+})();
+</script>
+</body>
+</html>
