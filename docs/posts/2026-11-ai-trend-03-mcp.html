@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MCP — 도구를 매번 새로 붙이지 않는 방법 · 이영주</title>
+<meta name="description" content="지난 회차의 tool use를 앱마다 다시 만들지 않도록 &#39;도구 서버&#39;를 표준 규격으로 분리한 MCP의 구조(호스트·클라이언트·서버, tools·resources·prompts)와 최근 사양 변화, 보안상 약한 고리를 정리했습니다.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="이영주 포트폴리오">
+<meta property="og:title" content="MCP — 도구를 매번 새로 붙이지 않는 방법 · 이영주">
+<meta property="og:description" content="지난 회차의 tool use를 앱마다 다시 만들지 않도록 &#39;도구 서버&#39;를 표준 규격으로 분리한 MCP의 구조(호스트·클라이언트·서버, tools·resources·prompts)와 최근 사양 변화, 보안상 약한 고리를 정리했습니다.">
+<meta property="og:url" content="https://0ju12.github.io/posts/2026-11-ai-trend-03-mcp.html">
+<meta property="og:image" content="https://0ju12.github.io/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#18181b">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--surface:#f7f7f8;--text:#0d0d0f;--muted:#5d5f66;--line:#e7e7ea;--accent:#0a7c66;--accent-2:#14b8a6;--chip:#eef2f1;--code:#0f1117;--code-text:#e6e6e6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}}
+:root[data-theme="dark"]{--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.85 "Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:740px;margin:0 auto;padding:0 20px}
+nav{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;padding:10px 2px}
+nav .home{font-weight:900;color:var(--text);margin-right:auto}
+#theme{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 12px;font:inherit;font-size:12px;cursor:pointer}
+header.post{padding:56px 0 28px;border-bottom:2px solid var(--text);margin-bottom:36px}
+header.post .meta{color:var(--accent);font-weight:700;font-size:14px;letter-spacing:.04em}
+header.post h1{font-size:clamp(28px,5vw,42px);line-height:1.25;letter-spacing:-.03em;margin:10px 0 14px;font-weight:900}
+header.post p{color:var(--muted);margin:0 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--chip);color:var(--muted)}
+article h2{font-size:24px;letter-spacing:-.02em;margin:48px 0 14px;font-weight:900}
+article h3{font-size:19px;margin:32px 0 10px}
+article p,article li{margin:0 0 16px}
+article ul,article ol{padding-left:22px}
+article li{margin-bottom:6px}
+article blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--surface);border-radius:0 12px 12px 0;font-weight:700}
+article blockquote p{margin:0}
+article code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em;background:var(--chip);padding:2px 6px;border-radius:6px}
+article pre{background:var(--code);color:var(--code-text);padding:18px 20px;border-radius:14px;overflow-x:auto;line-height:1.6;margin:0 0 20px}
+article pre code{background:none;padding:0;font-size:13.5px;color:inherit}
+article table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:15px;display:block;overflow-x:auto}
+article th,article td{border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+article th{background:var(--surface)}
+.endcard{margin:56px 0 0;padding:24px;border:1px solid var(--line);border-radius:18px;background:var(--surface);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.endcard b{display:block}
+.endcard span{color:var(--muted);font-size:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--line);color:var(--text);background:var(--bg)}
+.others{margin:40px 0 0}
+.others a{display:block;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--text);font-weight:700}
+.others a span{display:block;color:var(--muted);font-weight:400;font-size:14px}
+footer{padding:64px 0 40px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a class="home" href="../index.html">Young-Ju Lee</a><a href="../index.html#writing">Writing</a><a href="../index.html#work">Work</a><button id="theme" type="button">테마</button></nav>
+  <header class="post">
+    <div class="meta"><a href="ai-trend.html" style="color:inherit">AI 트렌드 노트</a> #3 · 2026-11-10</div>
+    <h1>MCP — 도구를 매번 새로 붙이지 않는 방법</h1>
+    <p>지난 회차의 tool use를 앱마다 다시 만들지 않도록 &#39;도구 서버&#39;를 표준 규격으로 분리한 MCP의 구조(호스트·클라이언트·서버, tools·resources·prompts)와 최근 사양 변화, 보안상 약한 고리를 정리했습니다.</p>
+    <div class="chips"><span class="chip">MCP</span><span class="chip">AI 에이전트</span><span class="chip">프로토콜</span></div>
+  </header>
+  <article><blockquote>
+<p><strong>한 줄 요약</strong> — 지난 회차에서 "모델은 호출을 요청하고 실행은 내 코드가 한다"고 정리했습니다. MCP는 그 '내 코드' 쪽을 <strong>앱 밖의 서버로 떼어 내고, 연결 방식을 규격으로 맞춘 것</strong>입니다. 도구를 한 번 서버로 만들면 여러 AI 앱이 같은 방식으로 붙여 쓸 수 있습니다.</p>
+</blockquote>
+<h2>핵심 개념</h2>
+<ul>
+<li><strong>문제</strong>: #2의 구조대로라면 앱마다 도구 정의·실행·인증 코드를 따로 씁니다. 앱이 M개, 연결할 시스템(DB·드라이브·이슈 트래커)이 N개면 M×N개의 연결을 만들게 됩니다.</li>
+<li><strong>MCP(Model Context Protocol)</strong>: 그 연결을 <strong>M+N</strong>으로 줄이려는 공개 규격입니다. 시스템 쪽은 MCP 서버를 한 번 만들고, AI 앱은 MCP 클라이언트를 한 번 구현하면 서로 붙습니다.</li>
+<li><strong>비유</strong>: 노트북마다 전용 충전기를 들고 다니다가 USB-C 하나로 맞춘 것과 비슷합니다. 단, 규격이 같아졌다고 아무 충전기나 믿고 꽂으면 안 된다는 점(보안)까지 비슷합니다.</li>
+</ul>
+<h2>지금 무슨 일이 일어나고 있나</h2>
+<ul>
+<li><strong>관리 주체가 바뀌었습니다.</strong> Anthropic은 2025년 12월 MCP를 Linux Foundation 산하의 Agentic AI Foundation(AAIF)에 기증했습니다. 이 재단은 Anthropic·Block·OpenAI가 함께 세웠고, Block의 goose, OpenAI의 AGENTS.md와 함께 MCP가 첫 프로젝트가 됐습니다. 한 회사의 규격이 아니라 중립 규격으로 가겠다는 신호입니다.</li>
+<li><strong>사양이 날짜 단위로 개정됩니다.</strong> 2025-11-25 개정에서는 오래 걸리는 요청을 추적하는 <strong>tasks</strong>(실험 기능)와, 필요한 권한만 그때그때 더 요청하는 인증 방식이 들어갔습니다. 2026-07-28 개정에서는 tasks가 핵심 규격에서 빠져 공식 확장(<code>io.modelcontextprotocol/tasks</code>)으로 옮겨졌고, 인증 응답에 발급자(<code>iss</code>)를 넣어 클라이언트가 검증하게 하는 규칙(RFC 9207)이 추가됐습니다. 기능을 넣었다가 확장으로 빼는 식으로, 아직 규격이 굳는 중이라는 뜻입니다.</li>
+<li><strong>보안 연구가 빠르게 늘고 있습니다.</strong> 2026년 arXiv 논문 두 편이 각각 Claude Code·Cursor·Gemini CLI 등 MCP 클라이언트 7종의 도구 오염(tool poisoning) 대응을 실험하고, 사양 자체의 약점(출처 인증 없는 sampling, 여러 서버를 붙였을 때 신뢰가 번지는 문제)을 분석했습니다. Cloud Security Alliance 연구 노트는 OWASP가 MCP Top 10에서 도구 오염을 3번째 항목으로 올렸다고 정리합니다. 블로그마다 "취약 서버 몇 %" 같은 수치가 돌지만 1차 출처가 확인되지 않는 것이 많아 여기서는 옮기지 않습니다.</li>
+</ul>
+<h2>동작 구조</h2>
+<pre><code>┌─────────── 호스트 (Claude Desktop, IDE, 내 앱) ───────────┐
+│  LLM                                                     │
+│   ↕ tool_use / tool_result (#2와 같은 구조)               │
+│  MCP 클라이언트 A ── JSON-RPC 2.0 ──▶ MCP 서버: 드라이브   │
+│  MCP 클라이언트 B ── JSON-RPC 2.0 ──▶ MCP 서버: 사내 DB    │
+└──────────────────────────────────────────────────────────┘
+연결 방식: 같은 컴퓨터면 stdio, 원격이면 Streamable HTTP
+</code></pre>
+<p>서버가 내놓는 것은 세 종류입니다.</p>
+<table>
+<thead>
+<tr>
+<th>종류</th>
+<th>누가 쓰나</th>
+<th>예</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>tools</strong></td>
+<td>모델이 고름 (#2의 도구)</td>
+<td><code>search_issues</code>, <code>create_page</code></td>
+</tr>
+<tr>
+<td><strong>resources</strong></td>
+<td>앱이 컨텍스트로 넣음</td>
+<td>파일 내용, DB 스키마</td>
+</tr>
+<tr>
+<td><strong>prompts</strong></td>
+<td>사용자가 고름</td>
+<td>"이 PR 리뷰해 줘" 같은 템플릿</td>
+</tr>
+</tbody>
+</table>
+<p>반대 방향으로 서버가 클라이언트에 요청하는 기능도 있습니다. 모델 호출을 대신 부탁하는 <strong>sampling</strong>, 사용자에게 추가 입력을 받는 <strong>elicitation</strong> 등입니다. 위 보안 논문들이 짚은 지점이 바로 이 sampling 쪽입니다.</p>
+<pre><code class="language-python"># 클라이언트 쪽 흐름 (개념)
+tools = mcp_client.list_tools()              # 서버가 가진 도구 목록과 입력 스키마
+resp = llm.create(messages, tools=tools)     # #2와 동일: 모델은 '요청'만 만듦
+if resp.tool_use:
+    if not policy.allows(resp.tool_use):     # 호스트가 권한·사용자 확인을 맡음
+        return deny()
+    result = mcp_client.call_tool(resp.tool_use.name, resp.tool_use.input)
+</code></pre>
+<h2>왜 중요한가 / 한계</h2>
+<ul>
+<li><strong>중요한 이유</strong>: 도구를 한 번 만들면 여러 AI 앱에서 재사용할 수 있고, 키·권한 같은 민감한 부분을 서버 쪽 경계 안에 둘 수 있습니다. 에이전트가 쓸 수 있는 도구의 수가 늘어나는 기반이 됩니다.</li>
+<li><strong>한계 1 — 서버를 믿는 문제</strong>: 도구 설명문은 모델이 그대로 읽습니다. 설명에 "이 도구를 쓰기 전에 ~ 파일 내용을 함께 보내라" 같은 지시가 숨어 있으면(도구 오염) 모델이 따라갈 수 있습니다. 규격이 같다는 것과 그 서버를 믿어도 된다는 것은 별개입니다.</li>
+<li><strong>한계 2 — 규격 변화</strong>: 위에서 본 것처럼 tasks가 1년 안에 들어왔다가 확장으로 옮겨졌습니다. 서버·클라이언트가 지원하는 사양 버전을 확인하지 않으면 같은 MCP여도 동작이 다릅니다.</li>
+<li><strong>한계 3 — 도구가 많아질 때</strong>: 서버를 여러 개 붙이면 도구 목록 자체가 컨텍스트를 차지합니다. #2에서 본 tool search처럼 필요한 도구만 불러오는 방식이 함께 쓰입니다.</li>
+</ul>
+<h2>내 프로젝트와 연결</h2>
+<ul>
+<li>MCP를 직접 구현해 본 적은 없습니다. 다만 <strong>관통 7 AI 프록시</strong>는 같은 문제의식에서 나온 구조였습니다. Django가 모델 키·모델 선택·응답 검증을 직접 갖지 않고, FastAPI 프록시 한곳에 모아 경계를 만들었습니다. MCP 서버가 "도구 실행과 비밀"을 앱 밖으로 떼어 내는 것과 같은 방향입니다.</li>
+<li>프록시에서 Guardrail 응답 형식이 깨지면 통과시키지 않고 503으로 막았던 <strong>fail-closed</strong> 원칙은, MCP에서 출처를 확인하지 못한 서버 요청(sampling 등)을 기본 거부하는 정책으로 옮길 수 있다고 봅니다.</li>
+<li><strong>국보 RAG 가이드</strong>에서 위키 문서를 가져와 ChromaDB에 넣던 부분을 MCP로 다시 만든다면, 위키·오픈API 수집을 resources/tools 서버로 분리하고 답변 쪽(LangGraph)은 클라이언트로 두는 구성이 됩니다. 근거 번호를 코드로 검증하는 단계는 여전히 호스트 쪽에 남아야 합니다.</li>
+</ul>
+<h2>면접 질문</h2>
+<p><strong>Q. MCP를 쓰면 function calling은 필요 없나요?</strong></p>
+<blockquote>
+<p>아닙니다. MCP는 function calling을 대체하는 것이 아니라 그 바깥을 표준화한 것입니다. 모델이 도구 호출을 요청하는 부분은 그대로이고, MCP는 그 도구를 어디서 어떤 형식으로 가져오고 실행할지를 맞춥니다. 그래서 MCP를 써도 권한 확인과 결과 검증은 호스트가 해야 합니다. 특히 도구 설명문은 모델이 그대로 읽기 때문에, 신뢰하지 않는 서버의 도구는 허용 목록으로 제한하고 민감한 호출은 사용자 확인을 받도록 하겠습니다. 관통 7에서 키와 검증을 프록시 한곳에 모으고 형식이 깨지면 막았던 것과 같은 원칙입니다.</p>
+</blockquote>
+<h2>출처</h2>
+<ul>
+<li>Model Context Protocol, <a href="https://modelcontextprotocol.io/specification/2025-11-25/changelog">Specification changelog (2025-11-25)</a> · <a href="https://modelcontextprotocol.io/specification/2026-07-28/changelog">Specification changelog (2026-07-28)</a></li>
+<li>Anthropic, <a href="https://www.anthropic.com/news/donating-the-model-context-protocol-and-establishing-of-the-agentic-ai-foundation">Donating the Model Context Protocol and establishing the Agentic AI Foundation</a> · MCP Blog, <a href="https://blog.modelcontextprotocol.io/posts/2025-12-09-mcp-joins-agentic-ai-foundation/">MCP joins the Agentic AI Foundation</a></li>
+<li>arXiv, <a href="https://arxiv.org/abs/2603.21642">Are AI-assisted Development Tools Immune to Prompt Injection? (2603.21642)</a> · <a href="https://arxiv.org/abs/2601.17549">arXiv 2601.17549</a></li>
+<li>Cloud Security Alliance, <a href="https://labs.cloudsecurityalliance.org/research/csa-research-note-mcp-tool-poisoning-auto-execution-20260701/">MCP Attack Surface: Tool Poisoning and IDE Auto-Execution</a></li>
+</ul></article>
+  <div class="endcard">
+    <div><b>AI 트렌드 노트 · 4편</b><span>에이전트 개념부터 차례로 이어서 쓰는 시리즈입니다. 다음 회차: #4 에이전트 간 통신 — A2A는 MCP와 무엇이 다른가</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="2026-11-ai-trend-02-tool-use.html">← #2</a><a class="btn" href="ai-trend.html">전체 목록</a><a class="btn" href="2026-11-ai-trend-04-a2a.html">#4 →</a></div>
+  </div>
+<div class="others"><b style="font-size:14px;color:var(--muted)">다른 글</b><a href="2026-11-ai-trend-04-a2a.html">에이전트 간 통신 — A2A는 MCP와 무엇이 다른가<span>MCP가 &#39;에이전트와 도구&#39;를 잇는다면 A2A는 &#39;에이전트와 에이전트&#39;를 잇습니다. Agent Card로 상대를 찾고, 상태가 있는 task로 일을 맡기는 구조와, 버전마다 바뀐 부분·엇갈리는 보도를 정리했습니다.</span></a><a href="2026-11-ai-trend-02-tool-use.html">Tool use — 모델은 함수를 실행하지 않는다<span>Function calling의 실제 동작(모델은 호출 &#39;요청&#39;만 만들고 실행은 내 코드가 한다), strict 스키마와 Structured Outputs의 관계, 도구를 쓸 때와 출력 형식만 고정할 때를 구분했습니다.</span></a><a href="2026-11-ai-trend-01-agent.html">AI 에이전트란 무엇인가 — LLM이 도구를 쥐고 반복할 때<span>에이전트를 &#39;도구를 쓰며 스스로 다음 단계를 정하는 LLM 루프&#39;로 정의하고, 워크플로와 무엇이 다른지, 기업 도입 숫자가 왜 엇갈리는지 정리했습니다.</span></a></div>  <footer>© Young-Ju Lee · iyju990312@naver.com</footer>
+</div>
+<script>
+(function(){var r=document.documentElement,K='theme';
+try{var s=localStorage.getItem(K);if(s)r.setAttribute('data-theme',s)}catch(e){}
+var b=document.getElementById('theme');if(b)b.addEventListener('click',function(){
+var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});})();
+</script>
+</body>
+</html>
