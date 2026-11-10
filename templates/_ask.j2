@@ -17,6 +17,7 @@
 .askbtn{display:inline-flex;align-items:center;gap:8px}
 .askfab{position:fixed;right:22px;bottom:22px;z-index:45;display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 18px;border-radius:999px;border:0;background:var(--ink);color:var(--on-ink);font:inherit;font-weight:700;font-size:14.5px;cursor:pointer;box-shadow:0 14px 40px -10px rgba(0,0,0,.45)}
 .askfab:hover{transform:translateY(-2px)}
+.askfab{transition:opacity .25s,transform .25s}.askfab.away{opacity:0;transform:translateY(12px);pointer-events:none}
 .askfab kbd{font:inherit;font-size:11px;opacity:.6;border:1px solid currentColor;border-radius:5px;padding:0 5px}
 dialog.ask{border:0;padding:0;border-radius:26px;width:min(720px,calc(100% - 24px));max-height:min(86vh,760px);background:var(--card);color:var(--text);box-shadow:0 40px 110px rgba(0,0,0,.4);overflow:hidden}
 dialog.ask::backdrop{background:rgba(10,10,14,.5);backdrop-filter:blur(4px)}
@@ -42,7 +43,7 @@ dialog.ask::backdrop{background:rgba(10,10,14,.5);backdrop-filter:blur(4px)}
 .ask-list p{margin:0 0 4px;font-size:14px;line-height:1.6;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 mark.hl{background:color-mix(in srgb,#fbbf24 40%,transparent);color:inherit;border-radius:3px;padding:0 1px}
 .ask-msg{color:var(--muted);font-size:14.5px;padding:10px 2px}
-@media (max-width:960px){.askfab{right:14px;bottom:14px;height:44px;padding:0 14px}.askfab kbd{display:none}}
+@media (max-width:960px){.askfab{right:14px;bottom:calc(14px + env(safe-area-inset-bottom));height:48px;width:48px;padding:0;justify-content:center;font-size:0;gap:0}.askfab kbd{display:none}.askfab svg{width:19px;height:19px}}
 </style>
 <button class="askfab" id="ask-open" type="button" aria-haspopup="dialog"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>{{ A.open }} <kbd>/</kbd></button>
 <dialog class="ask" id="ask" aria-label="{{ A.open }}">
@@ -57,6 +58,9 @@ mark.hl{background:color-mix(in srgb,#fbbf24 40%,transparent);color:inherit;bord
 </dialog>
 <script>
 (function(){
+/* 첫 화면에서는 버튼을 숨겨 히어로 카드를 가리지 않게 */
+var fab=document.getElementById('ask-open'),hero=document.querySelector('.hero');
+if(fab&&hero&&'IntersectionObserver' in window){fab.classList.add('away');new IntersectionObserver(function(es){fab.classList.toggle('away',es[0].isIntersecting)},{threshold:0.35}).observe(hero)}
 var SRC='{{ "search-en.json" if en else "search.json" }}',T={best:'{{ A.best }}',more:'{{ A.more }}',none:'{{ A.none }}',loading:'{{ A.loading }}',fail:'{{ A.fail }}',go:'{{ A.go }}'};
 var dlg=document.getElementById('ask'),inp=document.getElementById('ask-q'),out=document.getElementById('ask-out'),docs=null,idx=null,timer=null;
 var SK=new Set('어떻 떻게 했나 나요 무엇 엇을 엇인 있나 었나 인가 가요 니까 습니 합니 했는 는지 에서 으로 하고 그리 리고 대해 해서 해주 주세 세요 알려 려주 을까 할까 있었 었는 어요 해요 하나 이었 였나 무슨 어떤 떤가 인지 한가 건가 했어 어떻게 는가'.split(' '));
