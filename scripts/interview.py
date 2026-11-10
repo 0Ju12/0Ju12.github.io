@@ -220,6 +220,12 @@ def build(env, data):
            "roles": {k: v.get("label", k) for k, v in variants.items()}, "name": data["profile"]["name"], "cats": CATS,
            "recruit": yaml.safe_load((ROOT / "data" / "recruit.yaml").read_text(encoding="utf-8")) or {}}
     app["cv"] = cv(data)
+    seed_f = ROOT / "data" / "algo_solved.yaml"
+    seed = (yaml.safe_load(seed_f.read_text(encoding="utf-8")) or {}) if seed_f.exists() else {}
+    app["algo_seed"] = {"source": seed.get("source", ""), "updated": seed.get("updated", ""),
+                        "items": [{"id": i["id"], "d": i["d"], "s": "SWEA", "n": i["n"], "l": "", "r": i.get("r", "ok"), "m": 0,
+                                   "t": i.get("t") or [], "note": i.get("note", ""), "file": i.get("file", ""), "src": "drive"}
+                                  for i in seed.get("items") or []]}
     prep = _prep()
     app["prep"] = {k: prep.get(k) for k in ("updated", "goals", "weekly", "experiences", "essays")}
     app["prep"]["opic_types"] = (prep.get("opic") or {}).get("types") or []
