@@ -7,6 +7,7 @@
 <title>면접 준비 · {{ profile.name }}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 :root{--bg:#f7f7f8;--card:#fff;--text:#18181b;--muted:#5f6670;--faint:#9aa1ab;--line:#e4e6ea;--soft:#f0f2f5;--ink:#1f3a5f;--hero:#1f3a5f;--on-hero:#fff;--ink-soft:#e8edf5;--on-ink:#fff;--ok:#0f7b5f;--ok-soft:#e3f4ee;--bad:#c2410c;--bad-soft:#fdeee5;--mid:#a16207;--mid-soft:#fbf3dc;--acc:#d97706}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0e1116;--card:#161a21;--text:#eef1f5;--muted:#a3abb7;--faint:#6f7884;--line:#29303a;--soft:#1d222b;--ink:#9db8dd;--hero:#1d3557;--on-hero:#eef1f5;--ink-soft:#1e2a3a;--on-ink:#0e1116;--ok:#34d399;--ok-soft:#10261f;--bad:#fb923c;--bad-soft:#2a1a10;--mid:#facc15;--mid-soft:#262110}}
@@ -60,10 +61,6 @@ textarea{width:100%;border:1px solid var(--line);border-radius:12px;background:v
 .rec{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--bad);font-weight:700}.rec i{width:9px;height:9px;border-radius:50%;background:var(--bad);animation:bl 1s infinite}
 @keyframes bl{50%{opacity:.25}}
 .tag.bank{background:var(--ok-soft);color:var(--ok)}.tag.opic{background:var(--bad-soft);color:var(--bad)}
-.dd{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,190px),1fr));gap:10px}
-.dd .card{padding:14px 16px}.dd b.d{display:block;font:800 26px/1.1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:-.02em;margin-top:4px}
-.dd .past b.d{color:var(--faint)}.dd b.d.nd{font:700 17px/1.4 inherit;color:var(--faint);letter-spacing:0}
-@media (max-width:640px){.dd{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.dd .card{padding:11px 12px}.dd b.d{font-size:21px}.dd .gn{display:none}.dd input[type=date]{width:100%}}.dd .soon b.d{color:var(--bad)}.dd input[type=date]{border:1px solid var(--line);border-radius:8px;background:var(--card);padding:3px 6px;font-size:12.5px;margin-top:6px;max-width:100%}
 .wk{display:grid;gap:8px}.wk .it{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center}
 .wk .bar{grid-column:1/-1;height:7px;border-radius:9px;background:var(--soft);overflow:hidden}.wk .bar i{display:block;height:100%;background:var(--ink);border-radius:9px}
 .wk .bar i.full{background:var(--ok)}.wk .ctl{display:flex;gap:4px;align-items:center}.wk .ctl button{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-weight:800}
@@ -134,6 +131,78 @@ textarea{width:100%;border:1px solid var(--line);border-radius:12px;background:v
 a:focus-visible,button:focus-visible,select:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 @media (max-width:640px){.top{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--bg)}.brand{flex:1;padding:6px 0}.tabs{position:fixed;left:0;right:0;bottom:0;z-index:40;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:2px;padding:6px 6px calc(6px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--card) 94%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);overflow:visible}.tabs a{display:flex;align-items:center;justify-content:center;min-height:42px;padding:6px 2px;font-size:12.5px;border-radius:10px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tabs a .n{margin-left:3px}main{padding-bottom:104px}.toast{bottom:calc(84px + env(safe-area-inset-bottom))}}
+/* ===== premium skin (2026-11-10): 차분한 종이색 바탕 · 남색 + 금색 포인트 · Pretendard · 숫자는 tabular ===== */
+:root{--bg:#f5f4f0;--card:#fff;--text:#16181d;--muted:#5d6370;--faint:#9097a3;--line:#e6e3dc;--soft:#f1efe9;--ink:#13294b;--hero:#13294b;--on-hero:#f7f3ea;--ink-soft:#e9edf4;--on-ink:#fff;--gold:#b07d2b;--gold-soft:#f6eedd;--ok:#1f7a5a;--ok-soft:#e6f2ec;--bad:#b4471f;--bad-soft:#f9ebe3;--mid:#9a6b12;--mid-soft:#f7efdc;--sh:0 1px 2px rgba(20,24,33,.04),0 10px 30px -18px rgba(20,24,33,.18)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d1014;--card:#151920;--text:#eceef2;--muted:#a1a8b4;--faint:#6c7480;--line:#262c36;--soft:#1b2029;--ink:#a9c1e6;--hero:#17243a;--on-hero:#f2ece0;--ink-soft:#1c2738;--on-ink:#0d1014;--gold:#d9a54a;--gold-soft:#2a2214;--ok:#4cc79a;--ok-soft:#10261e;--bad:#f08a5d;--bad-soft:#2b1a12;--mid:#e3b341;--mid-soft:#29220f;--sh:0 1px 2px rgba(0,0,0,.3),0 12px 30px -18px rgba(0,0,0,.6)}}
+:root[data-theme="dark"]{--bg:#0d1014;--card:#151920;--text:#eceef2;--muted:#a1a8b4;--faint:#6c7480;--line:#262c36;--soft:#1b2029;--ink:#a9c1e6;--hero:#17243a;--on-hero:#f2ece0;--ink-soft:#1c2738;--on-ink:#0d1014;--gold:#d9a54a;--gold-soft:#2a2214;--ok:#4cc79a;--ok-soft:#10261e;--bad:#f08a5d;--bad-soft:#2b1a12;--mid:#e3b341;--mid-soft:#29220f;--sh:0 1px 2px rgba(0,0,0,.3),0 12px 30px -18px rgba(0,0,0,.6)}
+body{font-family:"Pretendard Variable",Pretendard,"Noto Sans KR",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;font-size:15px;letter-spacing:-.005em;font-feature-settings:"tnum" 1}
+h1{font-weight:800;letter-spacing:-.035em;font-size:clamp(24px,3.4vw,32px)}
+h2{font-weight:750;letter-spacing:-.025em;font-size:16px;margin:34px 0 12px;display:flex;align-items:baseline;gap:8px}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.card{border-radius:18px;border-color:var(--line);box-shadow:var(--sh)}
+.top{background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom-color:transparent;box-shadow:0 1px 0 var(--line)}
+.brand{font-weight:800;letter-spacing:-.03em}.brand::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--gold);margin-right:8px;transform:translateY(-1px) rotate(45deg)}
+.tabs a{font-weight:600;color:var(--muted);border-radius:10px}.tabs a.on{background:var(--ink);color:var(--on-ink)}
+.btn{border-radius:12px;font-weight:700;letter-spacing:-.01em;box-shadow:0 1px 0 rgba(255,255,255,.12) inset,0 6px 14px -8px rgba(19,41,75,.5)}
+.btn.ghost{box-shadow:none;background:var(--card)}
+.chip{border-color:var(--line);font-weight:600}.chip.on{background:var(--ink);border-color:var(--ink)}
+.hero{background:radial-gradient(120% 140% at 100% 0%,color-mix(in srgb,var(--gold) 28%,transparent) 0%,transparent 45%),var(--hero);border:0}
+.hero .btn{box-shadow:none}
+.kpi b{font-weight:800;letter-spacing:-.03em}
+.iconbtn{border-radius:10px;border-color:var(--line)}
+.sub{font-size:14.5px}
+/* 오늘 — 머리말 */
+.hd{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+.hd .date{font-size:13px;color:var(--muted);font-weight:600}
+/* 목표 패널 */
+.gp{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1.6fr);gap:0;padding:0;overflow:hidden}
+.gfeat{background:radial-gradient(130% 120% at 0% 0%,color-mix(in srgb,var(--gold) 30%,transparent),transparent 55%),var(--hero);color:var(--on-hero);padding:26px 26px 22px;display:flex;flex-direction:column;gap:6px;min-height:100%}
+.gfeat .eyebrow{color:color-mix(in srgb,var(--gold) 70%,#fff)}
+.gnum{font-size:64px;line-height:1;font-weight:800;letter-spacing:-.05em;margin:8px 0 4px}.gnum small{font-size:26px;font-weight:700;opacity:.7;margin-right:2px;letter-spacing:-.02em}
+.gname{font-size:19px;font-weight:750;letter-spacing:-.02em}.gdate{font-size:13.5px;opacity:.75}
+.gnote{font-size:12.5px;opacity:.7;margin-top:auto;padding-top:14px;line-height:1.5}
+.glist{list-style:none;margin:0;padding:8px 6px}
+.glist li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 14px;align-items:center;padding:11px 16px;border-radius:12px}
+.glist li+li{border-top:1px solid var(--line)}
+.glist .nm{font-weight:650;font-size:14.5px;letter-spacing:-.015em}
+.glist .meta{font-size:12.5px;color:var(--muted);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.glist .dv{grid-row:1/3;grid-column:2;font-size:22px;font-weight:800;letter-spacing:-.03em;text-align:right;min-width:64px}
+.glist .dv.soon{color:var(--bad)}.glist .dv.nd{font-size:12.5px;font-weight:600;color:var(--faint)}.glist .dv.past{color:var(--faint)}
+.dpick{position:relative;display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--ink);background:var(--ink-soft);border-radius:99px;padding:2px 9px;cursor:pointer}
+.dpick input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
+.dpick.set{background:transparent;color:var(--muted);padding:2px 4px}
+.pbar{height:4px;border-radius:9px;background:var(--soft);overflow:hidden;width:120px}.pbar i{display:block;height:100%;background:var(--gold)}
+/* 이번 주 */
+.wkp{padding:18px 18px 16px}
+.wkh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.wkg{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.wt{border:1px solid var(--line);border-radius:14px;padding:12px 12px 10px;display:flex;flex-direction:column;gap:8px;background:var(--card)}
+.wt .rw{display:flex;align-items:center;gap:10px}
+.wt svg{flex:none}.wt .ring-bg{stroke:var(--soft)}.wt .ring{stroke:var(--ink);transition:stroke-dashoffset .4s}.wt.full .ring{stroke:var(--ok)}.wt{min-width:0}
+.wt .lb{font-size:13px;font-weight:650;letter-spacing:-.015em;line-height:1.3}
+.wt .ct{display:flex;align-items:baseline;gap:4px;font-size:12.5px;color:var(--muted);white-space:nowrap;flex:1}
+.wt .bt{display:flex;gap:4px;margin-left:auto}
+.wt .ct b{color:var(--text);font-size:15px}
+.wt button{width:24px;height:24px;border-radius:7px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-weight:800;line-height:1;color:var(--muted);padding:0}
+.wt button:hover{border-color:var(--ink);color:var(--ink)}
+.wt .au{font-size:11.5px;color:var(--faint);line-height:1.4}
+@media (max-width:860px){.gp{grid-template-columns:1fr}.gnum{font-size:52px}}
+@media (max-width:640px){.wkg{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.wt{padding:10px}.wt .au{display:none}.wt svg{width:30px;height:30px}.wt .rw{gap:6px}.wt .ct .u{display:none}.wt button{width:26px;height:26px}.wt .lb{font-size:12.5px}.gfeat{padding:20px}.glist li{padding:10px 10px}}
+/* 공채 — 추천 · 인재상 · 컨설팅 */
+.rec-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:12px}
+.rc{display:flex;flex-direction:column;gap:8px;text-decoration:none;color:inherit;padding:16px 18px}
+.rc .top2{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.rc h3{margin:0;font-size:16px;letter-spacing:-.02em}
+.score{display:inline-flex;gap:3px}.score i{width:8px;height:8px;border-radius:50%;background:var(--line)}.score i.on{background:var(--gold)}
+.rc .why{font-size:13.5px;line-height:1.55}.rc .gap{font-size:12.5px;color:var(--bad)}
+.sec-tag{font-size:11.5px;font-weight:700;color:var(--muted);background:var(--soft);border-radius:6px;padding:1px 7px}
+.talent{display:flex;flex-wrap:wrap;gap:6px}.talent span{font-size:12.5px;font-weight:600;background:var(--gold-soft);color:var(--mid);border-radius:8px;padding:3px 9px}
+.okb{font-size:11px;font-weight:700;border-radius:6px;padding:1px 6px;margin-left:6px}.okb.y{background:var(--ok-soft);color:var(--ok)}.okb.n{background:var(--bad-soft);color:var(--bad)}
+.consult{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--soft)}
+.consult summary{cursor:pointer;font-weight:700;font-size:13.5px;list-style:none}.consult summary::-webkit-details-marker{display:none}
+.consult summary::after{content:"＋";float:right;color:var(--faint)}.consult[open] summary::after{content:"－"}
+.consult ul{margin:6px 0 0}
+.co{scroll-margin-top:80px}.co.hl{outline:2px solid var(--gold);outline-offset:3px}
 </style>
 </head>
 <body>
@@ -220,16 +289,22 @@ function wadd(id,n){var k=wkey(),w=S.week[k]||(S.week[k]={});w[id]=Math.max(0,(w
 function gdate(g){var o=S.goals[g.id];return o&&o.date!=null?o.date:(g.date||'')}
 function ddays(ds){if(!ds)return null;var a=new Date(ds+'T00:00:00'),b=new Date(today()+'T00:00:00');return Math.round((a-b)/864e5)}
 function essayDone(){return (P.essays||[]).filter(function(e,i){var r=S.essay['e'+i];return r&&r.st==='done'}).length}
+var WD=['일','월','화','수','목','금','토'];
+function kdate(ds){var d=new Date(ds+'T00:00:00');return (d.getMonth()+1)+'월 '+d.getDate()+'일 ('+WD[d.getDay()]+')'}
+function dlab(n){return n==null?'미정':n===0?'D-day':n>0?'D-'+n:'D+'+(-n)}
 function goalsHTML(){
-  var gs=(P.goals||[]).slice().sort(function(a,b){var x=ddays(gdate(a)),y=ddays(gdate(b));if(x==null)return 1;if(y==null)return -1;if((x<0)!==(y<0))return x<0?1:-1;return x-y});
-  var h='<div class="dd">'+gs.map(function(g){var ds=gdate(g),n=ddays(ds),cls=n==null?'':n<0?'past':n<=7?'soon':'';
-    var lab=n==null?'날짜 미정':n===0?'D-day':n>0?'D-'+n:'D+'+(-n);
-    var pr=g.progress==='essay'?'<div class="small muted">완성 '+essayDone()+' / '+(P.essays||[]).length+'</div>':'';
-    return '<div class="card '+cls+'"><div class="small" style="font-weight:700">'+esc(g.name)+'</div><b class="d'+(n==null?' nd':'')+'">'+lab+'</b>'+pr+'<input type="date" value="'+esc(ds)+'" data-gd="'+esc(g.id)+'" aria-label="'+esc(g.name)+' 날짜">'+(g.note?'<div class="faint small gn" style="margin-top:4px;line-height:1.45">'+esc(g.note)+'</div>':'')+'</div>'}).join('')+'</div>';
-  return h}
+  var gs=(P.goals||[]).slice().sort(function(a,b){var x=ddays(gdate(a)),y=ddays(gdate(b));if(x==null&&y==null)return 0;if(x==null)return 1;if(y==null)return -1;if((x<0)!==(y<0))return x<0?1:-1;return x-y});
+  var nx=gs.filter(function(g){var n=ddays(gdate(g));return n!=null&&n>=0})[0];
+  var feat=nx?(function(){var n=ddays(gdate(nx));return '<div class="gfeat"><span class="eyebrow">다음 목표</span><div class="gnum">'+(n===0?'D-day':'<small>D−</small>'+n)+'</div><div class="gname">'+esc(nx.name)+'</div><div class="gdate">'+kdate(gdate(nx))+'</div>'+(nx.note?'<div class="gnote">'+esc(nx.note)+'</div>':'')+'</div>'})():'<div class="gfeat"><span class="eyebrow">다음 목표</span><div class="gname" style="margin-top:12px">날짜가 정해진 목표가 없습니다</div><div class="gnote">오른쪽에서 시험일을 정해 주세요.</div></div>';
+  var li=gs.filter(function(g){return g!==nx}).map(function(g){var ds=gdate(g),n=ddays(ds),cls=n==null?'nd':n<0?'past':n<=7?'soon':'';
+    var pr=g.progress==='essay'?(function(){var d=essayDone(),t=(P.essays||[]).length||1;return '<span class="pbar" title="완성 '+d+'/'+t+'"><i style="width:'+Math.round(d/t*100)+'%"></i></span><span>완성 '+d+'/'+t+'</span>'})():'';
+    return '<li title="'+esc(g.note||'')+'"><span class="nm">'+esc(g.name)+'</span><span class="dv '+cls+'">'+(n==null?'날짜 미정':dlab(n))+'</span><span class="meta"><label class="dpick'+(ds?' set':'')+'">'+(ds?kdate(ds)+' · 바꾸기':'＋ 날짜 정하기')+'<input type="date" value="'+esc(ds)+'" data-gd="'+esc(g.id)+'" aria-label="'+esc(g.name)+' 날짜"></label>'+pr+'</span></li>'}).join('');
+  return '<div class="card gp">'+feat+'<ul class="glist">'+li+'</ul></div>'}
+function ring(p){var r=18,c=2*Math.PI*r;return '<svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true"><circle class="ring-bg" cx="22" cy="22" r="'+r+'" fill="none" stroke-width="5"/><circle class="ring" cx="22" cy="22" r="'+r+'" fill="none" stroke-width="5" stroke-linecap="round" stroke-dasharray="'+c.toFixed(1)+'" stroke-dashoffset="'+(c*(1-Math.min(1,p))).toFixed(1)+'" transform="rotate(-90 22 22)"/></svg>'}
 function weekHTML(){
-  return '<div class="card wk"><div class="row" style="justify-content:space-between"><b>이번 주 체크 <span class="muted small">('+esc(wkey().slice(5).replace('-','/'))+' 월요일부터)</span></b><span class="faint small">월요일마다 새로 시작</span></div>'+(P.weekly||[]).map(function(w){var n=wget(w.id),p=Math.min(100,Math.round(n/w.target*100));
-    return '<div class="it"><div><b style="font-size:14px">'+esc(w.label)+'</b> <span class="muted small">'+n+' / '+w.target+' '+esc(w.unit||'')+'</span>'+(w.auto?'<div class="faint small">'+esc(w.auto)+'</div>':'')+'</div><div class="ctl"><button data-wk="'+esc(w.id)+'" data-n="-1" aria-label="'+esc(w.label)+' 하나 빼기">−</button><button data-wk="'+esc(w.id)+'" data-n="1" aria-label="'+esc(w.label)+' 하나 더하기">+</button></div><div class="bar"><i class="'+(p>=100?'full':'')+'" style="width:'+p+'%"></i></div></div>'}).join('')+'</div>'}
+  var W=P.weekly||[],done=W.filter(function(w){return wget(w.id)>=w.target}).length;
+  return '<div class="card wkp"><div class="wkh"><b>이번 주 <span class="muted small" style="font-weight:600">· '+esc(wkey().slice(5).replace('-','/'))+' 월요일부터</span></b><span class="small muted">달성 '+done+' / '+W.length+'</span></div><div class="wkg">'+W.map(function(w){var n=wget(w.id),p=n/w.target;
+    return '<div class="wt'+(p>=1?' full':'')+'"><span class="lb">'+esc(w.label)+'</span><div class="rw">'+ring(p)+'<span class="ct"><b>'+n+'</b>/ '+w.target+'<span class="u"> '+esc(w.unit||'')+'</span></span><span class="bt"><button data-wk="'+esc(w.id)+'" data-n="-1" aria-label="'+esc(w.label)+' 하나 빼기">−</button><button data-wk="'+esc(w.id)+'" data-n="1" aria-label="'+esc(w.label)+' 하나 더하기">+</button></span></div>'+(w.auto?'<span class="au">'+esc(w.auto)+'</span>':'')+'</div>'}).join('')+'</div></div>'}
 function bindGoals(re){
   $$('[data-gd]').forEach(function(i){i.onchange=function(){S.goals[i.dataset.gd]={date:i.value,ts:Date.now()};save();re()}});
   $$('[data-wk]').forEach(function(b){b.onclick=function(){wadd(b.dataset.wk,+b.dataset.n);re()}})}
@@ -284,13 +359,15 @@ function mergeState(a,b){var n=0;
 function home(){
   var d=due(),tried=QS.filter(function(q){return S.q[q.id]}).length,ok=QS.filter(function(q){var r=S.q[q.id];return r&&r.b>=3}).length;
   var intro=DECKS.filter(function(x){return x.id==='intro-'+S.role})[0];
-  var h='<h1>오늘의 면접 준비</h1><p class="sub">질문 '+QS.length+'개 · 발표 자료 '+DECKS.length+'개. 답한 질문은 1·3·7·14·30일 간격으로 다시 나옵니다. 기록은 이 브라우저에만 저장됩니다.</p>';
-  h+='<h2 style="margin-top:4px">목표까지</h2>'+goalsHTML()+'<div style="margin-top:12px">'+weekHTML()+'</div><h2>오늘 연습</h2>';
-  h+='<div class="grid g2"><div class="card hero">'+(d.length?'<h2>다시 연습할 질문 '+d.length+'개</h2><p>복습 차례가 된 질문입니다. 시간을 재고 소리 내어 답해 보세요.</p><div class="row"><button class="btn" id="hdue">복습 모의 면접</button><a class="btn ghost" href="#/mock">범위 고르기</a></div>':'<h2>모의 면접 5문항</h2><p>질문이 나오면 60초 안에 소리 내어 답하고, 답변 뼈대와 비교해 스스로 채점합니다.</p><div class="row"><button class="btn" id="hquick">바로 시작</button><a class="btn ghost" href="#/mock">범위 고르기</a></div>')+'</div>';
+  var now=new Date();
+  var h='<div class="hd"><div><span class="eyebrow">Interview Studio</span><h1 style="margin-top:6px">오늘의 면접 준비</h1><p class="sub" style="margin:0">질문 '+QS.length+'개 · 발표 자료 '+DECKS.length+'개 · 공채 정보 '+(D.recruit&&D.recruit.sectors?D.recruit.sectors.reduce(function(a,x){return a+x.companies.length},0):0)+'곳. 답한 질문은 1·3·7·14·30일 간격으로 다시 나옵니다.</p></div><span class="date">'+(now.getMonth()+1)+'월 '+now.getDate()+'일 '+WD[now.getDay()]+'요일</span></div>';
+  h+=goalsHTML()+'<div style="margin-top:12px">'+weekHTML()+'</div><h2>오늘 연습</h2>';
+  h+='<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))"><div class="card hero">'+(d.length?'<h2>다시 연습할 질문 '+d.length+'개</h2><p>복습 차례가 된 질문입니다. 시간을 재고 소리 내어 답해 보세요.</p><div class="row"><button class="btn" id="hdue">복습 모의 면접</button><a class="btn ghost" href="#/mock">범위 고르기</a></div>':'<h2>모의 면접 5문항</h2><p>질문이 나오면 60초 안에 소리 내어 답하고, 답변 뼈대와 비교해 스스로 채점합니다.</p><div class="row"><button class="btn" id="hquick">바로 시작</button><a class="btn ghost" href="#/mock">범위 고르기</a></div>')+'</div>';
   h+='<div class="card"><b>발표 연습</b><p class="muted small" style="margin:6px 0 12px">'+esc(D.roles[S.role]||'')+' 기준 자기소개부터 시작하세요. 발표자 모드에서는 메모와 경과 시간이 함께 보입니다.</p><div class="row">'+(intro?'<a class="btn" href="#/deck/'+intro.id+'">'+esc(intro.title)+'</a>':'')+'<a class="btn ghost" href="#/decks">전체 발표 자료</a></div></div><div class="card"><b>OPIc 실전 15문항</b><p class="muted small" style="margin:6px 0 12px">자기소개·묘사·루틴·과거·비교·롤플레이·돌발을 실제 순서처럼 섞어 냅니다. 문항당 2분, 녹음이 켜집니다.</p><div class="row"><button class="btn" id="hopic">OPIc 시작</button><a class="btn ghost" href="#/questions/OPIc">답변 틀 보기</a></div></div><div class="card"><b>자소서</b><p class="muted small" style="margin:6px 0 12px">문항 '+(P.essays||[]).length+'개 · 완성 '+essayDone()+'개. 핵심 경험 6개를 문항마다 골라 겹치지 않게 씁니다.</p><div class="row"><a class="btn" href="#/essay">이어서 쓰기</a></div></div></div>';
   h+='<div class="grid g4" style="margin-top:12px"><div class="card kpi"><b>'+tried+'<span class="small"> / '+QS.length+'</span></b><span>연습한 질문</span></div><div class="card kpi"><b>'+ok+'</b><span>익힌 질문 (3번 이상 알았다)</span></div><div class="card kpi"><b>'+Object.keys(S.memo).filter(function(k){return S.memo[k]}).length+'</b><span>내 메모를 단 질문</span></div><div class="card kpi"><b>'+S.mocks.length+'</b><span>모의 면접 횟수</span></div></div>';
   h+='<h2>질문 분류</h2><div class="grid g4">'+CATS.map(function(c){var qs=QS.filter(function(q){return q.c===c}),t=qs.filter(function(q){return S.q[q.id]}).length;return '<a class="card" style="text-decoration:none;color:inherit" href="#/questions/'+encodeURIComponent(c)+'"><b>'+esc(c)+'</b><div class="muted small">'+qs.length+'문항 · 연습 '+t+'</div><div class="faint small" style="margin-top:4px">'+esc(groupsOf(c).slice(0,4).join(' · '))+'</div></a>'}).join('')+'</div>';
-  h+='<h2>공채 정보</h2><a class="card" style="display:block;text-decoration:none;color:inherit" href="#/jobs"><b>IT · 금융 · 자원개발 지원 조건과 면접 질문 예시</b><div class="muted small">'+(D.recruit&&D.recruit.sectors?D.recruit.sectors.map(function(x){return x.name+' '+x.companies.length+'곳'}).join(' · '):'')+' · 출처 링크 포함 · 확인일 '+esc((D.recruit||{}).checked||'')+'</div></a>';
+  var RR=D.recruit||{},top=recos(RR.sectors||[],3);
+  h+='<h2>내 조건 추천 회사 <a class="small" href="#/jobs" style="margin-left:auto;font-weight:600">공채 정보 전체 →</a></h2><div class="rec-g">'+top.map(function(a){var m=a.co.match;return '<a class="card rc" href="#/jobs/'+a.x.id+':'+a.ci+'"><div class="top2"><span class="sec-tag">'+esc(a.x.name)+'</span>'+dots(m.score)+'</div><h3>'+esc(a.co.name)+'</h3><div class="why">'+esc(m.why)+'</div>'+(m.gap?'<div class="gap">보완 · '+esc(m.gap)+'</div>':'')+'</a>'}).join('')+'</div><p class="faint small" style="margin-top:8px">IT · 금융 · 자원개발 '+(RR.sectors||[]).reduce(function(x,y){return x+y.companies.length},0)+'곳 · 인재상·면접 컨설팅 포함 · 확인일 '+esc(RR.checked||'')+' (월·목 정기 업데이트)</p>';
   $('#app').innerHTML=h;
   var a=$('#hdue');if(a)a.onclick=function(){startMock(shuffle(d.slice()).slice(0,10),{sec:90,rec:false,label:'복습'})};
   var b=$('#hquick');if(b)b.onclick=function(){startMock(shuffle(QS.filter(function(q){return q.c!=='OPIc'})).slice(0,5),{sec:60,rec:false,label:'바로 시작'})};
@@ -460,24 +537,31 @@ function pptx(d,btn){
 }
 
 /* ---------- 공채 정보 ---------- */
-var jobQ='';
+var jobQ='',jobSort='fit';
+function dots(n){var h='<span class="score" title="추천 '+n+' / 5">';for(var i=1;i<=5;i++)h+='<i class="'+(i<=n?'on':'')+'"></i>';return h+'</span>'}
+function recos(SS,n){var all=[];SS.forEach(function(x){x.companies.forEach(function(co,ci){all.push({x:x,co:co,ci:ci})})});
+  return all.filter(function(a){return a.co.match}).sort(function(a,b){return (b.co.match.score-a.co.match.score)||0}).slice(0,n)}
 function jobs(sec){
-  var R=D.recruit||{},SS=R.sectors||[];var cur=SS.filter(function(x){return x.id===sec})[0];
-  var h='<h1>공채 정보</h1><p class="sub">IT · 금융 · 자원개발 공개채용의 지원 조건, 전형, 면접 형식과 질문 예시를 모았습니다. 확인일 '+esc(R.checked||'')+'. 회색 글씨는 출처 종류이며, 포털 요약·후기는 공고 원문과 다를 수 있으니 <b>지원 전 공식 공고를 꼭 확인</b>하세요.</p>';
+  var R=D.recruit||{},SS=R.sectors||[];var focus='';if(sec&&sec.indexOf(':')>0){focus=sec;sec=sec.split(':')[0]}var cur=SS.filter(function(x){return x.id===sec})[0];
+  var h='<h1>공채 정보</h1><p class="sub">IT · 금융 · 자원개발 공개채용의 지원 조건, 전형, 인재상, 면접 형식과 질문 예시를 모으고 내 조건에 맞춰 추천합니다. 월·목 정기 업데이트 · 확인일 '+esc(R.checked||'')+'. 회색 글씨는 출처 종류이며, 포털 요약·후기는 공고 원문과 다를 수 있으니 <b>지원 전 공식 공고를 꼭 확인</b>하세요.</p>';
   if(R.me)h+='<div class="card" style="margin-bottom:12px"><b>내 준비 상태</b><div class="grid g4" style="margin-top:8px">'+R.me.map(function(m){return '<div><div class="faint small">'+esc(m.k)+'</div><div style="font-size:14px">'+esc(m.v)+'</div></div>'}).join('')+'</div></div>';
+  if(!cur&&!jobQ){var rs=recos(SS,9);h+='<h2>내 조건 추천 <span class="muted small" style="font-weight:600">추천 점수 순 · 컨설팅 포함</span></h2>'+(R.match_rule?'<p class="muted small" style="margin:-4px 0 12px">'+esc(R.match_rule)+'</p>':'')+'<div class="rec-g" style="margin-bottom:26px">'+rs.map(function(a){var m=a.co.match;return '<a class="card rc" href="#/jobs/'+a.x.id+':'+a.ci+'"><div class="top2"><span class="sec-tag">'+esc(a.x.name)+'</span>'+dots(m.score)+'</div><h3>'+esc(a.co.name)+'</h3><div class="why">'+esc(m.why)+'</div>'+(m.gap?'<div class="gap">보완 · '+esc(m.gap)+'</div>':'')+(a.co.talent?'<div class="talent">'+a.co.talent.kw.slice(0,3).map(function(t){return '<span>'+esc(t.length>22?t.slice(0,21)+'…':t)+'</span>'}).join('')+'</div>':'')+'</a>'}).join('')+'</div>'}
   h+='<input class="search" id="jq" type="search" placeholder="기관 · 조건 검색 (예: 데이터, OPIc, NCS, 코딩테스트)" value="'+esc(jobQ)+'" aria-label="공채 정보 검색" style="margin-bottom:10px">';
-  h+='<div class="chips" style="margin-bottom:14px"><button class="chip'+(cur?'':' on')+'" data-s="">전체 '+SS.reduce(function(a,x){return a+x.companies.length},0)+'</button>'+SS.map(function(x){return '<button class="chip'+(cur&&cur.id===x.id?' on':'')+'" data-s="'+x.id+'">'+esc(x.name)+' '+x.companies.length+'</button>'}).join('')+'</div>';
+  h+='<div class="chips" style="margin-bottom:14px"><button class="chip'+(cur?'':' on')+'" data-s="">전체 '+SS.reduce(function(a,x){return a+x.companies.length},0)+'</button>'+SS.map(function(x){return '<button class="chip'+(cur&&cur.id===x.id?' on':'')+'" data-s="'+x.id+'">'+esc(x.name)+' '+x.companies.length+'</button>'}).join('')+'<button class="chip'+(jobSort==='fit'?' on':'')+'" id="jsort" style="margin-left:auto">'+(jobSort==='fit'?'추천순':'기본순')+' ⇅</button></div>';
   var qn=jobQ.trim().toLowerCase(),hit=function(co){return !qn||JSON.stringify(co).toLowerCase().indexOf(qn)>=0},shown=0;
   (cur?[cur]:SS).forEach(function(x){
-    var cs=x.companies.map(function(co,ci){return [co,ci]}).filter(function(a){return hit(a[0])});if(!cs.length)return;shown+=cs.length;
+    var cs=x.companies.map(function(co,ci){return [co,ci]}).filter(function(a){return hit(a[0])});if(!cs.length)return;if(jobSort==='fit')cs.sort(function(a,b){return ((b[0].match||{}).score||0)-((a[0].match||{}).score||0)});shown+=cs.length;
     h+='<h2>'+esc(x.name)+' <span class="muted small">'+cs.length+'곳</span></h2><p class="muted small" style="margin:-6px 0 12px">'+esc(x.tip||'')+'</p><div class="grid g2">';
     cs.forEach(function(a){var co=a[0],ci=a[1],key=x.id+'-'+ci;
-      h+='<div class="card co"><div><h3>'+esc(co.name)+'</h3><div class="faint small">'+esc(co.status||'')+'</div></div>';
+      h+='<div class="card co" id="co-'+key+'"><div><div class="row" style="justify-content:space-between"><h3>'+esc(co.name)+'</h3>'+(co.match?dots(co.match.score):'')+'</div><div class="faint small">'+esc(co.status||'')+'</div></div>';
+      if(co.match)h+='<div class="fit" style="border-left-color:var(--gold);background:var(--gold-soft)"><b>추천 이유</b> · '+esc(co.match.why)+(co.match.gap?'<br><b>보완할 점</b> · '+esc(co.match.gap):'')+'</div>';
+      if(co.talent)h+='<div><div class="lbl" style="margin-top:0">인재상'+(co.talent.ok?'<span class="okb y">공식·공고 문구</span>':'<span class="okb n">확인 필요</span>')+'</div><div class="talent">'+co.talent.kw.map(function(t){return '<span>'+esc(t)+'</span>'}).join('')+'</div><div class="src" style="margin:4px 0 0">출처 · '+(co.talent.url?'<a href="'+esc(co.talent.url)+'" target="_blank" rel="noopener">'+esc(co.talent.src)+' ↗</a>':esc(co.talent.src))+'</div></div>';
       if(co.conditions&&co.conditions.length)h+='<div><div class="lbl" style="margin-top:0">지원 조건</div><ul>'+co.conditions.map(function(c){return '<li>'+esc(c.t)+(c.src?'<span class="src">· '+esc(c.src)+'</span>':'')+'</li>'}).join('')+'</ul></div>';
       if(co.process&&co.process.length)h+='<div><div class="lbl" style="margin-top:0">전형</div><div class="flow">'+co.process.map(function(t){return '<span>'+esc(t)+'</span>'}).join('<i>→</i>')+'</div></div>';
       if(co.interview&&co.interview.length)h+='<div><div class="lbl" style="margin-top:0">면접 형식 (후기·공고)</div><ul>'+co.interview.map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul></div>';
       if(co.questions&&co.questions.length)h+='<div><div class="lbl" style="margin-top:0">질문 예시</div><ul>'+co.questions.map(function(t){return '<li>'+esc(t.q)+(t.src?'<span class="src">· '+esc(t.src)+'</span>':'')+'</li>'}).join('')+'</ul><button class="btn sm ghost" style="margin-top:8px" data-jq="'+key+'">이 회사 질문으로 모의 면접</button></div>';
       if(co.fit)h+='<div class="fit"><b>내 준비 포인트</b> · '+esc(co.fit)+'</div>';
+      if(co.consult)h+='<details class="consult"'+(focus===x.id+':'+ci?' open':'')+'><summary>면접 컨설팅 — 인재상에 내 경험 연결하기</summary>'+(co.consult.map&&co.consult.map.length?'<div class="lbl">인재상 → 내 경험</div><ul>'+co.consult.map.map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul>':'')+(co.consult.ask&&co.consult.ask.length?'<div class="lbl">이 회사라서 나올 질문</div><ul>'+co.consult.ask.map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul>':'')+(co.consult.tip?'<div class="lbl">준비 포인트</div><div style="font-size:14px">'+esc(co.consult.tip)+'</div>':'')+'</details>';
       if(co.links&&co.links.length)h+='<div class="links">'+co.links.map(function(l){return '<a href="'+esc(l.url)+'" target="_blank" rel="noopener">'+esc(l.label)+' ↗</a>'}).join('')+'</div>';
       h+='</div>';});
     h+='</div>';});
@@ -485,9 +569,12 @@ function jobs(sec){
   if(R.guides)h+='<h2>답변 구조 참고</h2><div class="grid">'+R.guides.map(function(g){return '<div class="card"><a href="'+esc(g.url)+'" target="_blank" rel="noopener"><b>'+esc(g.label)+' ↗</b></a><div class="muted small">'+esc(g.note||'')+'</div></div>'}).join('')+'</div>';
   $('#app').innerHTML=h;
   $$('[data-s]').forEach(function(b){b.onclick=function(){location.hash='#/jobs'+(b.dataset.s?'/'+b.dataset.s:'')}});
+  $('#jsort').onclick=function(){jobSort=jobSort==='fit'?'base':'fit';jobs(focus||sec)};
+  if(focus){var fe=document.getElementById('co-'+focus.replace(':','-'));if(fe){setTimeout(function(){fe.scrollIntoView({block:'start'});fe.classList.add('hl');setTimeout(function(){fe.className=fe.className.replace(' hl','')},2200)},30)}}
   var ji=$('#jq');ji.onchange=function(){jobQ=ji.value;jobs(sec)};ji.onkeydown=function(e){if(e.key==='Enter'){jobQ=ji.value;jobs(sec)}};
   $$('[data-jq]').forEach(function(b){b.onclick=function(){var k=b.dataset.jq.split('-'),x=SS.filter(function(s){return s.id===k[0]})[0],co=x.companies[+k[1]];
-    var qs=co.questions.map(function(t,i){var id='j:'+k[0]+':'+k[1]+':'+i;var q={id:id,c:'기타',g:co.name,q:t.q,a:'',guide:'출처: '+(t.src||'')+' / '+(co.fit||''),kind:'skeleton'};Q[id]=q;return q});
+    var src=(co.questions||[]).concat(((co.consult||{}).ask||[]).map(function(q){return {q:q,src:'면접 컨설팅 예상 질문'}}));
+    var qs=src.map(function(t,i){var id='j:'+k[0]+':'+k[1]+':'+i;var q={id:id,c:'기타',g:co.name,q:t.q,a:'',guide:'출처: '+(t.src||'')+' / '+(co.fit||''),kind:'skeleton'};Q[id]=q;return q});
     startMock(qs,{sec:90,rec:false,label:co.name})}});
 }
 

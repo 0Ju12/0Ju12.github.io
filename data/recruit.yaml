@@ -1,15 +1,17 @@
-# 면접 준비 앱 '공채 정보' 탭 — IT · 금융 · 자원개발 공개채용 지원 조건과 면접 질문 예시 (확인일 2026-11-10)
+# 면접 준비 앱 '공채 정보' 탭 (인재상·추천 점수·면접 컨설팅 포함, 월·목 정기 갱신) — IT · 금융 · 자원개발 공개채용 지원 조건과 면접 질문 예시 (확인일 2026-11-10)
 # 원칙: 공고 원문을 못 찾은 항목은 출처 종류(공식/언론/포털 요약/후기)를 밝히고 '공고 확인'으로 표시. 지원 전 공식 공고문을 반드시 다시 확인.
 checked: '2026-11-10'
 me:
 - k: 학위
-  v: 석사 (2026.08, 환경에너지융합학과)
+  v: 석사 (2026.08, 환경에너지융합학과 · 지구물리) · 학사 자원에너지공학
 - k: 자격증
   v: ADsP · SQLD 응시(11/14, 발표 11/27)
 - k: 어학
-  v: OPIc 준비 중 (목표 IH, 6주 스터디)
+  v: 공인 성적 없음 — OPIc 준비 중 (목표 IH, 6주)
 - k: 코딩
   v: SSAFY 16기 · SW 역량테스트 A형 준비
+- k: 강점
+  v: 지구물리·에너지 도메인 + LLM 검증·데이터 파이프라인 · SCIE 제1저자 · 해외 파견
 sectors:
 - id: it
   name: IT
@@ -48,6 +50,27 @@ sectors:
     - label: DX 석사 면접 (comento)
       url: https://comento.kr/job-questions/삼성전자/모든직무/삼성전자_dx 석사 면접-638302
     fit: SW 역량테스트 A형 준비가 그대로 연결됩니다. 석사 연구는 '전공 문제 풀이·발표' 형식에 대비해 5분 발표로 정리해 두세요(발표 탭의 석사 발표 자료).
+    talent:
+      kw:
+      - 열정 (Passion)
+      - 창의혁신 (Creativity)
+      - 인간미·도덕성 (Integrity)
+      ok: true
+      src: 삼성커리어스 회사 소개
+      url: https://www.samsungcareers.com/subsid/detail/C10CAA
+    match:
+      score: 3
+      why: SW 직군 · SSAFY 수료 시 가산점 흐름 · LLM/AI 서비스 경험
+      gap: GSAT · SW 역량테스트(코딩) 통과가 관건, 지구과학 전공은 직무 연결 설명 필요
+    consult:
+      map:
+      - 열정 → 캘거리 6개월 파견·SCIE 논문 완주
+      - 창의혁신 → 정확도 대신 fixes−breaks 기준을 만든 VQA 앙상블
+      - 인간미·도덕성 → 공동연구 데이터를 공개하지 않고 합성 데이터로 재현 코드 공개
+      ask:
+      - SW 역량테스트 A형 수준 알고리즘을 어떻게 준비했나요?
+      - 삼성 제품의 AI 기능 중 개선하고 싶은 것은?
+      tip: SSAFY A형 취득이 사실상 서류·코테 경쟁력. 면접은 PT(직무)+임원(인성) — 프로젝트 기술 질문을 깊게 받을 준비
   - name: LG CNS (AX/DX Engineer)
     status: 2026 상반기 수시(6월)·하반기(8~9월) 신입 접수 마감 · 다음 공고 대비
     conditions:
@@ -76,6 +99,27 @@ sectors:
     - label: ‘코딩 실력’만으로 선발 (보안뉴스)
       url: https://m.boannews.com/html/detail.html?idx=111206
     fit: 관통 7 FastAPI 프록시, 국보 RAG 가이드가 AX/DX 모집 분야와 직접 맞습니다.
+    talent:
+      kw:
+      - 'LG Way: 고객가치 창조 · 인간존중'
+      - 정도경영
+      - 고객을 최우선으로 생각하고 끊임없이 혁신 (LG 공통 인재상)
+      ok: false
+      src: LG그룹 공통 인재상 (LG CNS 전용 문구는 확인 못 함)
+      url: https://careers.lg.com
+    match:
+      score: 5
+      why: 전공 무관 AX/AI 직무 · 2026 하반기부터 생성형 AI 활용 역량을 보는 'CNS 특화 검사' 신설 — LLM 검증·RAG 경험이 정확히 맞음
+      gap: 인적성 + CNS 특화 검사(코딩형/기획형) 대비, 고객사 프로젝트(SI) 관점의 답변 연습
+    consult:
+      map:
+      - 고객가치 → '등록 도서 안에서만 추천'처럼 사용자에게 틀린 답을 주지 않는 검증
+      - 혁신 → LLM 답을 코드로 검증하는 구조를 처음부터 설계
+      - 팀워크 → 2인 팀에서 백엔드·파이프라인 역할 분담
+      ask:
+      - 생성형 AI를 고객사 업무에 도입할 때 가장 큰 리스크와 대책은?
+      - RAG에서 환각을 어떻게 줄였나요?
+      tip: AI 활용 검사는 프롬프트로 결과를 만들고 검증하는 과정을 봄 — 국보 가이드 '근거 번호 검증'을 1분 설명으로 다듬기
   - name: 삼성SDS
     status: 2026 하반기 3급 공채 (9월 접수, 마감) · 다음 공채 대비
     conditions:
@@ -102,6 +146,27 @@ sectors:
     - label: 삼성 GSAT 일정·후기 정리 (잡플래닛)
       url: https://www.jobplanet.co.kr/contents/news-8492
     fit: SW 역량테스트 A형 준비가 그대로 연결됩니다. 데이터·AI 직무라면 관통 7 프록시, 국보 RAG를 기술 면접 사례로.
+    talent:
+      kw:
+      - 열정
+      - 창의혁신
+      - 인간미·도덕성 (삼성 공통 인재상)
+      ok: false
+      src: 삼성 공통 인재상 (삼성SDS 전용 문구는 확인 못 함)
+      url: https://www.samsungcareers.com/subsid/detail/C60
+    match:
+      score: 4
+      why: 클라우드·AI·데이터 분석 솔루션 회사 — 데이터 파이프라인·LLM 서비스 경험이 직무와 맞음
+      gap: GSAT · 코딩테스트, 물류·금융·제조 도메인 이해
+    consult:
+      map:
+      - 창의혁신 → LLM 판단을 코드로 검증하는 파이프라인
+      - 열정 → SSAFY 관통 프로젝트 7회 확장
+      - 인간미·도덕성 → 재현 가능한 제출(SHA-256 매니페스트)
+      ask:
+      - 기업 고객에게 생성형 AI 솔루션을 제안한다면 어떤 업무부터?
+      - 데이터 파이프라인 장애를 어떻게 감지하나요?
+      tip: Brity·FabriX 등 SDS 생성형 AI 제품을 미리 써 보고 개선점 1개 준비
   - name: 네이버 (팀네이버 Tech)
     status: 2026년 공채 공고는 검색으로 확인 못 함 · 2025년 공채 기준
     conditions:
@@ -123,6 +188,26 @@ sectors:
     - label: 팀네이버 2025 신입 공채 (블로터)
       url: https://byline.network/2025/03/5-283/
     fit: CS(자료구조·OS·네트워크)와 코딩/CS 테스트를 함께 준비. 석사·관통 프로젝트를 '기술 선택 이유' 중심으로.
+    talent:
+      kw:
+      - 자율과 신뢰 기반의 일하는 문화
+      - 동료와 시너지를 내는 사람 (HR 인터뷰)
+      - AI 시대 인재상 재설계 중 (2026)
+      ok: false
+      src: 네이버 채용 페이지 · zdnet HR 인터뷰 · 이데일리 2026 보도
+      url: https://recruit.navercorp.com
+    match:
+      score: 3
+      why: AI·데이터 직무 인기 1위 기업, LLM 서비스 경험은 강점
+      gap: 2026 신입 공채 미정(이데일리) · 코딩테스트 난이도 높음 · CS 기본기
+    consult:
+      map:
+      - 자율 → 혼자 기획·수집·서비스까지 만든 국보 가이드
+      - 시너지 → 2인 팀 역할 분담과 리뷰
+      ask:
+      - 네이버 서비스 하나를 골라 AI로 바꾼다면?
+      - 대용량 트래픽에서 LLM 비용을 어떻게 줄일까요?
+      tip: 공고 방식이 바뀌는 중 — 프로젝트형 인턴·직무별 채용 공지를 정기 확인
   - name: 카카오 (카카오그룹 신입크루)
     status: 2026 신입크루 공채 (2025년 9월 공고, 마감) · 다음 공채 대비
     conditions:
@@ -148,6 +233,25 @@ sectors:
     - label: 2026 카카오그룹 신입크루 공채 (서울대 공지)
       url: https://cse.snu.ac.kr/ko/community/notice/24218
     fit: 관통 7(FastAPI·오류 처리·테스트 20개)이 2차 'API 구현'형과 직접 맞습니다.
+    talent:
+      kw:
+      - 신뢰 · 충돌 · 헌신 (신충헌)
+      - 의견은 자유롭게 부딪치고, 결정되면 몰입
+      ok: true
+      src: 카카오 공식 블로그·언론 보도 (핵심가치)
+      url: https://careers.kakao.com
+    match:
+      score: 3
+      why: AI 서비스 경험, 데이터 기반 의사결정 문화
+      gap: 코딩테스트 · 공채 규모 작음
+    consult:
+      map:
+      - 충돌 → VQA 팀에서 '정확도가 아닌 fixes−breaks로 보자'고 제안·설득
+      - 헌신 → 합의된 기준(최고 제출 보호)을 끝까지 지킴
+      ask:
+      - 팀원과 의견이 다를 때 어떻게 결론을 냈나요?
+      - 카카오톡 AI 기능의 개선점은?
+      tip: '''충돌'' 사례는 감정이 아니라 데이터로 설득한 이야기로'
   - name: SK AX (구 SK C&C)
     status: 2026 하반기 공채 진행(커뮤니티 일정 기준) · 공고 원문 확인
     conditions:
@@ -172,6 +276,27 @@ sectors:
     - label: 2026 하반기 SK AX 공고 (링커리어)
       url: https://linkareer.com/activity/355005
     fit: AX·데이터 직무라면 관통 5·7 파이프라인과 국보 RAG가 바로 사례가 됩니다.
+    talent:
+      kw:
+      - VWBE (자발적·의욕적 두뇌활용)
+      - SUPEX (인간 능력으로 도달할 수 있는 최고 수준)
+      - 패기 (일과 싸워 이기는)
+      ok: true
+      src: SK AX 기업문화(SKMS) 페이지 · SK하이닉스 뉴스룸
+      url: https://www.skax.co.kr/company/culture
+    match:
+      score: 4
+      why: AX(AI 전환) 전문 회사 — LLM 서비스·검증 경험이 직접 연결, SKALA 채용연계 과정도 있음
+      gap: SKCT · 그룹 공통 질문(SKMS 이해)
+    consult:
+      map:
+      - VWBE → 시키지 않았지만 만든 근거 검증·재현 스크립트
+      - SUPEX → Public Score 0.96961까지 끌어올린 반복 실험
+      - 패기 → 처음 해 보는 해외 연구실에서 논문 완주
+      ask:
+      - 패기를 보여 준 경험은?
+      - 기업 AX에서 가장 먼저 자동화할 업무는?
+      tip: SK 면접은 SKMS 용어를 직접 묻기도 함 — 세 단어를 내 경험으로 한 문장씩
   - name: 현대오토에버
     status: 2026년 분기별 신입 채용 (3·4분기) · 다음 공고 대비
     conditions:
@@ -203,6 +328,25 @@ sectors:
     - label: 2026 자소서 문항·가이드 (잡플래닛)
       url: https://www.jobplanet.co.kr/contents/news-8069
     fit: 데이터 엔지니어 직무가 있습니다. '기술 선택 이유' 질문은 질문 은행의 프로젝트 답변(프록시 구조, 작은 모델 이유)으로 대비.
+    talent:
+      kw:
+      - 직무 이해·기술 기본기·문제 해결·협업 태도 (면접 평가 기준)
+      - 조직 문화 적합성 ACT 검사 실시
+      ok: false
+      src: 잡플래닛 2026 면접 가이드 · 현대오토에버 채용 공지
+      url: https://career.hyundai-autoever.com
+    match:
+      score: 4
+      why: 데이터기술·엔터프라이즈 IT 직무, 응시자 코딩테스트 기회 — 데이터 파이프라인 경험과 맞음
+      gap: 코딩테스트 · 차량/제조 데이터 도메인
+    consult:
+      map:
+      - 문제 해결 → 작은 데이터로 산불 확산 예측(F1 0.85)
+      - 협업 → SSAFY 2인 팀
+      ask:
+      - 차량 데이터 파이프라인을 설계한다면?
+      - 협업에서 갈등을 해결한 경험은?
+      tip: 현대차그룹 인재상(도전·창의·열정·협력·글로벌 마인드)도 함께 확인
   - name: KT
     status: 2026 대졸 신입 접수 8/25~9/7 (마감) · 다음 공채 대비
     conditions:
@@ -233,6 +377,26 @@ sectors:
     - label: KT 채용 전형 정리 (잡플래닛)
       url: https://www.jobplanet.co.kr/contents/news-8430
     fit: '''AI 활용 경험'' 문항에 관통 4~7(LLM 결과 코드 검증)이 정확히 맞습니다.'
+    talent:
+      kw:
+      - KT Professionalism (핵심가치 — 자소서 문항)
+      - 고객 최우선 · 정도 경영
+      - 기본과 원칙 · 소통 · 근성 있는 도전
+      ok: false
+      src: 자소설닷컴 KT 채용 분석 (공식 문구 확인 필요)
+      url: https://recruit.kt.com
+    match:
+      score: 3
+      why: AI·DX 직무 확대, 자소서에 'AI 활용 성과 경험' 문항 — LLM 프로젝트로 답하기 좋음
+      gap: AICE 등 AI 자격 우대 여부 확인, 통신 도메인
+    consult:
+      map:
+      - AI 활용 성과 → LLM 판단 코드 검증 · 자동 테스트 142개
+      - 정도 경영 → 데이터 비공개 원칙 준수
+      ask:
+      - AI를 활용해 성과를 낸 경험은?
+      - KT의 AI 사업 중 관심 분야는?
+      tip: 자소서 3문항(직무역량·AI 활용·KT Professionalism)에 경험 3개를 겹치지 않게
   - name: 포스코DX
     status: 포스코그룹 2026 하반기 공채 (9월 접수, 마감) · 다음 공채 대비
     conditions:
@@ -263,6 +427,26 @@ sectors:
     - label: 포스코DX 자소서 가이드 (하이잡)
       url: https://www.haijob.co.kr/blog/2026-posco-dx-recruitment-cover-letter-guide/
     fit: AI·빅데이터 우대 + OPIc 기준(IM1) 충족 목표. ADsP·SQLD를 우대 자격으로 적으세요.
+    talent:
+      kw:
+      - 실천의식 · 배려 · 창의 (포스코그룹 공통, 공식 확인 필요)
+      - 겸손·존중으로 상생 · 책임감 있게 협업하는 인재 우대 (2026 그룹 공채)
+      ok: false
+      src: 포스코 뉴스룸 2026 그룹 공채 안내
+      url: https://newsroom.posco.com/kr/
+    match:
+      score: 5
+      why: 스마트팩토리·산업 AI 계열사 — 데이터+AI 경험에 지구과학·에너지 배경이 제조 현장 데이터 이해로 연결
+      gap: PAT 인적성 · 어학(OPIc IM1 이상) 성적 필요
+    consult:
+      map:
+      - 책임감 있는 협업 → 3기관 공동연구 · 2인 팀
+      - 창의 → 겹친 신호를 분리하는 지표 설계
+      - 실천 → 재현 코드까지 공개
+      ask:
+      - 제철소 센서 데이터에 AI를 적용한다면 무엇부터?
+      - 현장 엔지니어와 소통한 경험은?
+      tip: 포스코 그룹 공채로 포스코인터내셔널과 함께 지원 가능 여부 확인(중복 지원 규정)
   - name: LG유플러스
     status: 2026 하반기 신입 접수 9/11~9/27 (마감) · 다음 공채 대비
     conditions:
@@ -286,6 +470,25 @@ sectors:
     - label: 2026 LG유플러스 자소서 가이드 (잡플래닛)
       url: https://www.jobplanet.co.kr/contents/news-8077
     fit: AIDC사업기획 등은 데이터·AI 이해가 강점이 됩니다. 모집 직무가 매 공고 바뀌니 공고마다 확인.
+    talent:
+      kw:
+      - LG Way 신념과 실행력
+      - 정정당당한 경쟁 · 자율적이고 창의적인 팀워크
+      - 고객 최우선 혁신 · 세계 최고 도전 (LG 공통)
+      ok: true
+      src: LG 공통 인재상 (인크루트 기업 자료)
+      url: https://careers.lg.com
+    match:
+      score: 3
+      why: AI·데이터 직무, LG 공통 인재상 — LG CNS와 함께 준비 가능
+      gap: 통신 도메인, 직무 공모전 활용
+    consult:
+      map:
+      - 팀워크 → 2인 팀 · VQA 팀
+      - 고객 최우선 → 사용자에게 검증된 근거만 보여 주는 RAG
+      ask:
+      - U+ 서비스 중 AI로 개선할 것은?
+      tip: LG CNS와 인재상이 같아 답변 재사용 가능
   - name: NHN
     status: 2026 신입 개발 공채 정보는 확인 못 함 · 채용 연계 해커톤 운영
     conditions:
@@ -309,6 +512,23 @@ sectors:
     - label: NHN 2025 게임 공채 (블로터)
       url: https://byline.network/2025/08/1-1322/
     fit: 공채가 불규칙하니 해커톤·인턴 공고를 함께 보세요.
+    talent:
+      kw:
+      - 공식 인재상 문구 확인 못 함
+      - T인터뷰(기술)·C인터뷰(커리어) 구조
+      ok: false
+      src: 링커리어 공고 정리
+      url: https://careers.nhn.com
+    match:
+      score: 2
+      why: AI 해커톤(NAN 2026) 채용 연계
+      gap: 게임·클라우드 중심, 공채 규모 작음
+    consult:
+      map:
+      - 기술 인터뷰 → 프로젝트 코드 설명(관통 7 FastAPI 프록시)
+      ask:
+      - 프로젝트에서 가장 어려웠던 버그는?
+      tip: 해커톤 참가로 채용 특전 노리기
   - name: 토스 (비바리퍼블리카)
     status: NEXT 개발자 챌린지 (2025 기준) · 2026 공고 확인
     conditions:
@@ -337,6 +557,23 @@ sectors:
     - label: 2022 NEXT 개발자 챌린지 (토스피드)
       url: https://toss.im/tossfeed/article/next-developer-2022
     fit: '과제형 전형에 강한 편: 테스트·README로 결과를 정리하는 습관(142개 테스트)을 그대로 보여 주세요.'
+    talent:
+      kw:
+      - 자율과 책임 · 상호 신뢰 (기업 소개)
+      - 시키지 않아도 문제를 찾아 해결한 경험
+      ok: false
+      src: 잡플래닛 기업 소개 · 토스 채용 공고 문구
+      url: https://toss.im/career
+    match:
+      score: 2
+      why: 데이터 기반 문화, 높은 자율성
+      gap: 경력 위주 · 과제 전형 난이도 높음
+    consult:
+      map:
+      - 주도성 → 스스로 만든 포트폴리오 생성기 · 암호화 학습 앱
+      ask:
+      - 시키지 않았는데 해결한 문제는?
+      tip: NEXT 개발자 챌린지 공고 확인
 - id: finance
   name: 금융
   tip: 은행·중앙회는 서류(역량검사 포함) → 필기(NCS·인적성, 디지털은 TOPCIT 등) → 1차(직무·PT·토론) → 2차(인성·임원) 흐름이 많습니다. 자사 앱·디지털 전략 질문이 자주 나옵니다.
@@ -378,6 +615,29 @@ sectors:
     - label: NH농협은행 합격 후기 (자소설닷컴)
       url: https://jasoseol.com/blog/?p=1939
     fit: SQLD(11/27 발표)를 이력서에 반영하고, '농업 데이터 + 검증 중심 파이프라인' PT를 하나 준비해 두세요.
+    talent:
+      kw:
+      - 시너지 창출가
+      - 행복의 파트너
+      - 최고의 전문가
+      - 정직과 도덕성을 갖춘 인재
+      - 진취적 도전가
+      ok: true
+      src: 농협중앙회 6급 공고 · NH농협 홈페이지 인재상
+      url: https://www.nonghyup.com
+    match:
+      score: 4
+      why: IT·데이터 직무, NCS 기반 — SQLD가 우대 자격으로 바로 쓰임, 지방(전북) 연고 강점
+      gap: NCS·인적성, 농업 데이터 이해
+    consult:
+      map:
+      - 시너지 창출가 → 3기관 공동연구
+      - 최고의 전문가 → SCIE 제1저자
+      - 정직과 도덕성 → 데이터 비공개 원칙
+      ask:
+      - 농업 데이터를 활용한 서비스 아이디어는?
+      - 5가지 인재상 중 본인과 가장 맞는 것은?
+      tip: 자소서가 '인재상 1개 선택' 형식 — 경험 하나에 인재상 하나를 1:1로
   - name: KB국민은행 (IT 부문)
     status: 2026 하반기 신입행원 접수 8/31~9/9 (마감) · 다음 공채 대비
     conditions:
@@ -413,6 +673,25 @@ sectors:
     - label: ICT 채용·디지털 역량 평가 (쿠키뉴스)
       url: https://www.kukinews.com/article/view/kuk202204010111
     fit: TOPCIT·NCS가 언급되므로 SQLD 공부가 그대로 도움됩니다. 면접 전 KB 앱을 직접 써 보고 개선점 1개를 정리하세요.
+    talent:
+      kw:
+      - 도전정신 · 고객 지향 (채용 보도)
+      - 통섭형 인재 (과거 공채)
+      ok: false
+      src: 언론 보도 (공식 문구 확인 필요)
+      url: https://kbstar.recruiter.co.kr
+    match:
+      score: 3
+      why: IT·AI·플랫폼 개발 부문, 체험형 인턴 수료 시 서류 면제
+      gap: 금융 지식 · 필기(NCS·금융상식)
+    consult:
+      map:
+      - 통섭 → 지구과학 + 데이터·AI
+      - 도전 → 해외 파견
+      ask:
+      - KB 앱의 개선점은?
+      - 금융 AI에서 설명 가능성이 왜 중요한가요?
+      tip: 하계 체험형 인턴(디지털·IT·AI) 공고를 노리면 신입 서류 면제
   - name: 신한은행 (디지털·ICT)
     status: 2026 상반기 디지털·ICT 수시 3/22~4/3 (마감) · 다음 공고 대비
     conditions:
@@ -435,6 +714,25 @@ sectors:
     - label: 신한은행 상반기 채용 (아시아경제)
       url: https://view.asiae.co.kr/article/2026032314521266384
     fit: '''AI 애플리케이션 엔지니어링'' 분야에 관통 7 Guardrail·모델 라우팅이 바로 맞습니다.'
+    talent:
+      kw:
+      - 신한WAY 2.0 — 금융으로 세상을 이롭게
+      - 바르게 · 빠르게 · 다르게 (핵심가치, 자소서 후기)
+      - 창의융합형 인재 (2026 채용 목표)
+      ok: false
+      src: 신한금융그룹 미션 페이지 · 보도 · 지원자 후기
+      url: https://www.shinhangroup.com/kr/about/group/mission
+    match:
+      score: 3
+      why: 디지털·ICT 수시 채용 — 창의융합형(전공+데이터) 인재 강조
+      gap: 금융 도메인 · 디지털 직무 코딩 테스트
+    consult:
+      map:
+      - 다르게 → 정확도 대신 fixes−breaks
+      - 바르게 → 검증된 근거만 표시
+      ask:
+      - 바르게·빠르게·다르게 중 본인과 맞는 것은?
+      tip: 디지털·ICT 수시 공고 알림 설정
   - name: 하나은행
     status: 2026 하반기 신입행원 (9월 접수, 마감) · 다음 공채 대비
     conditions:
@@ -461,6 +759,27 @@ sectors:
     - label: 하나은행 채용 정리 (잡플래닛)
       url: https://www.jobplanet.co.kr/contents/news-8467
     fit: HanAXpert 트랙 이름처럼 AX(AI 전환) 이해를 보여 줄 사례 1개를 준비하세요.
+    talent:
+      kw:
+      - Hana People on Integrity
+      - 사람에 대한 온기 (Humanity)
+      - 미래에 대한 용기 (First Mover)
+      - 성장에 대한 동기 (Growth Mind)
+      ok: true
+      src: 하나은행 2024 인재상 발표 · 잡플래닛
+      url: https://www.jobplanet.co.kr/contents/news-8467
+    match:
+      score: 3
+      why: 디지털 직무, 인재상별 경험을 묻는 '하나 FIT 면접' — 준비 방식이 명확
+      gap: NCS 필기 · 금융 이해
+    consult:
+      map:
+      - 용기 → 처음 가는 해외 연구실
+      - 동기 → 지구과학에서 데이터·AI로 전환한 학습
+      - 온기 → 팀원 코드 리뷰·테스트 공유
+      ask:
+      - First Mover로 행동한 경험은?
+      tip: 실무면접 = BEI + PT + 하나 FIT(인재상 1:1)
   - name: 우리은행 (TECH)
     status: 2026 하반기 신입행원 8/27~9/8 (마감) · 다음 공채 대비
     conditions:
@@ -487,6 +806,24 @@ sectors:
     - label: 2026 하반기 신입행원 채용 (청년일보)
       url: https://www.youthdaily.co.kr/news/article.html?no=225855
     fit: 면접 비중이 커서 프로젝트 설명력이 중요합니다. 발표 탭의 1분 자기소개를 TECH용으로 연습하세요.
+    talent:
+      kw:
+      - 올바른 품성을 가진 도전적이고 창의적인 최고의 금융전문가
+      ok: true
+      src: 잡플래닛 2026 하반기 우리은행 채용 정리
+      url: https://www.jobplanet.co.kr/contents/news-8481
+    match:
+      score: 3
+      why: TECH 부문 이공계 우대(전공 제한 없음), 필기 폐지·AI역량검사
+      gap: 금융 자격증 우대
+    consult:
+      map:
+      - 도전 → 해외 파견
+      - 창의 → 지표 설계
+      - 올바른 품성 → 데이터 윤리
+      ask:
+      - 자소서에 쓴 인생 목표를 설명해 주세요
+      tip: 면접이 자소서 검증형 — 자소서 문장 하나하나 근거 준비
   - name: IBK기업은행 (디지털·IT)
     status: 2026 하반기 신입행원 8/28~9/14 (마감) · 다음 공채 대비
     conditions:
@@ -510,6 +847,24 @@ sectors:
     - label: 하반기 신입행원 175명 (한국경제)
       url: https://www.hankyung.com/article/202608312958P
     fit: '''디지털'' 5명은 경쟁이 치열합니다. NCS + 데이터 활용 PT를 같이 준비.'
+    talent:
+      kw:
+      - 신뢰와 책임을 바탕으로 혁신 · 소통과 협업으로 함께 성장하는 협업형 인재
+      - '핵심가치: 고객과 함께 · 신뢰와 책임 · 열정과 혁신 · 소통과 팀웍'
+      ok: false
+      src: 링커리어 · 취업 커뮤니티 정리 (공식 확인 필요)
+      url: https://ibk.recruiter.co.kr
+    match:
+      score: 3
+      why: 디지털·IT 분야 별도 모집, 공공기관 성격
+      gap: NCS·금융 필기
+    consult:
+      map:
+      - 협업 → 3기관 공동연구
+      - 혁신 → LLM 검증 구조
+      ask:
+      - 중소기업 금융에 데이터를 어떻게 쓸 수 있을까요?
+      tip: 상·하반기 공채 + 정규직 수시채용 병행
   - name: NH농협은행 (6급·테크)
     status: 2026 하반기 6급 380명 (10월 공지) · 일정 확인
     conditions:
@@ -537,6 +892,22 @@ sectors:
     - label: NH농협은행 합격 후기 (자소설닷컴)
       url: https://jasoseol.com/blog/?p=1939
     fit: 5급 '전문(AI 등)' 분야는 석사·AI 프로젝트가 강점입니다. 지원 가능하면 꼭 확인하세요.
+    talent:
+      kw:
+      - 시너지 창출가 · 행복의 파트너 · 최고의 전문가 · 정직과 도덕성 · 진취적 도전가 (농협 공통)
+      ok: true
+      src: 농협 공통 인재상
+      url: https://www.nonghyup.com
+    match:
+      score: 3
+      why: 6급 테크 직군, SQLD·ADsP 활용
+      gap: NCS 필기
+    consult:
+      map:
+      - 농협중앙회와 동일하게 준비
+      ask:
+      - 디지털 금융에서 농협은행만의 강점은?
+      tip: 농협중앙회와 답변 공유
   - name: 한국산업은행 (KDB)
     status: 5급 신입행원 (매년 하반기 공고) · 다음 공고 대비
     conditions:
@@ -560,6 +931,22 @@ sectors:
     - label: KDB 자소서 가이드 (하이잡)
       url: https://www.haijob.co.kr/blog/2026-kdb-recruit-cover-letter-guide
     fit: '''데이터 사이언티스트·ML 엔지니어'' 직무명이 있는 몇 안 되는 국책은행입니다. 우선 확인 대상.'
+    talent:
+      kw:
+      - 공식 인재상 문구 확인 못 함 (자소서 13문항으로 많음)
+      ok: false
+      src: 하이잡 2026 KDB 자소서 가이드
+      url: https://recruit.kdb.co.kr
+    match:
+      score: 2
+      why: 공학IT 분야 채용
+      gap: 금융·경제 필기 난도 높음
+    consult:
+      map:
+      - 정책금융 → 에너지 전환 투자에 대한 이해(석사·CCS 연구)
+      ask:
+      - 에너지 전환 산업에 정책금융이 할 일은?
+      tip: CCS·에너지 연구 배경이 정책금융 면접 화제로 쓸 수 있음
   - name: 한국은행 (종합기획직원, 컴퓨터공학)
     status: 2027년도 신입직원 (2026년 7~8월 공고) · 다음 공고 대비
     conditions:
@@ -586,6 +973,23 @@ sectors:
     - label: 한국은행 공고 원문 (고려대)
       url: https://career.korea.ac.kr/bbs/cdc/522/180380/download.do
     fit: 컴퓨터공학 필기 + 영어 성적이 서류에 들어갑니다. OPIc 외에 공고가 요구하는 영어 시험 종류를 확인하세요.
+    talent:
+      kw:
+      - 공식 인재상 문구 확인 못 함
+      - 학력·연령 제한 없음 · 컴퓨터공학 부문 전공시험
+      ok: false
+      src: 2027년도 신입직원 공고 정리 (자소설닷컴)
+      url: https://apply.bok.or.kr
+    match:
+      score: 2
+      why: 컴퓨터공학 부문 존재
+      gap: 전공학술(컴퓨터공학) 시험 · 논술 — 비전공 부담 큼
+    consult:
+      map:
+      - 통계·데이터 분석 → 석사 상관 분석
+      ask:
+      - 중앙은행 업무에 AI를 쓴다면?
+      tip: 전공시험 부담이 커 장기 목표로 분류
   - name: 금융감독원 (IT 분야)
     status: 2027년도 5급 종합직원 진행 중 (필기 완료, 11~12월 면접)
     conditions:
@@ -613,6 +1017,22 @@ sectors:
     - label: 금감원 5급 95명 공채 (택스앤모어)
       url: https://www.tfmedia.co.kr/news/article.html?no=206546
     fit: 필기가 2단계라 장기 준비가 필요합니다. 다음 해 공고(8월경) 기준으로 계획하세요.
+    talent:
+      kw:
+      - 창의적이고 역량 있는 인재 (채용 공고 문구)
+      ok: false
+      src: 금감원 5급 공채 보도 (tfmedia)
+      url: https://www.fss.or.kr/emp
+    match:
+      score: 3
+      why: IT·통계 분야 공채 + 2026 금융AI·빅데이터 경력 분야 신설 — 데이터 직무 수요
+      gap: 필기 2회(전공·논술) 난도 높음
+    consult:
+      map:
+      - 검증 → 감독 업무의 핵심인 데이터 검증·이상 탐지와 연결
+      ask:
+      - 금융 감독에 AI를 쓸 때 위험은?
+      tip: 통계학 분야 응시도 검토
   - name: 금융결제원
     status: 2027년도 상반기 신입직원 공고 목록 확인 · 세부 내용 공고 확인
     conditions:
@@ -636,6 +1056,23 @@ sectors:
     - label: 금융결제원 공고 정리 (하이잡)
       url: https://www.haijob.co.kr/posting/9618
     fit: 매년 10월 전후 공고 → 이번 시즌에도 확인해 보세요.
+    talent:
+      kw:
+      - 공식 인재상 문구 확인 못 함
+      - '자소서: 지원동기(600~850자) · 금융결제원 서비스 이용 경험'
+      ok: false
+      src: 하이잡 자소서 문항 정리
+      url: https://www.kftc.or.kr
+    match:
+      score: 3
+      why: 전산직 모집 — 결제 인프라 데이터
+      gap: NCS·전공 필기
+    consult:
+      map:
+      - 안정성 → 자동 테스트 142개 · 배포 전 점검
+      ask:
+      - 결제 시스템 장애를 막으려면?
+      tip: 오픈뱅킹·지로 등 서비스 이용 경험을 미리 정리
   - name: 한국거래소 (KRX, IT)
     status: 2026 신입 접수 ~6/2 (마감) · 다음 공고 대비
     conditions:
@@ -664,6 +1101,23 @@ sectors:
     - label: KRX 자소서 항목·팁 (하이잡)
       url: https://www.haijob.co.kr/blog/?p=13315
     fit: 지역인재(전북) 목표제 적용 대상인지 공고에서 확인하세요 — 학부·석사 모두 전북대.
+    talent:
+      kw:
+      - 공식 인재상 문구 확인 못 함
+      - 학력·연령·전공 제한 없음 · IT 부문
+      ok: false
+      src: 파이낸셜뉴스 2026 공채 보도
+      url: https://www.fnnews.com/news/202605241020112974
+    match:
+      score: 3
+      why: IT 부문 · 필기 선택과목에 통계학·IT
+      gap: 필기(IT/통계) · 부산 근무 가능성
+    consult:
+      map:
+      - 시장 감시 → 이상치 탐지(IQR) 경험
+      ask:
+      - 시장 감시에 머신러닝을 쓴다면?
+      tip: 통계학 선택 응시도 검토
 - id: energy
   name: 자원개발·에너지
   tip: 공기업은 NCS 기반 블라인드 채용(서류 적부 → 인성 + NCS 직업기초 + 직무수행 → 직무·종합 면접)이 기본입니다. 사기업(상사·E&P)은 사업군 이해와 어학을 봅니다.
@@ -705,6 +1159,27 @@ sectors:
     - label: 2026 하반기 포스코인터내셔널 신입 (링커리어)
       url: https://linkareer.com/activity/347058
     fit: 그룹 공고의 어학 최소 기준은 OPIc IM1입니다. IH는 기준을 넉넉히 넘기는 목표로 좋지만, 포스코인터내셔널 공고에 따로 IH를 요구하는지 원문에서 확인하세요. 석사(아부다비 가샤 연구)는 에너지 사업 질문에 바로 연결됩니다.
+    talent:
+      kw:
+      - 포스코그룹 공통 가치 (실천의식·배려·창의, 공식 확인 필요)
+      - '''불굴의 도전자'' 등 인재상 1개를 골라 쓰는 자소서'
+      - 겸손·존중으로 상생 · 책임감 있게 협업 (2026 그룹 우대)
+      ok: false
+      src: 잡코리아 기업 분석 · 포스코 뉴스룸
+      url: https://newsroom.posco.com/kr/
+    match:
+      score: 5
+      why: 목표 회사 · LNG·자원개발 사업과 석사(아부다비 가샤 해상 광구) 연구가 직접 연결, 에너지 사업 이해가 강점
+      gap: 어학 성적 필요(그룹 기준 OPIc IM1 이상, 목표 IH) · 주로 영업·사업개발 직무 — 데이터 역량을 사업 언어로 바꾸는 연습
+    consult:
+      map:
+      - 도전 → 해외 파견·국제 공동연구
+      - 협업 → 칼리파대 포함 3기관
+      - 책임 → 공동연구 데이터 보호
+      ask:
+      - 사업군 중 가장 성장할 분야는?
+      - LNG·자원개발 사업에 본인 전공이 어떻게 기여하나요?
+      tip: DART 공시·사업보고서로 에너지 부문 매출·이익 구조를 1장으로 정리
   - name: 한국석유공사 (KNOC)
     status: 2026 하반기 직원(정규직) 공고 접수 8/19~8/28 (마감) · 다음 공고 대비
     conditions:
@@ -738,6 +1213,25 @@ sectors:
     - label: 알리오 공공기관 공시
       url: https://www.alio.go.kr
     fit: 탐사·지구물리 전공 + 데이터 역량. 석사·학부 논문(해외 자원·CCS)을 '공사 사업과의 연결'로 1분 정리해 두세요.
+    talent:
+      kw:
+      - 인재상 3가지 중 하나를 고르는 자소서 (채용 홈페이지 '인재상' 참조)
+      - '핵심가치: 혁신과 성장'
+      ok: false
+      src: 하이잡·링커리어 공고 정리
+      url: https://www.knoc.co.kr
+    match:
+      score: 5
+      why: 자원개발 공기업 · 6급 IT·기술 직무 — 지구물리 석사 + 데이터 역량이 탐사·생산 데이터 업무와 맞음, 자원에너지공학 학사
+      gap: NCS 필기 · 울산 근무
+    consult:
+      map:
+      - 혁신 → 겹친 신호 분리 지표
+      - 성장 → 지구과학에서 AI로 확장
+      ask:
+      - 석유 탐사 데이터에 AI를 적용한다면?
+      - 비축 사업의 디지털 전환 방향은?
+      tip: 탐사·생산 데이터(탄성파·중력) 경험을 공사 사업(국내외 E&P, 비축)과 1:1로 연결
   - name: 한국가스공사 (KOGAS)
     status: 2026 상반기·하반기 일반직 신입 공고 진행 · 다음 공고 대비
     conditions:
@@ -768,6 +1262,23 @@ sectors:
     - label: NCS 국가직무능력표준
       url: https://www.ncs.go.kr
     fit: NCS형 필기가 핵심입니다. 인적성 고민(GSAT vs NCS)에서 공기업을 넣는다면 NCS를 먼저 하세요.
+    talent:
+      kw:
+      - KOGAS 핵심가치와 이에 기반한 인재상 (자소서 문항)
+      - 공식 문구는 채용 홈페이지 확인 필요
+      ok: false
+      src: 하이잡 자소서 문항 · 잡코리아 인터뷰
+      url: https://kogas.incruit.com
+    match:
+      score: 4
+      why: 일반직 신입 규모 큼(2026 하반기 140명) · IT 직무 · LNG 사업
+      gap: NCS · 대구 근무
+    consult:
+      map:
+      - 안전·신뢰 → 검증 중심 데이터 처리
+      ask:
+      - 수소·LNG 사업에서 데이터의 역할은?
+      tip: 직무기술서(NCS)에서 IT 직무 능력단위를 확인하고 경험 매칭
   - name: 한국광해광업공단 (KOMIR)
     status: 정규직 신입 세부 조건은 검색으로 확인 못 함 — 공식 공고 확인
     conditions:
@@ -791,6 +1302,22 @@ sectors:
     - label: 알리오 공공기관 공시
       url: https://www.alio.go.kr
     fit: 탐사 전공 적합도가 높은 기관입니다. 공고가 나오면 직무기술서부터 저장해 두세요.
+    talent:
+      kw:
+      - 인재상 부합 여부를 면접에서 평가 (공식 문구 확인 필요)
+      ok: false
+      src: 2026 채용 공고 정리
+      url: https://www.komir.or.kr
+    match:
+      score: 5
+      why: 학사 자원에너지공학 전공과 직접 연결 · 광물자원 데이터 · 지구물리 탐사
+      gap: NCS · 원주 근무
+    consult:
+      map:
+      - 전문성 → 광물·지구물리 전공 + 데이터 분석
+      ask:
+      - 핵심광물 공급망에 데이터를 어떻게 쓸까요?
+      tip: 학사 전공을 정면으로 살릴 수 있는 곳 — 핵심광물·광해 복구 데이터 사례 조사
   - name: 한국지질자원연구원 (KIGAM)
     status: 정규 연구직·기술직 신입 공고는 검색으로 확인 못 함 · 수시 공고 확인
     conditions:
@@ -813,6 +1340,28 @@ sectors:
     - label: 알리오 공공기관 공시
       url: https://www.alio.go.kr
     fit: 석사 이상 '연수직'은 지구물리 석사에 가장 직접 맞는 경로입니다. 연구 발표 자료(발표 탭 석사 연구)를 15분용으로 늘려 두세요.
+    talent:
+      kw:
+      - 창조적 도전인
+      - 전문역량인
+      - 상생인
+      - 고객지향인
+      ok: true
+      src: KIGAM 정규직 공채 자소서 문항 (2024·2025)
+      url: https://www.kigam.re.kr
+    match:
+      score: 5
+      why: 지구물리 석사·SCIE 논문이 연구 분야와 직결 · 데이터·AI 연구 지원
+      gap: 연구직은 박사 비중 높음 — 기술직·연구지원직·위촉연구원 공고 확인
+    consult:
+      map:
+      - 창조적 도전인 → SLFI·DLFI 지표 설계
+      - 전문역량인 → SCIE 제1저자
+      - 상생인 → 3기관 공동연구
+      - 고객지향인 → 분석 코드 공개(gravmag-wcf)
+      ask:
+      - 연구 결과를 실제 탐사에 쓰려면 무엇이 더 필요할까요?
+      tip: 자소서가 '인재상 1개 선택 + 지원동기(700자)' — 창조적 도전인 + 석사 연구가 가장 강함
   - name: 한국전력공사 (ICT)
     status: 2026 하반기 4직급 대졸수준 (9월 마감 정보) · 공고 확인
     conditions:
@@ -842,6 +1391,28 @@ sectors:
     - label: 한전 ICT NCS 질문 (comento)
       url: https://comento.kr/job-questions/%ED%95%9C%EA%B5%AD%EC%A0%84%EB%A0%A5%EA%B3%B5%EC%82%AC/ict/ncs_%ED%95%A9%EA%B2%A9%EC%84%A0_%EB%B0%8F_%EC%A0%84%EA%B3%B5_%ED%95%99%EC%8A%B5%EB%B2%95_%EA%B8%B0%EC%88%A0%ED%8C%8C%ED%8A%B8_%EB%AC%B8%EC%A0%9C%EC%9C%A0%ED%98%95_%EC%83%81%EB%8B%B4%EB%AC%B8%EC%9D%98-188607
     fit: 영어 성적(TOEIC 등)이 지원자격에 쓰일 수 있습니다. OPIc 인정 여부를 공고에서 확인하세요. 정보처리기사 가점도 고려.
+    talent:
+      kw:
+      - Passionate (도전과 성장)
+      - Open-minded (협력과 소통)
+      - Wise-thinking (창의와 혁신)
+      - Ethical (청렴과 신뢰)
+      - Responsible (책임과 사명)
+      ok: false
+      src: 2026 공고 정리 (invione) — 시기별로 달라 공고 확인 필요
+      url: https://recruit.kepco.co.kr
+    match:
+      score: 4
+      why: ICT 직무 · 에너지 데이터 규모 최대
+      gap: NCS · 전공(ICT) 필기, 지역본부 선택
+    consult:
+      map:
+      - Wise-thinking → 지표 설계
+      - Open-minded → 해외 협업
+      - Ethical → 데이터 원칙
+      ask:
+      - 전력 수요 예측에 AI를 쓴다면?
+      tip: 인재상 2개를 골라 쓰는 자소서였던 해가 있음 — 최신 문항 확인
   - name: 한국수력원자력 (KHNP)
     status: 2026 제3차 대졸수준 신입 (8/6 마감) · 다음 공고 대비
     conditions:
@@ -865,6 +1436,23 @@ sectors:
     - label: 2026 제3차 대졸 채용 (경북매일)
       url: https://kbmaeil.com/article/20260723500423
     fit: NCS형 필기 비중이 큽니다. 인적성 고민 중이라면 공기업 지원 시 NCS 우선.
+    talent:
+      kw:
+      - 인재상·조직적합도 검사 후 면접 (공고)
+      - 공식 인재상 문구 확인 필요
+      ok: false
+      src: 2026 하반기 공고 (경북매일)
+      url: https://www.khnp.co.kr
+    match:
+      score: 3
+      why: 대규모 대졸 신입(229명) · ICT 직무
+      gap: NCS · 원전 지역 근무
+    consult:
+      map:
+      - 안전 문화 → 검증·테스트 우선 습관
+      ask:
+      - 원전 안전에 데이터 분석을 쓴다면?
+      tip: 인재상 검사(적격) 통과가 면접 조건
   - name: SK이노베이션 계열 (SK어스온 포함)
     status: 2026 하반기 계열 공채 (~10/18, 마감) · 다음 공채 대비
     conditions:
@@ -892,6 +1480,25 @@ sectors:
     - label: 2026 하반기 공고 요약 (캐치)
       url: https://m.catch.co.kr/NCS/RecruitInfoDetails/575918
     fit: '''데이터·AI 직무 + 자원개발 계열사(SK어스온)''가 동시에 있는 거의 유일한 사기업 공채입니다. 1순위로 챙기세요.'
+    talent:
+      kw:
+      - VWBE · SUPEX · 패기 (SKMS 공통)
+      - 카본 투 그린 · 넷제로 실행 인재 (채용 담당 발언)
+      ok: false
+      src: SK그룹 SKMS · 뉴스토마토 보도
+      url: https://www.skcareers.com
+    match:
+      score: 5
+      why: SK어스온 G&G(지질·지구물리) 엔지니어 직무 모집 이력 — 석사 전공과 정확히 일치, CCS 연구 경험
+      gap: SKCT · 계열 단독 채용 일정 확인
+    consult:
+      map:
+      - 패기 → 캘거리 파견
+      - 카본 투 그린 → CCS 저장소 탄성파 해석 논문
+      ask:
+      - CCS 사업에서 지구물리 데이터의 역할은?
+      - E&P에 AI를 적용한다면?
+      tip: SK어스온 G&G 공고가 열리면 최우선 지원 — 학부 CCS 논문·석사 중력자력 해석을 묶어 설명
   - name: GS칼텍스
     status: 2026 하반기 신입 9/1~9/15 (마감) · 다음 공채 대비
     conditions:
@@ -917,6 +1524,24 @@ sectors:
     - label: GS칼텍스 자소서 가이드 (하이잡)
       url: https://www.haijob.co.kr/blog/2026-gs-caltex-firsthalf-recruit-cover-letter-guide/
     fit: '''디지털역량'' 테스트와 디지털 우대 → ADsP·SQLD·SSAFY가 그대로 근거가 됩니다.'
+    talent:
+      kw:
+      - 신뢰 · 탁월 · 도전 · 유연
+      - 상호협력 · 선제행동 · 성과창출
+      ok: false
+      src: 자소설닷컴 (2017 자료, 최신 확인 필요)
+      url: https://www.gscaltex.com
+    match:
+      score: 3
+      why: 신입 테스트에 디지털역량검사 포함
+      gap: 공학 직무 위주 · 조직가치부합도 검사
+    consult:
+      map:
+      - 선제행동 → 배포 전 자동 점검을 먼저 만든 경험
+      - 탁월 → SUPEX급 반복 실험
+      ask:
+      - 정유 공정 데이터에 AI를 쓴다면?
+      tip: 테스트 = 직무역량 · 한국사 · 조직가치부합도 · 디지털역량
   - name: S-OIL
     status: 2026 사무직 신입 9/30~10/14 (마감) · 다음 공고 대비
     conditions:
@@ -939,6 +1564,21 @@ sectors:
     - label: 2026 소매영업직 신입 (서울대 공지)
       url: https://cse.snu.ac.kr/ko/community/notice/24818
     fit: 공인 영어 성적이 필수입니다. 인정 시험 목록에 OPIc이 있는지 공고에서 확인하세요.
+    talent:
+      kw:
+      - 공식 인재상·핵심가치 확인 못 함
+      ok: false
+      src: 검색으로 확인 못 함 — s-oil.recruiter.co.kr 확인
+      url: https://s-oil.recruiter.co.kr
+    match:
+      score: 2
+      why: 사무직·R&D 채용
+      gap: 직무 연결 약함
+    consult:
+      map: []
+      ask:
+      - S-OIL을 선택한 이유는?
+      tip: 공식 사이트에서 인재상 확인 후 판단
   - name: 한국지역난방공사
     status: 2026 신입 72명 (6월 접수, 9월 최종) · 다음 공고 대비
     conditions:
@@ -963,6 +1603,23 @@ sectors:
     - label: 신입 72명 채용 (데일리안)
       url: https://www.dailian.co.kr/news/view/1652814/
     fit: NCS 공기업. 에너지 데이터(열 수요 예측 등) 아이디어 1개를 준비.
+    talent:
+      kw:
+      - 공식 인재상 문구 확인 못 함
+      - '자소서로 본 중시 가치: 책임감 · 원칙 준수 · 미래 에너지 사업 이해'
+      ok: false
+      src: 하이잡 자소서 문항 (제 해석)
+      url: https://www.kdhc.co.kr
+    match:
+      score: 3
+      why: 에너지 공기업 · 2026 신입 72명
+      gap: 경쟁률 79:1 · NCS
+    consult:
+      map:
+      - 원칙 → 데이터 비공개·검증 원칙
+      ask:
+      - 공사가 앞으로 주력해야 할 사업은?
+      tip: 집단에너지·열 수요 데이터 이해
   - name: 한국남동발전
     status: 2026 하반기 신입 공고 (포털 요약) · 공고 확인
     conditions:
@@ -986,6 +1643,26 @@ sectors:
     - label: 남동발전 합격 후기 (링커리어)
       url: https://community.linkareer.com/pass-review/6421282
     fit: ICT·데이터 직무가 있는 공고인지 먼저 확인. PT는 '예측 모델 + 검증 기준' 구조로.
+    talent:
+      kw:
+      - 개방형 인재
+      - 실행형 인재
+      - 학습형 인재
+      ok: true
+      src: 2026 체험형 인턴 공고 자소서 문항
+      url: https://www.koen.co.kr
+    match:
+      score: 3
+      why: 발전 공기업 · 인턴 → 신입 경로
+      gap: NCS · 진주 근무
+    consult:
+      map:
+      - 개방형 → 해외 연구실
+      - 실행형 → 직접 만든 서비스
+      - 학습형 → 지구과학 → AI 전환
+      ask:
+      - 재생에너지 확대 시 발전사 데이터 과제는?
+      tip: 인재상 3개가 명확 — 경험 하나씩 배정
   - name: 한국에너지공단
     status: 2026 신입(채용형 인턴) 마감 · 다음 공고 대비
     conditions:
@@ -1009,6 +1686,22 @@ sectors:
     - label: 에너지공단 자소서 가이드 (하이잡)
       url: https://www.haijob.co.kr/blog/2026-korea-energy-agency-firsthalf-recruit-cover-letter-guide
     fit: 울산 근무. 에너지·탄소 데이터 분석 관점으로 지원동기 정리.
+    talent:
+      kw:
+      - 창의적이고 도전적인 인재 (공고 문구)
+      ok: false
+      src: 2025 채용 공고
+      url: https://www.energy.or.kr
+    match:
+      score: 3
+      why: 에너지 효율·재생에너지 정책 기관
+      gap: 채용 인원 적음 · 울산 근무
+    consult:
+      map:
+      - 도전 → 해외 파견
+      ask:
+      - 에너지 효율 데이터를 어떻게 활용할까요?
+      tip: 수시·소규모 공고 알림
   - name: 한국석유관리원
     status: 2026 채용형 인턴 34명 (7/22~8/6, 마감) · 다음 공고 대비
     conditions:
@@ -1032,6 +1725,21 @@ sectors:
     - label: 검사시험직 면접 후기 (comento)
       url: https://comento.kr/job-questions/한국석유관리원/모든직무/한국석유관리원_검사시험직_면접을_앞두고_있습니다-593186
     fit: '노트북 PT형: 짧은 시간에 데이터 → 결론 → 근거로 슬라이드 3장 만드는 연습을 해 두세요.'
+    talent:
+      kw:
+      - 공고 페이지에 인재상 항목 있음 — 문구 확인 필요
+      ok: false
+      src: 2026 채용형 인턴 공고
+      url: https://www.kpetro.or.kr
+    match:
+      score: 2
+      why: IT 분야 채용 이력
+      gap: 채용형 인턴 3개월 경로
+    consult:
+      map: []
+      ask:
+      - 가짜 석유 단속에 데이터를 쓴다면?
+      tip: IT 분야 공고 확인
 guides:
 - label: STAR 기법으로 말하는 방법 (브런치)
   url: https://brunch.co.kr/@mindminutes/22
@@ -1042,3 +1750,4 @@ guides:
 - label: 공기업 인성면접 준비 (comento)
   url: https://comento.kr/job-questions/%EB%AA%A8%EB%93%A0%ED%9A%8C%EC%82%AC/%EB%AA%A8%EB%93%A0%EC%A7%81%EB%AC%B4/%EA%B3%B5%EA%B8%B0%EC%97%85_%EC%9D%B8%EC%84%B1%EB%A9%B4%EC%A0%91-385768
   note: 외운 문장보다 키워드 중심으로 흐름만 준비하라는 의견
+match_rule: 추천 점수(1~5)는 내 조건(석사 지구물리·학사 자원에너지공학, 데이터·AI 프로젝트, ADsP·SQLD, 어학 준비 중)과 직무·전공 연결, 지원 자격 충족 여부로 매긴 판단입니다. 정기 업데이트(월·목) 때 새 공고·조건·인재상을 다시 찾아 갱신합니다.
