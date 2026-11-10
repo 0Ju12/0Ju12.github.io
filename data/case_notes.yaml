@@ -96,3 +96,39 @@ posco-pospeak:
       - "Performance was logged right after each stage; looking only at the final score would have ended at 'it's just low'."
     next:
       - "If sequential training is required, consider replay (mixing in earlier data) or regularization such as EWC; here the data were small enough that joint training was simplest and best."
+
+portfolio-site:
+  ko:
+    tradeoffs:
+      - "프레임워크(Next.js 등) 대신 Python + Jinja2 정적 생성: 화려한 기능은 줄지만, 데이터(YAML)와 화면을 분리해 같은 데이터로 사이트·이력서 PDF·노션 문구를 함께 만들 수 있고 빌드가 단순해짐"
+      - "점검을 사람이 아닌 빌드에 맡김: 배포가 조금 느려지는 대신 깨진 링크·필수 항목 누락·휴대폰 가로 넘침·1쪽 이력서 넘침을 배포 전에 잡음"
+      - "비공개 자료는 공개키로만 잠가 커밋: 정기 작업도 개인키 없이 자료를 추가할 수 있지만, 푸는 것은 비밀 키가 있는 배포 빌드에서만 가능"
+    next:
+      - "방문 통계(GoatCounter)를 연결해 어떤 프로젝트·이력서가 실제로 읽히는지 보고 순서를 정하는 것"
+      - "영문 페이지는 국문 데이터를 따로 번역해 관리하고 있어, 항목 누락을 자동으로 비교하는 점검을 추가할 계획"
+  en:
+    tradeoffs:
+      - "Python + Jinja2 static generation instead of a framework such as Next.js: fewer flashy features, but data (YAML) and presentation stay separate, so the same data produces the site, resume PDFs and Notion text, and the build stays simple."
+      - "Checks belong to the build, not to me: deploys are a little slower, but broken links, missing fields, phone overflow and a 1-page resume spilling over are caught before release."
+      - "Private material is committed only sealed with a public key: scheduled jobs can add material without the private key, while unsealing happens only in the deploy build that holds the secret."
+    next:
+      - "Connect visitor analytics (GoatCounter) to see which projects and resumes are actually read, and order them accordingly."
+      - "The English data is maintained as a separate translation; an automatic check that compares it with the Korean data for missing items is planned."
+
+prep-apps:
+  ko:
+    tradeoffs:
+      - "서버·로그인 대신 빌드 시 암호화 + 브라우저 복호화: 계정 관리·서버 비용이 없지만, 암호 하나로 전체를 여는 구조라 암호를 바꾸면 다시 빌드해야 함. 반복 횟수(PBKDF2 60만 회)로 추측 공격 비용을 높임"
+      - "기록은 브라우저에만 저장: 개인정보가 서버로 가지 않는 대신 기기 간 자동 동기화는 없음 → 암호를 건 파일로 옮겨 '덮어쓰기'가 아닌 '합치기'(연습 횟수가 많은 쪽, 나중에 고친 메모 우선)로 보완"
+      - "PDF·PPTX는 서버에 미리 만들지 않고 잠금을 푼 브라우저에서 생성: 버튼을 누를 때 조금 기다리지만, 암호 없이 받을 수 있는 평문 파일이 배포본에 남지 않음"
+    next:
+      - "여러 기기에서 자동으로 이어 쓰려면 종단간 암호화한 기록을 저장할 작은 저장소가 필요 — 지금은 파일 옮기기까지만 구현"
+      - "OPIc 녹음을 음성 인식으로 글자로 바꿔 말한 길이·반복 표현을 보여 주는 기능"
+  en:
+    tradeoffs:
+      - "Build-time encryption with in-browser decryption instead of a server and logins: no accounts or hosting cost, but one password opens everything and changing it means rebuilding. PBKDF2 at 600k iterations raises the cost of guessing."
+      - "Progress lives only in the browser: nothing personal goes to a server, but there is no automatic cross-device sync, so password-protected files move it and merge rather than overwrite (more practice wins; the later memo wins)."
+      - "PDF and PPTX are generated in the unlocked browser rather than pre-built: a short wait on click, but no plaintext file downloadable without the password is left in the deployment."
+    next:
+      - "Automatic sync across devices needs a small store for end-to-end encrypted progress — currently only file transfer is implemented."
+      - "Speech-to-text on OPIc recordings to show answer length and repeated phrases."

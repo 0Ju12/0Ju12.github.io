@@ -52,5 +52,23 @@
   "period": "2025.06 – 2025.08",
   "group": "Bootcamps — SSAFY · POSCO AI·BigData Academy",
   "image": "assets/photos/posco-pospeak/card/KILLKONG_앱_화면_(홈·채팅·단어·연습).jpg"
+ },
+ {
+  "id": "portfolio-site-en",
+  "title": "Data-driven portfolio generator — YAML → Korean/English site · resume PDFs · automated checks",
+  "tagline": "Korean/English site and resume PDFs generated from one YAML source",
+  "key": "One edit updates the site and all 5 resume PDFs",
+  "period": "2026.11 – present",
+  "group": "Personal projects — a data-driven portfolio · encrypted study & interview apps",
+  "image": "assets/photos/portfolio-site/card/포트폴리오_메인.jpg"
+ },
+ {
+  "id": "prep-apps-en",
+  "title": "Encrypted study notes & interview-prep apps — a PBKDF2 · AES-GCM PWA on static hosting",
+  "tagline": "Web apps that use private study and interview material while keeping it encrypted",
+  "key": "PBKDF2 600k + AES-GCM · no server, no plaintext",
+  "period": "2026.11 – present",
+  "group": "Personal projects — a data-driven portfolio · encrypted study & interview apps",
+  "image": "assets/photos/prep-apps/card/면접준비_발표자료.jpg"
  }
 ]

@@ -1,0 +1,26 @@
+/* 기기 옮기기 공통: 암호(선택)로 잠근 파일을 만들고, 휴대폰에서는 공유 시트로 보냄. 가져올 때는 덮어쓰지 않고 합침 */
+var SYNC=(function(){
+  var te=new TextEncoder(),td=new TextDecoder();
+  function b64(buf){var u=new Uint8Array(buf),s='';for(var i=0;i<u.length;i+=32768)s+=String.fromCharCode.apply(null,u.subarray(i,i+32768));return btoa(s)}
+  function ub(s){var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u}
+  function key(pw,salt){return crypto.subtle.importKey('raw',te.encode(pw),'PBKDF2',false,['deriveKey']).then(function(k){return crypto.subtle.deriveKey({name:'PBKDF2',salt:salt,iterations:250000,hash:'SHA-256'},k,{name:'AES-GCM',length:256},false,['encrypt','decrypt'])})}
+  function seal(app,obj,pw){var raw=JSON.stringify(obj);if(!pw)return Promise.resolve({sync:1,app:app,plain:obj});
+    var salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12));
+    return key(pw,salt).then(function(k){return crypto.subtle.encrypt({name:'AES-GCM',iv:iv},k,te.encode(raw))}).then(function(ct){return {sync:1,app:app,salt:b64(salt),iv:b64(iv),ct:b64(ct)}})}
+  function open(box,pw){if(box.plain)return Promise.resolve(box.plain);if(!box.ct)return Promise.resolve(box);
+    if(!pw)return Promise.reject(new Error('pw'));
+    return key(pw,ub(box.salt)).then(function(k){return crypto.subtle.decrypt({name:'AES-GCM',iv:ub(box.iv)},k,ub(box.ct))}).then(function(b){return JSON.parse(td.decode(b))},function(){throw new Error('bad')})}
+  function dl(f){var u=URL.createObjectURL(f),a=document.createElement('a');a.href=u;a.download=f.name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},1500)}
+  function save(name,text,type){var f=new File([text],name,{type:type||'application/json'});
+    try{if(navigator.canShare&&navigator.canShare({files:[f]})&&matchMedia('(pointer:coarse)').matches)return navigator.share({files:[f],title:name}).catch(function(e){if(!e||e.name!=='AbortError')dl(f)})}catch(_){}
+    dl(f);return Promise.resolve()}
+  function ui(app,getState,merge,done){
+    var h='<h2>기기 옮기기 · 백업</h2><div class="card"><p class="muted small" style="margin:0 0 10px">기록은 이 브라우저에만 있습니다. 파일로 내보내 다른 기기에서 <b>가져오기</b>하면 두 기기의 기록을 <b>합칩니다</b>(덮어쓰지 않음: 연습 횟수가 많은 쪽, 나중에 고친 메모가 남음). 휴대폰에서는 공유 창이 열려 카카오톡·메일·드라이브로 바로 보낼 수 있습니다.</p>'+
+      '<label class="small" for="spw" style="font-weight:700">파일 암호 (선택 · 메모·자소서를 메신저로 보낼 때 권장)</label><input class="field" id="spw" type="password" autocomplete="new-password" placeholder="비워 두면 암호 없이 저장" style="margin:6px 0 12px">'+
+      '<div class="row"><button class="btn" id="sexp">내보내기 · 보내기</button><label class="btn ghost" style="cursor:pointer">가져와서 합치기<input type="file" id="simp" accept="application/json,.json" hidden></label><button class="btn ghost" id="srst" style="margin-left:auto;color:var(--bad)">기록 지우기</button></div></div>';
+    return {html:h,bind:function(reset){
+      $('#sexp').onclick=function(){var pw=$('#spw').value;seal(app,getState(),pw).then(function(box){return save(app+'-'+(pw?'locked-':'')+new Date().toISOString().slice(0,10)+'.json',JSON.stringify(box))}).then(function(){toast(pw?'암호를 건 파일을 만들었습니다. 가져올 때 같은 암호가 필요합니다.':'파일을 만들었습니다.')}).catch(function(){toast('내보내지 못했습니다.')})};
+      $('#simp').onchange=function(e){var f=e.target.files[0];e.target.value='';if(!f)return;f.text().then(function(t){var box=JSON.parse(t);if(box.sync&&box.app&&box.app!==app)throw new Error('app');return open(box,$('#spw').value)}).then(function(d){if(!d||d.v!==1||typeof d.q!=='object')throw new Error('fmt');var n=merge(d);done(n)}).catch(function(err){var m=err&&err.message;toast(m==='pw'?'암호를 건 파일입니다. 위 칸에 암호를 넣고 다시 가져오세요.':m==='bad'?'암호가 맞지 않습니다.':m==='app'?'다른 앱(강의 노트/면접 준비)에서 내보낸 파일입니다.':'이 앱에서 내보낸 파일이 아닙니다.')})};
+      $('#srst').onclick=reset}}}
+  return {seal:seal,open:open,save:save,ui:ui}
+})();

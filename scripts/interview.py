@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "docs" / "interview"
 PRIVATE_JSON = ROOT / "content" / "private" / "interview.json"
 BANK_JSON = ROOT / "content" / "private" / "interview_bank.json"
-CATS = ["인성", "프로젝트", "전문지식", "기타"]
+CATS = ["인성", "프로젝트", "전문지식", "기타", "OPIc"]
 GROUP_CAT = {"인성 질문": "인성", "설계 판단 · 트레이드오프": "프로젝트", "RAG · 국보 입문 가이드": "프로젝트", "포트폴리오 기술 질문": "프로젝트"}
 PHOTOS = ROOT / "docs" / "assets" / "photos"
 
@@ -121,7 +121,19 @@ def questions(data, trend_posts):
             ans = re.sub(r"^>\s?", "", m.group(2).strip(), flags=re.M).strip()
             qs.append({"id": "t:" + w["slug"], "c": "전문지식", "g": "AI 트렌드", "q": m.group(1).strip(), "a": ans, "kind": "trend",
                        "link": f"../posts/{w['slug']}.html", "src": f"AI 트렌드 노트 #{w.get('episode')}"})
+    prep = _prep()
+    op, types = prep.get("opic") or {}, {t["id"]: t for t in (prep.get("opic") or {}).get("types") or []}
+    for i, o in enumerate(op.get("questions") or []):
+        t = types.get(o["t"], {})
+        qs.append({"id": f"o:{o['t']}:{i}", "c": "OPIc", "g": "OPIc · " + t.get("name", o["t"]), "q": o["q"], "a": (op.get("frames") or {}).get(o["t"], ""),
+                   "guide": op.get("tip", "") if o["t"] == "intro" else "", "kind": "opic", "ot": o["t"], "sec": t.get("sec", 120)})
     return qs
+
+
+def _prep():
+    import yaml
+    f = ROOT / "data" / "prep.yaml"
+    return (yaml.safe_load(f.read_text(encoding="utf-8")) or {}) if f.exists() else {}
 
 
 def decks(data, variants):
@@ -180,6 +192,10 @@ def build(env, data):
     app = {"questions": questions(data, data.get("trend_posts") or []), "decks": decks(data, variants),
            "roles": {k: v.get("label", k) for k, v in variants.items()}, "name": data["profile"]["name"], "cats": CATS,
            "recruit": yaml.safe_load((ROOT / "data" / "recruit.yaml").read_text(encoding="utf-8")) or {}}
+    prep = _prep()
+    app["prep"] = {k: prep.get(k) for k in ("updated", "goals", "weekly", "experiences", "essays")}
+    app["prep"]["opic_types"] = (prep.get("opic") or {}).get("types") or []
+    app["prep"]["opic_tip"] = (prep.get("opic") or {}).get("tip", "")
     html = env.get_template("interview.html.j2").render(app=app, **data)
     (OUT / "index.html").write_text(locker.page("면접 준비", html, "../index.html", pwa=False), encoding="utf-8")
     return {"questions": len(app["questions"]), "decks": len(app["decks"])} if locker.password else None

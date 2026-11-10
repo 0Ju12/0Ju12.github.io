@@ -118,6 +118,10 @@ CAPTIONS = {
     "국보입문가이드_RAG": "Heritage RAG guide — Q&A showing only verified citations",
     "학회_참가": "2022 — conference badges (KSEG · K-CCUS)",
     "유타_FORGE_지열부지_포스터발표": "2024.04 — Utah FORGE poster presentation",
+    "포트폴리오_메인": "Portfolio main page — generated from YAML data",
+    "면접준비_발표자료": "Interview app — deck with presenter notes, generated from portfolio data",
+    "면접준비_공채정보_휴대폰": "Interview app — recruiting info on a phone",
+    "잠금_화면": "Lock screen — pages encrypted with PBKDF2 · AES-GCM",
 }
 
 

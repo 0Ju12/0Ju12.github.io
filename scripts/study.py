@@ -72,6 +72,25 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 window.addEventListener('hashchange',go)})();</script>"""
 
 
+# 노트마다 똑같이 박혀 있던 KaTeX 수식 폰트(노트 1편당 약 340KB, 52편 합계 약 18MB)를 공용 파일 하나로 빼서
+# 브라우저가 한 번만 받고 캐시하게 함. 폰트는 공개 오픈소스(KaTeX, MIT)라 암호 없이 docs/study/fonts/ 에 둠
+FONT_RE = re.compile(r"url\((['\"]?)data:font/(woff2|woff|ttf);base64,([A-Za-z0-9+/=]+)\1\)")
+
+
+def slim(raw, fontdir):
+    import hashlib
+
+    def rep(m):
+        b = base64.b64decode(m.group(3))
+        name = f"{hashlib.sha1(b).hexdigest()[:12]}.{m.group(2)}"
+        f = fontdir / name
+        if not f.exists():
+            fontdir.mkdir(parents=True, exist_ok=True)
+            f.write_bytes(b)
+        return f"url('../fonts/{name}')"
+    return FONT_RE.sub(rep, raw)
+
+
 NUM_PREFIX = re.compile(r"(<(?:title|h1)[^>]*>)\s*(?:(?:AI|SW)\s*)?\d+\.\s*")
 
 
@@ -177,6 +196,8 @@ def build(env, data):
         return []
     locker = LOCKER
     notes = [parse(p) for p in sorted(src.glob("*.html"))]
+    for n in notes:
+        n["raw"] = slim(n["raw"], OUT / "fonts")
     import study_quiz
     quiz_file = src / "quiz" / "lessons.json"
     if not quiz_file.exists():

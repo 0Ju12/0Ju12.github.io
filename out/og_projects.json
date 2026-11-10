@@ -52,5 +52,23 @@
   "period": "2025.06 – 2025.08",
   "group": "부트캠프 — SSAFY 16기 · 포스코 AI 아카데미",
   "image": "assets/photos/posco-pospeak/card/KILLKONG_앱_화면_(홈·채팅·단어·연습).jpg"
+ },
+ {
+  "id": "portfolio-site",
+  "title": "데이터 기반 포트폴리오 생성기 — YAML → 국문·영문 사이트 · 이력서 PDF · 자동 점검",
+  "tagline": "YAML 한 곳의 데이터로 국문·영문 사이트와 이력서 PDF를 생성",
+  "key": "한 곳만 고치면 사이트·이력서 PDF 5종이 함께 바뀜",
+  "period": "2026.11 – 진행 중",
+  "group": "개인 프로젝트 — 데이터로 만드는 포트폴리오 · 암호화 학습·면접 앱",
+  "image": "assets/photos/portfolio-site/card/포트폴리오_메인.jpg"
+ },
+ {
+  "id": "prep-apps",
+  "title": "암호화 학습 노트 · 면접 준비 앱 — 정적 호스팅 위의 PBKDF2·AES-GCM PWA",
+  "tagline": "공개하면 안 되는 학습·면접 자료를 암호화한 채로 쓰는 웹 앱",
+  "key": "PBKDF2 60만 회 + AES-GCM · 서버 없이 평문 0",
+  "period": "2026.11 – 진행 중",
+  "group": "개인 프로젝트 — 데이터로 만드는 포트폴리오 · 암호화 학습·면접 앱",
+  "image": "assets/photos/prep-apps/card/면접준비_발표자료.jpg"
  }
 ]

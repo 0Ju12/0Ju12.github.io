@@ -39,6 +39,7 @@ h2{font-size:17px;letter-spacing:-.02em;margin:30px 0 12px}
 .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
 .btn.sm{height:32px;padding:0 11px;font-size:13px;border-radius:9px}
 .btn:disabled{opacity:.45;cursor:not-allowed}
+.field{width:100%;height:40px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);padding:0 12px;font:inherit}
 .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chip{text-decoration:none;border:1px solid var(--line);background:var(--card);border-radius:99px;padding:4px 12px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer}
@@ -166,12 +167,20 @@ var Q={},ALLQ=[];
 NOTES.forEach(function(n){(UNITS[n.slug].questions||[]).forEach(function(q){q.slug=n.slug;Q[q.id]=q;ALLQ.push(q)})});
 var TYPE={M:'객관식',S:'단답',W:'서술'};
 var INTERVAL=[0,1,3,7,14,30];
+{% include '_sync.js.j2' %}
 
 /* ---------- 저장 (이 브라우저에만) ---------- */
 var KEY='study-app-v1',S;
 function blank(){return {v:1,q:{},read:{},days:{},star:{},exams:[],last:null}}
 try{S=JSON.parse(localStorage.getItem(KEY))||blank()}catch(_){S=blank()}
-['q','read','days','star'].forEach(function(k){if(!S[k])S[k]={}});if(!Array.isArray(S.exams))S.exams=[];
+function fix(){['q','read','days','star'].forEach(function(k){if(!S[k]||typeof S[k]!=='object')S[k]={}});if(!Array.isArray(S.exams))S.exams=[]}fix();
+function mergeState(a,b){var n=0;
+  Object.keys(b.q||{}).forEach(function(k){var x=a.q[k],y=b.q[k];if(!x||(y.n||0)>(x.n||0)||((y.n||0)===(x.n||0)&&(y.last||'')>(x.last||''))){a.q[k]=y;n++}});
+  Object.keys(b.read||{}).forEach(function(k){if(!a.read[k]||b.read[k]>a.read[k]){if(!a.read[k])n++;a.read[k]=b.read[k]}});
+  Object.keys(b.star||{}).forEach(function(k){if(!a.star[k]){a.star[k]=b.star[k];n++}});
+  Object.keys(b.days||{}).forEach(function(k){a.days[k]=Math.max(a.days[k]||0,b.days[k])});
+  var seen={};a.exams.forEach(function(m){seen[JSON.stringify(m)]=1});(b.exams||[]).forEach(function(m){if(!seen[JSON.stringify(m)]){a.exams.push(m);n++}});
+  if(!a.last&&b.last)a.last=b.last;return n}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(_){toast('브라우저 저장 공간을 쓸 수 없어 기록이 남지 않습니다.')}}
 function today(off){var d=new Date();d.setDate(d.getDate()+(off||0));return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function toast(t){var el=$('#toast');el.textContent=t;el.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(function(){el.style.display='none'},2600)}
@@ -502,17 +511,16 @@ function made(){keyHandler=null;
 
 /* ---------- 기록 ---------- */
 function log(){keyHandler=null;
-  var h='<h1>학습 기록</h1><p class="sub">기록은 이 브라우저(localStorage)에만 있습니다. 다른 기기에서 이어 보려면 내보내기 → 가져오기를 쓰세요.</p>';
+  var h='<h1>학습 기록</h1><p class="sub">기록은 이 브라우저(localStorage)에만 있습니다. 다른 기기에서 이어 보려면 아래 [기기 옮기기]로 파일을 보내 합치세요.</p>';
   h+='<div class="card" style="overflow-x:auto"><table><thead><tr><th>트랙</th><th>읽은 노트</th><th>풀어 본 문제</th><th>최근 정답</th><th>익힌 문제</th></tr></thead><tbody>'+TRACKS.map(function(t){var ns=NOTES.filter(function(n){return n.track===t.id}),qs=ALLQ.filter(function(q){return NOTE[q.slug].track===t.id}),s=stat(qs);return '<tr><td><b>'+esc(t.name)+'</b></td><td>'+ns.filter(function(n){return S.read[n.slug]}).length+' / '+ns.length+'</td><td>'+s.tried+' / '+s.total+'</td><td>'+s.ok+'</td><td>'+s.master+' ('+s.pct+'%)</td></tr>'}).join('')+'</tbody></table></div>';
   h+='<h2>휴대폰에서 앱처럼</h2><div class="card"><p class="muted small" style="margin:0 0 12px">브라우저 메뉴의 "홈 화면에 추가"(iPhone은 공유 → 홈 화면에 추가)로 설치하면 앱처럼 열립니다. 아래 버튼을 한 번 누르면 노트 '+NOTES.length+'편과 검색 색인을 이 기기에 받아 두어 인터넷 없이도 열 수 있습니다. 받은 파일도 암호로 잠긴 상태 그대로입니다.</p><div class="row"><button class="btn" id="off">오프라인용으로 모두 받기</button><span class="muted small" id="offmsg"></span></div></div>';
-  h+='<h2>백업</h2><div class="card row"><button class="btn" id="exp">기록 내보내기</button><label class="btn ghost" style="cursor:pointer">가져오기<input type="file" id="imp" accept="application/json" hidden></label><button class="btn ghost" id="rst" style="margin-left:auto;color:var(--bad)">기록 지우기</button></div>';
+  var sy=SYNC.ui('study',function(){return S},function(d){var n=mergeState(S,d);fix();save();return n},function(n){toast('합쳤습니다. 새로 들어온 항목 '+n+'개.');log()});
+  h+=sy.html;
   $('#app').innerHTML=h;
   $('#off').onclick=function(){var b=this,m=$('#offmsg');if(!('serviceWorker' in navigator)||!navigator.serviceWorker.controller){m.textContent='이 브라우저(또는 지금 연 방식)에서는 오프라인 저장을 쓸 수 없습니다. 배포된 사이트를 새로 고친 뒤 다시 눌러 보세요.';return}
     b.disabled=true;var urls=['index.html','search.enc.json','manifest.webmanifest','icon-512.png'].concat(NOTES.map(function(n){return 'notes/'+n.slug+'.html'})),done=0;
     Promise.all(urls.map(function(u){return fetch(u,{cache:'no-cache'}).then(function(){done++;m.textContent=done+' / '+urls.length})})).then(function(){m.textContent='완료 · '+urls.length+'개 파일을 이 기기에 저장했습니다.'}).catch(function(){m.textContent='일부를 받지 못했습니다. 연결을 확인하고 다시 눌러 주세요.';b.disabled=false})};
-  $('#exp').onclick=function(){var b=new Blob([JSON.stringify(S,null,1)],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='study-progress-'+today()+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},1000)};
-  $('#imp').onchange=function(e){var f=e.target.files[0];if(!f)return;f.text().then(function(t){var d=JSON.parse(t);if(!d||d.v!==1||typeof d.q!=='object')throw 0;S=d;['q','read','days','star'].forEach(function(k){if(!S[k])S[k]={}});if(!Array.isArray(S.exams))S.exams=[];save();toast('기록을 가져왔습니다.');log()}).catch(function(){toast('이 앱에서 내보낸 기록 파일이 아닙니다.')})};
-  $('#rst').onclick=function(){if(confirm('이 브라우저의 학습 기록을 모두 지울까요? 되돌릴 수 없습니다.')){S=blank();save();toast('기록을 지웠습니다.');log()}};
+  sy.bind(function(){if(confirm('이 브라우저의 학습 기록을 모두 지울까요? 되돌릴 수 없습니다.')){S=blank();save();toast('기록을 지웠습니다.');log()}});
 }
 
 /* ---------- 공통 ---------- */

@@ -309,6 +309,81 @@ activities:
         links:
           - { label: Team GitHub, url: "https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5" }
 
+  - id: personal
+    card_title: "Personal projects — a data-driven portfolio · encrypted study & interview apps"
+    tagline: "Site and resumes generated from one YAML source; private material served as encrypted apps"
+    highlights: ["YAML → KO/EN site · 5 PDFs", "Automated checks before deploy", "PBKDF2 · AES-GCM encrypted PWA"]
+    icon: "🛠️"
+    kpi: { value: "5 PDFs", label: "Resumes generated from one YAML source (1-page · full · role-specific · English)" }
+    title: "Personal projects — data-driven portfolio generator · encrypted study notes & interview-prep apps"
+    type: Personal project
+    org: Personal (GitHub Pages · GitHub Actions)
+    period: { start: "2026.11", end: "present" }
+    role: Planning · design · development · operation
+    featured: true
+    priority: 4
+    onepage: false
+    brief:
+      - "Portfolio generator: YAML data → Jinja2 build → Korean/English pages, 14 project pages, 5 resume PDFs, search index and share images; links and layouts checked automatically before every deploy"
+      - "Study & interview apps: 52 lecture notes with 957 practice questions, plus interview questions, decks, recruiting info and cover-letter drafts — served as a PWA encrypted with PBKDF2 (600k) + AES-GCM"
+    tags: [Python, Jinja2, GitHub Actions, Playwright, Web Crypto, PWA, JavaScript]
+    summary: Managing the portfolio as data (YAML) so the site and resumes are generated, and building encrypted apps for study and interview material that must not be public
+    projects:
+      - id: portfolio-site
+        digest: {"problem": "Editing the same facts separately in resumes, the portfolio, Notion and LinkedIn made numbers and wording drift apart", "role": "Personal project · design through deployment and operation", "did": ["Kept portfolio data in one YAML source and generated Korean/English pages, 5 resume PDFs and Notion/LinkedIn text with Jinja2", "GitHub Actions: build → link and required-field checks → layout checks (Playwright) → Pages deploy", "Private material committed only as public-key-sealed files, unsealed in the deploy build and emitted as encrypted pages", "'Ask my portfolio': finds passages on the site and shows them with sources — no LLM"], "result": ["One edit updates the Korean/English site, resumes and 14 project pages together", "Every deploy checks links on all pages (90+) and desktop/phone layouts", "A 1-page resume that spills onto page 2 is caught in the build"]}
+        tagline: "Korean/English site and resume PDFs generated from one YAML source"
+        key: "One edit updates the site and all 5 resume PDFs"
+        short: "Portfolio generator"
+        title: "Data-driven portfolio generator — YAML → Korean/English site · resume PDFs · automated checks"
+        type: Personal project
+        org: Personal · GitHub Pages
+        period: { start: "2026.11", end: "present" }
+        team: "Solo"
+        role: Design · development · operation
+        tags: [Python, Jinja2, YAML, GitHub Actions, Playwright, JavaScript]
+        summary: A static-site generator that keeps portfolio content as YAML data; the build produces Korean/English pages, project pages, resume PDFs and a search index, and deploys only after automated checks pass
+        star:
+          situation: The same experiences were written separately in resumes (1-page, full, role-specific, English), the web portfolio, Notion and LinkedIn, so figures and wording drifted and every fix had to be made in several places
+          task: Keep facts in one place, generate everything else from it, and let the machine catch broken pages before deployment
+          action:
+            - "Data: activities and projects stored in STAR form in data/portfolio.yaml (Korean) and portfolio.en.yaml (English); per-project design decisions and retrospectives in case_notes.yaml"
+            - "Build: Python + Jinja2 generate the main page, 14 project pages (KO/EN), resumes (1-page, full, data/AI role, English) with 5 PDFs printed by Playwright, a search index, share images, sitemap and Notion/LinkedIn text in one run"
+            - "Checks: missing fields and links fail the build under --strict; link checks on every page and desktop/phone layout checks (overflow, overlap) run before deploy"
+            - "Private material: contact details, evidence and interview answers are committed only as files sealed with a public key (RSA-OAEP + AES-GCM); GitHub Actions unseals them with a secret key and emits encrypted pages only — no plaintext in the repository"
+            - "Extras: 'Ask my portfolio' (site passages with sources, no LLM), a RAG citation-check mini demo, a career map of studied regions (Natural Earth) and an AI-trend post series"
+          result:
+            - "One edit updates the Korean/English site, resume PDFs and project pages together, so an error such as an award's English name is fixed everywhere at once"
+            - "Every deploy must pass link checks on all pages (90+) and desktop/phone layout checks"
+        links:
+          - { label: "Site", url: "https://0ju12.github.io/en.html" }
+          - { label: "How it was built (KO)", url: "https://0ju12.github.io/posts/2026-11-portfolio-one-yaml.html" }
+      - id: prep-apps
+        digest: {"problem": "Lecture notes, interview answers and cover letters must not be public, but I wanted to review and practise on both phone and PC", "role": "Personal project · planning through encryption and UI", "did": ["Study app that turns 52 lecture notes into 957 practice questions, keyword cards, cloze items, weakness reports and mock exams", "Interview app: question bank, timed/recorded mock interviews, decks (PDF/PPTX generated in the browser), recruiting info for 38 organisations, 30 cover-letter prompts, goal D-days", "Every page and the search index encrypted with PBKDF2 (600k) + AES-GCM; one unlock per tab covers both apps", "Offline use (PWA) and password-protected files to merge progress between devices"], "result": ["Runs encrypted on GitHub Pages with no server — no plaintext in the repository or the deployment", "A scheduled job adds interview questions every Mon/Thu as sealed files, merged in the deploy build", "Main desktop and phone flows pass automated checks"]}
+        tagline: "Web apps that use private study and interview material while keeping it encrypted"
+        key: "PBKDF2 600k + AES-GCM · no server, no plaintext"
+        short: "Study & interview apps"
+        title: "Encrypted study notes & interview-prep apps — a PBKDF2 · AES-GCM PWA on static hosting"
+        type: Personal project
+        org: Personal · GitHub Pages
+        period: { start: "2026.11", end: "present" }
+        team: "Solo"
+        role: Planning · design · development
+        tags: [JavaScript, Web Crypto, PWA, Python, cryptography, Playwright]
+        summary: Study and interview-practice apps whose content is encrypted at build time, hosted as a static site and decrypted in the browser with a password
+        star:
+          situation: SSAFY lecture notes, interview answers and cover letters cannot go into a public repository, yet I needed to review and practise on my phone while on the move — without running a server
+          task: Deploy the content encrypted using only static hosting (GitHub Pages), so that only someone with the password can open it in the browser
+          action:
+            - "Encryption: at build time each page is sealed with AES-GCM under a key derived by PBKDF2-SHA256 (600k iterations) and decrypted with the browser's Web Crypto; one key per build, so a single unlock per tab opens both apps. Builds without a password emit empty lock pages only"
+            - "Study app: titles, outlines and summaries extracted from 52 notes; 957 practice questions (multiple choice, cloze, written), keyword cards, weakness report and mock exams; the full-text index is gzipped and encrypted with the same key; spaced review at 1·3·7·14·30 days"
+            - "Interview app: question bank with typical vs strong answers, answer skeletons and decks generated from portfolio data (presenter mode; PDF/PPTX built in the unlocked browser), timed/recorded mock interviews, an OPIc practice set, recruiting info for 38 organisations, 30 cover-letter prompts with core-experience balancing, goal D-days and weekly checks"
+            - "Operation: the scheduled job adds new questions as public-key-sealed add-on files without the private key and the deploy build merges them; math fonts moved to one shared file to cut note size by more than half; progress moves between devices as password-protected files that merge rather than overwrite"
+          result:
+            - "Runs on GitHub Pages with no server and leaves no plaintext in the repository or the deployment · moving math fonts to a shared file cut encrypted notes from about 44 MB to 20 MB"
+            - "Bottom tab bar on phones and offline install (PWA); main desktop and phone flows pass automated checks"
+        links:
+          - { label: "Lock screen", url: "https://0ju12.github.io/interview/" }
+
 publications:
   - { kind: 논문, year: 2026, title: "Wavenumber Correlation of Gravity and Magnetic Anomalies for Constraining Salt/Basement Structure in Offshore Abu Dhabi", venue: "SPE Journal (SCIE) · first author", url: "https://doi.org/10.2118/236968-PA" }
   - { kind: 논문, year: 2024, title: "Analysis on Seismic Interpretation for Overseas Large-scale CO2 Storage Considering Geological History Related to Plate Tectonics", venue: "Geophysics and Geophysical Exploration 27(1), 1–22 · first author (in Korean)", url: "https://koreascience.or.kr/article/JAKO202410348585789.page" }

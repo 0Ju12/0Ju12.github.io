@@ -25,6 +25,40 @@ Research history: https://www.geoverselab.com/ko/research-history/13/
 
 ## 3. 경력·활동 항목 (칸 하나씩)
 
+### Data-driven portfolio generator — YAML → Korean/English site · resume PDFs · automated checks
+- **직함/역할:** Design · development · operation
+- **회사/기관:** Personal · GitHub Pages
+- **기간:** 2026.11 – present
+- **설명:**
+```
+A static-site generator that keeps portfolio content as YAML data; the build produces Korean/English pages, project pages, resume PDFs and a search index, and deploys only after automated checks pass
+• Data: activities and projects stored in STAR form in data/portfolio.yaml (Korean) and portfolio.en.yaml (English); per-project design decisions and retrospectives in case_notes.yaml
+• Build: Python + Jinja2 generate the main page, 14 project pages (KO/EN), resumes (1-page, full, data/AI role, English) with 5 PDFs printed by Playwright, a search index, share images, sitemap and Notion/LinkedIn text in one run
+• Checks: missing fields and links fail the build under --strict; link checks on every page and desktop/phone layout checks (overflow, overlap) run before deploy
+• Private material: contact details, evidence and interview answers are committed only as files sealed with a public key (RSA-OAEP + AES-GCM); GitHub Actions unseals them with a secret key and emits encrypted pages only — no plaintext in the repository
+✔ One edit updates the Korean/English site, resume PDFs and project pages together, so an error such as an award's English name is fixed everywhere at once
+✔ Every deploy must pass link checks on all pages (90+) and desktop/phone layout checks
+Skills: Python, Jinja2, YAML, GitHub Actions, Playwright, JavaScript
+Details: https://0ju12.github.io/projects/portfolio-site-en.html
+```
+
+### Encrypted study notes & interview-prep apps — a PBKDF2 · AES-GCM PWA on static hosting
+- **직함/역할:** Planning · design · development
+- **회사/기관:** Personal · GitHub Pages
+- **기간:** 2026.11 – present
+- **설명:**
+```
+Study and interview-practice apps whose content is encrypted at build time, hosted as a static site and decrypted in the browser with a password
+• Encryption: at build time each page is sealed with AES-GCM under a key derived by PBKDF2-SHA256 (600k iterations) and decrypted with the browser's Web Crypto; one key per build, so a single unlock per tab opens both apps. Builds without a password emit empty lock pages only
+• Study app: titles, outlines and summaries extracted from 52 notes; 957 practice questions (multiple choice, cloze, written), keyword cards, weakness report and mock exams; the full-text index is gzipped and encrypted with the same key; spaced review at 1·3·7·14·30 days
+• Interview app: question bank with typical vs strong answers, answer skeletons and decks generated from portfolio data (presenter mode; PDF/PPTX built in the unlocked browser), timed/recorded mock interviews, an OPIc practice set, recruiting info for 38 organisations, 30 cover-letter prompts with core-experience balancing, goal D-days and weekly checks
+• Operation: the scheduled job adds new questions as public-key-sealed add-on files without the private key and the deploy build merges them; math fonts moved to one shared file to cut note size by more than half; progress moves between devices as password-protected files that merge rather than overwrite
+✔ Runs on GitHub Pages with no server and leaves no plaintext in the repository or the deployment · moving math fonts to a shared file cut encrypted notes from about 44 MB to 20 MB
+✔ Bottom tab bar on phones and offline install (PWA); main desktop and phone flows pass automated checks
+Skills: JavaScript, Web Crypto, PWA, Python, cryptography, Playwright
+Details: https://0ju12.github.io/projects/prep-apps-en.html
+```
+
 ### SSAFY — ThRead LLM comment-analysis pipeline · AI Challenge VQA ensemble
 - **직함/역할:** Backend & data pipeline · model training (AI Challenge)
 - **회사/기관:** Samsung Software & AI Academy for Youth (SSAFY) · team of 2

@@ -15,7 +15,7 @@
 <div class="facts">{% for h in highlights %}<span><b>{{ h.value }}</b>{{ h.label }}</span>{% endfor %}</div>
 
 <h2>{{ L.exp }}</h2>
-{% for a in featured %}
+{% for a in featured if a.onepage is not sameas false %}
 <div class="it">
   <div class="when">{{ a.period_str }}</div>
   <div>

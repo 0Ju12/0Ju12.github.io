@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data-driven portfolio generator — YAML → Korean/English site · resume PDFs · automated checks — Young-Ju Lee</title>
+<meta name="description" content="A static-site generator that keeps portfolio content as YAML data; the build produces Korean/English pages, project pages, resume PDFs and a search index, and deploys only after automated checks pass">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Young-Ju Lee — Portfolio">
+<meta property="og:title" content="Data-driven portfolio generator — YAML → Korean/English site · resume PDFs · automated checks — Young-Ju Lee">
+<meta property="og:description" content="A static-site generator that keeps portfolio content as YAML data; the build produces Korean/English pages, project pages, resume PDFs and a search index, and deploys only after automated checks pass">
+<meta property="og:url" content="https://0ju12.github.io/projects/portfolio-site-en.html">
+<meta property="og:image" content="https://0ju12.github.io/og/portfolio-site-en.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#18181b">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--bg:#f7f7f8;--text:#18181b;--muted:#5f5f68;--faint:#9b9ba3;--line:#e4e4e8;--card:#fff;--ink:#18181b;--on-ink:#fafafa;--accent:#5b6cff;--on-accent:#fff;--chip:#f1f1f4;--soft:#eef1ff;--pos:#16a34a;--neg:#db2777;--shadow:0 1px 2px rgba(0,0,0,.04),0 18px 48px -18px rgba(0,0,0,.16)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d10;--text:#f4f4f5;--muted:#a1a1aa;--faint:#71717a;--line:#27272a;--card:#17171a;--ink:#f4f4f5;--on-ink:#0d0d10;--accent:#8b97ff;--on-accent:#0d0d10;--chip:#202024;--soft:#1a1e2e;--pos:#4ade80;--neg:#f472b6;--shadow:0 18px 48px -18px rgba(0,0,0,.6)}}
+:root[data-theme="dark"]{--bg:#0d0d10;--text:#f4f4f5;--muted:#a1a1aa;--faint:#71717a;--line:#27272a;--card:#17171a;--ink:#f4f4f5;--on-ink:#0d0d10;--accent:#8b97ff;--on-accent:#0d0d10;--chip:#202024;--soft:#1a1e2e;--pos:#4ade80;--neg:#f472b6;--shadow:0 18px 48px -18px rgba(0,0,0,.6)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.75 "Pretendard Variable",Pretendard,system-ui,sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:anywhere}
+a{color:inherit}
+.w{max-width:960px;margin:0 auto;padding:0 24px}
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.bar .w{display:flex;align-items:center;gap:14px;height:58px;font-size:14px;font-weight:600}
+.bar .back{margin-right:auto;text-decoration:none;display:flex;align-items:center;gap:10px;min-height:40px}
+.bar .back .avatar{width:26px;height:26px;border-radius:50%;object-fit:cover;font-size:10px}
+.bar a.l,.bar button{color:var(--muted);text-decoration:none;background:none;border:1px solid var(--line);border-radius:999px;padding:5px 12px;font:inherit;font-size:13px;cursor:pointer}
+.bar a.l:hover,.bar button:hover{color:var(--text)}
+header{padding:56px 0 28px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.chips span{font-size:12.5px;font-weight:700;padding:4px 12px;border-radius:999px;background:var(--soft);color:var(--accent)}
+.chips span+span{background:var(--chip);color:var(--muted)}
+h1{font-size:clamp(28px,4.4vw,44px);line-height:1.22;letter-spacing:-.045em;margin:0 0 16px}
+.lead{font-size:18.5px;color:var(--muted);margin:0 0 18px;max-width:780px}
+.meta{font-size:14px;color:var(--faint);margin-bottom:22px}
+.acts{display:flex;flex-wrap:wrap;gap:8px}
+.acts a{display:inline-flex;align-items:center;gap:6px;height:42px;padding:0 16px;border-radius:999px;font-weight:700;font-size:14px;text-decoration:none;border:1px solid var(--line);background:var(--card)}
+.acts a:first-child{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.acts a:hover{border-color:var(--text)}
+.keyline{display:flex;gap:10px;align-items:flex-start;font-size:16px;font-weight:700;margin:0 0 18px;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:var(--card);max-width:780px}
+.keyline i{font-style:normal;font-size:12px;font-weight:800;letter-spacing:.04em;padding:3px 8px;border-radius:6px;background:var(--ink);color:var(--on-ink);flex:none;margin-top:1px}
+.toc{position:sticky;top:58px;z-index:5;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:10px 0;margin:6px 0 0;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px)}
+.toc::-webkit-scrollbar{display:none}
+.toc a{flex:none;font-size:13px;font-weight:700;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);text-decoration:none;color:var(--muted)}
+.toc a:hover{color:var(--text);border-color:var(--text)}
+section,.two{scroll-margin-top:110px}
+.glance .gl{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.glance .gl div{display:flex;gap:10px;align-items:flex-start;padding:14px 16px;border-radius:16px;background:var(--card);border:1px solid var(--line);font-weight:600;font-size:15px;line-height:1.55}
+.glance .gl i{flex:none;font-style:normal;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:12px;background:var(--soft);color:var(--accent);margin-top:1px}
+details.full{margin:44px 0 0;border:1px solid var(--line);border-radius:16px;background:var(--card);padding:0 20px}
+details.full summary{cursor:pointer;font-weight:700;font-size:15px;padding:16px 0;list-style:none}
+details.full summary::-webkit-details-marker{display:none}
+details.full summary::before{content:'+ ';color:var(--muted)}
+details.full[open] summary::before{content:'– '}
+details.full h3{font-size:15px;margin:18px 0 6px}
+details.full p{margin:0;color:var(--muted);font-size:14.5px}
+details.full[open]{padding-bottom:20px}
+.media{margin:24px 0 8px}
+.media figure{margin:0;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow)}
+.media img{width:100%;display:block;background:#fff}
+.media figcaption{font-size:13px;color:var(--muted);padding:12px 18px;border-top:1px solid var(--line)}
+section{padding:48px 0 0}
+section>h2{font-size:clamp(22px,2.8vw,28px);letter-spacing:-.035em;margin:0 0 4px}
+section>.sub{color:var(--faint);font-size:14px;margin:0 0 18px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px 24px}
+.card h3{margin:0 0 6px;font-size:13px;letter-spacing:.06em;color:var(--accent);text-transform:uppercase}
+.card p{margin:0}
+.list{list-style:none;margin:0;padding:0;counter-reset:n}
+.list li{position:relative;padding:14px 0 14px 44px;border-top:1px solid var(--line)}
+.list li:first-child{border-top:0}
+.list li::before{counter-increment:n;content:counter(n);position:absolute;left:0;top:14px;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:12.5px;font-weight:700;background:var(--chip);color:var(--muted)}
+.list.res li::before{content:"✓";background:var(--soft);color:var(--accent)}
+.boxed{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:6px 24px}
+.trade{display:grid;gap:12px}
+.trade div{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:16px;padding:16px 20px}
+.trade.next div{border-left-color:var(--faint)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.gallery a{text-decoration:none;color:var(--muted);font-size:12.5px}
+.gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;display:block;margin-bottom:6px;border:1px solid var(--line);background:#fff}
+.posts a{display:flex;justify-content:space-between;gap:16px;padding:16px 20px;border:1px solid var(--line);border-radius:18px;background:var(--card);text-decoration:none;margin-bottom:10px;font-weight:600}
+.posts a small{display:block;color:var(--faint);font-weight:500}
+.posts a:hover{border-color:var(--text)}
+.pn{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:64px 0 0}
+.pn a{display:block;padding:18px 22px;border:1px solid var(--line);border-radius:20px;background:var(--card);text-decoration:none;font-weight:700;line-height:1.45}
+.pn a small{display:block;color:var(--faint);font-weight:600;font-size:12.5px;margin-bottom:4px}
+.pn a.r{text-align:right}
+.pn a:hover{border-color:var(--text)}
+footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
+/* 구조도 */
+.diagram{margin:0;padding:24px;border-radius:22px;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow)}
+.dg-row{display:grid;grid-template-columns:200px 28px 1fr 28px 210px;align-items:center;gap:0}
+.dg-col{display:grid;gap:8px}
+.dg-tag{font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.dg-box{padding:10px 12px;border-radius:12px;background:var(--chip);font-size:13.5px;font-weight:700;line-height:1.45}
+.dg-box.p{background:color-mix(in srgb,var(--pos) 14%,transparent)}
+.dg-box.n{background:color-mix(in srgb,var(--neg) 14%,transparent)}
+.dg-col small{font-size:12px;color:var(--muted);line-height:1.5}
+.dg-arrow{height:2px;background:var(--line);position:relative;margin:0 4px}
+.dg-arrow::after{content:"";position:absolute;right:-2px;top:-4px;border:5px solid transparent;border-left:7px solid var(--faint)}
+.dg-steps{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.dg-steps li{display:grid;grid-template-columns:26px 1fr;column-gap:10px;padding:9px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg)}
+.dg-steps li i{grid-row:span 3;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:800;background:var(--accent);color:var(--on-accent)}
+.dg-steps b{font-size:14px;line-height:1.4}
+.dg-steps small{font-size:12px;color:var(--muted);line-height:1.5}
+.dg-pair{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 2px}
+.dg-pair em{font-style:normal;font-size:12px;font-weight:700;padding:2px 8px;border-radius:6px}
+.dg-pair .p{background:color-mix(in srgb,var(--pos) 16%,transparent)}
+.dg-pair .n{background:color-mix(in srgb,var(--neg) 16%,transparent)}
+.diagram figcaption{margin-top:14px;font-size:12.5px;color:var(--faint)}
+@media (max-width:760px){
+  header{padding-top:32px}
+  .boxed{padding:2px 16px;border-radius:18px}
+  .list li{padding:12px 0 12px 36px}
+  .list li::before{top:13px;width:24px;height:24px;font-size:11.5px}
+  .acts a{height:36px;padding:0 13px;font-size:13px}
+  .lead{font-size:17px}
+  .two,.pn{grid-template-columns:1fr}
+  .pn a.r{text-align:left}
+  .dg-row{grid-template-columns:1fr;gap:8px}
+  .dg-arrow{width:2px;height:18px;margin:0 auto}
+  .dg-arrow::after{right:-4px;top:auto;bottom:-6px;border:5px solid transparent;border-top:7px solid var(--faint)}
+}
+</style>
+</head>
+<body>
+<nav class="bar"><div class="w"><a class="back" href="../en.html#work"><img class="avatar" src="../assets/photos/profile.jpg" alt="Young-Ju Lee Profile photo">
+← Portfolio</a><a class="l" href="portfolio-site.html" hreflang="ko">한국어</a><button id="theme" type="button">Theme</button></div></nav>
+<main class="w">
+  <header>
+    <div class="chips"><span>Personal project</span><span>2026.11 – present</span><span>Solo</span></div>
+    <h1>Data-driven portfolio generator — YAML → Korean/English site · resume PDFs · automated checks</h1>
+<p class="lead">A static-site generator that keeps portfolio content as YAML data; the build produces Korean/English pages, project pages, resume PDFs and a search index, and deploys only after automated checks pass</p>    <div class="meta">Personal · GitHub Pages · Design · development · operation</div>
+<p class="keyline"><i>KEY</i><span>One edit updates the site and all 5 resume PDFs</span></p><div class="acts"><a href="https://0ju12.github.io/en.html" target="_blank" rel="noopener">Site ↗</a><a href="https://0ju12.github.io/posts/2026-11-portfolio-one-yaml.html" target="_blank" rel="noopener">How it was built (KO) ↗</a></div>  </header>
+
+  <nav class="toc" aria-label="On this page"><a href="#glance">At a glance</a><a href="#story">Problem · My role</a><a href="#did">What I did</a><a href="#result">Results</a><a href="#tradeoffs">Decisions &amp; trade-offs</a><a href="#media">Photos &amp; figures</a></nav>
+
+  <section class="glance" id="glance"><h2>At a glance</h2>
+    <div class="gl"><div><i>1</i><span>One edit updates the Korean/English site, resumes and 14 project pages together</span></div><div><i>2</i><span>Every deploy checks links on all pages (90+) and desktop/phone layouts</span></div><div><i>3</i><span>A 1-page resume that spills onto page 2 is caught in the build</span></div></div>
+  </section>
+  <div class="two" id="story" style="margin-top:28px">
+<div class="card"><h3>Problem</h3><p>The same experiences were written separately in resumes (1-page, full, role-specific, English), the web portfolio, Notion and LinkedIn, so figures and wording drifted and every fix had to be made in several places</p></div><div class="card"><h3>My role</h3><p>Keep facts in one place, generate everything else from it, and let the machine catch broken pages before deployment</p></div>  </div>
+
+<section id="did"><h2>What I did</h2><div class="boxed"><ol class="list"><li>Data: activities and projects stored in STAR form in data/portfolio.yaml (Korean) and portfolio.en.yaml (English); per-project design decisions and retrospectives in case_notes.yaml</li><li>Build: Python + Jinja2 generate the main page, 14 project pages (KO/EN), resumes (1-page, full, data/AI role, English) with 5 PDFs printed by Playwright, a search index, share images, sitemap and Notion/LinkedIn text in one run</li><li>Checks: missing fields and links fail the build under --strict; link checks on every page and desktop/phone layout checks (overflow, overlap) run before deploy</li><li>Private material: contact details, evidence and interview answers are committed only as files sealed with a public key (RSA-OAEP + AES-GCM); GitHub Actions unseals them with a secret key and emits encrypted pages only — no plaintext in the repository</li><li>Extras: &#39;Ask my portfolio&#39; (site passages with sources, no LLM), a RAG citation-check mini demo, a career map of studied regions (Natural Earth) and an AI-trend post series</li></ol></div></section><section id="result"><h2>Results</h2><div class="boxed"><ul class="list res"><li>One edit updates the Korean/English site, resume PDFs and project pages together, so an error such as an award&#39;s English name is fixed everywhere at once</li><li>Every deploy must pass link checks on all pages (90+) and desktop/phone layout checks</li></ul></div></section>
+<section id="tradeoffs"><h2>Decisions &amp; trade-offs</h2><p class="sub">What I chose, and what I gave up for it</p><div class="trade"><div>Python + Jinja2 static generation instead of a framework such as Next.js: fewer flashy features, but data (YAML) and presentation stay separate, so the same data produces the site, resume PDFs and Notion text, and the build stays simple.</div><div>Checks belong to the build, not to me: deploys are a little slower, but broken links, missing fields, phone overflow and a 1-page resume spilling over are caught before release.</div><div>Private material is committed only sealed with a public key: scheduled jobs can add material without the private key, while unsealing happens only in the deploy build that holds the secret.</div></div></section><section id="next"><h2>Looking back · open questions</h2><p class="sub">What I would change, and what is still open</p><div class="trade next"><div>Connect visitor analytics (GoatCounter) to see which projects and resumes are actually read, and order them accordingly.</div><div>The English data is maintained as a separate translation; an automatic check that compares it with the Korean data for missing items is planned.</div></div></section>
+<section id="media"><h2>Photos &amp; figures</h2><div class="gallery"><a href="../assets/photos/portfolio-site/포트폴리오_메인_첫화면_(YAML에서_생성).jpg" target="_blank" rel="noopener"><img src="../assets/photos/portfolio-site/포트폴리오_메인_첫화면_(YAML에서_생성).jpg" alt="Portfolio main page — generated from YAML data" loading="lazy">Portfolio main page — generated from YAML data</a></div></section>
+
+
+  <nav class="pn" aria-label="projects">
+<a href="posco-pospeak-en.html"><small>← Previous</small>POSPEAK (KILL KONG) — Konglish → natural English correction AI (FLAN-T5 · Qwen + RAG)</a><a class="r" href="prep-apps-en.html"><small>Next →</small>Encrypted study notes &amp; interview-prep apps — a PBKDF2 · AES-GCM PWA on static hosting</a>  </nav>
+  <footer>© Young-Ju Lee · generated from data/portfolio.en.yaml</footer>
+</main>
+<script>
+(function(){var r=document.documentElement,K='theme';
+try{var s=localStorage.getItem(K);if(s)r.setAttribute('data-theme',s)}catch(e){}
+var b=document.getElementById('theme');if(b)b.addEventListener('click',function(){
+var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});
+document.querySelectorAll('[data-expand]').forEach(function(btn){btn.addEventListener('click',function(){
+var t=document.getElementById(btn.dataset.expand);var open=t.hasAttribute('hidden');
+if(open){t.removeAttribute('hidden')}else{t.setAttribute('hidden','')}
+btn.setAttribute('aria-expanded',open);btn.querySelector('span').textContent=open?'Close':'Details';});});
+})();
+</script>
+</body>
+</html>

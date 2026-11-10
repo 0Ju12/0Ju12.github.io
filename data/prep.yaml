@@ -1,0 +1,108 @@
+# 면접 준비 앱(잠김)의 목표 D-day · 주간 체크 · OPIc 연습 · 자소서 문항 은행
+# - 답변·자소서 본문은 여기 넣지 않음: 사용자가 앱에서 쓰면 그 브라우저에만 저장(기기 옮기기는 암호 파일)
+# - 날짜는 앱에서 직접 바꿀 수 있음(여기 값은 기본값). 정기 작업(월·목)이 갱신해도 됨
+updated: '2026-11-10'
+
+goals:
+  - { id: sqld, name: "SQLD 시험", date: "2026-11-14", note: "결과 발표 11/27 · 합격하면 이력서·포트폴리오 반영" }
+  - { id: sqld-result, name: "SQLD 결과 발표", date: "2026-11-27", note: "" }
+  - { id: opic, name: "OPIc IH", date: "", note: "포스코인터내셔널 서류 마감 1~2주 전으로 시험일을 역산해 입력하세요" }
+  - { id: algo, name: "SW 역량테스트 A형", date: "", note: "SSAFY 공지의 시험일을 입력하세요" }
+  - { id: essay, name: "자소서 30문항 완성", date: "2026-12-26", note: "하루 1문항 · 주 5문항이면 6주", progress: essay }
+  - { id: apt, name: "인적성 (NCS · GSAT)", date: "", note: "지원 회사를 정한 뒤 시험일 입력 · 주 3회 30분" }
+
+weekly:   # 월요일에 새로 시작. auto: 앱 안의 행동으로 자동 +1
+  - { id: algo, label: "알고리즘 (SWEA D5 이상)", target: 10, unit: "문제" }
+  - { id: opic, label: "OPIc 녹음 연습", target: 5, unit: "회", auto: "OPIc 모의 면접을 끝내면 +1" }
+  - { id: essay, label: "자소서", target: 5, unit: "문항", auto: "자소서를 '완성'으로 바꾸면 +1" }
+  - { id: apt, label: "인적성 (NCS·GSAT)", target: 3, unit: "회" }
+  - { id: mock, label: "면접 모의 연습", target: 3, unit: "회", auto: "모의 면접을 끝내면 +1" }
+
+# 자소서에 돌려 쓸 핵심 경험 6개 (문항마다 하나를 골라 겹치지 않게)
+experiences:
+  - { id: spe, name: "석사 · SPE 논문", hint: "신호가 겹친 문제를 지표 설계로 분리 · 독립 모델 3개와 r ≥ 0.94로 검증" }
+  - { id: llm, name: "관통 4~7 · LLM 검증", hint: "LLM 답을 코드로 검증 · 자동 테스트 142개 · 2인 팀 백엔드" }
+  - { id: vqa, name: "AI 챌린지 · VQA", hint: "fixes−breaks로 후보 채택 · 최고 제출 보호 · 재현 스크립트" }
+  - { id: fire, name: "산불 확산 예측", hint: "작은 데이터로 U-LSTM · 미학습 산불 F1 0.85" }
+  - { id: pospeak, name: "POSPEAK", hint: "순차 학습 실패 확인 → 통합 학습 전환 · F1 0.32→0.74 · 장려상" }
+  - { id: calgary, name: "캘거리 파견", hint: "해외 연구실 6개월 · 3기관 공동연구 조율 · 영어로 협업" }
+
+opic:
+  tip: "OPIc은 약 40분 동안 15문항 안팎을 녹음으로 답합니다. 문항 수·시간·난이도 선택 방식은 공식 안내에서 확인하세요. IH는 '문단 단위로 길게, 시제와 연결어를 정확히' 말하는 것이 핵심입니다."
+  types:
+    - { id: intro, name: "자기소개", sec: 90 }
+    - { id: describe, name: "묘사", sec: 120 }
+    - { id: routine, name: "루틴 · 습관", sec: 120 }
+    - { id: past, name: "과거 경험", sec: 120 }
+    - { id: compare, name: "비교 · 변화", sec: 120 }
+    - { id: roleplay, name: "롤플레이", sec: 120 }
+    - { id: issue, name: "돌발 · 사회 이슈", sec: 120 }
+  frames:
+    intro: "Hi, I'm ___. I recently finished my master's in ___ and now I'm in a software academy. → What I do on a normal day → What I enjoy (one hobby that matches my survey) → Where I want to be next year."
+    describe: "Big picture (where / what it looks like) → 3 details (place · people · feeling) → Why I like it → Wrap-up: 'So that's ___ in a nutshell.'"
+    routine: "Usually / First, I ___ → Then / After that ___ → On weekends it's different: ___ → Why this routine works for me."
+    past: "When: 'About two years ago…' → Setting → What happened (past tense, 2~3 events) → Problem or surprise → How it ended + what I learned."
+    compare: "Back then: ___ → These days: ___ → The biggest difference is ___ because ___ → My opinion of the change."
+    roleplay: "Greeting + situation → 3~4 questions (When / How much / Is it possible to…) → Thank you. / For problem-solving: explain the problem → 2 alternatives → ask for their choice."
+    issue: "Name the issue → Two sides or causes → A short example I know → My view and one suggestion."
+  questions:
+    - { t: intro, q: "Let's start the interview. Tell me a little about yourself." }
+    - { t: describe, q: "You indicated that you live in an apartment. Describe your home. What does it look like and which room do you like the most?" }
+    - { t: describe, q: "Describe the neighborhood you live in. What are the people and places like?" }
+    - { t: describe, q: "You said you like going to the park. Describe a park you often go to." }
+    - { t: describe, q: "Describe a café or coffee shop you like. What does it look like and why do you go there?" }
+    - { t: describe, q: "You mentioned you listen to music. What kind of music do you like, and who are your favorite artists?" }
+    - { t: describe, q: "Describe the city or region where you studied for your degree." }
+    - { t: routine, q: "What do you usually do on a typical weekday? Walk me through your day from morning to night." }
+    - { t: routine, q: "How do you usually listen to music? When and where do you listen, and with what device?" }
+    - { t: routine, q: "What do you usually do when you go to the park? Tell me about your routine there." }
+    - { t: routine, q: "How do you prepare when you travel abroad? Tell me the steps from planning to packing." }
+    - { t: routine, q: "What do you usually do to stay healthy? Describe your exercise routine." }
+    - { t: past, q: "Tell me about a memorable trip you took. Where did you go, who were you with, and what happened?" }
+    - { t: past, q: "Tell me about the first time you lived abroad. How did you feel and what was difficult?" }
+    - { t: past, q: "Tell me about a time something unexpected happened while you were traveling. How did you deal with it?" }
+    - { t: past, q: "Describe a time when you had a problem with a piece of technology. What happened and how did you solve it?" }
+    - { t: past, q: "Tell me about a memorable concert or performance you went to." }
+    - { t: compare, q: "How has your neighborhood changed over the years? Compare how it was before and how it is now." }
+    - { t: compare, q: "How has the way people listen to music changed compared to when you were younger?" }
+    - { t: compare, q: "Compare the technology people used ten years ago with what they use today. What changed the most?" }
+    - { t: roleplay, q: "I'd like to give you a situation. You want to join a gym near your home. Call the gym and ask three or four questions about membership." }
+    - { t: roleplay, q: "You booked a hotel room, but when you arrive the room is not what you reserved. Explain the problem to the front desk and suggest two or three alternatives." }
+    - { t: roleplay, q: "I'm planning to visit Korea. Ask me three or four questions about my trip." }
+    - { t: roleplay, q: "You bought concert tickets, but you can't go because of an emergency. Call your friend, explain the situation, and suggest some options." }
+    - { t: issue, q: "Many companies now use AI in their services. What are the good and bad points of this, in your opinion?" }
+    - { t: issue, q: "Tell me about an environmental problem in your country. What causes it and what can people do?" }
+    - { t: issue, q: "People spend a lot of time on smartphones these days. What concerns do people have about this?" }
+    - { t: issue, q: "Tell me about a recent news story about energy or climate that interested you." }
+
+essays:   # 자주 나오는 자소서 문항 유형 (회사별 실제 문항·글자 수는 공고에서 확인)
+  - { g: "지원 동기", q: "우리 회사에 지원한 동기와 입사 후 이루고 싶은 목표를 기술해 주십시오.", n: 700, x: [llm, spe], tip: "회사가 하는 일 1개 + 내 경험 1개를 잇고, 입사 후 1년·3년 목표를 구체적 업무로 쓰세요." }
+  - { g: "지원 동기", q: "해당 직무를 선택한 이유와, 이를 위해 어떤 준비를 해 왔는지 작성해 주십시오.", n: 700, x: [llm, vqa], tip: "지구과학 → 데이터·AI로 온 이유를 '데이터의 출처를 묻는 습관' 하나로 설명하면 흐름이 생깁니다." }
+  - { g: "직무 역량", q: "지원 직무와 관련된 본인의 역량을 구체적인 경험을 바탕으로 기술해 주십시오.", n: 1000, x: [llm, vqa], tip: "역량 2개를 고르고, 각각 상황→행동→숫자 결과로 쓰세요." }
+  - { g: "직무 역량", q: "데이터를 활용해 문제를 해결한 경험을 기술해 주십시오.", n: 800, x: [fire, spe], tip: "데이터의 한계(작은 표본, 겹친 신호)를 어떻게 다뤘는지가 핵심입니다." }
+  - { g: "직무 역량", q: "새로운 기술을 빠르게 익혀 성과를 낸 경험을 작성해 주십시오.", n: 700, x: [pospeak, llm], tip: "처음 보는 기술 → 학습 방법 → 결과물이 나온 기간을 적으세요." }
+  - { g: "직무 역량", q: "본인이 수행한 프로젝트 중 가장 기술적으로 어려웠던 문제와 해결 과정을 기술해 주십시오.", n: 1000, x: [vqa, llm], tip: "시도한 방법 2개가 왜 실패했는지까지 쓰면 깊이가 보입니다." }
+  - { g: "성과 · 도전", q: "가장 도전적인 목표를 세우고 이를 달성하기 위해 노력한 경험을 기술해 주십시오.", n: 800, x: [spe, calgary], tip: "목표가 왜 어려웠는지(기간·자원)를 먼저 보여 주세요." }
+  - { g: "성과 · 도전", q: "기존의 방식을 개선하거나 새로운 방법을 시도해 성과를 낸 경험을 작성해 주십시오.", n: 800, x: [vqa, spe], tip: "'정확도'가 아닌 'fixes−breaks'처럼 기준 자체를 바꾼 이야기가 잘 맞습니다." }
+  - { g: "성과 · 도전", q: "실패를 경험하고 이를 극복한 사례를 기술해 주십시오.", n: 700, x: [pospeak, fire], tip: "실패를 숫자로(F1 0.47→0.32) 확인하고 방향을 바꾼 과정이 설득력 있습니다." }
+  - { g: "협업", q: "팀 프로젝트에서 갈등이 있었던 경험과 이를 해결한 방법을 작성해 주십시오.", n: 700, x: [llm, calgary], tip: "상대 입장 → 내가 제안한 기준 → 합의 결과 순서. 남 탓처럼 보이지 않게." }
+  - { g: "협업", q: "다양한 배경의 사람들과 협업하여 목표를 달성한 경험을 기술해 주십시오.", n: 800, x: [calgary, spe], tip: "3개 기관·해외 연구실 사이에서 내가 맡은 연결 역할을 구체적으로." }
+  - { g: "협업", q: "본인이 리더 또는 팔로워로서 팀에 기여한 경험을 작성해 주십시오.", n: 700, x: [vqa, llm], tip: "역할(모델 학습·정제)과 팀 결과(Public Score)를 구분해서 쓰세요." }
+  - { g: "협업", q: "의견이 다른 사람을 설득한 경험을 기술해 주십시오.", n: 600, x: [vqa, spe], tip: "설득 수단이 '데이터·그래프'였다는 점을 보여 주면 직무와 연결됩니다." }
+  - { g: "가치관", q: "본인의 성장 과정과 가치관이 형성된 계기를 기술해 주십시오.", n: 800, x: [spe, fire], tip: "가치관 한 문장(예: 결과를 설명할 수 있어야 믿는다)을 먼저 쓰고 계기를 붙이세요." }
+  - { g: "가치관", q: "본인의 장점과 단점, 단점을 보완하기 위한 노력을 작성해 주십시오.", n: 600, x: [llm, spe], tip: "단점은 직무 치명적이지 않은 것 + 실제로 한 보완 행동." }
+  - { g: "가치관", q: "윤리적 판단이 필요했던 상황에서 어떻게 행동했는지 기술해 주십시오.", n: 600, x: [spe, llm], tip: "공동연구 데이터를 공개하지 않고 합성 데이터로 재현 코드를 만든 판단이 예시가 됩니다." }
+  - { g: "가치관", q: "원칙을 지키는 것과 효율 사이에서 고민한 경험을 작성해 주십시오.", n: 600, x: [llm, vqa], tip: "테스트·검증을 생략하지 않은 이유와 그로 인해 막은 문제를 쓰세요." }
+  - { g: "고객 · 서비스", q: "사용자(고객) 관점에서 문제를 발견하고 개선한 경험을 기술해 주십시오.", n: 700, x: [llm, pospeak], tip: "사용자가 겪는 불편을 먼저 한 문장으로, 개선 후 달라진 점을 숫자나 화면으로." }
+  - { g: "고객 · 서비스", q: "우리 회사의 서비스(제품) 중 하나를 골라 개선 방안을 제시해 주십시오.", n: 800, x: [llm], tip: "직접 써 본 경험 → 문제 1개 → 데이터로 확인할 방법 → 개선안. 회사 앱을 실제로 써 보고 쓰세요." }
+  - { g: "산업 이해", q: "최근 관심 있게 본 산업 이슈와 그에 대한 본인의 생각을 기술해 주십시오.", n: 800, x: [llm, spe], tip: "AI 트렌드 노트(에이전트·도구 호출)나 CCS·에너지 전환 중 지원 회사와 맞는 것을 고르세요." }
+  - { g: "산업 이해", q: "생성형 AI를 우리 회사 업무에 어떻게 활용할 수 있을지 제안해 주십시오.", n: 800, x: [llm, vqa], tip: "활용 1개 + '답을 검증하는 장치' 1개를 같이 제안하면 차별화됩니다." }
+  - { g: "산업 이해", q: "에너지·자원 산업의 디지털 전환에서 본인이 기여할 수 있는 부분을 기술해 주십시오.", n: 800, x: [spe, fire], tip: "지구물리 도메인 + 데이터 파이프라인 역량이 동시에 있는 사람이라는 점을 강조." }
+  - { g: "산업 이해", q: "금융 산업에서 데이터·AI가 가져올 변화와 본인의 역할을 작성해 주십시오.", n: 800, x: [llm, vqa], tip: "신뢰·설명 가능성이 중요한 금융에 '코드로 검증하는 LLM' 경험을 연결." }
+  - { g: "입사 후 포부", q: "입사 후 10년 뒤 본인의 모습과 이를 위한 계획을 기술해 주십시오.", n: 700, x: [llm, spe], tip: "1년·3년·10년 단계를 구체적인 업무·자격·역할로." }
+  - { g: "입사 후 포부", q: "입사 후 가장 먼저 해 보고 싶은 업무와 그 이유를 작성해 주십시오.", n: 600, x: [llm], tip: "직무기술서의 업무 하나를 정확한 이름으로 언급하세요." }
+  - { g: "자기 계발", q: "직무 역량을 높이기 위해 꾸준히 해 온 자기계발 노력을 기술해 주십시오.", n: 600, x: [llm, vqa], tip: "SSAFY·알고리즘·SQLD처럼 지속성과 결과가 보이는 것을 고르세요." }
+  - { g: "자기 계발", q: "학업 외에 열정을 가지고 몰입했던 경험을 기술해 주십시오.", n: 600, x: [fire, pospeak], tip: "몰입한 이유와 그 결과로 생긴 변화를 쓰세요." }
+  - { g: "글로벌", q: "외국어 능력 또는 해외 경험을 활용해 성과를 낸 사례를 작성해 주십시오.", n: 700, x: [calgary, spe], tip: "영어로 논문을 쓰고 해외 연구실과 협업한 과정 · OPIc 목표와 연결." }
+  - { g: "글로벌", q: "낯선 환경에 적응하며 어려움을 극복한 경험을 기술해 주십시오.", n: 600, x: [calgary], tip: "적응을 위해 한 구체적 행동 2개(예: 회의 방식 맞추기, 자료 공유 규칙)." }
+  - { g: "기타", q: "본인을 한 단어로 표현하고 그 이유를 경험과 함께 작성해 주십시오.", n: 500, x: [spe, llm], tip: "단어는 직무와 맞게(예: '검증하는 사람'), 경험은 하나만 깊게." }
