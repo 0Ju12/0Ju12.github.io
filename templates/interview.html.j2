@@ -375,14 +375,18 @@ function pptx(d,btn){
 }
 
 /* ---------- 공채 정보 ---------- */
+var jobQ='';
 function jobs(sec){
   var R=D.recruit||{},SS=R.sectors||[];var cur=SS.filter(function(x){return x.id===sec})[0];
   var h='<h1>공채 정보</h1><p class="sub">IT · 금융 · 자원개발 공개채용의 지원 조건, 전형, 면접 형식과 질문 예시를 모았습니다. 확인일 '+esc(R.checked||'')+'. 회색 글씨는 출처 종류이며, 포털 요약·후기는 공고 원문과 다를 수 있으니 <b>지원 전 공식 공고를 꼭 확인</b>하세요.</p>';
   if(R.me)h+='<div class="card" style="margin-bottom:12px"><b>내 준비 상태</b><div class="grid g4" style="margin-top:8px">'+R.me.map(function(m){return '<div><div class="faint small">'+esc(m.k)+'</div><div style="font-size:14px">'+esc(m.v)+'</div></div>'}).join('')+'</div></div>';
-  h+='<div class="chips" style="margin-bottom:14px"><button class="chip'+(cur?'':' on')+'" data-s="">전체</button>'+SS.map(function(x){return '<button class="chip'+(cur&&cur.id===x.id?' on':'')+'" data-s="'+x.id+'">'+esc(x.name)+' '+x.companies.length+'</button>'}).join('')+'</div>';
+  h+='<input class="search" id="jq" type="search" placeholder="기관 · 조건 검색 (예: 데이터, OPIc, NCS, 코딩테스트)" value="'+esc(jobQ)+'" aria-label="공채 정보 검색" style="margin-bottom:10px">';
+  h+='<div class="chips" style="margin-bottom:14px"><button class="chip'+(cur?'':' on')+'" data-s="">전체 '+SS.reduce(function(a,x){return a+x.companies.length},0)+'</button>'+SS.map(function(x){return '<button class="chip'+(cur&&cur.id===x.id?' on':'')+'" data-s="'+x.id+'">'+esc(x.name)+' '+x.companies.length+'</button>'}).join('')+'</div>';
+  var qn=jobQ.trim().toLowerCase(),hit=function(co){return !qn||JSON.stringify(co).toLowerCase().indexOf(qn)>=0},shown=0;
   (cur?[cur]:SS).forEach(function(x){
-    h+='<h2>'+esc(x.name)+'</h2><p class="muted small" style="margin:-6px 0 12px">'+esc(x.tip||'')+'</p><div class="grid g2">';
-    x.companies.forEach(function(co,ci){var key=x.id+'-'+ci;
+    var cs=x.companies.map(function(co,ci){return [co,ci]}).filter(function(a){return hit(a[0])});if(!cs.length)return;shown+=cs.length;
+    h+='<h2>'+esc(x.name)+' <span class="muted small">'+cs.length+'곳</span></h2><p class="muted small" style="margin:-6px 0 12px">'+esc(x.tip||'')+'</p><div class="grid g2">';
+    cs.forEach(function(a){var co=a[0],ci=a[1],key=x.id+'-'+ci;
       h+='<div class="card co"><div><h3>'+esc(co.name)+'</h3><div class="faint small">'+esc(co.status||'')+'</div></div>';
       if(co.conditions&&co.conditions.length)h+='<div><div class="lbl" style="margin-top:0">지원 조건</div><ul>'+co.conditions.map(function(c){return '<li>'+esc(c.t)+(c.src?'<span class="src">· '+esc(c.src)+'</span>':'')+'</li>'}).join('')+'</ul></div>';
       if(co.process&&co.process.length)h+='<div><div class="lbl" style="margin-top:0">전형</div><div class="flow">'+co.process.map(function(t){return '<span>'+esc(t)+'</span>'}).join('<i>→</i>')+'</div></div>';
@@ -392,9 +396,11 @@ function jobs(sec){
       if(co.links&&co.links.length)h+='<div class="links">'+co.links.map(function(l){return '<a href="'+esc(l.url)+'" target="_blank" rel="noopener">'+esc(l.label)+' ↗</a>'}).join('')+'</div>';
       h+='</div>';});
     h+='</div>';});
+  if(!shown)h+='<div class="card empty">"'+esc(jobQ)+'"에 맞는 기관이 없습니다.</div>';
   if(R.guides)h+='<h2>답변 구조 참고</h2><div class="grid">'+R.guides.map(function(g){return '<div class="card"><a href="'+esc(g.url)+'" target="_blank" rel="noopener"><b>'+esc(g.label)+' ↗</b></a><div class="muted small">'+esc(g.note||'')+'</div></div>'}).join('')+'</div>';
   $('#app').innerHTML=h;
   $$('[data-s]').forEach(function(b){b.onclick=function(){location.hash='#/jobs'+(b.dataset.s?'/'+b.dataset.s:'')}});
+  var ji=$('#jq');ji.onchange=function(){jobQ=ji.value;jobs(sec)};ji.onkeydown=function(e){if(e.key==='Enter'){jobQ=ji.value;jobs(sec)}};
   $$('[data-jq]').forEach(function(b){b.onclick=function(){var k=b.dataset.jq.split('-'),x=SS.filter(function(s){return s.id===k[0]})[0],co=x.companies[+k[1]];
     var qs=co.questions.map(function(t,i){var id='j:'+k[0]+':'+k[1]+':'+i;var q={id:id,c:'기타',g:co.name,q:t.q,a:'',guide:'출처: '+(t.src||'')+' / '+(co.fit||''),kind:'skeleton'};Q[id]=q;return q});
     startMock(qs,{sec:90,rec:false,label:co.name})}});
