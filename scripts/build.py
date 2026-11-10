@@ -333,12 +333,17 @@ def _og_image(sp):
     return gal[0]["src"] if gal else ""
 
 
-def goatcounter():
-    """방문 통계: data/portfolio.yaml site.goatcounter (예: "youngju") 가 있으면 모든 공개 페이지에 쿠키 없는 카운터"""
+def analytics():
+    """방문 통계: data/portfolio.yaml site.analytics {cloudflare: 토큰, umami: 웹사이트 ID, goatcounter: 코드}
+    값이 있는 것만 모든 공개 페이지·이력서 잠금 페이지에 붙음 (예전 site.goatcounter 도 계속 인식)"""
     try:
-        return ((yaml.safe_load(DATA.read_text(encoding="utf-8")) or {}).get("site") or {}).get("goatcounter") or ""
+        site = (yaml.safe_load(DATA.read_text(encoding="utf-8")) or {}).get("site") or {}
     except Exception:
-        return ""
+        return {}
+    an = dict(site.get("analytics") or {})
+    if site.get("goatcounter") and not an.get("goatcounter"):
+        an["goatcounter"] = site["goatcounter"]
+    return {k: str(v).strip() for k, v in an.items() if v and str(v).strip()}
 
 
 def sitemap(data):
@@ -385,7 +390,7 @@ def main():
         trim_blocks=True,
         lstrip_blocks=True,
     )
-    env.globals["goatcounter"] = goatcounter()
+    env.globals["analytics"] = analytics()
     md_env = Environment(loader=FileSystemLoader(TEMPLATES), trim_blocks=True, lstrip_blocks=True)
 
     DOCS.mkdir(exist_ok=True)

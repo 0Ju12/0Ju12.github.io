@@ -45,7 +45,10 @@ highlights:
 site:
   theme: editorial
   layout: "stack"           # 2026-11-04 선택: Card Stack v2 (석사·학부·부트캠프·개인 4묶음). 이전: showcase
-  goatcounter: ""           # 방문 통계: goatcounter.com 에서 만든 코드(예: "youngju")를 넣으면 모든 페이지·이력서 페이지에 쿠키 없는 카운터가 붙음
+  analytics:                # 방문 통계 — 쓰려는 서비스의 값만 넣으면 모든 공개 페이지·이력서 잠금 페이지에 붙음 (모두 쿠키 없음)
+    cloudflare: ""          # Cloudflare Web Analytics 토큰 (data-cf-beacon 의 token 값)
+    umami: ""               # Umami Cloud 웹사이트 ID (data-website-id 값)
+    goatcounter: ""         # GoatCounter 코드 (예: "youngju")
 
 education:
   - school: 삼성 청년 SW·AI 아카데미 (SSAFY)

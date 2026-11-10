@@ -1,0 +1,5 @@
+{#- 방문 통계 (data/portfolio.yaml site.analytics) — 값이 있는 것만 붙음. 모두 쿠키 없는 방식 -#}
+{%- set an = analytics or {} -%}
+{%- if an.cloudflare %}<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "{{ an.cloudflare }}"}'></script>{% endif -%}
+{%- if an.umami %}<script defer src="https://cloud.umami.is/script.js" data-website-id="{{ an.umami }}"></script>{% endif -%}
+{%- if an.goatcounter %}<script data-goatcounter="https://{{ an.goatcounter }}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>{% endif -%}
