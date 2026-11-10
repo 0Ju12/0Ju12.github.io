@@ -2,15 +2,15 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>면접 준비 · {{ profile.name }}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f7f7f8;--card:#fff;--text:#18181b;--muted:#5f6670;--faint:#9aa1ab;--line:#e4e6ea;--soft:#f0f2f5;--ink:#1f3a5f;--ink-soft:#e8edf5;--on-ink:#fff;--ok:#0f7b5f;--ok-soft:#e3f4ee;--bad:#c2410c;--bad-soft:#fdeee5;--mid:#a16207;--mid-soft:#fbf3dc;--acc:#d97706}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0e1116;--card:#161a21;--text:#eef1f5;--muted:#a3abb7;--faint:#6f7884;--line:#29303a;--soft:#1d222b;--ink:#9db8dd;--ink-soft:#1e2a3a;--on-ink:#0e1116;--ok:#34d399;--ok-soft:#10261f;--bad:#fb923c;--bad-soft:#2a1a10;--mid:#facc15;--mid-soft:#262110}}
-:root[data-theme="dark"]{--bg:#0e1116;--card:#161a21;--text:#eef1f5;--muted:#a3abb7;--faint:#6f7884;--line:#29303a;--soft:#1d222b;--ink:#9db8dd;--ink-soft:#1e2a3a;--on-ink:#0e1116;--ok:#34d399;--ok-soft:#10261f;--bad:#fb923c;--bad-soft:#2a1a10;--mid:#facc15;--mid-soft:#262110}
+:root{--bg:#f7f7f8;--card:#fff;--text:#18181b;--muted:#5f6670;--faint:#9aa1ab;--line:#e4e6ea;--soft:#f0f2f5;--ink:#1f3a5f;--hero:#1f3a5f;--on-hero:#fff;--ink-soft:#e8edf5;--on-ink:#fff;--ok:#0f7b5f;--ok-soft:#e3f4ee;--bad:#c2410c;--bad-soft:#fdeee5;--mid:#a16207;--mid-soft:#fbf3dc;--acc:#d97706}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0e1116;--card:#161a21;--text:#eef1f5;--muted:#a3abb7;--faint:#6f7884;--line:#29303a;--soft:#1d222b;--ink:#9db8dd;--hero:#1d3557;--on-hero:#eef1f5;--ink-soft:#1e2a3a;--on-ink:#0e1116;--ok:#34d399;--ok-soft:#10261f;--bad:#fb923c;--bad-soft:#2a1a10;--mid:#facc15;--mid-soft:#262110}}
+:root[data-theme="dark"]{--bg:#0e1116;--card:#161a21;--text:#eef1f5;--muted:#a3abb7;--faint:#6f7884;--line:#29303a;--soft:#1d222b;--ink:#9db8dd;--hero:#1d3557;--on-hero:#eef1f5;--ink-soft:#1e2a3a;--on-ink:#0e1116;--ok:#34d399;--ok-soft:#10261f;--bad:#fb923c;--bad-soft:#2a1a10;--mid:#facc15;--mid-soft:#262110}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font:15.5px/1.65 "Noto Sans KR",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",system-ui,sans-serif;word-break:keep-all;-webkit-font-smoothing:antialiased}
 a{color:var(--ink)}button,select,textarea{font:inherit;color:inherit}
@@ -38,8 +38,8 @@ h2{font-size:17px;letter-spacing:-.02em;margin:30px 0 12px}
 .tag.mine{background:var(--ok-soft);color:var(--ok)}.tag.skeleton{background:var(--ink-soft);color:var(--ink)}.tag.trend{background:var(--mid-soft);color:var(--mid)}
 .muted{color:var(--muted)}.faint{color:var(--faint)}.small{font-size:13px}
 .kpi b{display:block;font-size:26px;letter-spacing:-.03em;line-height:1.2}.kpi span{color:var(--muted);font-size:13px}
-.hero{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}.hero h2{margin:0 0 6px;font-size:20px}.hero p{margin:0 0 14px;opacity:.85}
-.hero .btn{background:var(--on-ink);color:var(--ink);border-color:var(--on-ink)}.hero .btn.ghost{background:transparent;color:var(--on-ink);border-color:color-mix(in srgb,var(--on-ink) 40%,transparent)}
+.hero{background:var(--hero);color:var(--on-hero);border-color:var(--hero)}.hero h2{margin:0 0 6px;font-size:20px}.hero p{margin:0 0 14px;opacity:.85}
+.hero .btn{background:var(--on-hero);color:var(--hero);border-color:var(--on-hero)}.hero .btn.ghost{background:transparent;color:var(--on-hero);border-color:color-mix(in srgb,var(--on-hero) 40%,transparent)}
 .search{width:100%;height:44px;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:0 14px}
 .qcard{padding:0;overflow:hidden}
 .qcard summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;gap:10px;align-items:flex-start}
@@ -120,6 +120,9 @@ textarea{width:100%;border:1px solid var(--line);border-radius:12px;background:v
   #print{display:block}#print .slide{width:13.333in;height:7.5in;aspect-ratio:auto;border:0;border-radius:0;page-break-after:always;break-after:page}
 }
 @media (max-width:640px){.prompt{font-size:18px}main{padding-top:18px}.hide-m{display:none}}
+a:focus-visible,button:focus-visible,select:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media (max-width:640px){.top{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--bg)}.brand{flex:1;padding:6px 0}.tabs{position:fixed;left:0;right:0;bottom:0;z-index:40;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:2px;padding:6px 6px calc(6px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--card) 94%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);overflow:visible}.tabs a{display:flex;align-items:center;justify-content:center;min-height:42px;padding:6px 2px;font-size:12.5px;border-radius:10px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tabs a .n{margin-left:3px}main{padding-bottom:104px}.toast{bottom:calc(84px + env(safe-area-inset-bottom))}}
 </style>
 </head>
 <body>

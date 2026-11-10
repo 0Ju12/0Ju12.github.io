@@ -55,6 +55,8 @@ table.sk tr+tr th,table.sk tr+tr td{border-top:.5pt solid var(--wash)}
 .note{color:var(--mute);font-size:{{ '7.4pt' if dense else '8pt' }};margin-top:1mm}
 @media screen{body{background:#eef0f3;padding:10mm 0}.page{background:#fff;padding:{{ '11mm 13mm' if dense else '14mm 15mm' }};box-shadow:0 2mm 8mm rgba(0,0,0,.08);max-width:210mm}}
 @media print{body{background:#fff;padding:0}.page{box-shadow:none;padding:0}}
+/* 휴대폰 화면에서만 (PDF·인쇄에는 영향 없음): 머리말·2단을 한 줄로 */
+@media screen and (max-width:640px){body{padding:0}.page{padding:22px 16px;box-shadow:none}.head{grid-template-columns:1fr;gap:12px}.head h1 small{display:block;margin:4px 0 0}.head dl{grid-template-columns:auto minmax(0,1fr)}.head dt{text-align:left}.head dd{overflow-wrap:anywhere}.it{grid-template-columns:1fr;gap:2px}.cols,.skg{grid-template-columns:1fr}.ln{grid-template-columns:minmax(0,1fr)}}
 </style>
 {% endmacro %}
 

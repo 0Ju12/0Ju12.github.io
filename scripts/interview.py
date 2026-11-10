@@ -38,6 +38,27 @@ def _private_questions():
     return _private("interview.json", PRIVATE_JSON)
 
 
+def _bank_questions():
+    """질문 은행: interview_bank.json + 정기 작업이 추가한 interview_bank_<날짜>.json (각각 잠긴 묶음으로만 커밋)
+
+    정기 작업 세션에는 평문 원본과 PRIVATE_KEY 가 없으므로, 새 질문은 별도 파일로 공개키 잠금만 해서 올리고
+    배포 빌드가 여기서 모두 합칩니다 (같은 질문 문장은 한 번만)."""
+    global _UNSEALED
+    names = {f.name for f in (ROOT / "content" / "private").glob("interview_bank*.json")}
+    pem = os.environ.get("PRIVATE_KEY")
+    if pem:
+        if _UNSEALED is None:
+            import private_build
+            _UNSEALED = dict(private_build.unseal_all(pem))
+        names |= {n for n in _UNSEALED if n.startswith("interview_bank") and n.endswith(".json")}
+    out, seen = [], set()
+    for n in sorted(names):
+        for q in _private(n, ROOT / "content" / "private" / n):
+            if q.get("q") and q["q"] not in seen:
+                seen.add(q["q"]); out.append(q)
+    return out
+
+
 def _group(g):
     g = re.sub(r"\s*\((강사님|Claude 추가)\)\s*", "", g or "개인 추가 질문").strip()
     return g or "개인 추가 질문"
@@ -72,7 +93,7 @@ def questions(data, trend_posts):
         qs.append({"id": "n:" + q.get("id", ""), "c": GROUP_CAT.get(g, "기타"), "g": g, "q": q.get("title", ""),
                    "a": vs[-1]["text"] if vs else "", "guide": q.get("guide", ""), "kind": "mine"})
     import hashlib
-    for b in _private("interview_bank.json", BANK_JSON):
+    for b in _bank_questions():
         qs.append({"id": "b:" + hashlib.sha1(b["q"].encode()).hexdigest()[:10], "c": b["c"] if b.get("c") in CATS else "기타",
                    "g": b.get("g") or b["c"], "q": b["q"], "a": b.get("best", ""), "exp": b.get("exp", ""),
                    "intent": b.get("intent", ""), "tail": b.get("tail") or [], "guide": b.get("tip", ""), "kind": "bank"})

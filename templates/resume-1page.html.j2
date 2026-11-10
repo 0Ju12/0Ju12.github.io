@@ -7,6 +7,7 @@
 <meta charset="utf-8">
 <meta name="robots" content="noindex">
 <title>{{ profile.name }} {{ 'Resume' if en else '이력서' }}{% if variant_label %} ({{ variant_label }}){% endif %}</title>
+<meta name="description" content="{{ profile.name_en if en else profile.name }} — {{ 'one-page resume' if en else '1쪽 이력서' }}">
 {{ R.style(dense=true, en=en) }}
 </head>
 <body><div class="page">
