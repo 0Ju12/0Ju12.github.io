@@ -13,6 +13,7 @@ function tools(){
     ['#/algo','알고리즘 기록','푼 문제를 주제별로 기록하고 약한 주제와 주간 목표를 자동 집계.',S.algo.length?('이번 주 '+wk+' · 전체 '+S.algo.length+(algoDue().length?' · 다시 풀 문제 '+algoDue().length:'')):'아직 없음'],
     ['#/ncs','NCS · 인적성 연습','응용수리 · 자료해석 · 논리 10문항 세트, 시간 측정.',S.ncs.length?('세트 '+S.ncs.length+'회 · 최근 '+S.ncs[S.ncs.length-1].ok+'/'+S.ncs[S.ncs.length-1].n):'아직 없음'],
     ['#/opic','OPIc 답변 분석','녹음하며 받아 적은 글로 말한 시간·분당 단어·군말·반복 표현을 확인.',S.opic.length?('분석 '+S.opic.length+'회'):'아직 없음'],
+    ['#/speak','면접 답변 말하기 분석','국문 질문에 소리 내어 답하면 받아 적어 길이·속도·군말·결론 먼저 여부를 짚어 줌.',(S.speak||[]).length?('분석 '+S.speak.length+'회'):'아직 없음'],
     ['#/log','기록 · 기기 옮기기','연습 기록 표, 암호 파일로 다른 기기와 합치기.','']];
   var h='<div class="hd"><div><span class="eyebrow">Toolkit</span><h1 style="margin-top:6px">도구</h1><p class="sub" style="margin:0">지원 관리와 매일 연습에 쓰는 도구입니다. 모든 기록은 이 브라우저에만 저장됩니다.</p></div><button class="btn" id="ics">캘린더로 내보내기 (.ics)</button></div>';
   h+='<div class="rec-g">'+cards.map(function(c){return '<a class="card rc" href="'+c[0]+'"><div class="top2"><h3>'+esc(c[1])+'</h3><span class="muted small">'+esc(c[3])+'</span></div><div class="why muted">'+esc(c[2])+'</div></a>'}).join('')+'</div>';
@@ -89,7 +90,7 @@ window.addEventListener('afterprint',function(){document.body.classList.remove('
 /* ---------- OPIc 답변 분석 (브라우저 음성 인식) ---------- */
 var SR=window.SpeechRecognition||window.webkitSpeechRecognition,recog=null;
 var FILLERS=['um','uh','erm','like','you know','i mean','kind of','sort of','actually','basically'];
-function srStart(m){if(!SR)return;try{recog=new SR();recog.lang='en-US';recog.continuous=true;recog.interimResults=true;m.tr='';m.tri='';
+function srStart(m,lang){if(!SR)return;try{recog=new SR();recog.lang=lang||'en-US';recog.continuous=true;recog.interimResults=true;m.tr='';m.tri='';
   recog.onresult=function(e){var fin='',tmp='';for(var i=e.resultIndex;i<e.results.length;i++){var r=e.results[i];if(r.isFinal)fin+=r[0].transcript+' ';else tmp+=r[0].transcript}m.tr+=fin;m.tri=tmp;var el=$('#live');if(el)el.textContent=(m.tr+m.tri).slice(-220)};
   recog.onerror=function(){};recog.onend=function(){if(m.st==='talk'){try{recog.start()}catch(_){}}};recog.start()}catch(_){recog=null}}
 function srStop(){if(recog){try{recog.onend=null;recog.stop()}catch(_){}recog=null}}
@@ -116,6 +117,41 @@ function opicView(){
   $('#app').innerHTML=h;$('#og').onclick=startOpic;
 }
 
+/* ---------- 국문 면접 답변 말하기 분석 (ko-KR 받아쓰기) ---------- */
+var KFILL=['음','어','그','저','약간','뭔가','이제','그러니까','사실','좀','막','그냥','일단'],spk=null;
+function kAnalyze(text,sec){var t=(text||'').replace(/\s+/g,' ').trim(),w=t?t.split(' '):[],syl=t.replace(/[^가-힣a-zA-Z0-9]/g,'').length;
+  var fill={};KFILL.forEach(function(f){var n=w.filter(function(x){return x===f||x===f+','||x===f+'…'}).length;if(n)fill[f]=n});
+  var bi={};for(var i=0;i+1<w.length;i++){var k=w[i]+' '+w[i+1];bi[k]=(bi[k]||0)+1}
+  var rep=Object.keys(bi).filter(function(k){return bi[k]>1&&k.length>3}).sort(function(a,b){return bi[b]-bi[a]}).slice(0,4).map(function(k){return [k,bi[k]]});
+  var end=(t.match(/(습니다|입니다|했습니다|있습니다|됩니다|어요|해요|죠)(?=[ .?!]|$)/g)||[]).length,sent=Math.max(1,(t.match(/(다|요|죠)[.?!]?(\s|$)/g)||[]).length);
+  var first=w.slice(0,25).join(' '),concl=/(저는|제가|결론|핵심|한마디로|이유는|두 가지|세 가지)/.test(first);
+  return {chars:syl,words:w.length,sec:sec||0,spm:sec?Math.round(syl/(sec/60)):0,fill:fill,fn:Object.keys(fill).reduce(function(a,k){return a+fill[k]},0),rep:rep,end:end,sent:sent,avgLen:Math.round(syl/sent),concl:concl}}
+function kAnalysisHTML(a){if(!a.chars)return '<p class="muted small">받아 적은 말이 없습니다. 마이크 권한과 브라우저(Chrome·Edge·Safari)를 확인하세요.</p>';
+  var tip=[];if(a.sec&&a.sec<40)tip.push('40초보다 짧습니다. 경험 하나와 결과 수치를 붙여 60~90초로 늘려 보세요.');if(a.sec>120)tip.push('2분을 넘었습니다. 결론 → 근거 1~2개 → 마무리로 줄여 보세요.');
+  if(a.spm&&a.spm>380)tip.push('말이 빠른 편입니다. 문장 끝에서 한 박자 쉬어 보세요.');if(a.spm&&a.spm<220)tip.push('말이 느린 편입니다. 문장을 짧게 끊고 이어 말해 보세요.');
+  if(a.fn>=4)tip.push('군말('+Object.keys(a.fill).slice(0,3).join(', ')+')이 '+a.fn+'번 나왔습니다. 생각할 땐 잠깐 멈추는 편이 낫습니다.');if(!a.concl)tip.push('첫머리에 결론이 잘 안 보입니다. "저는 ~입니다 / 이유는 두 가지입니다"로 시작해 보세요.');
+  if(a.avgLen>90)tip.push('한 문장이 깁니다(평균 '+a.avgLen+'음절). 두 문장으로 나눠 보세요.');if(a.rep.length)tip.push('반복 표현: "'+a.rep[0][0]+'" '+a.rep[0][1]+'번');
+  return '<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-top:10px">'+[['말한 시간',a.sec+'초'],['분당 음절',a.spm||'—'],['군말',a.fn],['문장',a.sent],['평균 문장 길이',a.avgLen+'음절'],['결론 먼저',a.concl?'예':'아니오']].map(function(x){return '<div class="card kpi" style="padding:10px 12px"><b style="font-size:20px">'+x[1]+'</b><span>'+x[0]+'</span></div>'}).join('')+'</div>'+
+    (tip.length?'<ul class="tails" style="margin-top:10px">'+tip.map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul>':'<p class="small" style="color:var(--ok);margin-top:10px">길이·속도·구성이 무난합니다.</p>')+
+    '<p class="faint small">자동 받아쓰기는 참고용이라 틀릴 수 있습니다. 분당 음절 기준(220~380)과 60~90초는 연습 목표로 잡은 값입니다.</p>'}
+function speak(){var pool=QS.filter(function(q){return q.c!=='OPIc'&&q.kind!=='opic'});
+  if(!spk||!spk.q)spk={q:pool[Math.floor(Math.random()*pool.length)],st:'ready'};var m=spk;
+  var h='<div class="hd"><div><span class="eyebrow">Speaking</span><h1 style="margin-top:6px">면접 답변 말하기 분석</h1><p class="sub" style="margin:0">질문을 소리 내어 답하면 한국어로 받아 적고, 말한 시간·속도·군말·결론 먼저 여부를 짚어 줍니다.'+(SR?'':' <b>이 브라우저는 음성 받아쓰기를 지원하지 않습니다 (Chrome·Edge·Safari 권장).</b>')+'</p></div><a class="btn ghost" href="#/tools">← 도구</a></div>';
+  h+='<div class="card hero"><span class="tag">'+esc(m.q.c)+'</span><h2 style="margin:8px 0 12px">'+esc(m.q.q)+'</h2>';
+  if(m.st==='ready')h+='<div class="row"><button class="btn" id="kgo"'+(SR?'':' disabled')+'>답변 시작</button><button class="btn ghost" id="knew">다른 질문</button></div>';
+  else if(m.st==='talk')h+='<div class="row"><b id="kclock" style="font-variant-numeric:tabular-nums">0:00</b><button class="btn" id="kend">답변 끝</button></div><p class="small muted" id="live" style="min-height:3em;margin-top:10px"></p>';
+  else h+='<div class="ans">'+esc(m.text||'')+'</div>'+kAnalysisHTML(m.an)+'<div class="row" style="margin-top:12px"><button class="btn" id="knew">다음 질문</button><button class="btn ghost" id="kagain">같은 질문 다시</button></div>';
+  h+='</div>';var L=(S.speak||[]);
+  if(L.length){var avg=function(k){return Math.round(L.slice(-30).reduce(function(a,x){return a+(x[k]||0)},0)/Math.min(30,L.length))};
+    h+='<h2>기록</h2><div class="grid g4"><div class="card kpi"><b>'+L.length+'</b><span>분석한 답변</span></div><div class="card kpi"><b>'+avg('sec')+'초</b><span>평균 길이</span></div><div class="card kpi"><b>'+avg('spm')+'</b><span>평균 분당 음절</span></div><div class="card kpi"><b>'+avg('fn')+'</b><span>평균 군말</span></div></div>'+
+    '<div class="grid" style="margin-top:12px">'+L.slice(-10).reverse().map(function(o){return '<details class="card qcard"><summary><b>'+esc(o.q)+'</b><span class="tag">'+esc(o.d)+'</span><span class="tag">'+o.sec+'초 · 군말 '+o.fn+'</span></summary><div class="qbody"><div class="ans">'+esc(o.text)+'</div>'+kAnalysisHTML(o)+'</div></details>'}).join('')+'</div>'}
+  $('#app').innerHTML=h;
+  var go=$('#kgo');if(go)go.onclick=function(){m.st='talk';m.t0=Date.now();srStart(m,'ko-KR');speak();timer=setInterval(function(){var c=$('#kclock');if(!c)return;var s=Math.round((Date.now()-m.t0)/1000);c.textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0')},500)};
+  var en=$('#kend');if(en)en.onclick=function(){clearInterval(timer);timer=null;srStop();var sec=Math.round((Date.now()-m.t0)/1000);m.text=((m.tr||'')+' '+(m.tri||'')).trim();m.an=kAnalyze(m.text,sec);m.st='done';
+    if(m.text){(S.speak=S.speak||[]).push(Object.assign({d:today(),q:m.q.q,text:m.text},m.an));if(S.speak.length>200)S.speak=S.speak.slice(-200);save()}speak()};
+  var nw=$('#knew');if(nw)nw.onclick=function(){spk=null;speak()};var ag=$('#kagain');if(ag)ag.onclick=function(){spk={q:m.q,st:'ready'};speak()};
+}
+
 /* ---------- 알고리즘 기록 ---------- */
 /* 주제별 다음 문제 (SWEA 모의 A형·D3~D4 단골) — 이미 기록한 번호는 빼고 보여 줌 */
 var ARECO={'구현·시뮬레이션':[[2382,'미생물 격리'],[5650,'핀볼 게임'],[5644,'무선 충전'],[4014,'활주로 건설']],'BFS/DFS':[[1953,'탈주범 검거'],[1949,'등산로 조성'],[1238,'Contact'],[2819,'격자판의 숫자 이어 붙이기']],
@@ -131,6 +167,17 @@ function dplus(d,n){var t=new Date(d+'T00:00:00');t.setDate(t.getDate()+n);retur
 function algoNext(a){var re=a.re||[],last=re[re.length-1];if(last?last.r==='ok':a.r==='ok')return null;return dplus(last?last.d:a.d,re.length?7:3)}
 function algoDue(){return S.algo.filter(function(a){var n=algoNext(a);return n&&n<=today()})}
 var amockT=null;
+/* 오늘 화면에 모으는 할 일: 복습 질문 · 다시 풀 문제 · 마감 · 자소서 · 잔디 */
+function todayBoard(){var t=today(),items=[];
+  var dq=due().length;if(dq)items.push(['#/mock','복습 질문 '+dq+'개','간격 반복 차례',0]);
+  var da=algoDue().length;if(da)items.push(['#/algo','다시 풀 문제 '+da+'개','힌트·못 푼 SWEA',0]);
+  if(S.amock)items.push(['#/algo','A형 모의 진행 중','타이머가 돌아가고 있습니다',0]);
+  S.board.forEach(function(b){if(!b.due||b.stage==='done'||b.stage==='drop')return;var n=ddays(b.due);if(n!=null&&n>=0&&n<=14)items.push(['#/board',b.name+' 마감 D-'+n,(STAGES[b.stage]||'')+(b.role?' · '+b.role:''),n])});
+  ((P.goals)||[]).forEach(function(g){var n=ddays(gdate(g));if(n!=null&&n>=0&&n<=21)items.push(['#/',g.name+' D-'+n,g.note||'목표',n])});
+  var dr=(P.essays||[]).filter(function(e,i){var r=S.essay['e'+i];return r&&r.st==='draft'}).length;if(dr)items.push(['#/essay','자소서 초안 '+dr+'개','완성으로 바꾸면 주간 +1',99]);
+  items.sort(function(a,b){return a[3]-b[3]});
+  var hm={};Object.keys(S.days).forEach(function(k){hm[k]=(hm[k]||0)+S.days[k]});S.algo.forEach(function(a){if(a.src!=='drive')hm[a.d]=(hm[a.d]||0)+1;(a.re||[]).forEach(function(x){hm[x.d]=(hm[x.d]||0)+1})});(S.opic||[]).forEach(function(o){hm[o.d]=(hm[o.d]||0)+1});(S.speak||[]).forEach(function(o){hm[o.d]=(hm[o.d]||0)+1});
+  return '<div class="grid g2" style="margin-top:12px;align-items:start"><div class="card"><b>오늘 할 일</b>'+(items.length?'<div style="margin-top:6px">'+items.slice(0,7).map(function(x){return '<a href="'+x[0]+'" style="display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid var(--line);text-decoration:none;color:inherit"><span><b style="font-size:14.5px">'+esc(x[1])+'</b><br><span class="faint small">'+esc(x[2])+'</span></span><span class="muted">→</span></a>'}).join('')+'</div>':'<p class="faint small" style="margin:6px 0 0">급한 일은 없습니다. 아래에서 새 질문을 연습해 보세요.</p>')+'</div>'+heat(hm,16,'연습 잔디 (질문·알고리즘·말하기)').replace('class="card" style="margin-bottom:14px"','class="card"')+'</div>'}
 /* 최근 N주 활동 잔디 (GitHub·LeetCode 식) — m: {날짜: 개수} */
 function heat(m,weeks,label){var end=new Date(today()+'T00:00:00'),start=new Date(end);start.setDate(start.getDate()-end.getDay()-7*(weeks-1));var cells='',tot=0,days=0,max=1;Object.keys(m).forEach(function(k){max=Math.max(max,m[k])});
   for(var d=new Date(start);d<=end;d.setDate(d.getDate()+1)){var k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'),v=m[k]||0;if(v){tot+=v;days++}var lv=v?Math.min(4,Math.ceil(v/max*4)):0;cells+='<i title="'+k+' · '+v+'" style="width:12px;height:12px;border-radius:3px;display:block;background:'+(lv?'color-mix(in srgb,var(--ok) '+(20+lv*20)+'%,var(--soft))':'var(--soft)')+'"></i>'}
@@ -174,6 +221,8 @@ function algo(){
     '<div class="lbl">주제</div><div class="chips" id="at">'+ATOP.map(function(t){return '<button class="chip" data-t="'+esc(t)+'">'+esc(t)+'</button>'}).join('')+'</div><div class="row" style="margin-top:12px;justify-content:flex-end"><button class="btn" id="aadd">기록 추가</button></div></div>';
   h+='<div class="grid g2"><div class="card"><b>주제별</b>'+(Object.keys(st).length?'<table style="width:100%;border-collapse:collapse;font-size:14px;margin-top:8px">'+Object.keys(st).sort(function(a,b){return st[b].n-st[a].n}).map(function(k){var o=st[k];return '<tr><td style="padding:4px 0">'+anote(k)+'</td><td>'+o.n+'문제</td><td style="color:'+(o.bad/o.n>=.5?'var(--bad)':'var(--muted)')+'">못 푼 비율 '+Math.round(o.bad/o.n*100)+'%</td></tr>'}).join('')+'</table>':'<p class="faint small">기록이 쌓이면 주제별 통계가 나옵니다.</p>')+'</div>'+
     '<div class="card"><b>다음에 연습할 주제</b>'+(weak.length?'<ul class="tails">'+weak.map(function(k){return '<li>'+anote(k)+' — 못 푼 비율 '+Math.round(st[k].bad/st[k].n*100)+'% ('+st[k].n+'문제)</li>'}).join('')+'</ul><a class="small" href="../study/index.html#/notes/algo">SW 알고리즘 노트로 복습 →</a>':'<p class="faint small">한 주제에 2문제 이상 기록하면 약한 주제를 골라 드립니다.</p>')+(nxt.length?'<div style="margin-top:12px"><b class="small">다음에 풀 문제 (SWEA)</b><ul class="tails">'+nxt.map(function(x){return '<li>'+x[0]+' '+esc(x[1])+' <span class="faint small">'+esc(x[2])+'</span></li>'}).join('')+'</ul></div>':'')+(few.length?'<p class="small" style="margin:10px 0 0"><b>기록이 적은 주제</b> · '+few.map(function(k){return anote(k)+' '+((st[k]||{}).n||0)}).join(' · ')+'</p>':'')+'</div></div>';
+  var cardsN=S.algo.filter(function(a){return a.idea}).length;
+  if(cardsN)h+='<div class="card" style="margin-top:14px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><div><b>풀이 카드</b><div class="faint small">문제 이름만 보고 핵심 아이디어·시간복잡도를 떠올린 뒤 뒤집어 확인 — 면접 직전 복습용 ('+cardsN+'장)</div></div><button class="btn" id="fcgo">카드 넘기기</button></div><div id="fc"></div>';
   h+='<h2>기록 <span class="muted small" style="font-weight:600">'+S.algo.length+'문제</span></h2><div class="card" style="overflow-x:auto">'+(S.algo.length?'<table style="width:100%;border-collapse:collapse;font-size:14px"><tr style="color:var(--muted);text-align:left"><th style="padding:6px 0">날짜</th><th>문제</th><th>주제</th><th>결과</th><th></th></tr>'+S.algo.map(function(a,i){return [a,i]}).sort(function(x,y){return x[0].d===y[0].d?y[1]-x[1]:(x[0].d<y[0].d?1:-1)}).map(function(p){return p[0]}).slice(0,80).map(function(a){return '<tr><td style="padding:6px 0;white-space:nowrap">'+esc(a.d.slice(5))+'</td><td>'+esc(a.s+' '+a.n)+(a.l?' <span class="faint">'+esc(a.l)+'</span>':'')+(a.src==='drive'?' <span class="tag" title="'+esc(a.file||'')+'">드라이브</span>':'')+(a.note||a.fid||a.gh?'<div class="faint small">'+esc(a.note||'')+(a.fid?' <a href="https://drive.google.com/file/d/'+esc(a.fid)+'/view" target="_blank" rel="noopener">드라이브 코드</a>':'')+(a.gh&&(D.algo_seed||{}).repo?' · <a href="'+esc(D.algo_seed.repo)+'/blob/main/'+esc(a.gh)+'" target="_blank" rel="noopener">GitHub</a>':'')+((a.re||[]).length?' · 다시 풀기 '+a.re.map(function(x){return x.d.slice(5)+(x.r==='ok'?' ✓':' ✕')}).join(', '):'')+'</div>':'')+'</td><td class="small muted">'+esc((a.t||[]).join(', '))+'</td><td>'+({ok:'✓',hint:'힌트',fail:'✕'}[a.r])+(a.m?' <span class="faint small">'+a.m+'분</span>':'')+'</td><td><button class="xbtn" data-adel="'+a.id+'" aria-label="삭제">✕</button></td></tr>'}).join('')+'</table>':'<p class="faint small">아직 기록이 없습니다.</p>')+'</div>';
   $('#app').innerHTML=h;
   var sel=[];$$('#at [data-t]').forEach(function(b){b.onclick=function(){var i=sel.indexOf(b.dataset.t);if(i>=0)sel.splice(i,1);else sel.push(b.dataset.t);b.classList.toggle('on')}});
@@ -184,6 +233,11 @@ function algo(){
   $$('[data-reok]').forEach(function(b){b.onclick=function(){reMark(b.dataset.reok,'ok')}});
   $$('[data-rebad]').forEach(function(b){b.onclick=function(){reMark(b.dataset.rebad,'fail')}});
   amockBind();
+  var fcb=$('#fcgo');if(fcb)fcb.onclick=function(){var deck=shuffle(S.algo.filter(function(a){return a.idea}).slice()).sort(function(a,b){return (a.fc||0)-(b.fc||0)}),i=0,box=$('#fc');
+    var show=function(open){var a=deck[i];if(!a){box.innerHTML='<div class="card" style="margin-top:10px">다 넘겼습니다. 헷갈린 카드는 다음에 먼저 나옵니다.</div>';return}
+      box.innerHTML='<div class="card hero" style="margin-top:10px"><div class="faint small">'+(i+1)+' / '+deck.length+' · '+esc((a.t||[]).join(', '))+'</div><h2 style="margin:6px 0 10px">SWEA '+esc(a.n)+'</h2>'+(open?'<p style="margin:0 0 6px"><b>핵심</b> '+esc(a.idea)+'</p><p class="muted" style="margin:0 0 12px"><b>복잡도</b> '+esc(a.cx||'—')+'</p><div class="row"><button class="btn" data-fc="ok">기억났다</button><button class="btn ghost" data-fc="bad">헷갈렸다</button></div>':'<button class="btn" id="fcflip">뒤집기</button>')+'</div>';
+      var f=$('#fcflip');if(f)f.onclick=function(){show(true)};
+      $$('[data-fc]').forEach(function(b){b.onclick=function(){a.fc=(a.fc||0)+(b.dataset.fc==='ok'?1:-1);save();i++;show(false)}})};show(false)};
 }
 
 /* ---------- NCS · 인적성 연습 ---------- */

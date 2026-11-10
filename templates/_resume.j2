@@ -14,7 +14,8 @@ body{margin:0;background:#fff;color:var(--ink);font:{{ ('8.15pt/1.42' if en else
 a{color:var(--navy);text-decoration:none}
 .page{max-width:{{ '184mm' if dense else '180mm' }};margin:0 auto}
 /* 머리 */
-.head{display:grid;grid-template-columns:1fr auto;gap:6mm;align-items:end;padding-bottom:{{ '3.2mm' if dense else '4.5mm' }};border-bottom:1.3pt solid var(--navy)}
+.head{display:grid;grid-template-columns:1fr auto auto;gap:6mm;align-items:end;padding-bottom:{{ '3.2mm' if dense else '4.5mm' }};border-bottom:1.3pt solid var(--navy)}
+.hqr{display:flex;flex-direction:column;align-items:center;gap:.6mm;font-size:6.6pt;color:var(--mute);text-decoration:none}.hqr img{width:{{ '15mm' if dense else '17mm' }};height:{{ '15mm' if dense else '17mm' }};display:block}
 .head h1{font-family:"Noto Serif KR",serif;font-weight:700;font-size:{{ '19pt' if dense else '23pt' }};line-height:1.1;letter-spacing:-.01em;margin:0}
 .head h1 small{font-family:"Noto Sans KR",sans-serif;font-size:{{ '9pt' if dense else '10pt' }};font-weight:400;color:var(--mute);letter-spacing:0;margin-left:2mm}
 .head .tag{margin-top:{{ '1.4mm' if dense else '2mm' }};font-weight:500;color:var(--ink2);font-size:{{ '9.2pt' if dense else '10.4pt' }}}
@@ -76,5 +77,6 @@ table.sk tr+tr th,table.sk tr+tr td{border-top:.5pt solid var(--wash)}
     {% if av.role %}<dt>{{ L.role }}</dt><dd>{{ av.role }}</dd>{% endif %}
     {% if av.start %}<dt>{{ L.start }}</dt><dd>{{ av.start }}</dd>{% endif %}
   </dl>
+  <a class="hqr" href="https://0ju12.github.io{{ '/en.html' if en else '' }}"><img src="assets/qr-{{ 'en' if en else 'ko' }}.svg" alt="QR: 0ju12.github.io"><span>{{ 'Portfolio' if en else '포트폴리오' }}</span></a>
 </header>
 {% endmacro %}

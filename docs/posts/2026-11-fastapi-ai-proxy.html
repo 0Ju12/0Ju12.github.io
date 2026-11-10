@@ -59,13 +59,17 @@ article th{background:var(--surface)}
 .others a{display:block;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--text);font-weight:700}
 .others a span{display:block;color:var(--muted);font-weight:400;font-size:14px}
 footer{padding:64px 0 40px;color:var(--muted);font-size:13px}
+.readbar{position:fixed;top:0;left:0;height:3px;width:0;background:var(--text);z-index:60;transition:width .1s linear}
+.series{margin:36px 0 0;padding:20px 22px;border:1px solid var(--line);border-radius:18px;background:var(--card)}
+.series b{font-size:15px}.series ol{margin:10px 0 0;padding-left:20px;font-size:14.5px;line-height:1.6}.series li{padding:3px 0}.series li small{color:var(--muted);margin-left:8px;font-size:12.5px}.series li.me a{font-weight:800;text-decoration:none}
 </style>
 </head>
 <body>
+<div class="readbar" id="readbar"></div>
 <div class="wrap">
   <nav><a class="home" href="../index.html">Young-Ju Lee</a><a href="../index.html#writing">Writing</a><a href="../index.html#work">Work</a><button id="theme" type="button">테마</button></nav>
   <header class="post">
-    <div class="meta">WRITING · 2026-11-06</div>
+    <div class="meta">WRITING · 2026-11-06 · 4분 읽기</div>
     <h1>모델 호출을 프록시 한곳에 모으고, 모델의 대답부터 의심하기</h1>
     <p>관통 7에서 Django와 AI 모델 사이에 FastAPI 프록시를 두며 정한 것들 — Guardrail이 고장 나면 막는 쪽으로, API마다 다른 이미지 응답을 한 모양으로, 로그에는 구조만 남기기.</p>
     <div class="chips"><span class="chip">FastAPI</span><span class="chip">LLM</span><span class="chip">Guardrail</span><span class="chip">설계</span></div>
@@ -113,7 +117,10 @@ if type(data[&quot;is_appropriate&quot;]) is not bool:
 <li>안전장치가 판단을 못 하면 통과가 아니라 차단이 기본값이어야 한다.</li>
 <li>외부 API의 응답 모양이 여러 가지라면 그 차이는 프록시가 흡수하고, 뒤쪽에는 한 가지 모양만 넘긴다.</li>
 </ul></article>
-  <div class="endcard">
+  <div class="series"><b>SSAFY 16기 관통 프로젝트 — ThRead: LLM 댓글 분석 파이프라인 · AI 도서 서비스 글 6편 · 6번째</b>
+    <ol><li><a href="2026-11-llm-verify-pipeline.html">LLM 응답을 믿지 않는 파이프라인 설계</a><small>2026-11-02 · 4분</small></li><li><a href="2026-11-vqa-ensemble-fixes-breaks.html">점수를 지키면서 올리기 — VQA 챌린지에서 앙상블 후보를 고른 기준</a><small>2026-11-03 · 3분</small></li><li><a href="2026-11-rag-citation-verify.html">LLM이 붙인 [근거 N]을 코드로 다시 검사하기 — 국보 RAG 가이드의 인용 설계</a><small>2026-11-03 · 5분</small></li><li><a href="2026-11-battle-ssafy-bfs-bot.html">길찾기에서 의사결정으로 — 배틀싸피 자동 플레이 봇을 세 번 고친 기록</a><small>2026-11-03 · 2분</small></li><li><a href="2026-11-django-relational-db.html">책·쓰레드·댓글을 하나의 관계형 모델로 묶기</a><small>2026-11-05 · 4분</small></li><li class="me"><a href="2026-11-fastapi-ai-proxy.html">모델 호출을 프록시 한곳에 모으고, 모델의 대답부터 의심하기</a><small>2026-11-06 · 4분</small></li></ol>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><a class="btn" href="2026-11-django-relational-db.html">← 이전 글</a></div>
+  </div>  <div class="endcard">
     <div><b>SSAFY 16기 관통 프로젝트 — ThRead: LLM 댓글 분석 파이프라인 · AI 도서 서비스</b><span>이 글에서 다룬 코드는 저장소에서 볼 수 있습니다.</span></div>
     <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="https://github.com/0Ju12/ssafy-thread/tree/main/07-ai-proxy" target="_blank" rel="noopener">GitHub 저장소 →</a><a class="btn" href="../index.html#work">포트폴리오로</a></div>
   </div>
@@ -126,5 +133,6 @@ var b=document.getElementById('theme');if(b)b.addEventListener('click',function(
 var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
 var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});})();
 </script>
+<script>(function(){var b=document.getElementById('readbar'),a=document.querySelector('article');if(!b||!a)return;function f(){var r=a.getBoundingClientRect(),h=r.height-innerHeight*0.6,p=Math.min(1,Math.max(0,-r.top/(h>0?h:1)));b.style.width=(p*100)+'%'}addEventListener('scroll',function(){requestAnimationFrame(f)},{passive:true});f()})();</script>
 </body>
 </html>

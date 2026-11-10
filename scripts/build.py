@@ -217,6 +217,8 @@ def load_posts(acts):
         meta["slug"] = f.stem
         meta["html"] = markdown.markdown(body, extensions=["fenced_code", "tables"])
         meta["project_title"] = titles.get(meta.get("project"))
+        plain = re.sub(r"```.*?```", " ", body, flags=re.S)
+        meta["minutes"] = max(1, round(len(re.sub(r"\s+", "", plain)) / 500))   # 한국어 약 500자/분
         posts.append(meta)
     return sorted(posts, key=lambda p: (str(p.get("date", "")), p["slug"]), reverse=True)
 

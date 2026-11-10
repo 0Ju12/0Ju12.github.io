@@ -59,13 +59,17 @@ article th{background:var(--surface)}
 .others a{display:block;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--text);font-weight:700}
 .others a span{display:block;color:var(--muted);font-weight:400;font-size:14px}
 footer{padding:64px 0 40px;color:var(--muted);font-size:13px}
+.readbar{position:fixed;top:0;left:0;height:3px;width:0;background:var(--text);z-index:60;transition:width .1s linear}
+.series{margin:36px 0 0;padding:20px 22px;border:1px solid var(--line);border-radius:18px;background:var(--card)}
+.series b{font-size:15px}.series ol{margin:10px 0 0;padding-left:20px;font-size:14.5px;line-height:1.6}.series li{padding:3px 0}.series li small{color:var(--muted);margin-left:8px;font-size:12.5px}.series li.me a{font-weight:800;text-decoration:none}
 </style>
 </head>
 <body>
+<div class="readbar" id="readbar"></div>
 <div class="wrap">
   <nav><a class="home" href="../index.html">Young-Ju Lee</a><a href="../index.html#writing">Writing</a><a href="../index.html#work">Work</a><button id="theme" type="button">테마</button></nav>
   <header class="post">
-    <div class="meta">WRITING · 2026-11-02</div>
+    <div class="meta">WRITING · 2026-11-02 · 3분 읽기</div>
     <h1>순차 학습이 성능을 떨어뜨린 이유 — catastrophic forgetting 실험기</h1>
     <p>단어 단위 → 문맥 단위로 차례로 학습하면 더 좋아질 줄 알았는데, BERTScore가 0.47에서 0.32로 떨어졌다. FLAN-T5 LoRA 학습 전략 비교.</p>
     <div class="chips"><span class="chip">NLP</span><span class="chip">FLAN-T5</span><span class="chip">LoRA</span><span class="chip">실험 설계</span></div>
@@ -130,5 +134,6 @@ var b=document.getElementById('theme');if(b)b.addEventListener('click',function(
 var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
 var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});})();
 </script>
+<script>(function(){var b=document.getElementById('readbar'),a=document.querySelector('article');if(!b||!a)return;function f(){var r=a.getBoundingClientRect(),h=r.height-innerHeight*0.6,p=Math.min(1,Math.max(0,-r.top/(h>0?h:1)));b.style.width=(p*100)+'%'}addEventListener('scroll',function(){requestAnimationFrame(f)},{passive:true});f()})();</script>
 </body>
 </html>

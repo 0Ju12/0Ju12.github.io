@@ -49,6 +49,8 @@ h1{font-size:clamp(28px,4.4vw,44px);line-height:1.22;letter-spacing:-.045em;marg
 .toc::-webkit-scrollbar{display:none}
 .toc a{flex:none;font-size:13px;font-weight:700;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);text-decoration:none;color:var(--muted)}
 .toc a:hover{color:var(--text);border-color:var(--text)}
+.toc a.st b{display:inline-grid;place-items:center;width:17px;height:17px;border-radius:50%;background:var(--line);color:var(--text);font-size:10.5px;margin-right:6px;vertical-align:1px}
+.toc a.on{color:var(--on-ink,#fff);background:var(--ink,#111);border-color:var(--ink,#111)}.toc a.on b{background:color-mix(in srgb,var(--bg) 30%,transparent);color:inherit}
 section,.two{scroll-margin-top:110px}
 .glance .gl{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
 .glance .gl div{display:flex;gap:10px;align-items:flex-start;padding:14px 16px;border-radius:16px;background:var(--card);border:1px solid var(--line);font-weight:600;font-size:15px;line-height:1.55}
@@ -84,6 +86,10 @@ section>.sub{color:var(--faint);font-size:14px;margin:0 0 18px}
 .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
 .gallery a{text-decoration:none;color:var(--muted);font-size:12.5px}
 .gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;display:block;margin-bottom:6px;border:1px solid var(--line);background:#fff}
+/* 다크 모드: 흰 배경 그림이 튀지 않게 살짝 낮추고 테두리로 감쌈 */
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) :is(.gallery img,.shot img,figure img){filter:brightness(.86) contrast(1.04);background:#e9e9ec}}
+:root[data-theme="dark"] :is(.gallery img,.shot img,figure img){filter:brightness(.86) contrast(1.04);background:#e9e9ec}
+
 .posts a{display:flex;justify-content:space-between;gap:16px;padding:16px 20px;border:1px solid var(--line);border-radius:18px;background:var(--card);text-decoration:none;margin-bottom:10px;font-weight:600}
 .posts a small{display:block;color:var(--faint);font-weight:500}
 .posts a:hover{border-color:var(--text)}
@@ -139,7 +145,7 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
 <p class="lead">Separated overlapping gravity and magnetic signals in the wavenumber domain to resolve salt and basement structures offshore Abu Dhabi</p>    <div class="meta">Geophysical Computing Lab · Dept. of Environment and Energy · Graduate researcher</div>
 <p class="keyline"><i>KEY</i><span>Agrees with 3 independent models at r ≥ 0.94</span></p><div class="acts"><a href="https://doi.org/10.2118/236968-PA" target="_blank" rel="noopener">SPE Journal paper ↗</a><a href="https://github.com/0Ju12/gravmag-wcf" target="_blank" rel="noopener">Code (gravmag-wcf) ↗</a></div>  </header>
 
-  <nav class="toc" aria-label="On this page"><a href="#glance">At a glance</a><a href="#story">Problem · My role</a><a href="#did">What I did</a><a href="#result">Results</a><a href="#tradeoffs">Decisions &amp; trade-offs</a><a href="#media">Photos &amp; figures</a></nav>
+  <nav class="toc" aria-label="On this page"><a href="#glance">At a glance</a><a class="st" href="#story"><b>1</b>Problem · My role</a><a class="st" href="#did"><b>2</b>What I did</a><a class="st" href="#result"><b>3</b>Results</a><a href="#tradeoffs">Decisions &amp; trade-offs</a><a class="st" href="#next"><b>4</b>Looking back · open questions</a><a href="#media">Photos &amp; figures</a></nav>
   <div class="media"><figure class="diagram" aria-label="Analysis workflow">
   <div class="dg-row">
     <div class="dg-col dg-in"><span class="dg-tag">Input</span><div class="dg-box">Airborne gravity data</div><div class="dg-box">Airborne magnetic data</div><small>Ghasha, offshore Abu Dhabi — salt and basement overlap under 8–10 km of sediments</small></div>
@@ -184,5 +190,6 @@ if(open){t.removeAttribute('hidden')}else{t.setAttribute('hidden','')}
 btn.setAttribute('aria-expanded',open);btn.querySelector('span').textContent=open?'Close':'Details';});});
 })();
 </script>
+<script>(function(){var ls=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));if(!('IntersectionObserver' in window)||!ls.length)return;var cur=null;var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var id='#'+e.target.id;ls.forEach(function(a){var on=a.getAttribute('href')===id;a.classList.toggle('on',on);if(on&&cur!==a){cur=a;a.scrollIntoView({block:'nearest',inline:'center'})}})}})},{rootMargin:'-30% 0px -60% 0px'});ls.forEach(function(a){var s=document.querySelector(a.getAttribute('href'));if(s)io.observe(s)})})();</script>
 </body>
 </html>

@@ -292,7 +292,7 @@ var keyHandler=null,timer=null;
 function route(){
   if(timer){clearInterval(timer);timer=null}stopRec();if(typeof srStop==='function')srStop();
   var h=location.hash.replace(/^#\/?/,''),p=h.split('/'),v=p[0]||'home';
-  var TV={deck:'decks',board:'tools',cv:'tools',algo:'tools',ncs:'tools',opic:'tools',log:'tools'};$$('#tabs a').forEach(function(a){a.classList.toggle('on',a.dataset.v===(TV[v]||v))});
+  var TV={deck:'decks',board:'tools',cv:'tools',algo:'tools',ncs:'tools',opic:'tools',speak:'tools',log:'tools'};$$('#tabs a').forEach(function(a){a.classList.toggle('on',a.dataset.v===(TV[v]||v))});
   keyHandler=null;window.scrollTo(0,0);
   if(v==='questions')return questions(decodeURIComponent(p[1]||''),decodeURIComponent(p[2]||''));
   if(v==='jobs')return jobs(p[1]||'');
@@ -306,6 +306,7 @@ function route(){
   if(v==='algo')return algo();
   if(v==='ncs')return ncs();
   if(v==='opic')return opicView();
+  if(v==='speak')return speak();
   if(v==='essay')return essay(decodeURIComponent(p[1]||''));
   home();
 }
@@ -356,6 +357,9 @@ function essay(g){
   var h='<h1>자소서 문항 은행</h1><p class="sub">자주 나오는 자소서 문항 '+ES.length+'개입니다. 회사별 실제 문항과 글자 수는 공고에서 확인하세요. 쓴 글은 이 브라우저에만 저장되고, [기록]에서 암호를 걸어 다른 기기로 옮길 수 있습니다.</p>';
   h+='<div class="grid g4"><div class="card kpi"><b>'+cnt.done+'<span class="small"> / '+ES.length+'</span></b><span>완성</span></div><div class="card kpi"><b>'+cnt.draft+'</b><span>초안</span></div><div class="card kpi"><b>'+wget('essay')+'<span class="small"> / '+(((P.weekly||[]).filter(function(w){return w.id==='essay'})[0]||{}).target||5)+'</span></b><span>이번 주 완성</span></div><div class="card kpi"><b>'+Object.keys(used).length+'<span class="small"> / '+XP.length+'</span></b><span>쓴 핵심 경험</span></div></div>';
   h+='<h2>핵심 경험 사용 횟수 <span class="muted small">한 경험에 몰리지 않게</span></h2><div class="chips">'+XP.map(function(x){return '<span class="chip" title="'+esc(x.hint)+'" style="cursor:default">'+esc(x.name)+' · '+(used[x.id]||0)+'</span>'}).join('')+'</div>';
+  var rows=ES.map(function(e,i){return {e:e,i:i,x:((S.essay['e'+i]||{}).x)||[]}}).filter(function(r){return !g||r.e.g===g});
+  h+='<details class="card" style="margin-top:14px"'+(rows.some(function(r){return r.x.length})?' open':'')+'><summary><b>문항 ↔ 경험 매칭표</b> <span class="muted small">'+(g||'전체')+' · 한 경험을 세 문항 넘게 쓰면 빨간색</span></summary><div style="overflow-x:auto;margin-top:10px"><table style="width:100%;border-collapse:collapse;font-size:13px"><tr><th style="text-align:left;padding:6px 4px">문항</th>'+XP.map(function(x){return '<th style="padding:6px 4px;white-space:nowrap;color:'+((used[x.id]||0)>3?'var(--bad)':'var(--muted)')+'">'+esc(x.name.split(' · ')[0])+'<br><span class="small">'+(used[x.id]||0)+'</span></th>'}).join('')+'</tr>'+
+    rows.map(function(r){return '<tr style="border-top:1px solid var(--line)"><td style="padding:6px 4px;max-width:340px">'+(r.i+1)+'. '+esc(r.e.q.length>34?r.e.q.slice(0,33)+'…':r.e.q)+(r.x.length?'':' <span class="small" style="color:var(--bad)">경험 미정</span>')+'</td>'+XP.map(function(x){var on=r.x.indexOf(x.id)>=0,rec=(r.e.x||[]).indexOf(x.id)>=0;return '<td style="text-align:center"><button class="xbtn" data-mx="e'+r.i+'" data-xx="'+x.id+'" title="'+(rec?'추천 경험':'')+'" style="width:26px;height:26px;border-radius:7px;border:1px solid '+(on?'var(--ink)':'var(--line)')+';background:'+(on?'var(--ink)':rec?'var(--soft)':'transparent')+';color:'+(on?'var(--on-ink)':'var(--faint)')+'">'+(on?'●':rec?'·':'')+'</button></td>'}).join('')+'</tr>'}).join('')+'</table></div><div class="row" style="margin-top:10px;justify-content:space-between"><span class="faint small">· = 문항별 추천 경험. 칸을 누르면 경험을 넣고 뺍니다.</span><button class="btn sm" id="mxauto">빈 문항 자동 배치</button></div></details>';
   h+='<div class="chips" style="margin:18px 0 12px"><button class="chip'+(g?'':' on')+'" data-eg="">전체</button>'+groups.map(function(x){return '<button class="chip'+(x===g?' on':'')+'" data-eg="'+esc(x)+'">'+esc(x)+'</button>'}).join('')+'<button class="btn sm ghost" id="etxt" style="margin-left:auto">쓴 글 전체 .txt로 받기</button></div><div class="grid">';
   ES.forEach(function(e,i){if(g&&e.g!==g)return;var id='e'+i,r=S.essay[id]||{},t=r.t||'',x=r.x||[];
     h+='<details class="card qcard es"'+(t&&!r.st?'':'')+'><summary><b>'+(i+1)+'. '+esc(e.q)+'</b><span class="tag">'+esc(e.g)+'</span><span class="tag'+(r.st==='done'?' bank':r.st==='draft'?' trend':'')+'">'+(r.st==='done'?'완성':r.st==='draft'?'초안':'안 씀')+'</span></summary><div class="qbody">'+
@@ -369,6 +373,10 @@ function essay(g){
   $$('[data-ex]').forEach(function(b){b.onclick=function(){put(b.dataset.ex,function(r){r.x=r.x||[];var k=r.x.indexOf(b.dataset.x);if(k>=0)r.x.splice(k,1);else r.x.push(b.dataset.x)});b.classList.toggle('on')}});
   $$('[data-est]').forEach(function(sel){sel.onchange=function(){var id=sel.dataset.est,prev=(S.essay[id]||{}).st;put(id,function(r){r.st=sel.value});if(sel.value==='done'&&prev!=='done'){wadd('essay',1);toast('완성! 이번 주 자소서 +1')}else if(prev==='done'&&sel.value!=='done')wadd('essay',-1);var y=window.scrollY;essay(g);window.scrollTo(0,y)}});
   $$('[data-eg]').forEach(function(b){b.onclick=function(){location.hash='#/essay'+(b.dataset.eg?'/'+encodeURIComponent(b.dataset.eg):'')}});
+  $$('[data-mx]').forEach(function(b){b.onclick=function(){put(b.dataset.mx,function(r){r.x=r.x||[];var k=r.x.indexOf(b.dataset.xx);if(k>=0)r.x.splice(k,1);else r.x.push(b.dataset.xx)});var y=window.scrollY;essay(g);window.scrollTo(0,y)}});
+  $('#mxauto').onclick=function(){var cnt={};XP.forEach(function(x){cnt[x.id]=used[x.id]||0});var n=0;
+    rows.forEach(function(r){if(r.x.length)return;var cand=(r.e.x&&r.e.x.length?r.e.x:XP.map(function(x){return x.id})).slice().sort(function(a,b){return (cnt[a]||0)-(cnt[b]||0)});var pick=cand[0];if(!pick)return;cnt[pick]=(cnt[pick]||0)+1;put('e'+r.i,function(o){o.x=[pick]});n++});
+    toast(n?'경험을 덜 쓴 순서로 '+n+'문항에 배치했습니다.':'빈 문항이 없습니다.');var y=window.scrollY;essay(g);window.scrollTo(0,y)};
   $('#etxt').onclick=function(){var out=ES.map(function(e,i){var r=S.essay['e'+i];return r&&r.t?(i+1)+'. '+e.q+'\n['+(r.st==='done'?'완성':'초안')+' · '+r.t.length+'자]\n\n'+r.t+'\n':''}).filter(Boolean).join('\n----------\n\n');
     if(!out){toast('아직 쓴 글이 없습니다.');return}SYNC.save('자소서_'+today()+'.txt',out,'text/plain')}
 }
@@ -377,7 +385,7 @@ function essay(g){
 function mergeArr(a,b,key){var n=0,ix={};a.forEach(function(x,i){ix[key(x)]=i});(b||[]).forEach(function(y){var k=key(y);if(!(k in ix)){a.push(y);n++}else if((y.ts||0)>(a[ix[k]].ts||0))a[ix[k]]=y});return n}
 function mergeState(a,b){var n=0;
   n+=mergeArr(a.board,b.board,function(x){return x.id});n+=mergeArr(a.algo,b.algo,function(x){return x.id});(b.algoHide||[]).forEach(function(k){if(a.algoHide.indexOf(k)<0){a.algoHide.push(k);n++}});a.algo=a.algo.filter(function(x){return a.algoHide.indexOf(x.id)<0});
-  n+=mergeArr(a.ncs,b.ncs,function(x){return JSON.stringify([x.d,x.ok,x.sec])});n+=mergeArr(a.opic,b.opic,function(x){return x.d+'|'+x.q+'|'+x.words});
+  n+=mergeArr(a.ncs,b.ncs,function(x){return JSON.stringify([x.d,x.ok,x.sec])});n+=mergeArr(a.opic,b.opic,function(x){return x.d+'|'+x.q+'|'+x.words});a.speak=a.speak||[];n+=mergeArr(a.speak,b.speak,function(x){return x.d+'|'+x.q+'|'+x.chars});
   Object.keys(b.q||{}).forEach(function(k){var x=a.q[k],y=b.q[k];if(!x||(y.n||0)>(x.n||0)||((y.n||0)===(x.n||0)&&(y.last||'')>(x.last||''))){a.q[k]=y;n++}});
   Object.keys(b.memo||{}).forEach(function(k){var y=b.memo[k];if(!y)return;var ta=a.mt[k]||0,tb=(b.mt||{})[k]||0;if(!a.memo[k]||tb>ta){if(a.memo[k]!==y)n++;a.memo[k]=y;a.mt[k]=tb}});
   Object.keys(b.star||{}).forEach(function(k){if(!a.star[k]){a.star[k]=1;n++}});
@@ -395,7 +403,7 @@ function home(){
   var intro=DECKS.filter(function(x){return x.id==='intro-'+S.role})[0];
   var now=new Date();
   var h='<div class="hd"><div><span class="eyebrow">Interview Studio</span><h1 style="margin-top:6px">오늘의 면접 준비</h1><p class="sub" style="margin:0">질문 '+QS.length+'개 · 발표 자료 '+DECKS.length+'개 · 공채 정보 '+(D.recruit&&D.recruit.sectors?D.recruit.sectors.reduce(function(a,x){return a+x.companies.length},0):0)+'곳. 답한 질문은 1·3·7·14·30일 간격으로 다시 나옵니다.</p></div><span class="date">'+(now.getMonth()+1)+'월 '+now.getDate()+'일 '+WD[now.getDay()]+'요일</span></div>';
-  h+=goalsHTML()+'<div style="margin-top:12px">'+weekHTML()+'</div><h2>오늘 연습</h2>';
+  h+=goalsHTML()+'<div style="margin-top:12px">'+weekHTML()+'</div>'+todayBoard()+'<h2>오늘 연습</h2>';
   h+='<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))"><div class="card hero">'+(d.length?'<h2>다시 연습할 질문 '+d.length+'개</h2><p>복습 차례가 된 질문입니다. 시간을 재고 소리 내어 답해 보세요.</p><div class="row"><button class="btn" id="hdue">복습 모의 면접</button><a class="btn ghost" href="#/mock">범위 고르기</a></div>':'<h2>모의 면접 5문항</h2><p>질문이 나오면 60초 안에 소리 내어 답하고, 답변 뼈대와 비교해 스스로 채점합니다.</p><div class="row"><button class="btn" id="hquick">바로 시작</button><a class="btn ghost" href="#/mock">범위 고르기</a></div>')+'</div>';
   h+='<div class="card"><b>발표 연습</b><p class="muted small" style="margin:6px 0 12px">'+esc(D.roles[S.role]||'')+' 기준 자기소개부터 시작하세요. 발표자 모드에서는 메모와 경과 시간이 함께 보입니다.</p><div class="row">'+(intro?'<a class="btn" href="#/deck/'+intro.id+'">'+esc(intro.title)+'</a>':'')+'<a class="btn ghost" href="#/decks">전체 발표 자료</a></div></div><div class="card"><b>OPIc 실전 15문항</b><p class="muted small" style="margin:6px 0 12px">자기소개·묘사·루틴·과거·비교·롤플레이·돌발을 실제 순서처럼 섞어 냅니다. 문항당 2분, 녹음이 켜집니다.</p><div class="row"><button class="btn" id="hopic">OPIc 시작</button><a class="btn ghost" href="#/questions/OPIc">답변 틀 보기</a></div></div><div class="card"><b>자소서</b><p class="muted small" style="margin:6px 0 12px">문항 '+(P.essays||[]).length+'개 · 완성 '+essayDone()+'개. 핵심 경험 6개를 문항마다 골라 겹치지 않게 씁니다.</p><div class="row"><a class="btn" href="#/essay">이어서 쓰기</a></div></div></div>';
   h+='<div class="grid g4" style="margin-top:12px"><div class="card kpi"><b>'+tried+'<span class="small"> / '+QS.length+'</span></b><span>연습한 질문</span></div><div class="card kpi"><b>'+ok+'</b><span>익힌 질문 (3번 이상 알았다)</span></div><div class="card kpi"><b>'+Object.keys(S.memo).filter(function(k){return S.memo[k]}).length+'</b><span>내 메모를 단 질문</span></div><div class="card kpi"><b>'+S.mocks.length+'</b><span>모의 면접 횟수</span></div></div>';

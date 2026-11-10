@@ -224,7 +224,7 @@ def build(env, data):
     seed = (yaml.safe_load(seed_f.read_text(encoding="utf-8")) or {}) if seed_f.exists() else {}
     app["algo_seed"] = {"source": seed.get("source", ""), "updated": seed.get("updated", ""), "repo": seed.get("repo", ""), "tested": seed.get("tested", ""),
                         "items": [{"id": i["id"], "d": i["d"], "s": "SWEA", "n": i["n"], "l": "", "r": i.get("r", "ok"), "m": 0,
-                                   "t": i.get("t") or [], "note": i.get("note", ""), "file": i.get("file", ""), "fid": i.get("fid", ""), "gh": i.get("gh", ""), "src": "drive"}
+                                   "t": i.get("t") or [], "note": i.get("note", ""), "file": i.get("file", ""), "fid": i.get("fid", ""), "gh": i.get("gh", ""), "idea": i.get("idea", ""), "cx": i.get("cx", ""), "src": "drive"}
                                   for i in seed.get("items") or []]}
     prep = _prep()
     app["prep"] = {k: prep.get(k) for k in ("updated", "goals", "weekly", "experiences", "essays")}

@@ -49,6 +49,8 @@ h1{font-size:clamp(28px,4.4vw,44px);line-height:1.22;letter-spacing:-.045em;marg
 .toc::-webkit-scrollbar{display:none}
 .toc a{flex:none;font-size:13px;font-weight:700;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);text-decoration:none;color:var(--muted)}
 .toc a:hover{color:var(--text);border-color:var(--text)}
+.toc a.st b{display:inline-grid;place-items:center;width:17px;height:17px;border-radius:50%;background:var(--line);color:var(--text);font-size:10.5px;margin-right:6px;vertical-align:1px}
+.toc a.on{color:var(--on-ink,#fff);background:var(--ink,#111);border-color:var(--ink,#111)}.toc a.on b{background:color-mix(in srgb,var(--bg) 30%,transparent);color:inherit}
 section,.two{scroll-margin-top:110px}
 .glance .gl{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
 .glance .gl div{display:flex;gap:10px;align-items:flex-start;padding:14px 16px;border-radius:16px;background:var(--card);border:1px solid var(--line);font-weight:600;font-size:15px;line-height:1.55}
@@ -84,6 +86,10 @@ section>.sub{color:var(--faint);font-size:14px;margin:0 0 18px}
 .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
 .gallery a{text-decoration:none;color:var(--muted);font-size:12.5px}
 .gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;display:block;margin-bottom:6px;border:1px solid var(--line);background:#fff}
+/* 다크 모드: 흰 배경 그림이 튀지 않게 살짝 낮추고 테두리로 감쌈 */
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) :is(.gallery img,.shot img,figure img){filter:brightness(.86) contrast(1.04);background:#e9e9ec}}
+:root[data-theme="dark"] :is(.gallery img,.shot img,figure img){filter:brightness(.86) contrast(1.04);background:#e9e9ec}
+
 .posts a{display:flex;justify-content:space-between;gap:16px;padding:16px 20px;border:1px solid var(--line);border-radius:18px;background:var(--card);text-decoration:none;margin-bottom:10px;font-weight:600}
 .posts a small{display:block;color:var(--faint);font-weight:500}
 .posts a:hover{border-color:var(--text)}
@@ -139,7 +145,7 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
 <p class="lead">도서·독서 커뮤니티 서비스 ThRead를 7회에 걸쳐 확장하며, 데이터 수집부터 LLM 분석·웹 서비스까지 직접 구현</p>    <div class="meta">삼성 청년 SW·AI 아카데미 (SSAFY) 16기 · 2인 팀 · 백엔드 · 데이터 파이프라인 담당</div>
 <p class="keyline"><i>핵심</i><span>LLM 판단을 코드로 검증 · 자동 테스트 142개</span></p><div class="acts"><a href="https://github.com/0Ju12/ssafy-thread" target="_blank" rel="noopener">GitHub 저장소 ↗</a><a href="https://github.com/0Ju12/heritage-rag-guide" target="_blank" rel="noopener">국보 입문 가이드 (RAG) ↗</a></div>  </header>
 
-  <nav class="toc" aria-label="이 페이지"><a href="#demo">▶ 데모</a><a href="#glance">한눈에</a><a href="#story">문제 · 역할</a><a href="#did">한 일</a><a href="#result">결과</a><a href="#tradeoffs">설계 판단 · 트레이드오프</a><a href="#media">사진 · 자료</a><a href="#posts">관련 글</a></nav>
+  <nav class="toc" aria-label="이 페이지"><a href="#demo">▶ 데모</a><a href="#glance">한눈에</a><a class="st" href="#story"><b>1</b>문제 · 역할</a><a class="st" href="#did"><b>2</b>한 일</a><a class="st" href="#result"><b>3</b>결과</a><a href="#tradeoffs">설계 판단 · 트레이드오프</a><a class="st" href="#next"><b>4</b>돌아보면 · 남은 과제</a><a href="#media">사진 · 자료</a><a href="#posts">관련 글</a></nav>
   <div class="media" id="demo"><figure><img src="../assets/demo/heritage-rag-demo.gif" alt="국보 입문 가이드 — 국보를 고르고 질문하면 실제로 인용한 근거만 표시 (API 키 없이 도는 데모 모드)"><figcaption>▶ 데모 — 국보 입문 가이드 — 국보를 고르고 질문하면 실제로 인용한 근거만 표시 (API 키 없이 도는 데모 모드)</figcaption></figure></div>
 
   <section class="glance" id="glance"><h2>한눈에 보기</h2>
@@ -169,5 +175,6 @@ if(open){t.removeAttribute('hidden')}else{t.setAttribute('hidden','')}
 btn.setAttribute('aria-expanded',open);btn.querySelector('span').textContent=open?'접기':'자세히 보기';});});
 })();
 </script>
+<script>(function(){var ls=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));if(!('IntersectionObserver' in window)||!ls.length)return;var cur=null;var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var id='#'+e.target.id;ls.forEach(function(a){var on=a.getAttribute('href')===id;a.classList.toggle('on',on);if(on&&cur!==a){cur=a;a.scrollIntoView({block:'nearest',inline:'center'})}})}})},{rootMargin:'-30% 0px -60% 0px'});ls.forEach(function(a){var s=document.querySelector(a.getAttribute('href'));if(s)io.observe(s)})})();</script>
 </body>
 </html>
