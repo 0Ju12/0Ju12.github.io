@@ -11,9 +11,9 @@ profile:
     As an undergraduate researcher I wrote a first-author paper interpreting seismic images of large overseas CO2 storage sites in light of plate-tectonic history,
     and in the IAB convergence-major capstone I designed and trained a spatiotemporal deep learning model (U-LSTM) that predicts wildfire spread.
     In my master's I separated overlapping gravity and magnetic signals with wavenumber-domain correlation analysis and published a first-author paper in SPE Journal (SCIE);
-    across both degrees: 3 papers, 6 conference presentations and a best student paper award.
-    At the POSCO Youth AI & Big Data Academy (with POSTECH) I built the training data and ran model experiments for an English expression correction system (FLAN-T5 + RAG) that won an Excellence Award,
-    and at the Samsung Software & AI Academy for Youth (SSAFY) I am building LLM data pipelines and multimodal model ensembles.
+    across both degrees: 3 papers, 6 conference presentations and a outstanding student paper award.
+    At the POSCO Youth AI & Big Data Academy (with POSTECH) I built the training data and ran model experiments for an English expression correction system (FLAN-T5 + RAG) that won an Encouragement Award,
+    and at the Samsung Software & AI Academy for Youth (SSAFY) I build LLM data pipelines and Django/FastAPI services checked by 142 automated tests, plus a personal RAG guide that verifies its citation numbers in code.
     Two research stays at the University of Calgary; ADsP (Advanced Data Analytics Semi-Professional) certified.
   email: "iyju990312@naver.com"
   phone: ""
@@ -59,7 +59,7 @@ education:
     period: { start: "2025.06", end: "2025.08" }
     gpa: ""
     notes:
-      - "Organized by POSCO Human Resources Development Center · POSTECH · project Excellence Award"
+      - "Organized by POSCO Human Resources Development Center · POSTECH · project Encouragement Award"
   - school: Jeonbuk National Univ.
     major: Mineral Resources and Energy Engineering
     degree: B.S.
@@ -70,7 +70,7 @@ education:
 
 skills:
   - category: Languages & frameworks
-    items: [Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, Django, Selenium, SQL]
+    items: [Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, Django, FastAPI, Selenium, SQL]
   - category: AI & data analysis
     items: [Spatiotemporal DL (U-LSTM), LLM fine-tuning (LoRA/QLoRA), Model ensembles, RAG (LangGraph · ChromaDB · FAISS), F1 · BERTScore]
   - category: Spatial & geophysical data
@@ -159,7 +159,7 @@ activities:
   - id: undergrad
     card_title: "B.S. — CO2 storage seismic interpretation · wildfire deep learning"
     tagline: "Plate-tectonic interpretation of CO2 storage sites and spatiotemporal deep learning for wildfire spread"
-    highlights: ["First-author journal paper", "KSEG best student paper award", "Wildfire model F1 0.85"]
+    highlights: ["First-author journal paper", "KSEG outstanding student paper award", "Wildfire model F1 0.85"]
     icon: "🔬"
     kpi: { value: "1st author", label: "domestic journal paper · 1 second-author paper · 3 talks" }
     title: "Undergraduate — Seismic interpretation of overseas CO2 storage with plate-tectonic history (first author) · spatiotemporal deep learning capstone"
@@ -171,7 +171,7 @@ activities:
     priority: 2
     brief:
       - "First-author paper: GPlates plate-tectonic reconstruction + seismic interpretation of 8 large CO2 storage sites in 4 regions (2024)"
-      - "4D seismic and CCS case studies, Calgary short stay (Utah FORGE gravity) → 1 second-author paper · 3 talks · KSEG 2024 Best Student Paper (poster)"
+      - "4D seismic and CCS case studies, Calgary short stay (Utah FORGE gravity) → 1 second-author paper · 3 talks · KSEG 2024 Outstanding Student Paper (poster)"
       - "Capstone: designed a U-LSTM predicting wildfire fronts — Accuracy 0.90 · F1 0.85 on an unseen fire"
     tags: [Seismic interpretation, GPlates, CCS, Python, TensorFlow, U-LSTM, ArcGIS]
     image: assets/wildfire_test_map.png
@@ -179,9 +179,9 @@ activities:
     summary: Wrote a first-author paper on seismic interpretation of overseas CO2 storage sites in light of plate-tectonic history, and designed a spatiotemporal deep learning model for wildfire spread
     projects:
       - id: undergrad-research
-        digest: {"problem": "Little systematic analysis of how large CO2 storage sites formed geologically", "role": "Undergraduate researcher · first author of a four-region comparison", "did": ["Reconstructed plate-tectonic history of North America, North Sea, Oceania and Middle East with GPlates", "Interpreted seismic images of 8 flagship CCS sites (2 per region) for reservoir and seal", "Calgary short stay: processed Utah FORGE gravity data"], "result": ["First-author paper (2024) · one second-author paper", "KSEG 2024 best student paper award (poster)", "Showed seismic stratigraphy reflects tectonic history → a check against unrealistic velocity models"]}
+        digest: {"problem": "Little systematic analysis of how large CO2 storage sites formed geologically", "role": "Undergraduate researcher · first author of a four-region comparison", "did": ["Reconstructed plate-tectonic history of North America, North Sea, Oceania and Middle East with GPlates", "Interpreted seismic images of 8 flagship CCS sites (2 per region) for reservoir and seal", "Calgary short stay: processed Utah FORGE gravity data"], "result": ["First-author paper (2024) · one second-author paper", "KSEG 2024 outstanding student paper award (poster)", "Showed seismic stratigraphy reflects tectonic history → a check against unrealistic velocity models"]}
         tagline: "Reconstructed the geological history of CO2 storage sites with GPlates and interpreted their seismic images"
-        key: "First-author paper (2024) · best student paper award"
+        key: "First-author paper (2024) · outstanding student paper award"
         short: "First-author paper"
         title: "Seismic interpretation of large overseas CO2 storage sites considering plate-tectonic history (first-author paper)"
         type: Research
@@ -201,7 +201,7 @@ activities:
             - "First-author paper: Analysis on Seismic Interpretation for Overseas Large-scale CO2 Storage Considering Geological History Related to Plate Tectonics, Geophysics and Geophysical Exploration 27(1), 1–22 (2024)"
             - "Showed that stratigraphy in each seismic image reflects the region's tectonic history → a basis for rejecting geologically unrealistic velocity models when processing domestic data"
             - "1 second-author paper (CarbonNet CCS, Gippsland Basin, 2023) · 3 conference talks (2022–2023)"
-            - "Best Student Paper Award (poster), KSEG Spring Conference 2024 — accuracy of seismic velocity and density models at the Utah FORGE site"
+            - "Outstanding Student Paper Award (poster), KSEG Spring Conference 2024 — accuracy of seismic velocity and density models at the Utah FORGE site"
         links:
           - { label: First-author paper, url: "https://koreascience.or.kr/article/JAKO202410348585789.page" }
       - id: wildfire-capstone
@@ -233,9 +233,9 @@ activities:
   - id: bootcamp
     card_title: "Bootcamps — SSAFY · POSCO AI·BigData Academy"
     tagline: "LLM data pipelines, RAG and fine-tuning, built through to a working service"
-    highlights: ["LLM output checked in code", "QLoRA · RAG · Django", "Excellence Award (POSCO)"]
+    highlights: ["LLM output checked in code", "QLoRA · RAG · Django", "Encouragement Award (POSCO)"]
     icon: "💻"
-    kpi: { value: "0.96961", label: "SSAFY AI Challenge VQA public score · POSCO Excellence Award" }
+    kpi: { value: "0.96961", label: "SSAFY AI Challenge VQA public score · POSCO Encouragement Award" }
     title: "Bootcamps — SSAFY 16th cohort · POSCO Youth AI & Big Data Academy 30th cohort"
     type: AI project
     org: Samsung SSAFY · POSCO HRD Center · POSTECH
@@ -250,7 +250,7 @@ activities:
       - "POSPEAK: correction datasets, FLAN-T5 LoRA strategy comparison (BERTScore F1 0.32 → 0.74) + RAG · award"
     tags: [Python, LLM fine-tuning, QLoRA, RAG, FAISS, Django, Selenium, Pandas]
     image: "assets/photos/posco-pospeak/2025-08-29_프로젝트_장려상·수료증.jpg"
-    image_caption: "POSCO Youth AI & Big Data Academy — project Excellence Award (left) and certificate of completion (right), 2025.08.29"
+    image_caption: "POSCO Youth AI & Big Data Academy — project Encouragement Award (left) and certificate of completion (right), 2025.08.29"
     summary: LLM data pipelines, a Django service and a VQA model ensemble at SSAFY; a Konglish-correction generator with RAG at the POSCO academy
     projects:
       - id: ssafy-16
@@ -284,7 +284,7 @@ activities:
           - { label: GitHub, url: "https://github.com/0Ju12/ssafy-thread" }
           - { label: "Heritage RAG guide", url: "https://github.com/0Ju12/heritage-rag-guide" }
       - id: posco-pospeak
-        digest: {"problem": "Konglish and stiff formal English slip past grammar checkers", "role": "Built the correction dataset and ran model experiments for the team", "did": ["Built and cleaned word- and context-level correction pairs", "Compared 3 FLAN-T5 LoRA training strategies with BERTScore", "Final app KILL KONG: Qwen-2.5 + RAG + personal mistake notes"], "result": ["Found catastrophic forgetting in sequential training → switched to joint training", "BERTScore F1 0.32 → 0.74", "Team Excellence Award"]}
+        digest: {"problem": "Konglish and stiff formal English slip past grammar checkers", "role": "Built the correction dataset and ran model experiments for the team", "did": ["Built and cleaned word- and context-level correction pairs", "Compared 3 FLAN-T5 LoRA training strategies with BERTScore", "Final app KILL KONG: Qwen-2.5 + RAG + personal mistake notes"], "result": ["Found catastrophic forgetting in sequential training → switched to joint training", "BERTScore F1 0.32 → 0.74", "Team Encouragement Award"]}
         tagline: "Generator + RAG that rewrites Konglish into natural English"
         key: "Training-strategy comparison: BERTScore F1 0.32 → 0.74 · award"
         short: "POSPEAK (KILL KONG)"
@@ -292,7 +292,7 @@ activities:
         type: AI project
         org: POSCO Youth AI & Big Data Academy (with POSTECH) · team project
         period: { start: "2025.06", end: "2025.08" }
-        team: "Team project · Excellence Award"
+        team: "Team project · Encouragement Award"
         role: Dataset building & model experiments
         tags: [Python, Hugging Face, FLAN-T5, LoRA, RAG, FAISS]
         summary: A generator plus retrieval (RAG) that rewrites awkward or Konglish sentences into natural English
@@ -305,7 +305,7 @@ activities:
             - "[Final service KILL KONG] Qwen-2.5 (1.5B) fine-tuning + a 630-entry Konglish RAG DB + per-user memory, combined with LangChain in a React Native · FastAPI app"
           result:
             - Found catastrophic forgetting in sequential training (BERTScore F1 0.47 → 0.32) and switched to joint training
-            - Joint training reached validation BERTScore F1 ≈ 0.74 · team Excellence Award
+            - Joint training reached validation BERTScore F1 ≈ 0.74 · team Encouragement Award
         links:
           - { label: Team GitHub, url: "https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5" }
 
@@ -321,8 +321,8 @@ publications:
   - { kind: 학회 발표, year: 2022, title: "Applicability of GPU-based 4D seismic monitoring" }
 
 awards:
-  - { name: "Project Excellence Award, POSCO Youth AI & Big Data Academy (30th)", rank: "", org: POSCO HRD Center · POSTECH, date: "2025.08" }
-  - { name: "Best Student Paper Award (poster), KSEG Spring Conference 2024", rank: "", org: Korean Society of Earth and Exploration Geophysicists, date: "2024.10" }
+  - { name: "Project Encouragement Award, POSCO Youth AI & Big Data Academy (30th)", rank: "", org: POSCO HRD Center · POSTECH, date: "2025.08" }
+  - { name: "Outstanding Student Paper Award (poster), KSEG Spring Conference 2024", rank: "", org: Korean Society of Earth and Exploration Geophysicists, date: "2024.10" }
 
 certifications:
   - { name: "ADsP (Advanced Data Analytics Semi-Professional)", org: Korea Data Agency, date: "2022.09" }

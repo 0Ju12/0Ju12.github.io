@@ -135,7 +135,7 @@
         <ul>{% for k in ['stay', 'data', 'partner'] %}<li><i style="background:var(--{{ k }})"></i>{{ LY[k] }} · {{ cnt[k] }}</li>{% endfor %}</ul>
       </div>
   </div>
-  <p class="cmap-note">{{ 'Locations are approximate; offshore fields and storage sites are shown at a nearby point. Countries outlines: Natural Earth via world-atlas.' if en else '위치는 대략적입니다. 해상 광구·저장소는 근처 지점에 표시했습니다. 지도 윤곽: Natural Earth(world-atlas).' }}</p>
+  <p class="cmap-note">{{ 'Locations are approximate; offshore fields and storage sites are shown at a nearby point. Country outlines: Natural Earth via world-atlas.' if en else '위치는 대략적입니다. 해상 광구·저장소는 근처 지점에 표시했습니다. 지도 윤곽: Natural Earth(world-atlas).' }}</p>
   <script type="application/json" id="cmap-data">{{ M.places|map(attribute='id')|list|tojson }}</script>
   {% set info = {} %}{% for pl in M.places %}{% set t = pl.en if en else pl.ko %}{% set ph = pl.photo or {} %}{% set _ = info.update({pl.id: {'n': t.name, 'w': t.when, 'd': t.desc, 'a': t.about or '', 'as': pl.about_src or '', 'ph': ph.src or '', 'cr': (ph.credit_en if en and ph.credit_en else ph.credit) or '', 'pg': ph.page or '', 'l': pl.layer, 'u': ('projects/' ~ pl.link ~ ('-en' if en else '') ~ '.html') if pl.link else ''}}) %}{% endfor %}
   <script type="application/json" id="cmap-info-data">{{ info|tojson }}</script>

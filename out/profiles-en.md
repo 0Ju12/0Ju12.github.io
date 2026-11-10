@@ -12,7 +12,7 @@ Data & AI Engineer | M.S. (SCIE first author) · Spatiotemporal deep learning ·
 ## 2. 자기소개 / About
 
 ```
-M.S. in Environment and Energy (Jeonbuk National University, 2026) with a B.S. in Mineral Resources and Energy Engineering. As an undergraduate researcher I wrote a first-author paper interpreting seismic images of large overseas CO2 storage sites in light of plate-tectonic history, and in the IAB convergence-major capstone I designed and trained a spatiotemporal deep learning model (U-LSTM) that predicts wildfire spread. In my master's I separated overlapping gravity and magnetic signals with wavenumber-domain correlation analysis and published a first-author paper in SPE Journal (SCIE); across both degrees: 3 papers, 6 conference presentations and a best student paper award. At the POSCO Youth AI & Big Data Academy (with POSTECH) I built the training data and ran model experiments for an English expression correction system (FLAN-T5 + RAG) that won an Excellence Award, and at the Samsung Software & AI Academy for Youth (SSAFY) I am building LLM data pipelines and multimodal model ensembles. Two research stays at the University of Calgary; ADsP (Advanced Data Analytics Semi-Professional) certified.
+M.S. in Environment and Energy (Jeonbuk National University, 2026) with a B.S. in Mineral Resources and Energy Engineering. As an undergraduate researcher I wrote a first-author paper interpreting seismic images of large overseas CO2 storage sites in light of plate-tectonic history, and in the IAB convergence-major capstone I designed and trained a spatiotemporal deep learning model (U-LSTM) that predicts wildfire spread. In my master's I separated overlapping gravity and magnetic signals with wavenumber-domain correlation analysis and published a first-author paper in SPE Journal (SCIE); across both degrees: 3 papers, 6 conference presentations and a outstanding student paper award. At the POSCO Youth AI & Big Data Academy (with POSTECH) I built the training data and ran model experiments for an English expression correction system (FLAN-T5 + RAG) that won an Encouragement Award, and at the Samsung Software & AI Academy for Youth (SSAFY) I build LLM data pipelines and Django/FastAPI services checked by 142 automated tests, plus a personal RAG guide that verifies its citation numbers in code. Two research stays at the University of Calgary; ADsP (Advanced Data Analytics Semi-Professional) certified.
 
 My flagship SSAFY project is a heritage Q&A RAG guide — from collecting the Korea Heritage Service open API to an LLM whose citations are re-checked in code (github.com/0Ju12/heritage-rag-guide).
 
@@ -53,7 +53,7 @@ A generator plus retrieval (RAG) that rewrites awkward or Konglish sentences int
 • [Own] Fine-tuned FLAN-T5 with LoRA and compared three strategies (word→context, context→word, joint) with BERTScore
 • [Final service KILL KONG] Qwen-2.5 (1.5B) fine-tuning + a 630-entry Konglish RAG DB + per-user memory, combined with LangChain in a React Native · FastAPI app
 ✔ Found catastrophic forgetting in sequential training (BERTScore F1 0.47 → 0.32) and switched to joint training
-✔ Joint training reached validation BERTScore F1 ≈ 0.74 · team Excellence Award
+✔ Joint training reached validation BERTScore F1 ≈ 0.74 · team Encouragement Award
 Skills: Python, Hugging Face, FLAN-T5, LoRA, RAG, FAISS
 Details: https://0ju12.github.io/projects/posco-pospeak-en.html
 ```
@@ -106,7 +106,7 @@ Reconstructed how large overseas CO2 storage sites formed and interpreted their 
 ✔ First-author paper: Analysis on Seismic Interpretation for Overseas Large-scale CO2 Storage Considering Geological History Related to Plate Tectonics, Geophysics and Geophysical Exploration 27(1), 1–22 (2024)
 ✔ Showed that stratigraphy in each seismic image reflects the region's tectonic history → a basis for rejecting geologically unrealistic velocity models when processing domestic data
 ✔ 1 second-author paper (CarbonNet CCS, Gippsland Basin, 2023) · 3 conference talks (2022–2023)
-✔ Best Student Paper Award (poster), KSEG Spring Conference 2024 — accuracy of seismic velocity and density models at the Utah FORGE site
+✔ Outstanding Student Paper Award (poster), KSEG Spring Conference 2024 — accuracy of seismic velocity and density models at the Utah FORGE site
 Skills: Seismic interpretation, GPlates, Plate reconstruction, CCS
 Details: https://0ju12.github.io/projects/undergrad-research-en.html
 ```
@@ -141,10 +141,10 @@ Details: https://0ju12.github.io/projects/wildfire-capstone-en.html
 ## 5. 스킬 (LinkedIn Skills — 최대 50개, 상위 5개가 프로필에 노출)
 
 ```
-Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, Django, Selenium, SQL, Spatiotemporal DL (U-LSTM), LLM fine-tuning (LoRA/QLoRA), Model ensembles, RAG (LangGraph · ChromaDB · FAISS), F1 · BERTScore, ArcGIS, Rasters, Gravity & magnetics, Wavenumber correlation, Seismic interpretation, GPlates, CCS, Energy & resources, Wildfire prediction
+Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, Django, FastAPI, Selenium, SQL, Spatiotemporal DL (U-LSTM), LLM fine-tuning (LoRA/QLoRA), Model ensembles, RAG (LangGraph · ChromaDB · FAISS), F1 · BERTScore, ArcGIS, Rasters, Gravity & magnetics, Wavenumber correlation, Seismic interpretation, GPlates, CCS, Energy & resources, Wildfire prediction
 ```
 
 ## 6. 수상·자격 (LinkedIn "Honors & awards" / "Licenses & certifications")
-- Project Excellence Award, POSCO Youth AI & Big Data Academy (30th) — POSCO HRD Center · POSTECH (2025.08)
-- Best Student Paper Award (poster), KSEG Spring Conference 2024 — Korean Society of Earth and Exploration Geophysicists (2024.10)
+- Project Encouragement Award, POSCO Youth AI & Big Data Academy (30th) — POSCO HRD Center · POSTECH (2025.08)
+- Outstanding Student Paper Award (poster), KSEG Spring Conference 2024 — Korean Society of Earth and Exploration Geophysicists (2024.10)
 - ADsP (Advanced Data Analytics Semi-Professional) — Korea Data Agency (2022.09)
