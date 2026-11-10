@@ -3,47 +3,49 @@
 # r: ok = 동작하는 풀이 / hint = 풀었지만 버그·오타가 남아 있음 / fail = 미완성
 # 월·목 정기 업데이트에서 드라이브 새 파일을 분석해 이 파일에 추가합니다.
 source: "Google Drive · swea (+ IM 기출)"
-updated: "2026-11-10"
+updated: "2026-11-10T12:00"
+repo: "https://github.com/0Ju12/swea-solutions"
+tested: "직접 만든 입력 37개 — 원본 30개 통과, 6개 오류 → GitHub 판에서 고쳐 37/37"
 items:
-  - {id: drive-1206, d: "2026-09-11", n: "1206 View", t: [구현·시뮬레이션], r: fail, note: "작성 중단 — 좌우 2칸 최댓값 비교 부분 미완성", file: "09_미완성·빈 파일/1206 view.py"}
-  - {id: drive-1208, d: "2026-09-11", n: "1208 Flatten", t: [구현·시뮬레이션], r: ok, note: "덤프마다 max/min 갱신", file: "01_구현·시뮬레이션/1208.flatten.py"}
-  - {id: drive-1215, d: "2026-09-11", n: "1215 회문1", t: [문자열], r: ok, note: "가로·세로 슬라이싱 회문 검사", file: "04_문자열·스택/1215_회문.py"}
-  - {id: drive-1218, d: "2026-09-11", n: "1218 괄호 짝짓기", t: [자료구조, 문자열], r: ok, note: "스택", file: "04_문자열·스택/().py"}
-  - {id: drive-1219, d: "2026-09-11", n: "1219 길찾기", t: [BFS/DFS, 그래프·트리], r: ok, note: "인접 리스트 + DFS 도달 여부", file: "02_그래프·탐색 (DFS·MST·위상정렬)/find_road.py"}
-  - {id: drive-1222, d: "2026-09-11", n: "1222 계산기1", t: [자료구조, 문자열], r: ok, note: "덧셈 수식 계산", file: "04_문자열·스택/calculator.py"}
-  - {id: drive-1251, d: "2026-10-07", n: "1251 하나로", t: [그래프·트리, 최단 경로], r: ok, note: "MST — Prim + heapq", file: "02_그래프·탐색 (DFS·MST·위상정렬)/하나로.py"}
-  - {id: drive-1267, d: "2026-10-01", n: "1267 작업순서", t: [그래프·트리], r: ok, note: "위상 정렬, 2가지 풀이(작업순서.py · 작업순서2.py)", file: "02_그래프·탐색 (DFS·MST·위상정렬)/작업순서.py"}
-  - {id: drive-1860, d: "2026-09-11", n: "1860 진기의 최고급 붕어빵", t: [구현·시뮬레이션], r: ok, note: "도착 시각 정렬 후 생산량 비교", file: "01_구현·시뮬레이션/1860 붕어빵.py"}
-  - {id: drive-1926, d: "2026-09-13", n: "1926 간단한 369게임", t: [구현·시뮬레이션, 문자열], r: ok, file: "IM 기출/1926_간단한 369게임.py"}
-  - {id: drive-1952, d: "2026-09-30", n: "1952 수영장", t: [DP], r: ok, note: "월별 DP (1일·1달·3달·1년)", file: "03_백트래킹·DP·그리디/swea_1952.py"}
-  - {id: drive-1954, d: "2026-09-11", n: "1954 달팽이 숫자", t: [구현·시뮬레이션], r: fail, note: "파일에 농작물 코드가 들어 있음 — 달팽이 풀이는 아직 없음", file: "09_미완성·빈 파일/1954 달팽이.py"}
-  - {id: drive-1959, d: "2026-09-13", n: "1959 두 개의 숫자열", t: [구현·시뮬레이션], r: ok, file: "IM 기출/1959_두 개의 숫자열.py"}
-  - {id: drive-1961, d: "2026-09-11", n: "1961 숫자 배열 회전", t: [구현·시뮬레이션], r: ok, note: "90·180·270도 회전", file: "01_구현·시뮬레이션/숫자배열회전.py"}
-  - {id: drive-1974, d: "2026-09-11", n: "1974 스도쿠 검증", t: [구현·시뮬레이션], r: hint, note: "변수 오타(sqd) 수정 필요", file: "01_구현·시뮬레이션/1974 스도쿠.py"}
-  - {id: drive-1979, d: "2026-09-11", n: "1979 어디에 단어가 들어갈 수 있을까", t: [구현·시뮬레이션], r: ok, file: "01_구현·시뮬레이션/1979 어디에들어갈수있을까.py"}
-  - {id: drive-2001, d: "2026-10-01", n: "2001 파리 퇴치", t: [구현·시뮬레이션], r: ok, note: "M×M 윈도 합, 여러 버전(파리퇴치·파리퇴치_2·fly)", file: "01_구현·시뮬레이션/파리퇴치.py"}
-  - {id: drive-2805, d: "2026-09-11", n: "2805 농작물 수확하기", t: [구현·시뮬레이션], r: ok, note: "맨해튼 거리 마름모 (파일명은 2806)", file: "01_구현·시뮬레이션/2806 농작물.py"}
-  - {id: drive-2806, d: "2026-10-02", n: "2806 N-Queen", t: [백트래킹], r: hint, note: "int(input) → int(input()) 수정 필요", file: "03_백트래킹·DP·그리디/Nquen.py"}
-  - {id: drive-3234, d: "2026-10-01", n: "3234 준환이의 양팔저울", t: [백트래킹, 비트마스킹, DP], r: ok, note: "2가지 풀이: 백트래킹+가지치기 → 비트마스킹 메모이제이션", file: "03_백트래킹·DP·그리디/3234_준환이의 양팔저울.py"}
-  - {id: drive-3499, d: "2026-09-13", n: "3499 퍼펙트 셔플", t: [구현·시뮬레이션], r: ok, file: "IM 기출/3499_퍼펙트 셔플.py"}
-  - {id: drive-4613, d: "2026-09-13", n: "4613 러시아 국기 같은 깃발", t: [구현·시뮬레이션], r: ok, note: "경계 두 개 완전탐색", file: "IM 기출/flag.py"}
-  - {id: drive-8702, d: "2026-09-13", n: "8702 당근 수확", t: [구현·시뮬레이션], r: ok, file: "IM 기출/8702_당근 수확.py"}
-  - {id: drive-10760, d: "2026-09-13", n: "10760 우주선 착륙2", t: [구현·시뮬레이션], r: fail, note: "대부분 주석 — 8방향 비교 미완성", file: "IM 기출/10760. 우주선착륙2.py"}
-  - {id: drive-10761, d: "2026-09-13", n: "10761 신뢰", t: [구현·시뮬레이션], r: ok, note: "두 로봇 위치·시간 시뮬레이션", file: "IM 기출/10761. 신뢰.py"}
-  - {id: drive-12712, d: "2026-09-13", n: "12712 파리퇴치3", t: [구현·시뮬레이션], r: ok, note: "+ / × 분사 델타 탐색", file: "IM 기출/12712_파리퇴치3.py"}
-  - {id: drive-14510, d: "2026-10-01", n: "14510 나무 높이", t: [그리디, 수학], r: ok, note: "홀수일(1)·짝수일(2) 개수로 날짜 계산", file: "03_백트래킹·DP·그리디/나무 높이.py"}
-  - {id: drive-18575, d: "2026-09-13", n: "18575 풍선팡 보너스 게임", t: [구현·시뮬레이션], r: hint, note: "max/min 초깃값이 뒤바뀜 (max=9999, min=0)", file: "IM 기출/18575_풍선팡 보너시 게임.py"}
-  - {id: drive-21936, d: "2026-09-13", n: "21936 길이가 m인 회문", t: [문자열], r: ok, file: "IM 기출/21936_길이가 m 회문.py"}
-  - {id: drive-22375, d: "2026-09-13", n: "22375 스위치", t: [그리디], r: ok, note: "앞에서부터 다르면 뒤집기", file: "IM 기출/22375_스위치.py"}
-  - {id: drive-23795, d: "2026-09-13", n: "23795 우주 괴물", t: [구현·시뮬레이션], r: ok, file: "IM 기출/23795_우주 괴물.py"}
-  - {id: drive-25052, d: "2026-09-13", n: "25052 등산로", t: [구현·시뮬레이션], r: ok, file: "IM 기출/25052_등산로.py"}
-  - {id: drive-25985, d: "2026-09-13", n: "25985 숫자열의 최대 곱", t: [구현·시뮬레이션], r: ok, file: "IM 기출/25985_숫자열의 최대 곱.py"}
-  - {id: drive-26045, d: "2026-09-13", n: "26045 부분 수열 판별", t: [투 포인터], r: ok, file: "IM 기출/26045_부분 수열 판별 copy.py"}
-  - {id: drive-26059, d: "2026-09-13", n: "26059 과일 등급 분류", t: [구현·시뮬레이션], r: ok, note: "정렬 후 경계 두 개 완전탐색", file: "IM 기출/26059_과일 등급 분류.py"}
-  - {id: drive-29638, d: "2026-10-02", n: "29638 내리막", t: [구현·시뮬레이션], r: ok, file: "01_구현·시뮬레이션/29638_내리막.py"}
-  - {id: drive-island, d: "2026-10-01", n: "섬 찾기", t: [BFS/DFS], r: ok, note: "DFS flood fill", file: "02_그래프·탐색 (DFS·MST·위상정렬)/섬찾기.py"}
-  - {id: drive-gravity, d: "2026-09-11", n: "낙차 (gravity)", t: [구현·시뮬레이션], r: fail, note: "로직 미완성", file: "09_미완성·빈 파일/gravity.py"}
-  - {id: drive-baseball, d: "2026-09-11", n: "IM 연습 · 야구", t: [구현·시뮬레이션], r: fail, note: "answers 변수 미정의", file: "09_미완성·빈 파일/IM_baseball.py"}
+  - {id: drive-1206, d: "2026-09-11", n: "1206 View", t: [구현·시뮬레이션], r: fail, note: "작성 중단 — 좌우 2칸 최댓값 비교 부분 미완성", file: "09_미완성·빈 파일/1206 view.py", fid: "1428Kpw4-8RKWDLPj4dRkUzXhMFk-Q_Iy"}
+  - {id: drive-1208, d: "2026-09-11", n: "1208 Flatten", t: [구현·시뮬레이션], r: ok, note: "덤프마다 max/min 갱신", file: "01_구현·시뮬레이션/1208.flatten.py", fid: "1C8rCnBamuaiRTsG8xYCBh-LAl-Nlg6CN", gh: "implementation/1208_flatten.py"}
+  - {id: drive-1215, d: "2026-09-11", n: "1215 회문1", t: [문자열], r: ok, note: "가로·세로 슬라이싱 회문 검사", file: "04_문자열·스택/1215_회문.py", fid: "19ftJpcMaAJJKkCgqZPJj-7knnzia-kqq", gh: "string-stack/1215_palindrome1.py"}
+  - {id: drive-1218, d: "2026-09-11", n: "1218 괄호 짝짓기", t: [자료구조, 문자열], r: ok, note: "스택", file: "04_문자열·스택/().py", fid: "1VeAp1ZGYji8VEA1QtrWOVmMkjtYy7iMj", gh: "string-stack/1218_bracket_pairs.py"}
+  - {id: drive-1219, d: "2026-09-11", n: "1219 길찾기", t: [BFS/DFS, 그래프·트리], r: hint, note: "인접 리스트 + DFS — 원본은 range(1, T+10) 이라 10번째 뒤 EOFError (GitHub 판에서 고침)", file: "02_그래프·탐색 (DFS·MST·위상정렬)/find_road.py", fid: "1-xWc478s3E1zLmZrA2PuQQA3wUvkI_2c", gh: "graph/1219_find_road.py"}
+  - {id: drive-1222, d: "2026-09-11", n: "1222 계산기1", t: [자료구조, 문자열], r: ok, note: "덧셈 수식 계산", file: "04_문자열·스택/calculator.py", fid: "1FcbFpon4Y_U292lXp8Ebg-cZHMSxWb7p", gh: "string-stack/1222_calculator1.py"}
+  - {id: drive-1251, d: "2026-10-07", n: "1251 하나로", t: [그래프·트리, 최단 경로], r: ok, note: "MST — Prim + heapq", file: "02_그래프·탐색 (DFS·MST·위상정렬)/하나로.py", fid: "1AmYIuXq9TVBTCRdlSG4qvktyw34MW5D7", gh: "graph/1251_hanaro_prim.py"}
+  - {id: drive-1267, d: "2026-10-01", n: "1267 작업순서", t: [그래프·트리], r: ok, note: "위상 정렬, 2가지 풀이(작업순서.py · 작업순서2.py)", file: "02_그래프·탐색 (DFS·MST·위상정렬)/작업순서.py", fid: "18FR9NAXLuU50TnXZYcCr15TJmMYRN9hg", gh: "graph/1267_task_order_a.py"}
+  - {id: drive-1860, d: "2026-09-11", n: "1860 진기의 최고급 붕어빵", t: [구현·시뮬레이션], r: ok, note: "도착 시각 정렬 후 생산량 비교", file: "01_구현·시뮬레이션/1860 붕어빵.py", fid: "1wckySwSQ8hUlYQErRxqkcN6xcxnwjhVT", gh: "implementation/1860_bungeoppang.py"}
+  - {id: drive-1926, d: "2026-09-13", n: "1926 간단한 369게임", t: [구현·시뮬레이션, 문자열], r: ok, file: "IM 기출/1926_간단한 369게임.py", fid: "16kKmJKgz03OKvwYPSA3PocfyGvbsmDlm", gh: "implementation/1926_simple_369.py"}
+  - {id: drive-1952, d: "2026-09-30", n: "1952 수영장", t: [DP], r: hint, note: "월별 DP — 원본은 dp 길이 12·plan[i] 로 IndexError, 3개월권 1·2월 누락 (GitHub 판에서 고침)", file: "03_백트래킹·DP·그리디/swea_1952.py", fid: "1uOjeGWCY-_jgqwMMXUQuooMw_YpUfUXS", gh: "backtracking-dp-greedy/1952_swimming_pool_dp.py"}
+  - {id: drive-1954, d: "2026-09-11", n: "1954 달팽이 숫자", t: [구현·시뮬레이션], r: fail, note: "파일에 농작물 코드가 들어 있음 — 달팽이 풀이는 아직 없음", file: "09_미완성·빈 파일/1954 달팽이.py", fid: "1ASn5uAq4jA0adwuD7Rn0wVHEStW_B24q"}
+  - {id: drive-1959, d: "2026-09-13", n: "1959 두 개의 숫자열", t: [구현·시뮬레이션], r: ok, file: "IM 기출/1959_두 개의 숫자열.py", fid: "1N41RCbRwtAgMfQqEkHGn69wIbxyTYptT", gh: "implementation/1959_two_sequences.py"}
+  - {id: drive-1961, d: "2026-09-11", n: "1961 숫자 배열 회전", t: [구현·시뮬레이션], r: ok, note: "90·180·270도 회전", file: "01_구현·시뮬레이션/숫자배열회전.py", fid: "1Jtg0Czut2LUFjnPWd0_x5Se4QFY1FYln", gh: "implementation/1961_rotate_array.py"}
+  - {id: drive-1974, d: "2026-09-11", n: "1974 스도쿠 검증", t: [구현·시뮬레이션], r: hint, note: "원본: 변수 오타 sqd (GitHub 판에서 고침)", file: "01_구현·시뮬레이션/1974 스도쿠.py", fid: "1UKJQbfIn93wTuMW5_jIkNx0RK3NfDDV9", gh: "implementation/1974_sudoku_check.py"}
+  - {id: drive-1979, d: "2026-09-11", n: "1979 어디에 단어가 들어갈 수 있을까", t: [구현·시뮬레이션], r: ok, file: "01_구현·시뮬레이션/1979 어디에들어갈수있을까.py", fid: "1Y7ir3ZtBWfwOrn0kGniFZR2rX407YEB5", gh: "implementation/1979_word_fit.py"}
+  - {id: drive-2001, d: "2026-10-01", n: "2001 파리 퇴치", t: [구현·시뮬레이션], r: ok, note: "M×M 윈도 합, 여러 버전(파리퇴치·파리퇴치_2·fly)", file: "01_구현·시뮬레이션/파리퇴치.py", fid: "1irSNF-GlSfGu35GTnY7M9wyAewjBNPrT", gh: "implementation/2001_fly_swatter.py"}
+  - {id: drive-2805, d: "2026-09-11", n: "2805 농작물 수확하기", t: [구현·시뮬레이션], r: ok, note: "맨해튼 거리 마름모 (파일명은 2806)", file: "01_구현·시뮬레이션/2806 농작물.py", fid: "18TEp5wWu5s35CfV2T5w4aFSORiX_BnIr", gh: "implementation/2805_farm_harvest.py"}
+  - {id: drive-2806, d: "2026-10-02", n: "2806 N-Queen", t: [백트래킹], r: hint, note: "원본: int(input) 오류 + 대각 검사 for-else 들여쓰기 (GitHub 판에서 고침)", file: "03_백트래킹·DP·그리디/Nquen.py", fid: "1Iok8kMgZeCQ3X3j3ToOV2ryR4zNJmJp8", gh: "backtracking-dp-greedy/2806_n_queen.py"}
+  - {id: drive-3234, d: "2026-10-01", n: "3234 준환이의 양팔저울", t: [백트래킹, 비트마스킹, DP], r: ok, note: "2가지 풀이: 백트래킹+가지치기(통과) → 비트마스크 메모(원본은 global 누락으로 UnboundLocalError, GitHub 판에서 고침)", file: "03_백트래킹·DP·그리디/3234_준환이의 양팔저울.py", fid: "1ltql6DB5cnxQpSjt-vEaMVraChnN2l7o", gh: "backtracking-dp-greedy/3234_balance_a_backtracking.py"}
+  - {id: drive-3499, d: "2026-09-13", n: "3499 퍼펙트 셔플", t: [구현·시뮬레이션], r: ok, file: "IM 기출/3499_퍼펙트 셔플.py", fid: "1d3ga0Z4Awejt-FZ998VegLw5A1NRdu1i", gh: "implementation/3499_perfect_shuffle.py"}
+  - {id: drive-4613, d: "2026-09-13", n: "4613 러시아 국기 같은 깃발", t: [구현·시뮬레이션], r: ok, note: "경계 두 개 완전탐색", file: "IM 기출/flag.py", fid: "1pjaz5NvDlCMUfLtloNyV37ygQfspIiL0", gh: "implementation/4613_russian_flag.py"}
+  - {id: drive-8702, d: "2026-09-13", n: "8702 당근 수확", t: [구현·시뮬레이션], r: ok, file: "IM 기출/8702_당근 수확.py", fid: "1kaxLyzxwMNY8moGkMYKV6RJG7yO1ijsH", gh: "implementation/8702_carrot_harvest.py"}
+  - {id: drive-10760, d: "2026-09-13", n: "10760 우주선 착륙2", t: [구현·시뮬레이션], r: fail, note: "대부분 주석 — 8방향 비교 미완성", file: "IM 기출/10760. 우주선착륙2.py", fid: "1sIbuafegR42yyAkJcXEAI-OhYnYpi2fU"}
+  - {id: drive-10761, d: "2026-09-13", n: "10761 신뢰", t: [구현·시뮬레이션], r: ok, note: "두 로봇 위치·시간 시뮬레이션", file: "IM 기출/10761. 신뢰.py", fid: "1JDHG6h_3SEDHbL22g8tCn2ieaTUsGDYx", gh: "implementation/10761_bot_trust.py"}
+  - {id: drive-12712, d: "2026-09-13", n: "12712 파리퇴치3", t: [구현·시뮬레이션], r: ok, note: "+ / × 분사 델타 탐색", file: "IM 기출/12712_파리퇴치3.py", fid: "1mGW_LNLfPX4p_aKytmqMLU_XOodndG5z", gh: "implementation/12712_fly_swatter3.py"}
+  - {id: drive-14510, d: "2026-10-01", n: "14510 나무 높이", t: [그리디, 수학], r: ok, note: "홀수일(1)·짝수일(2) 개수로 날짜 계산", file: "03_백트래킹·DP·그리디/나무 높이.py", fid: "1XWV_X1iZJ_AOa9rnWzExY9UEQELgLA7G", gh: "backtracking-dp-greedy/14510_tree_height.py"}
+  - {id: drive-18575, d: "2026-09-13", n: "18575 풍선팡 보너스 게임", t: [구현·시뮬레이션], r: hint, note: "원본: max/min 초깃값이 뒤바뀌어 항상 9999 (GitHub 판에서 고침)", file: "IM 기출/18575_풍선팡 보너시 게임.py", fid: "1ROnZkYlddnvuG6NH-PsF6-HOB7dDHumX", gh: "implementation/18575_balloon_bonus.py"}
+  - {id: drive-21936, d: "2026-09-13", n: "21936 길이가 m인 회문", t: [문자열], r: ok, file: "IM 기출/21936_길이가 m 회문.py", fid: "14crIsHYZb8otMbyThxBvAZzFR-olkFi2", gh: "string-stack/21936_palindrome_m.py"}
+  - {id: drive-22375, d: "2026-09-13", n: "22375 스위치", t: [그리디], r: ok, note: "앞에서부터 다르면 뒤집기", file: "IM 기출/22375_스위치.py", fid: "1AgcfX3AmSVMSmRSuU2Az970dVSL-am4y", gh: "backtracking-dp-greedy/22375_switch_greedy.py"}
+  - {id: drive-23795, d: "2026-09-13", n: "23795 우주 괴물", t: [구현·시뮬레이션], r: ok, file: "IM 기출/23795_우주 괴물.py", fid: "1YxdqrbMnWxYX74Jk_S-RcdYSdOzawvQ4", gh: "implementation/23795_space_monster.py"}
+  - {id: drive-25052, d: "2026-09-13", n: "25052 등산로", t: [구현·시뮬레이션], r: ok, file: "IM 기출/25052_등산로.py", fid: "1ObNdKYZDk7p8d8-E9UYNYnURzhNmOpfd", gh: "implementation/25052_hiking_trail.py"}
+  - {id: drive-25985, d: "2026-09-13", n: "25985 숫자열의 최대 곱", t: [구현·시뮬레이션], r: ok, file: "IM 기출/25985_숫자열의 최대 곱.py", fid: "1L0002oeIT4r4lQkGdD7mtYyEE-KKPL7Y", gh: "implementation/25985_max_product.py"}
+  - {id: drive-26045, d: "2026-09-13", n: "26045 부분 수열 판별", t: [투 포인터], r: ok, file: "IM 기출/26045_부분 수열 판별 copy.py", fid: "1fkCZf__3MZI7siuYyinjf_G-wT2bGOUb", gh: "string-stack/26045_subsequence_two_pointer.py"}
+  - {id: drive-26059, d: "2026-09-13", n: "26059 과일 등급 분류", t: [구현·시뮬레이션], r: ok, note: "정렬 후 경계 두 개 완전탐색", file: "IM 기출/26059_과일 등급 분류.py", fid: "1bmPo-_mfiFOR5yDuX7SkPuhD3Iv85er5", gh: "implementation/26059_fruit_grading.py"}
+  - {id: drive-29638, d: "2026-10-02", n: "29638 내리막", t: [구현·시뮬레이션], r: ok, file: "01_구현·시뮬레이션/29638_내리막.py", fid: "1NlKNN0mZddNpLTsnGV3-1vRbWtNc3FaX", gh: "implementation/29638_downhill.py"}
+  - {id: drive-island, d: "2026-10-01", n: "섬 찾기", t: [BFS/DFS], r: ok, note: "DFS flood fill", file: "02_그래프·탐색 (DFS·MST·위상정렬)/섬찾기.py", fid: "1iCjhRA_1MDlAGOyf-YcVeW9rzOZpBSJt", gh: "graph/island_count_dfs.py"}
+  - {id: drive-gravity, d: "2026-09-11", n: "낙차 (gravity)", t: [구현·시뮬레이션], r: fail, note: "로직 미완성", file: "09_미완성·빈 파일/gravity.py", fid: "1X89cdTG6QzcPOAeBNd1-DTw_cfXBGTCN"}
+  - {id: drive-baseball, d: "2026-09-11", n: "IM 연습 · 야구", t: [구현·시뮬레이션], r: fail, note: "answers 변수 미정의", file: "09_미완성·빈 파일/IM_baseball.py", fid: "1UM0q_6zugdf4mwB9HS__ByvG9PKsaLFi"}
 # 문제 풀이가 아닌 연습·빈 파일 (기록에는 넣지 않음) — 08_연습·개념, 09_미완성·빈 파일 폴더
 # 중복본(99_중복본): test.py·fly.py×2·new.py·IM 2806 농작물·IM 1979·10761_신뢰.py(26059 복사본)·18575 확장자 없는 사본 2개
 practice: ["부분집합.py", "comb_perm.py", "decode.py", "2top.py(전체 주석)", "그룹나누기.py(빈 파일)", "sum.py(빈 파일)", "14555_공과 잡초.py(뼈대)", "2805_농작물 수확하기.py(뼈대)"]
