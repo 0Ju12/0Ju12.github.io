@@ -123,7 +123,7 @@ class Locker:
             from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
             self.key = PBKDF2HMAC(algorithm=hashes.SHA256(), length=32, salt=self.salt, iterations=ITER).derive(password.encode())
 
-    def page(self, title, inner_html, home):
+    def page(self, title, inner_html, home, pwa=True):
         box = None
         if self.password:
             from cryptography.hazmat.primitives.ciphers.aead import AESGCM
@@ -131,7 +131,7 @@ class Locker:
             e = lambda b: base64.b64encode(b).decode()
             box = {"salt": e(self.salt), "iv": e(iv), "iter": ITER, "ct": e(AESGCM(self.key).encrypt(iv, inner_html.encode(), None))}
         root = "../" if home.startswith("../../") else ""
-        return self.env.get_template("study_lock.html.j2").render(title=title, box=box, home=home, root=root)
+        return self.env.get_template("study_lock.html.j2").render(title=title, box=box, home=home, root=root, pwa=pwa)
 
     def blob(self, obj):
         """검색 색인 같은 큰 데이터 → gzip 후 같은 키로 암호화 (브라우저가 sessionStorage 의 키로 풂)"""
@@ -166,11 +166,16 @@ self.addEventListener('fetch',e=>{const r=e.request;if(r.method!=='GET')return;c
 """
 
 
+LOCKER = None   # 같은 빌드의 면접 준비 앱(interview.py)도 이 키를 써서, 한 번 연 탭에서는 둘 다 다시 묻지 않음
+
+
 def build(env, data):
+    global LOCKER
+    LOCKER = Locker(env, os.environ.get("STUDY_PASSWORD") or os.environ.get("PRIVATE_PASSWORD"))
     src = _source()
     if not src:
         return []
-    locker = Locker(env, os.environ.get("STUDY_PASSWORD") or os.environ.get("PRIVATE_PASSWORD"))
+    locker = LOCKER
     notes = [parse(p) for p in sorted(src.glob("*.html"))]
     import study_quiz
     quiz_file = src / "quiz" / "lessons.json"

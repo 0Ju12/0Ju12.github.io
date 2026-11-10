@@ -354,7 +354,7 @@ def sitemap(data):
     urls += [d for d in ("demo.html", "demo-en.html") if (DOCS / d).exists()]
     xml = "\n".join(f"  <url><loc>{base}{u}</loc></url>" for u in urls)
     (DOCS / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{xml}\n</urlset>\n', encoding="utf-8")
-    (DOCS / "robots.txt").write_text(f"User-agent: *\nDisallow: /cv.html\nDisallow: /cv/\nDisallow: /study/\nDisallow: /private/\nSitemap: {base}sitemap.xml\n", encoding="utf-8")
+    (DOCS / "robots.txt").write_text(f"User-agent: *\nDisallow: /cv.html\nDisallow: /cv/\nDisallow: /study/\nDisallow: /interview/\nDisallow: /private/\nSitemap: {base}sitemap.xml\n", encoding="utf-8")
 
 
 def project_pages(env, data, en=False):
@@ -398,6 +398,8 @@ def main():
     (DOCS / "posts").mkdir(exist_ok=True)
     import study
     data["study_notes"] = study.build(env, data)
+    import interview
+    data["interview_ready"] = interview.build(env, data)
     import private_build
     data["private_ready"] = private_build.build(env, data)
     for post in data["posts"] + data["trend_posts"]:

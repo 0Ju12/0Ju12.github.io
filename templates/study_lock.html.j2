@@ -4,10 +4,10 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>{{ title }} · 잠김</title>
-<link rel="manifest" href="{{ root }}manifest.webmanifest">
+{% if pwa %}<link rel="manifest" href="{{ root }}manifest.webmanifest">
 <meta name="theme-color" content="#1f3a5f">
 <link rel="apple-touch-icon" href="{{ root }}icon-192.png">
-<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="학습 노트">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="학습 노트">{% endif %}
 <style>
 :root{--bg:#f7f7f8;--card:#fff;--text:#18181b;--muted:#5f5f68;--faint:#9b9ba3;--line:#e4e4e8;--ink:#18181b;--on-ink:#fafafa;--err:#dc2626}
 @media (prefers-color-scheme: dark){:root{--bg:#0d0d10;--card:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--faint:#71717a;--line:#27272a;--ink:#f4f4f5;--on-ink:#0d0d10;--err:#f87171}}
@@ -33,9 +33,9 @@ button:disabled{opacity:.6;cursor:wait}
   <div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
   <h1>{{ title }}</h1>
   {% if box %}
-  <p>강의 노트는 암호를 입력해야 볼 수 있습니다. 한 번 열면 이 탭에서는 다른 노트도 다시 묻지 않습니다.</p>
+  <p>{{ '강의 노트는' if pwa else '면접 준비 자료는' }} 암호를 입력해야 볼 수 있습니다. 강의 노트·면접 준비는 같은 암호이고, 한 번 열면 이 탭에서는 다시 묻지 않습니다.</p>
   <form id="f"><input id="pw" type="password" autocomplete="current-password" placeholder="암호" aria-label="암호" required autofocus><button id="go" type="submit">열기</button></form>
-  <label class="keep"><input type="checkbox" id="keep"> 이 기기에서 기억 (홈 화면 앱으로 쓸 때)</label>
+  {% if pwa %}<label class="keep"><input type="checkbox" id="keep"> 이 기기에서 기억 (홈 화면 앱으로 쓸 때)</label>{% endif %}
   <div class="msg" id="msg" role="alert"></div>
   {% else %}
   <p>이 빌드에는 암호가 설정되지 않아 내용을 넣지 않았습니다. 배포된 사이트에서 암호로 열 수 있습니다.</p>
@@ -56,11 +56,11 @@ var saved=null;try{saved=sessionStorage.getItem(K)||localStorage.getItem(K)}catc
 function whenReady(f){if(document.readyState==='complete')setTimeout(f,0);else window.addEventListener('load',function(){setTimeout(f,0)});}
 if(saved){document.getElementById('f').style.visibility='hidden';dec(b(saved)).then(function(h){whenReady(function(){show(h)})}).catch(function(){try{sessionStorage.removeItem(K);localStorage.removeItem(K)}catch(_){}document.getElementById('f').style.visibility='';});}
 document.getElementById('f').addEventListener('submit',async function(ev){ev.preventDefault();var go=document.getElementById('go'),msg=document.getElementById('msg');go.disabled=true;msg.textContent='';
-  try{var raw=await derive(document.getElementById('pw').value);var html=await dec(raw);try{sessionStorage.setItem(K,e(raw));if(document.getElementById('keep').checked){Object.keys(localStorage).forEach(function(k){if(k.indexOf('study-key:')===0)localStorage.removeItem(k)});localStorage.setItem(K,e(raw))}}catch(_){}show(html);}
+  try{var raw=await derive(document.getElementById('pw').value);var html=await dec(raw);try{sessionStorage.setItem(K,e(raw));if(document.getElementById('keep')&&document.getElementById('keep').checked){Object.keys(localStorage).forEach(function(k){if(k.indexOf('study-key:')===0)localStorage.removeItem(k)});localStorage.setItem(K,e(raw))}}catch(_){}show(html);}
   catch(_){msg.textContent='암호가 맞지 않습니다.';go.disabled=false;}});
 })();
 </script>
 {% endif %}
-<script>if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'))navigator.serviceWorker.register('{{ root }}sw.js',{scope:'{{ root or "./" }}'}).catch(function(){});</script>
+{% if pwa %}<script>if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'))navigator.serviceWorker.register('{{ root }}sw.js',{scope:'{{ root or "./" }}'}).catch(function(){});</script>{% endif %}
 </body>
 </html>
