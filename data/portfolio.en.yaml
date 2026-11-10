@@ -422,6 +422,7 @@ activities:
             - "Earthquakes: 2,446 events of M4+ in East Asia, b = 1.11 ± 0.05 · 35 tests across the four projects"
         links:
           - { label: "GitHub repository", url: "https://github.com/0Ju12/data-projects" }
+          - { label: "Earthquake dashboard", url: "https://0ju12.github.io/data-projects/" }
 
 publications:
   - { kind: 논문, year: 2026, title: "Wavenumber Correlation of Gravity and Magnetic Anomalies for Constraining Salt/Basement Structure in Offshore Abu Dhabi", venue: "SPE Journal (SCIE) · first author", url: "https://doi.org/10.2118/236968-PA" }

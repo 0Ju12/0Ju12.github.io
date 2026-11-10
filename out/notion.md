@@ -132,7 +132,7 @@ SSAFY에서 LLM 데이터 파이프라인·Django 서비스와 VQA 모델 앙상
   - [공개 데이터 프로젝트] 지진: 동아시아 M4+ 2,446건, b = 1.11 ± 0.05 · 테스트 35개(4개 프로젝트 합계)
 
 🏷 Python, Jinja2, GitHub Actions, Playwright, Web Crypto, PWA, JavaScript
-🔗 [사이트](https://0ju12.github.io/)  🔗 [만든 과정 글](https://0ju12.github.io/posts/2026-11-portfolio-one-yaml.html)  🔗 [잠금 화면](https://0ju12.github.io/interview/)  🔗 [GitHub 저장소](https://github.com/0Ju12/data-projects)  
+🔗 [사이트](https://0ju12.github.io/)  🔗 [만든 과정 글](https://0ju12.github.io/posts/2026-11-portfolio-one-yaml.html)  🔗 [잠금 화면](https://0ju12.github.io/interview/)  🔗 [GitHub 저장소](https://github.com/0Ju12/data-projects)  🔗 [지진 대시보드](https://0ju12.github.io/data-projects/)  
 
 ---
 

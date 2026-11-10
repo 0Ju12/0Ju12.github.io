@@ -444,6 +444,7 @@ activities:
             - "지진: 동아시아 M4+ 2,446건, b = 1.11 ± 0.05 · 테스트 35개(4개 프로젝트 합계)"
         links:
           - { label: "GitHub 저장소", url: "https://github.com/0Ju12/data-projects" }
+          - { label: "지진 대시보드", url: "https://0ju12.github.io/data-projects/" }
 
 # ---------------------------------------------------------------------
 #  논문·학회 발표
