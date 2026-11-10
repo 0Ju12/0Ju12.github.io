@@ -1,0 +1,74 @@
+{% import "_head.j2" as h %}
+{%- set p = profile -%}
+{%- set T = {
+  'title': (p.name_en ~ ' — 30-second brief') if en else (p.name ~ ' — 30초 소개'),
+  'kpi': 'At a glance' if en else '한눈에',
+  'work': 'Three projects' if en else '대표 프로젝트 3',
+  'look': 'Looking for' if en else '희망 직무', 'loc': 'Location' if en else '근무지', 'start': 'Available' if en else '입사 가능',
+  'contact': 'Contact' if en else '연락처', 'full': 'Full portfolio' if en else '전체 포트폴리오', 'cv': 'Resume' if en else '이력서',
+  'scan': 'Scan for the full portfolio' if en else '전체 포트폴리오는 QR로',
+  'print': 'Print · save as PDF' if en else '인쇄 · PDF 저장', 'more': 'Details' if en else '자세히',
+} -%}
+<!doctype html>
+<html lang="{{ 'en' if en else 'ko' }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ T.title }}</title>
+{{ h.meta(T.title, p.headline, 'brief' ~ ('-en' if en else '') ~ '.html', '', en) }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--bg:#f5f4f0;--card:#fff;--text:#16181d;--muted:#5d6370;--line:#e6e3dc;--ink:#13294b;--gold:#b07d2b;--soft:#f1efe9}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d1014;--card:#151920;--text:#eceef2;--muted:#a1a8b4;--line:#262c36;--ink:#a9c1e6;--gold:#d9a54a;--soft:#1b2029}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 "Pretendard Variable",Pretendard,"Noto Sans KR",system-ui,sans-serif;word-break:keep-all;-webkit-font-smoothing:antialiased}
+.sheet{max-width:860px;margin:28px auto;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:40px 44px;box-shadow:0 1px 2px rgba(20,24,33,.04),0 18px 40px -24px rgba(20,24,33,.25)}
+header{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start;border-bottom:2px solid var(--ink);padding-bottom:18px}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+h1{margin:6px 0 2px;font-size:34px;letter-spacing:-.035em;line-height:1.15}
+.role{font-weight:700;color:var(--ink)}
+.head{margin:10px 0 0;font-size:16px;font-weight:600;letter-spacing:-.015em}
+.qr{text-align:center;font-size:11px;color:var(--muted)}.qr img{width:104px;height:104px;display:block;margin:0 auto 4px;background:#fff;border-radius:8px;padding:4px}
+h2{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:24px 0 10px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.kpi{background:var(--soft);border-radius:14px;padding:14px 16px}.kpi b{display:block;font-size:24px;letter-spacing:-.03em;color:var(--ink);line-height:1.2}.kpi span{font-size:13px;color:var(--muted)}
+.proj{display:grid;gap:10px}
+.pj{border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:2px 12px}
+.pj b{font-size:15.5px;letter-spacing:-.02em}.pj .k{grid-column:1/-1;font-size:13.5px;color:var(--ink);font-weight:600}.pj .t{grid-column:1/-1;font-size:13.5px;color:var(--muted)}
+.pj a{font-size:12.5px;color:var(--gold);text-decoration:none;white-space:nowrap;font-weight:700}
+.meta{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}.meta div{font-size:13.5px}.meta span{display:block;font-size:11.5px;color:var(--muted);font-weight:700}
+.contact{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px}.contact a{color:var(--text)}
+.bar{max-width:860px;margin:0 auto;display:flex;justify-content:space-between;gap:10px;padding:0 4px}
+.bar a,.bar button{font:inherit;font-size:13.5px;font-weight:700;color:var(--ink);background:none;border:0;cursor:pointer;text-decoration:none;padding:6px 0}
+@media (max-width:640px){.sheet{margin:12px 16px;padding:24px 20px;border-radius:16px}header{grid-template-columns:1fr}.qr{display:none}h1{font-size:28px}.kpis,.meta{grid-template-columns:1fr}.bar{padding:0 16px}}
+@media print{@page{size:A4;margin:14mm}body{background:#fff}.sheet{box-shadow:none;border:0;margin:0;padding:0;max-width:none}.bar{display:none}.pj a{color:#13294b}}
+</style>
+</head>
+<body>
+<nav class="bar"><a href="{{ 'en.html' if en else 'index.html' }}">← {{ T.full }}</a><span><a href="{{ 'brief.html' if en else 'brief-en.html' }}">{{ '한국어' if en else 'EN' }}</a> · <button onclick="window.print()">{{ T.print }}</button></span></nav>
+<main class="sheet">
+  <header>
+    <div>
+      <span class="eyebrow">{{ '30-second brief' if en else '30초 소개' }}</span>
+      <h1>{{ p.name_en if en else p.name }}</h1>
+      <div class="role">{{ p.title }}</div>
+      <p class="head">{{ p.headline }}</p>
+    </div>
+    <div class="qr"><img src="assets/qr-{{ 'en' if en else 'ko' }}.svg" alt="QR code: 0ju12.github.io">{{ T.scan }}</div>
+  </header>
+  <h2>{{ T.kpi }}</h2>
+  <div class="kpis">{% for x in highlights[:3] %}<div class="kpi"><b>{{ x.value }}</b><span>{{ x.label }}</span></div>{% endfor %}</div>
+  <h2>{{ T.work }}</h2>
+  <div class="proj">
+  {%- for a in featured[:3] %}{% set sp = (a.projects or [a])[0] %}
+    <div class="pj"><b>{{ sp.short or sp.title }}</b><a href="projects/{{ sp.id }}{{ '-en' if en else '' }}.html">{{ T.more }} →</a>
+      <span class="k">{{ sp.key or a.kpi.label }}</span><span class="t">{{ sp.tagline or a.tagline }}</span></div>
+  {%- endfor %}
+  </div>
+  {% set av = p.availability or {} %}
+  <div class="meta" style="margin-top:20px"><div><span>{{ T.look }}</span>{{ av.role }}</div><div><span>{{ T.loc }}</span>{{ av.location }}</div><div><span>{{ T.start }}</span>{{ av.start }}</div></div>
+  <h2>{{ T.contact }}</h2>
+  <div class="contact"><a href="mailto:{{ p.email }}">{{ p.email }}</a>{% for l in p.links if 'github' in l.url or 'linkedin' in l.url %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }}</a>{% endfor %}<a href="{{ 'en.html' if en else 'index.html' }}">0ju12.github.io</a></div>
+</main>
+</body>
+</html>

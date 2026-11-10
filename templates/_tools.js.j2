@@ -1,0 +1,195 @@
+/* ================= 도구: 지원 보드 · 캘린더 · 맞춤 이력서 · OPIc 분석 · 알고리즘 기록 · NCS 연습 ================= */
+var CV=D.cv||{};
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function coByKey(k){var R=D.recruit||{},a=String(k||'').split(':'),x=(R.sectors||[]).filter(function(s){return s.id===a[0]})[0];return x&&x.companies[+a[1]]?{x:x,co:x.companies[+a[1]],key:k}:null}
+function allCos(){var out=[];((D.recruit||{}).sectors||[]).forEach(function(x){x.companies.forEach(function(co,ci){out.push({x:x,co:co,key:x.id+':'+ci})})});return out}
+
+function tools(){
+  var b=S.board.length,act=S.board.filter(function(i){return i.stage!=='done'&&i.stage!=='drop'}).length;
+  var wk=S.algo.filter(function(a){return a.d>=wkey()}).length;
+  var cards=[
+    ['#/board','지원 현황 보드','관심 → 서류 → 인적성 → 면접 → 결과. 마감 D-day와 회사별 컨설팅으로 바로 이동.',b?('진행 중 '+act+' · 전체 '+b):'아직 없음'],
+    ['#/cv','회사 맞춤 이력서','회사를 고르면 인재상에 맞는 경험이 위로 오는 1쪽 이력서. 인쇄 → PDF 저장.','38곳'],
+    ['#/algo','알고리즘 기록','푼 문제를 주제별로 기록하고 약한 주제와 주간 목표를 자동 집계.',S.algo.length?('이번 주 '+wk+' · 전체 '+S.algo.length):'아직 없음'],
+    ['#/ncs','NCS · 인적성 연습','응용수리 · 자료해석 · 논리 10문항 세트, 시간 측정.',S.ncs.length?('세트 '+S.ncs.length+'회 · 최근 '+S.ncs[S.ncs.length-1].ok+'/'+S.ncs[S.ncs.length-1].n):'아직 없음'],
+    ['#/opic','OPIc 답변 분석','녹음하며 받아 적은 글로 말한 시간·분당 단어·군말·반복 표현을 확인.',S.opic.length?('분석 '+S.opic.length+'회'):'아직 없음'],
+    ['#/log','기록 · 기기 옮기기','연습 기록 표, 암호 파일로 다른 기기와 합치기.','']];
+  var h='<div class="hd"><div><span class="eyebrow">Toolkit</span><h1 style="margin-top:6px">도구</h1><p class="sub" style="margin:0">지원 관리와 매일 연습에 쓰는 도구입니다. 모든 기록은 이 브라우저에만 저장됩니다.</p></div><button class="btn" id="ics">캘린더로 내보내기 (.ics)</button></div>';
+  h+='<div class="rec-g">'+cards.map(function(c){return '<a class="card rc" href="'+c[0]+'"><div class="top2"><h3>'+esc(c[1])+'</h3><span class="muted small">'+esc(c[3])+'</span></div><div class="why muted">'+esc(c[2])+'</div></a>'}).join('')+'</div>';
+  h+='<p class="faint small" style="margin-top:12px">캘린더 파일에는 날짜를 정한 목표와 지원 보드의 마감일이 하루 전 알림과 함께 들어갑니다. 휴대폰에서는 공유 창으로 캘린더 앱에 바로 열 수 있습니다.</p>';
+  $('#app').innerHTML=h;$('#ics').onclick=exportICS;
+}
+
+/* ---------- 캘린더 (.ics) ---------- */
+function icsEsc(s){return String(s||'').replace(/\\/g,'\\\\').replace(/[,;]/g,function(c){return '\\'+c}).replace(/\n/g,'\\n')}
+function exportICS(){
+  var ev=[];(P.goals||[]).forEach(function(g){var d=gdate(g);if(d)ev.push({id:'goal-'+g.id,d:d,t:g.name,n:g.note||''})});
+  S.board.forEach(function(i){if(i.due&&i.stage!=='done'&&i.stage!=='drop')ev.push({id:'board-'+i.id,d:i.due,t:i.name+' — '+(STAGES[i.stage]||'')+' 마감',n:(i.role?i.role+' · ':'')+(i.memo||'')})});
+  if(!ev.length){toast('날짜가 정해진 목표나 마감일이 없습니다.');return}
+  var stamp=new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d+/,'');
+  var L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//interview-studio//KO','CALSCALE:GREGORIAN','METHOD:PUBLISH','X-WR-CALNAME:면접 준비'];
+  ev.forEach(function(e){var a=e.d.replace(/-/g,''),nx=new Date(e.d+'T00:00:00');nx.setDate(nx.getDate()+1);var b=nx.getFullYear()+String(nx.getMonth()+1).padStart(2,'0')+String(nx.getDate()).padStart(2,'0');
+    L.push('BEGIN:VEVENT','UID:'+e.id+'@interview-studio','DTSTAMP:'+stamp,'DTSTART;VALUE=DATE:'+a,'DTEND;VALUE=DATE:'+b,'SUMMARY:'+icsEsc(e.t),'DESCRIPTION:'+icsEsc(e.n),'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:'+icsEsc(e.t),'TRIGGER:-P1D','END:VALARM','END:VEVENT')});
+  L.push('END:VCALENDAR');
+  SYNC.save('면접준비_일정_'+today()+'.ics',L.join('\r\n'),'text/calendar').then(function(){toast('일정 '+ev.length+'개를 캘린더 파일로 만들었습니다.')})
+}
+
+/* ---------- 지원 현황 보드 ---------- */
+var STAGES={want:'관심',doc:'서류',test:'인적성·코테',int:'면접',done:'최종 합격',drop:'불합격·포기'},SORDER=['want','doc','test','int','done','drop'];
+function board(){
+  var h='<div class="hd"><div><span class="eyebrow">Applications</span><h1 style="margin-top:6px">지원 현황 보드</h1><p class="sub" style="margin:0">카드를 단계별로 옮기며 관리합니다. 마감일은 캘린더 내보내기에 함께 들어갑니다.</p></div><a class="btn ghost" href="#/tools">← 도구</a></div>';
+  h+='<div class="card" style="margin-bottom:14px"><div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:10px;align-items:end">'+
+    '<label class="small" style="font-weight:700">회사<select class="field" id="bco" style="margin-top:4px"><option value="">직접 입력…</option>'+allCos().sort(function(a,b){return ((b.co.match||{}).score||0)-((a.co.match||{}).score||0)}).map(function(c){return '<option value="'+c.key+'">'+esc(c.co.name)+(c.co.match?' · 추천 '+c.co.match.score:'')+'</option>'}).join('')+'</select></label>'+
+    '<label class="small" style="font-weight:700">회사 이름(직접 입력)<input class="field" id="bname" placeholder="예: ○○공사" style="margin-top:4px"></label>'+
+    '<label class="small" style="font-weight:700">직무<input class="field" id="brole" placeholder="예: 데이터 · IT" style="margin-top:4px"></label>'+
+    '<label class="small" style="font-weight:700">마감일<input class="field" id="bdue" type="date" style="margin-top:4px"></label>'+
+    '<button class="btn" id="badd">보드에 추가</button></div></div>';
+  h+='<div class="kb">'+SORDER.map(function(st){var its=S.board.filter(function(i){return i.stage===st}).sort(function(a,b){return (a.due||'9')<(b.due||'9')?-1:1});
+    return '<section class="kc"><div class="kh"><b>'+STAGES[st]+'</b><span class="muted small">'+its.length+'</span></div>'+(its.length?its.map(function(i){var n=ddays(i.due),c=i.key?coByKey(i.key):null;
+      return '<article class="ki"><div class="row" style="justify-content:space-between;gap:6px"><b style="font-size:14.5px">'+esc(i.name)+'</b>'+(i.due?'<span class="dv-s'+(n!=null&&n<=3&&n>=0?' soon':'')+'">'+dlab(n)+'</span>':'')+'</div>'+
+      (i.role?'<div class="muted small">'+esc(i.role)+'</div>':'')+(i.due?'<div class="faint small">마감 '+kdate(i.due)+'</div>':'')+
+      '<textarea class="kmemo" data-bm="'+i.id+'" rows="2" placeholder="메모 (전형 일정, 준비할 것)">'+esc(i.memo||'')+'</textarea>'+
+      '<div class="row" style="justify-content:space-between;margin-top:6px"><span class="row" style="gap:4px"><button class="btn sm ghost" data-bmv="'+i.id+'" data-d="-1" aria-label="이전 단계">←</button><button class="btn sm ghost" data-bmv="'+i.id+'" data-d="1" aria-label="다음 단계">→</button></span><span class="row" style="gap:6px">'+(c?'<a class="small" href="#/jobs/'+i.key+'">컨설팅</a><a class="small" href="#/cv/'+i.key+'">이력서</a>':'')+'<button class="xbtn" data-bdel="'+i.id+'" aria-label="삭제">✕</button></span></div></article>'}).join(''):'<p class="faint small" style="margin:6px 2px">비어 있음</p>')+'</section>'}).join('')+'</div>';
+  $('#app').innerHTML=h;
+  $('#bco').onchange=function(){var c=coByKey(this.value);if(c){$('#bname').value=c.co.name.replace(/\s*\(.*\)\s*$/,'');}};
+  $('#badd').onclick=function(){var key=$('#bco').value,name=$('#bname').value.trim()||(key&&coByKey(key)?coByKey(key).co.name:'');if(!name){toast('회사를 고르거나 이름을 입력하세요.');return}
+    S.board.push({id:uid(),key:key||'',name:name,role:$('#brole').value.trim(),due:$('#bdue').value,stage:'want',memo:'',ts:Date.now()});save();board()};
+  $$('[data-bmv]').forEach(function(b){b.onclick=function(){var i=S.board.filter(function(x){return x.id===b.dataset.bmv})[0],k=SORDER.indexOf(i.stage)+(+b.dataset.d);if(k<0||k>=SORDER.length)return;i.stage=SORDER[k];i.ts=Date.now();save();board();if(i.stage==='done')toast('축하합니다! 🎉')}});
+  $$('[data-bdel]').forEach(function(b){b.onclick=function(){if(!confirm('이 카드를 지울까요?'))return;S.board=S.board.filter(function(x){return x.id!==b.dataset.bdel});save();board()}});
+  $$('[data-bm]').forEach(function(t){t.oninput=function(){var i=S.board.filter(function(x){return x.id===t.dataset.bm})[0];i.memo=t.value;i.ts=Date.now();clearTimeout(t._s);t._s=setTimeout(save,400)}});
+}
+
+/* ---------- 회사 맞춤 이력서 ---------- */
+var EXP_KEYS={spe:['석사','SPE','중력','자력','SLFI','DLFI','지표','파수'],llm:['LLM','관통','Django','파이프라인','ThRead','검증','테스트','FastAPI'],vqa:['VQA','앙상블','챌린지','fixes','QLoRA'],fire:['산불','U-LSTM','시공간','F1'],pospeak:['POSPEAK','콩글리시','FLAN','BERTScore','장려상'],calgary:['캘거리','파견','공동연구','칼리파','해외'],rag:['RAG','국보','근거','LangGraph','ChromaDB'],ccs:['CCS','탄성파','판구조','GPlates','저장소']};
+var EXP_HINT={spe:/석사|SPE|지표|신호/,llm:/LLM|관통|검증|파이프라인|테스트|추천/,vqa:/VQA|fixes|앙상블|Public Score/,fire:/산불|U-LSTM/,pospeak:/POSPEAK|순차 학습|통합 학습/,calgary:/캘거리|파견|공동연구|해외|칼리파/,rag:/RAG|국보|근거|환각/,ccs:/CCS|탄성파|E&P|지구물리|G&G/};
+function cvWeights(co){var txt=JSON.stringify([co.talent,co.consult,co.match,co.conditions,co.name]),w={};Object.keys(EXP_HINT).forEach(function(k){var m=txt.match(new RegExp(EXP_HINT[k].source,'g'));w[k]=m?m.length:0});return w}
+function lineScore(t,w){var s=0;Object.keys(EXP_KEYS).forEach(function(k){if(!w[k])return;EXP_KEYS[k].forEach(function(kw){if(t.indexOf(kw)>=0)s+=w[k]})});return s}
+function cvPick(sel){
+  var cos=allCos().sort(function(a,b){return ((b.co.match||{}).score||0)-((a.co.match||{}).score||0)});
+  return '<div class="row noprint" style="gap:10px;margin-bottom:14px"><select class="field" id="cvco" style="max-width:420px"><option value="">회사를 고르세요 (기본 이력서)</option>'+cos.map(function(c){return '<option value="'+c.key+'"'+(c.key===sel?' selected':'')+'>'+esc(c.co.name)+(c.co.match?' · 추천 '+c.co.match.score:'')+'</option>'}).join('')+'</select><button class="btn" id="cvprint">인쇄 · PDF 저장</button><a class="btn ghost" href="#/tools">← 도구</a></div>'}
+function cvView(key){
+  var c=key?coByKey(key):null,co=c?c.co:{},w=c?cvWeights(co):{},p=CV.profile||{};
+  var acts=(CV.acts||[]).map(function(a){var lines=a.brief.map(function(t,i){return {t:t,s:lineScore(t,w)-i*0.01}});var s=lines.reduce(function(x,y){return x+Math.max(0,y.s)},0);if(c)lines.sort(function(x,y){return y.s-x.s});return {a:a,lines:lines,s:s}});
+  if(c)acts.sort(function(x,y){return y.s-x.s});
+  var focus=c&&co.consult&&co.consult.map?co.consult.map.slice(0,3).map(function(m){var pr=m.split('→');return pr.length>1?pr[1].trim()+' ('+pr[0].trim()+')':m}):[];
+  var skills=(CV.skills||[]).map(function(g){var it=g.items.slice();if(c){var txt=JSON.stringify(co);it.sort(function(a,b){return (txt.indexOf(b)>=0)-(txt.indexOf(a)>=0)})}return '<div><b>'+esc(g.category)+'</b> '+esc(it.join(' · '))+'</div>'}).join('');
+  var h=cvPick(key)+(c?'<div class="fit noprint" style="margin-bottom:14px;border-left-color:var(--gold);background:var(--gold-soft)"><b>'+esc(co.name)+'</b> 기준으로 재정렬했습니다. 인재상: '+esc((co.talent&&co.talent.kw||[]).join(' · '))+'<br><span class="small">경험 연결은 면접 컨설팅의 "인재상 → 내 경험"에서 가져왔습니다. 지원서 양식이 따로 있으면 이 내용을 옮겨 쓰세요.</span></div>':'');
+  h+='<div class="cvpage" id="cvpage"><header><div><h1>'+esc(p.name||'')+'</h1><div class="cvt">'+esc(p.title||'')+'</div></div><div class="cvc">'+esc(p.email||'')+'<br>'+(p.links||[]).map(function(l){return esc(decodeURIComponent(l.url).replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,''))}).slice(0,2).join('<br>')+'</div></header>';
+  h+='<p class="cvs">'+esc(p.headline||'')+'</p>';
+  if(focus.length)h+='<section><h2>지원 회사와 맞닿는 경험</h2><ul>'+focus.map(function(f){return '<li>'+esc(f)+'</li>'}).join('')+'</ul></section>';
+  h+='<section><h2>경험</h2>'+acts.map(function(o,ai){var a=o.a;return '<div class="cva"><div class="cvh"><b>'+esc(a.title)+'</b><span>'+esc(a.period)+'</span></div><div class="cvr">'+esc(a.role)+'</div><ul>'+o.lines.slice(0,ai<2?(a.max||3):Math.min(2,a.max||2)).map(function(l){return '<li>'+esc(l.t)+'</li>'}).join('')+'</ul></div>'}).join('')+'</section>';
+  h+='<section class="cv2"><div><h2>학력</h2>'+(CV.edu||[]).map(function(e){return '<div class="cvl"><b>'+esc(e.school)+'</b> '+esc(e.major)+' · '+esc(e.degree)+'<span>'+esc(e.period)+'</span></div>'}).join('')+'</div><div><h2>논문 · 수상 · 자격</h2>'+(CV.pubs||[]).map(function(t){return '<div class="cvl">'+esc(t)+'</div>'}).join('')+(CV.awards||[]).map(function(t){return '<div class="cvl">'+esc(t.replace(/\s*\(포스터 부문 · 「.*?」\)/,' (포스터)'))+'</div>'}).join('')+(CV.certs||[]).map(function(t){return '<div class="cvl">'+esc(t)+'</div>'}).join('')+'</div></section>';
+  h+='<section><h2>기술</h2><div class="cvk">'+skills+'</div></section></div>';
+  $('#app').innerHTML=h;
+  $('#cvco').onchange=function(){location.hash='#/cv'+(this.value?'/'+this.value:'')};
+  $('#cvprint').onclick=function(){document.body.classList.add('printing-cv');window.print()};
+}
+window.addEventListener('afterprint',function(){document.body.classList.remove('printing-cv')});
+
+/* ---------- OPIc 답변 분석 (브라우저 음성 인식) ---------- */
+var SR=window.SpeechRecognition||window.webkitSpeechRecognition,recog=null;
+var FILLERS=['um','uh','erm','like','you know','i mean','kind of','sort of','actually','basically'];
+function srStart(m){if(!SR)return;try{recog=new SR();recog.lang='en-US';recog.continuous=true;recog.interimResults=true;m.tr='';m.tri='';
+  recog.onresult=function(e){var fin='',tmp='';for(var i=e.resultIndex;i<e.results.length;i++){var r=e.results[i];if(r.isFinal)fin+=r[0].transcript+' ';else tmp+=r[0].transcript}m.tr+=fin;m.tri=tmp;var el=$('#live');if(el)el.textContent=(m.tr+m.tri).slice(-220)};
+  recog.onerror=function(){};recog.onend=function(){if(m.st==='talk'){try{recog.start()}catch(_){}}};recog.start()}catch(_){recog=null}}
+function srStop(){if(recog){try{recog.onend=null;recog.stop()}catch(_){}recog=null}}
+function analyze(text,sec){var t=(text||'').toLowerCase().replace(/[^a-z'\s]/g,' ').replace(/\s+/g,' ').trim(),w=t?t.split(' '):[];
+  var fill={};FILLERS.forEach(function(f){var m=(' '+t+' ').split(' '+f+' ').length-1;if(m)fill[f]=m});
+  var tri={};for(var i=0;i+2<w.length;i++){var k=w[i]+' '+w[i+1]+' '+w[i+2];tri[k]=(tri[k]||0)+1}
+  var rep=Object.keys(tri).filter(function(k){return tri[k]>1}).sort(function(a,b){return tri[b]-tri[a]}).slice(0,5).map(function(k){return [k,tri[k]]});
+  var uniq={};w.forEach(function(x){uniq[x]=1});
+  var past=(t.match(/\b(\w+ed|was|were|went|had|did|saw|took|made|got|came|felt|thought)\b/g)||[]).length;
+  var conn=(t.match(/\b(because|so|however|but|and then|after that|first|finally|also|although|while|when)\b/g)||[]).length;
+  return {words:w.length,sec:sec||0,wpm:sec?Math.round(w.length/(sec/60)):0,fill:fill,fn:Object.keys(fill).reduce(function(a,k){return a+fill[k]},0),rep:rep,lex:w.length?Math.round(Object.keys(uniq).length/w.length*100):0,past:past,conn:conn}}
+function analysisHTML(a){if(!a.words)return '<p class="muted small">받아 적은 말이 없습니다. 마이크 권한과 브라우저(Chrome·Edge·Safari)를 확인하세요.</p>';
+  var tip=[];if(a.wpm&&a.wpm<90)tip.push('말이 느린 편입니다. 문장을 짧게 끊고 연결어로 이어 보세요.');if(a.words<120&&a.sec>=90)tip.push('IH는 문단 단위 답변이 필요합니다. 예시·이유를 하나 더 붙여 길이를 늘리세요.');
+  if(a.fn>=5)tip.push('군말이 많습니다. 생각할 때는 "Let me think…" 같은 정해진 표현을 쓰세요.');if(a.conn<3)tip.push('연결어(because, after that, however)를 더 쓰면 문단처럼 들립니다.');if(a.rep.length)tip.push('같은 표현이 반복됩니다: "'+a.rep[0][0]+'"');
+  return '<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-top:10px">'+[['단어',a.words],['분당 단어',a.wpm||'—'],['군말',a.fn],['어휘 다양성',a.lex+'%'],['연결어',a.conn],['과거형',a.past]].map(function(x){return '<div class="card kpi" style="padding:10px 12px"><b style="font-size:20px">'+x[1]+'</b><span>'+x[0]+'</span></div>'}).join('')+'</div>'+
+    (tip.length?'<ul class="tails" style="margin-top:10px">'+tip.map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul>':'<p class="small" style="color:var(--ok);margin-top:10px">길이·속도·연결어 모두 무난합니다.</p>')+
+    '<p class="faint small">자동 받아쓰기는 발음에 따라 틀릴 수 있어 참고용입니다. 기준(분당 단어 등)은 연습 목표로 잡은 값이며 OPIc 공식 채점 기준이 아닙니다.</p>'}
+function opicView(){
+  var h='<div class="hd"><div><span class="eyebrow">OPIc</span><h1 style="margin-top:6px">OPIc 답변 분석</h1><p class="sub" style="margin:0">OPIc 모의 면접에서 [답변 시작]을 누르면 녹음과 함께 영어 받아쓰기가 켜지고, 답변이 끝나면 길이·속도·군말·반복 표현을 보여 줍니다.'+(SR?'':' <b>이 브라우저는 음성 받아쓰기를 지원하지 않습니다 (Chrome·Edge·Safari 권장).</b>')+'</p></div><span class="row"><button class="btn" id="og">OPIc 실전 15문항</button><a class="btn ghost" href="#/tools">← 도구</a></span></div>';
+  if(!S.opic.length)h+='<div class="card empty">아직 분석한 답변이 없습니다.</div>';
+  else{var L=S.opic.slice(-40),avg=function(k){return Math.round(L.reduce(function(a,x){return a+(x[k]||0)},0)/L.length)};
+    h+='<div class="grid g4"><div class="card kpi"><b>'+S.opic.length+'</b><span>분석한 답변</span></div><div class="card kpi"><b>'+avg('wpm')+'</b><span>평균 분당 단어 (최근 40)</span></div><div class="card kpi"><b>'+avg('words')+'</b><span>평균 단어 수</span></div><div class="card kpi"><b>'+avg('fn')+'</b><span>평균 군말</span></div></div>';
+    h+='<h2>최근 답변</h2><div class="grid">'+S.opic.slice(-12).reverse().map(function(o){return '<details class="card qcard"><summary><b>'+esc(o.q)+'</b><span class="tag">'+esc(o.d)+'</span><span class="tag">'+o.words+'단어 · '+(o.wpm||'—')+'wpm</span></summary><div class="qbody"><div class="ans">'+esc(o.text)+'</div>'+analysisHTML(o)+'</div></details>'}).join('')+'</div>'}
+  $('#app').innerHTML=h;$('#og').onclick=startOpic;
+}
+
+/* ---------- 알고리즘 기록 ---------- */
+var ATOP=['구현·시뮬레이션','BFS/DFS','백트래킹','비트마스킹','DP','그리디','이분 탐색','투 포인터','최단 경로','그래프·트리','문자열','자료구조','수학'];
+function algo(){
+  var since=wkey(),wk=S.algo.filter(function(a){return a.d>=since}),tg=(((P.weekly||[]).filter(function(w){return w.id==='algo'})[0])||{}).target||10;
+  var st={};S.algo.forEach(function(a){(a.t||[]).forEach(function(t){var o=st[t]||(st[t]={n:0,bad:0});o.n++;if(a.r!=='ok')o.bad++})});
+  var weak=Object.keys(st).filter(function(k){return st[k].n>=2}).sort(function(a,b){return st[b].bad/st[b].n-st[a].bad/st[a].n}).slice(0,3);
+  var h='<div class="hd"><div><span class="eyebrow">Algorithm log</span><h1 style="margin-top:6px">알고리즘 기록</h1><p class="sub" style="margin:0">이번 주 '+wk.length+' / '+tg+'문제 · 혼자 푼 문제를 추가하면 주간 체크에 자동으로 더해집니다.</p></div><a class="btn ghost" href="#/tools">← 도구</a></div>';
+  h+='<div class="card" style="margin-bottom:14px"><div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:10px;align-items:end">'+
+    '<label class="small" style="font-weight:700">사이트<select class="field" id="as" style="margin-top:4px">'+['SWEA','백준','프로그래머스','코드트리','기타'].map(function(x){return '<option>'+x+'</option>'}).join('')+'</select></label>'+
+    '<label class="small" style="font-weight:700">번호·제목<input class="field" id="an" placeholder="예: 1767 프로세서 연결하기" style="margin-top:4px"></label>'+
+    '<label class="small" style="font-weight:700">난이도<input class="field" id="al" placeholder="D4 · 골드3" style="margin-top:4px"></label>'+
+    '<label class="small" style="font-weight:700">결과<select class="field" id="ar" style="margin-top:4px"><option value="ok">혼자 풀었다</option><option value="hint">힌트·풀이 참고</option><option value="fail">못 풀었다</option></select></label>'+
+    '<label class="small" style="font-weight:700">걸린 시간(분)<input class="field" id="am" type="number" min="0" style="margin-top:4px"></label></div>'+
+    '<div class="lbl">주제</div><div class="chips" id="at">'+ATOP.map(function(t){return '<button class="chip" data-t="'+esc(t)+'">'+esc(t)+'</button>'}).join('')+'</div><div class="row" style="margin-top:12px;justify-content:flex-end"><button class="btn" id="aadd">기록 추가</button></div></div>';
+  h+='<div class="grid g2"><div class="card"><b>주제별</b>'+(Object.keys(st).length?'<table style="width:100%;border-collapse:collapse;font-size:14px;margin-top:8px">'+Object.keys(st).sort(function(a,b){return st[b].n-st[a].n}).map(function(k){var o=st[k];return '<tr><td style="padding:4px 0">'+esc(k)+'</td><td>'+o.n+'문제</td><td style="color:'+(o.bad/o.n>=.5?'var(--bad)':'var(--muted)')+'">못 푼 비율 '+Math.round(o.bad/o.n*100)+'%</td></tr>'}).join('')+'</table>':'<p class="faint small">기록이 쌓이면 주제별 통계가 나옵니다.</p>')+'</div>'+
+    '<div class="card"><b>다음에 연습할 주제</b>'+(weak.length?'<ul class="tails">'+weak.map(function(k){return '<li>'+esc(k)+' — 못 푼 비율 '+Math.round(st[k].bad/st[k].n*100)+'% ('+st[k].n+'문제)</li>'}).join('')+'</ul><a class="small" href="../study/index.html#/notes/algo">SW 알고리즘 노트로 복습 →</a>':'<p class="faint small">한 주제에 2문제 이상 기록하면 약한 주제를 골라 드립니다.</p>')+'</div></div>';
+  h+='<h2>기록 <span class="muted small" style="font-weight:600">'+S.algo.length+'문제</span></h2><div class="card" style="overflow-x:auto">'+(S.algo.length?'<table style="width:100%;border-collapse:collapse;font-size:14px"><tr style="color:var(--muted);text-align:left"><th style="padding:6px 0">날짜</th><th>문제</th><th>주제</th><th>결과</th><th></th></tr>'+S.algo.slice().reverse().slice(0,60).map(function(a){return '<tr><td style="padding:6px 0;white-space:nowrap">'+esc(a.d.slice(5))+'</td><td>'+esc(a.s+' '+a.n)+(a.l?' <span class="faint">'+esc(a.l)+'</span>':'')+'</td><td class="small muted">'+esc((a.t||[]).join(', '))+'</td><td>'+({ok:'✓',hint:'힌트',fail:'✕'}[a.r])+(a.m?' <span class="faint small">'+a.m+'분</span>':'')+'</td><td><button class="xbtn" data-adel="'+a.id+'" aria-label="삭제">✕</button></td></tr>'}).join('')+'</table>':'<p class="faint small">아직 기록이 없습니다.</p>')+'</div>';
+  $('#app').innerHTML=h;
+  var sel=[];$$('#at [data-t]').forEach(function(b){b.onclick=function(){var i=sel.indexOf(b.dataset.t);if(i>=0)sel.splice(i,1);else sel.push(b.dataset.t);b.classList.toggle('on')}});
+  $('#aadd').onclick=function(){var n=$('#an').value.trim();if(!n){toast('번호나 제목을 입력하세요.');return}var r=$('#ar').value;
+    S.algo.push({id:uid(),d:today(),s:$('#as').value,n:n,l:$('#al').value.trim(),r:r,m:+$('#am').value||0,t:sel.slice(),ts:Date.now()});if(r==='ok')wadd('algo',1);else save();toast(r==='ok'?'기록했습니다. 이번 주 알고리즘 +1':'기록했습니다.');algo()};
+  $$('[data-adel]').forEach(function(b){b.onclick=function(){var a=S.algo.filter(function(x){return x.id===b.dataset.adel})[0];if(!a||!confirm('이 기록을 지울까요?'))return;S.algo=S.algo.filter(function(x){return x!==a});if(a.r==='ok'&&a.d>=wkey())wadd('algo',-1);else save();algo()}});
+}
+
+/* ---------- NCS · 인적성 연습 ---------- */
+function ri(a,b){return a+Math.floor(Math.random()*(b-a+1))}
+function choices(ans,fmtf,spread){var set=[ans],guard=0;while(set.length<4&&guard++<50){var d=ans+(ri(1,4)*(Math.random()<.5?-1:1))*spread;d=Math.round(d*100)/100;if(d>0&&set.indexOf(d)<0)set.push(d)}while(set.length<4)set.push(ans+set.length*spread);return shuffle(set).map(function(v){return {v:v,t:fmtf(v)}})}
+var GEN={
+  speed:function(){var v1=ri(3,8)*10,v2=v1+ri(1,4)*10,t=ri(2,5),d=(v1+v2)*t;return {cat:'응용수리',q:'두 지점 사이 거리가 '+d+'km이다. A는 시속 '+v1+'km, B는 시속 '+v2+'km로 두 지점에서 서로를 향해 동시에 출발했다. 두 사람이 만나는 데 걸리는 시간은?',a:t,c:choices(t,function(x){return x+'시간'},1),ex:'만날 때까지 두 사람이 달린 거리의 합 = '+d+'km, 속력의 합 = '+(v1+v2)+'km/h → '+d+' ÷ '+(v1+v2)+' = '+t+'시간'}},
+  conc:function(){var w1=ri(2,6)*50,p1=ri(2,8),w2=ri(2,6)*50,p2=ri(9,15),salt=w1*p1/100+w2*p2/100,ans=Math.round(salt/(w1+w2)*1000)/10;return {cat:'응용수리',q:p1+'% 소금물 '+w1+'g과 '+p2+'% 소금물 '+w2+'g을 섞었다. 섞은 소금물의 농도는? (소수 첫째 자리까지)',a:ans,c:choices(ans,function(x){return x+'%'},0.7),ex:'소금 = '+w1+'×'+p1+'% + '+w2+'×'+p2+'% = '+(Math.round(salt*10)/10)+'g, 전체 '+(w1+w2)+'g → '+ans+'%'}},
+  work:function(){var a=[4,6,8,10,12][ri(0,4)],b=[6,8,12,15,24][ri(0,4)];if(a===b)b=a*2;var ans=Math.round(a*b/(a+b)*10)/10;return {cat:'응용수리',q:'어떤 일을 A가 혼자 하면 '+a+'일, B가 혼자 하면 '+b+'일 걸린다. 둘이 함께 하면 며칠 걸리는가? (소수 첫째 자리까지)',a:ans,c:choices(ans,function(x){return x+'일'},0.8),ex:'하루 일의 양 1/'+a+' + 1/'+b+' → '+a+'×'+b+' ÷ ('+a+'+'+b+') = '+ans+'일'}},
+  price:function(){var c=ri(4,20)*1000,m=ri(2,5)*10,dc=ri(1,3)*10,sell=c*(1+m/100)*(1-dc/100),ans=Math.round(sell-c);return {cat:'응용수리',q:'원가 '+c.toLocaleString()+'원인 상품에 원가의 '+m+'%를 이익으로 붙여 정가를 정했다가, 정가의 '+dc+'%를 할인해 팔았다. 한 개를 팔 때 이익은?',a:ans,c:choices(ans,function(x){return Math.round(x).toLocaleString()+'원'},Math.max(100,Math.round(c*0.02/100)*100)),ex:'판매가 = '+c.toLocaleString()+' × '+(1+m/100)+' × '+(1-dc/100)+' = '+Math.round(sell).toLocaleString()+'원 → 이익 '+ans.toLocaleString()+'원'}},
+  comb:function(){var n=ri(5,8),k=ri(2,3),f=function(x){return x<=1?1:x*f(x-1)},ans=f(n)/(f(k)*f(n-k));return {cat:'응용수리',q:'팀원 '+n+'명 중 발표자 '+k+'명을 뽑는 방법의 수는? (순서 상관없음)',a:ans,c:choices(ans,function(x){return x+'가지'},Math.max(2,Math.round(ans/6))),ex:n+'C'+k+' = '+ans}},
+  table:function(){var base=ri(80,160)*10,ys=[2022,2023,2024,2025],vals=[base];for(var i=1;i<4;i++)vals.push(Math.round(vals[i-1]*(1+ri(-8,18)/100)));var j=ri(1,3),ans=Math.round((vals[j]-vals[j-1])/vals[j-1]*1000)/10;
+    return {cat:'자료해석',q:'연도별 데이터 처리 건수가 다음과 같다. '+ys[j]+'년의 전년 대비 증가율은? (소수 첫째 자리까지)',tbl:[ys,vals],a:ans,c:choices(ans,function(x){return x+'%'},1.5),ex:'('+vals[j]+' − '+vals[j-1]+') ÷ '+vals[j-1]+' × 100 = '+ans+'%'}},
+  share:function(){var items=['서울','부산','대전','광주'],v=items.map(function(){return ri(12,60)*10}),tot=v.reduce(function(a,b){return a+b},0),j=ri(0,3),ans=Math.round(v[j]/tot*1000)/10;
+    return {cat:'자료해석',q:'지역별 지원자 수가 다음과 같다. 전체에서 '+items[j]+' 지원자가 차지하는 비율은? (소수 첫째 자리까지)',tbl:[items,v],a:ans,c:choices(ans,function(x){return x+'%'},2),ex:v[j]+' ÷ '+tot+' × 100 = '+ans+'%'}}
+};
+var LOGIC=[
+  {q:'모든 데이터 엔지니어는 SQL을 쓴다. 어떤 SQL 사용자는 Python을 쓰지 않는다. 다음 중 반드시 참인 것은?',c:['모든 데이터 엔지니어는 Python을 쓴다','어떤 데이터 엔지니어는 Python을 쓰지 않는다','SQL을 쓰지 않는 사람은 데이터 엔지니어가 아니다','Python을 쓰는 사람은 모두 SQL을 쓴다'],a:2,ex:'"모든 A는 B"의 대우 "B가 아니면 A가 아니다"만 반드시 참입니다.'},
+  {q:'A, B, C, D 네 명이 일렬로 앉는다. A는 B 바로 왼쪽, C는 맨 오른쪽, D는 B와 이웃하지 않는다. 맨 왼쪽에 앉은 사람은?',c:['A','B','C','D'],a:3,ex:'C가 맨 오른쪽이고 A-B가 붙어야 하므로 A B D C 또는 D A B C. D는 B와 이웃하면 안 되므로 D A B C → 맨 왼쪽은 D.'},
+  {q:'"비가 오면 행사가 취소된다"가 참일 때, 반드시 참인 것은?',c:['행사가 취소되면 비가 온 것이다','비가 오지 않으면 행사가 열린다','행사가 열렸다면 비가 오지 않은 것이다','행사가 취소되지 않으면 비가 온다'],a:2,ex:'p→q 의 대우 ¬q→¬p 만 항상 참입니다.'},
+  {q:'세 사람 중 한 명만 진실을 말한다. 갑: "을이 범인이다." 을: "나는 범인이 아니다." 병: "나는 범인이 아니다." 범인은? (범인은 한 명)',c:['갑','을','병','알 수 없음'],a:2,ex:'병이 범인이라고 두면 갑은 거짓, 을은 참, 병은 거짓 → 진실 1명으로 조건 충족. 갑·을이 범인인 경우는 진실이 2명이 됩니다.'},
+  {q:'수열 2, 6, 12, 20, 30, ( ) 의 빈칸은?',c:['38','40','42','44'],a:2,ex:'차이가 4, 6, 8, 10, 12로 늘어남 → 30 + 12 = 42 (n(n+1) 꼴).'},
+  {q:'수열 3, 5, 9, 17, 33, ( ) 의 빈칸은?',c:['49','57','63','65'],a:3,ex:'앞 수 × 2 − 1 → 33 × 2 − 1 = 65.'},
+  {q:'어떤 프로젝트의 일정: 설계는 개발보다 먼저, 테스트는 개발 다음, 배포는 테스트 다음, 문서화는 설계 다음이고 배포보다 먼저다. 반드시 참인 것은?',c:['문서화는 개발보다 먼저다','설계가 가장 먼저다','테스트가 문서화보다 먼저다','개발이 두 번째다'],a:1,ex:'설계 → 개발 → 테스트 → 배포, 문서화는 설계 뒤·배포 앞. 모든 일보다 앞선 것은 설계뿐입니다.'},
+  {q:'시계가 3시 30분을 가리킬 때 시침과 분침이 이루는 작은 각은?',c:['75°','80°','90°','105°'],a:0,ex:'분침 180°, 시침 90° + 30분×0.5° = 105° → 차이 75°.'},
+  {q:'5명이 서로 한 번씩 악수하면 악수는 모두 몇 번?',c:['8','10','12','20'],a:1,ex:'5C2 = 10.'},
+  {q:'A는 B보다 크고, C는 D보다 작으며, B는 D보다 크다. C와 A 중 큰 쪽은?',c:['A','C','같다','알 수 없음'],a:0,ex:'A > B > D > C 이므로 A가 큽니다.'},
+  {q:'"데이터를 검증하지 않는 팀은 사고를 낸다. 우리 팀은 사고를 내지 않았다." 이로부터 알 수 있는 것은?',c:['우리 팀은 데이터를 검증했다','우리 팀은 운이 좋았다','사고를 낸 팀은 검증하지 않았다','검증하는 팀은 사고를 내지 않는다'],a:0,ex:'"검증하지 않으면 사고" 의 대우 "사고가 없으면 검증했다".'}
+];
+var ncsS=null;
+function ncsMake(n){var g=Object.keys(GEN),out=[];for(var i=0;i<n;i++){if(i%3===2){var L=LOGIC[ri(0,LOGIC.length-1)];out.push({cat:'논리·추리',q:L.q,c:L.c.map(function(t,k){return {v:k,t:t}}),a:L.a,ex:L.ex})}else out.push(GEN[g[ri(0,g.length-1)]]())}return out}
+function ncs(){
+  if(ncsS&&ncsS.i<ncsS.qs.length)return ncsPlay();
+  var h='<div class="hd"><div><span class="eyebrow">NCS · 인적성</span><h1 style="margin-top:6px">NCS · 인적성 연습</h1><p class="sub" style="margin:0">응용수리(속력·농도·일률·이익·경우의 수) · 자료해석(증가율·비율) · 논리·추리를 섞은 10문항입니다. 수리 문제는 매번 숫자가 새로 만들어집니다. 실제 시험(PSAT형·모듈형 등)은 기관마다 다르니 공고의 출제 유형을 확인하세요.</p></div><span class="row"><button class="btn" id="ngo">10문항 시작</button><a class="btn ghost" href="#/tools">← 도구</a></span></div>';
+  if(S.ncs.length){var L=S.ncs.slice(-10);h+='<h2>최근 세트</h2><div class="card"><table style="width:100%;border-collapse:collapse;font-size:14px">'+L.slice().reverse().map(function(r){return '<tr><td style="padding:6px 0">'+esc(r.d)+'</td><td>'+r.ok+' / '+r.n+'</td><td>'+fmt(r.sec)+' (문항당 '+Math.round(r.sec/r.n)+'초)</td><td class="small muted">'+Object.keys(r.cat||{}).map(function(k){return k+' '+r.cat[k][0]+'/'+r.cat[k][1]}).join(' · ')+'</td></tr>'}).join('')+'</table></div>'}
+  $('#app').innerHTML=h;$('#ngo').onclick=function(){ncsS={qs:ncsMake(10),i:0,res:[],t0:Date.now(),pick:null};ncsPlay()};
+}
+function ncsPlay(){var s=ncsS,q=s.qs[s.i];
+  var h='<div class="q"><div class="row" style="justify-content:space-between"><span class="muted small">'+(s.i+1)+' / '+s.qs.length+' · '+esc(q.cat)+'</span><span class="muted small" id="nclk">'+fmt(Math.floor((Date.now()-s.t0)/1000))+'</span></div><div class="prompt" style="font-size:18px">'+esc(q.q)+'</div>';
+  if(q.tbl)h+='<div class="card" style="overflow-x:auto;margin-bottom:12px;padding:10px 14px"><table style="width:100%;border-collapse:collapse;font-size:14px;text-align:center"><tr>'+q.tbl[0].map(function(x){return '<th style="padding:4px">'+esc(x)+'</th>'}).join('')+'</tr><tr>'+q.tbl[1].map(function(x){return '<td style="padding:4px">'+esc(Number(x).toLocaleString())+'</td>'}).join('')+'</tr></table></div>';
+  h+='<div class="grid" style="gap:8px">'+q.c.map(function(c,k){var cls='';if(s.pick!=null){if(c.v===q.a)cls=' g-ok';else if(k===s.pick)cls=' g-bad'}return '<button class="ncs-o'+cls+'" data-k="'+k+'"'+(s.pick!=null?' disabled':'')+'>'+'①②③④'[k]+' '+esc(c.t)+'</button>'}).join('')+'</div>';
+  if(s.pick!=null)h+='<div class="guide" style="margin-top:12px">'+esc(q.ex)+'</div><div class="row" style="justify-content:flex-end;margin-top:12px"><button class="btn" id="nnext">'+(s.i+1<s.qs.length?'다음':'결과 보기')+' →</button></div>';
+  h+='<div class="row" style="margin-top:18px"><button class="btn ghost sm" id="nquit">그만하기</button></div></div>';
+  $('#app').innerHTML=h;
+  if(timer)clearInterval(timer);timer=setInterval(function(){var c=$('#nclk');if(c)c.textContent=fmt(Math.floor((Date.now()-s.t0)/1000))},1000);
+  $$('[data-k]').forEach(function(b){b.onclick=function(){if(s.pick!=null)return;s.pick=+b.dataset.k;s.res.push(q.c[s.pick].v===q.a);ncsPlay()}});
+  var nx=$('#nnext');if(nx)nx.onclick=function(){s.i++;s.pick=null;if(s.i<s.qs.length)ncsPlay();else ncsDone()};
+  $('#nquit').onclick=function(){ncsS=null;ncs()};
+  keyHandler=function(e){if(s.pick==null&&/^[1-4]$/.test(e.key)){var b=$('[data-k="'+(e.key-1)+'"]');if(b)b.click()}else if(s.pick!=null&&(e.key==='Enter'||e.key===' ')){e.preventDefault();if(nx)nx.click()}};
+}
+function ncsDone(){var s=ncsS,sec=Math.round((Date.now()-s.t0)/1000),cat={};s.qs.forEach(function(q,i){var c=cat[q.cat]||(cat[q.cat]=[0,0]);c[1]++;if(s.res[i])c[0]++});
+  var ok=s.res.filter(Boolean).length;S.ncs.push({d:today(),n:s.qs.length,ok:ok,sec:sec,cat:cat});if(S.ncs.length>200)S.ncs=S.ncs.slice(-200);ncsS=null;wadd('apt',1);
+  if(timer){clearInterval(timer);timer=null}
+  $('#app').innerHTML='<div class="q"><h1>'+ok+' / '+s.qs.length+'</h1><p class="sub">'+fmt(sec)+' · 문항당 '+Math.round(sec/s.qs.length)+'초 · 이번 주 인적성 +1</p><div class="grid g3">'+Object.keys(cat).map(function(k){return '<div class="card kpi"><b>'+cat[k][0]+'/'+cat[k][1]+'</b><span>'+esc(k)+'</span></div>'}).join('')+'</div><div class="row" style="margin-top:18px"><button class="btn" id="nagain">한 세트 더</button><a class="btn ghost" href="#/tools">도구로</a></div></div>';
+  $('#nagain').onclick=function(){ncsS={qs:ncsMake(10),i:0,res:[],t0:Date.now(),pick:null};ncsPlay()}}

@@ -152,7 +152,8 @@ activities:
             - Extended the work into a 3-institution collaboration with Khalifa University (UAE)
             - "Joined a field geophysical survey in Kananaskis (Canadian Rockies) and co-wrote the English Field Exploration Report (2024.08)"
           result:
-            - Led to the first-author SPE Journal paper (SCIE, 2026) and the M.S. thesis
+            - "The stay led to a first-author paper accepted in SPE Journal (SCIE, 2026)"
+            - "Completed the same research as the M.S. thesis (2026)"
         links:
           - { label: SPE Journal paper, url: "https://doi.org/10.2118/236968-PA" }
 
@@ -196,6 +197,7 @@ activities:
           action:
             - "Reconstructed the plate-tectonic history of four regions with GPlates (PALEOMAP PaleoAtlas)"
             - "Interpreted seismic images of two representative CCS projects per region — Quest & Weyburn-Midale, Northern Lights & PORTHOS, Gorgon & Moomba, Uthmaniyah & Qatar LNG — focusing on reservoir and cap rock"
+            - "Earlier studies: applicability of GPU-based 4D seismic monitoring (2022); case reviews of deep-learning seismic imaging in Saudi Arabia and geophysical monitoring at Sleipner, Norway (2023)"
             - "Short stay at Univ. of Calgary (2023.12–2024.02): processed gravity data from the Utah FORGE geothermal site → poster at the KSEG Spring Conference 2024"
           result:
             - "First-author paper: Analysis on Seismic Interpretation for Overseas Large-scale CO2 Storage Considering Geological History Related to Plate Tectonics, Geophysics and Geophysical Exploration 27(1), 1–22 (2024)"
@@ -221,9 +223,11 @@ activities:
           situation: Wildfires spread quickly with wind and vegetation, yet Korea had no real-time spread prediction model
           task: Design and train the spatiotemporal model that predicts where the fire will be next
           action:
-            - "Rasterized fire fronts from Korea Forest Service maps plus wind, NDVI and elevation in ArcGIS for four large fires (3 for training, 1 held out)"
-            - Designed a shallow U-LSTM (2,736 parameters) to fit the small dataset (4 fires, 35 time steps)
-            - Expanded the sequences with sliding windows (length 1–19) into 151 training batches; evaluated with Overall Accuracy and F1
+            - "Input rasters: fire fronts digitized in GIS from Korea Forest Service fire maps, plus weather, NDVI and elevation"
+            - "Designed a U-LSTM (Conv2D encoder → LSTM → Conv2DTranspose decoder) kept shallow at 2,736 parameters because data were scarce"
+            - "Expanded the short time series with sliding windows of length 1–19 into 151 training batches"
+            - "Implemented the model in TensorFlow and PyTorch and evaluated it with Overall Accuracy and F1-score"
+            - "Input data: fire fronts, elevation, NDVI, wind direction and speed of four large fires (Uljin–Samcheok, Gunwi, Miryang, Gangneung) rasterized in ArcGIS — three for training, one held out to test generalization"
           result:
             - "Unseen fire (Gangneung): Accuracy 0.90 · F1 0.85 (validation 0.95 · 0.81)"
             - Refactored the team notebooks into a tested Python package and documented the limitations on GitHub
@@ -272,11 +276,16 @@ activities:
           action:
             - "Comment pipeline: Selenium collects live comments → the LLM returns only the numbers of inappropriate comments and code removes them → pandas/regex cleaning → IQR length thresholds → LLM augmentation (retry on count mismatch) → summary, each step stored"
             - "Streamed progress of 30-second jobs with StreamingHttpResponse (NDJSON) and distinguished failure cases (no company, no comments, LLM failure)"
-            - "Relational DB design (project 6): custom AbstractUser; user→book→thread→comment 1:N plus follow (asymmetric), like and favorite-genre M:N; migrations split in three steps to avoid a User↔Category cycle; owner-scoped lookups return 404 for other users' posts; Aladin search results passed through a signed, 1-hour token so ISBN/cover are saved only when title and author still match — 36 tests"
+            - "Relational DB design (project 6): custom AbstractUser; user→book→thread→comment 1:N plus follow (asymmetric), like and favorite-genre M:N; migrations split in three steps to avoid a User↔Category cycle; books kept with SET_NULL when a genre is deleted"
+            - "Project 6: edits and deletes look up rows by author, so other users' posts return 404; changes are POST-only; Aladin search results pass through a signed 1-hour token so ISBN and cover are saved only when title and author still match — 36 tests"
             - "AI proxy server (project 7, FastAPI owner): Django → FastAPI → GMS so keys, model choice and output checks live in one place; JSON-Schema guardrail that fails closed (503) on malformed output; text/image routing and nano/mini model tiers; four Gemini image response shapes normalized to real JPEG; 20 tests"
-            - "AI book service: custom Django auth (open-redirect protection), AI recommendations restricted to registered book IDs; 45 mock-based tests without external APIs"
+            - "AI book service (project 4): custom Django user and auth (open-redirect protection, HTTP method limits), book CRUD, author bios from Wikipedia + LLM, AI book analysis, AI recommendations restricted to registered books, Aladin API import command"
+            - "Project 4: 45 automated tests with Django TestCase and mocks that check each requirement without external APIs"
+            - "Projects 1–3: aggregating and sorting JSON book data, Aladin API collection (pagination, de-duplication) + LLM classification + gTTS audio, responsive Bootstrap pages"
             - "AI core project 2 · National-treasure RAG guide (2026.10, solo): collected treasures and official descriptions from the Korea Heritage Service open API (XML, EUC-KR) and auto-linked each to Korean Wikipedia; two ChromaDB collections with fixed chunk IDs (idempotent re-indexing); per-question LLM query extraction and document selection with caching and offline fallback; LangGraph retrieve→generate where [evidence N] tags are checked in code and unknown numbers removed; Streamlit + FastAPI UIs; 50 tests with a fake LLM and Streamlit AppTest"
             - "AI Challenge (2026.09, image + question 4-choice VQA, model training & refinement): Qwen 27B/4B QLoRA, Gemma, OCR and multi-view probability ensembling; accepted changes by fixes − breaks and per-type regressions; SHA-256 manifests reproduce the submission without a GPU"
+            - "Newcomer camp team project “YOGIU” (team of three, development and presentation): a Daejeon–Chungcheong AI travel community — route planner on the Kakao Map API (saves, map), AI-recommended routes and a themed chatbot on the OpenAI API, themed tourism and festival info, anonymous board with comments"
+            - "SSAFY AI course: perceptron from scratch, Transformer · BERT, RAG retrieval, prompt engineering, CNN · ViT; a trigonometry-based billiards AI; an auto-play bot for Battle SSAFY (BFS re-planned every turn, ammo decisions, supply-code decoding); SWEA algorithms"
           result:
             - "AI Challenge public score 0.94608 (4B baseline) → 0.96961"
             - "142 automated tests passing (45 + 41 + 36 + 20); all project-5 requirements implemented, plus progress streaming and analysis history"
@@ -302,10 +311,12 @@ activities:
           action:
             - "[Own] Built and cleaned word-level and context-level correction pairs"
             - "[Own] Fine-tuned FLAN-T5 with LoRA and compared three strategies (word→context, context→word, joint) with BERTScore"
-            - "[Final service KILL KONG] Qwen-2.5 (1.5B) fine-tuning + a 630-entry Konglish RAG DB + per-user memory, combined with LangChain in a React Native · FastAPI app"
+            - "[Final service KILL KONG — the final version of POSPEAK] Qwen-2.5 (1.5B) fine-tuned on 2,000 conversational lines from Friends + a 630-entry Konglish RAG DB + per-user memory (mistake notes), combined with LangChain in a React Native · FastAPI mobile app"
+            - "[Team] RAG pipeline and CLI that retrieve the top-5 similar correction examples with multilingual sentence embeddings (paraphrase-multilingual-MiniLM) and FAISS and feed them to the model"
           result:
             - Found catastrophic forgetting in sequential training (BERTScore F1 0.47 → 0.32) and switched to joint training
-            - Joint training reached validation BERTScore F1 ≈ 0.74 · team Encouragement Award
+            - "The jointly trained model reached a validation BERTScore F1 of about 0.74 (vs 0.32–0.47 for sequential training)"
+            - "Team project Encouragement Award"
         links:
           - { label: Team GitHub, url: "https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5" }
 

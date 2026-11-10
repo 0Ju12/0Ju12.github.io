@@ -68,8 +68,8 @@ Details: https://0ju12.github.io/projects/prep-apps-en.html
 Extended a reading-community service across seven projects, from data collection to LLM analysis and web service, plus a multimodal QA challenge
 • Comment pipeline: Selenium collects live comments → the LLM returns only the numbers of inappropriate comments and code removes them → pandas/regex cleaning → IQR length thresholds → LLM augmentation (retry on count mismatch) → summary, each step stored
 • Streamed progress of 30-second jobs with StreamingHttpResponse (NDJSON) and distinguished failure cases (no company, no comments, LLM failure)
-• Relational DB design (project 6): custom AbstractUser; user→book→thread→comment 1:N plus follow (asymmetric), like and favorite-genre M:N; migrations split in three steps to avoid a User↔Category cycle; owner-scoped lookups return 404 for other users' posts; Aladin search results passed through a signed, 1-hour token so ISBN/cover are saved only when title and author still match — 36 tests
-• AI proxy server (project 7, FastAPI owner): Django → FastAPI → GMS so keys, model choice and output checks live in one place; JSON-Schema guardrail that fails closed (503) on malformed output; text/image routing and nano/mini model tiers; four Gemini image response shapes normalized to real JPEG; 20 tests
+• Relational DB design (project 6): custom AbstractUser; user→book→thread→comment 1:N plus follow (asymmetric), like and favorite-genre M:N; migrations split in three steps to avoid a User↔Category cycle; books kept with SET_NULL when a genre is deleted
+• Project 6: edits and deletes look up rows by author, so other users' posts return 404; changes are POST-only; Aladin search results pass through a signed 1-hour token so ISBN and cover are saved only when title and author still match — 36 tests
 ✔ AI Challenge public score 0.94608 (4B baseline) → 0.96961
 ✔ 142 automated tests passing (45 + 41 + 36 + 20); all project-5 requirements implemented, plus progress streaming and analysis history
 Skills: Python, Django, Selenium, Pandas, LLM API
@@ -85,9 +85,11 @@ Details: https://0ju12.github.io/projects/ssafy-16-en.html
 A generator plus retrieval (RAG) that rewrites awkward or Konglish sentences into natural English
 • [Own] Built and cleaned word-level and context-level correction pairs
 • [Own] Fine-tuned FLAN-T5 with LoRA and compared three strategies (word→context, context→word, joint) with BERTScore
-• [Final service KILL KONG] Qwen-2.5 (1.5B) fine-tuning + a 630-entry Konglish RAG DB + per-user memory, combined with LangChain in a React Native · FastAPI app
+• [Final service KILL KONG — the final version of POSPEAK] Qwen-2.5 (1.5B) fine-tuned on 2,000 conversational lines from Friends + a 630-entry Konglish RAG DB + per-user memory (mistake notes), combined with LangChain in a React Native · FastAPI mobile app
+• [Team] RAG pipeline and CLI that retrieve the top-5 similar correction examples with multilingual sentence embeddings (paraphrase-multilingual-MiniLM) and FAISS and feed them to the model
 ✔ Found catastrophic forgetting in sequential training (BERTScore F1 0.47 → 0.32) and switched to joint training
-✔ Joint training reached validation BERTScore F1 ≈ 0.74 · team Encouragement Award
+✔ The jointly trained model reached a validation BERTScore F1 of about 0.74 (vs 0.32–0.47 for sequential training)
+✔ Team project Encouragement Award
 Skills: Python, Hugging Face, FLAN-T5, LoRA, RAG, FAISS
 Details: https://0ju12.github.io/projects/posco-pospeak-en.html
 ```
@@ -122,7 +124,8 @@ Combined gravity and magnetic surveys to characterize the Ghasha salt dome and b
 • Worked with the Department of Geomatics Engineering on wavenumber correlation of airborne gravity and magnetic data
 • Extended the work into a 3-institution collaboration with Khalifa University (UAE)
 • Joined a field geophysical survey in Kananaskis (Canadian Rockies) and co-wrote the English Field Exploration Report (2024.08)
-✔ Led to the first-author SPE Journal paper (SCIE, 2026) and the M.S. thesis
+✔ The stay led to a first-author paper accepted in SPE Journal (SCIE, 2026)
+✔ Completed the same research as the M.S. thesis (2026)
 Skills: Gravity & magnetic data, Joint interpretation, International collaboration
 Details: https://0ju12.github.io/projects/calgary-2024-en.html
 ```
@@ -136,6 +139,7 @@ Details: https://0ju12.github.io/projects/calgary-2024-en.html
 Reconstructed how large overseas CO2 storage sites formed and interpreted their seismic images from a structural-geology perspective
 • Reconstructed the plate-tectonic history of four regions with GPlates (PALEOMAP PaleoAtlas)
 • Interpreted seismic images of two representative CCS projects per region — Quest & Weyburn-Midale, Northern Lights & PORTHOS, Gorgon & Moomba, Uthmaniyah & Qatar LNG — focusing on reservoir and cap rock
+• Earlier studies: applicability of GPU-based 4D seismic monitoring (2022); case reviews of deep-learning seismic imaging in Saudi Arabia and geophysical monitoring at Sleipner, Norway (2023)
 • Short stay at Univ. of Calgary (2023.12–2024.02): processed gravity data from the Utah FORGE geothermal site → poster at the KSEG Spring Conference 2024
 ✔ First-author paper: Analysis on Seismic Interpretation for Overseas Large-scale CO2 Storage Considering Geological History Related to Plate Tectonics, Geophysics and Geophysical Exploration 27(1), 1–22 (2024)
 ✔ Showed that stratigraphy in each seismic image reflects the region's tectonic history → a basis for rejecting geologically unrealistic velocity models when processing domestic data
@@ -152,9 +156,10 @@ Details: https://0ju12.github.io/projects/undergrad-research-en.html
 - **설명:**
 ```
 A U-LSTM that predicts the next wildfire front from the current front, weather and terrain
-• Rasterized fire fronts from Korea Forest Service maps plus wind, NDVI and elevation in ArcGIS for four large fires (3 for training, 1 held out)
-• Designed a shallow U-LSTM (2,736 parameters) to fit the small dataset (4 fires, 35 time steps)
-• Expanded the sequences with sliding windows (length 1–19) into 151 training batches; evaluated with Overall Accuracy and F1
+• Input rasters: fire fronts digitized in GIS from Korea Forest Service fire maps, plus weather, NDVI and elevation
+• Designed a U-LSTM (Conv2D encoder → LSTM → Conv2DTranspose decoder) kept shallow at 2,736 parameters because data were scarce
+• Expanded the short time series with sliding windows of length 1–19 into 151 training batches
+• Implemented the model in TensorFlow and PyTorch and evaluated it with Overall Accuracy and F1-score
 ✔ Unseen fire (Gangneung): Accuracy 0.90 · F1 0.85 (validation 0.95 · 0.81)
 ✔ Refactored the team notebooks into a tested Python package and documented the limitations on GitHub
 Skills: Python, TensorFlow, PyTorch, U-LSTM, ArcGIS

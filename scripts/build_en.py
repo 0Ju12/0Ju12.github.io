@@ -166,6 +166,7 @@ def main():
         encoding="utf-8")
     print("✔ out/profiles-en.md")
     (build.DOCS / "demo-en.html").write_text(env.get_template("demo.html.j2").render(en=True, **data), encoding="utf-8")
+    (build.DOCS / "brief-en.html").write_text(env.get_template("brief.html.j2").render(en=True, **data), encoding="utf-8")
     print("✔ docs/demo-en.html")
     for name, html in build.project_pages(env, data, en=True).items():
         (build.DOCS / "projects" / name).write_text(to_english(html), encoding="utf-8")

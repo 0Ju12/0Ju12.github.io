@@ -182,6 +182,33 @@ def decks(data, variants):
     return out
 
 
+def cv(data):
+    """맞춤 이력서용 데이터 (포트폴리오에 있는 사실만)"""
+    def per(x):
+        x = x or {}
+        return f"{x.get('start', '')} – {x.get('end', '')}" if isinstance(x, dict) else str(x)
+    prof = data["profile"]
+    acts = []
+    for g in data.get("activities") or []:
+        brief = list(g.get("brief") or [])
+        if not brief:
+            continue
+        acts.append({"title": g.get("card_title") or g.get("title"), "period": per(g.get("period")), "role": g.get("role", ""),
+                     "brief": brief, "max": 3 if len(brief) >= 3 else len(brief)})
+    pubs = [f"{p_['title']} — {p_['venue']} ({p_['year']})" for p_ in data.get("publications") or [] if p_.get("kind") == "논문"]
+    talks = [p_ for p_ in data.get("publications") or [] if p_.get("kind") != "논문"]
+    if talks:
+        pubs.append(f"학회 발표 {len(talks)}건")
+    return {"profile": {"name": prof["name"], "title": prof.get("title", ""), "headline": prof.get("headline", ""), "email": prof.get("email", ""),
+                        "links": [l for l in prof.get("links") or [] if "github" in l["url"] or "linkedin" in l["url"]]},
+            "acts": acts,
+            "edu": [{"school": e["school"], "major": e.get("major", ""), "degree": e.get("degree", ""), "period": per(e.get("period"))} for e in data.get("education") or []],
+            "pubs": pubs,
+            "awards": [f"{a['name']} ({a.get('date', '')})" for a in data.get("awards") or []],
+            "certs": [f"{c['name']} ({c.get('date', '')})" for c in data.get("certifications") or []],
+            "skills": data.get("skills") or []}
+
+
 def build(env, data):
     import yaml, study
     OUT.mkdir(parents=True, exist_ok=True)
@@ -192,6 +219,7 @@ def build(env, data):
     app = {"questions": questions(data, data.get("trend_posts") or []), "decks": decks(data, variants),
            "roles": {k: v.get("label", k) for k, v in variants.items()}, "name": data["profile"]["name"], "cats": CATS,
            "recruit": yaml.safe_load((ROOT / "data" / "recruit.yaml").read_text(encoding="utf-8")) or {}}
+    app["cv"] = cv(data)
     prep = _prep()
     app["prep"] = {k: prep.get(k) for k in ("updated", "goals", "weekly", "experiences", "essays")}
     app["prep"]["opic_types"] = (prep.get("opic") or {}).get("types") or []

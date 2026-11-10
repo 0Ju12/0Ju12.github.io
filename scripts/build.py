@@ -127,6 +127,42 @@ def normalize(data):
     return data
 
 
+def en_parity():
+    """국문(portfolio.yaml)과 영문(portfolio.en.yaml)의 구조 비교 — 국문에만 추가된 항목을 빌드에서 바로 알림"""
+    en_file = DATA.parent / "portfolio.en.yaml"
+    if not en_file.exists():
+        return []
+    ko, en = (yaml.safe_load(f.read_text(encoding="utf-8")) or {} for f in (DATA, en_file))
+    w = []
+
+    def acts(d):
+        out = {}
+        for g in d.get("activities") or []:
+            out[g.get("id")] = g
+            for sp in g.get("projects") or []:
+                out[sp.get("id")] = sp
+        return out
+    ka, ea = acts(ko), acts(en)
+    for i in ka:
+        if i not in ea:
+            w.append(f"[영문 누락] 활동·프로젝트 '{i}' 가 portfolio.en.yaml 에 없습니다")
+            continue
+        for key in ("brief",):
+            if len(ka[i].get(key) or []) != len(ea[i].get(key) or []):
+                w.append(f"[영문 불일치] '{i}' 의 {key} 개수: 국문 {len(ka[i].get(key) or [])} · 영문 {len(ea[i].get(key) or [])}")
+        ks, es = (ka[i].get("star") or {}), (ea[i].get("star") or {})
+        for key in ("action", "result"):
+            if len(ks.get(key) or []) != len(es.get(key) or []):
+                w.append(f"[영문 불일치] '{i}' 의 star.{key} 개수: 국문 {len(ks.get(key) or [])} · 영문 {len(es.get(key) or [])}")
+    for i in ea:
+        if i not in ka:
+            w.append(f"[영문만 있음] '{i}' 가 국문 portfolio.yaml 에 없습니다")
+    for key in ("publications", "awards", "certifications", "education", "highlights"):
+        if len(ko.get(key) or []) != len(en.get(key) or []):
+            w.append(f"[영문 불일치] {key} 개수: 국문 {len(ko.get(key) or [])} · 영문 {len(en.get(key) or [])}")
+    return w
+
+
 def collect_warnings(data):
     w = []
     p = data["profile"]
@@ -356,7 +392,7 @@ def sitemap(data):
     urls += [f"posts/{w['slug']}.html" for w in (data.get("posts") or []) + (data.get("trend_posts") or [])]
     if data.get("trend_posts"):
         urls.append("posts/ai-trend.html")
-    urls += [d for d in ("demo.html", "demo-en.html") if (DOCS / d).exists()]
+    urls += [d for d in ("demo.html", "demo-en.html", "brief.html", "brief-en.html") if (DOCS / d).exists()]
     xml = "\n".join(f"  <url><loc>{base}{u}</loc></url>" for u in urls)
     (DOCS / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{xml}\n</urlset>\n', encoding="utf-8")
     (DOCS / "robots.txt").write_text(f"User-agent: *\nDisallow: /cv.html\nDisallow: /cv/\nDisallow: /study/\nDisallow: /interview/\nDisallow: /private/\nSitemap: {base}sitemap.xml\n", encoding="utf-8")
@@ -428,6 +464,7 @@ def main():
     for name, html in project_pages(env, data).items():
         (DOCS / "projects" / name).write_text(html, encoding="utf-8")
     (DOCS / "demo.html").write_text(env.get_template("demo.html.j2").render(en=False, **data), encoding="utf-8")
+    (DOCS / "brief.html").write_text(env.get_template("brief.html.j2").render(en=False, **data), encoding="utf-8")   # 채용 담당자용 30초 소개
     (DOCS / "resume.html").write_text(env.get_template("resume.html.j2").render(**data), encoding="utf-8")
     (DOCS / "resume-1page.html").write_text(env.get_template("resume-1page.html.j2").render(**data), encoding="utf-8")
     # 직무별 1쪽 이력서: data/resume_variants.yaml → docs/resume-<key>.html (사실은 portfolio.yaml 것만 재배치)
@@ -447,7 +484,7 @@ def main():
     (OUT / "notion.md").write_text(md_env.get_template("notion.md.j2").render(**data), encoding="utf-8")
     (OUT / "profiles.md").write_text(md_env.get_template("profiles.md.j2").render(**data), encoding="utf-8")
 
-    warnings = collect_warnings(data)
+    warnings = collect_warnings(data) + en_parity()
     report = "# 보완 체크리스트\n\n" + (
         "\n".join(f"- [ ] {x}" for x in warnings) if warnings else "모든 항목이 채워졌습니다. 🎉"
     ) + "\n"
