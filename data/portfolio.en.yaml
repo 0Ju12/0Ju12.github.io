@@ -250,7 +250,7 @@ activities:
     brief:
       - "SSAFY AI Challenge (VQA): Qwen/Gemma QLoRA, OCR, multi-view probability ensemble → public 0.96961"
       - "ThRead: crawling → LLM judgments verified in code → pandas pipeline, Django backend · 142 tests"
-      - "Heritage RAG guide (solo): public-API & Wikipedia collection → LangGraph RAG that shows only citations verified in code · 50 offline tests"
+      - "Heritage RAG guide (solo): public-API & Wikipedia collection → LangGraph RAG that shows only citations verified in code · 55 offline tests · an answer-quality evaluation harness (citation precision, refusal accuracy)"
       - "POSPEAK: correction datasets, FLAN-T5 LoRA strategy comparison (BERTScore F1 0.32 → 0.74) + RAG · award"
     tags: [Python, LLM fine-tuning, QLoRA, RAG, FAISS, Django, Selenium, Pandas]
     image: "assets/photos/posco-pospeak/2025-08-29_프로젝트_장려상·수료증.jpg"
@@ -282,7 +282,7 @@ activities:
             - "AI book service (project 4): custom Django user and auth (open-redirect protection, HTTP method limits), book CRUD, author bios from Wikipedia + LLM, AI book analysis, AI recommendations restricted to registered books, Aladin API import command"
             - "Project 4: 45 automated tests with Django TestCase and mocks that check each requirement without external APIs"
             - "Projects 1–3: aggregating and sorting JSON book data, Aladin API collection (pagination, de-duplication) + LLM classification + gTTS audio, responsive Bootstrap pages"
-            - "AI core project 2 · National-treasure RAG guide (2026.10, solo): collected treasures and official descriptions from the Korea Heritage Service open API (XML, EUC-KR) and auto-linked each to Korean Wikipedia; two ChromaDB collections with fixed chunk IDs (idempotent re-indexing); per-question LLM query extraction and document selection with caching and offline fallback; LangGraph retrieve→generate where [evidence N] tags are checked in code and unknown numbers removed; Streamlit + FastAPI UIs; 50 tests with a fake LLM and Streamlit AppTest"
+            - "AI core project 2 · National-treasure RAG guide (2026.10, solo): collected treasures and official descriptions from the Korea Heritage Service open API (XML, EUC-KR) and auto-linked each to Korean Wikipedia; two ChromaDB collections with fixed chunk IDs (idempotent re-indexing); per-question LLM query extraction and document selection with caching and offline fallback; LangGraph retrieve→generate where [evidence N] tags are checked in code and unknown numbers removed; Streamlit + FastAPI UIs; 55 tests with a fake LLM and Streamlit AppTest"
             - "AI Challenge (2026.09, image + question 4-choice VQA, model training & refinement): Qwen 27B/4B QLoRA, Gemma, OCR and multi-view probability ensembling; accepted changes by fixes − breaks and per-type regressions; SHA-256 manifests reproduce the submission without a GPU"
             - "Newcomer camp team project “YOGIU” (team of three, development and presentation): a Daejeon–Chungcheong AI travel community — route planner on the Kakao Map API (saves, map), AI-recommended routes and a themed chatbot on the OpenAI API, themed tourism and festival info, anonymous board with comments"
             - "SSAFY AI course: perceptron from scratch, Transformer · BERT, RAG retrieval, prompt engineering, CNN · ViT; a trigonometry-based billiards AI; an auto-play bot for Battle SSAFY (BFS re-planned every turn, ammo decisions, supply-code decoding); SWEA algorithms"

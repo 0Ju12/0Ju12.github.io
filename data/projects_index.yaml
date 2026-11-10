@@ -22,7 +22,7 @@
   period: "2026.10"
   team: "개인 · 데이터 수집부터 화면까지"
   cat: [llm, data]
-  metric: { value: "50", label: "오프라인 테스트" }
+  metric: { value: "55", label: "오프라인 테스트" }
   oneliner: "국가유산청 오픈API·위키백과를 수집해 ChromaDB에 색인하고, 답변의 [근거 N]을 코드로 다시 검사해 실제 인용한 근거만 보여 주는 RAG"
   points:
     - "XML·EUC-KR 오픈API 수집, 국보명→위키 문서 자동 연결(일반명사 오연결 방지)"

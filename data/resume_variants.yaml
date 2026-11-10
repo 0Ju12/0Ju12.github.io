@@ -40,7 +40,7 @@ ai:
   brief:
     bootcamp:
       - "AI 챌린지(VQA): Qwen 4B 0.94608 → 27B 0.95591 → 확률 앙상블 → Qwen QLoRA·Gemma·OCR·멀티뷰 결합으로 Public 0.96961. 후보는 정확도가 아닌 fixes−breaks와 유형별 회귀로 채택"
-      - "국보 입문 가이드(개인): LangGraph retrieve→generate RAG, 출처별 청킹·MMR 검색, 답변의 [근거 N]을 코드로 검증해 없는 번호 제거 · 가짜 LLM 기반 테스트 50개"
+      - "국보 입문 가이드(개인): LangGraph retrieve→generate RAG, 출처별 청킹·MMR 검색, 답변의 [근거 N]을 코드로 검증해 없는 번호 제거 · 가짜 LLM 기반 테스트 55개"
       - "POSPEAK(KILL KONG): 콩글리시 교정 데이터셋 구축, FLAN-T5 LoRA 학습 전략 비교(F1 0.32→0.74)·catastrophic forgetting 분석 + RAG · 장려상"
       - "ThRead: LLM 판단(부적절 댓글·도서 추천)을 코드로 검증하는 파이프라인 · Django 백엔드 · 관계형 DB 설계 · FastAPI AI 프록시 · 자동 테스트 142개"
     undergrad:
