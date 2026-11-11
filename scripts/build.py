@@ -420,6 +420,37 @@ def project_pages(env, data, en=False):
     return out
 
 
+def thumb(src, width=760):
+    """카드용 작은 그림: 큰 JPG·PNG 를 가로 width 픽셀 WebP 로 줄여 docs/assets/thumbs/ 에 두고
+    {src, w, h} 를 돌려줌 (원본보다 작아질 때만). 이미 만든 것은 다시 만들지 않음."""
+    import hashlib
+    from urllib.parse import unquote
+    out = {"src": src, "w": None, "h": None}
+    if not src or src.startswith("http") or not src.lower().endswith((".jpg", ".jpeg", ".png")):
+        return out
+    p = DOCS / unquote(src)
+    if not p.exists():
+        return out
+    try:
+        from PIL import Image
+    except ImportError:
+        return out
+    with Image.open(p) as im:
+        w, h = im.size
+        out.update(w=w, h=h)
+        if w <= width * 1.15:
+            return out
+        name = hashlib.sha1(f"{src}|{p.stat().st_size}|{width}".encode()).hexdigest()[:14] + ".webp"
+        dst = DOCS / "assets" / "thumbs" / name
+        nh = round(h * width / w)
+        if not dst.exists():
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            im.convert("RGB").resize((width, nh), Image.LANCZOS).save(dst, "WEBP", quality=80, method=6)
+        if dst.stat().st_size < p.stat().st_size:
+            out.update(src=f"assets/thumbs/{name}", w=width, h=nh)
+    return out
+
+
 def main():
     data = normalize(yaml.safe_load(DATA.read_text(encoding="utf-8")))
     env = Environment(
@@ -429,6 +460,7 @@ def main():
         lstrip_blocks=True,
     )
     env.globals["analytics"] = analytics()
+    env.filters["thumb"] = thumb
     md_env = Environment(loader=FileSystemLoader(TEMPLATES), trim_blocks=True, lstrip_blocks=True)
 
     DOCS.mkdir(exist_ok=True)

@@ -21,6 +21,11 @@ def render(names=None):
     data["study_notes"] = sorted((DOCS / "study" / "notes").glob("*.html"))
     env = Environment(loader=FileSystemLoader(TEMPLATES), autoescape=select_autoescape(["html", "j2"]),
                       trim_blocks=True, lstrip_blocks=True)
+    try:
+        import build as _b
+        env.filters["thumb"] = _b.thumb
+    except Exception:
+        env.filters["thumb"] = lambda s, *a: {"src": s, "w": None, "h": None}
     out = []
     for f in sorted((TEMPLATES / "layouts").glob("*.html.j2")):
         name = f.name.split(".")[0]

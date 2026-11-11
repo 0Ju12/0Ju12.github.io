@@ -41,6 +41,12 @@ highlights:
   - { value: "SSAFY 16기", label: "삼성 청년 SW·AI 아카데미 이수 중" }
   - { value: "3 · 6", label: "논문 · 학회 발표" }
 
+# 첫 화면 '대표 근거' 3줄 — 처음 보는 사람이 한 화면에서 확인할 것 (링크는 상세 페이지·직접 보기)
+proof:
+  - { k: "연구", t: "겹친 중력·자력 신호를 분리하는 지표를 설계해 SCIE 제1저자 논문 (SPE Journal)", u: "projects/masters.html" }
+  - { k: "LLM", t: "LLM의 판단을 코드로 다시 검증하는 데이터 파이프라인 — 자동 테스트 142개", u: "projects/ssafy-16.html" }
+  - { k: "데이터", t: "공개 데이터 프로젝트 4종 — 전력 수요 하루 전 예측을 직접 볼 수 있는 탐색기", u: "https://0ju12.github.io/data-projects/power/" }
+
 # 디자인 테마: minimal | dashboard | editorial
 site:
   theme: editorial
@@ -314,6 +320,7 @@ activities:
         links:
           - { label: "GitHub 저장소", url: "https://github.com/0Ju12/ssafy-thread" }
           - { label: "국보 입문 가이드 (RAG)", url: "https://github.com/0Ju12/heritage-rag-guide" }
+          - { label: "SWEA 풀이 36문제 (테스트 37개)", url: "https://github.com/0Ju12/swea-solutions" }
       - id: posco-pospeak
         digest: {"problem": "콩글리시·어색한 격식체 영어는 문법 교정기로 잡히지 않음", "role": "팀에서 교정 데이터 구축과 모델 실험 담당", "did": ["단어·문맥 단위 교정 데이터셋 구축·정제", "FLAN-T5 LoRA로 학습 전략 3가지를 BERTScore로 비교", "최종 앱 KILL KONG: Qwen-2.5 + RAG + 개인 오답노트"], "result": ["순차 학습의 catastrophic forgetting 확인 → 통합 학습으로 전환", "BERTScore F1 0.32 → 0.74", "팀 프로젝트 장려상"]}
         tagline: "콩글리시를 원어민 표현으로 바꾸는 생성 모델 + RAG"
@@ -445,6 +452,7 @@ activities:
         links:
           - { label: "GitHub 저장소", url: "https://github.com/0Ju12/data-projects" }
           - { label: "지진 대시보드", url: "https://0ju12.github.io/data-projects/" }
+          - { label: "전력 수요 예측 탐색기 (직접 보기)", url: "https://0ju12.github.io/data-projects/power/" }
 
 # ---------------------------------------------------------------------
 #  논문·학회 발표

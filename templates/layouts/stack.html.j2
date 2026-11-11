@@ -6,7 +6,7 @@
 {% set T = {
   'avail': 'Open to new opportunities' if en else '함께 일할 곳을 찾고 있습니다',
   'h1': 'Collect the data,<br>verify with models,<br><em>prove it with results.</em>' if en else '데이터를 모으고,<br>모델로 검증하고,<br><em>결과로 증명합니다.</em>',
-  'intro': 'I\'m an engineer who starts by asking where the data came from. My geophysics research led to a first-author SCIE paper, and at the Samsung SW·AI Academy (SSAFY) I\'m building the skills to run LLM data pipelines end to end, from collection to service. What I pursue is results you can trust: I check a model\'s answer another way before relying on it, and I value being able to explain why a result is right over a result that merely looks good.' if en else v.intro(),
+  'intro': 'I\'m an engineer who starts by asking where the data came from. I check a model\'s answer another way before relying on it, and I value being able to explain why a result is right over a result that merely looks good.' if en else '데이터가 어디서 왔는지부터 확인하는 엔지니어입니다. 모델이 낸 답은 다른 방법으로 한 번 더 검증하고, 결과가 좋아 보이는 것보다 왜 맞는지 설명할 수 있는 것을 더 중요하게 생각합니다.',
   'areas': ['Geophysical data research', 'International collaboration', 'LLM · RAG engineering', 'Deep learning modeling'] if en else ['지구물리 데이터 연구', '국제 공동연구', 'LLM · RAG 엔지니어링', '딥러닝 모델링'],
   'work': 'Work' if en else '작업',
   'work_sub': 'Four chapters — graduate research, undergraduate research, bootcamps and personal projects. Use the tabs inside each card for individual projects.' if en else '석사 · 학부 · 부트캠프 · 개인 프로젝트 네 묶음입니다. 카드 안의 탭에서 세부 프로젝트를 볼 수 있습니다.',
@@ -56,11 +56,12 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ profile.name }} — {{ profile.title }}</title>
 {{ h.meta(profile.name ~ ' — ' ~ profile.title, ('Data & AI engineer — geophysical research to LLM pipelines and RAG.' if en else profile.headline), ('en.html' if en else ''), '', en) }}
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
-:root{--bg:#f7f7f8;--text:#18181b;--muted:#5f5f68;--faint:#9b9ba3;--line:#e4e4e8;--card:#fff;--ink:#18181b;--on-ink:#fafafa;--shadow:0 1px 2px rgba(0,0,0,.04),0 18px 48px -18px rgba(0,0,0,.16){% for t in tints %};--t{{ loop.index }}:{{ t }}{% endfor %}}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d10;--text:#f4f4f5;--muted:#a1a1aa;--faint:#71717a;--line:#27272a;--card:#17171a;--ink:#f4f4f5;--on-ink:#0d0d10;--shadow:0 18px 48px -18px rgba(0,0,0,.6){% for t in tints_d %};--t{{ loop.index }}:{{ t }}{% endfor %}}}
-:root[data-theme="dark"]{--bg:#0d0d10;--text:#f4f4f5;--muted:#a1a1aa;--faint:#71717a;--line:#27272a;--card:#17171a;--ink:#f4f4f5;--on-ink:#0d0d10;--shadow:0 18px 48px -18px rgba(0,0,0,.6){% for t in tints_d %};--t{{ loop.index }}:{{ t }}{% endfor %}}
+:root{--bg:#f7f7f8;--text:#18181b;--muted:#5f5f68;--faint:#6e6e78;--mixc:#000;--line:#e4e4e8;--card:#fff;--ink:#18181b;--on-ink:#fafafa;--shadow:0 1px 2px rgba(0,0,0,.04),0 18px 48px -18px rgba(0,0,0,.16){% for t in tints %};--t{{ loop.index }}:{{ t }}{% endfor %}}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d10;--mixc:#fff;--text:#f4f4f5;--muted:#a1a1aa;--faint:#71717a;--line:#27272a;--card:#17171a;--ink:#f4f4f5;--on-ink:#0d0d10;--shadow:0 18px 48px -18px rgba(0,0,0,.6){% for t in tints_d %};--t{{ loop.index }}:{{ t }}{% endfor %}}}
+:root[data-theme="dark"]{--bg:#0d0d10;--mixc:#fff;--text:#f4f4f5;--muted:#a1a1aa;--faint:#71717a;--line:#27272a;--card:#17171a;--ink:#f4f4f5;--on-ink:#0d0d10;--shadow:0 18px 48px -18px rgba(0,0,0,.6){% for t in tints_d %};--t{{ loop.index }}:{{ t }}{% endfor %}}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 "Pretendard Variable",Pretendard,system-ui,sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:anywhere}
 a{color:inherit;text-decoration:none}
@@ -76,7 +77,7 @@ a{color:inherit;text-decoration:none}
 .top .me .avatar{width:22px;height:22px;border-radius:50%;object-fit:cover;font-size:9px}
 
 /* 히어로 */
-.hero{position:relative;padding:136px 0 72px;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:48px;align-items:end}
+.hero{position:relative;padding:120px 0 64px;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:48px;align-items:end}
 .try{display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:20px;background:var(--card);border:1px solid var(--line);text-decoration:none;color:var(--text);transition:border-color .2s,transform .2s}
 .try:hover{border-color:var(--text);transform:translateY(-2px)}
 .try .tl{font-size:12.5px;font-weight:700;color:var(--muted)}
@@ -92,13 +93,19 @@ a{color:inherit;text-decoration:none}
 .hero .avatar.big{width:56px;height:56px;border-radius:16px;object-fit:cover;display:block;font-size:20px;flex:none}
 .hero .k{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 14px 5px 10px}
 .hero .k::before{content:"";width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.18)}
-.hero h1{font-size:clamp(38px,6.2vw,78px);line-height:1.08;letter-spacing:-.05em;margin:0 0 26px;font-weight:800;text-wrap:balance}
+.hero h1{font-size:clamp(38px,5.6vw,68px);line-height:1.08;letter-spacing:-.05em;margin:0 0 22px;font-weight:800;text-wrap:balance}
 .hero h1 em{font-style:normal}
 .hero p{color:var(--muted);font-size:18px;line-height:1.75;max-width:62ch;margin:0 0 30px}
 .areas{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 0 30px}
 .areas span{font-size:13.5px;font-weight:600;padding:6px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line)}
 .areas span i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;vertical-align:1px}
 .cta{display:flex;flex-wrap:wrap;gap:10px}
+.proof{list-style:none;margin:26px 0 0;padding:0;max-width:680px;border-top:1px solid var(--line)}
+.proof a{display:grid;grid-template-columns:72px 1fr 18px;gap:12px;align-items:baseline;padding:11px 2px;border-bottom:1px solid var(--line);font-size:15px;line-height:1.55;color:var(--text);transition:background .2s}
+.proof a:hover{background:color-mix(in srgb,var(--card) 70%,transparent)}.proof a:hover i{transform:translateX(3px)}
+.proof b{font-size:12.5px;font-weight:800;letter-spacing:.02em;color:var(--muted)}
+.proof i{font-style:normal;color:var(--faint);transition:transform .2s}
+@media (max-width:600px){.proof a{grid-template-columns:1fr 18px;gap:2px 10px}.proof b{grid-column:1/-1}}
 .btn{display:inline-flex;align-items:center;gap:8px;height:50px;padding:0 24px;border-radius:999px;font-weight:700;font-size:15px;border:1px solid var(--line);background:var(--card);color:var(--text);transition:transform .15s}
 .btn:hover{transform:translateY(-2px)}
 .btn.pri{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
@@ -157,7 +164,7 @@ section{scroll-margin-top:80px}
 .panel .pb{padding:16px 20px 18px}
 .panel h4{margin:0 0 4px;font-size:17px;line-height:1.4;letter-spacing:-.02em}
 .panel .meta{font-size:12.5px;color:var(--faint);margin-bottom:10px}
-.panel .sum .why{display:inline-block;font-size:11.5px;font-weight:800;color:var(--c);background:color-mix(in srgb,var(--c) 12%,transparent);border-radius:6px;padding:0 6px;margin-right:6px;vertical-align:1px}
+.panel .sum .why{display:inline-block;font-size:11.5px;font-weight:800;color:color-mix(in srgb,var(--c) 68%,var(--mixc));background:color-mix(in srgb,var(--c) 12%,transparent);border-radius:6px;padding:0 6px;margin-right:6px;vertical-align:1px}
 .panel .sum{font-size:14px;color:var(--muted);margin:0 0 10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .panel .res{list-style:none;margin:0 0 12px;padding:0;font-size:13px}
 .panel .res li{padding:5px 0 5px 14px;position:relative;border-top:1px solid var(--line);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -284,6 +291,7 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
       <p class="rv rv-all lede">{{ T.intro }}</p>
       {% for k, rv in RV.items() %}<p class="rv rv-{{ k }} rolehead"><b>{{ rv.headline }}</b><small>{{ T.role_note }}</small></p>{% endfor %}
       <div class="cta"><a class="btn pri" href="#work">{{ T.see }}</a><a class="btn" id="resume-btn" href="resume-1page.pdf" data-all="resume-1page.pdf"{% for k in RV %} data-{{ k }}="resume-{{ k }}.pdf"{% endfor %} download>{{ T.resume }}</a>{% for l in profile.links if 'github' in l.label|lower %}<a class="btn" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.icon('github', 16) }} GitHub</a>{% endfor %}</div>
+      {% if proof %}<ul class="proof" aria-label="{{ 'Key evidence' if en else '대표 근거' }}">{% for x in proof %}<li><a href="{{ x.u }}"{% if x.u.startswith('http') %} target="_blank" rel="noopener"{% endif %}><b>{{ x.k }}</b><span>{{ x.t }}</span><i aria-hidden="true">→</i></a></li>{% endfor %}</ul>{% endif %}
       {% set av = profile.availability or {} %}
       <div class="avail">{% if av.role %}<span><b>{{ T.want }}</b>{{ av.role }}</span>{% endif %}{% if av.location %}<span><b>{{ T.loc }}</b>{{ av.location }}</span>{% endif %}{% if av.start %}<span><b>{{ T.start }}</b>{{ av.start }}</span>{% endif %}</div>
     </div>
@@ -302,7 +310,7 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
     {% for a in featured %}{% set ci = loop.index0 %}{% set c = dots[ci] %}
       <article class="card" id="c{{ loop.index }}" data-gid="{{ a.id }}" style="top:{{ 96 + ci * 14 }}px;background:var(--t{{ (ci % 3) + 1 }});--c:{{ c }}">
         <div>
-          <div class="head"><span class="n" style="color:{{ c }}">{{ '%02d'|format(loop.index) }} / {{ '%02d'|format(featured|length) }}</span><span class="chip">{{ a.type }}</span><span class="chip">{{ a.period_str }}</span></div>
+          <div class="head"><span class="n" style="color:color-mix(in srgb,{{ c }} 68%,var(--mixc))">{{ '%02d'|format(loop.index) }} / {{ '%02d'|format(featured|length) }}</span><span class="chip">{{ a.type }}</span><span class="chip">{{ a.period_str }}</span></div>
           <h3>{{ a.card_title or a.title }}</h3>
           <p class="one">{{ a.tagline or a.summary }}</p>{% if a.tagline and a.summary %}<p class="desc">{{ a.summary }}</p>{% endif %}
           {% for k, rv in RV.items() %}{% set rb = (rv.brief or {}).get(a.id) %}{% if rb %}<ul class="pts rv rv-{{ k }}">{% for t in rb[:2] %}<li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:{{ c }}"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>{{ t }}</span></li>{% endfor %}</ul>{% endif %}{% endfor %}
@@ -315,10 +323,10 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
           {% for sp in subs %}{% set ns = namespace(img=none) %}{% for kw in ['GPlates', 'Fig11', '결과화면', '질의응답'] %}{% for g in sp.gallery or [] %}{% if ns.img is none and kw in g.src %}{% set ns.img = g %}{% endif %}{% endfor %}{% endfor %}{% set img = ns.img or (sp.gallery or [])|first %}
           <div class="panel" role="tabpanel" id="pn-{{ sp.id }}" aria-labelledby="tab-{{ sp.id }}"{% if not loop.first %} hidden{% endif %}>
             {% if sp.case and sp.case.demo %}<figure class="shot" style="margin:0"><img src="{{ sp.case.demo }}" alt="{{ sp.case.demo_caption_en if en else sp.case.demo_caption_ko }}" loading="lazy"><figcaption>▶ {{ 'Demo — Heritage RAG guide' if en else '시연 — 국보 입문 가이드' }}</figcaption></figure>
-            {% elif img or sp.card_image %}<figure class="shot" style="margin:0"><img{% if sp.card_image %} style="object-position:center"{% elif 'ssafy-16' not in img.src %} style="object-position:center 45%"{% endif %} src="{{ sp.card_image or img.src }}" alt="{{ sp.card_caption or img.caption }}" loading="lazy"><figcaption>{{ sp.card_caption or img.caption }}{% if sp.card_credit %} · {{ sp.card_credit_en if en and sp.card_credit_en else sp.card_credit }}{% endif %}</figcaption></figure>
-            {% elif loop.first and a.image %}<figure class="shot" style="margin:0"><img src="{{ a.image }}" alt="{{ a.image_caption or a.title }}" loading="lazy">{% if a.image_caption %}<figcaption>{{ a.image_caption }}</figcaption>{% endif %}</figure>{% endif %}
+            {% elif img or sp.card_image %}{% set th = (sp.card_image or img.src)|thumb %}<figure class="shot" style="margin:0"><img{% if sp.card_image %} style="object-position:center"{% elif 'ssafy-16' not in img.src %} style="object-position:center 45%"{% endif %} src="{{ th.src }}"{% if th.w %} width="{{ th.w }}" height="{{ th.h }}"{% endif %} alt="{{ sp.card_caption or img.caption }}" loading="lazy"><figcaption>{{ sp.card_caption or img.caption }}{% if sp.card_credit %} · {{ sp.card_credit_en if en and sp.card_credit_en else sp.card_credit }}{% endif %}</figcaption></figure>
+            {% elif loop.first and a.image %}{% set th = a.image|thumb %}<figure class="shot" style="margin:0"><img src="{{ th.src }}"{% if th.w %} width="{{ th.w }}" height="{{ th.h }}"{% endif %} alt="{{ a.image_caption or a.title }}" loading="lazy">{% if a.image_caption %}<figcaption>{{ a.image_caption }}</figcaption>{% endif %}</figure>{% endif %}
             <div class="pb">
-              <h4>{{ sp.tagline or sp.title }}</h4>
+              <h4 role="heading" aria-level="3">{{ sp.tagline or sp.title }}</h4>
               <div class="meta">{{ sp.period_str }}{% if sp.role %} · {{ sp.role }}{% endif %}</div>
               {% if sp.digest and sp.digest.problem %}<p class="sum"><b class="why">{{ 'Why' if en else '문제' }}</b>{{ sp.digest.problem }}</p>{% elif sp.tagline and sp.summary %}<p class="sum">{{ sp.summary }}</p>{% endif %}
               {% if sp.key %}<p class="key"><i></i>{{ sp.key }}</p>{% else %}<ul class="res">{% for r in (sp.star.result or [])[:1] %}<li>{{ r }}</li>{% endfor %}</ul>{% endif %}
@@ -346,10 +354,10 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
   <section id="about">
     <div class="sec-t"><h2>{{ T.about }}</h2><p>{{ T.about_sub }}</p></div>
     <div class="bento">
-      <div class="box"><h4><i style="background:{{ dots[0] }}"></i>{{ T.edu }}</h4>{% for e in education %}<div class="it">{{ e.school }}<small>{{ e.major }} {{ e.degree }} · {{ e.period_str }}</small></div>{% endfor %}</div>
-      <div class="box"><h4><i style="background:{{ dots[3] }}"></i>{{ T.pubs }}</h4>{% for x in papers %}<div class="it">{% if x.url %}<a href="{{ x.url }}" target="_blank" rel="noopener">{{ x.title }}</a>{% else %}{{ x.title }}{% endif %}<small>{{ x.venue }} · {{ x.year }}</small></div>{% endfor %}<div class="it"><small>{{ T.talks }} {{ talks|length }}</small></div></div>
-      <div class="box"><h4><i style="background:{{ dots[2] }}"></i>{{ T.awards }}</h4>{% for x in awards + certifications %}<div class="it">{{ x.name }}<small>{{ x.org }} · {{ x.date }}</small></div>{% endfor %}</div>
-      <div class="box wide"><h4><i style="background:{{ dots[1] }}"></i>{{ T.skills }}</h4><p class="evhint">{{ T.ev_hint }}</p><div class="skills rv rv-all">{% for s in skills %}<div><b>{{ s.category }}</b>{% for i in s['items'] %}<button type="button" class="ev">{{ i }}</button>{% endfor %}</div>{% endfor %}</div>{% for k, rv in RV.items() %}<div class="skills rv rv-{{ k }}">{% for s in rv.skills %}<div><b>{{ s.category }}</b>{% for i in s['items'] %}<button type="button" class="ev">{{ i }}</button>{% endfor %}</div>{% endfor %}</div>{% endfor %}</div>
+      <div class="box"><h4 role="heading" aria-level="3"><i style="background:{{ dots[0] }}"></i>{{ T.edu }}</h4>{% for e in education %}<div class="it">{{ e.school }}<small>{{ e.major }} {{ e.degree }} · {{ e.period_str }}</small></div>{% endfor %}</div>
+      <div class="box"><h4 role="heading" aria-level="3"><i style="background:{{ dots[3] }}"></i>{{ T.pubs }}</h4>{% for x in papers %}<div class="it">{% if x.url %}<a href="{{ x.url }}" target="_blank" rel="noopener">{{ x.title }}</a>{% else %}{{ x.title }}{% endif %}<small>{{ x.venue }} · {{ x.year }}</small></div>{% endfor %}<div class="it"><small>{{ T.talks }} {{ talks|length }}</small></div></div>
+      <div class="box"><h4 role="heading" aria-level="3"><i style="background:{{ dots[2] }}"></i>{{ T.awards }}</h4>{% for x in awards + certifications %}<div class="it">{{ x.name }}<small>{{ x.org }} · {{ x.date }}</small></div>{% endfor %}</div>
+      <div class="box wide"><h4 role="heading" aria-level="3"><i style="background:{{ dots[1] }}"></i>{{ T.skills }}</h4><p class="evhint">{{ T.ev_hint }}</p><div class="skills rv rv-all">{% for s in skills %}<div><b>{{ s.category }}</b>{% for i in s['items'] %}<button type="button" class="ev">{{ i }}</button>{% endfor %}</div>{% endfor %}</div>{% for k, rv in RV.items() %}<div class="skills rv rv-{{ k }}">{% for s in rv.skills %}<div><b>{{ s.category }}</b>{% for i in s['items'] %}<button type="button" class="ev">{{ i }}</button>{% endfor %}</div>{% endfor %}</div>{% endfor %}</div>
     </div>
   </section>
 

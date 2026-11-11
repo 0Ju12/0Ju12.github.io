@@ -66,10 +66,10 @@
 .cmap-info .nm{font-size:17px;font-weight:800;letter-spacing:-.02em;line-height:1.4;margin:6px 0 2px}
 .cmap-info .wh{font-size:13px;color:var(--faint);margin-bottom:10px}
 .cmap-info p{margin:0 0 12px;font-size:14px;color:var(--muted);line-height:1.65}
-.cmap-info .lb{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:2px 10px;border-radius:999px;background:color-mix(in srgb,var(--c) 14%,transparent);color:var(--c)}
+.cmap-info .lb{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:2px 10px;border-radius:999px;background:color-mix(in srgb,var(--c) 14%,transparent);color:color-mix(in srgb,var(--c) 60%,var(--mixc,#000))}
 .cmap-info a.go{display:inline-flex;font-size:13.5px;font-weight:700;padding:8px 14px;border-radius:999px;background:var(--ink);color:var(--on-ink)}
 .cmap-info figure{margin:4px 0 12px}
-.cmap-info figure img{display:block;width:100%;max-height:230px;object-fit:contain;border-radius:12px;background:var(--bg)}
+.cmap-info figure img{display:block;width:100%;height:auto;max-height:230px;object-fit:contain;border-radius:12px;background:var(--bg)}
 .cmap-info figcaption{font-size:11.5px;color:var(--faint);margin-top:5px}
 .cmap-info figcaption a{color:inherit}
 .cmap-info .ab{color:var(--text)}
@@ -108,15 +108,15 @@
         <button type="button" class="pin {{ pl.layer }}" style="left:{{ gx }}%;top:{{ gy }}%;--c:var(--{{ pl.layer }})" data-id="{{ pl.id }}" aria-label="{{ t.name }}" title="{{ t.name }}"><i></i></button>
         {% if gr.label %}<span class="plabel {{ pl.layer }}{% if gr.x > B.world.w * 0.8 %} left{% endif %}" style="left:{{ gx }}%;top:{{ gy }}%">{{ t.name.split(' (')[0] }}</span>{% endif %}
         {% else %}{% set rg = (pl.region.en if en else pl.region.ko) if pl.region else t.name.split(' (')[0] %}
-        <button type="button" class="pin grp {{ gr.layers|join(' ') }}" style="left:{{ gx }}%;top:{{ gy }}%;--c:var(--{{ gr.layers[0] }})" data-members="{{ gr.members|join(',') }}" data-region="{{ rg }}" aria-label="{{ rg }} — {{ gr.members|length }}{{ ' places' if en else '곳' }}" title="{{ rg }}"><b>{{ gr.members|length }}</b></button>
+        <button type="button" class="pin grp {{ gr.layers|join(' ') }}" style="left:{{ gx }}%;top:{{ gy }}%;--c:var(--{{ gr.layers[0] }})" data-members="{{ gr.members|join(',') }}" data-region="{{ rg }}" aria-label="{{ gr.members|length }} {{ rg }} — {{ 'places' if en else '곳' }}" title="{{ rg }}"><b>{{ gr.members|length }}</b></button>
         <span class="plabel grp-l {{ gr.layers|join(' ') }}{% if gr.x > B.world.w * 0.8 %} left{% endif %}" style="left:{{ gx }}%;top:{{ gy }}%;transform:translate(16px,-50%)">{{ rg }}</span>
         {% endif %}
         {% endfor %}
-        {% if home %}<button type="button" class="pin kgroup stay{% if home.x > B.world.w * 0.8 %} left{% endif %}" style="left:{{ (home.x / B.world.w * 100)|round(2) }}%;top:{{ (home.y / B.world.h * 100)|round(2) }}%;--c:var(--stay)" data-id="jeonju" aria-label="{{ 'Korea — see the zoomed map' if en else '대한민국 — 확대 지도 보기' }}"><span><b>{{ kcount }}</b>{{ 'Korea' if en else '대한민국' }}</span></button>{% endif %}
+        {% if home %}<button type="button" class="pin kgroup stay{% if home.x > B.world.w * 0.8 %} left{% endif %}" style="left:{{ (home.x / B.world.w * 100)|round(2) }}%;top:{{ (home.y / B.world.h * 100)|round(2) }}%;--c:var(--stay)" data-id="jeonju" aria-label="{{ kcount }} {{ 'Korea — see the zoomed map' if en else '대한민국 — 확대 지도 보기' }}"><span><b>{{ kcount }}</b> {{ 'Korea' if en else '대한민국' }}</span></button>{% endif %}
       </div>
     </div>
       <div class="cmap-card cmap-inset" id="cmap-korea">
-        <h4>{{ 'Korea (zoomed)' if en else '한반도 확대' }}</h4>
+        <h4 role="heading" aria-level="3">{{ 'Korea (zoomed)' if en else '한반도 확대' }}</h4>
         <div class="cmap-stage">
           <svg viewBox="0 0 {{ B.korea.w }} {{ B.korea.h }}" role="img" aria-label="{{ 'Map of Korea' if en else '한반도 지도' }}"><path class="ctx" d="{{ B.korea.ctx }}"/><path class="kr" d="{{ B.korea.kr }}"/></svg>
           {% for pl in M.places if pl.inset %}{% set t = pl.en if en else pl.ko %}
@@ -150,7 +150,7 @@ function pick(id,btn){var p=INFO[id];if(!p)return;
   root.querySelectorAll('[data-goto]').forEach(function(x){x.classList.toggle('on',x.dataset.goto===id)});
   root.querySelectorAll('.pin.on').forEach(function(x){x.classList.remove('on')});
   root.querySelectorAll('.pin[data-id="'+id+'"]').forEach(function(x){if(!x.classList.contains('kgroup'))x.classList.add('on')});
-  box.innerHTML='<h4>{{ "Details" if en else "자세히" }}</h4><span class="lb" style="--c:var(--'+p.l+')">'+esc(LBL[p.l])+'</span><div class="nm">'+esc(p.n)+'</div><div class="wh">'+esc(p.w)+'</div>'+(p.ph?'<figure><img src="'+esc(p.ph)+'" alt="'+esc(p.n)+'" loading="lazy">'+(p.cr?'<figcaption>'+(p.pg?'<a href="'+esc(p.pg)+'" target="_blank" rel="noopener">':'')+esc(p.cr)+(p.pg?'</a>':'')+'</figcaption>':'')+'</figure>':'')+(p.a?'<p class="ab">'+esc(p.a)+(p.as?' <a class="src" href="'+esc(p.as)+'" target="_blank" rel="noopener">{{ "Wikipedia" if en else "출처: 위키백과" }} ↗</a>':'')+'</p>':'')+'<p>'+esc(p.d)+'</p>'+(p.u?'<a class="go" href="'+p.u+'">'+GO+'</a>':'');
+  box.innerHTML='<h4 role="heading" aria-level="3">{{ "Details" if en else "자세히" }}</h4><span class="lb" style="--c:var(--'+p.l+')">'+esc(LBL[p.l])+'</span><div class="nm">'+esc(p.n)+'</div><div class="wh">'+esc(p.w)+'</div>'+(p.ph?'<figure><img width="640" height="420" src="'+esc(p.ph)+'" alt="'+esc(p.n)+'" loading="lazy">'+(p.cr?'<figcaption>'+(p.pg?'<a href="'+esc(p.pg)+'" target="_blank" rel="noopener">':'')+esc(p.cr)+(p.pg?'</a>':'')+'</figcaption>':'')+'</figure>':'')+(p.a?'<p class="ab">'+esc(p.a)+(p.as?' <a class="src" href="'+esc(p.as)+'" target="_blank" rel="noopener">{{ "Wikipedia" if en else "출처: 위키백과" }} ↗</a>':'')+'</p>':'')+'<p>'+esc(p.d)+'</p>'+(p.u?'<a class="go" href="'+p.u+'">'+GO+'</a>':'');
   if(btn&&btn.classList.contains('kgroup')){var k=document.getElementById('cmap-korea');if(k&&k.scrollIntoView&&matchMedia('(max-width:960px)').matches)k.scrollIntoView({block:'nearest',behavior:'smooth'})}
 }
 var HID={};
