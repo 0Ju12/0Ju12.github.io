@@ -37,7 +37,7 @@
   - [캘거리대 장기 파견] 같은 연구를 석사 학위논문(2026)으로 완성
 
 🏷 신호처리(파수 영역), 상관 분석, 지표 설계, 중력·자력 데이터, 국제공동연구
-🔗 [SPE Journal 논문](https://doi.org/10.2118/236968-PA)  🔗 [GitHub 코드 (WCF·SLFI·DLFI)](https://github.com/0Ju12/gravmag-wcf)  🔗 [연구 이력](https://www.geoverselab.com/ko/research-history/13/)  🔗 [SPE Journal 논문](https://doi.org/10.2118/236968-PA)  
+🔗 [SPE Journal 논문](https://doi.org/10.2118/236968-PA)  🔗 [GitHub 코드 (WCF·SLFI·DLFI)](https://github.com/0Ju12/gravmag-wcf)  🔗 [WCF 실험실 (브라우저에서 직접 해 보기)](https://0ju12.github.io/data-projects/wcf/)  🔗 [연구 이력](https://www.geoverselab.com/ko/research-history/13/)  🔗 [SPE Journal 논문](https://doi.org/10.2118/236968-PA)  
 
 ### 학부 — 판구조 기반 해외 CO2 저장소 탄성파 해석 (제1저자) · IAB 융합전공 시공간 딥러닝
 `연구 · AI 프로젝트` · 2022 – 2024.02 · 전북대학교 자원에너지공학과 · IAB 융합전공 · 지구물리컴퓨팅연구실 · **학부연구생 · 캡스톤 모델 설계·학습 담당**
@@ -132,7 +132,7 @@ SSAFY에서 LLM 데이터 파이프라인·Django 서비스와 VQA 모델 앙상
   - [공개 데이터 프로젝트] 지진: 동아시아 M4+ 2,446건, b = 1.11 ± 0.05 · 테스트 35개(4개 프로젝트 합계)
 
 🏷 Python, Jinja2, GitHub Actions, Playwright, Web Crypto, PWA, JavaScript
-🔗 [사이트](https://0ju12.github.io/)  🔗 [만든 과정 글](https://0ju12.github.io/posts/2026-11-portfolio-one-yaml.html)  🔗 [잠금 화면](https://0ju12.github.io/interview/)  🔗 [GitHub 저장소](https://github.com/0Ju12/data-projects)  🔗 [지진 대시보드](https://0ju12.github.io/data-projects/)  🔗 [전력 수요 예측 탐색기 (직접 보기)](https://0ju12.github.io/data-projects/power/)  
+🔗 [사이트](https://0ju12.github.io/)  🔗 [만든 과정 글](https://0ju12.github.io/posts/2026-11-portfolio-one-yaml.html)  🔗 [잠금 화면](https://0ju12.github.io/interview/)  🔗 [GitHub 저장소](https://github.com/0Ju12/data-projects)  🔗 [지진 대시보드](https://0ju12.github.io/data-projects/)  🔗 [전력 수요 예측 탐색기 (직접 보기)](https://0ju12.github.io/data-projects/power/)  🔗 [산불 위험 지도 (매일 갱신)](https://0ju12.github.io/data-projects/fire/)  🔗 [데이터 에이전트 (MCP 서버 · 숫자 검증)](https://github.com/0Ju12/data-projects/tree/main/data-agent)  
 
 ---
 

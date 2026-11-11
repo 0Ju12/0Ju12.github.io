@@ -136,6 +136,7 @@ activities:
         links:
           - { label: SPE Journal paper, url: "https://doi.org/10.2118/236968-PA" }
           - { label: Code (gravmag-wcf), url: "https://github.com/0Ju12/gravmag-wcf" }
+          - { label: "WCF lab (try it in the browser)", url: "https://0ju12.github.io/data-projects/wcf/" }
       - id: calgary-2024
         digest: {"problem": "Salt domes and basement are hard to interpret from one kind of survey data", "role": "~6-month stay at Univ. of Calgary on joint gravity–magnetic interpretation (IITP global talent program)", "did": ["Wavenumber correlation of airborne gravity and magnetics with the geomatics group", "Extended to a three-institution study with Khalifa Univ. (UAE)", "Kananaskis field survey · co-wrote the English field report"], "result": ["First-author SPE Journal paper accepted (2026)", "Completed the same study as the M.S. thesis"]}
         tagline: "Joint gravity–magnetic interpretation of the Ghasha salt domes and basement"
@@ -430,6 +431,8 @@ activities:
           - { label: "GitHub repository", url: "https://github.com/0Ju12/data-projects" }
           - { label: "Earthquake dashboard", url: "https://0ju12.github.io/data-projects/" }
           - { label: "Power demand forecast explorer (live)", url: "https://0ju12.github.io/data-projects/power/" }
+          - { label: "Wildfire risk map (updated daily)", url: "https://0ju12.github.io/data-projects/fire/" }
+          - { label: "Data agent (MCP server with number checks)", url: "https://github.com/0Ju12/data-projects/tree/main/data-agent" }
 
 publications:
   - { kind: 논문, year: 2026, title: "Wavenumber Correlation of Gravity and Magnetic Anomalies for Constraining Salt/Basement Structure in Offshore Abu Dhabi", venue: "SPE Journal (SCIE) · first author", url: "https://doi.org/10.2118/236968-PA" }
