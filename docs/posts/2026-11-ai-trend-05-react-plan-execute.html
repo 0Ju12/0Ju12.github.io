@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ReAct와 Plan-and-Execute — 에이전트는 어떻게 계획하나 · 이영주</title>
+<meta name="description" content="한 걸음마다 다시 생각하는 ReAct와, 먼저 계획을 세우고 실행하는 Plan-and-Execute의 차이를 비용·속도·실패 방식으로 비교했습니다. ReWOO·LLMCompiler 같은 변형과 코딩 에이전트의 plan mode까지 이어서 봅니다.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="이영주 포트폴리오">
+<meta property="og:title" content="ReAct와 Plan-and-Execute — 에이전트는 어떻게 계획하나 · 이영주">
+<meta property="og:description" content="한 걸음마다 다시 생각하는 ReAct와, 먼저 계획을 세우고 실행하는 Plan-and-Execute의 차이를 비용·속도·실패 방식으로 비교했습니다. ReWOO·LLMCompiler 같은 변형과 코딩 에이전트의 plan mode까지 이어서 봅니다.">
+<meta property="og:url" content="https://0ju12.github.io/posts/2026-11-ai-trend-05-react-plan-execute.html">
+<meta property="og:image" content="https://0ju12.github.io/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#18181b">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--surface:#f7f7f8;--text:#0d0d0f;--muted:#5d5f66;--line:#e7e7ea;--accent:#0a7c66;--accent-2:#14b8a6;--chip:#eef2f1;--code:#0f1117;--code-text:#e6e6e6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}}
+:root[data-theme="dark"]{--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.85 "Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:740px;margin:0 auto;padding:0 20px}
+nav{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;padding:10px 2px}
+nav .home{font-weight:900;color:var(--text);margin-right:auto}
+#theme{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 12px;font:inherit;font-size:12px;cursor:pointer}
+header.post{padding:56px 0 28px;border-bottom:2px solid var(--text);margin-bottom:36px}
+header.post .meta{color:var(--accent);font-weight:700;font-size:14px;letter-spacing:.04em}
+header.post h1{font-size:clamp(28px,5vw,42px);line-height:1.25;letter-spacing:-.03em;margin:10px 0 14px;font-weight:900}
+header.post p{color:var(--muted);margin:0 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--chip);color:var(--muted)}
+article h2{font-size:24px;letter-spacing:-.02em;margin:48px 0 14px;font-weight:900}
+article h3{font-size:19px;margin:32px 0 10px}
+article p,article li{margin:0 0 16px}
+article ul,article ol{padding-left:22px}
+article li{margin-bottom:6px}
+article blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--surface);border-radius:0 12px 12px 0;font-weight:700}
+article blockquote p{margin:0}
+article code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em;background:var(--chip);padding:2px 6px;border-radius:6px}
+article pre{background:var(--code);color:var(--code-text);padding:18px 20px;border-radius:14px;overflow-x:auto;line-height:1.6;margin:0 0 20px}
+article pre code{background:none;padding:0;font-size:13.5px;color:inherit}
+article table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:15px;display:block;overflow-x:auto}
+article th,article td{border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+article th{background:var(--surface)}
+.endcard{margin:56px 0 0;padding:24px;border:1px solid var(--line);border-radius:18px;background:var(--surface);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.endcard b{display:block}
+.endcard span{color:var(--muted);font-size:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--line);color:var(--text);background:var(--bg)}
+.others{margin:40px 0 0}
+.others a{display:block;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--text);font-weight:700}
+.others a span{display:block;color:var(--muted);font-weight:400;font-size:14px}
+footer{padding:64px 0 40px;color:var(--muted);font-size:13px}
+.readbar{position:fixed;top:0;left:0;height:3px;width:0;background:var(--text);z-index:60;transition:width .1s linear}
+.series{margin:36px 0 0;padding:20px 22px;border:1px solid var(--line);border-radius:18px;background:var(--card)}
+.series b{font-size:15px}.series ol{margin:10px 0 0;padding-left:20px;font-size:14.5px;line-height:1.6}.series li{padding:3px 0}.series li small{color:var(--muted);margin-left:8px;font-size:12.5px}.series li.me a{font-weight:800;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="readbar" id="readbar"></div>
+<div class="wrap">
+  <nav><a class="home" href="../index.html">Young-Ju Lee</a><a href="../index.html#writing">Writing</a><a href="../index.html#work">Work</a><button id="theme" type="button">테마</button></nav>
+  <header class="post">
+    <div class="meta"><a href="ai-trend.html" style="color:inherit">AI 트렌드 노트</a> #5 · 2026-11-11 · 6분 읽기</div>
+    <h1>ReAct와 Plan-and-Execute — 에이전트는 어떻게 계획하나</h1>
+    <p>한 걸음마다 다시 생각하는 ReAct와, 먼저 계획을 세우고 실행하는 Plan-and-Execute의 차이를 비용·속도·실패 방식으로 비교했습니다. ReWOO·LLMCompiler 같은 변형과 코딩 에이전트의 plan mode까지 이어서 봅니다.</p>
+    <div class="chips"><span class="chip">에이전트</span><span class="chip">ReAct</span><span class="chip">계획</span></div>
+  </header>
+  <article><blockquote>
+<p><strong>한 줄 요약</strong> — 지난 네 회차는 에이전트가 <strong>무엇을 부를 수 있는가</strong>(도구, MCP, 다른 에이전트)였습니다. 이번에는 <strong>어떤 순서로 부를지를 누가 언제 정하는가</strong>입니다. ReAct는 한 걸음 갈 때마다 정하고, Plan-and-Execute는 출발 전에 정합니다. 둘의 차이는 성능보다 비용, 속도, 틀렸을 때의 모습에서 드러납니다.</p>
+</blockquote>
+<h2>핵심 개념</h2>
+<ul>
+<li><strong>ReAct</strong>(Yao 외, 2022): 생각(Thought) → 행동(Action) → 관찰(Observation)을 반복합니다. #1에서 본 에이전트 루프가 바로 이 형태입니다. 도구 결과를 볼 때마다 다음 행동을 새로 정하므로 예상 밖의 결과에 잘 적응합니다.</li>
+<li><strong>Plan-and-Execute</strong>: 먼저 전체 단계를 목록으로 쓰고(planner), 단계별로 실행한 뒤(executor), 필요하면 계획을 고칩니다(replanner). 프롬프트 기법으로는 Plan-and-Solve(Wang 외, 2023)가 출발점입니다.</li>
+<li><strong>비유</strong>: ReAct는 내비게이션 없이 교차로마다 표지판을 보고 방향을 정하는 운전입니다. 길이 막히면 바로 돌아갈 수 있지만 교차로마다 멈춥니다. Plan-and-Execute는 출발 전에 경로를 정하는 운전입니다. 빠르지만 경로를 정할 때 몰랐던 공사 구간을 만나면 다시 계획해야 합니다.</li>
+</ul>
+<h2>지금 무슨 일이 일어나고 있나</h2>
+<ul>
+<li><strong>변형이 계획과 실행 사이를 채우고 있습니다.</strong> LangChain은 계획형 에이전트를 세 가지로 정리합니다. 기본 Plan-and-Execute, 계획 안에 <code>#E1</code> 같은 변수를 두어 앞 단계 결과를 뒤 단계가 받아 쓰게 하는 <strong>ReWOO</strong>, 단계 사이 의존 관계를 그래프(DAG)로 만들어 서로 무관한 단계를 동시에 실행하는 <strong>LLMCompiler</strong>입니다. LLMCompiler 논문은 순차 실행보다 최대 3.6배 빠르다고 보고했는데, 논문의 실험 조건에서 나온 값입니다.</li>
+<li><strong>섞어 쓰는 구조가 흔해졌습니다.</strong> 바깥은 계획으로 큰 단계를 나누고, 각 단계 안에서는 짧은 ReAct 루프를 돌리는 방식입니다. 2026년에 나온 비교 글들은 "구조화된 업무에서 계획형이 몇 점 앞선다"는 수치를 싣기도 하지만, 측정 방법을 확인할 수 없는 글이 많아 이 글에서는 수치를 옮기지 않습니다.</li>
+<li><strong>코딩 에이전트의 plan mode</strong>: Claude Code 공식 문서는 plan mode를 권한 모드의 하나로 설명합니다. 이 모드에서는 코드를 읽고 계획만 쓰며, 사람이 계획을 승인하기 전에는 파일을 고치지 않습니다. 계획과 실행 사이에 <strong>사람의 승인</strong>을 넣은 Plan-and-Execute로 볼 수 있습니다.</li>
+<li><strong>추론 모델과의 관계</strong>: 모델이 답하기 전에 길게 생각하고, 도구 호출 사이사이에도 생각을 이어 가는 방식(interleaved thinking)이 여러 제공사 문서에 등장합니다. 계획을 별도 단계로 떼지 않아도 모델 안에서 일부 이루어진다는 뜻인데, 이 주제는 #13(추론 모델)에서 따로 다룹니다.</li>
+</ul>
+<h2>동작 구조</h2>
+<pre><code>ReAct                               Plan-and-Execute
+─────                               ────────────────
+생각 → 도구 → 관찰                   계획: [1, 2, 3, 4]      ← LLM 1회
+생각 → 도구 → 관찰                   실행: 1 → 2 → 3 → 4      ← 단계마다 도구(필요하면 작은 LLM)
+생각 → 도구 → 관찰                   점검: 끝났나? 다시 계획?   ← LLM 1회
+생각 → 답
+(걸음마다 큰 모델 호출,               (큰 모델 호출이 적음,
+ 지금까지의 기록을 매번 다시 읽음)     계획이 낡으면 통째로 틀림)
+</code></pre>
+<pre><code class="language-python"># Plan-and-Execute 의 뼈대
+plan = planner(goal)                       # [&quot;회사 찾기&quot;, &quot;댓글 수집&quot;, &quot;분류&quot;, &quot;요약&quot;]
+done = []
+while plan:
+    step = plan.pop(0)
+    result = executor(step, context=done)  # 도구 호출 또는 작은 모델
+    done.append((step, verify(result)))    # 단계 결과를 코드로 확인
+    if needs_replan(done):                 # 결과가 없거나 전제가 깨졌을 때만
+        plan = replanner(goal, done)       # 남은 계획을 다시 씀
+answer = summarize(goal, done)
+</code></pre>
+<p>ReWOO는 위 계획을 <code>E1 = search("…")</code>, <code>E2 = summarize(#E1)</code>처럼 써서 실행 중에는 LLM을 다시 부르지 않습니다. LLMCompiler는 <code>E1</code>과 <code>E2</code>가 서로 무관하면 동시에 실행합니다.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>ReAct</th>
+<th>Plan-and-Execute</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>큰 모델 호출</td>
+<td>걸음마다</td>
+<td>계획·재계획 때</td>
+</tr>
+<tr>
+<td>지연</td>
+<td>짧은 일에 유리</td>
+<td>길고 병렬로 나눌 수 있는 일에 유리</td>
+</tr>
+<tr>
+<td>강한 상황</td>
+<td>다음 행동이 결과에 달린 탐색</td>
+<td>단계가 미리 보이는 정형 업무</td>
+</tr>
+<tr>
+<td>흔한 실패</td>
+<td>같은 행동 반복, 목표에서 벗어남</td>
+<td>낡은 전제로 끝까지 실행, 지나친 재계획</td>
+</tr>
+<tr>
+<td>추적</td>
+<td>기록이 길어 읽기 어려움</td>
+<td>계획이 문서로 남아 검토 가능</td>
+</tr>
+</tbody>
+</table>
+<h2>왜 중요한가 / 한계</h2>
+<ul>
+<li><strong>비용 구조가 달라집니다.</strong> ReAct는 걸음마다 지금까지의 기록 전체를 다시 넣으므로 단계가 늘수록 토큰이 빠르게 늘어납니다. 계획형은 실행 단계를 작은 모델이나 코드에 맡길 수 있습니다.</li>
+<li><strong>계획은 검토할 수 있는 산출물입니다.</strong> 실행 전에 사람이나 코드가 계획을 보고 막을 수 있습니다. plan mode가 이 점을 쓰는 예입니다.</li>
+<li><strong>한계 1 — 계획 시점의 정보 부족</strong>: 계획을 세울 때는 도구 결과를 아직 모릅니다. 검색 결과가 0건이면 뒤 단계가 모두 의미가 없어집니다. 언제 다시 계획할지 조건을 코드로 정해 두어야 합니다.</li>
+<li><strong>한계 2 — 재계획의 양면</strong>: 재계획이 없으면 틀린 길을 끝까지 가고, 너무 잦으면 계획을 세운 의미가 없습니다.</li>
+<li><strong>한계 3 — 어느 쪽이든 종료 조건은 따로 필요합니다.</strong> 최대 단계 수, 같은 호출 반복 감지, 시간 제한 같은 장치는 모델이 아니라 코드에 있어야 합니다.</li>
+</ul>
+<h2>내 프로젝트와 연결</h2>
+<ul>
+<li><strong>관통 4·5의 분석 파이프라인</strong>은 수집 → LLM 분류 → 정제 → 요약의 순서를 제가 코드로 고정했습니다. 계획을 LLM이 아니라 사람이 세운 Plan-and-Execute에 해당하고, 각 단계의 LLM 출력은 코드로 다시 검증했습니다. 단계가 미리 정해지는 업무라면 계획을 모델에 맡기지 않는 편이 싸고 추적하기 쉽다는 것을 이때 경험했습니다.</li>
+<li><strong>국보 RAG 가이드</strong>는 LangGraph로 검색 → 생성 → 근거 번호 검증을 노드로 나누고, 검증에 실패하면 정해진 경로로 되돌렸습니다. "다시 계획할 조건을 코드로 둔다"는 위 한계 1의 대응과 같은 구조입니다.</li>
+<li>최근 만든 <strong>data-agent</strong>(MCP 서버)는 도구 설명에 "표 목록 확인 → 열 확인 → SQL 실행 → 답 검사" 순서를 적어 두었습니다. 다만 실제 LLM을 붙여 그 순서를 지키는지 평가하지는 않았습니다. ReAct로 두면 모델이 검사 단계를 건너뛸 수 있어서, 순서를 강제하려면 계획을 코드 쪽에 두는 것이 맞다고 봅니다.</li>
+</ul>
+<h2>면접 질문</h2>
+<p><strong>Q. ReAct와 Plan-and-Execute 중 무엇을 쓸지 어떻게 정하나요?</strong></p>
+<blockquote>
+<p>다음 행동이 직전 결과에 달려 있으면 ReAct, 단계가 미리 보이면 Plan-and-Execute를 씁니다. ReAct는 걸음마다 큰 모델을 부르고 기록 전체를 다시 읽어서 단계가 많아지면 느리고 비쌉니다. 계획형은 큰 모델 호출이 적고 계획을 실행 전에 검토할 수 있지만, 계획할 때 몰랐던 결과가 나오면 통째로 틀립니다. 그래서 재계획 조건과 최대 단계 수를 코드로 정해 둡니다. 제 프로젝트에서는 단계가 고정된 분석 파이프라인은 순서를 코드로 고정하고, LLM은 각 단계 안의 판단에만 쓰되 출력은 코드로 다시 확인했습니다.</p>
+</blockquote>
+<h2>출처</h2>
+<ul>
+<li>Yao 외, <a href="https://arxiv.org/abs/2210.03629">ReAct: Synergizing Reasoning and Acting in Language Models</a> (2022)</li>
+<li>Wang 외, <a href="https://arxiv.org/abs/2305.04091">Plan-and-Solve Prompting</a> (2023)</li>
+<li>Xu 외, <a href="https://arxiv.org/abs/2305.18323">ReWOO: Decoupling Reasoning from Observations</a> (2023)</li>
+<li>Kim 외, <a href="https://arxiv.org/abs/2312.04511">An LLM Compiler for Parallel Function Calling</a> (2023) — 3.6배 수치의 출처</li>
+<li>LangChain Blog, <a href="https://blog.langchain.com/planning-agents">Plan-and-Execute Agents</a> — 세 가지 계획형 구조 정리</li>
+<li>Claude Code 문서, <a href="https://code.claude.com/docs/en/permission-modes">Permission modes</a> — plan mode 설명</li>
+<li>DEV Community, <a href="https://dev.to/gabrielanhaia/react-vs-plan-and-execute-picking-an-agent-loop-in-2026-gnk">ReAct vs Plan-and-Execute: picking an agent loop in 2026</a> — 실패 방식 정리 (2차 자료)</li>
+</ul></article>
+  <div class="endcard">
+    <div><b>AI 트렌드 노트 · 6편</b><span>에이전트 개념부터 차례로 이어서 쓰는 시리즈입니다. 다음 회차: #6 에이전트 메모리 — 대화가 끝나도 남는 것과 남기면 안 되는 것</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="2026-11-ai-trend-04-a2a.html">← #4</a><a class="btn" href="ai-trend.html">전체 목록</a><a class="btn" href="2026-11-ai-trend-06-agent-memory.html">#6 →</a></div>
+  </div>
+<div class="others"><b style="font-size:14px;color:var(--muted)">다른 글</b><a href="2026-11-ai-trend-06-agent-memory.html">에이전트 메모리 — 대화가 끝나도 남는 것과 남기면 안 되는 것<span>컨텍스트 창 안의 단기 기억과 대화 밖에 저장하는 장기 기억을 나누고, 무엇을 쓰고 언제 꺼내는지의 설계를 정리했습니다. 한 번 오염되면 세션이 끝나도 남는 메모리 포이즈닝도 함께 봅니다.</span></a><a href="2026-11-ai-trend-04-a2a.html">에이전트 간 통신 — A2A는 MCP와 무엇이 다른가<span>MCP가 &#39;에이전트와 도구&#39;를 잇는다면 A2A는 &#39;에이전트와 에이전트&#39;를 잇습니다. Agent Card로 상대를 찾고, 상태가 있는 task로 일을 맡기는 구조와, 버전마다 바뀐 부분·엇갈리는 보도를 정리했습니다.</span></a><a href="2026-11-ai-trend-03-mcp.html">MCP — 도구를 매번 새로 붙이지 않는 방법<span>지난 회차의 tool use를 앱마다 다시 만들지 않도록 &#39;도구 서버&#39;를 표준 규격으로 분리한 MCP의 구조(호스트·클라이언트·서버, tools·resources·prompts)와 최근 사양 변화, 보안상 약한 고리를 정리했습니다.</span></a><a href="2026-11-ai-trend-02-tool-use.html">Tool use — 모델은 함수를 실행하지 않는다<span>Function calling의 실제 동작(모델은 호출 &#39;요청&#39;만 만들고 실행은 내 코드가 한다), strict 스키마와 Structured Outputs의 관계, 도구를 쓸 때와 출력 형식만 고정할 때를 구분했습니다.</span></a><a href="2026-11-ai-trend-01-agent.html">AI 에이전트란 무엇인가 — LLM이 도구를 쥐고 반복할 때<span>에이전트를 &#39;도구를 쓰며 스스로 다음 단계를 정하는 LLM 루프&#39;로 정의하고, 워크플로와 무엇이 다른지, 기업 도입 숫자가 왜 엇갈리는지 정리했습니다.</span></a></div>  <footer>© Young-Ju Lee · iyju990312@naver.com</footer>
+</div>
+<script>
+(function(){var r=document.documentElement,K='theme';
+try{var s=localStorage.getItem(K);if(s)r.setAttribute('data-theme',s)}catch(e){}
+var b=document.getElementById('theme');if(b)b.addEventListener('click',function(){
+var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});})();
+</script>
+<script>(function(){var b=document.getElementById('readbar'),a=document.querySelector('article');if(!b||!a)return;function f(){var r=a.getBoundingClientRect(),h=r.height-innerHeight*0.6,p=Math.min(1,Math.max(0,-r.top/(h>0?h:1)));b.style.width=(p*100)+'%'}addEventListener('scroll',function(){requestAnimationFrame(f)},{passive:true});f()})();</script>
+</body>
+</html>

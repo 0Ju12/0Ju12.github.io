@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>에이전트 메모리 — 대화가 끝나도 남는 것과 남기면 안 되는 것 · 이영주</title>
+<meta name="description" content="컨텍스트 창 안의 단기 기억과 대화 밖에 저장하는 장기 기억을 나누고, 무엇을 쓰고 언제 꺼내는지의 설계를 정리했습니다. 한 번 오염되면 세션이 끝나도 남는 메모리 포이즈닝도 함께 봅니다.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="이영주 포트폴리오">
+<meta property="og:title" content="에이전트 메모리 — 대화가 끝나도 남는 것과 남기면 안 되는 것 · 이영주">
+<meta property="og:description" content="컨텍스트 창 안의 단기 기억과 대화 밖에 저장하는 장기 기억을 나누고, 무엇을 쓰고 언제 꺼내는지의 설계를 정리했습니다. 한 번 오염되면 세션이 끝나도 남는 메모리 포이즈닝도 함께 봅니다.">
+<meta property="og:url" content="https://0ju12.github.io/posts/2026-11-ai-trend-06-agent-memory.html">
+<meta property="og:image" content="https://0ju12.github.io/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#18181b">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--surface:#f7f7f8;--text:#0d0d0f;--muted:#5d5f66;--line:#e7e7ea;--accent:#0a7c66;--accent-2:#14b8a6;--chip:#eef2f1;--code:#0f1117;--code-text:#e6e6e6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}}
+:root[data-theme="dark"]{--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.85 "Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:740px;margin:0 auto;padding:0 20px}
+nav{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;padding:10px 2px}
+nav .home{font-weight:900;color:var(--text);margin-right:auto}
+#theme{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 12px;font:inherit;font-size:12px;cursor:pointer}
+header.post{padding:56px 0 28px;border-bottom:2px solid var(--text);margin-bottom:36px}
+header.post .meta{color:var(--accent);font-weight:700;font-size:14px;letter-spacing:.04em}
+header.post h1{font-size:clamp(28px,5vw,42px);line-height:1.25;letter-spacing:-.03em;margin:10px 0 14px;font-weight:900}
+header.post p{color:var(--muted);margin:0 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--chip);color:var(--muted)}
+article h2{font-size:24px;letter-spacing:-.02em;margin:48px 0 14px;font-weight:900}
+article h3{font-size:19px;margin:32px 0 10px}
+article p,article li{margin:0 0 16px}
+article ul,article ol{padding-left:22px}
+article li{margin-bottom:6px}
+article blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--surface);border-radius:0 12px 12px 0;font-weight:700}
+article blockquote p{margin:0}
+article code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em;background:var(--chip);padding:2px 6px;border-radius:6px}
+article pre{background:var(--code);color:var(--code-text);padding:18px 20px;border-radius:14px;overflow-x:auto;line-height:1.6;margin:0 0 20px}
+article pre code{background:none;padding:0;font-size:13.5px;color:inherit}
+article table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:15px;display:block;overflow-x:auto}
+article th,article td{border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+article th{background:var(--surface)}
+.endcard{margin:56px 0 0;padding:24px;border:1px solid var(--line);border-radius:18px;background:var(--surface);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.endcard b{display:block}
+.endcard span{color:var(--muted);font-size:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--line);color:var(--text);background:var(--bg)}
+.others{margin:40px 0 0}
+.others a{display:block;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--text);font-weight:700}
+.others a span{display:block;color:var(--muted);font-weight:400;font-size:14px}
+footer{padding:64px 0 40px;color:var(--muted);font-size:13px}
+.readbar{position:fixed;top:0;left:0;height:3px;width:0;background:var(--text);z-index:60;transition:width .1s linear}
+.series{margin:36px 0 0;padding:20px 22px;border:1px solid var(--line);border-radius:18px;background:var(--card)}
+.series b{font-size:15px}.series ol{margin:10px 0 0;padding-left:20px;font-size:14.5px;line-height:1.6}.series li{padding:3px 0}.series li small{color:var(--muted);margin-left:8px;font-size:12.5px}.series li.me a{font-weight:800;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="readbar" id="readbar"></div>
+<div class="wrap">
+  <nav><a class="home" href="../index.html">Young-Ju Lee</a><a href="../index.html#writing">Writing</a><a href="../index.html#work">Work</a><button id="theme" type="button">테마</button></nav>
+  <header class="post">
+    <div class="meta"><a href="ai-trend.html" style="color:inherit">AI 트렌드 노트</a> #6 · 2026-11-11 · 6분 읽기</div>
+    <h1>에이전트 메모리 — 대화가 끝나도 남는 것과 남기면 안 되는 것</h1>
+    <p>컨텍스트 창 안의 단기 기억과 대화 밖에 저장하는 장기 기억을 나누고, 무엇을 쓰고 언제 꺼내는지의 설계를 정리했습니다. 한 번 오염되면 세션이 끝나도 남는 메모리 포이즈닝도 함께 봅니다.</p>
+    <div class="chips"><span class="chip">에이전트</span><span class="chip">메모리</span><span class="chip">보안</span></div>
+  </header>
+  <article><blockquote>
+<p><strong>한 줄 요약</strong> — 지난 회차에서 ReAct는 걸음마다 "지금까지의 기록"을 다시 읽는다고 했습니다. 그 기록이 에이전트의 <strong>단기 기억</strong>이고, 컨텍스트 창이 차면 사라집니다. 메모리 설계는 무엇을 창 밖에 <strong>써 둘지</strong>, 언제 다시 <strong>꺼낼지</strong>, 그리고 써 둔 것을 <strong>믿어도 되는지</strong>를 정하는 일입니다.</p>
+</blockquote>
+<h2>핵심 개념</h2>
+<ul>
+<li><strong>단기 기억</strong>: 한 대화(스레드) 안의 메시지와 도구 결과입니다. 모델은 호출 사이에 아무것도 기억하지 않으므로, 앱이 매번 기록을 다시 넣어 줍니다.</li>
+<li><strong>장기 기억</strong>: 대화가 끝나도 남도록 밖에 저장한 것입니다. 연구(CoALA, Sumers 외 2023)의 분류를 따라 보통 셋으로 나눕니다. 사실(<strong>의미</strong> 기억: "사용자는 Python을 쓴다"), 겪은 일(<strong>일화</strong> 기억: "지난번 이 방법은 실패했다"), 일하는 방법(<strong>절차</strong> 기억: 지침·규칙).</li>
+<li><strong>비유</strong>: 단기 기억은 책상 위입니다. 넓지 않아서 일이 길어지면 치워야 합니다. 장기 기억은 서랍과 수첩입니다. 무엇을 수첩에 적을지, 언제 다시 펼칠지를 정해야 하고, 누가 수첩에 몰래 적어 넣을 수 있는지도 따져야 합니다.</li>
+<li><strong>RAG와의 차이</strong>: RAG(#7)는 주로 사람이 준비한 문서를 읽기만 합니다. 메모리는 에이전트가 <strong>스스로 쓰기도</strong> 합니다. 쓰기가 있다는 점이 뒤에서 볼 보안 문제의 출발점입니다.</li>
+</ul>
+<h2>지금 무슨 일이 일어나고 있나</h2>
+<ul>
+<li><strong>OS에서 빌린 구조</strong>: MemGPT(Packer 외, 2023)는 컨텍스트 창을 RAM처럼, 외부 저장소를 디스크처럼 보고 모델이 도구 호출로 정보를 넣고 빼게 했습니다. 이 프로젝트는 이후 Letta로 이름이 바뀌었습니다.</li>
+<li><strong>프레임워크의 기본 구성이 되었습니다.</strong> LangGraph는 스레드 단위 체크포인트(단기)와, 스레드를 넘나드는 저장소(장기, 네임스페이스로 구분)를 따로 둡니다. Mem0·Zep 같은 전용 메모리 계층도 사용자·에이전트·작업 단위로 기억을 나누는 기능을 제공합니다.</li>
+<li><strong>모델 제공사도 도구로 내놓았습니다.</strong> Anthropic은 모델이 메모리 디렉터리의 파일을 만들고 읽고 고치는 메모리 도구와, 오래된 도구 결과를 컨텍스트에서 덜어 내는 컨텍스트 편집을 소개했습니다. 파일 작업 자체는 앱이 자기 저장소에서 실행하는 구조로 알려져 있습니다. 이 부분은 2차 자료로 확인한 내용이라, 쓰기 전에 공식 문서로 현재 사양을 확인해야 합니다.</li>
+<li><strong>보안 항목으로 분리되었습니다.</strong> OWASP의 에이전트 애플리케이션 Top 10은 메모리·컨텍스트 오염을 독립 항목(ASI06)으로 둡니다. 2026년 연구들은 공격자가 메모리 저장소에 직접 접근하지 못해도, 평범한 질문만으로 에이전트가 악성 내용을 스스로 기억에 쓰게 만들 수 있다고 보고합니다(MINJA 등). 기억을 적극적으로 쓰고 꺼낼수록 긴 작업 성능은 좋아지지만 공격 면도 넓어진다는 분석도 있습니다.</li>
+</ul>
+<h2>동작 구조</h2>
+<pre><code>            ┌───────────── 컨텍스트 창 (단기) ─────────────┐
+사용자 ───▶ │ 시스템 지침 + [꺼낸 기억] + 최근 대화 + 도구 결과 │ ───▶ 모델
+            └──────────────────────────────────────────────┘
+                 ▲ ③ 꺼내기 (검색·필터)            │ ① 쓸지 판단
+                 │                                 ▼
+            ┌──────────── 장기 저장소 ─────────────┐   ② 쓰기 전 검사
+            │ 의미(사실) · 일화(경험) · 절차(지침)  │ ◀── 출처·형식·민감 정보
+            │ 사용자·작업 단위로 분리               │
+            └───────────────────────────────────────┘
+창이 차면: 오래된 도구 결과 덜어내기 / 요약으로 바꾸기 (④ 정리)
+</code></pre>
+<pre><code class="language-python">def turn(user_msg, thread, store, user_id):
+    memories = store.search(ns=(&quot;user&quot;, user_id), query=user_msg, k=5)   # ③ 꺼내기
+    memories = [m for m in memories if m.source == &quot;user_confirmed&quot;]      #    출처로 거름
+    reply = llm(system + render(memories) + thread.recent(20) + user_msg)
+
+    for fact in extract_candidates(user_msg, reply):                      # ① 쓸 후보
+        if not passes_write_policy(fact):                                 # ② 쓰기 검사
+            continue                     # 도구 결과·웹 문서에서 온 '지시문'은 쓰지 않음
+        store.put(ns=(&quot;user&quot;, user_id), value=fact, source=fact.origin, ts=now())
+
+    if thread.tokens() &gt; LIMIT:                                           # ④ 정리
+        thread.replace_old_with(summarize(thread.old()))
+    return reply
+</code></pre>
+<p>설계에서 정해야 하는 것은 네 가지입니다. <strong>무엇을 쓰나</strong>(모든 대화가 아니라 다시 쓸 사실만), <strong>누가 쓰나</strong>(사용자가 말한 것과 외부 문서에서 읽은 것을 구분), <strong>언제 꺼내나</strong>(매번 전부가 아니라 관련된 것만), <strong>언제 지우나</strong>(낡은 사실, 사용자의 삭제 요청).</p>
+<h2>왜 중요한가 / 한계</h2>
+<ul>
+<li><strong>긴 작업의 전제입니다.</strong> 컨텍스트 창은 유한하고, 길어질수록 비용이 늘고 앞부분을 놓치기 쉽습니다. 덜어 내고 요약하는 정리가 없으면 긴 작업은 중간에 흐트러집니다.</li>
+<li><strong>한계 1 — 요약은 정보를 잃습니다.</strong> 무엇이 중요한지 요약 시점에는 모를 수 있습니다. 원문을 밖에 남겨 두고 요약에는 위치만 적는 방식이 대안입니다.</li>
+<li><strong>한계 2 — 낡은 기억</strong>: "사용자는 학생이다"는 언젠가 틀린 사실이 됩니다. 기억에 시각과 출처를 붙이고, 충돌하면 최근 것을 우선하거나 다시 묻는 규칙이 필요합니다.</li>
+<li><strong>한계 3 — 오염은 세션을 넘어 남습니다.</strong> 프롬프트 인젝션은 대화가 끝나면 사라지지만, 기억에 쓰인 지시문은 다음 대화에서 신뢰받는 내용으로 다시 들어옵니다. 방어는 쓰기 쪽에 둡니다. 외부에서 읽은 내용은 사실로만 저장하고 지시로 실행하지 않기, 출처를 함께 저장해 꺼낼 때 거르기, 쓰기 기록 남기기입니다. 기존 메모리 계층은 사용자별 분리는 잘 지원하지만 "누가 쓸 수 있는가"의 통제는 아직 거칠다는 지적이 있습니다.</li>
+<li><strong>한계 4 — 개인정보</strong>: 기억은 곧 저장된 개인 데이터입니다. 무엇을 기억하는지 보여 주고 지울 수 있게 해야 합니다.</li>
+</ul>
+<h2>내 프로젝트와 연결</h2>
+<ul>
+<li>에이전트의 장기 기억을 직접 만든 적은 없습니다. 가까운 경험은 <strong>국보 RAG 가이드</strong>의 ChromaDB입니다. 수집한 문서를 조각내 저장하고 질문마다 관련 조각만 꺼내 넣었는데, 이는 읽기 전용이라 위에서 말한 쓰기 문제는 없었습니다. 대신 꺼낸 조각을 답이 실제로 인용했는지를 근거 번호로 검증했습니다. 메모리에서도 "꺼낸 기억을 답이 어떻게 썼는지"를 같은 방식으로 확인할 수 있다고 봅니다.</li>
+<li><strong>관통 7 프록시</strong>에서는 Guardrail 판정 형식이 깨지면 통과시키지 않고 막았습니다(fail-closed). 메모리 쓰기 검사도 같은 원칙이 맞다고 봅니다. 검사를 통과하지 못했거나 검사 자체가 실패하면 쓰지 않는 쪽이 기본값이어야 합니다.</li>
+<li>이 포트폴리오의 <strong>면접 준비 앱</strong>은 연습 기록을 브라우저에 저장하고, 다른 기기와 합칠 때 같은 항목은 더 최근 시각의 것을 남깁니다. LLM 메모리는 아니지만, 한계 2의 "시각을 붙이고 충돌하면 최근 것 우선"을 실제로 구현해 본 사례입니다. 사용자가 지운 기록이 동기화로 되살아나지 않게 삭제 목록을 따로 두어야 했던 것도 같은 종류의 문제였습니다.</li>
+</ul>
+<h2>면접 질문</h2>
+<p><strong>Q. 에이전트에 장기 메모리를 붙인다면 무엇을 가장 먼저 설계하겠습니까?</strong></p>
+<blockquote>
+<p>쓰기 규칙부터 정하겠습니다. 무엇을 저장할지보다 누가 쓴 내용인지가 먼저입니다. 사용자가 직접 말한 사실과, 에이전트가 웹이나 도구 결과에서 읽은 내용을 출처로 구분해 저장하고, 외부에서 온 문장은 지시로 다루지 않습니다. 한 번 잘못 쓰인 기억은 세션이 끝나도 남아서 다음 대화에 신뢰받는 내용으로 들어오기 때문입니다. 그다음에 시각을 붙여 낡은 기억을 정리하는 규칙과, 사용자가 기억을 보고 지울 수 있는 기능을 둡니다. 검사에 실패하면 저장하지 않는 것을 기본값으로 하겠습니다. 관통 7에서 Guardrail 형식이 깨지면 막도록 했던 것과 같은 원칙입니다.</p>
+</blockquote>
+<h2>출처</h2>
+<ul>
+<li>Packer 외, <a href="https://arxiv.org/abs/2310.08560">MemGPT: Towards LLMs as Operating Systems</a> (2023)</li>
+<li>Sumers 외, <a href="https://arxiv.org/abs/2309.02427">Cognitive Architectures for Language Agents (CoALA)</a> (2023) — 의미·일화·절차 기억 분류</li>
+<li><a href="https://arxiv.org/pdf/2606.04329">From Untrusted Input to Trusted Memory: A Systematic Study of Memory Poisoning Attacks in LLM Agents</a> (2026) — 쓰기·꺼내기 정책과 공격 면</li>
+<li>Mem0, <a href="https://mem0.ai/blog/memory-poisoning-how-bad-inputs-corrupt-your-ai-agent-s-memory">Memory poisoning: how bad inputs corrupt your AI agent's memory</a> — OWASP ASI06, 방어 방법 (공급사 글)</li>
+<li>Developers Digest, <a href="https://www.developersdigest.tech/blog/agent-memory-architectures-explained">Agent Memory Architectures Explained</a> — LangGraph 체크포인트·저장소 구분 (2차 자료)</li>
+<li>Anthropic 메모리 도구·컨텍스트 편집은 2차 자료로 확인했습니다. 사용 전 <a href="https://docs.anthropic.com">공식 문서</a>에서 현재 사양을 확인하세요.</li>
+</ul></article>
+  <div class="endcard">
+    <div><b>AI 트렌드 노트 · 6편</b><span>에이전트 개념부터 차례로 이어서 쓰는 시리즈입니다. 다음 회차: #7 RAG에서 Agentic RAG로 — 검색을 한 번 할지, 에이전트가 여러 번 할지</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="2026-11-ai-trend-05-react-plan-execute.html">← #5</a><a class="btn" href="ai-trend.html">전체 목록</a></div>
+  </div>
+<div class="others"><b style="font-size:14px;color:var(--muted)">다른 글</b><a href="2026-11-ai-trend-05-react-plan-execute.html">ReAct와 Plan-and-Execute — 에이전트는 어떻게 계획하나<span>한 걸음마다 다시 생각하는 ReAct와, 먼저 계획을 세우고 실행하는 Plan-and-Execute의 차이를 비용·속도·실패 방식으로 비교했습니다. ReWOO·LLMCompiler 같은 변형과 코딩 에이전트의 plan mode까지 이어서 봅니다.</span></a><a href="2026-11-ai-trend-04-a2a.html">에이전트 간 통신 — A2A는 MCP와 무엇이 다른가<span>MCP가 &#39;에이전트와 도구&#39;를 잇는다면 A2A는 &#39;에이전트와 에이전트&#39;를 잇습니다. Agent Card로 상대를 찾고, 상태가 있는 task로 일을 맡기는 구조와, 버전마다 바뀐 부분·엇갈리는 보도를 정리했습니다.</span></a><a href="2026-11-ai-trend-03-mcp.html">MCP — 도구를 매번 새로 붙이지 않는 방법<span>지난 회차의 tool use를 앱마다 다시 만들지 않도록 &#39;도구 서버&#39;를 표준 규격으로 분리한 MCP의 구조(호스트·클라이언트·서버, tools·resources·prompts)와 최근 사양 변화, 보안상 약한 고리를 정리했습니다.</span></a><a href="2026-11-ai-trend-02-tool-use.html">Tool use — 모델은 함수를 실행하지 않는다<span>Function calling의 실제 동작(모델은 호출 &#39;요청&#39;만 만들고 실행은 내 코드가 한다), strict 스키마와 Structured Outputs의 관계, 도구를 쓸 때와 출력 형식만 고정할 때를 구분했습니다.</span></a><a href="2026-11-ai-trend-01-agent.html">AI 에이전트란 무엇인가 — LLM이 도구를 쥐고 반복할 때<span>에이전트를 &#39;도구를 쓰며 스스로 다음 단계를 정하는 LLM 루프&#39;로 정의하고, 워크플로와 무엇이 다른지, 기업 도입 숫자가 왜 엇갈리는지 정리했습니다.</span></a></div>  <footer>© Young-Ju Lee · iyju990312@naver.com</footer>
+</div>
+<script>
+(function(){var r=document.documentElement,K='theme';
+try{var s=localStorage.getItem(K);if(s)r.setAttribute('data-theme',s)}catch(e){}
+var b=document.getElementById('theme');if(b)b.addEventListener('click',function(){
+var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});})();
+</script>
+<script>(function(){var b=document.getElementById('readbar'),a=document.querySelector('article');if(!b||!a)return;function f(){var r=a.getBoundingClientRect(),h=r.height-innerHeight*0.6,p=Math.min(1,Math.max(0,-r.top/(h>0?h:1)));b.style.width=(p*100)+'%'}addEventListener('scroll',function(){requestAnimationFrame(f)},{passive:true});f()})();</script>
+</body>
+</html>
