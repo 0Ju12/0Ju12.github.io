@@ -144,7 +144,7 @@ def decks(data, variants):
         order = [(g, p) for gid in v.get("order", []) for g, p in projs if g.get("id") == gid]
         top = order[:3]
         slides = [{"t": "title", "kicker": "1분 자기소개 · " + v.get("label", role), "h": prof["name"], "sub": v.get("headline") or prof["headline"],
-                   "note": f"안녕하세요, {v.get('label', '')} 직무에 지원한 {prof['name']}입니다. {v.get('headline') or prof['headline']}."},
+                   "note": f"안녕하세요, {v.get('label', '')} 직무에 지원한 {prof['name']}입니다. {v.get('headline') or prof['headline']}." + ((" " + " ".join((data.get("pitch") or {}).get("h1", [])) + " " + (data.get("pitch") or {}).get("body", "")) if data.get("pitch") else "")},
                   {"t": "stats", "h": "숫자로 보는 저", "items": [[x["value"], x["label"]] for x in v.get("highlights", [])[:4]],
                    "note": "제 경험을 숫자 네 개로 먼저 말씀드리겠습니다. " + " ".join(f"{x['value']}, {x['label']}." for x in v.get("highlights", [])[:4])}]
         for g, p in top:
@@ -220,6 +220,7 @@ def build(env, data):
            "roles": {k: v.get("label", k) for k, v in variants.items()}, "name": data["profile"]["name"], "cats": CATS,
            "recruit": yaml.safe_load((ROOT / "data" / "recruit.yaml").read_text(encoding="utf-8")) or {}}
     app["cv"] = cv(data)
+    app["pitch"] = data.get("pitch") or {}
     seed_f = ROOT / "data" / "algo_solved.yaml"
     seed = (yaml.safe_load(seed_f.read_text(encoding="utf-8")) or {}) if seed_f.exists() else {}
     app["algo_seed"] = {"source": seed.get("source", ""), "updated": seed.get("updated", ""), "repo": seed.get("repo", ""), "tested": seed.get("tested", ""),

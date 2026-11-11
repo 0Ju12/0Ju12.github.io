@@ -41,8 +41,8 @@ ${img ? `<div class="im"><img src="${img}"></div>` : ''}
 <div class="foot"><img src="${photo}"><b>${en ? 'Young-Ju Lee' : '이영주'}</b><span>${en ? 'Data & AI Engineer' : '데이터·AI 엔지니어'}</span><span>0ju12.github.io</span></div></body></html>`;
 };
 
-const KO = { role: '데이터·AI 엔지니어', name: '이영주', tag: '지구물리 연구 · LLM 데이터 파이프라인', h1: '데이터를 모으고,<br>모델로 검증하고,<br>결과로 증명합니다.' };
-const EN = { role: 'Data & AI Engineer', name: 'Young-Ju Lee', tag: 'Geophysics research · LLM data pipelines', h1: 'Collect the data,<br>verify with models,<br>prove it with results.' };
+const KO = { role: '데이터·AI 엔지니어', name: '이영주', tag: '지구물리 연구 · LLM 데이터 파이프라인', h1: '데이터를 모으고,<br>모델을 검증하고,<br>결과로 증명합니다.' };
+const EN = { role: 'Data & AI Engineer', name: 'Young-Ju Lee', tag: 'Geophysics research · LLM data pipelines', h1: 'Collect the data,<br>verify the model,<br>prove it with results.' };
 
 (async () => {
   const b = await chromium.launch();

@@ -148,7 +148,7 @@ footer a{color:var(--muted)}
   <div class="hero">
     <div>
       <div class="prompt">$ whoami <span>→ {{ profile.name }} · {{ profile.title }}</span></div>
-      <h1>데이터를 모으고, 모델로 검증하고,<br><em>결과로 증명합니다.</em></h1>
+      <h1>데이터를 모으고, 모델을 검증하고,<br><em>결과로 증명합니다.</em></h1>
       <p>{{ v.intro() }}</p>
       <div class="cta"><a class="b pri" href="#projects">프로젝트 {{ p.icon('arrow', 14) }}</a><a class="b" href="resume-1page.pdf" download>{{ p.icon('doc', 16) }} 이력서</a>{% for l in profile.links if 'github' in l.label|lower or 'linkedin' in l.label|lower %}<a class="b" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.link_icon(l.label) }} {{ l.label }}</a>{% endfor %}{% if profile.email %}<a class="b" href="mailto:{{ profile.email }}">{{ p.icon('mail', 16) }} 메일</a>{% endif %}</div>
     </div>

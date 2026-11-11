@@ -121,7 +121,7 @@ footer{padding:32px 0 48px;color:var(--muted);font-size:13px}
 <div class="hero">
   <div>
     <span class="badge"><i></i>{{ profile.title }} · 채용 기회를 찾고 있습니다</span>
-    <h1>데이터를 모으고,<br>모델로 검증하고,<br><span>결과로 증명합니다.</span></h1>
+    <h1>데이터를 모으고,<br>모델을 검증하고,<br><span>결과로 증명합니다.</span></h1>
     <p>{{ v.intro() }}</p>
     <div class="cta"><a class="b pri" href="#projects">프로젝트 보기</a><a class="b sec" href="resume-1page.pdf" download>이력서 PDF</a>{% for l in profile.links if 'github' in l.label|lower %}<a class="b sec" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.icon('github', 16) }} GitHub</a>{% endfor %}</div>
   </div>

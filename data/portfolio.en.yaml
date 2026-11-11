@@ -28,6 +28,10 @@ profile:
     - { label: Research history, url: "https://www.geoverselab.com/ko/research-history/13/" }
     - { label: LinkedIn, url: "https://www.linkedin.com/in/%EC%98%81%EC%A3%BC-%EC%9D%B4-a335ab251/" }
 
+pitch:
+  h1: ["Collect the data,", "verify the model,", "prove it with results."]
+  body: "I start by checking where the data came from and how good it is, and I verify what a model produces once more with code and evidence. Beyond producing good results, I build systems that can explain why those results can be trusted."
+
 highlights:
   - { value: "1 SCIE", label: "First-author paper (SPE Journal)" }
   - { value: "2× Calgary", label: "Research stays · international collaboration" }

@@ -100,7 +100,7 @@ footer{padding:40px 0 56px;color:var(--faint);font-size:13px;display:flex;justif
 <div class="w">
   <section class="hero" style="padding-top:112px">
     <span class="badge"><b>New</b>국보 입문 가이드 — 인용을 검증하는 RAG</span>
-    <h1>데이터를 모으고, 모델로 검증하고, 결과로 증명합니다</h1>
+    <h1>데이터를 모으고, 모델을 검증하고, 결과로 증명합니다</h1>
     <p>{{ v.intro() }}</p>
     <div class="cta"><a class="btn pri" href="#work">작업 보기</a>{% for l in profile.links if 'github' in l.label|lower %}<a class="btn" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.icon('github', 16) }} GitHub</a>{% endfor %}{% if profile.email %}<a class="btn" href="mailto:{{ profile.email }}">{{ p.icon('mail', 16) }} 연락하기</a>{% endif %}</div>
     <div class="strip">

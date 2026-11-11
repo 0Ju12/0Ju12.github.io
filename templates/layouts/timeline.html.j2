@@ -100,7 +100,7 @@ footer a{color:var(--accent)}
   <div class="herob">
     <div>
       <div class="k">{{ profile.title }} · 2022 → 2026</div>
-      <h1>데이터를 모으고,<br>모델로 검증하고,<br>결과로 증명해 온 4년</h1>
+      <h1>데이터를 모으고,<br>모델을 검증하고,<br>결과로 증명해 온 4년</h1>
       <p>{{ v.intro() }}</p>
       <div class="cta"><a class="btn pri" href="#ch1">처음부터 보기 ↓</a><a class="btn" href="resume-1page.pdf" download>이력서 PDF</a>{% for l in profile.links if 'github' in l.label|lower %}<a class="btn" href="{{ l.url }}" target="_blank" rel="noopener">GitHub</a>{% endfor %}</div>
     </div>

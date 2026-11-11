@@ -5,8 +5,8 @@
 {% set en = alt_lang is defined and alt_lang and alt_lang.code == 'ko' %}
 {% set T = {
   'avail': 'Open to new opportunities' if en else '함께 일할 곳을 찾고 있습니다',
-  'h1': 'Collect the data,<br>verify with models,<br><em>prove it with results.</em>' if en else '데이터를 모으고,<br>모델로 검증하고,<br><em>결과로 증명합니다.</em>',
-  'intro': 'I\'m an engineer who starts by asking where the data came from. I check a model\'s answer another way before relying on it, and I value being able to explain why a result is right over a result that merely looks good.' if en else '데이터가 어디서 왔는지부터 확인하는 엔지니어입니다. 모델이 낸 답은 다른 방법으로 한 번 더 검증하고, 결과가 좋아 보이는 것보다 왜 맞는지 설명할 수 있는 것을 더 중요하게 생각합니다.',
+  'h1': (pitch.h1[0] ~ '<br>' ~ pitch.h1[1] ~ '<br><em>' ~ pitch.h1[2] ~ '</em>') if pitch and pitch.h1 else ('Collect the data,<br>verify with models,<br><em>prove it with results.</em>' if en else '데이터를 모으고,<br>모델을 검증하고,<br><em>결과로 증명합니다.</em>'),
+  'intro': pitch.body if pitch and pitch.body else ('I\'m an engineer who starts by asking where the data came from. I check a model\'s answer another way before relying on it, and I value being able to explain why a result is right over a result that merely looks good.' if en else '데이터가 어디서 왔는지부터 확인하는 엔지니어입니다. 모델이 낸 답은 다른 방법으로 한 번 더 검증하고, 결과가 좋아 보이는 것보다 왜 맞는지 설명할 수 있는 것을 더 중요하게 생각합니다.'),
   'areas': ['Geophysical data research', 'International collaboration', 'LLM · RAG engineering', 'Deep learning modeling'] if en else ['지구물리 데이터 연구', '국제 공동연구', 'LLM · RAG 엔지니어링', '딥러닝 모델링'],
   'work': 'Work' if en else '작업',
   'work_sub': 'Four chapters — graduate research, undergraduate research, bootcamps and personal projects. Use the tabs inside each card for individual projects.' if en else '석사 · 학부 · 부트캠프 · 개인 프로젝트 네 묶음입니다. 카드 안의 탭에서 세부 프로젝트를 볼 수 있습니다.',

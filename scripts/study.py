@@ -219,7 +219,7 @@ def build(env, data):
     dated = sorted([n for n in notes if n["date"]], key=lambda n: (n["date"], order[n["track"]], n["file"]))
     app = {"tracks": [{"id": t[0], "name": t[1], "desc": t[2]} for t in TRACKS],
            "notes": [{k: n[k] for k in ("slug", "title", "num", "date", "sections", "summary", "track", "nq")} for n in notes],
-           "units": units, "salt": base64.b64encode(locker.salt).decode() if locker.password else ""}
+           "pitch": (data.get("pitch") or {}), "units": units, "salt": base64.b64encode(locker.salt).decode() if locker.password else ""}
     search = OUT / "search.enc.json"
     if locker.password:
         search.write_text(json.dumps(locker.blob(index)), encoding="utf-8")
