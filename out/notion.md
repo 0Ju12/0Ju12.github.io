@@ -99,7 +99,7 @@ SSAFY에서 LLM 데이터 파이프라인·Django 서비스와 VQA 모델 앙상
   - [POSPEAK(KILL KONG)] 팀 프로젝트 장려상 수상
 
 🏷 Python, LLM 파인튜닝, QLoRA, RAG, FAISS, Django, Selenium, Pandas
-🔗 [GitHub 저장소](https://github.com/0Ju12/ssafy-thread)  🔗 [국보 입문 가이드 (RAG)](https://github.com/0Ju12/heritage-rag-guide)  🔗 [팀 GitHub](https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5)  
+🔗 [GitHub 저장소](https://github.com/0Ju12/ssafy-thread)  🔗 [국보 입문 가이드 (RAG)](https://github.com/0Ju12/heritage-rag-guide)  🔗 [SWEA 풀이 36문제 (테스트 37개)](https://github.com/0Ju12/swea-solutions)  🔗 [팀 GitHub](https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5)  
 
 ### 개인 프로젝트 — 데이터 기반 포트폴리오 생성기 · 암호화 학습 노트·면접 준비 앱
 `개인 프로젝트` · 2026.11 – 진행 중 · 개인 (GitHub Pages · GitHub Actions) · **기획 · 설계 · 개발 · 운영**
@@ -132,7 +132,7 @@ SSAFY에서 LLM 데이터 파이프라인·Django 서비스와 VQA 모델 앙상
   - [공개 데이터 프로젝트] 지진: 동아시아 M4+ 2,446건, b = 1.11 ± 0.05 · 테스트 35개(4개 프로젝트 합계)
 
 🏷 Python, Jinja2, GitHub Actions, Playwright, Web Crypto, PWA, JavaScript
-🔗 [사이트](https://0ju12.github.io/)  🔗 [만든 과정 글](https://0ju12.github.io/posts/2026-11-portfolio-one-yaml.html)  🔗 [잠금 화면](https://0ju12.github.io/interview/)  🔗 [GitHub 저장소](https://github.com/0Ju12/data-projects)  🔗 [지진 대시보드](https://0ju12.github.io/data-projects/)  
+🔗 [사이트](https://0ju12.github.io/)  🔗 [만든 과정 글](https://0ju12.github.io/posts/2026-11-portfolio-one-yaml.html)  🔗 [잠금 화면](https://0ju12.github.io/interview/)  🔗 [GitHub 저장소](https://github.com/0Ju12/data-projects)  🔗 [지진 대시보드](https://0ju12.github.io/data-projects/)  🔗 [전력 수요 예측 탐색기 (직접 보기)](https://0ju12.github.io/data-projects/power/)  
 
 ---
 
