@@ -414,6 +414,10 @@ Young-Ju Lee</a><a class="n" href="#work">Work</a><a class="n" href="#map">Map</
   </section>
 
 <style>
+.cmap-film{margin:0 0 18px;background:var(--card);border:1px solid var(--line);border-radius:26px;overflow:hidden;max-width:860px}
+.cmap-film video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#1b2340}
+.cmap-film figcaption{padding:12px 18px 14px;font-size:13.5px;color:var(--muted);line-height:1.55}
+.cmap-film figcaption b{color:var(--text);font-weight:700}
 .cmap{--stay:#5b6cff;--data:#ea7a0c;--partner:#16a34a;--land:color-mix(in srgb,var(--text) 11%,var(--card));--land2:color-mix(in srgb,var(--text) 5%,var(--card))}
 .cmap-f{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
 .cmap-f button{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);color:var(--muted);font:inherit;font-size:13.5px;font-weight:700;padding:7px 14px;border-radius:999px;cursor:pointer}
@@ -497,6 +501,10 @@ Young-Ju Lee</a><a class="n" href="#work">Work</a><a class="n" href="#map">Map</
 </style>
 <section id="map" class="cmap">
   <div class="sec-t"><h2>Footprints</h2><p>Where I worked and the regions I studied with data — tap a point to see what I did there.</p></div>
+  <figure class="cmap-film">
+    <video controls playsinline preload="none" poster="assets/journey/poster.jpg" width="1280" height="720" aria-label="Short animation of my journey"><source src="assets/journey/journey_story.mp4" type="video/mp4"></video>
+    <figcaption><b>A road that follows a star</b> · 55-second animation, no sound (captions in Korean). Jeonju → Calgary → the Rockies → back to Korea — the same path as the map below.</figcaption>
+  </figure>
   <div class="cmap-f" role="group" aria-label="Layers">
 <button type="button" data-layer="stay" aria-pressed="true"><i style="background:var(--stay)"></i>Where I worked 3</button><button type="button" data-layer="data" aria-pressed="true"><i style="background:var(--data)"></i>Regions I studied with data 16</button><button type="button" data-layer="partner" aria-pressed="true"><i style="background:var(--partner)"></i>Partner institution 1</button>  </div>
   <p class="cmap-swipe">← Swipe the world map sideways →</p>

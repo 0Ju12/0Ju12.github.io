@@ -414,6 +414,10 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
   </section>
 
 <style>
+.cmap-film{margin:0 0 18px;background:var(--card);border:1px solid var(--line);border-radius:26px;overflow:hidden;max-width:860px}
+.cmap-film video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#1b2340}
+.cmap-film figcaption{padding:12px 18px 14px;font-size:13.5px;color:var(--muted);line-height:1.55}
+.cmap-film figcaption b{color:var(--text);font-weight:700}
 .cmap{--stay:#5b6cff;--data:#ea7a0c;--partner:#16a34a;--land:color-mix(in srgb,var(--text) 11%,var(--card));--land2:color-mix(in srgb,var(--text) 5%,var(--card))}
 .cmap-f{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
 .cmap-f button{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);color:var(--muted);font:inherit;font-size:13.5px;font-weight:700;padding:7px 14px;border-radius:999px;cursor:pointer}
@@ -497,6 +501,10 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
 </style>
 <section id="map" class="cmap">
   <div class="sec-t"><h2>발자취</h2><p>머문 곳과 데이터로 연구한 지역입니다. 점을 누르면 그곳에서 한 일이 나옵니다.</p></div>
+  <figure class="cmap-film">
+    <video controls playsinline preload="none" poster="assets/journey/poster.jpg" width="1280" height="720" aria-label="여정을 담은 짧은 애니메이션"><source src="assets/journey/journey_story.mp4" type="video/mp4"></video>
+    <figcaption><b>별을 따라 걷는 길</b> · 55초 애니메이션, 소리 없음. 전주 → 캘거리 → 로키 산맥 → 다시 한국. 아래 지도의 길을 이야기로 옮겼습니다.</figcaption>
+  </figure>
   <div class="cmap-f" role="group" aria-label="지도 층">
 <button type="button" data-layer="stay" aria-pressed="true"><i style="background:var(--stay)"></i>머문 곳 3</button><button type="button" data-layer="data" aria-pressed="true"><i style="background:var(--data)"></i>데이터로 연구한 지역 16</button><button type="button" data-layer="partner" aria-pressed="true"><i style="background:var(--partner)"></i>협력 기관 1</button>  </div>
   <p class="cmap-swipe">← 세계 지도는 옆으로 밀어서 볼 수 있어요 →</p>
