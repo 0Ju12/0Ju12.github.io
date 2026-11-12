@@ -36,6 +36,7 @@ const NS='pf-3c8cffe9',PAGES=[["home", "index.html"], ["en", "en.html"], ["proje
 const EV=[['video-painted','여정 애니메이션 재생'],['video-doc','여정 기록 영상 재생'],['resume','이력서 열기'],['github','GitHub 이동'],['paper','논문 링크'],['demo','데모·데이터 프로젝트'],['mail','메일 보내기'],['linkedin','LinkedIn']];
 const get=async k=>{for(let i=0;i<3;i++){try{const r=await fetch(B+encodeURIComponent(k.slice(0,60)));if(r.status===404)return 0;if(r.status===429){await new Promise(s=>setTimeout(s,1500));continue}const j=await r.json();return j.value||0}catch(e){await new Promise(s=>setTimeout(s,600))}}return null};
 async function pool(keys,n){const out={};let i=0;await Promise.all([...Array(n)].map(async()=>{while(i<keys.length){const k=keys[i++];out[k]=await get(k)}}));return out}
+const lk=u=>{const a=document.createElement("a");a.setAttribute("href",u);a.textContent=u;return a.outerHTML};
 const ymd=d=>d.toISOString().slice(0,10).replace(/-/g,'');
 (async()=>{
   const days=[...Array(14)].map((_,i)=>{const d=new Date();d.setUTCDate(d.getUTCDate()-(13-i));return ymd(d)});
@@ -47,7 +48,7 @@ const ymd=d=>d.toISOString().slice(0,10).replace(/-/g,'');
   const E=await pool(EV.map(e=>'e.'+e[0]),4),em=Math.max(1,...Object.values(E).map(x=>x||0));
   ev.innerHTML=EV.map(e=>[e[1],E['e.'+e[0]]||0]).sort((a,b)=>b[1]-a[1]).map(r=>`<tr><td>${r[0]}</td><td class="b"><i style="width:${r[1]/em*100}%"></i></td><td class="n">${r[1]}</td></tr>`).join('');
   const P=await pool(PAGES.map(x=>'p.'+x[0]),4),rows=PAGES.map(x=>[x[1],P[('p.'+x[0])]||0]).sort((a,b)=>b[1]-a[1]),pm=Math.max(1,rows[0][1]);
-  pg.innerHTML=rows.filter((r,i)=>r[1]>0||i<8).map(r=>`<tr><td><a href="${r[0]}">${r[0]}</a></td><td class="b"><i style="width:${r[1]/pm*100}%"></i></td><td class="n">${r[1]}</td></tr>`).join('');
+  pg.innerHTML=rows.filter((r,i)=>r[1]>0||i<8).map(r=>`<tr><td>${lk(r[0])}</td><td class="b"><i style="width:${r[1]/pm*100}%"></i></td><td class="n">${r[1]}</td></tr>`).join('');
   sub.textContent='집계 이름표 '+NS+' · '+new Date().toLocaleString('ko-KR')+' 기준';
 })();
 </script></body></html>
