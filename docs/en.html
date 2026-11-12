@@ -414,7 +414,8 @@ Young-Ju Lee</a><a class="n" href="#work">Work</a><a class="n" href="#map">Map</
   </section>
 
 <style>
-.cmap-play{display:inline-flex;align-items:center;gap:9px;margin:0 0 16px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-size:14px;font-weight:700;padding:9px 18px 9px 12px;border-radius:999px;cursor:pointer}
+.cmap-plays{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.cmap-play{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-size:14px;font-weight:700;padding:9px 18px 9px 12px;border-radius:999px;cursor:pointer}
 .cmap-play:hover{border-color:var(--text)}
 .cmap-play i{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--on-ink);font-style:normal;font-size:11px;padding-left:2px}
 .cmap-play small{font-weight:500;color:var(--faint);font-size:12.5px}
@@ -508,12 +509,18 @@ Young-Ju Lee</a><a class="n" href="#work">Work</a><a class="n" href="#map">Map</
 </style>
 <section id="map" class="cmap">
   <div class="sec-t"><h2>Footprints</h2><p>Where I worked and the regions I studied with data — tap a point to see what I did there.</p></div>
-  <button type="button" class="cmap-play" id="cmap-play" aria-haspopup="dialog"><i aria-hidden="true">▶</i>Watch the journey animation <small>55s</small></button>
-  <dialog class="cmap-dlg" id="cmap-dlg" aria-label="Journey animation">
-    <video controls playsinline preload="none" poster="assets/journey/poster.jpg" width="1280" height="720"><source src="assets/journey/journey_story.mp4" type="video/mp4"></video>
-    <div class="bar"><span><b>A road that follows a star</b> · no sound, captions in Korean</span><button type="button" id="cmap-dlg-x">Close</button></div>
+  <div class="cmap-plays">
+    <button type="button" class="cmap-play" data-film="painted" aria-haspopup="dialog"><i aria-hidden="true">▶</i>Journey — animation <small>54s</small></button>
+    <button type="button" class="cmap-play" data-film="doc" aria-haspopup="dialog"><i aria-hidden="true">▶</i>Journey — in real photos <small>59s</small></button>
+  </div>
+  <dialog class="cmap-dlg" id="cmap-dlg" aria-label="Journey video">
+    <video controls playsinline preload="none" width="1280" height="720"></video>
+    <div class="bar"><span id="cmap-dlg-t"></span><button type="button" id="cmap-dlg-x">Close</button></div>
   </dialog>
-  <script>(function(){var b=document.getElementById('cmap-play'),d=document.getElementById('cmap-dlg'),v=d.querySelector('video');b.addEventListener('click',function(){if(d.showModal)d.showModal();else d.setAttribute('open','');v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){})});document.getElementById('cmap-dlg-x').addEventListener('click',function(){d.close()});d.addEventListener('click',function(e){if(e.target===d)d.close()});d.addEventListener('close',function(){v.pause()})})();</script>
+  <script>(function(){var F={painted:['assets/journey/journey_painted.mp4','assets/journey/poster_painted.jpg',"\u003cb\u003eA road that follows a star\u003c/b\u003e \u00b7 no sound, captions in Korean. Scene art is AI-generated."],doc:['assets/journey/journey_doc.mp4','assets/journey/poster_doc.jpg',"\u003cb\u003eA record of the journey\u003c/b\u003e \u00b7 no sound, captions in Korean. Real photos (credits at the end) and my own documents."]};
+var d=document.getElementById('cmap-dlg'),v=d.querySelector('video'),t=document.getElementById('cmap-dlg-t');
+document.querySelectorAll('.cmap-play').forEach(function(b){b.addEventListener('click',function(){var f=F[b.dataset.film];if(v.getAttribute('src')!==f[0]){v.poster=f[1];v.src=f[0]}t.innerHTML=f[2];if(d.showModal)d.showModal();else d.setAttribute('open','');v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){})})});
+document.getElementById('cmap-dlg-x').addEventListener('click',function(){d.close()});d.addEventListener('click',function(e){if(e.target===d)d.close()});d.addEventListener('close',function(){v.pause()})})();</script>
   <div class="cmap-f" role="group" aria-label="Layers">
 <button type="button" data-layer="stay" aria-pressed="true"><i style="background:var(--stay)"></i>Where I worked 3</button><button type="button" data-layer="data" aria-pressed="true"><i style="background:var(--data)"></i>Regions I studied with data 16</button><button type="button" data-layer="partner" aria-pressed="true"><i style="background:var(--partner)"></i>Partner institution 1</button>  </div>
   <p class="cmap-swipe">← Swipe the world map sideways →</p>

@@ -10,7 +10,8 @@
 {% set kcount = M.places|selectattr('inset')|list|length %}
 {% set home = (M.places|selectattr('id', 'equalto', 'jeonju')|first) %}
 <style>
-.cmap-play{display:inline-flex;align-items:center;gap:9px;margin:0 0 16px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-size:14px;font-weight:700;padding:9px 18px 9px 12px;border-radius:999px;cursor:pointer}
+.cmap-plays{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.cmap-play{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-size:14px;font-weight:700;padding:9px 18px 9px 12px;border-radius:999px;cursor:pointer}
 .cmap-play:hover{border-color:var(--text)}
 .cmap-play i{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--on-ink);font-style:normal;font-size:11px;padding-left:2px}
 .cmap-play small{font-weight:500;color:var(--faint);font-size:12.5px}
@@ -104,12 +105,18 @@
 </style>
 <section id="map" class="cmap">
   <div class="sec-t"><h2>{{ 'Footprints' if en else '발자취' }}</h2><p>{{ 'Where I worked and the regions I studied with data — tap a point to see what I did there.' if en else '머문 곳과 데이터로 연구한 지역입니다. 점을 누르면 그곳에서 한 일이 나옵니다.' }}</p></div>
-  <button type="button" class="cmap-play" id="cmap-play" aria-haspopup="dialog"><i aria-hidden="true">▶</i>{{ 'Watch the journey animation' if en else '여정 애니메이션 보기' }} <small>{{ '55s' if en else '55초' }}</small></button>
-  <dialog class="cmap-dlg" id="cmap-dlg" aria-label="{{ 'Journey animation' if en else '여정 애니메이션' }}">
-    <video controls playsinline preload="none" poster="assets/journey/poster.jpg" width="1280" height="720"><source src="assets/journey/journey_story.mp4" type="video/mp4"></video>
-    <div class="bar"><span>{% if en %}<b>A road that follows a star</b> · no sound, captions in Korean{% else %}<b>별을 따라 걷는 길</b> · 소리 없음. 전주 → 캘거리 → 로키 산맥 → 다시 한국{% endif %}</span><button type="button" id="cmap-dlg-x">{{ 'Close' if en else '닫기' }}</button></div>
+  <div class="cmap-plays">
+    <button type="button" class="cmap-play" data-film="painted" aria-haspopup="dialog"><i aria-hidden="true">▶</i>{{ 'Journey — animation' if en else '여정 애니메이션' }} <small>{{ '54s' if en else '54초' }}</small></button>
+    <button type="button" class="cmap-play" data-film="doc" aria-haspopup="dialog"><i aria-hidden="true">▶</i>{{ 'Journey — in real photos' if en else '여정 기록 영상' }} <small>{{ '59s' if en else '59초' }}</small></button>
+  </div>
+  <dialog class="cmap-dlg" id="cmap-dlg" aria-label="{{ 'Journey video' if en else '여정 영상' }}">
+    <video controls playsinline preload="none" width="1280" height="720"></video>
+    <div class="bar"><span id="cmap-dlg-t"></span><button type="button" id="cmap-dlg-x">{{ 'Close' if en else '닫기' }}</button></div>
   </dialog>
-  <script>(function(){var b=document.getElementById('cmap-play'),d=document.getElementById('cmap-dlg'),v=d.querySelector('video');b.addEventListener('click',function(){if(d.showModal)d.showModal();else d.setAttribute('open','');v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){})});document.getElementById('cmap-dlg-x').addEventListener('click',function(){d.close()});d.addEventListener('click',function(e){if(e.target===d)d.close()});d.addEventListener('close',function(){v.pause()})})();</script>
+  <script>(function(){var F={painted:['assets/journey/journey_painted.mp4','assets/journey/poster_painted.jpg',{{ ('<b>A road that follows a star</b> · no sound, captions in Korean. Scene art is AI-generated.' if en else '<b>별을 따라 걷는 길</b> · 소리 없음. 전주 → 캘거리 → 로키 산맥 → 다시 한국. 장면 그림은 AI로 생성했습니다.')|tojson }}],doc:['assets/journey/journey_doc.mp4','assets/journey/poster_doc.jpg',{{ ('<b>A record of the journey</b> · no sound, captions in Korean. Real photos (credits at the end) and my own documents.' if en else '<b>여정의 기록</b> · 소리 없음. 실제 장소 사진(출처는 영상 끝)과 본인 자료로 만들었습니다.')|tojson }}]};
+var d=document.getElementById('cmap-dlg'),v=d.querySelector('video'),t=document.getElementById('cmap-dlg-t');
+document.querySelectorAll('.cmap-play').forEach(function(b){b.addEventListener('click',function(){var f=F[b.dataset.film];if(v.getAttribute('src')!==f[0]){v.poster=f[1];v.src=f[0]}t.innerHTML=f[2];if(d.showModal)d.showModal();else d.setAttribute('open','');v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){})})});
+document.getElementById('cmap-dlg-x').addEventListener('click',function(){d.close()});d.addEventListener('click',function(e){if(e.target===d)d.close()});d.addEventListener('close',function(){v.pause()})})();</script>
   <div class="cmap-f" role="group" aria-label="{{ 'Layers' if en else '지도 층' }}">
     {% for k in ['stay', 'data', 'partner'] %}<button type="button" data-layer="{{ k }}" aria-pressed="true"><i style="background:var(--{{ k }})"></i>{{ LY[k] }} {{ cnt[k] }}</button>{% endfor %}
   </div>
