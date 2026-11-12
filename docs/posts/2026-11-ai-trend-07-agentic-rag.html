@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RAG에서 Agentic RAG로 — 검색을 한 번 할지, 에이전트가 여러 번 할지 · 이영주</title>
+<meta name="description" content="한 번 검색해 답하는 RAG와, 검색 여부·횟수·결과 품질을 스스로 판단하는 Agentic RAG의 차이를 정리했습니다. Self-RAG·CRAG·Adaptive-RAG가 각각 어느 판단을 추가했는지와, 반복이 늘 때 생기는 비용과 평가 문제를 봅니다.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="이영주 포트폴리오">
+<meta property="og:title" content="RAG에서 Agentic RAG로 — 검색을 한 번 할지, 에이전트가 여러 번 할지 · 이영주">
+<meta property="og:description" content="한 번 검색해 답하는 RAG와, 검색 여부·횟수·결과 품질을 스스로 판단하는 Agentic RAG의 차이를 정리했습니다. Self-RAG·CRAG·Adaptive-RAG가 각각 어느 판단을 추가했는지와, 반복이 늘 때 생기는 비용과 평가 문제를 봅니다.">
+<meta property="og:url" content="https://0ju12.github.io/posts/2026-11-ai-trend-07-agentic-rag.html">
+<meta property="og:image" content="https://0ju12.github.io/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#18181b">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--surface:#f7f7f8;--text:#0d0d0f;--muted:#5d5f66;--line:#e7e7ea;--accent:#0a7c66;--accent-2:#14b8a6;--chip:#eef2f1;--code:#0f1117;--code-text:#e6e6e6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}}
+:root[data-theme="dark"]{--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.85 "Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:740px;margin:0 auto;padding:0 20px}
+nav{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;padding:10px 2px}
+nav .home{font-weight:900;color:var(--text);margin-right:auto}
+#theme{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 12px;font:inherit;font-size:12px;cursor:pointer}
+header.post{padding:56px 0 28px;border-bottom:2px solid var(--text);margin-bottom:36px}
+header.post .meta{color:var(--accent);font-weight:700;font-size:14px;letter-spacing:.04em}
+header.post h1{font-size:clamp(28px,5vw,42px);line-height:1.25;letter-spacing:-.03em;margin:10px 0 14px;font-weight:900}
+header.post p{color:var(--muted);margin:0 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--chip);color:var(--muted)}
+article h2{font-size:24px;letter-spacing:-.02em;margin:48px 0 14px;font-weight:900}
+article h3{font-size:19px;margin:32px 0 10px}
+article p,article li{margin:0 0 16px}
+article ul,article ol{padding-left:22px}
+article li{margin-bottom:6px}
+article blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--surface);border-radius:0 12px 12px 0;font-weight:700}
+article blockquote p{margin:0}
+article code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em;background:var(--chip);padding:2px 6px;border-radius:6px}
+article pre{background:var(--code);color:var(--code-text);padding:18px 20px;border-radius:14px;overflow-x:auto;line-height:1.6;margin:0 0 20px}
+article pre code{background:none;padding:0;font-size:13.5px;color:inherit}
+article table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:15px;display:block;overflow-x:auto}
+article th,article td{border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+article th{background:var(--surface)}
+.endcard{margin:56px 0 0;padding:24px;border:1px solid var(--line);border-radius:18px;background:var(--surface);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.endcard b{display:block}
+.endcard span{color:var(--muted);font-size:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--line);color:var(--text);background:var(--bg)}
+.others{margin:40px 0 0}
+.others a{display:block;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--text);font-weight:700}
+.others a span{display:block;color:var(--muted);font-weight:400;font-size:14px}
+footer{padding:64px 0 40px;color:var(--muted);font-size:13px}
+.readbar{position:fixed;top:0;left:0;height:3px;width:0;background:var(--text);z-index:60;transition:width .1s linear}
+.series{margin:36px 0 0;padding:20px 22px;border:1px solid var(--line);border-radius:18px;background:var(--card)}
+.series b{font-size:15px}.series ol{margin:10px 0 0;padding-left:20px;font-size:14.5px;line-height:1.6}.series li{padding:3px 0}.series li small{color:var(--muted);margin-left:8px;font-size:12.5px}.series li.me a{font-weight:800;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="readbar" id="readbar"></div>
+<div class="wrap">
+  <nav><a class="home" href="../index.html">Young-Ju Lee</a><a href="../index.html#writing">Writing</a><a href="../index.html#work">Work</a><button id="theme" type="button">테마</button></nav>
+  <header class="post">
+    <div class="meta"><a href="ai-trend.html" style="color:inherit">AI 트렌드 노트</a> #7 · 2026-11-12 · 6분 읽기</div>
+    <h1>RAG에서 Agentic RAG로 — 검색을 한 번 할지, 에이전트가 여러 번 할지</h1>
+    <p>한 번 검색해 답하는 RAG와, 검색 여부·횟수·결과 품질을 스스로 판단하는 Agentic RAG의 차이를 정리했습니다. Self-RAG·CRAG·Adaptive-RAG가 각각 어느 판단을 추가했는지와, 반복이 늘 때 생기는 비용과 평가 문제를 봅니다.</p>
+    <div class="chips"><span class="chip">RAG</span><span class="chip">에이전트</span><span class="chip">검색</span></div>
+  </header>
+  <article><blockquote>
+<p><strong>한 줄 요약</strong> — 지난 회차의 메모리는 에이전트가 스스로 쓰고 꺼내는 기억이었습니다. RAG는 사람이 준비한 문서를 꺼내 쓰는 쪽입니다. 기본 RAG는 질문마다 <strong>검색 한 번, 생성 한 번</strong>으로 끝나고, Agentic RAG는 #5의 루프를 검색에 적용해 <strong>검색할지, 무엇으로 다시 검색할지, 결과가 쓸 만한지</strong>를 단계마다 판단합니다.</p>
+</blockquote>
+<h2>핵심 개념</h2>
+<ul>
+<li><strong>기본 RAG</strong>: 질문을 임베딩해 비슷한 문서 조각 k개를 찾고, 그것을 프롬프트에 넣어 답합니다. 흐름이 고정돼 있어 싸고 추적하기 쉽습니다. 검색이 빗나가면 틀린 근거로 그럴듯한 답을 만든다는 것이 약점입니다.</li>
+<li><strong>Agentic RAG</strong>: 검색을 도구로 두고, 모델이 판단을 끼워 넣습니다. 추가되는 판단은 크게 네 가지입니다. 검색이 필요한가, 질문을 어떻게 고쳐 쓸까, 가져온 문서가 관련 있는가, 답이 문서에 근거하는가.</li>
+<li><strong>비유</strong>: 기본 RAG는 사서에게 쪽지를 한 번 건네고 받은 책으로 답하는 방식입니다. Agentic RAG는 받은 책을 훑어 보고 "이건 다른 주제네요, 이 키워드로 다시 찾아 주세요"라고 되묻는 방식입니다. 답은 좋아질 수 있지만 사서를 여러 번 부르는 만큼 시간이 듭니다.</li>
+</ul>
+<h2>지금 무슨 일이 일어나고 있나</h2>
+<ul>
+<li><strong>판단을 하나씩 추가한 연구들</strong>이 뼈대가 되었습니다. <strong>Self-RAG</strong>(2023)는 모델이 검색이 필요한지와 자기 답이 근거에 맞는지를 나타내는 특수 토큰(reflection token)을 내도록 학습시켰습니다. <strong>CRAG</strong>(2024)는 가져온 문서의 품질을 매기는 가벼운 평가기를 두고, 점수가 낮으면 웹 검색으로 보충하는 것으로 소개됩니다. <strong>Adaptive-RAG</strong>(2024)는 질문의 난이도를 먼저 분류해 검색 없이 답할지, 한 번 검색할지, 여러 단계로 검색할지를 고르는 방식으로 알려져 있습니다. CRAG와 Adaptive-RAG의 세부는 2차 자료로 확인했습니다.</li>
+<li><strong>정리하는 논문이 여럿 나왔습니다.</strong> Singh 외의 서베이(arXiv 2501.09136, 2026년 4월 개정)는 Agentic RAG를 에이전트 수, 제어 구조, 자율성 등으로 분류합니다. 2026년 ACL Findings에는 데이터 관점의 서베이가 실렸고, 다른 논문은 기존의 BLEU·ROUGE 같은 정적 지표로는 Agentic RAG를 평가하기에 부족하다고 지적합니다.</li>
+<li><strong>프레임워크에서는 그래프로 구현합니다.</strong> LangChain은 검색 → 문서 채점 → (부족하면) 질문 재작성 → 생성 → 답 점검을 노드와 조건 분기로 엮는 예제를 공개했습니다. 판단은 모델이 하되, 어느 판단 뒤에 어디로 갈 수 있는지는 코드가 정합니다.</li>
+</ul>
+<h2>동작 구조</h2>
+<pre><code>기본 RAG:     질문 ─▶ 검색(k개) ─▶ 생성 ─▶ 답
+
+Agentic RAG:  질문 ─▶ ① 검색이 필요한가? ──아니오──▶ 바로 답
+                         │ 예
+                         ▼
+                      ② 검색 ─▶ ③ 문서가 관련 있나? ──아니오──▶ ④ 질문 다시 쓰기 ─┐
+                         ▲              │ 예                                      │
+                         └──────────────┼──────────────────────────────────────────┘
+                                        ▼
+                                     ⑤ 생성 ─▶ ⑥ 답이 문서에 근거하나? ──아니오──▶ ②로 (횟수 제한)
+                                                       │ 예
+                                                       ▼
+                                                       답 + 인용
+</code></pre>
+<pre><code class="language-python">def agentic_rag(question, max_rounds=3):
+    query = question
+    for _ in range(max_rounds):                      # 반복 횟수는 코드가 제한
+        docs = retriever.search(query, k=4)
+        docs = [d for d in docs if grade(question, d) == &quot;relevant&quot;]   # ③ 문서 채점
+        if not docs:
+            query = rewrite(question, tried=query)   # ④ 질문 재작성
+            continue
+        answer = generate(question, docs)
+        if cited_all_exist(answer, docs):            # ⑥ 인용 번호는 코드로 검사
+            return answer
+    return &quot;자료에서 확인되지 않습니다.&quot;              # 끝까지 못 찾으면 거절
+</code></pre>
+<h2>왜 중요한가 / 한계</h2>
+<ul>
+<li><strong>검색 실패를 스스로 알아챌 기회가 생깁니다.</strong> 기본 RAG는 빗나간 문서를 받아도 그대로 답을 만듭니다. 문서 채점과 재검색이 그 지점을 끊습니다.</li>
+<li><strong>한계 1 — 비용과 지연</strong>: 판단마다 모델 호출이 붙습니다. 채점, 재작성, 점검을 모두 넣으면 호출 수가 몇 배가 되고, 대부분의 쉬운 질문에는 과합니다. Adaptive-RAG처럼 쉬운 질문을 먼저 걸러 내는 이유입니다.</li>
+<li><strong>한계 2 — 판단도 모델이 합니다.</strong> "문서가 관련 있다"는 채점 자체가 틀릴 수 있습니다. 코드로 확인할 수 있는 것(인용 번호가 실제로 있는가, 숫자가 원문에 있는가)은 코드로 확인하는 편이 안전합니다.</li>
+<li><strong>한계 3 — 평가가 어려워집니다.</strong> 경로가 질문마다 달라져서, 최종 답만 채점해서는 어디가 문제인지 알 수 없습니다. 검색 재현율, 인용 정밀도, 거절 정확도, 호출 수를 따로 재야 합니다.</li>
+<li><strong>한계 4 — 끝나지 않는 재검색</strong>: 자료에 답이 없는 질문은 몇 번을 다시 찾아도 없습니다. 반복 횟수 제한과 "확인되지 않습니다"라는 출구가 필요합니다.</li>
+</ul>
+<h2>내 프로젝트와 연결</h2>
+<ul>
+<li><strong>국보 RAG 가이드</strong>는 위 구조 가운데 일부만 넣은 형태입니다. LangGraph로 검색 → 생성 → 근거 번호 검증을 노드로 나누었고, 답에 붙은 [근거 N]이 실제 검색 결과에 있는 번호인지는 모델이 아니라 코드로 검사했습니다. 자료에 없는 질문에는 "확인되지 않습니다"로 답하게 했습니다. 문서 채점이나 질문 재작성 같은 반복은 넣지 않았으므로, Agentic RAG라고 부르기보다는 검증이 붙은 기본 RAG에 가깝습니다.</li>
+<li>같은 프로젝트의 <strong>평가 도구</strong>는 검색 방식(similarity, MMR)과 k를 바꿔 가며 인용 정밀도, 문장 인용률, 거절 정확도, 검색 재현율을 표로 비교합니다. 한계 3에서 말한 "단계별로 따로 재기"를 작은 규모로 해 본 것입니다. 정답셋이 9문항이라 수치로 결론을 내기에는 작습니다.</li>
+<li>최근 만든 <strong>data-agent</strong>는 문서 대신 SQL로 데이터를 꺼내는 경우인데, 답 속 숫자가 조회 결과에 있는지 코드로 대조합니다. 위 그림의 ⑥을 숫자에 적용한 것입니다. 실제 LLM을 붙인 평가는 아직 하지 않았습니다.</li>
+</ul>
+<h2>면접 질문</h2>
+<p><strong>Q. 기본 RAG로 충분한 경우와 Agentic RAG가 필요한 경우를 어떻게 구분하나요?</strong></p>
+<blockquote>
+<p>질문이 한 번의 검색으로 답할 수 있는 형태이고 문서가 잘 정리돼 있으면 기본 RAG가 맞습니다. 싸고 빠르고 추적하기 쉽습니다. 여러 문서를 이어 봐야 하거나 첫 검색이 자주 빗나가는 경우에 문서 채점과 재검색을 추가합니다. 다만 판단이 늘수록 호출 수와 지연이 늘고, 그 판단도 모델이 하므로 틀릴 수 있습니다. 그래서 인용 번호나 숫자처럼 코드로 확인할 수 있는 부분은 코드로 검사하고, 반복 횟수를 제한하고, 못 찾으면 거절하게 합니다. 국보 RAG 가이드에서 근거 번호를 코드로 검증하고, 검색 방식별로 인용 정밀도와 거절 정확도를 따로 잰 것이 같은 생각입니다.</p>
+</blockquote>
+<h2>출처</h2>
+<ul>
+<li>Asai 외, <a href="https://arxiv.org/abs/2310.11511">Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection</a> (2023)</li>
+<li>Yan 외, <a href="https://arxiv.org/abs/2401.15884">Corrective Retrieval Augmented Generation (CRAG)</a> (2024) — 세부는 2차 자료로 확인</li>
+<li>Jeong 외, <a href="https://arxiv.org/abs/2403.14403">Adaptive-RAG</a> (2024) — 세부는 2차 자료로 확인</li>
+<li>Singh 외, <a href="https://arxiv.org/abs/2501.09136">Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG</a> (2026년 4월 개정)</li>
+<li>Deng 외, <a href="https://aclanthology.org/2026.findings-acl.78.pdf">Data-Centric Perspectives on Agentic RAG: A Survey</a> (ACL Findings 2026)</li>
+<li>LangChain Blog, <a href="https://blog.langchain.com/agentic-rag-with-langgraph">Self-Reflective RAG with LangGraph</a></li>
+</ul></article>
+  <div class="endcard">
+    <div><b>AI 트렌드 노트 · 8편</b><span>에이전트 개념부터 차례로 이어서 쓰는 시리즈입니다. 다음 회차: #8 멀티 에이전트 오케스트레이션 — 나누면 빨라지지만 맥락이 끊긴다</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="2026-11-ai-trend-06-agent-memory.html">← #6</a><a class="btn" href="ai-trend.html">전체 목록</a><a class="btn" href="2026-11-ai-trend-08-multi-agent.html">#8 →</a></div>
+  </div>
+<div class="others"><b style="font-size:14px;color:var(--muted)">다른 글</b><a href="2026-11-ai-trend-08-multi-agent.html">멀티 에이전트 오케스트레이션 — 나누면 빨라지지만 맥락이 끊긴다<span>일을 여러 에이전트에게 나눠 맡기는 구조(지휘자-작업자, 핸드오프)의 장단점을 정리했습니다. 병렬 조사에서는 효과가 보고됐지만 토큰이 크게 늘고, 맥락이 쪼개져 생기는 실패가 따로 연구될 만큼 흔합니다.</span></a><a href="2026-11-ai-trend-06-agent-memory.html">에이전트 메모리 — 대화가 끝나도 남는 것과 남기면 안 되는 것<span>컨텍스트 창 안의 단기 기억과 대화 밖에 저장하는 장기 기억을 나누고, 무엇을 쓰고 언제 꺼내는지의 설계를 정리했습니다. 한 번 오염되면 세션이 끝나도 남는 메모리 포이즈닝도 함께 봅니다.</span></a><a href="2026-11-ai-trend-05-react-plan-execute.html">ReAct와 Plan-and-Execute — 에이전트는 어떻게 계획하나<span>한 걸음마다 다시 생각하는 ReAct와, 먼저 계획을 세우고 실행하는 Plan-and-Execute의 차이를 비용·속도·실패 방식으로 비교했습니다. ReWOO·LLMCompiler 같은 변형과 코딩 에이전트의 plan mode까지 이어서 봅니다.</span></a><a href="2026-11-ai-trend-04-a2a.html">에이전트 간 통신 — A2A는 MCP와 무엇이 다른가<span>MCP가 &#39;에이전트와 도구&#39;를 잇는다면 A2A는 &#39;에이전트와 에이전트&#39;를 잇습니다. Agent Card로 상대를 찾고, 상태가 있는 task로 일을 맡기는 구조와, 버전마다 바뀐 부분·엇갈리는 보도를 정리했습니다.</span></a><a href="2026-11-ai-trend-03-mcp.html">MCP — 도구를 매번 새로 붙이지 않는 방법<span>지난 회차의 tool use를 앱마다 다시 만들지 않도록 &#39;도구 서버&#39;를 표준 규격으로 분리한 MCP의 구조(호스트·클라이언트·서버, tools·resources·prompts)와 최근 사양 변화, 보안상 약한 고리를 정리했습니다.</span></a><a href="2026-11-ai-trend-02-tool-use.html">Tool use — 모델은 함수를 실행하지 않는다<span>Function calling의 실제 동작(모델은 호출 &#39;요청&#39;만 만들고 실행은 내 코드가 한다), strict 스키마와 Structured Outputs의 관계, 도구를 쓸 때와 출력 형식만 고정할 때를 구분했습니다.</span></a><a href="2026-11-ai-trend-01-agent.html">AI 에이전트란 무엇인가 — LLM이 도구를 쥐고 반복할 때<span>에이전트를 &#39;도구를 쓰며 스스로 다음 단계를 정하는 LLM 루프&#39;로 정의하고, 워크플로와 무엇이 다른지, 기업 도입 숫자가 왜 엇갈리는지 정리했습니다.</span></a></div>  <footer>© Young-Ju Lee · iyju990312@naver.com</footer>
+</div>
+<script>
+(function(){var r=document.documentElement,K='theme';
+try{var s=localStorage.getItem(K);if(s)r.setAttribute('data-theme',s)}catch(e){}
+var b=document.getElementById('theme');if(b)b.addEventListener('click',function(){
+var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});})();
+</script>
+<script>(function(){var b=document.getElementById('readbar'),a=document.querySelector('article');if(!b||!a)return;function f(){var r=a.getBoundingClientRect(),h=r.height-innerHeight*0.6,p=Math.min(1,Math.max(0,-r.top/(h>0?h:1)));b.style.width=(p*100)+'%'}addEventListener('scroll',function(){requestAnimationFrame(f)},{passive:true});f()})();</script>
+</body>
+</html>
