@@ -3,3 +3,14 @@
 {%- if an.cloudflare %}<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "{{ an.cloudflare }}"}'></script>{% endif -%}
 {%- if an.umami %}<script defer src="https://cloud.umami.is/script.js" data-website-id="{{ an.umami }}"></script>{% endif -%}
 {%- if an.goatcounter %}<script data-goatcounter="https://{{ an.goatcounter }}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>{% endif -%}
+{%- if an.counter %}<script>/* 방문 수 집계 (가입 없는 공개 카운터, 쿠키 없음, 숫자만 올림). 본인 기기 제외: 주소 뒤에 ?nostat=1 을 한 번 붙여 열기 */
+(function(){try{var L=localStorage,S=sessionStorage;if(location.search.indexOf('nostat=1')>-1)L.setItem('nostat','1');if(location.search.indexOf('nostat=0')>-1)L.removeItem('nostat');
+if(L.getItem('nostat')||navigator.webdriver||!/github\.io$/.test(location.hostname)||/bot|crawl|spider|headless|lighthouse/i.test(navigator.userAgent))return;
+var B='https://abacus.jasoncameron.dev/hit/{{ an.counter }}/',h=function(k){try{fetch(B+encodeURIComponent(k.slice(0,60)),{keepalive:true}).catch(function(){})}catch(e){}};
+var p=location.pathname.replace(/^\/+|\/+$/g,'').replace(/\.html$/,'').replace(/\//g,'.')||'home';if(p==='index')p='home';
+var d=new Date().toISOString().slice(0,10).replace(/-/g,'');
+if(!S.getItem('st:'+p)){S.setItem('st:'+p,'1');h('p.'+p);h('d.'+d);if(!S.getItem('st:v')){S.setItem('st:v','1');h('v.'+d);h('v.all')}}
+window.stat=function(e){if(!S.getItem('se:'+e)){S.setItem('se:'+e,'1');h('e.'+e)}};
+document.addEventListener('click',function(ev){var a=ev.target.closest&&ev.target.closest('a[href]');if(!a)return;var u=a.getAttribute('href');
+if(/resume|cv[./]/.test(u))stat('resume');else if(/github\.com/.test(u))stat('github');else if(/doi\.org|koreascience/.test(u))stat('paper');else if(/^mailto:/.test(u))stat('mail');else if(/linkedin/.test(u))stat('linkedin');else if(/data-projects|\/demo/.test(u))stat('demo')},true);
+}catch(e){}})();</script>{% endif -%}

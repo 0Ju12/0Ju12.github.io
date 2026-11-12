@@ -60,6 +60,7 @@ site:
     cloudflare: ""          # Cloudflare Web Analytics 토큰 (data-cf-beacon 의 token 값)
     umami: ""               # Umami Cloud 웹사이트 ID (data-website-id 값)
     goatcounter: ""         # GoatCounter 코드 (예: "youngju")
+    counter: "pf-3c8cffe9"   # 가입 없는 공개 카운터(abacus) 이름표 — 통계 보기: /stats.html · 본인 기기 제외: 아무 페이지나 ?nostat=1 로 한 번 열기
 
 education:
   - school: 삼성 청년 SW·AI 아카데미 (SSAFY)

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>방문 통계</title>
+<style>
+:root{--bg:#f7f7f6;--card:#fff;--text:#1b1b1b;--muted:#6b6b6b;--line:#e6e4df;--bar:#5b6cff;--bar2:#c9cffb}
+@media (prefers-color-scheme:dark){:root{--bg:#131313;--card:#1d1d1d;--text:#f0efec;--muted:#a3a19b;--line:#2e2e2c;--bar:#8c98ff;--bar2:#3a3f6b}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,"Noto Sans KR",sans-serif;padding:28px 16px 60px}
+main{max-width:860px;margin:0 auto}h1{font-size:26px;margin:0 0 4px}h2{font-size:16px;margin:0 0 14px}
+.sub{color:var(--muted);font-size:13.5px;margin:0 0 22px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.kpi,.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.kpi b{display:block;font-size:26px;line-height:1.2}.kpi span{font-size:12.5px;color:var(--muted)}
+.card{margin-bottom:14px}
+.days{display:flex;align-items:flex-end;gap:6px;height:150px}
+.days div{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;min-width:0}
+.days i{display:block;width:100%;background:var(--bar2);border-radius:5px 5px 0 0;position:relative;min-height:2px}
+.days i u{position:absolute;left:0;right:0;bottom:0;background:var(--bar);border-radius:5px 5px 0 0}
+.days small{font-size:10.5px;color:var(--muted);margin-top:5px;white-space:nowrap}.days em{font-style:normal;font-size:11px;color:var(--muted)}
+.lg{font-size:12px;color:var(--muted);margin-top:10px}.lg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin:0 5px 0 12px;vertical-align:-1px}
+table{width:100%;border-collapse:collapse;font-size:14px}td{padding:7px 4px;border-top:1px solid var(--line);vertical-align:middle}
+td.n{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;width:60px}td.b{width:34%}
+td.b i{display:block;height:8px;border-radius:4px;background:var(--bar)}
+a{color:inherit}.note{font-size:12.5px;color:var(--muted);line-height:1.7}
+@media (max-width:600px){.grid{grid-template-columns:repeat(2,1fr)}td.b{display:none}}
+</style></head><body><main>
+<h1>방문 통계</h1>
+<p class="sub" id="sub">불러오는 중…</p>
+<div class="grid"><div class="kpi"><b id="k1">–</b><span>오늘 방문</span></div><div class="kpi"><b id="k2">–</b><span>최근 7일 방문</span></div><div class="kpi"><b id="k3">–</b><span>최근 7일 페이지 조회</span></div><div class="kpi"><b id="k4">–</b><span>누적 방문</span></div></div>
+<div class="card"><h2>최근 14일</h2><div class="days" id="days"></div><div class="lg"><i style="background:var(--bar);margin-left:0"></i>방문 <i style="background:var(--bar2)"></i>페이지 조회</div></div>
+<div class="card"><h2>누른 것</h2><table id="ev"></table></div>
+<div class="card"><h2>페이지별 누적 조회</h2><table id="pg"></table></div>
+<p class="note">· 방문 = 한 브라우저 탭에서 처음 연 한 번, 페이지 조회 = 같은 탭에서 페이지마다 한 번. 날짜는 UTC 기준입니다.<br>· 쿠키·개인정보 없이 숫자만 셉니다. 어디서 왔는지(유입 경로)와 머문 시간은 알 수 없습니다.<br>· 내 기기를 빼려면 사이트 아무 페이지나 주소 끝에 <b>?nostat=1</b> 을 붙여 한 번 여세요 (되돌리기: ?nostat=0).<br>· 가입 없는 무료 공개 카운터를 쓰므로 서비스가 멈추면 숫자가 비어 보일 수 있습니다.</p>
+</main>
+<script>
+const NS='pf-3c8cffe9',PAGES=[["home", "index.html"], ["en", "en.html"], ["projects.masters", "projects/masters.html"], ["projects.masters-en", "projects/masters-en.html"], ["projects.calgary-2024", "projects/calgary-2024.html"], ["projects.calgary-2024-en", "projects/calgary-2024-en.html"], ["projects.undergrad-research", "projects/undergrad-research.html"], ["projects.undergrad-research-en", "projects/undergrad-research-en.html"], ["projects.wildfire-capstone", "projects/wildfire-capstone.html"], ["projects.wildfire-capstone-en", "projects/wildfire-capstone-en.html"], ["projects.ssafy-16", "projects/ssafy-16.html"], ["projects.ssafy-16-en", "projects/ssafy-16-en.html"], ["projects.posco-pospeak", "projects/posco-pospeak.html"], ["projects.posco-pospeak-en", "projects/posco-pospeak-en.html"], ["projects.portfolio-site", "projects/portfolio-site.html"], ["projects.portfolio-site-en", "projects/portfolio-site-en.html"], ["projects.prep-apps", "projects/prep-apps.html"], ["projects.prep-apps-en", "projects/prep-apps-en.html"], ["projects.data-projects", "projects/data-projects.html"], ["projects.data-projects-en", "projects/data-projects-en.html"], ["posts.2026-11-fastapi-ai-proxy", "posts/2026-11-fastapi-ai-proxy.html"], ["posts.2026-11-django-relational-db", "posts/2026-11-django-relational-db.html"], ["posts.2026-11-wavenumber-correlation", "posts/2026-11-wavenumber-correlation.html"], ["posts.2026-11-vqa-ensemble-fixes-breaks", "posts/2026-11-vqa-ensemble-fixes-breaks.html"], ["posts.2026-11-rag-citation-verify", "posts/2026-11-rag-citation-verify.html"], ["posts.2026-11-portfolio-one-yaml", "posts/2026-11-portfolio-one-yaml.html"], ["posts.2026-11-plate-tectonics-co2-storage", "posts/2026-11-plate-tectonics-co2-storage.html"], ["posts.2026-11-battle-ssafy-bfs-bot", "posts/2026-11-battle-ssafy-bfs-bot.html"], ["posts.2026-11-small-data-spatiotemporal", "posts/2026-11-small-data-spatiotemporal.html"], ["posts.2026-11-llm-verify-pipeline", "posts/2026-11-llm-verify-pipeline.html"], ["posts.2026-11-catastrophic-forgetting", "posts/2026-11-catastrophic-forgetting.html"], ["posts.2026-11-ai-trend-01-agent", "posts/2026-11-ai-trend-01-agent.html"], ["posts.2026-11-ai-trend-02-tool-use", "posts/2026-11-ai-trend-02-tool-use.html"], ["posts.2026-11-ai-trend-03-mcp", "posts/2026-11-ai-trend-03-mcp.html"], ["posts.2026-11-ai-trend-04-a2a", "posts/2026-11-ai-trend-04-a2a.html"], ["posts.2026-11-ai-trend-05-react-plan-execute", "posts/2026-11-ai-trend-05-react-plan-execute.html"], ["posts.2026-11-ai-trend-06-agent-memory", "posts/2026-11-ai-trend-06-agent-memory.html"], ["posts.2026-11-ai-trend-07-agentic-rag", "posts/2026-11-ai-trend-07-agentic-rag.html"], ["posts.2026-11-ai-trend-08-multi-agent", "posts/2026-11-ai-trend-08-multi-agent.html"], ["posts.ai-trend", "posts/ai-trend.html"], ["demo", "demo.html"], ["demo-en", "demo-en.html"], ["brief", "brief.html"], ["brief-en", "brief-en.html"]],B='https://abacus.jasoncameron.dev/get/'+NS+'/';
+const EV=[['video-painted','여정 애니메이션 재생'],['video-doc','여정 기록 영상 재생'],['resume','이력서 열기'],['github','GitHub 이동'],['paper','논문 링크'],['demo','데모·데이터 프로젝트'],['mail','메일 보내기'],['linkedin','LinkedIn']];
+const get=async k=>{for(let i=0;i<3;i++){try{const r=await fetch(B+encodeURIComponent(k.slice(0,60)));if(r.status===404)return 0;if(r.status===429){await new Promise(s=>setTimeout(s,1500));continue}const j=await r.json();return j.value||0}catch(e){await new Promise(s=>setTimeout(s,600))}}return null};
+async function pool(keys,n){const out={};let i=0;await Promise.all([...Array(n)].map(async()=>{while(i<keys.length){const k=keys[i++];out[k]=await get(k)}}));return out}
+const ymd=d=>d.toISOString().slice(0,10).replace(/-/g,'');
+(async()=>{
+  const days=[...Array(14)].map((_,i)=>{const d=new Date();d.setUTCDate(d.getUTCDate()-(13-i));return ymd(d)});
+  const A=await pool(days.flatMap(d=>['v.'+d,'d.'+d]).concat(['v.all']),4);
+  const v=days.map(d=>A['v.'+d]||0),p=days.map(d=>A['d.'+d]||0),mx=Math.max(1,...p,...v);
+  k1.textContent=v[13];k2.textContent=v.slice(7).reduce((a,b)=>a+b,0);k3.textContent=p.slice(7).reduce((a,b)=>a+b,0);k4.textContent=A['v.all']??'–';
+  document.getElementById('days').innerHTML=days.map((d,i)=>`<div title="${d} · 방문 ${v[i]} · 조회 ${p[i]}"><em>${v[i]||''}</em><i style="height:${Math.max(p[i],v[i])/mx*100}%"><u style="height:${Math.max(p[i],v[i])?v[i]/Math.max(p[i],v[i])*100:0}%"></u></i><small>${+d.slice(4,6)}/${+d.slice(6)}</small></div>`).join('');
+  sub.textContent='기본 수치를 불러왔습니다. 페이지별 수치를 불러오는 중…';
+  const E=await pool(EV.map(e=>'e.'+e[0]),4),em=Math.max(1,...Object.values(E).map(x=>x||0));
+  ev.innerHTML=EV.map(e=>[e[1],E['e.'+e[0]]||0]).sort((a,b)=>b[1]-a[1]).map(r=>`<tr><td>${r[0]}</td><td class="b"><i style="width:${r[1]/em*100}%"></i></td><td class="n">${r[1]}</td></tr>`).join('');
+  const P=await pool(PAGES.map(x=>'p.'+x[0]),4),rows=PAGES.map(x=>[x[1],P[('p.'+x[0])]||0]).sort((a,b)=>b[1]-a[1]),pm=Math.max(1,rows[0][1]);
+  pg.innerHTML=rows.filter((r,i)=>r[1]>0||i<8).map(r=>`<tr><td><a href="${r[0]}">${r[0]}</a></td><td class="b"><i style="width:${r[1]/pm*100}%"></i></td><td class="n">${r[1]}</td></tr>`).join('');
+  sub.textContent='집계 이름표 '+NS+' · '+new Date().toLocaleString('ko-KR')+' 기준';
+})();
+</script></body></html>
