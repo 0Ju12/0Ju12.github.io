@@ -59,7 +59,7 @@ Skills: JavaScript, Web Crypto, PWA, Python, cryptography, Playwright
 Details: https://0ju12.github.io/projects/prep-apps-en.html
 ```
 
-### Four public-data projects — earthquake pipeline · equipment anomaly detection · power demand forecasting · DART data mart
+### Public-data projects — earthquake pipeline · equipment anomaly detection · power demand forecasting · DART data mart · dbt warehouse
 - **직함/역할:** Collection · cleaning · modelling · validation · automation
 - **회사/기관:** Personal · GitHub (data-projects)
 - **기간:** 2026.11 – present
@@ -73,7 +73,8 @@ Data pipelines, anomaly detection, demand forecasting and a SQL data mart built 
 ✔ Power demand: MAPE 6.17% for the same-hour-last-week baseline → 3.23% for the ensemble; daily-peak error 2.64%
 ✔ Sensor diagnosis: RandomForest scored 0.99+ on every component with a random split but 0.46 on the valve with a time-block split; LDA kept 1.00 on cooler, valve and pump, while the accumulator (0.55) remains open
 ✔ Earthquakes: 2,446 events of M4+ in East Asia, b = 1.11 ± 0.05 · 35 tests across the four projects
-Skills: Python, SQL, scikit-learn, GitHub Actions, Leaflet, Time series
+✔ Warehouse: 10 models · 31 data tests (ranges, relationships, 24 rows per day, aggregate cross-checks) passing; 17 pytest cases confirm that bad data fails the build · Airflow verified for a single DAG run only (not operated continuously)
+Skills: Python, SQL, dbt, DuckDB, Airflow, scikit-learn, GitHub Actions, Time series
 Details: https://0ju12.github.io/projects/data-projects-en.html
 ```
 

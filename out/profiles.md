@@ -59,7 +59,7 @@ GitHub: https://github.com/0Ju12
 상세: https://0ju12.github.io/projects/prep-apps.html
 ```
 
-### 공개 데이터 프로젝트 4종 — 지진 파이프라인 · 설비 이상 탐지 · 전력 수요 예측 · DART 데이터 마트
+### 공개 데이터 프로젝트 — 지진 파이프라인 · 설비 이상 탐지 · 전력 수요 예측 · DART 데이터 마트 · dbt 웨어하우스
 - **직함/역할:** 수집 · 정제 · 모델링 · 검증 · 자동화
 - **회사/기관:** 개인 · GitHub (data-projects)
 - **기간:** 2026.11 – 진행 중
@@ -73,7 +73,8 @@ GitHub: https://github.com/0Ju12
 ✔ 전력 수요: 지난주 같은 시각 기준선 MAPE 6.17% → 앙상블 3.23%, 일 최대수요 오차 2.64%
 ✔ 센서 진단: 무작위 분할에서 모든 부품 0.99 이상이던 RandomForest 가 시간 구간 분할에서 밸브 0.46 — LDA 는 냉각기·밸브·펌프 1.00 유지, 축압기 0.55 로 남은 과제 확인
 ✔ 지진: 동아시아 M4+ 2,446건, b = 1.11 ± 0.05 · 테스트 35개(4개 프로젝트 합계)
-기술: Python, SQL, scikit-learn, GitHub Actions, Leaflet, 시계열
+✔ 웨어하우스: 모델 10개 · 품질 테스트 31개(범위·관계·하루 24행·집계 대조) 통과, 잘못된 자료를 넣으면 빌드가 실패하는 것까지 pytest 17개로 확인 · Airflow 는 DAG 1회 실행까지만 확인(상시 운영은 아님)
+기술: Python, SQL, dbt, DuckDB, Airflow, scikit-learn, GitHub Actions, 시계열
 상세: https://0ju12.github.io/projects/data-projects.html
 ```
 
