@@ -131,7 +131,7 @@ SSAFY에서 LLM 데이터 파이프라인·Django 서비스와 VQA 모델 앙상
   - [공개 데이터 프로젝트] 전력 수요: 지난주 같은 시각 기준선 MAPE 6.17% → 앙상블 3.23%, 일 최대수요 오차 2.64%
   - [공개 데이터 프로젝트] 센서 진단: 무작위 분할에서 모든 부품 0.99 이상이던 RandomForest 가 시간 구간 분할에서 밸브 0.46 — LDA 는 냉각기·밸브·펌프 1.00 유지, 축압기 0.55 로 남은 과제 확인
   - [공개 데이터 프로젝트] 지진: 동아시아 M4+ 2,446건, b = 1.11 ± 0.05 · 테스트 35개(4개 프로젝트 합계)
-  - [공개 데이터 프로젝트] 웨어하우스: 모델 10개 · 품질 테스트 31개(범위·관계·하루 24행·집계 대조) 통과, 잘못된 자료를 넣으면 빌드가 실패하는 것까지 pytest 17개로 확인 · Airflow 는 DAG 1회 실행까지만 확인(상시 운영은 아님)
+  - [공개 데이터 프로젝트] 웨어하우스: 모델 10개 · 품질 테스트 36개(범위·관계·하루 24행·집계 대조) 통과, 잘못된 자료를 넣으면 빌드가 실패하는 것과 증분 집계가 전체 재계산과 같은 것까지 pytest 19개로 확인 · Airflow 는 DAG 1회 실행까지만 확인(상시 운영은 아님)
 
 🏷 Python, Jinja2, GitHub Actions, Playwright, Web Crypto, PWA, JavaScript
 🔗 [사이트](https://0ju12.github.io/)  🔗 [만든 과정 글](https://0ju12.github.io/posts/2026-11-portfolio-one-yaml.html)  🔗 [잠금 화면](https://0ju12.github.io/interview/)  🔗 [GitHub 저장소](https://github.com/0Ju12/data-projects)  🔗 [지진 대시보드](https://0ju12.github.io/data-projects/)  🔗 [전력 수요 예측 탐색기 (직접 보기)](https://0ju12.github.io/data-projects/power/)  🔗 [산불 위험 지도 (매일 갱신)](https://0ju12.github.io/data-projects/fire/)  🔗 [데이터 에이전트 (MCP 서버 · 숫자 검증)](https://github.com/0Ju12/data-projects/tree/main/data-agent)  🔗 [웨어하우스 상태 보고서 (계보·테스트·실행 기록)](https://0ju12.github.io/data-projects/warehouse/)  🔗 [웨어하우스 코드 (dbt · Airflow)](https://github.com/0Ju12/data-projects/tree/main/warehouse)  

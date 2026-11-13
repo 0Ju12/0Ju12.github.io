@@ -75,7 +75,7 @@
   "id": "data-projects-en",
   "title": "Public-data projects — earthquake pipeline · equipment anomaly detection · power demand forecasting · DART data mart · dbt warehouse",
   "tagline": "Public data from collection to validation — plus a dbt + Airflow warehouse",
-  "key": "Power demand MAPE 6.17% → 3.23% vs baseline · dbt warehouse with 31 data tests",
+  "key": "Power demand MAPE 6.17% → 3.23% vs baseline · dbt warehouse with 36 data tests",
   "period": "2026.11 – present",
   "group": "Personal projects — public-data projects · portfolio generator · encrypted study & interview apps",
   "image": "assets/photos/data-projects/card/지진_파이프라인_지도.jpg"
