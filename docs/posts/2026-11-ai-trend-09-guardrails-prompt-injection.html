@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>가드레일과 프롬프트 인젝션 방어 — 모델이 읽는 모든 글이 공격 경로다 · 이영주</title>
+<meta name="description" content="프롬프트 인젝션이 왜 필터 하나로 막히지 않는지, 직접·간접 인젝션의 차이와 &#39;탐지&#39;에서 &#39;권한 설계&#39;로 옮겨 가는 방어 흐름을 정리했습니다.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="이영주 포트폴리오">
+<meta property="og:title" content="가드레일과 프롬프트 인젝션 방어 — 모델이 읽는 모든 글이 공격 경로다 · 이영주">
+<meta property="og:description" content="프롬프트 인젝션이 왜 필터 하나로 막히지 않는지, 직접·간접 인젝션의 차이와 &#39;탐지&#39;에서 &#39;권한 설계&#39;로 옮겨 가는 방어 흐름을 정리했습니다.">
+<meta property="og:url" content="https://0ju12.github.io/posts/2026-11-ai-trend-09-guardrails-prompt-injection.html">
+<meta property="og:image" content="https://0ju12.github.io/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#18181b">
+<script>/* 방문 수 집계 (가입 없는 공개 카운터, 쿠키 없음, 숫자만 올림). 본인 기기 제외: 주소 뒤에 ?nostat=1 을 한 번 붙여 열기 */
+(function(){try{var L=localStorage,S=sessionStorage;if(location.search.indexOf('nostat=1')>-1)L.setItem('nostat','1');if(location.search.indexOf('nostat=0')>-1)L.removeItem('nostat');
+if(L.getItem('nostat')||navigator.webdriver||!/github\.io$/.test(location.hostname)||/bot|crawl|spider|headless|lighthouse/i.test(navigator.userAgent))return;
+var B='https://abacus.jasoncameron.dev/hit/pf-3c8cffe9/',h=function(k){try{fetch(B+encodeURIComponent(k.slice(0,60)),{keepalive:true}).catch(function(){})}catch(e){}};
+var p=location.pathname.replace(/^\/+|\/+$/g,'').replace(/\.html$/,'').replace(/\//g,'.')||'home';if(p==='index')p='home';
+var d=new Date().toISOString().slice(0,10).replace(/-/g,'');
+if(!S.getItem('st:'+p)){S.setItem('st:'+p,'1');h('p.'+p);h('d.'+d);if(!S.getItem('st:v')){S.setItem('st:v','1');h('v.'+d);h('v.all')}}
+window.stat=function(e){if(!S.getItem('se:'+e)){S.setItem('se:'+e,'1');h('e.'+e)}};
+document.addEventListener('click',function(ev){var a=ev.target.closest&&ev.target.closest('a[href]');if(!a)return;var u=a.getAttribute('href');
+if(/resume|cv[./]/.test(u))stat('resume');else if(/github\.com/.test(u))stat('github');else if(/doi\.org|koreascience/.test(u))stat('paper');else if(/^mailto:/.test(u))stat('mail');else if(/linkedin/.test(u))stat('linkedin');else if(/data-projects|\/demo/.test(u))stat('demo')},true);
+}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--surface:#f7f7f8;--text:#0d0d0f;--muted:#5d5f66;--line:#e7e7ea;--accent:#0a7c66;--accent-2:#14b8a6;--chip:#eef2f1;--code:#0f1117;--code-text:#e6e6e6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}}
+:root[data-theme="dark"]{--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.85 "Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:740px;margin:0 auto;padding:0 20px}
+nav{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;padding:10px 2px}
+nav .home{font-weight:900;color:var(--text);margin-right:auto}
+#theme{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 12px;font:inherit;font-size:12px;cursor:pointer}
+header.post{padding:56px 0 28px;border-bottom:2px solid var(--text);margin-bottom:36px}
+header.post .meta{color:var(--accent);font-weight:700;font-size:14px;letter-spacing:.04em}
+header.post h1{font-size:clamp(28px,5vw,42px);line-height:1.25;letter-spacing:-.03em;margin:10px 0 14px;font-weight:900}
+header.post p{color:var(--muted);margin:0 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--chip);color:var(--muted)}
+article h2{font-size:24px;letter-spacing:-.02em;margin:48px 0 14px;font-weight:900}
+article h3{font-size:19px;margin:32px 0 10px}
+article p,article li{margin:0 0 16px}
+article ul,article ol{padding-left:22px}
+article li{margin-bottom:6px}
+article blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--surface);border-radius:0 12px 12px 0;font-weight:700}
+article blockquote p{margin:0}
+article code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em;background:var(--chip);padding:2px 6px;border-radius:6px}
+article pre{background:var(--code);color:var(--code-text);padding:18px 20px;border-radius:14px;overflow-x:auto;line-height:1.6;margin:0 0 20px}
+article pre code{background:none;padding:0;font-size:13.5px;color:inherit}
+article table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:15px;display:block;overflow-x:auto}
+article th,article td{border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+article th{background:var(--surface)}
+.endcard{margin:56px 0 0;padding:24px;border:1px solid var(--line);border-radius:18px;background:var(--surface);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.endcard b{display:block}
+.endcard span{color:var(--muted);font-size:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--line);color:var(--text);background:var(--bg)}
+.others{margin:40px 0 0}
+.others a{display:block;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--text);font-weight:700}
+.others a span{display:block;color:var(--muted);font-weight:400;font-size:14px}
+footer{padding:64px 0 40px;color:var(--muted);font-size:13px}
+.readbar{position:fixed;top:0;left:0;height:3px;width:0;background:var(--text);z-index:60;transition:width .1s linear}
+.series{margin:36px 0 0;padding:20px 22px;border:1px solid var(--line);border-radius:18px;background:var(--card)}
+.series b{font-size:15px}.series ol{margin:10px 0 0;padding-left:20px;font-size:14.5px;line-height:1.6}.series li{padding:3px 0}.series li small{color:var(--muted);margin-left:8px;font-size:12.5px}.series li.me a{font-weight:800;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="readbar" id="readbar"></div>
+<div class="wrap">
+  <nav><a class="home" href="../index.html">Young-Ju Lee</a><a href="../index.html#writing">Writing</a><a href="../index.html#work">Work</a><button id="theme" type="button">테마</button></nav>
+  <header class="post">
+    <div class="meta"><a href="ai-trend.html" style="color:inherit">AI 트렌드 노트</a> #9 · 2026-11-13 · 6분 읽기</div>
+    <h1>가드레일과 프롬프트 인젝션 방어 — 모델이 읽는 모든 글이 공격 경로다</h1>
+    <p>프롬프트 인젝션이 왜 필터 하나로 막히지 않는지, 직접·간접 인젝션의 차이와 &#39;탐지&#39;에서 &#39;권한 설계&#39;로 옮겨 가는 방어 흐름을 정리했습니다.</p>
+    <div class="chips"><span class="chip">보안</span><span class="chip">프롬프트 인젝션</span><span class="chip">가드레일</span></div>
+  </header>
+  <article><blockquote>
+<p><strong>한 줄 요약</strong> — 지난 회차에서 하위 에이전트는 지휘자가 적어 준 지시문만 믿고 움직였습니다. 그 지시문 자리에 공격자의 글이 들어오면 어떻게 될까요. LLM은 <strong>지시와 자료를 같은 글자열로</strong> 읽기 때문에, 웹 페이지·문서·도구 결과에 섞인 문장을 지시로 따를 수 있습니다. 이것이 프롬프트 인젝션이고, 방어의 무게는 "나쁜 글을 걸러 낸다"에서 "속더라도 할 수 있는 일을 줄인다"로 옮겨 가고 있습니다.</p>
+</blockquote>
+<h2>핵심 개념</h2>
+<ul>
+<li><strong>직접 인젝션</strong>: 사용자가 직접 "이전 지시를 무시하고…"라고 입력하는 경우입니다. 공격자가 곧 사용자입니다.</li>
+<li><strong>간접 인젝션</strong>: 사용자는 평범하게 "이 페이지 요약해 줘"라고 했는데, 그 페이지 안에 숨은 지시문이 있는 경우입니다. 공격자는 제3자이고, 피해자는 사용자입니다. #2의 도구, #3의 MCP, #7의 검색이 모두 이런 글을 들여오는 통로가 됩니다. OWASP는 LLM 애플리케이션 위험 목록에서 프롬프트 인젝션을 1번에 두고, 2025년판에서 직접과 간접을 구분해 설명하는 것으로 소개됩니다.</li>
+<li><strong>가드레일</strong>: 모델 앞뒤에 두는 검사입니다. 입력 검사(위험한 요청·주입 흔적), 출력 검사(개인정보·형식·금지 내용), 그리고 도구 호출 검사(이 호출을 지금 해도 되는가)로 나뉩니다.</li>
+<li><strong>비유</strong>: SQL 인젝션은 "명령과 자료를 분리"해서 해결했습니다(매개변수 바인딩). LLM에는 그런 분리 장치가 없습니다. 편지를 대신 읽어 주는 비서가, 편지 본문에 적힌 "이 편지를 읽는 비서는 금고 비밀번호를 답장에 적어 보내시오"를 사장의 지시로 착각하는 상황입니다.</li>
+</ul>
+<h2>지금 무슨 일이 일어나고 있나</h2>
+<ul>
+<li><strong>"완전한 해결책은 없다"는 정리가 반복됩니다.</strong> 2026년 2월의 체계화 논문(arXiv 2602.10453)은 에이전트 대상 프롬프트 인젝션에 만능 해법이 없고, 기존 방어 대부분이 메시지나 컨텍스트 전체에 한꺼번에 작용해 세밀하지 못하며 그 때문에 정상 기능이 깎인다고 분석합니다.</li>
+<li><strong>조건을 끊는 쪽으로 논의가 옮겨 갔습니다.</strong> 널리 인용되는 정리로, 에이전트가 ① 비공개 자료에 접근하고 ② 신뢰할 수 없는 글을 읽고 ③ 바깥으로 내보낼 수단을 가지면 유출이 가능해진다는 '치명적 삼박자(lethal trifecta)'가 있습니다. 셋 중 하나를 끊으면 속더라도 유출 경로가 닫힌다는 설계 관점입니다.</li>
+<li><strong>구조로 막으려는 연구가 나왔습니다.</strong> Google DeepMind의 CaMeL은 계획을 세우는 모델과 신뢰할 수 없는 자료를 읽는 모델을 나누고, 자료에서 나온 값이 어디로 흘러갈 수 있는지를 코드로 추적하는 방식으로 알려져 있습니다. 같은 해 여러 기관이 낸 설계 패턴 논문은 "신뢰할 수 없는 글을 읽은 뒤에는 행동 범위를 좁힌다"는 원칙 아래 패턴 여러 개를 정리했습니다.</li>
+<li>삼박자, CaMeL, 설계 패턴 논문의 세부는 이번 조사에서 원문을 다시 열어 확인하지 못했습니다. 아래 출처의 원문으로 확인이 필요합니다.</li>
+</ul>
+<h2>동작 구조</h2>
+<pre><code>            ┌─ 신뢰하는 입력 ─────────┐      ┌─ 신뢰할 수 없는 입력 ───────────────┐
+            │ 시스템 지시 · 사용자 요청 │      │ 웹 페이지 · 문서 · 메일 · 도구 결과  │
+            └───────────┬─────────────┘      └───────────────┬─────────────────────┘
+                        ▼                                    ▼ (자료로만 표시, 지시로 쓰지 않음)
+  ① 입력 가드레일 ─▶  모델 ─▶ ② 도구 호출 검사 ─▶ 도구 실행 ─▶ ③ 출력 가드레일 ─▶ 사용자
+     (형식·길이·           (허용 목록 · 인자 검증 ·                 (개인정보 · 링크 ·
+      주입 흔적)            되돌릴 수 없는 일은 사람 확인)           근거 없는 주장)
+
+  검사가 고장 나면?  →  통과시키지 않는다 (fail-closed)
+</code></pre>
+<pre><code class="language-python">def run_tool(call, ctx):
+    if call.name not in ctx.allowed_tools:            # 허용 목록: 모델이 고르되, 범위는 코드가 정함
+        return deny(&quot;허용되지 않은 도구&quot;)
+    if not schema_ok(call.args):                      # 인자 형식은 코드로 검사
+        return deny(&quot;인자 형식 오류&quot;)
+    if ctx.read_untrusted and call.sends_outside:     # 믿을 수 없는 글을 읽은 뒤의 외부 전송은 막음
+        return ask_human(call)                        #   → 삼박자의 한 변을 끊는다
+    if call.irreversible:                             # 삭제·결제·발송은 사람 확인
+        return ask_human(call)
+    return execute(call)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>방어</th>
+<th>막는 것</th>
+<th>한계</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>시스템 지시로 "무시하라"</td>
+<td>가벼운 시도</td>
+<td>모델이 지키지 않을 수 있음</td>
+</tr>
+<tr>
+<td>주입 탐지 분류기</td>
+<td>알려진 패턴</td>
+<td>새 표현·다른 언어·인코딩에 약하고 오탐이 생김</td>
+</tr>
+<tr>
+<td>자료 구분 표시(구분자·태그)</td>
+<td>지시와 자료의 혼동 일부</td>
+<td>보장이 아님</td>
+</tr>
+<tr>
+<td>도구 허용 목록·권한 축소</td>
+<td>속았을 때의 피해 범위</td>
+<td>기능이 줄어듦</td>
+</tr>
+<tr>
+<td>되돌릴 수 없는 일에 사람 확인</td>
+<td>큰 사고</td>
+<td>확인 피로</td>
+</tr>
+<tr>
+<td>출력·행동의 코드 검증</td>
+<td>형식·숫자·인용 조작</td>
+<td>검증할 수 있는 것만</td>
+</tr>
+</tbody>
+</table>
+<h2>왜 중요한가 / 한계</h2>
+<ul>
+<li><strong>에이전트가 될수록 피해가 커집니다.</strong> 채팅만 하는 모델이 속으면 이상한 답이 나오지만, 메일을 보내고 파일을 지우는 에이전트가 속으면 행동이 나옵니다.</li>
+<li><strong>한계 1 — 탐지는 확률입니다.</strong> 99%를 막는 필터도 공격자가 여러 번 시도할 수 있으면 뚫립니다. 그래서 탐지는 보조이고, 뚫려도 피해가 작게 설계하는 쪽이 중심이 됩니다.</li>
+<li><strong>한계 2 — 안전과 기능의 교환입니다.</strong> 권한을 줄이고 확인을 늘리면 안전해지지만 쓸모가 줄어듭니다. 위 체계화 논문이 지적한 "세밀하지 못한 방어가 기능을 깎는다"가 이 문제입니다.</li>
+<li><strong>한계 3 — 가드레일 자체도 모델인 경우가 많습니다.</strong> 검사용 모델이 틀리거나 멈출 수 있으므로, 검사가 실패했을 때 통과시킬지 막을지를 미리 정해야 합니다.</li>
+<li><strong>한계 4 — 공급망</strong>: 도구 설명문, MCP 서버가 주는 텍스트, 검색된 문서도 모델이 읽는 글입니다. 내가 쓰지 않은 글은 모두 신뢰할 수 없는 입력으로 다뤄야 합니다.</li>
+</ul>
+<h2>내 프로젝트와 연결</h2>
+<ul>
+<li><strong>관통 7의 FastAPI 프록시</strong>에서 Guardrail 검사를 모델 호출 앞에 두고, 검사 서비스가 오류를 내거나 응답하지 않으면 요청을 통과시키지 않도록(fail-closed) 했습니다. 위 그림의 "검사가 고장 나면 막는다"에 해당합니다. 모델 호출을 프록시 한곳으로 모았기 때문에 이 규칙을 한 군데에서 강제할 수 있었습니다. 다만 주입 탐지 성능을 따로 측정하지는 않았습니다.</li>
+<li><strong>관통 4·5</strong>에서는 LLM에게 댓글 원문을 다시 쓰게 하지 않고 "제거할 번호"만 받아 실제 삭제는 코드가 했습니다. 목록에 없는 번호는 받아들이지 않았습니다. 모델이 할 수 있는 행동의 범위를 코드가 정한다는 점에서 도구 허용 목록과 같은 생각입니다. 주입 방어를 목표로 한 설계는 아니었고, 결과적으로 같은 구조가 되었습니다.</li>
+<li><strong>국보 RAG 가이드</strong>는 검색된 문서를 모델이 읽습니다. 답에 붙은 근거 번호가 실제 검색 결과에 있는지 코드로 검사하므로 없는 출처를 지어내는 것은 막지만, 문서 안에 숨은 지시문을 걸러 내는 장치는 없습니다. 공개 국보 설명문만 색인해서 위험이 낮을 뿐, 사용자 문서를 올리게 하면 바로 문제가 됩니다.</li>
+<li><strong>data-agent</strong>는 SQL을 읽기 전용으로 제한하고 허용한 문장만 실행합니다. 삼박자 가운데 "바깥으로 내보낼 수단"과 "바꿀 수단"을 주지 않은 경우입니다.</li>
+</ul>
+<h2>면접 질문</h2>
+<p><strong>Q. 프롬프트 인젝션을 어떻게 방어하겠습니까?</strong></p>
+<blockquote>
+<p>완전히 막을 수 있다고 가정하지 않습니다. 모델은 지시와 자료를 같은 글로 읽기 때문에, 탐지 필터는 보조 수단으로만 씁니다. 중심은 속았을 때의 피해를 줄이는 설계입니다. 도구는 허용 목록과 인자 검증을 코드로 강제하고, 신뢰할 수 없는 글을 읽은 뒤의 외부 전송이나 되돌릴 수 없는 작업은 사람 확인을 거치게 합니다. 검사 단계가 고장 나면 통과시키지 않고 막습니다. 관통 7에서 모델 호출을 프록시 한곳으로 모으고 Guardrail이 실패하면 요청을 막도록 한 것, 관통 4·5에서 LLM에게 원문 수정 대신 번호만 받고 실행은 코드가 한 것이 이 방향입니다. 탐지 성능을 직접 측정해 보지는 못했고, 그 부분은 평가 세트를 만들어 확인해야 한다고 생각합니다.</p>
+</blockquote>
+<h2>출처</h2>
+<ul>
+<li>OWASP, <a href="https://genai.owasp.org/llm-top-10/">Top 10 for LLM Applications 2025</a> — LLM01 프롬프트 인젝션. 이번에는 2차 자료(<a href="https://www.wiz.io/academy/ai-security/owasp-llm-top-10">Wiz 해설</a> 등)로 내용을 확인</li>
+<li><a href="https://arxiv.org/abs/2602.10453">The Landscape of Prompt Injection Threats in LLM Agents: From Taxonomy to Analysis</a> (2026.02)</li>
+<li>Simon Willison, <a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">The lethal trifecta for AI agents</a> (2025) — 이번 조사에서 원문 재확인 못 함</li>
+<li>Debenedetti 외, <a href="https://arxiv.org/abs/2503.18813">Defeating Prompt Injections by Design (CaMeL)</a> (2025) — 이번 조사에서 원문 재확인 못 함</li>
+<li>Beurer-Kellner 외, <a href="https://arxiv.org/abs/2506.08837">Design Patterns for Securing LLM Agents against Prompt Injections</a> (2025) — 이번 조사에서 원문 재확인 못 함</li>
+</ul></article>
+  <div class="endcard">
+    <div><b>AI 트렌드 노트 · 10편</b><span>에이전트 개념부터 차례로 이어서 쓰는 시리즈입니다. 다음 회차: #10 에이전트 평가 — 점수가 높다는 것과 믿을 수 있다는 것</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="2026-11-ai-trend-08-multi-agent.html">← #8</a><a class="btn" href="ai-trend.html">전체 목록</a><a class="btn" href="2026-11-ai-trend-10-agent-evaluation.html">#10 →</a></div>
+  </div>
+<div class="others"><b style="font-size:14px;color:var(--muted)">다른 글</b><a href="2026-11-ai-trend-10-agent-evaluation.html">에이전트 평가 — 점수가 높다는 것과 믿을 수 있다는 것<span>에이전트는 답 하나가 아니라 과정 전체를 평가해야 합니다. 채점기의 세 종류, 한 번 성공과 매번 성공의 차이, 그리고 공개 벤치마크 점수가 오염으로 흔들리는 사례를 정리했습니다.</span></a><a href="2026-11-ai-trend-08-multi-agent.html">멀티 에이전트 오케스트레이션 — 나누면 빨라지지만 맥락이 끊긴다<span>일을 여러 에이전트에게 나눠 맡기는 구조(지휘자-작업자, 핸드오프)의 장단점을 정리했습니다. 병렬 조사에서는 효과가 보고됐지만 토큰이 크게 늘고, 맥락이 쪼개져 생기는 실패가 따로 연구될 만큼 흔합니다.</span></a><a href="2026-11-ai-trend-07-agentic-rag.html">RAG에서 Agentic RAG로 — 검색을 한 번 할지, 에이전트가 여러 번 할지<span>한 번 검색해 답하는 RAG와, 검색 여부·횟수·결과 품질을 스스로 판단하는 Agentic RAG의 차이를 정리했습니다. Self-RAG·CRAG·Adaptive-RAG가 각각 어느 판단을 추가했는지와, 반복이 늘 때 생기는 비용과 평가 문제를 봅니다.</span></a><a href="2026-11-ai-trend-06-agent-memory.html">에이전트 메모리 — 대화가 끝나도 남는 것과 남기면 안 되는 것<span>컨텍스트 창 안의 단기 기억과 대화 밖에 저장하는 장기 기억을 나누고, 무엇을 쓰고 언제 꺼내는지의 설계를 정리했습니다. 한 번 오염되면 세션이 끝나도 남는 메모리 포이즈닝도 함께 봅니다.</span></a><a href="2026-11-ai-trend-05-react-plan-execute.html">ReAct와 Plan-and-Execute — 에이전트는 어떻게 계획하나<span>한 걸음마다 다시 생각하는 ReAct와, 먼저 계획을 세우고 실행하는 Plan-and-Execute의 차이를 비용·속도·실패 방식으로 비교했습니다. ReWOO·LLMCompiler 같은 변형과 코딩 에이전트의 plan mode까지 이어서 봅니다.</span></a><a href="2026-11-ai-trend-04-a2a.html">에이전트 간 통신 — A2A는 MCP와 무엇이 다른가<span>MCP가 &#39;에이전트와 도구&#39;를 잇는다면 A2A는 &#39;에이전트와 에이전트&#39;를 잇습니다. Agent Card로 상대를 찾고, 상태가 있는 task로 일을 맡기는 구조와, 버전마다 바뀐 부분·엇갈리는 보도를 정리했습니다.</span></a><a href="2026-11-ai-trend-03-mcp.html">MCP — 도구를 매번 새로 붙이지 않는 방법<span>지난 회차의 tool use를 앱마다 다시 만들지 않도록 &#39;도구 서버&#39;를 표준 규격으로 분리한 MCP의 구조(호스트·클라이언트·서버, tools·resources·prompts)와 최근 사양 변화, 보안상 약한 고리를 정리했습니다.</span></a><a href="2026-11-ai-trend-02-tool-use.html">Tool use — 모델은 함수를 실행하지 않는다<span>Function calling의 실제 동작(모델은 호출 &#39;요청&#39;만 만들고 실행은 내 코드가 한다), strict 스키마와 Structured Outputs의 관계, 도구를 쓸 때와 출력 형식만 고정할 때를 구분했습니다.</span></a><a href="2026-11-ai-trend-01-agent.html">AI 에이전트란 무엇인가 — LLM이 도구를 쥐고 반복할 때<span>에이전트를 &#39;도구를 쓰며 스스로 다음 단계를 정하는 LLM 루프&#39;로 정의하고, 워크플로와 무엇이 다른지, 기업 도입 숫자가 왜 엇갈리는지 정리했습니다.</span></a></div>  <footer>© Young-Ju Lee · iyju990312@naver.com</footer>
+</div>
+<script>
+(function(){var r=document.documentElement,K='theme';
+try{var s=localStorage.getItem(K);if(s)r.setAttribute('data-theme',s)}catch(e){}
+var b=document.getElementById('theme');if(b)b.addEventListener('click',function(){
+var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});})();
+</script>
+<script>(function(){var b=document.getElementById('readbar'),a=document.querySelector('article');if(!b||!a)return;function f(){var r=a.getBoundingClientRect(),h=r.height-innerHeight*0.6,p=Math.min(1,Math.max(0,-r.top/(h>0?h:1)));b.style.width=(p*100)+'%'}addEventListener('scroll',function(){requestAnimationFrame(f)},{passive:true});f()})();</script>
+</body>
+</html>
