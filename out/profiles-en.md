@@ -73,7 +73,7 @@ Data pipelines, anomaly detection, demand forecasting and a SQL data mart built 
 ✔ Power demand: MAPE 6.17% for the same-hour-last-week baseline → 3.23% for the ensemble; daily-peak error 2.64%
 ✔ Sensor diagnosis: RandomForest scored 0.99+ on every component with a random split but 0.46 on the valve with a time-block split; LDA kept 1.00 on cooler, valve and pump, while the accumulator (0.55) remains open
 ✔ Earthquakes: 2,446 events of M4+ in East Asia, b = 1.11 ± 0.05 · 35 tests across the four projects
-✔ Warehouse: 10 models · 36 data tests (ranges, relationships, 24 rows per day, aggregate cross-checks) passing; 19 pytest cases confirm that bad data fails the build and that the incremental aggregate equals a full rebuild · Airflow verified for a single DAG run only (not operated continuously)
+✔ Warehouse: six sources — earthquakes and power demand plus job postings, exchange prices with FX, package downloads and disaster alerts — 35 models · 101 data tests (ranges, relationships, date continuity, aggregate cross-checks, join coverage) passing; 37 pytest cases confirm that bad data fails the build and that the incremental aggregate equals a full rebuild · results published as a six-tab dashboard refreshed daily · Airflow verified for a single DAG run only (not operated continuously)
 Skills: Python, SQL, dbt, DuckDB, Airflow, scikit-learn, GitHub Actions, Time series
 Details: https://0ju12.github.io/projects/data-projects-en.html
 ```
