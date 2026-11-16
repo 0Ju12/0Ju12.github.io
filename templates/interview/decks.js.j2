@@ -47,9 +47,9 @@ function present(d,i,aud){
   if(el.requestFullscreen)el.requestFullscreen().catch(function(){});
 }
 function printDeck(d){var p=$('#print');p.innerHTML=d.slides.map(function(s,i){return slideHTML(s,i,d.slides.length)}).join('');
-  var imgs=$$('img',p),left=imgs.length,fire=function(){setTimeout(function(){window.print()},150)};
-  toast('인쇄 창에서 "PDF로 저장"을 고르세요 (배경 그래픽 켜기)');
-  if(!left)return fire();imgs.forEach(function(im){if(im.complete){if(!--left)fire()}else im.onload=im.onerror=function(){if(!--left)fire()}})}
+ var imgs=$$('img',p);imgs.forEach(function(im){im.loading='eager'});toast('그림을 준비한 뒤 인쇄 창을 엽니다. PDF로 저장을 고르세요.');
+ Promise.all(imgs.map(function(im){return im.decode?im.decode():new Promise(function(ok,no){if(im.complete)return im.naturalWidth?ok():no();im.onload=ok;im.onerror=no})})).then(function(){setTimeout(function(){window.print()},150)}).catch(function(){toast('인쇄용 그림을 불러오지 못했습니다. 연결을 확인하고 다시 눌러 주세요.');p.innerHTML=''})}
+
 window.addEventListener('afterprint',function(){$('#print').innerHTML=''});
 function loadScript(src){return new Promise(function(ok,no){var s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=no;document.head.appendChild(s)})}
 function toDataURL(url){return fetch(url).then(function(r){if(!r.ok)throw Error('image');return r.blob()}).then(function(b){return new Promise(function(ok,no){var fr=new FileReader();fr.onerror=no;fr.onload=function(){if(b.type.indexOf('svg')<0)return ok(fr.result);var im=new Image();im.onerror=no;im.onload=function(){var c=document.createElement('canvas');c.width=im.naturalWidth||1440;c.height=im.naturalHeight||800;c.getContext('2d').drawImage(im,0,0,c.width,c.height);ok(c.toDataURL('image/png'))};im.src=fr.result};fr.readAsDataURL(b)})})}

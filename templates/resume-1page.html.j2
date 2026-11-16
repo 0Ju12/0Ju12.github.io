@@ -19,9 +19,9 @@
 <div class="it">
   <div class="when">{{ a.period_str }}</div>
   <div>
-    <div class="t">{{ a.title }}</div>
+    <div class="t">{{ a.onepage_title if en and not variant_label and a.onepage_title else a.title }}</div>
     <div class="s">{{ a.org }}{% if a.role %} · {{ a.role }}{% endif %}</div>
-    <ul class="b">{% for x in (a.brief or a.star.result) %}<li>{{ x }}</li>{% endfor %}</ul>
+    <ul class="b">{% for x in ((a.onepage_brief or a.brief or a.star.result) if en and not variant_label else (a.brief or a.star.result)) %}<li>{{ x }}</li>{% endfor %}</ul>
   </div>
 </div>
 {% endfor %}

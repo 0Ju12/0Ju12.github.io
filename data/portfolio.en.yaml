@@ -103,6 +103,11 @@ activities:
     role: Graduate researcher · 6-month stay at University of Calgary
     featured: true
     priority: 1
+    onepage_title: "M.S. research — gravity–magnetic signal separation"
+    onepage_brief:
+      - "Designed WCF, SLFI and DLFI indices; agreement r ≥ 0.94 with three independent models."
+      - "Six-month Calgary stay and three-institution research; first-author SPE Journal paper (2026)."
+      - "Released reproducible analysis code; conference and research-meeting presentations."
     brief:
       - "Designed wavenumber-correlation indices (SLFI · DLFI) splitting overlapping gravity/magnetic signals; r ≥ 0.94 vs. 3 independent models · code released"
       - "6-month stay at Univ. of Calgary, collaboration with Khalifa Univ. (UAE) → first-author SPE Journal paper (SCIE, 2026)"
@@ -182,6 +187,11 @@ activities:
     role: Undergraduate researcher · capstone model design & training
     featured: true
     priority: 2
+    onepage_title: "B.S. research — CO2 storage and wildfire prediction"
+    onepage_brief:
+      - "First-author paper: tectonic reconstruction and seismic interpretation of eight CO2 storage sites."
+      - "Second-author paper; three talks; KSEG 2024 Outstanding Student Paper Award (poster)."
+      - "Wildfire capstone: model design and training in a four-person team; unseen-fire F1 0.85."
     brief:
       - "First-author paper: GPlates plate-tectonic reconstruction + seismic interpretation of 8 large CO2 storage sites in 4 regions (2024)"
       - "4D seismic and CCS case studies, Calgary short stay (Utah FORGE gravity) → 1 second-author paper · 3 talks · KSEG 2024 Outstanding Student Paper (poster)"
@@ -259,6 +269,12 @@ activities:
     role: LLM fine-tuning · data pipelines · backend
     featured: true
     priority: 3
+    onepage_title: "SSAFY / POSCO — LLM services, RAG and VQA"
+    onepage_brief:
+      - "VQA challenge: QLoRA, OCR and probability ensembles; Public Score 0.96961."
+      - "ThRead: Django backend and validated LLM/data pipeline in a two-person team; 142 tests."
+      - "Heritage RAG (solo): public-data ingestion, verified citations, 55 offline tests and quality-evaluation harness."
+      - "POSPEAK: correction data and LoRA experiments; BERTScore F1 0.32 → 0.74; team award."
     brief:
       - "SSAFY AI Challenge (VQA): Qwen/Gemma QLoRA, OCR, multi-view probability ensemble → public 0.96961"
       - "ThRead: crawling → LLM judgments verified in code → pandas pipeline, Django backend · 142 tests"
