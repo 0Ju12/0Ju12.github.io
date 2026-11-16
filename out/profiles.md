@@ -72,7 +72,7 @@ GitHub: https://github.com/0Ju12
 • DART 데이터 마트: OpenDART 수집(오류 코드별 처리·한도 대기), 표준 계정 정규화, 피벗·LAG·RANK SQL 뷰, 사업보고서 문단을 글자 2-gram BM25 로 찾아 출처와 함께 보여 주는 근거 검색 (인증키는 Secrets 로만)
 ✔ 전력 수요: 지난주 같은 시각 기준선 MAPE 6.17% → 앙상블 3.23%, 일 최대수요 오차 2.64%
 ✔ 센서 진단: 무작위 분할에서 모든 부품 0.99 이상이던 RandomForest 가 시간 구간 분할에서 밸브 0.46 — LDA 는 냉각기·밸브·펌프 1.00 유지, 축압기 0.55 로 남은 과제 확인
-✔ 지진: 동아시아 M4+ 2,446건, b = 1.11 ± 0.05 · 테스트 35개(4개 프로젝트 합계)
+✔ 지진: 동아시아 M4+ 2,474건 기준 b = 1.11 ± 0.05 (목록은 매일 갱신) · 테스트 39개(4개 프로젝트 합계)
 ✔ 웨어하우스: 지진·전력 수요에 채용 공고·거래소 시세와 환율·패키지 내려받기·재해 경보를 더해 6개 출처, 모델 35개 · 품질 테스트 101개(범위·관계·날짜 연속성·집계 대조·조인 누락) 통과, 잘못된 자료를 넣으면 빌드가 실패하는 것과 증분 집계가 전체 재계산과 같은 것까지 pytest 37개로 확인 · 결과는 6개 탭 대시보드로 매일 갱신 · Airflow 는 DAG 1회 실행까지만 확인(상시 운영은 아님)
 기술: Python, SQL, dbt, DuckDB, Airflow, scikit-learn, GitHub Actions, 시계열
 상세: https://0ju12.github.io/projects/data-projects.html
@@ -199,7 +199,7 @@ GPlates로 해외 대규모 CO2 저장소의 지질 형성사를 판구조 관�
 ## 5. 스킬 (LinkedIn Skills — 최대 50개, 상위 5개가 프로필에 노출)
 
 ```
-Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, Django, FastAPI, Selenium, SQL, 시공간 딥러닝(U-LSTM), CNN·LSTM, LLM 파인튜닝(FLAN-T5·Qwen·Gemma, LoRA·QLoRA), 멀티모델 확률 앙상블, RAG(LangGraph·ChromaDB·FAISS), 모델 평가(F1·BERTScore), ArcGIS, 래스터 데이터 구축, 중력·자력 자료 처리, 파수 상관 분석, 탄성파 자료 해석, GPlates, CCS(이산화탄소 지중저장), 에너지·자원, 재난(산불) 예측
+Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, Django, FastAPI, Selenium, SQL, 시공간 딥러닝(U-LSTM), CNN·LSTM, LLM 파인튜닝(FLAN-T5·Qwen·Gemma, LoRA·QLoRA), 멀티모델 확률 앙상블, RAG(LangGraph·ChromaDB·FAISS), 모델 평가(F1·BERTScore), dbt(DuckDB), 차원 모델링·SCD 2형, 데이터 품질 테스트, Airflow DAG 작성, GitHub Actions, ArcGIS, 래스터 데이터 구축, 중력·자력 자료 처리, 파수 상관 분석, 탄성파 자료 해석, GPlates, CCS(이산화탄소 지중저장), 에너지·자원, 재난(산불) 예측
 ```
 
 ## 6. 수상·자격 (LinkedIn "Honors & awards" / "Licenses & certifications")

@@ -510,7 +510,9 @@ def main():
     variants_file = ROOT / "data" / "resume_variants.yaml"
     for key, v in (yaml.safe_load(variants_file.read_text(encoding="utf-8")) if variants_file.exists() else {}).items():
         by_id = {a.get("id"): a for a in data["featured"]}
-        featured = [dict(by_id[i], brief=(v.get("brief") or {}).get(i) or by_id[i].get("brief")) for i in v["order"] if i in by_id]
+        # order 에 적은 묶음은 기본 1쪽 이력서에서 빼 둔 것(onepage: false)이어도 이 직무 이력서에는 넣음
+        featured = [dict(by_id[i], brief=(v.get("brief") or {}).get(i) or by_id[i].get("brief"), onepage=True,
+                         title=(v.get("titles") or {}).get(i) or by_id[i].get("title")) for i in v["order"] if i in by_id]
         vd = dict(data, featured=featured, profile=dict(data["profile"], headline=v["headline"]),
                   highlights=v.get("highlights") or data["highlights"], skills=v.get("skills") or data["skills"],
                   variant_label=v.get("label"))

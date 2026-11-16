@@ -72,7 +72,7 @@ Data pipelines, anomaly detection, demand forecasting and a SQL data mart built 
 • DART data mart: OpenDART collection (status-code handling, rate-limit waits), standardised accounts, pivot/LAG/RANK SQL views, and evidence search over business-report paragraphs with character-bigram BM25, returned with sources (API key only via Secrets)
 ✔ Power demand: MAPE 6.17% for the same-hour-last-week baseline → 3.23% for the ensemble; daily-peak error 2.64%
 ✔ Sensor diagnosis: RandomForest scored 0.99+ on every component with a random split but 0.46 on the valve with a time-block split; LDA kept 1.00 on cooler, valve and pump, while the accumulator (0.55) remains open
-✔ Earthquakes: 2,446 events of M4+ in East Asia, b = 1.11 ± 0.05 · 35 tests across the four projects
+✔ Earthquakes: b = 1.11 ± 0.05 on 2,474 events of M4+ in East Asia (the catalogue updates daily) · 39 tests across the four projects
 ✔ Warehouse: six sources — earthquakes and power demand plus job postings, exchange prices with FX, package downloads and disaster alerts — 35 models · 101 data tests (ranges, relationships, date continuity, aggregate cross-checks, join coverage) passing; 37 pytest cases confirm that bad data fails the build and that the incremental aggregate equals a full rebuild · results published as a six-tab dashboard refreshed daily · Airflow verified for a single DAG run only (not operated continuously)
 Skills: Python, SQL, dbt, DuckDB, Airflow, scikit-learn, GitHub Actions, Time series
 Details: https://0ju12.github.io/projects/data-projects-en.html
@@ -199,7 +199,7 @@ Details: https://0ju12.github.io/projects/wildfire-capstone-en.html
 ## 5. 스킬 (LinkedIn Skills — 최대 50개, 상위 5개가 프로필에 노출)
 
 ```
-Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, Django, FastAPI, Selenium, SQL, Spatiotemporal DL (U-LSTM), LLM fine-tuning (LoRA/QLoRA), Model ensembles, RAG (LangGraph · ChromaDB · FAISS), F1 · BERTScore, ArcGIS, Rasters, Gravity & magnetics, Wavenumber correlation, Seismic interpretation, GPlates, CCS, Energy & resources, Wildfire prediction
+Python, PyTorch, TensorFlow, Hugging Face, Pandas, Django, FastAPI, SQL, Spatiotemporal DL (U-LSTM), LLM fine-tuning (LoRA/QLoRA), Model ensembles, RAG (LangGraph · ChromaDB · FAISS), F1 · BERTScore, dbt (DuckDB), SCD2 modelling, Data tests, Airflow, GitHub Actions, ArcGIS, Gravity & magnetics, Wavenumber correlation, Seismic interpretation, CCS, Energy & resources, Wildfire prediction
 ```
 
 ## 6. 수상·자격 (LinkedIn "Honors & awards" / "Licenses & certifications")
