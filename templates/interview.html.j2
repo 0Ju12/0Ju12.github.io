@@ -238,6 +238,7 @@ h2{font-weight:750;letter-spacing:-.025em;font-size:16px;margin:34px 0 12px;disp
   <nav class="tabs" id="tabs" aria-label="면접 준비 메뉴"><a href="#/" data-v="home">오늘</a><a href="#/questions" data-v="questions">질문</a><a href="#/mock" data-v="mock">모의<span class="hide-m"> 면접</span></a><a href="#/decks" data-v="decks">발표</a><a href="#/essay" data-v="essay">자소서</a><a href="#/jobs" data-v="jobs">공채<span class="hide-m"> 정보</span></a><a href="#/tools" data-v="tools">도구</a><a href="#/opic-exam" data-v="opic-exam">OPIc 실전</a><a href="#/drafts" data-v="drafts">내 답변 초안</a><a href="#/sources" data-v="sources">자료 현황</a></nav>
   <select class="iconbtn" id="role" aria-label="지원 직무"></select>
   <button class="iconbtn" id="theme" type="button" aria-label="화면 테마 바꾸기">◐</button>
+  <a class="iconbtn" href="https://career-workspace-0ju12.affectionateimage.chatgpt.site/" target="_blank" rel="noopener">지원 준비실 · 서버 저장</a>
   <a class="iconbtn hide-m" href="../study/index.html">강의 노트</a>
 </div></header>
 <div class="storage-bar" style="max-width:1180px;margin:10px auto;padding:8px 16px;font-size:12px"><span id="save-status" role="status"></span><div class="row" style="margin-top:6px"><span class="muted">이 기기·브라우저에 저장 · GitHub/다른 기기와 자동 동기화되지 않음</span><button class="btn ghost sm" id="backup-local">지금 백업</button><button class="btn ghost sm" id="recover-local">직전 저장본 복구</button><a href="#/log">백업 가져오기·기기 옮기기</a></div></div><main id="app" aria-live="polite"></main>
@@ -355,7 +356,7 @@ function home(){
 {% include 'interview/jobs.js.j2' %}
 /* ---------- 기록 ---------- */
 function log(){
-  var h='<h1>기록</h1><p class="sub">연습 기록·메모·별표는 이 브라우저(localStorage)에만 있습니다. 다른 기기로 옮기려면 아래 [기기 옮기기]를 쓰세요.</p>';
+  var h='<div class="guide"><b>공고별 준비와 기기 간 저장</b><p>기존 기록은 이 브라우저에 유지됩니다. [지금 백업] JSON을 내려받아 새 비공개 준비실에서 한 번 가져오면 같은 계정으로 다른 기기에서 보관·열람할 수 있습니다.</p><a href="https://career-workspace-0ju12.affectionateimage.chatgpt.site/" target="_blank" rel="noopener">지원 준비실 열기 →</a></div><h1>기록</h1><p class="sub">연습 기록·메모·별표는 이 브라우저(localStorage)에만 있습니다. 다른 기기로 옮기려면 아래 [기기 옮기기]를 쓰세요.</p>';
   h+='<div class="card" style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:14px"><tr style="color:var(--muted);text-align:left"><th style="padding:6px 0">묶음</th><th>질문</th><th>연습</th><th>익힘</th><th>메모</th></tr>'+GROUPS.map(function(g){var qs=QS.filter(function(q){return q.g===g});return '<tr><td style="padding:6px 0"><b>'+esc(g)+'</b></td><td>'+qs.length+'</td><td>'+qs.filter(function(q){return S.q[q.id]}).length+'</td><td>'+qs.filter(function(q){var r=S.q[q.id];return r&&r.b>=3}).length+'</td><td>'+qs.filter(function(q){return S.memo[q.id]}).length+'</td></tr>'}).join('')+'</table></div>';
   var sy=SYNC.ui('interview',function(){return S},function(d){var n=mergeState(S,d);fix();save();return n},function(n){toast('합쳤습니다. 새로 들어온 항목 '+n+'개.');log()});
   h+=sy.html;
