@@ -38,6 +38,7 @@ jobs:
           python tests/render_interview_fixture.py
           node tests/interview-browser.cjs
           node tests/opic-browser.cjs
+          node tests/career-browser.cjs
       - run: node scripts/pdf.js
       - name: Check links, images, 1-page resumes
         run: python scripts/check_site.py

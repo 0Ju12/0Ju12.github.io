@@ -149,49 +149,8 @@ def _prep():
 
 
 def decks(data, variants):
-    prof, cases, out = data["profile"], data.get("case_notes") or {}, []
-    projs = _projects(data)
-    byid = {p["id"]: (g, p) for g, p in projs}
-    for role, v in variants.items():
-        order = [(g, p) for gid in v.get("order", []) for g, p in projs if g.get("id") == gid]
-        top = order[:3]
-        slides = [{"t": "title", "kicker": "1분 자기소개 · " + v.get("label", role), "h": prof["name"], "sub": v.get("headline") or prof["headline"],
-                   "note": f"안녕하세요, {v.get('label', '')} 직무에 지원한 {prof['name']}입니다. {v.get('headline') or prof['headline']}." + ((" " + " ".join((data.get("pitch") or {}).get("h1", [])) + " " + (data.get("pitch") or {}).get("body", "")) if data.get("pitch") else "")},
-                  {"t": "stats", "h": "숫자로 보는 저", "items": [[x["value"], x["label"]] for x in v.get("highlights", [])[:4]],
-                   "note": "제 경험을 숫자 네 개로 먼저 말씀드리겠습니다. " + " ".join(f"{x['value']}, {x['label']}." for x in v.get("highlights", [])[:4])}]
-        for g, p in top:
-            d = p["digest"]
-            slides.append({"t": "bullets", "kicker": p.get("short") or "", "h": p.get("tagline") or p["title"],
-                           "items": [d["problem"], d["role"]] + d.get("result", [])[:2], "img": _photo(p["id"]),
-                           "note": f"{p.get('short')}에서는 {d['problem']} 저는 {d['role']}. 결과적으로 {d.get('result', [''])[0]}."})
-        slides.append({"t": "end", "h": "감사합니다", "sub": "포트폴리오 0ju12.github.io · GitHub github.com/0Ju12",
-                       "note": "자세한 내용은 포트폴리오와 GitHub에 정리해 두었습니다. 감사합니다."})
-        out.append({"id": "intro-" + role, "title": f"1분 자기소개 · {v.get('label', role)}", "kind": "intro", "role": role, "min": 1, "slides": slides})
-    for g, p in projs:
-        d, cn = p["digest"], (cases.get(p["id"]) or {}).get("ko") or {}
-        per = p.get("period") or {}
-        when = f"{per.get('start', '')}–{per.get('end', '')}" if isinstance(per, dict) else str(per)
-        img = _photo(p["id"])
-        s = [{"t": "title", "kicker": p.get("type") or "프로젝트", "h": p["title"], "sub": f"{p.get('org', '')} · {when} · {p.get('role', '')}",
-              "note": f"{p.get('short')} 프로젝트를 소개하겠습니다. {p.get('tagline', '')}."},
-             {"t": "text", "kicker": "문제", "h": d["problem"], "img": img,
-              "note": f"이 프로젝트에서 풀려던 문제는 이것입니다. {d['problem']}"},
-             {"t": "bullets", "kicker": "내 역할과 한 일", "h": d["role"], "items": d.get("did", [])[:5],
-              "note": f"저는 {d['role']}. 구체적으로 " + " ".join(d.get("did", [])[:3]) + "."}]
-        if cn.get("tradeoffs"):
-            s.append({"t": "bullets", "kicker": "설계 판단", "h": "무엇을 고민했고 어떻게 정했나", "items": [t.split("→")[0].strip() + (" → " + t.split("→", 1)[1].strip()[:110] if "→" in t else "") for t in cn["tradeoffs"][:3]],
-                      "note": "가장 고민한 판단을 말씀드리면, " + cn["tradeoffs"][0]})
-        s.append({"t": "stats" if len(d.get("result", [])) <= 4 else "bullets", "kicker": "결과", "h": p.get("key") or "결과",
-                  "items": [[r, ""] for r in d.get("result", [])[:4]] if len(d.get("result", [])) <= 4 else d.get("result", []),
-                  "note": "결과는 다음과 같습니다. " + " ".join(d.get("result", []))})
-        if cn.get("next"):
-            s.append({"t": "bullets", "kicker": "한계와 다음 단계", "h": "확신하는 것과 남은 것", "items": cn["next"][:3],
-                      "note": "한계도 분명히 말씀드리겠습니다. " + cn["next"][0]})
-        s.append({"t": "end", "h": "질문 받겠습니다", "sub": " · ".join(l["label"] for l in (p.get("links") or [])[:2]) or "0ju12.github.io",
-                  "note": "이상입니다. 질문 주시면 답변드리겠습니다."})
-        out.append({"id": p["id"], "title": p.get("short") or p["title"], "kind": "project", "min": 3, "slides": s,
-                    "tagline": p.get("tagline", ""), "group": g.get("id")})
-    return out
+    from career_content import rebuild_decks
+    return rebuild_decks(data, variants, _projects(data))
 
 
 def cv(data):
@@ -241,6 +200,8 @@ def build(env, data):
                                   for i in seed.get("items") or []]}
     prep = _prep()
     app["prep"] = {k: prep.get(k) for k in ("updated", "goals", "weekly", "experiences", "essays")}
+    from career_content import prepare_essays
+    app["prep"]["essays"] = prepare_essays(prep, data)
     app["prep"]["opic_types"] = (prep.get("opic") or {}).get("types") or []
     app["prep"]["opic_tip"] = (prep.get("opic") or {}).get("tip", "")
     built_at = datetime.now(timezone.utc).isoformat(timespec="seconds")

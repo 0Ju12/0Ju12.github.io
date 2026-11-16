@@ -17,7 +17,7 @@ function questions(c,g){
       answerHTML(q)+
       '<textarea rows="3" data-memo="'+esc(q.id)+'" placeholder="내 말로 바꾼 답변 메모 (이 브라우저에 저장)">'+esc(S.memo[q.id]||'')+'</textarea>'+
       '<div class="row" style="margin-top:8px;justify-content:space-between"><span class="row"><button class="star'+(S.star[q.id]?' on':'')+'" data-star="'+esc(q.id)+'" aria-label="별표">★</button>'+(q.link?'<a class="small" href="'+esc(q.link)+'">'+(q.src?esc(q.src):'근거 보기')+' →</a>':'')+'</span><button class="btn sm" data-one="'+esc(q.id)+'">이 질문 연습</button></div></div></details>'}).join(''):'<div class="card empty">맞는 질문이 없습니다.</div>';
-    $$('[data-memo]').forEach(function(t){t.oninput=function(){setMemo(t.dataset.memo,t.value);clearTimeout(t._s);t._s=setTimeout(save,400)}});
+    $$('[data-memo]').forEach(function(t){t.oninput=function(){setMemo(t.dataset.memo,t.value);save()}});
     $$('[data-star]').forEach(function(b){b.onclick=function(){var k=b.dataset.star;setStar(k,!S.star[k]);b.classList.toggle('on',!!S.star[k])}});
     $$('[data-one]').forEach(function(b){b.onclick=function(){startMock([Q[b.dataset.one]],{sec:90,rec:false,label:'개별 연습 · 실전 시험 아님'})}});
   };

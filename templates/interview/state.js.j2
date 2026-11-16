@@ -1,26 +1,33 @@
 /* Storage and portable backups. Legacy v1 files remain readable. */
-var KEY='interview-app-v1',S;
+var KEY='interview-app-v1',S,storageNeedsRecovery=false,storageMessage='',storageSavedAt=0;
 function objectMap(x){return !!x&&typeof x==='object'&&!Array.isArray(x)}
-function blank(){return {v:1,q:{},memo:{},mt:{},star:{},starAt:{},deleted:{board:{},algo:{},opicExams:{}},days:{},mocks:[],role:'',goals:{},week:{},essay:{},answers:{},board:[],algo:[],algoHide:[],ncs:[],opic:[],opicExams:[],speak:[],updatedAt:0,resetAt:0}}
+function blank(){return {v:1,q:{},memo:{},mt:{},star:{},starAt:{},deleted:{board:{},algo:{},opicExams:{}},days:{},mocks:[],role:'',goals:{},week:{},essay:{},answers:{},deckEdits:{},importedQuestions:{},board:[],algo:[],algoHide:[],ncs:[],opic:[],opicExams:[],speak:[],updatedAt:0,resetAt:0}}
 function normalizeState(s){
   if(!objectMap(s))s=blank();
-  ['q','memo','mt','star','starAt','days','goals','week','essay','answers'].forEach(function(k){if(!objectMap(s[k]))s[k]={}});
+  ['q','memo','mt','star','starAt','days','goals','week','essay','answers','deckEdits','importedQuestions'].forEach(function(k){if(!objectMap(s[k]))s[k]={}});
   ['mocks','board','algo','algoHide','ncs','opic','opicExams','speak'].forEach(function(k){if(!Array.isArray(s[k]))s[k]=[]});
   if(!objectMap(s.deleted))s.deleted={};['board','algo','opicExams'].forEach(function(k){if(!objectMap(s.deleted[k]))s.deleted[k]={}});s.v=1;return s;
 }
-try{S=normalizeState(JSON.parse(localStorage.getItem(KEY)))}catch(_){S=blank()}
+try{var rawState=localStorage.getItem(KEY);S=rawState?validateState(JSON.parse(rawState)):blank();storageSavedAt=S.updatedAt||0}catch(_){S=blank();storageNeedsRecovery=true;storageMessage='기록을 읽지 못했습니다. 원본을 덮어쓰지 않습니다. 복구·백업을 확인하세요.';try{var last=localStorage.getItem(KEY+':recovery');if(last)S=validateState(JSON.parse(last))}catch(_){}}
 function fix(){S=normalizeState(S)}
 function stamp(previous){return Math.max(Date.now(),(Number(previous)||0)+1)}
 function setStar(id,on){S.starAt[id]=stamp(S.starAt[id]);if(on)S.star[id]=1;else delete S.star[id];save()}
 function setMemo(id,text){S.memo[id]=text;S.mt[id]=stamp(S.mt[id])}
 function markDeleted(kind,id){S.deleted[kind][id]=stamp(S.deleted[kind][id])}
-function save(){S.updatedAt=stamp(S.updatedAt);try{localStorage.setItem(KEY,JSON.stringify(S));return true}catch(_){toast('브라우저 저장 공간을 쓸 수 없어 기록이 남지 않습니다.');return false}}
+function storageStatus(){if(typeof document==='undefined')return;var el=document.getElementById('save-status');if(el){el.textContent=storageMessage||(storageSavedAt?'이 브라우저에 저장됨 · '+new Date(storageSavedAt).toLocaleString():'아직 저장된 기록 없음');el.style.color=storageMessage?'var(--bad)':''}var b=document.getElementById('recover-local');if(b){try{b.disabled=!localStorage.getItem(KEY+':recovery')}catch(_){b.disabled=true}}}
+function save(){if(storageNeedsRecovery){storageStatus();return false}S.updatedAt=stamp(S.updatedAt);try{var previous=localStorage.getItem(KEY);if(previous){try{mergeState(S,JSON.parse(previous))}catch(_){storageNeedsRecovery=true;storageMessage='기록 형식이 바뀌었습니다. 덮어쓰기를 중단했습니다. 백업을 확인하세요.';storageStatus();return false}}
+  var encoded=JSON.stringify(S);if(previous&&previous!==encoded){try{localStorage.setItem(KEY+':recovery',previous)}catch(_){/* Main save must still be attempted when a second copy does not fit. */}}
+  localStorage.setItem(KEY,encoded);storageSavedAt=S.updatedAt;storageMessage='';storageStatus();return true
+ }catch(_){storageMessage='저장 실패 · 현재 내용을 백업 파일로 내려받으세요.';storageStatus();return false}}
+function recoverLocal(){try{var raw=localStorage.getItem(KEY+':recovery');if(!raw)throw Error('empty');var recovered=validateState(JSON.parse(raw));if(!confirm('직전 저장본과 현재 기록을 합쳐 복구할까요? 최신 수정은 유지합니다.'))return;mergeState(recovered,S);var current=localStorage.getItem(KEY);if(current)localStorage.setItem(KEY+':before-recovery',current);S=recovered;localStorage.setItem(KEY,JSON.stringify(recovered));storageNeedsRecovery=false;if(!save())return;toast('직전 저장본을 복구했습니다.');route()}catch(_){toast('복구할 수 없습니다. 현재 기록을 먼저 백업하세요.')}}
+function downloadLocalBackup(){SYNC.save('면접기록_'+today()+'.json',JSON.stringify(S,null,2),'application/json')}
+
 function seedAlgo(){var sd=D.algo_seed||{},v=Date.parse(sd.updated||'')||1,ix={},ch=0;S.algo.forEach(function(a,i){ix[a.id]=i});(sd.items||[]).forEach(function(it){if(S.algoHide.indexOf(it.id)>=0||S.deleted.algo[it.id])return;var x=JSON.parse(JSON.stringify(it));x.ts=v;x.sv=v;if(!(it.id in ix)){ix[it.id]=S.algo.length;S.algo.push(x);ch++}else{var o=S.algo[ix[it.id]];if(o.src==='drive'&&(o.sv||o.ts||0)<v){if(o.re)x.re=o.re;x.ts=Math.max(v,o.ts||0);S.algo[ix[it.id]]=x;ch++}}});if(ch)save()}
 seedAlgo();
 function validateState(s){
   if(!objectMap(s)||s.v!==1||!objectMap(s.q))throw new Error('fmt');
   function walk(x,depth){if(depth>30)throw new Error('fmt');if(x&&typeof x==='object')Object.keys(x).forEach(function(k){if(k==='__proto__'||k==='constructor'||k==='prototype')throw new Error('fmt');walk(x[k],depth+1)})}walk(s,0);
-  ['q','memo','mt','star','starAt','days','goals','week','essay','answers','deleted'].forEach(function(k){if(s[k]!=null&&!objectMap(s[k]))throw new Error('fmt')});
+  ['q','memo','mt','star','starAt','days','goals','week','essay','answers','deckEdits','importedQuestions','deleted'].forEach(function(k){if(s[k]!=null&&!objectMap(s[k]))throw new Error('fmt')});
   ['mocks','board','algo','algoHide','ncs','opic','opicExams','speak'].forEach(function(k){if(s[k]!=null&&!Array.isArray(s[k]))throw new Error('fmt')});
   ['board','algo','opicExams'].forEach(function(k){(s[k]||[]).forEach(function(x){if(!objectMap(x)||typeof x.id!=='string')throw new Error('fmt')});if(s.deleted&&s.deleted[k]!=null&&!objectMap(s.deleted[k]))throw new Error('fmt')});
   ['mocks','ncs','opic','opicExams','speak'].forEach(function(k){(s[k]||[]).forEach(function(x){if(!objectMap(x))throw new Error('fmt')})});
@@ -31,10 +38,12 @@ function validateState(s){
   Object.values(s.week||{}).forEach(function(v){if(!objectMap(v))throw new Error('fmt')});
   Object.values(s.goals||{}).forEach(function(v){if(!objectMap(v))throw new Error('fmt')});
   (s.algoHide||[]).forEach(function(v){if(typeof v!=='string')throw new Error('fmt')});
+  Object.entries(s.importedQuestions||{}).forEach(function(pair){var k=pair[0],v=pair[1];if(!/^[a-zA-Z0-9:_-]{1,120}$/.test(k)||!objectMap(v)||v.id!==k||typeof v.q!=='string'||v.q.length>2000||typeof v.a!=='string'||v.a.length>20000||typeof v.ts!=='number'||(v.sources!=null&&!Array.isArray(v.sources)))throw new Error('fmt')});
+  Object.values(s.deckEdits||{}).forEach(function(v){if(!objectMap(v)||typeof v.ts!=='number'||!Array.isArray(v.slides)||v.slides.length>100)throw new Error('fmt');v.slides.forEach(function(x){if(!objectMap(x)||!['title','end','bullets','stats','text'].includes(x.t)||typeof x.h!=='string'||typeof x.note!=='string'||!Array.isArray(x.items)||x.items.some(function(t){return typeof t!=='string'}))throw new Error('fmt')})});
   Object.values(s.answers||{}).forEach(function(v){if(!objectMap(v)||typeof v.text!=='string'||typeof v.ts!=='number'||!Number.isFinite(v.ts)||v.ts<0||(v.useOriginal!=null&&typeof v.useOriginal!=='boolean'))throw new Error('fmt')});
   (s.opicExams||[]).forEach(function(v){if(typeof v.id!=='string'||!Array.isArray(v.answers))throw new Error('fmt')});
   Object.keys(s.star||{}).forEach(function(k){if(![0,1,false,true].includes(s.star[k]))throw new Error('fmt')});
-  Object.values(s.essay||{}).forEach(function(v){if(v.x!=null&&(!Array.isArray(v.x)||v.x.some(function(x){return typeof x!=='string'})))throw new Error('fmt')});
+  Object.values(s.essay||{}).forEach(function(v){if(v.history!=null&&(!Array.isArray(v.history)||v.history.length>5||v.history.some(function(h){return !objectMap(h)||typeof h.t!=='string'||typeof h.ts!=='number'})))throw new Error('fmt');if(v.x!=null&&(!Array.isArray(v.x)||v.x.some(function(x){return typeof x!=='string'})))throw new Error('fmt')});
   Object.values(s.week||{}).forEach(function(v){Object.values(v).forEach(function(n){if(typeof n!=='number'||!Number.isFinite(n)||n<0)throw new Error('fmt')})});
   ['updatedAt','resetAt'].forEach(function(k){if(s[k]!=null&&(typeof s[k]!=='number'||!Number.isFinite(s[k])||s[k]<0))throw new Error('fmt')});
   return normalizeState(JSON.parse(JSON.stringify(s)));
@@ -52,10 +61,11 @@ function mergeState(target,input){
   var stars=new Set(Object.keys(b.star).concat(Object.keys(b.starAt)));stars.forEach(function(k){var ta=a.starAt[k]||0,tb=b.starAt[k]||0;if(tb>ta||(!(k in a.starAt)&&!(k in a.star))){var on=!!b.star[k];if(!!a.star[k]!==on)n++;if(on)a.star[k]=1;else delete a.star[k];a.starAt[k]=tb}});
   Object.keys(b.days).forEach(function(k){a.days[k]=Math.max(a.days[k]||0,b.days[k])});
   n+=mergeArr(a.mocks,b.mocks,function(x){return JSON.stringify(x)});a.mocks.sort(function(x,y){return String(x.d).localeCompare(String(y.d))});
-  ['goals','essay','answers'].forEach(function(kind){Object.keys(b[kind]).forEach(function(k){var x=a[kind][k],y=b[kind][k];if(!x||(y.ts||0)>(x.ts||0)){a[kind][k]=y;n++}})});
+  ['goals','essay','answers','deckEdits','importedQuestions'].forEach(function(kind){Object.keys(b[kind]).forEach(function(k){var x=a[kind][k],y=b[kind][k];if(!x||(y.ts||0)>(x.ts||0)){a[kind][k]=y;n++}})});
   Object.keys(b.week).forEach(function(w){var x=a.week[w]||(a.week[w]={});Object.keys(b.week[w]).forEach(function(k){x[k]=Math.max(x[k]||0,b.week[w][k])})});
   a.resetAt=Math.max(a.resetAt||0,b.resetAt||0);a.updatedAt=Math.max(a.updatedAt||0,b.updatedAt||0);
   Object.keys(target).forEach(function(k){delete target[k]});Object.assign(target,a);return n;
 }
 window.addEventListener('storage',function(e){if(e.key!==KEY||!e.newValue)return;try{mergeState(S,JSON.parse(e.newValue));toast('다른 탭의 기록을 합쳤습니다. 화면을 이동하면 반영됩니다.')}catch(_){toast('다른 탭의 기록 형식을 확인할 수 없습니다. 현재 기록을 유지합니다.')}});
 window.addEventListener('pagehide',function(){save()});
+if(typeof document!=='undefined')document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')save()});

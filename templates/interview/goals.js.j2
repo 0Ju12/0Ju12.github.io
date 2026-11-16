@@ -4,7 +4,7 @@ function wget(id){var w=S.week[wkey()]||{};return w[id]||0}
 function wadd(id,n){var k=wkey(),w=S.week[k]||(S.week[k]={});w[id]=Math.max(0,(w[id]||0)+n);var ks=Object.keys(S.week).sort();while(ks.length>26)delete S.week[ks.shift()];save()}
 function gdate(g){var o=S.goals[g.id];return o&&o.date!=null?o.date:(g.date||'')}
 function ddays(ds){if(!ds)return null;var a=new Date(ds+'T00:00:00'),b=new Date(today()+'T00:00:00');return Math.round((a-b)/864e5)}
-function essayDone(){return (P.essays||[]).filter(function(e,i){var r=S.essay['e'+i];return r&&r.st==='done'}).length}
+function essayDone(){return (P.essays||[]).filter(function(e,i){var r=(S.essay[e.id||'e'+i]||S.essay['e'+i]);return r&&r.st==='done'}).length}
 var WD=['일','월','화','수','목','금','토'];
 function kdate(ds){var d=new Date(ds+'T00:00:00');return (d.getMonth()+1)+'월 '+d.getDate()+'일 ('+WD[d.getDay()]+')'}
 function dlab(n){return n==null?'미정':n===0?'D-day':n>0?'D-'+n:'D+'+(-n)}
