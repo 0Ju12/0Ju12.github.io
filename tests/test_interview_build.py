@@ -56,15 +56,24 @@ class CareerContentTest(unittest.TestCase):
         self.assertIn('[실제로',rows[1]['draft'])
         prep['essays'].reverse()
         self.assertEqual(rows[0]['id'],prepare_essays(prep)[1]['id'])
-    def test_intro_is_one_slide_and_projects_include_limits(self):
+    def test_every_deck_has_five_to_ten_minutes_and_sourced_figures(self):
+        import yaml
         from career_content import rebuild_decks
-        p={'id':'sample','title':'검증 프로젝트','digest':{'problem':'작은 데이터','role':'분석 담당','did':['검증 기준 설계'],'result':['데이터 조건 내 결과']}}
-        data={'profile':{'name':'검증 사용자'},'case_notes':{'sample':{'ko':{'tradeoffs':['비교 기준 확인'],'next':['다른 데이터 검증 필요']}}}}
-        rows=rebuild_decks(data,{'data':{'label':'데이터','order':['g']}},[({'id':'g'},p)])
-        self.assertEqual(len(rows[0]['slides']),1)
-        self.assertTrue(any(d['kind']=='role' and d['min']==5 for d in rows))
-        project=next(d for d in rows if d['kind']=='project')
-        self.assertIn('다른 데이터 검증 필요',project['slides'][-1]['note'])
+        data=yaml.safe_load((ROOT/'data/portfolio.yaml').read_text())
+        data['case_notes']=yaml.safe_load((ROOT/'data/case_notes.yaml').read_text())
+        variants=yaml.safe_load((ROOT/'data/resume_variants.yaml').read_text())
+        rows=rebuild_decks(data,variants,interview._projects(data))
+        self.assertEqual(len(rows),13)
+        for deck in rows:
+            self.assertTrue(300<=deck['estimated_seconds']<=600,deck['id'])
+            figures=[s for s in deck['slides'] if s.get('img')]
+            self.assertGreaterEqual(len(figures),3)
+            self.assertGreaterEqual(len(deck['slides']),12)
+            for figure in figures:
+                self.assertTrue((ROOT/'docs/interview'/figure['img']).resolve().exists(),figure['img'])
+                self.assertTrue(figure['credit'])
+                self.assertTrue(figure['image_source'].startswith('https://'))
+        self.assertIn('BERTScore',str(next(d for d in rows if d['id']=='posco-pospeak')))
 
 class AuthoredCopyTest(unittest.TestCase):
     def test_all_current_essay_prompts_have_distinct_authored_copy(self):

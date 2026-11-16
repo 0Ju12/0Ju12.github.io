@@ -1,39 +1,39 @@
 /* Local edits always overlay the generated source; exports use the same overlay. */
-function effectiveDeck(original){var base=DECKS.filter(function(x){return x.id===original.id})[0]||original,d=JSON.parse(JSON.stringify(base)),r=S.deckEdits[d.id];if(r&&!r.useOriginal)d.slides=JSON.parse(JSON.stringify(r.slides));d.estimated_seconds=Math.round(d.slides.reduce(function(n,x){return n+(x.note||'').length},0)/6.5);return d}
-function saveDeckEdit(d,index,key,value){var current=effectiveDeck(d),r=S.deckEdits[d.id],slide=current.slides[index];if(!slide)return false;slide[key]=key==='items'?value.split('\n').filter(function(x){return x.trim()}):value;current.slides.forEach(function(x){x.h=x.h||'';x.note=x.note||'';x.items=x.items||[]});S.deckEdits[d.id]={slides:current.slides,ts:stamp(r&&r.ts),useOriginal:false};return save()}
-function deckEditor(d,i){var s=d.slides[i];return '<details class="card" style="margin:15px 0"><summary><b>이 슬라이드·발표 대본 수정</b></summary><p class="small muted">입력 즉시 이 브라우저에 저장됩니다. 수정한 내용이 발표자 모드·PDF·PPTX에 함께 적용됩니다.</p>'+[['h','제목'],['kicker','상단 설명'],['sub','부제'],['items','핵심 문장 · 한 줄에 하나'],['note','발표 대본']].map(function(x){return '<label style="display:block;margin:12px 0">'+x[1]+'<textarea rows="'+(x[0]==='note'?7:3)+'" data-deck-field="'+x[0]+'" aria-label="슬라이드 '+x[1]+'">'+esc(x[0]==='items'?(s.items||[]).map(function(v){return Array.isArray(v)?v.join(' · '):v}).join('\n'):s[x[0]]||'')+'</textarea></label>'}).join('')+'<div class="row"><button class="btn sm" id="deck-preview">저장 내용으로 미리보기 갱신</button><button class="btn ghost sm" id="deck-original">전체 발표를 원본으로 복원</button><span id="deck-save-status" class="small muted" role="status"></span></div></details>'}
+function effectiveDeck(original){var base=DECKS.filter(function(x){return x.id===original.id})[0]||original,d=JSON.parse(JSON.stringify(base)),r=S.deckEdits[d.id];d.hasNewSource=!!(r&&!r.useOriginal&&r.revision!==d.revision);if(r&&!r.useOriginal)d.slides=JSON.parse(JSON.stringify(r.slides));d.estimated_seconds=Math.round(d.slides.reduce(function(n,x){return n+(x.note||'').length},0)/6.5);return d}
+function saveDeckEdit(d,index,key,value){var current=effectiveDeck(d),r=S.deckEdits[d.id],slide=current.slides[index];if(!slide)return false;slide[key]=key==='items'?value.split('\n').filter(function(x){return x.trim()}):value;current.slides.forEach(function(x){x.h=x.h||'';x.note=x.note||'';x.items=x.items||[]});S.deckEdits[d.id]={slides:current.slides,ts:stamp(r&&r.ts),useOriginal:false,revision:d.revision||''};return save()}
+function deckEditor(d,i){var s=d.slides[i];return '<details class="card" style="margin:15px 0"><summary><b>이 슬라이드·발표 대본 수정</b></summary><p class="small muted">입력 즉시 이 브라우저에 저장됩니다. 수정한 내용이 발표자 모드·PDF·PPTX에 함께 적용됩니다.</p>'+[['h','제목'],['kicker','상단 설명'],['sub','부제'],['items','핵심 문장 · 한 줄에 하나'],['note','발표 대본'],['caption','그림 설명'],['credit','그림 출처 표시']].map(function(x){return '<label style="display:block;margin:12px 0">'+x[1]+'<textarea rows="'+(x[0]==='note'?7:3)+'" data-deck-field="'+x[0]+'" aria-label="슬라이드 '+x[1]+'">'+esc(x[0]==='items'?(s.items||[]).map(function(v){return Array.isArray(v)?v.join(' · '):v}).join('\n'):s[x[0]]||'')+'</textarea></label>'}).join('')+'<div class="row"><button class="btn sm" id="deck-preview">저장 내용으로 미리보기 갱신</button><button class="btn ghost sm" id="deck-original">새 5~10분 원본 적용</button><span id="deck-save-status" class="small muted" role="status"></span></div></details>'}
 /* ---------- 발표 ---------- */
 function slideHTML(s,i,n){
-  var body='';
+  var body='';var image=typeof s.img==='string'&&(/^(https:\/\/|\.\.\/assets\/)/.test(s.img))?s.img:'';
   if(s.t==='title'||s.t==='end')body=(s.kicker?'<div class="kick">'+esc(s.kicker)+'</div>':'')+'<h3>'+esc(s.h)+'</h3>'+(s.sub?'<p class="sub">'+esc(s.sub)+'</p>':'');
   else{
     var main='';
     if(s.t==='stats')main='<div class="stats">'+(s.items||[]).map(function(x){return '<div><b>'+esc(x[0])+'</b>'+(x[1]?'<span>'+esc(x[1])+'</span>':'')+'</div>'}).join('')+'</div>';
     else if(s.t==='bullets')main='<ul>'+(s.items||[]).map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>';
-    body='<div class="kick">'+esc(s.kicker||'')+'</div><h3>'+esc(s.h)+'</h3>'+(s.img&&s.t!=='stats'?'<div class="two"><div>'+main+'</div><img src="'+esc(s.img)+'" alt="" loading="lazy"></div>':main);
+    body='<div class="kick">'+esc(s.kicker||'')+'</div><h3>'+esc(s.h)+'</h3>'+(image&&s.layout==='figure'?'<figure class="slide-figure"><img src="'+esc(image)+'" alt="'+esc(s.caption||s.h)+'" loading="lazy"><figcaption>'+esc(s.caption||'')+'<span>'+esc(s.credit||'')+'</span></figcaption></figure>':image&&s.t!=='stats'?'<div class="two"><div>'+main+'</div><img src="'+esc(image)+'" alt="'+esc(s.caption||s.h)+'" loading="lazy"></div>':main);
   }
-  return '<div class="slide t-'+s.t+(s.layout==='intro'?' intro':'')+'"><div class="bar"></div><div class="in">'+body+'</div>'+(n?'<div class="pg">'+(i+1)+' / '+n+'</div>':'')+'</div>';
+  return '<div class="slide t-'+s.t+(s.layout==='intro'?' intro':s.layout==='figure'?' visual':'')+'"><div class="bar"></div><div class="in">'+body+'</div>'+(n?'<div class="pg">'+(i+1)+' / '+n+'</div>':'')+'</div>';
 }
 function decks(){
   var all=DECKS.map(effectiveDeck);var intro=all.filter(function(d){return d.kind==='intro'}),proj=all.filter(function(d){return d.kind==='project'});
   intro.sort(function(a,b){return (b.role===S.role)-(a.role===S.role)});
   var roles=all.filter(function(d){return d.kind==='role'});var card=function(d){return '<a class="card" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:10px" href="#/deck/'+d.id+'">'+slideHTML(d.slides[0])+'<b>'+esc(d.title)+'</b><span class="muted small">슬라이드 '+d.slides.length+'장 · 약 '+d.min+'분 목표 · 대본 약 '+d.estimated_seconds+'초</span></a>'};
-  $('#app').innerHTML='<h1>발표 자료</h1><p class="sub">1분 자기소개는 경험 하나, 3분 발표는 문제·판단·결과·한계, 5분 직무 발표는 경험 두 개로 다시 구성했습니다. 대본 시간은 글자 수 추정이며 실제 속도로 확인하세요. 열어서 <b>발표자 모드</b>(메모·시간)로 연습하고, <b>PDF</b>나 <b>PPTX</b>로 내려받아 다듬을 수 있습니다. 내려받은 파일은 이 기기에서 만들어집니다.</p><h2>자기소개</h2><div class="grid g3">'+intro.map(card).join('')+'</div><h2>5분 직무 발표</h2><div class="grid g3">'+roles.map(card).join('')+'</div><h2>프로젝트 발표</h2><div class="grid g3">'+proj.map(card).join('')+'</div>';
+  $('#app').innerHTML='<h1>발표 자료</h1><p class="sub">모든 발표를 5~10분 분량으로 확장했습니다. 기존 논문 그림·프로젝트 화면·참고 사진과 재구성한 개념도를 구분해 표시했습니다. 대본 시간은 글자 수 추정이며 실제 속도로 확인하세요. 열어서 <b>발표자 모드</b>(메모·시간)로 연습하고, <b>PDF</b>나 <b>PPTX</b>로 내려받아 다듬을 수 있습니다. 내려받은 파일은 이 기기에서 만들어집니다.</p><h2>경험 소개 · 5~10분</h2><div class="grid g3">'+intro.map(card).join('')+'</div><h2>직무 발표 · 5~10분</h2><div class="grid g3">'+roles.map(card).join('')+'</div><h2>프로젝트 발표</h2><div class="grid g3">'+proj.map(card).join('')+'</div>';
 }
 function deck(d,i){
   d=effectiveDeck(d);var n=d.slides.length;i=Math.max(0,Math.min(n-1,i||0));
   var h='<div class="deck-stage"><div class="row" style="justify-content:space-between;margin-bottom:12px"><span><a href="#/decks">← 발표 자료</a> · <b>'+esc(d.title)+'</b></span><span class="row"><button class="btn sm" id="dp">발표자 모드</button><button class="btn sm ghost" id="da">청중 화면</button><button class="btn sm ghost" id="dpdf">PDF</button><button class="btn sm ghost" id="dpptx">PPTX</button></span></div>';
-  h+=slideHTML(d.slides[i],i,n)+'<div class="row" style="justify-content:space-between;margin-top:10px"><button class="btn ghost sm" id="dprev"'+(i?'':' disabled')+'>← 이전</button><span class="muted small">'+(i+1)+' / '+n+' · ← → 키로 이동</span><button class="btn sm" id="dnext"'+(i<n-1?'':' disabled')+'>다음 →</button></div>';
-  h+='<div class="guide">'+esc(d.verify||'자료에 근거한 수정용 발표 초안입니다.')+'<div class="small">목표 '+d.min+'분 · 대본 약 '+d.estimated_seconds+'초 (글자 수 추정)</div>'+(d.sources||[]).filter(function(x){return /^https:\/\//.test(x.url)}).map(function(x){return '<a target="_blank" rel="noopener" href="'+esc(x.url)+'">'+esc(x.title)+'</a>'}).join(' · ')+'</div>'+deckEditor(d,i);
-  h+='<div class="note"><b>발표 메모</b><br>'+esc(d.slides[i].note||'')+'</div><div class="thumbs">'+d.slides.map(function(s,k){return '<div data-k="'+k+'" class="'+(k===i?'cur':'')+'">'+slideHTML(s).replace('class="slide','class="slide'+(k===i?' cur':''))+'</div>'}).join('')+'</div></div>';
+  if(d.hasNewSource)h+='<div class="guide">새 그림·대본이 포함된 원본이 있습니다. 현재는 이전에 수정한 자료를 보존해 보여 줍니다. 먼저 백업한 뒤 아래 [새 5~10분 원본 적용]으로 바꿀 수 있습니다.</div>';h+=slideHTML(d.slides[i],i,n)+'<div class="row" style="justify-content:space-between;margin-top:10px"><button class="btn ghost sm" id="dprev"'+(i?'':' disabled')+'>← 이전</button><span class="muted small">'+(i+1)+' / '+n+' · ← → 키로 이동</span><button class="btn sm" id="dnext"'+(i<n-1?'':' disabled')+'>다음 →</button></div>';
+  h+='<div class="guide">'+esc(d.verify||'자료에 근거한 수정용 발표 초안입니다.')+'<div class="small">5~10분 구성 · 대본 약 '+Math.floor(d.estimated_seconds/60)+'분 '+(d.estimated_seconds%60)+'초 (글자 수 추정)</div>'+(d.sources||[]).filter(function(x){return /^https:\/\//.test(x.url)}).map(function(x){return '<a target="_blank" rel="noopener" href="'+esc(x.url)+'">'+esc(x.title)+'</a>'}).join(' · ')+'</div>'+deckEditor(d,i);
+  h+='<div class="note"><b>발표 대본 · 이 슬라이드 약 '+(d.slides[i].seconds||Math.round((d.slides[i].note||'').length/6.5))+'초</b><br>'+esc(d.slides[i].note||'')+'</div><div class="thumbs">'+d.slides.map(function(s,k){return '<div data-k="'+k+'" class="'+(k===i?'cur':'')+'">'+slideHTML(s).replace('class="slide','class="slide'+(k===i?' cur':''))+'</div>'}).join('')+'</div></div>';
   $('#app').innerHTML=h;
   var go=function(k){history.replaceState(null,'','#/deck/'+d.id+'/'+k);deck(d,k)};
   $('#dprev').onclick=function(){go(i-1)};$('#dnext').onclick=function(){go(i+1)};
   $$('.thumbs [data-k]').forEach(function(t){t.onclick=function(){go(+t.dataset.k)}});
-  $$('[data-deck-field]').forEach(function(el){el.oninput=function(){var ok=saveDeckEdit(d,i,el.dataset.deckField,el.value);$('#deck-save-status').textContent=ok?'저장됨 · '+new Date().toLocaleTimeString():'저장 실패 · 백업을 내려받으세요.'}});$('#deck-preview').onclick=function(){deck(d,i)};$('#deck-original').onclick=function(){if(confirm('이 발표의 모든 수정을 원본으로 되돌릴까요? 먼저 백업 파일로 보관하세요.')){S.deckEdits[d.id]={slides:[],ts:stamp((S.deckEdits[d.id]||{}).ts),useOriginal:true};save();deck(d,i)}};
+  $$('[data-deck-field]').forEach(function(el){el.oninput=function(){var ok=saveDeckEdit(d,i,el.dataset.deckField,el.value);$('#deck-save-status').textContent=ok?'저장됨 · '+new Date().toLocaleTimeString():'저장 실패 · 백업을 내려받으세요.'}});$('#deck-preview').onclick=function(){deck(d,i)};$('#deck-original').onclick=function(){if(confirm('새 그림·5~10분 대본이 포함된 원본을 적용할까요? 현재 수정본은 먼저 [지금 백업]으로 보관하세요.')){S.deckEdits[d.id]={slides:[],ts:stamp((S.deckEdits[d.id]||{}).ts),useOriginal:true,revision:d.revision||''};save();deck(d,i)}};
   $('#dp').onclick=function(){present(effectiveDeck(d),i,false)};$('#da').onclick=function(){present(effectiveDeck(d),i,true)};
   $('#dpdf').onclick=function(){printDeck(effectiveDeck(d))};$('#dpptx').onclick=function(){pptx(effectiveDeck(d),this)};
-  keyHandler=function(e){if(e.key==='ArrowRight'&&i<n-1)go(i+1);else if(e.key==='ArrowLeft'&&i>0)go(i-1);else if(e.key==='p'||e.key==='P')present(d,i,false)};
+  keyHandler=function(e){if(e.key==='ArrowRight'&&i<n-1)go(i+1);else if(e.key==='ArrowLeft'&&i>0)go(i-1);else if(e.key==='p'||e.key==='P')present(effectiveDeck(d),i,false)};
 }
 function present(d,i,aud){
   var el=$('#pres'),n=d.slides.length,t0=Date.now(),tm;
@@ -52,11 +52,14 @@ function printDeck(d){var p=$('#print');p.innerHTML=d.slides.map(function(s,i){r
   if(!left)return fire();imgs.forEach(function(im){if(im.complete){if(!--left)fire()}else im.onload=im.onerror=function(){if(!--left)fire()}})}
 window.addEventListener('afterprint',function(){$('#print').innerHTML=''});
 function loadScript(src){return new Promise(function(ok,no){var s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=no;document.head.appendChild(s)})}
-function toDataURL(url){return fetch(url).then(function(r){if(!r.ok)throw 0;return r.blob()}).then(function(b){return new Promise(function(ok){var fr=new FileReader();fr.onload=function(){ok(fr.result)};fr.readAsDataURL(b)})})}
+function toDataURL(url){return fetch(url).then(function(r){if(!r.ok)throw Error('image');return r.blob()}).then(function(b){return new Promise(function(ok,no){var fr=new FileReader();fr.onerror=no;fr.onload=function(){if(b.type.indexOf('svg')<0)return ok(fr.result);var im=new Image();im.onerror=no;im.onload=function(){var c=document.createElement('canvas');c.width=im.naturalWidth||1440;c.height=im.naturalHeight||800;c.getContext('2d').drawImage(im,0,0,c.width,c.height);ok(c.toDataURL('image/png'))};im.src=fr.result};fr.readAsDataURL(b)})})}
+function imageInfo(url){return toDataURL(url).then(function(data){return new Promise(function(ok,no){var im=new Image();im.onload=function(){ok({data:data,w:im.naturalWidth,h:im.naturalHeight})};im.onerror=no;im.src=data})})}
+function containImage(info,x,y,w,h){var scale=Math.min(w/info.w,h/info.h),iw=info.w*scale,ih=info.h*scale;return {data:info.data,x:x+(w-iw)/2,y:y+(h-ih)/2,w:iw,h:ih}}
+
 function pptx(d,btn){
   btn.disabled=true;btn.textContent='만드는 중…';
   (window.PptxGenJS?Promise.resolve():loadScript('https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js')).then(function(){
-    return Promise.all(d.slides.map(function(s){return s.img?toDataURL(s.img).catch(function(){return null}):Promise.resolve(null)}))
+    return Promise.all(d.slides.map(function(s){return s.img?imageInfo(s.img):Promise.resolve(null)}))
   }).then(function(imgs){
     var P=new window.PptxGenJS();P.layout='LAYOUT_WIDE';P.title=d.title;P.author=D.name;
     var F='Malgun Gothic',INK='1F3A5F',ACC='D97706',TXT='1F2937';
@@ -68,14 +71,14 @@ function pptx(d,btn){
       }else{
         sl.addText(s.kicker||'',{x:0.9,y:0.6,w:11.5,h:0.4,fontFace:F,fontSize:14,bold:true,color:ACC});
         sl.addText(s.h,{x:0.9,y:1.0,w:11.5,h:s.t==='text'?2.2:1.1,fontFace:F,fontSize:s.t==='text'?26:28,bold:true,color:head,valign:'top'});
-        var w=imgs[i]&&s.t!=='stats'?6.6:11.5;
-        if(s.t==='bullets')sl.addText((s.items||[]).map(function(x){return {text:x,options:{bullet:true,breakLine:true}}}),{x:0.9,y:2.3,w:w,h:4.5,fontFace:F,fontSize:17,color:dark?'E4EDF5':TXT,valign:'top',paraSpaceAfter:8});
+        var figure=s.layout==='figure'&&imgs[i],w=imgs[i]&&s.t!=='stats'?6.6:11.5;
+        if(s.t==='bullets'&&!figure)sl.addText((s.items||[]).map(function(x){return {text:x,options:{bullet:true,breakLine:true}}}),{x:0.9,y:2.3,w:w,h:4.5,fontFace:F,fontSize:17,color:dark?'E4EDF5':TXT,valign:'top',paraSpaceAfter:8});
         if(s.t==='stats')(s.items||[]).forEach(function(x,k){var cx=0.9+(k%2)*5.85,cy=2.4+Math.floor(k/2)*2.15;sl.addShape(P.ShapeType.roundRect,{x:cx,y:cy,w:5.6,h:1.9,fill:{color:'F1F5F9'},line:{color:'F1F5F9'},rectRadius:0.12});
           sl.addText([{text:x[0],options:{fontSize:20,bold:true,color:INK,breakLine:true}},{text:x[1]||'',options:{fontSize:12,color:'6B7280'}}],{x:cx+0.25,y:cy+0.15,w:5.1,h:1.6,fontFace:F,valign:'middle'})});
-        if(imgs[i]&&s.t!=='stats')sl.addImage({data:imgs[i],x:7.8,y:2.3,w:4.8,h:3.6,sizing:{type:'contain',w:4.8,h:3.6}});
+        if(figure){sl.addImage(containImage(imgs[i],.65,2.0,12.0,4.3));sl.addText(s.caption||'',{x:.8,y:6.35,w:11.5,h:.26,fontFace:F,fontSize:10,color:TXT});sl.addText(s.credit||'',{x:.8,y:6.64,w:10.5,h:.24,fontFace:F,fontSize:8.5,color:'697586'});if(/^https:\/\//.test(s.image_source||''))sl.addText('이미지 원문',{x:11,y:6.64,w:1.5,h:.24,fontFace:F,fontSize:8.5,color:'697586',hyperlink:{url:s.image_source}})}else if(imgs[i]&&s.t!=='stats')sl.addImage(containImage(imgs[i],7.8,2.3,4.8,3.6));
       }
       sl.addText((i+1)+' / '+d.slides.length,{x:11.6,y:6.9,w:1.4,h:0.35,fontFace:F,fontSize:10,color:'9CA3AF',align:'right'});
-      if(s.note)sl.addNotes(s.note)});
+      if(s.note)sl.addNotes(s.note+'\n\n[슬라이드 권장 시간] '+(s.seconds||Math.round(s.note.length/6.5))+'초'+(s.credit?'\n[이미지 출처] '+s.credit:'')+(s.image_source?'\n'+s.image_source:'')+(s.source_url?'\n[내용 근거] '+s.source_url:''))});
     return P.writeFile({fileName:'발표_'+d.title.replace(/[\\/:*?"<>| ]+/g,'_')+'.pptx'});
-  }).then(function(){toast('PPTX를 내려받았습니다. 발표자 메모도 들어 있습니다.')}).catch(function(){toast('PPTX를 만들지 못했습니다. 인터넷 연결을 확인하고 다시 눌러 주세요.')}).then(function(){btn.disabled=false;btn.textContent='PPTX'});
+  }).then(function(){toast('PPTX를 내려받았습니다. 발표자 메모도 들어 있습니다.')}).catch(function(){toast('PPTX를 만들지 못했습니다. 그림이나 라이브러리를 불러오지 못했을 수 있습니다. 연결을 확인해 주세요.')}).then(function(){btn.disabled=false;btn.textContent='PPTX'});
 }
