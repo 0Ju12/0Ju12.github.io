@@ -167,7 +167,6 @@ SSAFY에서 LLM 데이터 파이프라인·Django 서비스와 VQA 모델 앙상
 - **AI·데이터 분석** 시공간 딥러닝(U-LSTM), CNN·LSTM, LLM 파인튜닝(FLAN-T5·Qwen·Gemma, LoRA·QLoRA), 멀티모델 확률 앙상블, RAG(LangGraph·ChromaDB·FAISS), 모델 평가(F1·BERTScore)
 - **데이터 엔지니어링** dbt(DuckDB), 차원 모델링·SCD 2형, 데이터 품질 테스트, Airflow DAG 작성, GitHub Actions
 - **공간·지구물리 데이터** ArcGIS, 래스터 데이터 구축, 중력·자력 자료 처리, 파수 상관 분석, 탄성파 자료 해석, GPlates
-- **도메인** CCS(이산화탄소 지중저장), 에너지·자원, 재난(산불) 예측
 
 ## 🎓 학력
 - **삼성 청년 SW·AI 아카데미 (SSAFY)** 16기 교육 과정 (2026.07 – 진행 중)

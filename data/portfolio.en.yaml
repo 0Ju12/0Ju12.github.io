@@ -79,15 +79,13 @@ education:
 
 skills:
   - category: Languages & frameworks
-    items: [Python, PyTorch, TensorFlow, Hugging Face, Pandas, Django, FastAPI, SQL]
+    items: [Python, SQL, PyTorch, Hugging Face, Pandas, Django, FastAPI]
   - category: AI & data analysis
-    items: [Spatiotemporal DL (U-LSTM), LLM fine-tuning (LoRA/QLoRA), Model ensembles, RAG (LangGraph · ChromaDB · FAISS), F1 · BERTScore]
+    items: ["U-LSTM", "LoRA/QLoRA fine-tuning", Model ensembles, "RAG (LangGraph · ChromaDB)"]
   - category: Data engineering
     items: ["dbt (DuckDB)", SCD2 modelling, Data tests, Airflow, GitHub Actions]
   - category: Spatial & geophysical data
-    items: [ArcGIS, Gravity & magnetics, Wavenumber correlation, Seismic interpretation]
-  - category: Domain
-    items: [CCS, Energy & resources, Wildfire prediction]
+    items: [ArcGIS, Gravity & magnetics, Seismic interpretation]
 
 activities:
   - id: grad

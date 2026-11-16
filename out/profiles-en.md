@@ -199,7 +199,7 @@ Details: https://0ju12.github.io/projects/wildfire-capstone-en.html
 ## 5. 스킬 (LinkedIn Skills — 최대 50개, 상위 5개가 프로필에 노출)
 
 ```
-Python, PyTorch, TensorFlow, Hugging Face, Pandas, Django, FastAPI, SQL, Spatiotemporal DL (U-LSTM), LLM fine-tuning (LoRA/QLoRA), Model ensembles, RAG (LangGraph · ChromaDB · FAISS), F1 · BERTScore, dbt (DuckDB), SCD2 modelling, Data tests, Airflow, GitHub Actions, ArcGIS, Gravity & magnetics, Wavenumber correlation, Seismic interpretation, CCS, Energy & resources, Wildfire prediction
+Python, SQL, PyTorch, Hugging Face, Pandas, Django, FastAPI, U-LSTM, LoRA/QLoRA fine-tuning, Model ensembles, RAG (LangGraph · ChromaDB), dbt (DuckDB), SCD2 modelling, Data tests, Airflow, GitHub Actions, ArcGIS, Gravity & magnetics, Seismic interpretation
 ```
 
 ## 6. 수상·자격 (LinkedIn "Honors & awards" / "Licenses & certifications")
