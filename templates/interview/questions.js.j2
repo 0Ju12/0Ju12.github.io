@@ -1,0 +1,25 @@
+/* ---------- 질문 ---------- */
+var qq='';
+function questions(c,g){
+  if(GROUPS.indexOf(c)>=0&&CATS.indexOf(c)<0){g=c;c=(QS.filter(function(q){return q.g===g})[0]||{}).c||''}
+  c=CATS.indexOf(c)>=0?c:'';var gs=groupsOf(c);g=gs.indexOf(g)>=0?g:'';
+  var h='<h1>질문 은행</h1><div class="row" style="margin:12px 0"><a class="btn ghost sm" href="#/questions">취업 면접 질문</a><a class="btn ghost sm" href="#/questions/OPIc">OPIc 학습 질문</a><a class="btn sm" href="#/opic-exam">OPIc 40분 실전 모드 →</a></div><p class="sub"><span class="tag bank">참고 답변</span> 답변 구조 비교 · <span class="tag mine">내 답변</span> 면접 노트 · <span class="tag skeleton">답변 뼈대</span> 포트폴리오 사실 · <span class="tag trend">AI 트렌드</span> 연재 글. 예시는 정답이 아닙니다. 내 경험으로 수정하고 출처와 한계를 확인하세요.</p>';
+  h+='<input class="search" id="qs" type="search" placeholder="질문 · 답변 검색" value="'+esc(qq)+'" aria-label="질문 검색">';
+  h+='<div class="chips" style="margin:12px 0 8px"><button class="chip'+(c?'':' on')+'" data-c="">전체 '+QS.length+'</button>'+CATS.filter(function(x){return x!=='OPIc'||c==='OPIc'}).map(function(x){return '<button class="chip'+(x===c?' on':'')+'" data-c="'+esc(x)+'">'+esc(x)+' '+QS.filter(function(q){return q.c===x}).length+'</button>'}).join('')+'</div>';
+  if(c)h+='<div class="chips" style="margin:0 0 16px"><button class="chip'+(g?'':' on')+'" data-g="">'+esc(c)+' 전체</button>'+gs.map(function(x){return '<button class="chip'+(x===g?' on':'')+'" data-g="'+esc(x)+'">'+esc(x)+' '+QS.filter(function(q){return q.c===c&&q.g===x}).length+'</button>'}).join('')+'</div>';
+  h+='<div class="grid" id="ql" style="margin-top:12px"></div>';
+  $('#app').innerHTML=h;
+  $$('[data-c]').forEach(function(b){b.onclick=function(){location.hash='#/questions/'+encodeURIComponent(b.dataset.c)}});
+  $$('[data-g]').forEach(function(b){b.onclick=function(){location.hash='#/questions/'+encodeURIComponent(c)+(b.dataset.g?'/'+encodeURIComponent(b.dataset.g):'')}});
+  var draw=function(){var s=qq.trim().toLowerCase();
+    var list=QS.filter(function(q){return (c?q.c===c:q.c!=='OPIc')&&(!g||q.g===g)&&(!s||(q.q+' '+getAnswer(q)+' '+(q.exp||'')+' '+(S.memo[q.id]||'')).toLowerCase().indexOf(s)>=0)});
+    $('#ql').innerHTML=list.length?list.map(function(q){var r=S.q[q.id];return '<details class="card qcard"><summary><b>'+esc(q.q)+'</b><span class="tag">'+esc(q.c)+'</span><span class="tag '+q.kind+'">'+KIND[q.kind]+'</span>'+(r?'<span class="tag">'+r.ok+'/'+r.n+'</span>':'')+'</summary><div class="qbody">'+
+      answerHTML(q)+
+      '<textarea rows="3" data-memo="'+esc(q.id)+'" placeholder="내 말로 바꾼 답변 메모 (이 브라우저에 저장)">'+esc(S.memo[q.id]||'')+'</textarea>'+
+      '<div class="row" style="margin-top:8px;justify-content:space-between"><span class="row"><button class="star'+(S.star[q.id]?' on':'')+'" data-star="'+esc(q.id)+'" aria-label="별표">★</button>'+(q.link?'<a class="small" href="'+esc(q.link)+'">'+(q.src?esc(q.src):'근거 보기')+' →</a>':'')+'</span><button class="btn sm" data-one="'+esc(q.id)+'">이 질문 연습</button></div></div></details>'}).join(''):'<div class="card empty">맞는 질문이 없습니다.</div>';
+    $$('[data-memo]').forEach(function(t){t.oninput=function(){setMemo(t.dataset.memo,t.value);clearTimeout(t._s);t._s=setTimeout(save,400)}});
+    $$('[data-star]').forEach(function(b){b.onclick=function(){var k=b.dataset.star;setStar(k,!S.star[k]);b.classList.toggle('on',!!S.star[k])}});
+    $$('[data-one]').forEach(function(b){b.onclick=function(){startMock([Q[b.dataset.one]],{sec:90,rec:false,label:'개별 연습 · 실전 시험 아님'})}});
+  };
+  draw();$('#qs').oninput=function(e){qq=e.target.value;draw()};
+}

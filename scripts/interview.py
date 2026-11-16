@@ -6,6 +6,8 @@
   PDF(브라우저 인쇄)·PPTX(브라우저에서 PptxGenJS 로 생성)는 잠금을 푼 화면에서만 만들어져 평문 파일이 docs/ 에 남지 않음
 """
 import json, os, re
+from datetime import datetime, timezone
+from uuid import uuid4
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -92,6 +94,16 @@ def questions(data, trend_posts):
         g = _group(q.get("group"))
         qs.append({"id": "n:" + q.get("id", ""), "c": GROUP_CAT.get(g, "기타"), "g": g, "q": q.get("title", ""),
                    "a": vs[-1]["text"] if vs else "", "guide": q.get("guide", ""), "kind": "mine"})
+    # User-editable personal drafts remain in the existing private/sealed workflow.
+    for b in _private("interview_drafts.json", ROOT / "content" / "private" / "interview_drafts.json"):
+        if not b.get("q") or not b.get("a"):
+            continue
+        qid = b.get("id") or "draft:" + __import__("hashlib").sha256(b["q"].encode()).hexdigest()[:12]
+        qs.append({"id": qid, "c": b.get("c") if b.get("c") in CATS else "기타",
+                   "g": b.get("g") or "자료 기반 1분 초안", "q": b["q"], "a": b["a"],
+                   "kind": "draft", "guide": b.get("guide", ""), "verify": b.get("verify", ""),
+                   "tail": b.get("tail") or [], "sources": b.get("sources") or [],
+                   "target_seconds": 60, "proposed_position": bool(b.get("proposed_position"))})
     import hashlib
     for b in _bank_questions():
         qs.append({"id": "b:" + hashlib.sha1(b["q"].encode()).hexdigest()[:10], "c": b["c"] if b.get("c") in CATS else "기타",
@@ -231,6 +243,22 @@ def build(env, data):
     app["prep"] = {k: prep.get(k) for k in ("updated", "goals", "weekly", "experiences", "essays")}
     app["prep"]["opic_types"] = (prep.get("opic") or {}).get("types") or []
     app["prep"]["opic_tip"] = (prep.get("opic") or {}).get("tip", "")
+    built_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    release = {"version": uuid4().hex, "built_at": built_at}
+    app["metadata"] = dict(release, sources=[
+        {"name": "면접 노트·질문은행", "path": "content/private/ · content/private_sealed/",
+         "updated": "", "description": "개인 답변과 질문은행을 이번 빌드에서 합쳤습니다. 원본별 확인일은 별도로 제공되지 않습니다."},
+        {"name": "포트폴리오 프로젝트", "path": "data/portfolio.yaml · data/case_notes.yaml",
+         "updated": "", "description": "프로젝트 사실·성과·설계 판단을 답변과 발표 자료에 반영합니다."},
+        {"name": "준비 계획·OPIc", "path": "data/prep.yaml", "updated": prep.get("updated", ""),
+         "description": "목표 일정, 주간 계획, 자소서·OPIc 문항의 자료 확인일입니다."},
+        {"name": "공채 정보", "path": "data/recruit.yaml", "updated": app["recruit"].get("checked", ""),
+         "description": "지원 조건과 면접 정보는 해당 확인일의 스냅샷입니다. 지원 전 공식 공고를 확인하세요."},
+        {"name": "알고리즘 기록", "path": "data/algo_solved.yaml", "updated": seed.get("updated", ""),
+         "description": "드라이브 풀이 기록을 빌드 시 가져온 자료입니다."},
+    ])
+    # Public metadata contains no questions, answers or private file contents.
+    (OUT / "version.json").write_text(json.dumps(release), encoding="utf-8")
     html = env.get_template("interview.html.j2").render(app=app, **data)
     (OUT / "index.html").write_text(locker.page("면접 준비", html, "../index.html", pwa=False), encoding="utf-8")
     return {"questions": len(app["questions"]), "decks": len(app["decks"])} if locker.password else None

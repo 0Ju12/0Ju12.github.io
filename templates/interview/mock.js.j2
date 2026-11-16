@@ -1,0 +1,61 @@
+/* ---------- 모의 면접 ---------- */
+var mock=null,mcfg={groups:[],count:5,sec:60,rec:false,mode:'new'};
+function mockSetup(){
+  var h='<h1>취업 모의 면접</h1><p class="sub">아래는 취업 면접 연습입니다. OPIc은 하단의 별도 실전 모드를 이용하세요. 질문이 나오면 [답변 시작]을 누르고 소리 내어 답합니다. 시간이 끝나거나 [답변 끝]을 누르면 답변 뼈대와 비교해 스스로 채점합니다.</p><div class="card setup">';
+  h+='<label>질문 분류</label><div class="chips" id="mg">'+CATS.filter(function(g){return g!=='OPIc'}).map(function(g){return '<button class="chip'+(mcfg.groups.indexOf(g)>=0?' on':'')+'" data-g="'+esc(g)+'">'+esc(g)+' '+QS.filter(function(q){return q.c===g}).length+'</button>'}).join('')+'</div><p class="faint small" style="margin:6px 0 0">고르지 않으면 전체에서 냅니다.</p>';
+  h+='<label>어떤 질문부터</label><div class="chips" id="mm">'+[['new','안 해 본 질문 먼저'],['weak','헷갈렸거나 몰랐던 질문'],['star','별표한 질문'],['all','무작위']].map(function(m){return '<button class="chip'+(mcfg.mode===m[0]?' on':'')+'" data-m="'+m[0]+'">'+m[1]+'</button>'}).join('')+'</div>';
+  h+='<label>문항 수</label><div class="chips" id="mc">'+[3,5,10].map(function(c){return '<button class="chip'+(mcfg.count===c?' on':'')+'" data-c="'+c+'">'+c+'문항</button>'}).join('')+'</div>';
+  h+='<label>답변 시간</label><div class="chips" id="ms">'+[45,60,90,120].map(function(c){return '<button class="chip'+(mcfg.sec===c?' on':'')+'" data-s="'+c+'">'+c+'초</button>'}).join('')+'</div>';
+  h+='<label>녹음</label><div class="chips"><button class="chip'+(mcfg.rec?' on':'')+'" id="mr">'+(mcfg.rec?'켜짐 — 답변을 녹음해 바로 다시 듣기':'꺼짐')+'</button></div><p class="faint small" style="margin:6px 0 0">녹음 파일은 이 탭에서만 재생합니다. OPIc·말하기의 받아쓰기는 브라우저 음성 인식을 사용하며, 브라우저 제공자의 서버 처리가 포함될 수 있습니다.</p>';
+  h+='<div class="row" style="margin-top:20px;justify-content:space-between"><span class="muted small" id="mav"></span><button class="btn" id="mgo">시작</button></div></div><div class="card row" style="margin-top:12px;justify-content:space-between"><span><b>OPIc 형식 · 별도 실전 모드</b><span class="muted small"> · 설문·자기평가·전체 40분·중간 난이도 조정</span></span><button class="btn ghost" id="mopic">OPIc 시작</button></div>';
+  if(S.mocks.length)h+='<h2>지난 모의 면접</h2><div class="card"><table style="width:100%;border-collapse:collapse;font-size:14px">'+S.mocks.slice(-8).reverse().map(function(m){return '<tr><td style="padding:6px 0">'+esc(m.d)+'</td><td>'+esc(m.label||'')+'</td><td>'+m.n+'문항</td><td>알았다 '+m.ok+' · 헷갈림 '+m.mid+' · 몰랐다 '+m.bad+'</td></tr>'}).join('')+'</table></div>';
+  $('#app').innerHTML=h;
+  var pool=function(){var qs=QS.filter(function(q){return q.c!=='OPIc'&&(!mcfg.groups.length||mcfg.groups.indexOf(q.c)>=0)});
+    if(mcfg.mode==='weak')qs=qs.filter(function(q){var r=S.q[q.id];return r&&r.s!=='ok'});
+    if(mcfg.mode==='star')qs=qs.filter(function(q){return S.star[q.id]});
+    return qs};
+  var upd=function(){var n=pool().length;$('#mav').textContent='조건에 맞는 질문 '+n+'개';$('#mgo').disabled=!n};
+  $$('#mg [data-g]').forEach(function(b){b.onclick=function(){var i=mcfg.groups.indexOf(b.dataset.g);if(i>=0)mcfg.groups.splice(i,1);else mcfg.groups.push(b.dataset.g);b.classList.toggle('on');upd()}});
+  $$('#mm [data-m]').forEach(function(b){b.onclick=function(){mcfg.mode=b.dataset.m;$$('#mm .chip').forEach(function(x){x.classList.toggle('on',x===b)});upd()}});
+  $$('#mc [data-c]').forEach(function(b){b.onclick=function(){mcfg.count=+b.dataset.c;$$('#mc .chip').forEach(function(x){x.classList.toggle('on',x===b)})}});
+  $$('#ms [data-s]').forEach(function(b){b.onclick=function(){mcfg.sec=+b.dataset.s;$$('#ms .chip').forEach(function(x){x.classList.toggle('on',x===b)})}});
+  $('#mr').onclick=function(){mcfg.rec=!mcfg.rec;mockSetup()};
+  $('#mgo').onclick=function(){var qs=pool();qs=mcfg.mode==='new'?shuffle(qs.filter(function(q){return !S.q[q.id]})).concat(shuffle(qs.filter(function(q){return S.q[q.id]}))):shuffle(qs);startMock(qs.slice(0,mcfg.count),{sec:mcfg.sec,rec:mcfg.rec,label:mcfg.groups.join(', ')||'전체'})};
+  $('#mopic').onclick=startOpic;upd();
+}
+function startMock(qs,opt){if(!qs.length){toast('질문이 없습니다.');return}mock={qs:qs,i:0,opt:opt,res:[],st:'ready',url:null};if(location.hash==='#/mock/play')mockPlay();else location.hash='#/mock/play'}
+{% include 'interview/recorder.js.j2' %}
+function mockPlay(){
+  var m=mock;if(m.i>=m.qs.length)return mockDone();
+  var q=m.qs[m.i];
+  var h='<div class="q"><div class="row" style="justify-content:space-between"><span class="muted small">'+esc(m.opt.label)+' · '+(m.i+1)+' / '+m.qs.length+'</span><span class="tag">'+esc(q.g)+'</span></div><div class="prompt">'+esc(q.q)+'</div>';
+  if(m.st==='ready')h+='<div class="clock">'+fmt(m.opt.opic&&q.sec?q.sec:m.opt.sec)+'</div><div class="row" style="justify-content:center"><button class="btn" id="mstart">답변 시작 <span class="small" style="opacity:.7">Space</span></button><button class="btn ghost" id="mskip">답 바로 보기</button></div>';
+  else if(m.st==='finishing')h+='<p class="muted" role="status">녹음을 마무리하고 있습니다…</p>';
+  else if(m.st==='talk')h+='<div class="clock" id="mclock">'+fmt(m.left)+'</div><div class="row" style="justify-content:center">'+(m.recState==='recording'?'<span class="rec"><i></i>녹음 중</span>':m.recState==='pending'?'<span class="muted small">마이크 연결 중…</span>':'')+'<button class="btn" id="mend">답변 끝 <span class="small" style="opacity:.7">Space</span></button></div>'+(m.opt.opic&&SR?'<p class="live" id="live" aria-live="polite">'+esc(((m.tr||'')+(m.tri||'')).slice(-220))+'</p>':'');
+  else{
+    h+=(m.url?'<audio controls src="'+m.url+'" style="width:100%;margin:6px 0 4px"></audio>':'')+'<p class="muted small" style="margin:6px 0 0">'+(m.used!=null?'답변 시간 '+m.used+'초 · ':'')+'아래 답과 비교해 보세요.</p>';
+    if(m.opt.opic&&m.an)h+='<div class="lbl">내 답변 분석</div>'+(m.an.words?'<div class="ans" style="margin-top:0">'+esc(((m.tr||'')+' '+(m.tri||'')).trim())+'</div>':'')+analysisHTML(m.an);
+    h+=answerHTML(q)+(S.memo[q.id]?'<div class="lbl">내 메모</div><div class="ans" style="margin-top:0">'+esc(S.memo[q.id])+'</div>':'');
+    h+='<div class="grade"><button class="g-ok" data-gr="ok">알았다 1</button><button class="g-mid" data-gr="mid">헷갈렸다 2</button><button class="g-bad" data-gr="bad">몰랐다 3</button></div>';
+  }
+  h+='<div class="row" style="margin-top:18px"><a class="btn ghost sm" href="#/mock">그만하기</a></div></div>';
+  $('#app').innerHTML=h;
+  var go=function(){var sec=m.opt.opic&&q.sec?q.sec:m.opt.sec;m.st='talk';m.left=sec;m.t0=Date.now();m.an=null;if(m.opt.rec)startRec();if(m.opt.opic)srStart(m);mockPlay();
+    timer=setInterval(function(){m.left=Math.max(0,sec-Math.floor((Date.now()-m.t0)/1000));var c=$('#mclock');if(c){c.textContent=fmt(m.left);c.classList.toggle('low',m.left<=10)}if(!m.left)end()},250)};
+  var end=async function(){if(m.st!=='talk')return;if(timer){clearInterval(timer);timer=null}m.used=Math.round((Date.now()-m.t0)/1000);var index=m.i;m.st='finishing';mockPlay();
+    var results=await Promise.all([m.opt.rec?stopRec():Promise.resolve(null),m.opt.opic?srStop():Promise.resolve()]);
+    if(mock!==m||m.i!==index||m.st!=='finishing'||location.hash!=='#/mock/play')return;
+    if(results[0])m.url=URL.createObjectURL(results[0]);
+    if(m.opt.opic&&SR){var txt=((m.tr||'')+' '+(m.tri||'')).trim(),an=analyze(txt,m.used);m.an=an;if(an.words){var rec={d:today(),q:q.q,text:txt};Object.keys(an).forEach(function(k){rec[k]=an[k]});S.opic.push(rec);if(S.opic.length>200)S.opic=S.opic.slice(-200);save()}}
+    m.st='review';mockPlay()};
+  var b=$('#mstart');if(b)b.onclick=go;var s=$('#mskip');if(s)s.onclick=function(){m.st='review';m.used=null;mockPlay()};var e=$('#mend');if(e)e.onclick=end;
+  $$('[data-gr]').forEach(function(x){x.onclick=function(){grade(x.dataset.gr)}});
+  function grade(g){record(q.id,g);m.res.push(g);if(m.url){URL.revokeObjectURL(m.url);m.url=null}m.i++;m.st='ready';mockPlay()}
+  keyHandler=function(ev){if(ev.key===' '){ev.preventDefault();if(m.st==='ready')go();else if(m.st==='talk')end()}else if(m.st==='review'&&/^[123]$/.test(ev.key))grade(['ok','mid','bad'][ev.key-1])};
+}
+function fmt(t){return Math.floor(t/60)+':'+String(t%60).padStart(2,'0')}
+function mockDone(){var m=mock,c=function(g){return m.res.filter(function(x){return x===g}).length};
+  S.mocks.push({d:today(),label:m.opt.label,n:m.res.length,ok:c('ok'),mid:c('mid'),bad:c('bad')});if(S.mocks.length>100)S.mocks=S.mocks.slice(-100);save();if(m.res.length){wadd(m.opt.opic?'opic':'mock',1)}
+  var weak=m.qs.filter(function(q,i){return m.res[i]&&m.res[i]!=='ok'});
+  $('#app').innerHTML='<div class="q"><h1>'+m.res.length+'문항 끝</h1><p class="sub">알았다 '+c('ok')+' · 헷갈렸다 '+c('mid')+' · 몰랐다 '+c('bad')+'. 헷갈리거나 몰랐던 질문은 내일·오늘 다시 나옵니다.</p>'+(weak.length?'<div class="grid">'+weak.map(function(q){return '<div class="card"><b>'+esc(q.q)+'</b><div class="muted small">'+esc(q.g)+'</div></div>'}).join('')+'</div>':'')+'<div class="row" style="margin-top:18px">'+(weak.length?'<button class="btn" id="again">약한 질문만 다시</button>':'')+'<a class="btn ghost" href="#/mock">다른 범위</a><a class="btn ghost" href="#/questions">질문 은행에서 메모하기</a></div></div>';
+  var a=$('#again');if(a)a.onclick=function(){startMock(weak,m.opt)}}

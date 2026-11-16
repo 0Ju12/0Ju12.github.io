@@ -1,0 +1,75 @@
+/* ---------- 발표 ---------- */
+function slideHTML(s,i,n){
+  var body='';
+  if(s.t==='title'||s.t==='end')body=(s.kicker?'<div class="kick">'+esc(s.kicker)+'</div>':'')+'<h3>'+esc(s.h)+'</h3>'+(s.sub?'<p class="sub">'+esc(s.sub)+'</p>':'');
+  else{
+    var main='';
+    if(s.t==='stats')main='<div class="stats">'+(s.items||[]).map(function(x){return '<div><b>'+esc(x[0])+'</b>'+(x[1]?'<span>'+esc(x[1])+'</span>':'')+'</div>'}).join('')+'</div>';
+    else if(s.t==='bullets')main='<ul>'+(s.items||[]).map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>';
+    body='<div class="kick">'+esc(s.kicker||'')+'</div><h3>'+esc(s.h)+'</h3>'+(s.img&&s.t!=='stats'?'<div class="two"><div>'+main+'</div><img src="'+esc(s.img)+'" alt="" loading="lazy"></div>':main);
+  }
+  return '<div class="slide t-'+s.t+'"><div class="bar"></div><div class="in">'+body+'</div>'+(n?'<div class="pg">'+(i+1)+' / '+n+'</div>':'')+'</div>';
+}
+function decks(){
+  var intro=DECKS.filter(function(d){return d.kind==='intro'}),proj=DECKS.filter(function(d){return d.kind==='project'});
+  intro.sort(function(a,b){return (b.role===S.role)-(a.role===S.role)});
+  var card=function(d){return '<a class="card" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:10px" href="#/deck/'+d.id+'">'+slideHTML(d.slides[0])+'<b>'+esc(d.title)+'</b><span class="muted small">슬라이드 '+d.slides.length+'장 · 약 '+d.min+'분</span></a>'};
+  $('#app').innerHTML='<h1>발표 자료</h1><p class="sub">포트폴리오 내용으로 만든 슬라이드입니다. 열어서 <b>발표자 모드</b>(메모·시간)로 연습하고, <b>PDF</b>나 <b>PPTX</b>로 내려받아 다듬을 수 있습니다. 내려받은 파일은 이 기기에서 만들어집니다.</p><h2>자기소개</h2><div class="grid g3">'+intro.map(card).join('')+'</div><h2>프로젝트 발표</h2><div class="grid g3">'+proj.map(card).join('')+'</div>';
+}
+function deck(d,i){
+  var n=d.slides.length;i=Math.max(0,Math.min(n-1,i||0));
+  var h='<div class="deck-stage"><div class="row" style="justify-content:space-between;margin-bottom:12px"><span><a href="#/decks">← 발표 자료</a> · <b>'+esc(d.title)+'</b></span><span class="row"><button class="btn sm" id="dp">발표자 모드</button><button class="btn sm ghost" id="da">청중 화면</button><button class="btn sm ghost" id="dpdf">PDF</button><button class="btn sm ghost" id="dpptx">PPTX</button></span></div>';
+  h+=slideHTML(d.slides[i],i,n)+'<div class="row" style="justify-content:space-between;margin-top:10px"><button class="btn ghost sm" id="dprev"'+(i?'':' disabled')+'>← 이전</button><span class="muted small">'+(i+1)+' / '+n+' · ← → 키로 이동</span><button class="btn sm" id="dnext"'+(i<n-1?'':' disabled')+'>다음 →</button></div>';
+  h+='<div class="note"><b>발표 메모</b><br>'+esc(d.slides[i].note||'')+'</div><div class="thumbs">'+d.slides.map(function(s,k){return '<div data-k="'+k+'" class="'+(k===i?'cur':'')+'">'+slideHTML(s).replace('class="slide','class="slide'+(k===i?' cur':''))+'</div>'}).join('')+'</div></div>';
+  $('#app').innerHTML=h;
+  var go=function(k){history.replaceState(null,'','#/deck/'+d.id+'/'+k);deck(d,k)};
+  $('#dprev').onclick=function(){go(i-1)};$('#dnext').onclick=function(){go(i+1)};
+  $$('.thumbs [data-k]').forEach(function(t){t.onclick=function(){go(+t.dataset.k)}});
+  $('#dp').onclick=function(){present(d,i,false)};$('#da').onclick=function(){present(d,i,true)};
+  $('#dpdf').onclick=function(){printDeck(d)};$('#dpptx').onclick=function(){pptx(d,this)};
+  keyHandler=function(e){if(e.key==='ArrowRight'&&i<n-1)go(i+1);else if(e.key==='ArrowLeft'&&i>0)go(i-1);else if(e.key==='p'||e.key==='P')present(d,i,false)};
+}
+function present(d,i,aud){
+  var el=$('#pres'),n=d.slides.length,t0=Date.now(),tm;
+  el.className='on'+(aud?' audience':'');
+  var draw=function(){el.innerHTML='<div class="main">'+slideHTML(d.slides[i],i,n)+'</div><div class="side"><div class="ptime" id="pt">0:00<small>목표 '+d.min+'분 · '+(i+1)+'/'+n+'</small></div>'+(i<n-1?'<div class="small" style="color:#9ca3af">다음 슬라이드</div>'+slideHTML(d.slides[i+1]):'<div class="small" style="color:#9ca3af">마지막 슬라이드</div>')+'<div class="pnote">'+esc(d.slides[i].note||'')+'</div><div class="pbtn"><button id="pp">← 이전</button><button id="pn">다음 →</button><button id="px">끝내기 Esc</button></div></div>';
+    $('#pp').onclick=function(){if(i>0){i--;draw()}};$('#pn').onclick=function(){if(i<n-1){i++;draw()}};$('#px').onclick=close;tick()};
+  var tick=function(){var s=Math.floor((Date.now()-t0)/1000),e=$('#pt');if(e)e.firstChild.nodeValue=fmt(s);if(e)e.style.color=s>d.min*60?'#fb923c':''};
+  var close=function(){clearInterval(tm);el.className='';el.innerHTML='';document.removeEventListener('keydown',kh,true);if(document.fullscreenElement)document.exitFullscreen().catch(function(){});deck(d,i)};
+  var kh=function(e){if(e.key==='Escape'){e.preventDefault();close()}else if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();if(i<n-1){i++;draw()}}else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();if(i>0){i--;draw()}}else if(e.key==='a'||e.key==='A'){el.classList.toggle('audience')}e.stopPropagation()};
+  document.addEventListener('keydown',kh,true);tm=setInterval(tick,500);draw();
+  if(el.requestFullscreen)el.requestFullscreen().catch(function(){});
+}
+function printDeck(d){var p=$('#print');p.innerHTML=d.slides.map(function(s,i){return slideHTML(s,i,d.slides.length)}).join('');
+  var imgs=$$('img',p),left=imgs.length,fire=function(){setTimeout(function(){window.print()},150)};
+  toast('인쇄 창에서 "PDF로 저장"을 고르세요 (배경 그래픽 켜기)');
+  if(!left)return fire();imgs.forEach(function(im){if(im.complete){if(!--left)fire()}else im.onload=im.onerror=function(){if(!--left)fire()}})}
+window.addEventListener('afterprint',function(){$('#print').innerHTML=''});
+function loadScript(src){return new Promise(function(ok,no){var s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=no;document.head.appendChild(s)})}
+function toDataURL(url){return fetch(url).then(function(r){if(!r.ok)throw 0;return r.blob()}).then(function(b){return new Promise(function(ok){var fr=new FileReader();fr.onload=function(){ok(fr.result)};fr.readAsDataURL(b)})})}
+function pptx(d,btn){
+  btn.disabled=true;btn.textContent='만드는 중…';
+  (window.PptxGenJS?Promise.resolve():loadScript('https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js')).then(function(){
+    return Promise.all(d.slides.map(function(s){return s.img?toDataURL(s.img).catch(function(){return null}):Promise.resolve(null)}))
+  }).then(function(imgs){
+    var P=new window.PptxGenJS();P.layout='LAYOUT_WIDE';P.title=d.title;P.author=D.name;
+    var F='Malgun Gothic',INK='1F3A5F',ACC='D97706',TXT='1F2937';
+    d.slides.forEach(function(s,i){var sl=P.addSlide();sl.background={color:'FFFFFF'};sl.addShape(P.ShapeType.rect,{x:0,y:0,w:0.16,h:7.5,fill:{color:INK},line:{color:INK}});
+      if(s.t==='title'||s.t==='end'){var c=s.t==='end';
+        if(s.kicker)sl.addText(s.kicker,{x:0.9,y:2.1,w:11.5,h:0.5,fontFace:F,fontSize:16,bold:true,color:ACC,align:c?'center':'left'});
+        sl.addText(s.h,{x:0.9,y:2.6,w:11.5,h:1.6,fontFace:F,fontSize:c?44:38,bold:true,color:INK,align:c?'center':'left',valign:'middle'});
+        if(s.sub)sl.addText(s.sub,{x:0.9,y:4.3,w:11.5,h:1,fontFace:F,fontSize:18,color:'4B5563',align:c?'center':'left'});
+      }else{
+        sl.addText(s.kicker||'',{x:0.9,y:0.6,w:11.5,h:0.4,fontFace:F,fontSize:14,bold:true,color:ACC});
+        sl.addText(s.h,{x:0.9,y:1.0,w:11.5,h:s.t==='text'?2.2:1.1,fontFace:F,fontSize:s.t==='text'?26:28,bold:true,color:INK,valign:'top'});
+        var w=imgs[i]&&s.t!=='stats'?6.6:11.5;
+        if(s.t==='bullets')sl.addText((s.items||[]).map(function(x){return {text:x,options:{bullet:true,breakLine:true}}}),{x:0.9,y:2.3,w:w,h:4.5,fontFace:F,fontSize:17,color:TXT,valign:'top',paraSpaceAfter:8});
+        if(s.t==='stats')(s.items||[]).forEach(function(x,k){var cx=0.9+(k%2)*5.85,cy=2.4+Math.floor(k/2)*2.15;sl.addShape(P.ShapeType.roundRect,{x:cx,y:cy,w:5.6,h:1.9,fill:{color:'F1F5F9'},line:{color:'F1F5F9'},rectRadius:0.12});
+          sl.addText([{text:x[0],options:{fontSize:20,bold:true,color:INK,breakLine:true}},{text:x[1]||'',options:{fontSize:12,color:'6B7280'}}],{x:cx+0.25,y:cy+0.15,w:5.1,h:1.6,fontFace:F,valign:'middle'})});
+        if(imgs[i]&&s.t!=='stats')sl.addImage({data:imgs[i],x:7.8,y:2.3,w:4.8,h:3.6,sizing:{type:'contain',w:4.8,h:3.6}});
+      }
+      sl.addText((i+1)+' / '+d.slides.length,{x:11.6,y:6.9,w:1.4,h:0.35,fontFace:F,fontSize:10,color:'9CA3AF',align:'right'});
+      if(s.note)sl.addNotes(s.note)});
+    return P.writeFile({fileName:'발표_'+d.title.replace(/[\\/:*?"<>| ]+/g,'_')+'.pptx'});
+  }).then(function(){toast('PPTX를 내려받았습니다. 발표자 메모도 들어 있습니다.')}).catch(function(){toast('PPTX를 만들지 못했습니다. 인터넷 연결을 확인하고 다시 눌러 주세요.')}).then(function(){btn.disabled=false;btn.textContent='PPTX'});
+}

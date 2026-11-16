@@ -1,0 +1,26 @@
+/* ---------- 목표 D-day · 이번 주 ---------- */
+function wkey(){var d=new Date(),k=(d.getDay()+6)%7;d.setDate(d.getDate()-k);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function wget(id){var w=S.week[wkey()]||{};return w[id]||0}
+function wadd(id,n){var k=wkey(),w=S.week[k]||(S.week[k]={});w[id]=Math.max(0,(w[id]||0)+n);var ks=Object.keys(S.week).sort();while(ks.length>26)delete S.week[ks.shift()];save()}
+function gdate(g){var o=S.goals[g.id];return o&&o.date!=null?o.date:(g.date||'')}
+function ddays(ds){if(!ds)return null;var a=new Date(ds+'T00:00:00'),b=new Date(today()+'T00:00:00');return Math.round((a-b)/864e5)}
+function essayDone(){return (P.essays||[]).filter(function(e,i){var r=S.essay['e'+i];return r&&r.st==='done'}).length}
+var WD=['일','월','화','수','목','금','토'];
+function kdate(ds){var d=new Date(ds+'T00:00:00');return (d.getMonth()+1)+'월 '+d.getDate()+'일 ('+WD[d.getDay()]+')'}
+function dlab(n){return n==null?'미정':n===0?'D-day':n>0?'D-'+n:'D+'+(-n)}
+function goalsHTML(){
+  var gs=(P.goals||[]).slice().sort(function(a,b){var x=ddays(gdate(a)),y=ddays(gdate(b));if(x==null&&y==null)return 0;if(x==null)return 1;if(y==null)return -1;if((x<0)!==(y<0))return x<0?1:-1;return x-y});
+  var nx=gs.filter(function(g){var n=ddays(gdate(g));return n!=null&&n>=0})[0];
+  var feat=nx?(function(){var n=ddays(gdate(nx));return '<div class="gfeat"><span class="eyebrow">다음 목표</span><div class="gnum">'+(n===0?'D-day':'<small>D−</small>'+n)+'</div><div class="gname">'+esc(nx.name)+'</div><div class="gdate">'+kdate(gdate(nx))+'</div>'+(nx.note?'<div class="gnote">'+esc(nx.note)+'</div>':'')+'</div>'})():'<div class="gfeat"><span class="eyebrow">다음 목표</span><div class="gname" style="margin-top:12px">날짜가 정해진 목표가 없습니다</div><div class="gnote">오른쪽에서 시험일을 정해 주세요.</div></div>';
+  var li=gs.filter(function(g){return g!==nx}).map(function(g){var ds=gdate(g),n=ddays(ds),cls=n==null?'nd':n<0?'past':n<=7?'soon':'';
+    var pr=g.progress==='essay'?(function(){var d=essayDone(),t=(P.essays||[]).length||1;return '<span class="pbar" title="완성 '+d+'/'+t+'"><i style="width:'+Math.round(d/t*100)+'%"></i></span><span>완성 '+d+'/'+t+'</span>'})():'';
+    return '<li title="'+esc(g.note||'')+'"><span class="nm">'+esc(g.name)+'</span><span class="dv '+cls+'">'+(n==null?'날짜 미정':dlab(n))+'</span><span class="meta"><label class="dpick'+(ds?' set':'')+'">'+(ds?kdate(ds)+' · 바꾸기':'＋ 날짜 정하기')+'<input type="date" value="'+esc(ds)+'" data-gd="'+esc(g.id)+'" aria-label="'+esc(g.name)+' 날짜"></label>'+pr+'</span></li>'}).join('');
+  return '<div class="card gp">'+feat+'<ul class="glist">'+li+'</ul></div>'}
+function ring(p){var r=18,c=2*Math.PI*r;return '<svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true"><circle class="ring-bg" cx="22" cy="22" r="'+r+'" fill="none" stroke-width="5"/><circle class="ring" cx="22" cy="22" r="'+r+'" fill="none" stroke-width="5" stroke-linecap="round" stroke-dasharray="'+c.toFixed(1)+'" stroke-dashoffset="'+(c*(1-Math.min(1,p))).toFixed(1)+'" transform="rotate(-90 22 22)"/></svg>'}
+function weekHTML(){
+  var W=P.weekly||[],done=W.filter(function(w){return wget(w.id)>=w.target}).length;
+  return '<div class="card wkp"><div class="wkh"><b>이번 주 <span class="muted small" style="font-weight:600">· '+esc(wkey().slice(5).replace('-','/'))+' 월요일부터</span></b><span class="small muted">달성 '+done+' / '+W.length+'</span></div><div class="wkg">'+W.map(function(w){var n=wget(w.id),p=n/w.target;
+    return '<div class="wt'+(p>=1?' full':'')+'"><span class="lb">'+esc(w.label)+'</span><div class="rw">'+ring(p)+'<span class="ct"><b>'+n+'</b>/ '+w.target+'<span class="u"> '+esc(w.unit||'')+'</span></span><span class="bt"><button data-wk="'+esc(w.id)+'" data-n="-1" aria-label="'+esc(w.label)+' 하나 빼기">−</button><button data-wk="'+esc(w.id)+'" data-n="1" aria-label="'+esc(w.label)+' 하나 더하기">+</button></span></div>'+(w.auto?'<span class="au">'+esc(w.auto)+'</span>':'')+'</div>'}).join('')+'</div></div>'}
+function bindGoals(re){
+  $$('[data-gd]').forEach(function(i){i.onchange=function(){S.goals[i.dataset.gd]={date:i.value,ts:Date.now()};save();re()}});
+  $$('[data-wk]').forEach(function(b){b.onclick=function(){wadd(b.dataset.wk,+b.dataset.n);re()}})}

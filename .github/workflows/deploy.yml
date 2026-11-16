@@ -22,6 +22,10 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: "20" }
       - run: pip install pyyaml jinja2 markdown cryptography pypdf
+      - name: Check interview state and recording lifecycle
+        run: |
+          node --test tests/interview.test.cjs tests/opic.test.cjs
+          python -m unittest discover -s tests -p 'test_*.py'
       - name: Build site
         run: python scripts/build.py --strict
         env:
@@ -29,6 +33,11 @@ jobs:
           PRIVATE_PASSWORD: ${{ secrets.PRIVATE_PASSWORD }}
           STUDY_PASSWORD: ${{ secrets.STUDY_PASSWORD }}   # 강의 노트 암호 (비워 두면 PRIVATE_PASSWORD 사용)
       - run: npm install playwright@1.47.2 && npx playwright install --with-deps chromium
+      - name: Check interview browser flows with synthetic data
+        run: |
+          python tests/render_interview_fixture.py
+          node tests/interview-browser.cjs
+          node tests/opic-browser.cjs
       - run: node scripts/pdf.js
       - name: Check links, images, 1-page resumes
         run: python scripts/check_site.py

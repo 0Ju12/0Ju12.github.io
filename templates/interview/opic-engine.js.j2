@@ -1,0 +1,37 @@
+/* Original practice prompts. This is a transparent practice blueprint, not ACTFL's item-selection algorithm. */
+var OPIC_TOPICS=[
+{id:'home',ko:'집·거주지',noun:'your home',activity:'spending time at home',place:'your neighborhood',service:'a home repair appointment'},
+{id:'study',ko:'학교·공부',noun:'a place where you study',activity:'studying or learning something new',place:'your school or study space',service:'a class registration'},
+{id:'work',ko:'일·직장',noun:'a workplace you know',activity:'working on a project',place:'your workplace',service:'a meeting room reservation'},
+{id:'music',ko:'음악',noun:'music you enjoy',activity:'listening to music',place:'a place where you listen to music',service:'a concert ticket reservation'},
+{id:'movies',ko:'영화',noun:'a movie theater you like',activity:'watching movies',place:'a movie theater',service:'a movie ticket reservation'},
+{id:'parks',ko:'공원',noun:'a park you know',activity:'visiting parks',place:'a park',service:'a park activity reservation'},
+{id:'walking',ko:'걷기·조깅',noun:'a walking or jogging route you know',activity:'walking or jogging',place:'a walking trail',service:'a guided walking tour'},
+{id:'travel',ko:'여행',noun:'a place you have visited or would like to visit',activity:'traveling',place:'a travel destination',service:'a hotel reservation'},
+{id:'vacation',ko:'집에서 보내는 휴가',noun:'your ideal vacation at home',activity:'taking time off at home',place:'your neighborhood',service:'a local activity booking'},
+{id:'cafes',ko:'카페',noun:'a cafe you know',activity:'visiting cafes',place:'a cafe',service:'a table reservation'},
+{id:'cooking',ko:'요리',noun:'a meal you enjoy making',activity:'cooking',place:'a kitchen',service:'a cooking class reservation'},
+{id:'shopping',ko:'쇼핑',noun:'a store you know',activity:'shopping',place:'a store',service:'an online order'},
+{id:'exercise',ko:'운동',noun:'a sport or exercise you enjoy',activity:'exercising',place:'a gym or exercise space',service:'a fitness class registration'},
+{id:'reading',ko:'독서',noun:'a book or type of book you enjoy',activity:'reading',place:'a library or bookstore',service:'a book order'},
+{id:'technology',ko:'기술·기기',noun:'a device you often use',activity:'using technology in daily life',place:'an electronics store',service:'a device repair appointment'},
+{id:'friends',ko:'친구·모임',noun:'a place where you meet people',activity:'meeting friends',place:'a meeting place',service:'a group event reservation'},
+{id:'outdoors',ko:'야외 활동',noun:'an outdoor place you enjoy',activity:'spending time outdoors',place:'an outdoor recreation area',service:'an outdoor activity booking'},
+{id:'transport',ko:'교통',noun:'transportation you use',activity:'getting around your city',place:'a train or bus station',service:'a train ticket reservation'}];
+function opicLevel(n){return Math.max(1,Math.min(6,Number(n)||3))}
+function opicPrompt(topic,task,level){var p='';level=opicLevel(level);
+ if(task==='describe')p='Describe '+topic.noun+'. '+(level<=2?'What is it like? Tell me a few things about it.':'Give enough detail so that someone who has never seen it can picture it. Explain what stands out to you.');
+ if(task==='routine')p='What do you usually do when you are '+topic.activity+'? '+(level<=2?'Tell me what you do first and next.':'Walk me through a typical occasion from beginning to end, including who is involved and why you do it that way.');
+ if(task==='past')p='Tell me about one particular experience you had while '+topic.activity+'. '+(level<=2?'When was it, and what happened?':'Describe the situation, what happened in order, and how you felt about the outcome.');
+ if(task==='compare')p=level<=2?'Tell me two things you like about '+topic.noun+'. Explain why.':'How has your experience of '+topic.activity+' changed over time? Compare an earlier period with the present and explain what caused the change.';
+ if(task==='opinion')p=level<=3?'What do you like and dislike about '+topic.activity+'? Give examples.':'What challenge do people face in relation to '+topic.activity+' today? Discuss different views and explain what you think would be a practical response.';
+ if(task==='ask')p='Imagine that you want to arrange '+topic.service+'. Call the person in charge. Explain what you need and ask three or four questions to get the information you need.';
+ if(task==='problem')p='There is a problem with '+topic.service+': the arrangement you expected is no longer available. Contact the person in charge, explain the problem, and suggest two possible alternatives. Try to agree on a solution.';
+ if(task==='related')p='Have you ever had a similar problem with an arrangement or a reservation? Tell me what happened and how it was resolved. If you have not, describe how you would handle such a situation.';
+ return {id:'opic:'+topic.id+':'+task+':'+level,topic:topic.id,label:topic.ko,task:task,level:level,prompt:p};
+}
+function makeOpicPlan(survey,level,count,rng){rng=rng||Math.random;var selected=OPIC_TOPICS.filter(function(t){return survey.topics.indexOf(t.id)>=0});if(selected.length<3)throw new Error('topics');var shuffled=selected.slice();for(var i=shuffled.length-1;i>0;i--){var j=Math.floor(rng()*(i+1)),t=shuffled[i];shuffled[i]=shuffled[j];shuffled[j]=t}var a=shuffled[0],b=shuffled[1],c=shuffled[2];return {level:opicLevel(level),count:count===12?12:15,topics:[a,b,c],questions:[{id:'opic:intro',topic:'intro',label:'자기소개',task:'intro',level:opicLevel(level),prompt:'Please introduce yourself. Tell me a little about your background and the things you spend time doing.'},opicPrompt(a,'describe',level),opicPrompt(a,'routine',level),opicPrompt(a,'past',level),opicPrompt(b,'describe',level),opicPrompt(b,'compare',level),opicPrompt(b,'past',level)]}}
+function completeOpicPlan(plan,adjustment){if(plan.questions.length>7)return plan;var change={easier:-1,same:0,harder:1};if(!(adjustment in change))throw new Error('adjustment');var n=opicLevel(plan.level+change[adjustment]),c=plan.topics[2],a=plan.topics[0];plan.adjustment=adjustment;plan.secondLevel=n;
+ var next=plan.count===15?[opicPrompt(c,'describe',n),opicPrompt(c,'routine',n),opicPrompt(c,n>=4?'compare':'past',n),opicPrompt(a,'ask',n),opicPrompt(a,'problem',n),opicPrompt(a,'related',n),{id:'opic:unexpected:community:'+n,topic:'unexpected',label:'돌발·지역사회',task:'issue',level:n,prompt:n>=4?'Describe a change in a public service in a community you know. What has improved, what problems remain, and what would you recommend?':'Tell me about a public service you use. Describe one occasion when you used it.'},opicPrompt(c,'opinion',n)]:[opicPrompt(c,'ask',n),opicPrompt(c,'problem',n),opicPrompt(c,'related',n),opicPrompt(a,'opinion',n),{id:'opic:unexpected:plans:'+n,topic:'unexpected',label:'돌발·일정 변경',task:'past',level:n,prompt:'Tell me about a time when an unexpected event changed your plans. Explain the original plan, what changed, and what you did instead.'}];plan.questions=plan.questions.concat(next);return plan;}
+function opicRemaining(deadline,now){return Math.max(0,Math.ceil((deadline-(now==null?Date.now():now))/1000))}
+function opicListenAllowed(listens,phase){return listens<2&&(phase==='ready'||phase==='answer')}

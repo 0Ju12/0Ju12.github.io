@@ -1,0 +1,26 @@
+/* ---------- 회사 맞춤 이력서 ---------- */
+var EXP_KEYS={spe:['석사','SPE','중력','자력','SLFI','DLFI','지표','파수'],llm:['LLM','관통','Django','파이프라인','ThRead','검증','테스트','FastAPI'],vqa:['VQA','앙상블','챌린지','fixes','QLoRA'],fire:['산불','U-LSTM','시공간','F1'],pospeak:['POSPEAK','콩글리시','FLAN','BERTScore','장려상'],calgary:['캘거리','파견','공동연구','칼리파','해외'],rag:['RAG','국보','근거','LangGraph','ChromaDB'],ccs:['CCS','탄성파','판구조','GPlates','저장소']};
+var EXP_HINT={spe:/석사|SPE|지표|신호/,llm:/LLM|관통|검증|파이프라인|테스트|추천/,vqa:/VQA|fixes|앙상블|Public Score/,fire:/산불|U-LSTM/,pospeak:/POSPEAK|순차 학습|통합 학습/,calgary:/캘거리|파견|공동연구|해외|칼리파/,rag:/RAG|국보|근거|환각/,ccs:/CCS|탄성파|E&P|지구물리|G&G/};
+function cvWeights(co){var txt=JSON.stringify([co.talent,co.consult,co.match,co.conditions,co.name]),w={};Object.keys(EXP_HINT).forEach(function(k){var m=txt.match(new RegExp(EXP_HINT[k].source,'g'));w[k]=m?m.length:0});return w}
+function lineScore(t,w){var s=0;Object.keys(EXP_KEYS).forEach(function(k){if(!w[k])return;EXP_KEYS[k].forEach(function(kw){if(t.indexOf(kw)>=0)s+=w[k]})});return s}
+function cvPick(sel){
+  var cos=allCos().sort(function(a,b){return ((b.co.match||{}).score||0)-((a.co.match||{}).score||0)});
+  return '<div class="row noprint" style="gap:10px;margin-bottom:14px"><select class="field" id="cvco" style="max-width:420px"><option value="">회사를 고르세요 (기본 이력서)</option>'+cos.map(function(c){return '<option value="'+c.key+'"'+(c.key===sel?' selected':'')+'>'+esc(c.co.name)+(c.co.match?' · 추천 '+c.co.match.score:'')+'</option>'}).join('')+'</select><button class="btn" id="cvprint">인쇄 · PDF 저장</button><a class="btn ghost" href="#/tools">← 도구</a></div>'}
+function cvView(key){
+  var c=key?coByKey(key):null,co=c?c.co:{},w=c?cvWeights(co):{},p=CV.profile||{};
+  var acts=(CV.acts||[]).map(function(a){var lines=a.brief.map(function(t,i){return {t:t,s:lineScore(t,w)-i*0.01}});var s=lines.reduce(function(x,y){return x+Math.max(0,y.s)},0);if(c)lines.sort(function(x,y){return y.s-x.s});return {a:a,lines:lines,s:s}});
+  if(c)acts.sort(function(x,y){return y.s-x.s});
+  var focus=c&&co.consult&&co.consult.map?co.consult.map.slice(0,3).map(function(m){var pr=m.split('→');return pr.length>1?pr[1].trim()+' ('+pr[0].trim()+')':m}):[];
+  var skills=(CV.skills||[]).map(function(g){var it=g.items.slice();if(c){var txt=JSON.stringify(co);it.sort(function(a,b){return (txt.indexOf(b)>=0)-(txt.indexOf(a)>=0)})}return '<div><b>'+esc(g.category)+'</b> '+esc(it.join(' · '))+'</div>'}).join('');
+  var h=cvPick(key)+(c?'<div class="fit noprint" style="margin-bottom:14px;border-left-color:var(--gold);background:var(--gold-soft)"><b>'+esc(co.name)+'</b> 기준으로 재정렬했습니다. 인재상: '+esc((co.talent&&co.talent.kw||[]).join(' · '))+'<br><span class="small">경험 연결은 면접 컨설팅의 "인재상 → 내 경험"에서 가져왔습니다. 지원서 양식이 따로 있으면 이 내용을 옮겨 쓰세요.</span></div>':'');
+  h+='<div class="cvpage" id="cvpage"><header><div><h1>'+esc(p.name||'')+'</h1><div class="cvt">'+esc(p.title||'')+'</div></div><div class="cvc">'+esc(p.email||'')+'<br>'+(p.links||[]).map(function(l){return esc(decodeURIComponent(l.url).replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,''))}).slice(0,2).join('<br>')+'</div></header>';
+  h+='<p class="cvs">'+esc(p.headline||'')+'</p>';
+  if(focus.length)h+='<section><h2>지원 회사와 맞닿는 경험</h2><ul>'+focus.map(function(f){return '<li>'+esc(f)+'</li>'}).join('')+'</ul></section>';
+  h+='<section><h2>경험</h2>'+acts.map(function(o,ai){var a=o.a;return '<div class="cva"><div class="cvh"><b>'+esc(a.title)+'</b><span>'+esc(a.period)+'</span></div><div class="cvr">'+esc(a.role)+'</div><ul>'+o.lines.slice(0,ai<2?(a.max||3):Math.min(2,a.max||2)).map(function(l){return '<li>'+esc(l.t)+'</li>'}).join('')+'</ul></div>'}).join('')+'</section>';
+  h+='<section class="cv2"><div><h2>학력</h2>'+(CV.edu||[]).map(function(e){return '<div class="cvl"><b>'+esc(e.school)+'</b> '+esc(e.major)+' · '+esc(e.degree)+'<span>'+esc(e.period)+'</span></div>'}).join('')+'</div><div><h2>논문 · 수상 · 자격</h2>'+(CV.pubs||[]).map(function(t){return '<div class="cvl">'+esc(t)+'</div>'}).join('')+(CV.awards||[]).map(function(t){return '<div class="cvl">'+esc(t.replace(/\s*\(포스터 부문 · 「.*?」\)/,' (포스터)'))+'</div>'}).join('')+(CV.certs||[]).map(function(t){return '<div class="cvl">'+esc(t)+'</div>'}).join('')+'</div></section>';
+  h+='<section><h2>기술</h2><div class="cvk">'+skills+'</div></section></div>';
+  $('#app').innerHTML=h;
+  $('#cvco').onchange=function(){location.hash='#/cv'+(this.value?'/'+this.value:'')};
+  $('#cvprint').onclick=function(){document.body.classList.add('printing-cv');window.print()};
+}
+window.addEventListener('afterprint',function(){document.body.classList.remove('printing-cv')});

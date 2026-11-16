@@ -15,3 +15,6 @@ __pycache__/
 /docs/resume*.html
 /docs/resume*.pdf
 /docs/cv/
+
+# Synthetic browser fixtures and screenshots
+/work/

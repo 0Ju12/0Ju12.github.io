@@ -1,0 +1,30 @@
+/* Each recording owns its stream, chunks and completion event. */
+function createInterviewRecorder(env){
+  var active=null;
+  function release(c){if(c.stream)c.stream.getTracks().forEach(function(t){t.stop()})}
+  function stop(){var c=active;active=null;if(!c)return Promise.resolve(null);c.cancelled=true;
+    if(!c.recorder){c.finish(null);return Promise.resolve(null)}
+    if(env.setTimeout)c.timeout=env.setTimeout(function(){c.finish(null)},8000);
+    if(c.recorder.state!=='inactive'){try{c.recorder.stop()}catch(_){release(c);c.finish(null)}}
+    return c.done;
+  }
+  function start(){stop();if(!env.navigator.mediaDevices||!env.MediaRecorder)return Promise.resolve(false);
+    var c={stream:null,recorder:null,chunks:[],cancelled:false};c.done=new Promise(function(resolve){c.finish=function(blob){if(c.finished)return;c.finished=true;if(c.timeout)env.clearTimeout(c.timeout);release(c);resolve(blob)}});active=c;
+    return env.navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+      c.stream=stream;if(c.cancelled||active!==c){release(c);return false}
+      try{var rec=new env.MediaRecorder(stream);c.recorder=rec;
+        rec.ondataavailable=function(e){if(e.data&&e.data.size)c.chunks.push(e.data)};
+        rec.onstop=function(){c.finish(c.chunks.length?new env.Blob(c.chunks,{type:rec.mimeType||'audio/webm'}):null)};
+        rec.onerror=function(){c.finish(null);if(active===c)active=null};rec.start();return true;
+      }catch(e){c.finish(null);if(active===c)active=null;throw e}
+    },function(e){c.finish(null);if(active===c)active=null;throw e});
+  }
+  return {start:start,stop:stop,pause:function(){if(active&&active.recorder&&active.recorder.state==='recording'&&active.recorder.pause)active.recorder.pause()},resume:function(){if(active&&active.recorder&&active.recorder.state==='paused'&&active.recorder.resume)active.recorder.resume()}};
+}
+var interviewRecorder=createInterviewRecorder(window),recordingEpoch=0;
+function stopRec(){recordingEpoch++;return interviewRecorder.stop()}
+function startRec(){var owner=mock,index=owner.i,epoch=++recordingEpoch;owner.recState='pending';
+  interviewRecorder.start().then(function(ok){if(mock!==owner||owner.i!==index||epoch!==recordingEpoch)return;owner.recState=ok?'recording':'unavailable';if(!ok)toast('이 브라우저는 녹음을 지원하지 않습니다. 녹음 없이 진행합니다.');if(owner.st==='talk')mockPlay()}).catch(function(){if(mock===owner&&owner.i===index&&epoch===recordingEpoch){owner.recState='unavailable';toast('마이크를 쓸 수 없어 녹음 없이 진행합니다.');if(owner.st==='talk')mockPlay()}});
+}
+function discardRecording(){stopRec();if(mock&&mock.url){URL.revokeObjectURL(mock.url);mock.url=null}}
+window.addEventListener('pagehide',discardRecording);
