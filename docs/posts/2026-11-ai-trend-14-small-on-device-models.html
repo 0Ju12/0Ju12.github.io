@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>소형·온디바이스 모델 — 작은 모델로 충분한 일은 얼마나 되나 · 이영주</title>
+<meta name="description" content="수십억 개 이하 파라미터의 작은 모델을 기기 안에서 돌리는 흐름을 정리했습니다. 양자화가 무엇을 줄이는지, 큰 모델과 작은 모델을 섞어 쓰는 구조, 그리고 &#39;작아도 된다&#39;는 주장의 조건을 봅니다.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="이영주 포트폴리오">
+<meta property="og:title" content="소형·온디바이스 모델 — 작은 모델로 충분한 일은 얼마나 되나 · 이영주">
+<meta property="og:description" content="수십억 개 이하 파라미터의 작은 모델을 기기 안에서 돌리는 흐름을 정리했습니다. 양자화가 무엇을 줄이는지, 큰 모델과 작은 모델을 섞어 쓰는 구조, 그리고 &#39;작아도 된다&#39;는 주장의 조건을 봅니다.">
+<meta property="og:url" content="https://0ju12.github.io/posts/2026-11-ai-trend-14-small-on-device-models.html">
+<meta property="og:image" content="https://0ju12.github.io/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#18181b">
+<script>/* 방문 수 집계 (가입 없는 공개 카운터, 쿠키 없음, 숫자만 올림). 본인 기기 제외: 주소 뒤에 ?nostat=1 을 한 번 붙여 열기 */
+(function(){try{var L=localStorage,S=sessionStorage;if(location.search.indexOf('nostat=1')>-1)L.setItem('nostat','1');if(location.search.indexOf('nostat=0')>-1)L.removeItem('nostat');
+if(L.getItem('nostat')||navigator.webdriver||!/github\.io$/.test(location.hostname)||/bot|crawl|spider|headless|lighthouse/i.test(navigator.userAgent))return;
+var B='https://abacus.jasoncameron.dev/hit/pf-3c8cffe9/',h=function(k){try{fetch(B+encodeURIComponent(k.slice(0,60)),{keepalive:true}).catch(function(){})}catch(e){}};
+var p=location.pathname.replace(/^\/+|\/+$/g,'').replace(/\.html$/,'').replace(/\//g,'.')||'home';if(p==='index')p='home';
+var d=new Date().toISOString().slice(0,10).replace(/-/g,'');
+if(!S.getItem('st:'+p)){S.setItem('st:'+p,'1');h('p.'+p);h('d.'+d);if(!S.getItem('st:v')){S.setItem('st:v','1');h('v.'+d);h('v.all')}}
+window.stat=function(e){if(!S.getItem('se:'+e)){S.setItem('se:'+e,'1');h('e.'+e)}};
+document.addEventListener('click',function(ev){var a=ev.target.closest&&ev.target.closest('a[href]');if(!a)return;var u=a.getAttribute('href');
+if(/resume|cv[./]/.test(u))stat('resume');else if(/github\.com/.test(u))stat('github');else if(/doi\.org|koreascience/.test(u))stat('paper');else if(/^mailto:/.test(u))stat('mail');else if(/linkedin/.test(u))stat('linkedin');else if(/data-projects|\/demo/.test(u))stat('demo')},true);
+}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--surface:#f7f7f8;--text:#0d0d0f;--muted:#5d5f66;--line:#e7e7ea;--accent:#0a7c66;--accent-2:#14b8a6;--chip:#eef2f1;--code:#0f1117;--code-text:#e6e6e6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}}
+:root[data-theme="dark"]{--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.85 "Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:740px;margin:0 auto;padding:0 20px}
+nav{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;padding:10px 2px}
+nav .home{font-weight:900;color:var(--text);margin-right:auto}
+#theme{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 12px;font:inherit;font-size:12px;cursor:pointer}
+header.post{padding:56px 0 28px;border-bottom:2px solid var(--text);margin-bottom:36px}
+header.post .meta{color:var(--accent);font-weight:700;font-size:14px;letter-spacing:.04em}
+header.post h1{font-size:clamp(28px,5vw,42px);line-height:1.25;letter-spacing:-.03em;margin:10px 0 14px;font-weight:900}
+header.post p{color:var(--muted);margin:0 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--chip);color:var(--muted)}
+article h2{font-size:24px;letter-spacing:-.02em;margin:48px 0 14px;font-weight:900}
+article h3{font-size:19px;margin:32px 0 10px}
+article p,article li{margin:0 0 16px}
+article ul,article ol{padding-left:22px}
+article li{margin-bottom:6px}
+article blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--surface);border-radius:0 12px 12px 0;font-weight:700}
+article blockquote p{margin:0}
+article code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em;background:var(--chip);padding:2px 6px;border-radius:6px}
+article pre{background:var(--code);color:var(--code-text);padding:18px 20px;border-radius:14px;overflow-x:auto;line-height:1.6;margin:0 0 20px}
+article pre code{background:none;padding:0;font-size:13.5px;color:inherit}
+article table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:15px;display:block;overflow-x:auto}
+article th,article td{border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+article th{background:var(--surface)}
+.endcard{margin:56px 0 0;padding:24px;border:1px solid var(--line);border-radius:18px;background:var(--surface);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.endcard b{display:block}
+.endcard span{color:var(--muted);font-size:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--line);color:var(--text);background:var(--bg)}
+.others{margin:40px 0 0}
+.others a{display:block;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--text);font-weight:700}
+.others a span{display:block;color:var(--muted);font-weight:400;font-size:14px}
+footer{padding:64px 0 40px;color:var(--muted);font-size:13px}
+.readbar{position:fixed;top:0;left:0;height:3px;width:0;background:var(--text);z-index:60;transition:width .1s linear}
+.series{margin:36px 0 0;padding:20px 22px;border:1px solid var(--line);border-radius:18px;background:var(--card)}
+.series b{font-size:15px}.series ol{margin:10px 0 0;padding-left:20px;font-size:14.5px;line-height:1.6}.series li{padding:3px 0}.series li small{color:var(--muted);margin-left:8px;font-size:12.5px}.series li.me a{font-weight:800;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="readbar" id="readbar"></div>
+<div class="wrap">
+  <nav><a class="home" href="../index.html">Young-Ju Lee</a><a href="../index.html#writing">Writing</a><a href="../index.html#work">Work</a><button id="theme" type="button">테마</button></nav>
+  <header class="post">
+    <div class="meta"><a href="ai-trend.html" style="color:inherit">AI 트렌드 노트</a> #14 · 2026-11-16 · 6분 읽기</div>
+    <h1>소형·온디바이스 모델 — 작은 모델로 충분한 일은 얼마나 되나</h1>
+    <p>수십억 개 이하 파라미터의 작은 모델을 기기 안에서 돌리는 흐름을 정리했습니다. 양자화가 무엇을 줄이는지, 큰 모델과 작은 모델을 섞어 쓰는 구조, 그리고 &#39;작아도 된다&#39;는 주장의 조건을 봅니다.</p>
+    <div class="chips"><span class="chip">소형 모델</span><span class="chip">온디바이스</span><span class="chip">양자화</span></div>
+  </header>
+  <article><blockquote>
+<p><strong>한 줄 요약</strong> — 지난 회차는 한 번의 답에 계산을 <strong>더</strong> 쓰는 이야기였습니다. 이번은 반대 방향입니다. 에이전트가 하는 일의 상당수는 형식 변환, 분류, 짧은 요약처럼 좁고 반복적이고, 이런 일에는 작은 모델로 충분하다는 주장이 힘을 얻고 있습니다. 작은 모델은 <strong>싸고 빠르고, 기기 밖으로 자료를 내보내지 않고</strong> 돌릴 수 있습니다. 대신 폭넓은 지식과 긴 추론에서는 큰 모델에 못 미칩니다.</p>
+</blockquote>
+<h2>핵심 개념</h2>
+<ul>
+<li><strong>소형 모델(SLM)</strong>: 뚜렷한 기준은 없지만 보통 수억~수십억 파라미터 규모로, 휴대폰이나 노트북에서 돌릴 수 있는 모델을 가리킵니다.</li>
+<li><strong>온디바이스</strong>: 추론이 서버가 아니라 사용자의 기기에서 일어납니다. 네트워크가 없어도 되고, 입력이 기기를 떠나지 않으며, 호출당 비용이 없습니다. 대신 메모리, 발열, 배터리가 제약이 됩니다.</li>
+<li><strong>작게 만드는 방법</strong></li>
+<li>양자화: 가중치를 32비트 실수 대신 8비트나 4비트로 저장합니다. 크기와 메모리가 크게 줄고 정확도는 조금 떨어집니다.</li>
+<li>증류: 큰 모델의 출력을 따라 하도록 작은 모델을 학습시킵니다.</li>
+<li>좁은 과제에 맞춘 미세조정: 범용 능력 대신 한 가지 일에 맞춥니다(#15에서 다룹니다).</li>
+<li><strong>비유</strong>: 모든 일에 대형 트럭을 부르지 않는 것과 같습니다. 동네 배달은 오토바이가 빠르고 쌉니다. 다만 오토바이에 이삿짐을 싣겠다고 하면 안 됩니다.</li>
+</ul>
+<h2>지금 무슨 일이 일어나고 있나</h2>
+<ul>
+<li><strong>"에이전트에는 작은 모델이 맞다"는 주장이 나왔습니다.</strong> NVIDIA 연구진은 2025년 6월 「Small Language Models are the Future of Agentic AI」에서, 에이전트 시스템의 많은 호출에 대해 소형 모델이 충분히 강력하고, 더 적합하며, 더 경제적이라고 주장했습니다. 큰 모델은 필요한 곳에서만 부르는 혼합 구성을 제안한 것으로 소개됩니다.</li>
+<li><strong>기기에서 돌릴 수 있는 모델이 늘었습니다.</strong> 2026년 자료들은 Gemma, Phi, Llama, Qwen 계열의 소형 모델을 기기용 후보로 나열하고, 양자화한 모델을 실행하는 도구(llama.cpp 등)로 비교합니다. 이번 조사에서는 이 모델들의 1차 벤치마크 자료를 확인하지 못했습니다.</li>
+<li><strong>제약은 성능보다 전력입니다.</strong> 2026년 1월의 한 정리는 기기 제품에서 배터리 소모와 발열로 인한 속도 저하가 가장 큰 문제이고, 그래서 더 작은 양자화 모델과 짧게 몰아서 돌리는 방식으로 간다고 설명합니다.</li>
+<li><strong>과장된 수치가 돕니다.</strong> "26억 파라미터 모델이 수천억 모델을 이겼다" 같은 주장과 시장 규모 추정이 2차 자료에서 서로 인용되며 퍼져 있는데, 조건이 불분명하고 추정치도 자료마다 다릅니다. 이 글에서는 인용하지 않습니다.</li>
+</ul>
+<h2>동작 구조</h2>
+<pre><code>요청 ─▶ 분류 (규칙 · 작은 모델)
+          ├─ 좁고 반복적인 일 ─────▶ 소형 모델 (기기 안 / 사내 서버)   빠름 · 쌈 · 자료가 밖으로 안 나감
+          │     (추출 · 분류 · 형식 변환 · 짧은 요약)        │
+          │                                            확신이 낮거나 형식이 깨지면
+          │                                                 ▼
+          └─ 폭넓은 지식 · 긴 추론 ─────────────────▶ 큰 모델 (클라우드)        느림 · 비쌈
+</code></pre>
+<pre><code class="language-python">def handle(task):
+    if task.kind in SMALL_OK:                       # 미리 정한 좁은 과제 목록
+        out = small_model(task)
+        if schema_ok(out) and out.confidence &gt;= 0.8:
+            return out
+        log(&quot;escalate&quot;, task.kind)                  # 얼마나 자주 넘기는지 기록 → 목록을 고치는 근거
+    return large_model(task)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>큰 모델 (클라우드)</th>
+<th>작은 모델 (기기·사내)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>지식의 폭·긴 추론</td>
+<td>강함</td>
+<td>약함</td>
+</tr>
+<tr>
+<td>좁은 과제(미세조정 뒤)</td>
+<td>충분하지만 과함</td>
+<td>충분한 경우가 많음</td>
+</tr>
+<tr>
+<td>지연</td>
+<td>네트워크 + 생성</td>
+<td>생성만 (기기 성능에 좌우)</td>
+</tr>
+<tr>
+<td>비용</td>
+<td>호출마다</td>
+<td>기기·전력</td>
+</tr>
+<tr>
+<td>자료 반출</td>
+<td>서버로 나감</td>
+<td>나가지 않음</td>
+</tr>
+<tr>
+<td>갱신</td>
+<td>제공자가 바꿈</td>
+<td>직접 배포해야 함</td>
+</tr>
+</tbody>
+</table>
+<h2>왜 중요한가 / 한계</h2>
+<ul>
+<li><strong>비용과 개인정보 문제를 함께 줄입니다.</strong> 호출이 많은 단순 작업을 작은 모델로 돌리면 비용이 줄고, 민감한 입력이 기기를 떠나지 않습니다.</li>
+<li><strong>한계 1 — "충분하다"는 과제마다 재야 합니다.</strong> 좁은 과제에서 충분하다는 주장은 그 과제로 평가했을 때만 성립합니다(#10). 과제가 조금 넓어지면 급격히 무너질 수 있습니다.</li>
+<li><strong>한계 2 — 양자화의 손실은 고르지 않습니다.</strong> 평균 정확도는 조금 떨어져도, 긴 문맥이나 드문 언어처럼 특정 영역에서 더 크게 떨어질 수 있습니다. 한국어 과제라면 한국어로 확인해야 합니다.</li>
+<li><strong>한계 3 — 기기 다양성</strong>: 같은 모델도 기기의 메모리와 칩에 따라 속도가 크게 다릅니다. 느린 기기에서의 경험을 기준으로 잡아야 합니다.</li>
+<li><strong>한계 4 — 운영 부담이 옮겨 옵니다.</strong> 모델 배포, 갱신, 버전 관리가 내 일이 됩니다. 넘기기(큰 모델로의 전환) 기준이 틀리면 품질과 비용이 모두 나빠집니다.</li>
+</ul>
+<h2>내 프로젝트와 연결</h2>
+<ul>
+<li><strong>AI 챌린지 VQA</strong>에서 같은 계열의 작은 모델과 큰 모델을 직접 비교했습니다. Qwen 4B 기준선이 0.94608, 27B가 0.95591이었습니다. 크기를 약 7배 키워 얻은 차이가 1점 미만이었고, 이후의 향상은 크기가 아니라 QLoRA 미세조정과 여러 모델·관점의 확률 앙상블에서 나왔습니다. 작은 모델이 이미 대부분을 맞히는 과제에서는 큰 모델의 이득이 작다는 것을 본 사례입니다. 기기에서 돌린 것은 아닙니다.</li>
+<li><strong>POSPEAK(KILL KONG)</strong> 에서는 FLAN-T5에 LoRA를 붙여 콩글리시 교정이라는 좁은 과제를 학습시켰고, 학습 전략에 따라 F1이 0.32에서 0.74로 달라졌습니다. 작은 모델을 좁은 과제에 맞추는 접근이었고, 학습 순서에 따라 앞서 배운 것을 잊는 문제도 함께 겪었습니다.</li>
+<li><strong>학부 캡스톤의 U-LSTM</strong>은 산불 4건뿐인 데이터에 맞춰 파라미터 2,736개의 얕은 네트워크로 줄였습니다. LLM은 아니지만, 자료와 과제의 크기에 모델 크기를 맞춘다는 판단은 같습니다.</li>
+<li><strong>관통 7의 프록시</strong>에서 모델 등급을 고르게 한 것이 위 그림의 분기와 같은 자리입니다. 다만 작은 모델이 실패했을 때 큰 모델로 자동으로 넘기는 장치는 만들지 않았습니다.</li>
+</ul>
+<h2>면접 질문</h2>
+<p><strong>Q. 큰 모델 대신 작은 모델을 쓰는 판단은 어떻게 합니까?</strong></p>
+<blockquote>
+<p>과제가 좁고 반복적인지, 그리고 그 과제로 직접 재 봤을 때 충분한지를 봅니다. 추출이나 분류, 형식 변환처럼 범위가 정해진 일은 작은 모델로 충분한 경우가 많고, 비용과 지연이 줄며 민감한 자료를 밖으로 내보내지 않아도 됩니다. 다만 "충분하다"는 벤치마크가 아니라 우리 과제로 확인해야 하고, 양자화의 손실은 영역마다 달라서 한국어 과제라면 한국어로 확인합니다. 구성은 작은 모델을 기본으로 두고, 형식이 깨지거나 확신이 낮을 때만 큰 모델로 넘기며, 얼마나 자주 넘기는지를 기록해 기준을 고칩니다. VQA 챌린지에서 4B 모델과 27B 모델의 차이가 1점 미만이었고, 그 뒤의 향상은 미세조정과 앙상블에서 나왔던 경험이 이 판단의 근거입니다.</p>
+</blockquote>
+<h2>출처</h2>
+<ul>
+<li>Belcak 외 (NVIDIA), <a href="https://arxiv.org/abs/2506.02153">Small Language Models are the Future of Agentic AI</a> (2025.06) — 이번 조사에서는 2차 자료의 인용으로 확인</li>
+<li>Edge AI and Vision Alliance, <a href="https://www.edge-ai-vision.com/2026/01/on-device-llms-in-2026-what-changed-what-matters-whats-next/">On-Device LLMs in 2026: What Changed, What Matters, What's Next</a> (2026.01)</li>
+<li>Digital Applied, <a href="https://www.digitalapplied.com/blog/small-language-models-on-device-agents-2026-guide">Small language models and on-device agents: 2026 guide</a> (2026.06, 2차 자료)</li>
+<li>PremAI, <a href="https://blog.premai.io/best-lightweight-language-models-worth-running">Best lightweight language models worth running in 2026</a> (2차 자료 — 모델 목록 참고용)</li>
+</ul></article>
+  <div class="endcard">
+    <div><b>AI 트렌드 노트 · 14편</b><span>에이전트 개념부터 차례로 이어서 쓰는 시리즈입니다. 다음 회차: #15 파인튜닝 vs 프롬프트 vs RAG — 모델을 바꿀지, 입력을 바꿀지</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="2026-11-ai-trend-13-reasoning-test-time-compute.html">← #13</a><a class="btn" href="ai-trend.html">전체 목록</a></div>
+  </div>
+<div class="others"><b style="font-size:14px;color:var(--muted)">다른 글</b><a href="2026-11-ai-trend-13-reasoning-test-time-compute.html">추론 모델과 test-time compute — 더 오래 생각하게 하면 무엇이 달라지나<span>답하기 전에 생각하는 데 계산을 더 쓰는 추론 모델의 원리와, &#39;생각 예산&#39;을 조절할 때 생기는 비용·지연·과잉 사고 문제를 정리했습니다.</span></a><a href="2026-11-ai-trend-12-computer-use.html">컴퓨터 사용 에이전트 — 화면을 보고 클릭하는 모델<span>API가 없는 프로그램을 사람처럼 화면으로 다루는 에이전트를 정리했습니다. 화면 캡처 → 좌표 → 행동의 루프, 벤치마크 점수가 사람 기준선을 넘었다는 보고와 그 점수를 그대로 믿기 어려운 이유를 봅니다.</span></a><a href="2026-11-ai-trend-11-coding-agents.html">코딩 에이전트 — 코드를 쓰는 것보다 확인하는 것이 일이다<span>자동 완성에서 &#39;저장소를 읽고, 고치고, 테스트를 돌리는&#39; 에이전트로 넘어온 흐름을 정리했습니다. 벤치마크 점수가 출처마다 엇갈리는 이유와, 사람의 일이 작성에서 검증으로 옮겨 가는 지점을 봅니다.</span></a><a href="2026-11-ai-trend-10-agent-evaluation.html">에이전트 평가 — 점수가 높다는 것과 믿을 수 있다는 것<span>에이전트는 답 하나가 아니라 과정 전체를 평가해야 합니다. 채점기의 세 종류, 한 번 성공과 매번 성공의 차이, 그리고 공개 벤치마크 점수가 오염으로 흔들리는 사례를 정리했습니다.</span></a><a href="2026-11-ai-trend-09-guardrails-prompt-injection.html">가드레일과 프롬프트 인젝션 방어 — 모델이 읽는 모든 글이 공격 경로다<span>프롬프트 인젝션이 왜 필터 하나로 막히지 않는지, 직접·간접 인젝션의 차이와 &#39;탐지&#39;에서 &#39;권한 설계&#39;로 옮겨 가는 방어 흐름을 정리했습니다.</span></a><a href="2026-11-ai-trend-08-multi-agent.html">멀티 에이전트 오케스트레이션 — 나누면 빨라지지만 맥락이 끊긴다<span>일을 여러 에이전트에게 나눠 맡기는 구조(지휘자-작업자, 핸드오프)의 장단점을 정리했습니다. 병렬 조사에서는 효과가 보고됐지만 토큰이 크게 늘고, 맥락이 쪼개져 생기는 실패가 따로 연구될 만큼 흔합니다.</span></a><a href="2026-11-ai-trend-07-agentic-rag.html">RAG에서 Agentic RAG로 — 검색을 한 번 할지, 에이전트가 여러 번 할지<span>한 번 검색해 답하는 RAG와, 검색 여부·횟수·결과 품질을 스스로 판단하는 Agentic RAG의 차이를 정리했습니다. Self-RAG·CRAG·Adaptive-RAG가 각각 어느 판단을 추가했는지와, 반복이 늘 때 생기는 비용과 평가 문제를 봅니다.</span></a><a href="2026-11-ai-trend-06-agent-memory.html">에이전트 메모리 — 대화가 끝나도 남는 것과 남기면 안 되는 것<span>컨텍스트 창 안의 단기 기억과 대화 밖에 저장하는 장기 기억을 나누고, 무엇을 쓰고 언제 꺼내는지의 설계를 정리했습니다. 한 번 오염되면 세션이 끝나도 남는 메모리 포이즈닝도 함께 봅니다.</span></a><a href="2026-11-ai-trend-05-react-plan-execute.html">ReAct와 Plan-and-Execute — 에이전트는 어떻게 계획하나<span>한 걸음마다 다시 생각하는 ReAct와, 먼저 계획을 세우고 실행하는 Plan-and-Execute의 차이를 비용·속도·실패 방식으로 비교했습니다. ReWOO·LLMCompiler 같은 변형과 코딩 에이전트의 plan mode까지 이어서 봅니다.</span></a><a href="2026-11-ai-trend-04-a2a.html">에이전트 간 통신 — A2A는 MCP와 무엇이 다른가<span>MCP가 &#39;에이전트와 도구&#39;를 잇는다면 A2A는 &#39;에이전트와 에이전트&#39;를 잇습니다. Agent Card로 상대를 찾고, 상태가 있는 task로 일을 맡기는 구조와, 버전마다 바뀐 부분·엇갈리는 보도를 정리했습니다.</span></a><a href="2026-11-ai-trend-03-mcp.html">MCP — 도구를 매번 새로 붙이지 않는 방법<span>지난 회차의 tool use를 앱마다 다시 만들지 않도록 &#39;도구 서버&#39;를 표준 규격으로 분리한 MCP의 구조(호스트·클라이언트·서버, tools·resources·prompts)와 최근 사양 변화, 보안상 약한 고리를 정리했습니다.</span></a><a href="2026-11-ai-trend-02-tool-use.html">Tool use — 모델은 함수를 실행하지 않는다<span>Function calling의 실제 동작(모델은 호출 &#39;요청&#39;만 만들고 실행은 내 코드가 한다), strict 스키마와 Structured Outputs의 관계, 도구를 쓸 때와 출력 형식만 고정할 때를 구분했습니다.</span></a><a href="2026-11-ai-trend-01-agent.html">AI 에이전트란 무엇인가 — LLM이 도구를 쥐고 반복할 때<span>에이전트를 &#39;도구를 쓰며 스스로 다음 단계를 정하는 LLM 루프&#39;로 정의하고, 워크플로와 무엇이 다른지, 기업 도입 숫자가 왜 엇갈리는지 정리했습니다.</span></a></div>  <footer>© Young-Ju Lee · iyju990312@naver.com</footer>
+</div>
+<script>
+(function(){var r=document.documentElement,K='theme';
+try{var s=localStorage.getItem(K);if(s)r.setAttribute('data-theme',s)}catch(e){}
+var b=document.getElementById('theme');if(b)b.addEventListener('click',function(){
+var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});})();
+</script>
+<script>(function(){var b=document.getElementById('readbar'),a=document.querySelector('article');if(!b||!a)return;function f(){var r=a.getBoundingClientRect(),h=r.height-innerHeight*0.6,p=Math.min(1,Math.max(0,-r.top/(h>0?h:1)));b.style.width=(p*100)+'%'}addEventListener('scroll',function(){requestAnimationFrame(f)},{passive:true});f()})();</script>
+</body>
+</html>
