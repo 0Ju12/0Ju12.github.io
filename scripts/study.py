@@ -107,7 +107,7 @@ def inject(note, prev, nxt):
         links.append(f'<a href="../index.html#/quiz/{note["slug"]}">문제 {note["nq"]}개 풀기</a>')
     if note.get("track") == "algo":
         example = "selection" if note["slug"] == "list1" else "fly"
-        links.append(f'<a href="../lab/index.html?example={example}&amp;note={html.escape(note["slug"], quote=True)}">시각화 실험실</a>')
+        links.append('<a href="../index.html#/algo">알고리즘 기록·코드 실행</a>')
     links.append('<a href="../../index.html">포트폴리오</a>')
     bar = NAV_CSS + HASH_JS + '<nav class="st-nav">' + "".join(links) + "</nav>"
     if note.get("track") == "algo":
@@ -242,4 +242,5 @@ def build(env, data):
         search.unlink()                                           # 암호 없는 빌드엔 색인을 남기지 않음
     APP = app        # 화면(index.html)과 manifest·sw.js 는 interview.build 가 공부·면접을 합쳐 만듦
     return notes
+
 

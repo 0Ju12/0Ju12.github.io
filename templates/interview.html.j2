@@ -360,7 +360,6 @@ h2{font-weight:750;letter-spacing:-.025em;font-size:16px;margin:34px 0 12px;disp
   <a class="brand" href="#/">준비 공간</a>
   <nav class="tabs" id="tabs" aria-label="준비 공간 메뉴"><a href="#/" data-v="home">오늘</a><a href="#/study" data-v="study">공부</a><a href="#/questions" data-v="interview">면접</a><a href="#/essay" data-v="apply">지원</a><a href="#/log" data-v="log">기록</a></nav>
   <select class="iconbtn" id="role" aria-label="지원 직무"></select>
-  <a class="iconbtn" href="lab/index.html">시각화 실험실</a>
   <button class="iconbtn" id="theme" type="button" aria-label="화면 테마 바꾸기">◐</button>
   <a class="iconbtn hide-m" href="../index.html">포트폴리오</a>
 </div></header>
@@ -469,6 +468,7 @@ function startOpic(){if(location.hash==='#/opic-exam')opicExam();else location.h
 
 {% include 'interview/essay.js.j2' %}
 {% include '_tools.js.j2' %}
+{% include 'interview/swea.js.j2' %}
 {% include 'interview/sources.js.j2' %}
 {% include 'interview/opic-engine.js.j2' %}
 {% include 'interview/opic-storage.js.j2' %}
@@ -524,4 +524,5 @@ checkRelease();
 </script>
 </body>
 </html>
+
 
