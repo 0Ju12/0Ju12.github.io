@@ -98,7 +98,7 @@ if(params.get('embedded')==='1'){
         loaded=true;stop();if(busy)cancelRun();events=[];pos=0;finalOutput='';runError=null;
         $('code').value=m.code;$('input').value=m.input;
         $('title').textContent=(m.problem.number?m.problem.number+'. ':'')+m.problem.title;
-        $('filename').textContent='my_solution.py';$('desc').textContent='알고리즘 기록에 연결된 내 풀이';
+        $('filename').textContent='my_solution.py';const badge=document.querySelector('.difficulty');if(badge)badge.textContent=m.problem.level||'';$('desc').textContent='알고리즘 기록에 연결된 내 풀이';
         $('concepts').replaceChildren();$('visName').textContent='내 코드 실행 상태';updateWatchOptions();render();
         $('status').textContent='코드와 입력을 작성하고 실행하세요.';
         $('restore').hidden=true;
@@ -112,3 +112,5 @@ if(params.get('embedded')==='1'){
     window.parent.postMessage({type:'algo-work:ready',token:workToken},location.origin);
     if(typeof ResizeObserver!=='undefined')new ResizeObserver(function(){window.parent.postMessage({type:'algo-work:height',token:workToken,height:document.body.scrollHeight+24},location.origin)}).observe(document.body);
 }
+
+$('inputFile').onchange=async function(){const file=this.files[0];if(!file)return;try{const text=await ALGO_TEXT_FILES.apply(file,$('input').value,window.confirm.bind(window));if(text===null)return;$('input').value=text;$('input').dispatchEvent(new Event('input',{bubbles:true}));$('status').textContent=file.name+' 입력을 가져왔어요. 이 문제에 자동 저장됩니다.'}catch(e){$('status').textContent=e.message}finally{this.value=''}};

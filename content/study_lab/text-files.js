@@ -1,0 +1,2 @@
+/* Keep uploaded text literal: never insert a problem file as executable HTML. */
+var ALGO_TEXT_FILES={read:async function(file){if(!file||file.size>1000000)throw Error('1MB 이하의 텍스트 파일을 선택해 주세요.');var text=(await file.text()).replace(/^\uFEFF/,'');if(text.length>100000)throw Error('100,000자 이하의 텍스트 파일을 선택해 주세요.');if(text.includes('\u0000'))throw Error('텍스트 파일(.txt)을 선택해 주세요.');return text},apply:async function(file,current,ask){var text=await this.read(file);if(current&&current!==text&&!ask('작성 중인 내용을 파일 내용으로 바꿀까요? 기존 내용은 덮어씁니다.'))return null;return text}};
