@@ -20,7 +20,7 @@ function save(){if(storageNeedsRecovery){storageStatus();return false}S.updatedA
   localStorage.setItem(KEY,encoded);storageSavedAt=S.updatedAt;storageMessage='';storageStatus();return true
  }catch(_){storageMessage='저장 실패 · 현재 내용을 백업 파일로 내려받으세요.';storageStatus();return false}}
 function recoverLocal(){try{var raw=localStorage.getItem(KEY+':recovery');if(!raw)throw Error('empty');var recovered=validateState(JSON.parse(raw));if(!confirm('직전 저장본과 현재 기록을 합쳐 복구할까요? 최신 수정은 유지합니다.'))return;mergeState(recovered,S);var current=localStorage.getItem(KEY);if(current)localStorage.setItem(KEY+':before-recovery',current);S=recovered;localStorage.setItem(KEY,JSON.stringify(recovered));storageNeedsRecovery=false;if(!save())return;toast('직전 저장본을 복구했습니다.');route()}catch(_){toast('복구할 수 없습니다. 현재 기록을 먼저 백업하세요.')}}
-function downloadLocalBackup(){SYNC.save('면접기록_'+today()+'.json',JSON.stringify(S,null,2),'application/json')}
+function downloadLocalBackup(){var backup=JSON.parse(JSON.stringify(S));if(typeof STUDY!=='undefined'&&STUDY&&typeof STUDY.state==='function')backup.study=STUDY.state();return SYNC.save('준비기록_'+today()+'.json',JSON.stringify(backup,null,2),'application/json')}
 
 function seedAlgo(){var sd=D.algo_seed||{},v=Date.parse(sd.updated||'')||1,ix={},ch=0;S.algo.forEach(function(a,i){ix[a.id]=i});(sd.items||[]).forEach(function(it){if(S.algoHide.indexOf(it.id)>=0||S.deleted.algo[it.id])return;var x=JSON.parse(JSON.stringify(it));x.ts=v;x.sv=v;if(!(it.id in ix)){ix[it.id]=S.algo.length;S.algo.push(x);ch++}else{var o=S.algo[ix[it.id]];if(o.src==='drive'&&(o.sv||o.ts||0)<v){if(o.re)x.re=o.re;x.ts=Math.max(v,o.ts||0);S.algo[ix[it.id]]=x;ch++}}});if(ch)save()}
 seedAlgo();
