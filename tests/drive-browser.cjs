@@ -1,0 +1,13 @@
+/* Synthetic OAuth/Drive responses only; never signs into a real Google account. */
+const assert=require('node:assert/strict');
+module.exports=async function(page){
+ const files=new Map();let seq=0;
+ await page.route('https://www.googleapis.com/**',async route=>{const req=route.request(),url=new URL(req.url()),method=req.method();if(method==='OPTIONS'){await route.fulfill({status:204,headers:{'access-control-allow-origin':'*','access-control-allow-methods':'GET,POST,PATCH,OPTIONS','access-control-allow-headers':'authorization,content-type'}});return}let data={};if(url.pathname.endsWith('/about'))data={user:{permissionId:'fixture-account',emailAddress:'fixture@example.test'}};else if(method==='GET'){const key=/value='([^']+)'/.exec(url.searchParams.get('q'))?.[1];data={files:[...files.values()].filter(f=>f.appProperties?.algoRecordKey===key)}}else if(method==='PATCH'){const id=url.pathname.split('/').pop();files.get(id).content=req.postData();data={id}}else{let meta,content='';if(url.searchParams.get('uploadType')==='multipart'){const boundary=req.headers()['content-type'].split('boundary=')[1],parts=req.postData().split('--'+boundary);meta=JSON.parse(parts[1].split('\r\n\r\n')[1].trim());content=parts[2].slice(parts[2].indexOf('\r\n\r\n')+4,-2)}else meta=JSON.parse(req.postData());const id='mock-'+(++seq);files.set(id,{id,...meta,content});data={id}}await route.fulfill({status:200,contentType:'application/json',headers:{'access-control-allow-origin':'*'},body:JSON.stringify(data)})});
+ await page.evaluate(()=>{window.google={accounts:{oauth2:{initTokenClient(config){return {requestAccessToken(){config.callback({access_token:'synthetic-token',expires_in:3600,scope:'https://www.googleapis.com/auth/drive.file'})}}},revoke(token,done){done()}}}}});
+ await page.locator('#drive-connect').click();await page.waitForFunction(()=>document.querySelector('#algo-drive-panel').textContent.includes('fixture@example.test'));
+ await page.locator('#sw-save-record').click();await page.waitForFunction(()=>document.querySelector('#drive-status').textContent.includes('Drive 저장 완료'));assert.equal(files.size,8);assert([...files.values()].find(f=>f.name==='solution.py').content.includes('3, 1, 2'));
+ await page.locator('#sw-save-record').click();await page.waitForFunction(()=>document.querySelector('#drive-status').textContent.includes('Drive 저장 완료'));assert.equal(files.size,8);
+ const backup=await page.evaluate(()=>localStorage.getItem('interview-app-v1'));assert(!backup.includes('synthetic-token'));
+ await page.locator('#drive-disconnect').click();await page.waitForFunction(()=>document.querySelector('#drive-status').textContent.includes('연결을 해제'));
+ return 4;
+};
