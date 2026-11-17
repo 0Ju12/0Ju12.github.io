@@ -292,7 +292,7 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
       {% set RV = {} if en else (role_variants or {}) %}
       <p class="rv rv-all lede">{{ T.intro }}</p>
       {% for k, rv in RV.items() %}<p class="rv rv-{{ k }} rolehead"><b>{{ rv.headline }}</b><small>{{ T.role_note }}</small></p>{% endfor %}
-      <div class="cta"><a class="btn pri" href="#work">{{ T.see }}</a><a class="btn" id="resume-btn" href="resume-1page.pdf" data-all="resume-1page.pdf"{% for k in RV %} data-{{ k }}="resume-{{ k }}.pdf"{% endfor %} download>{{ T.resume }}</a>{% for l in profile.links if 'github' in l.label|lower %}<a class="btn" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.icon('github', 16) }} GitHub</a>{% endfor %}</div>
+      <div class="cta"><a class="btn pri" href="#selected-cases">{{ T.see }}</a><a class="btn" id="resume-btn" href="resume-1page.pdf" data-all="resume-1page.pdf"{% for k in RV %} data-{{ k }}="resume-{{ k }}.pdf"{% endfor %} download>{{ T.resume }}</a>{% for l in profile.links if 'github' in l.label|lower %}<a class="btn" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.icon('github', 16) }} GitHub</a>{% endfor %}</div>
       {% if proof %}<ul class="proof" aria-label="{{ 'Key evidence' if en else '대표 근거' }}">{% for x in proof %}<li><a href="{{ x.u }}"{% if x.u.startswith('http') %} target="_blank" rel="noopener"{% endif %}><b>{{ x.k }}</b><span>{{ x.t }}</span><i aria-hidden="true">→</i></a></li>{% endfor %}</ul>{% endif %}
       {% set av = profile.availability or {} %}
       <div class="avail">{% if av.role %}<span><b>{{ T.want }}</b>{{ av.role }}</span>{% endif %}{% if av.location %}<span><b>{{ T.loc }}</b>{{ av.location }}</span>{% endif %}{% if av.start %}<span><b>{{ T.start }}</b>{{ av.start }}</span>{% endif %}</div>
@@ -305,9 +305,10 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
     </a>
   </header>
 
+  {% include "_selected-cases.j2" %}
   <section id="work">
     <div class="sec-t"><h2>{{ T.work }}</h2><p>{{ T.work_sub }}</p></div>
-    {% if RV %}<div class="roleswitch" role="group" aria-label="{{ T.role_aria }}"><button type="button" data-role="all" aria-pressed="true">{{ T.role_all }}</button>{% for k, rv in RV.items() %}<button type="button" data-role="{{ k }}" aria-pressed="false">{{ rv.label }}</button>{% endfor %}</div>{% endif %}
+
     <div class="deck">
     {% for a in featured %}{% set ci = loop.index0 %}{% set c = dots[ci] %}
       <article class="card" id="c{{ loop.index }}" data-gid="{{ a.id }}" style="top:{{ 96 + ci * 14 }}px;background:var(--t{{ (ci % 3) + 1 }});--c:{{ c }}">

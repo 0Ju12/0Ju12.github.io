@@ -112,6 +112,16 @@ def inject(note, prev, nxt):
     bar = NAV_CSS + HASH_JS + '<nav class="st-nav">' + "".join(links) + "</nav>"
     if note.get("track") == "algo":
         bar += '<script defer src="../lab/note-bridge.js"></script>'
+    # Stable paragraph targets stay inside the encrypted note, not a public extract.
+    anchor_index = [0]
+    def anchor(m):
+        title = re.sub(r"^\d+\.\s*", "", clean(m.group(2)))
+        if not title or title.startswith(SKIP_SECTIONS):
+            return m.group(0)
+        i = anchor_index[0]
+        anchor_index[0] += 1
+        return f'<span id="learn-section-{i}" style="scroll-margin-top:80px"></span>' + m.group(0)
+    note = dict(note, raw=re.sub(r"(<h2\b[^>]*>)(.*?)(</h2>)", anchor, note["raw"], flags=re.S))
     raw = NUM_PREFIX.sub(r"\1", note["raw"])                         # <title>·<h1> 앞 번호 제거
     return re.sub(r"(<body[^>]*>)", r"\1" + bar.replace("\\", "\\\\"), raw, count=1)
 

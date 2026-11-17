@@ -1,0 +1,35 @@
+masters:
+  value: r ≥ 0.94
+  meaning: 기존 독립 모델 3개와 구조의 상관계수
+  conditions: 동일 연구 지역의 공간·측선 비교. 다른 지역으로의 일반화 성능을 뜻하지 않음.
+  source: https://doi.org/10.2118/236968-PA
+wildfire-capstone:
+  value: F1 0.85 · Accuracy 0.90
+  meaning: 학습에 쓰지 않은 강릉 산불 화선 예측
+  conditions: 산불 4건의 소규모 데이터. 시점별 표본 수·집계 방식은 원 보고서를 확인해야 하며 다른 지역 일반화는 미검증.
+  source: https://github.com/0Ju12/wildfire-spread-prediction
+vqa:
+  value: '0.96961'
+  meaning: 대회 Public Score
+  conditions: 공개 리더보드 기준. Private Score 또는 일반 이미지 QA 성능으로 해석하지 않음. 기준선 Qwen 4B 0.94608.
+  source: https://0ju12.github.io/posts/2026-11-vqa-ensemble-fixes-breaks.html
+heritage:
+  value: 55개
+  meaning: 가짜 LLM·API 대체를 이용한 자동 테스트 수
+  conditions: 인용·예외 처리 규칙 검증. 실제 모델 답변 품질은 별도 평가가 필요. 공개 평가 보고서는 가짜 LLM의 도구 검증용 결과.
+  source: https://github.com/0Ju12/heritage-rag-guide/tree/main/evals
+ssafy-16:
+  value: 142개
+  meaning: 관통 4·5·6·7 자동 테스트 합계
+  conditions: 45+41+36+20개. 외부 API mock 기반 기능 검증이며 사용자 처리량·실제 모델 품질 지표가 아님.
+  source: https://github.com/0Ju12/ssafy-thread
+posco-pospeak:
+  value: BERTScore F1 0.32 → 0.74
+  meaning: 영어 표현 교정의 학습 전략 비교
+  conditions: 순차·통합 학습 전략의 해당 평가셋 결과. 분류 F1 및 산불 F1과 직접 비교할 수 없음.
+  source: https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5
+data-projects:
+  value: MAPE 6.17% → 3.23%
+  meaning: 전력 수요 하루 전 예측, 지난주 같은 시각 기준선 대비
+  conditions: 시간 순서 분할·누수 검사 기준. 평가 기간·표본 수는 연결된 프로젝트 보고서 참조. 다른 기간 성능은 미검증.
+  source: https://0ju12.github.io/data-projects/

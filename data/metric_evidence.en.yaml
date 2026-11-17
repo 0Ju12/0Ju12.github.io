@@ -1,0 +1,42 @@
+masters:
+  value: r ≥ 0.94
+  meaning: Structural correlation with three independent reference models
+  conditions: Spatial and profile comparisons in the same study area; not a cross-region
+    generalization score.
+  source: https://doi.org/10.2118/236968-PA
+wildfire-capstone:
+  value: F1 0.85 · Accuracy 0.90
+  meaning: Fire-front prediction on an unseen Gangneung wildfire
+  conditions: Four-fire dataset. Sample counts and aggregation require the original
+    report. Generalization to other regions is unverified.
+  source: https://github.com/0Ju12/wildfire-spread-prediction
+vqa:
+  value: '0.96961'
+  meaning: Competition Public Score
+  conditions: 'Public leaderboard only; not a private-test or general-purpose VQA
+    score. Qwen 4B baseline: 0.94608.'
+  source: https://0ju12.github.io/posts/2026-11-vqa-ensemble-fixes-breaks.html
+heritage:
+  value: '55'
+  meaning: Offline tests with fake LLMs and API substitutes
+  conditions: Validates citation and error-handling rules. Real-model answer quality
+    requires a separate evaluation. Published default evaluation uses a fake LLM.
+  source: https://github.com/0Ju12/heritage-rag-guide/tree/main/evals
+ssafy-16:
+  value: '142'
+  meaning: Automated tests across stages 4, 5, 6 and 7
+  conditions: 45 + 41 + 36 + 20. Mock-based functional tests, not production throughput
+    or real-model quality.
+  source: https://github.com/0Ju12/ssafy-thread
+posco-pospeak:
+  value: BERTScore F1 0.32 → 0.74
+  meaning: English-expression correction training-strategy comparison
+  conditions: Results on the experiment evaluation set. Not directly comparable to
+    classification or wildfire F1.
+  source: https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5
+data-projects:
+  value: MAPE 6.17% → 3.23%
+  meaning: Day-ahead power-demand forecast versus last-week same-hour baseline
+  conditions: Chronological split and leakage checks. See linked report for period
+    and sample count. Other periods are unverified.
+  source: https://0ju12.github.io/data-projects/

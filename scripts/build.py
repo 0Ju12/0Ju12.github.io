@@ -58,6 +58,23 @@ def normalize(data):
     ]
     data["profile"]["links"] = clean_links(data["profile"].get("links"))
     acts = data.get("activities") or []
+    # Separate engineering cases while retaining the original activity timeline.
+    is_english = not bool(re.search(r"[가-힣]", data["profile"]["name"]))
+    extra_file = DATA.parent / ("standalone_projects.en.yaml" if is_english else "standalone_projects.yaml")
+    extra = yaml.safe_load(extra_file.read_text(encoding="utf-8")) if extra_file.exists() else []
+    for g in acts:
+        if any(x.get("id") == "ssafy-16" for x in g.get("projects") or []):
+            known = {x.get("id") for x in g["projects"]}
+            g["projects"].extend(x for x in extra if x["id"] not in known)
+        for sp in g.get("projects") or []:
+            if sp.get("id") == "ssafy-16":
+                sp["title"] = "ThRead — LLM comment analysis and book community" if is_english else "ThRead — LLM 댓글 분석·독서 커뮤니티"
+                sp["short"] = "ThRead"
+                actions = sp.get("star", {}).get("action") or []
+                sp["star"]["action"] = [x for x in actions if not x.startswith(("SSAFY 16기 AI 챌린지", "AI 코어 프로젝트", "새내기 캠프", "SSAFY AI 과정", "SSAFY 16 AI Challenge", "AI core project", "Freshman camp", "SSAFY AI curriculum"))]
+                if sp.get("digest"):
+                    sp["digest"]["result"] = [x for x in sp["digest"].get("result", []) if "Public" not in x]
+
     photos = DOCS / "assets" / "photos"
 
     def prep(a):
@@ -124,6 +141,18 @@ def normalize(data):
     data["role_variants"] = yaml.safe_load(rv.read_text(encoding="utf-8")) if rv.exists() else {}
     pi = DATA.parent / "projects_index.yaml"   # 디자인 시안용 프로젝트 단위 목록
     data["projects_index"] = yaml.safe_load(pi.read_text(encoding="utf-8")) if pi.exists() else []
+    evidence_file = DATA.parent / ("metric_evidence.en.yaml" if is_english else "metric_evidence.yaml")
+    data["metric_evidence"] = yaml.safe_load(evidence_file.read_text(encoding="utf-8")) if evidence_file.exists() else {}
+    for group in acts:
+        for sp in group.get("projects") or []:
+            sp["metric_evidence"] = data["metric_evidence"].get(sp["id"])
+    data["selected_cases"] = {
+        "all": ["masters", "heritage", "ssafy-16"],
+        "data": ["data-projects", "ssafy-16", "heritage"],
+        "ai": ["heritage", "vqa", "wildfire-capstone"],
+    }
+    data["project_lookup"] = {sp["id"]: sp for g in acts for sp in g.get("projects") or []}
+
     return data
 
 
@@ -503,6 +532,16 @@ def main():
     for name, html in project_pages(env, data).items():
         (DOCS / "projects" / name).write_text(html, encoding="utf-8")
     (DOCS / "demo.html").write_text(env.get_template("demo.html.j2").render(en=False, **data), encoding="utf-8")
+    import shutil
+    public_lab = DOCS / "learning-lab"
+    public_lab.mkdir(exist_ok=True)
+    for name in ("app.js", "style.css", "worker.js", "text-files.js", "visualizers.js", "learning-core.js"):
+        shutil.copy2(ROOT / "content" / "study_lab" / name, public_lab / name)
+    public_html = env.get_template("study_lab.html.j2").render().replace("../notes/list2.html", "../learning-demo.html").replace("../index.html#/notes/algo", "../learning-demo.html")
+    (public_lab / "index.html").write_text(public_html, encoding="utf-8")
+    shutil.copytree(ROOT / "content" / "evaluation", DOCS / "evaluation", dirs_exist_ok=True)
+    for template, name in [("learning-demo.html.j2", "learning-demo.html"), ("evaluation.html.j2", "evaluation.html")]:
+        (DOCS / name).write_text(env.get_template(template).render(**data), encoding="utf-8")
     (DOCS / "brief.html").write_text(env.get_template("brief.html.j2").render(en=False, **data), encoding="utf-8")   # 채용 담당자용 30초 소개
     (DOCS / "resume.html").write_text(env.get_template("resume.html.j2").render(**data), encoding="utf-8")
     (DOCS / "resume-1page.html").write_text(env.get_template("resume-1page.html.j2").render(**data), encoding="utf-8")

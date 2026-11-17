@@ -61,27 +61,65 @@ wildfire-capstone:
       - "If I rebuilt it: ConvLSTM, event-level cross-validation, Dice loss + IoU, and satellite-based fire-front data."
 
 ssafy-16:
-  demo: assets/demo/heritage-rag-demo.gif
-  demo_caption_ko: "국보 입문 가이드 — 국보를 고르고 질문하면 실제로 인용한 근거만 표시 (API 키 없이 도는 데모 모드)"
-  demo_caption_en: "Heritage RAG guide — pick a national treasure, ask, and see only the evidence actually cited (offline demo mode, no API key)"
   ko:
     tradeoffs:
-      - "ThRead: LLM에는 '어떤 댓글이 부적절한가' 같은 판단(번호)만 맡기고, 삭제·채택은 코드가 원본에서 처리 — LLM이 직접 고쳐 쓰는 방식보다 유연성은 줄지만 원본 보존과 개수 보장을 얻음"
-      - "국보 가이드: 근거 번호를 검색 단계에서 고정하고 LLM은 가리키기만 하게 함 — 답변 표현의 자유는 줄지만 인용 검증이 단순한 집합 비교가 됨"
-      - "VQA 챌린지: 새 후보를 정확도 대신 고친 문제와 새로 틀린 문제(fixes−breaks)·유형별 회귀로 채택 — 점수 상승 폭만 보는 것보다 느리지만 '믿을 수 있게 오른' 제출만 남김"
-      - "테스트: 외부 API 대신 mock·가짜 LLM으로 결정적인 테스트를 만듦 — 빠르고 매번 같은 결과가 나오는 대신, 실제 모델의 답변 품질은 측정하지 않음"
+    - 'ThRead: LLM에는 ''어떤 댓글이 부적절한가'' 같은 판단(번호)만 맡기고, 삭제·채택은 코드가 원본에서 처리 — LLM이 직접
+      고쳐 쓰는 방식보다 유연성은 줄지만 원본 보존과 개수 보장을 얻음'
+    - '테스트: 외부 API 대신 mock·가짜 LLM으로 결정적인 테스트를 만듦 — 빠르고 매번 같은 결과가 나오는 대신, 실제 모델의 답변
+      품질은 측정하지 않음'
     next:
-      - "가짜 LLM 테스트는 규칙(인용 검증·예외 처리)을 보장하지만 답변 품질 자체는 재지 못함 — 실제 모델로 질문 세트를 만들어 검색 적중·인용 정확도를 평가하는 것이 다음 단계"
-      - "배운 것: 실패했을 때의 기본값(JSON이 깨지면, 선별이 실패하면, 인용이 없으면)을 먼저 정해 두니 LLM 응답이 흔들려도 서비스는 안정적으로 동작함"
+    - 고정된 댓글 수와 입력으로 성공률·응답 시간·재시도를 측정하고, 외부 API mock 테스트와 실제 서비스 성능을 구분해 기록할 계획입니다.
   en:
     tradeoffs:
-      - "ThRead: the LLM only judges (returns numbers, e.g. which comments are inappropriate) and code removes or keeps items from the original — less flexible than letting the LLM rewrite, but the original is preserved and counts are guaranteed."
-      - "Heritage guide: evidence numbers are fixed at retrieval and the LLM only points to them — less freedom in phrasing, but citation checking becomes a simple set comparison."
-      - "VQA challenge: candidates were adopted by fixes−breaks and per-type regressions instead of accuracy — slower than chasing the score, but only 'reliably better' submissions remain."
-      - "Tests: mocks and a fake LLM instead of external APIs — fast and deterministic, but they don't measure the real model's answer quality."
+    - 'ThRead: the LLM only judges (returns numbers, e.g. which comments are inappropriate)
+      and code removes or keeps items from the original — less flexible than letting
+      the LLM rewrite, but the original is preserved and counts are guaranteed.'
+    - 'Tests: mocks and a fake LLM instead of external APIs — fast and deterministic,
+      but they don''t measure the real model''s answer quality.'
     next:
-      - "Fake-LLM tests guarantee the rules (citation checks, error handling) but not answer quality; the next step is a question set evaluated on a real model for retrieval hits and citation accuracy."
-      - "Lesson: deciding failure defaults first (broken JSON, failed selection, no citations) kept the service stable even when LLM output wavered."
+    - 'Next: measure success rate, latency and retries on fixed-size inputs; keep
+      mock-based tests separate from production performance.'
+heritage:
+  demo: assets/demo/heritage-rag-demo.gif
+  demo_caption_ko: 국보 입문 가이드 — 국보를 고르고 질문하면 실제로 인용한 근거만 표시 (API 키 없이 도는 데모 모드)
+  demo_caption_en: Heritage RAG guide — pick a national treasure, ask, and see only
+    the evidence actually cited (offline demo mode, no API key)
+  ko:
+    tradeoffs:
+    - '국보 가이드: 근거 번호를 검색 단계에서 고정하고 LLM은 가리키기만 하게 함 — 답변 표현의 자유는 줄지만 인용 검증이 단순한 집합
+      비교가 됨'
+    - '테스트: 외부 API 대신 mock·가짜 LLM으로 결정적인 테스트를 만듦 — 빠르고 매번 같은 결과가 나오는 대신, 실제 모델의 답변
+      품질은 측정하지 않음'
+    next:
+    - 고정 질문 9개와 similarity/MMR 비교 평가 도구를 마련했습니다. 공개 오프라인 보고서는 가짜 LLM 검증용이며, 실제 모델의
+      답변 품질·비용은 별도로 실행·기록해야 합니다.
+  en:
+    tradeoffs:
+    - 'Heritage guide: evidence numbers are fixed at retrieval and the LLM only points
+      to them — less freedom in phrasing, but citation checking becomes a simple set
+      comparison.'
+    - 'Tests: mocks and a fake LLM instead of external APIs — fast and deterministic,
+      but they don''t measure the real model''s answer quality.'
+    next:
+    - A nine-question gold set and similarity/MMR evaluation tools are available.
+      The published offline report validates a fake-LLM setup; real-model quality
+      and cost still require measured runs.
+vqa:
+  ko:
+    tradeoffs:
+    - 'VQA 챌린지: 새 후보를 정확도 대신 고친 문제와 새로 틀린 문제(fixes−breaks)·유형별 회귀로 채택 — 점수 상승 폭만 보는
+      것보다 느리지만 ''믿을 수 있게 오른'' 제출만 남김'
+    next:
+    - Public Score를 일반화 성능으로 해석하지 않고, 후보 선택에 쓰지 않은 독립 검증셋과 유형별 회귀를 별도로 평가하는 것이 다음
+      단계입니다.
+  en:
+    tradeoffs:
+    - 'VQA challenge: candidates were adopted by fixes−breaks and per-type regressions
+      instead of accuracy — slower than chasing the score, but only ''reliably better''
+      submissions remain.'
+    next:
+    - 'Next: evaluate on an independent holdout that was not used to select candidates;
+      do not treat the public leaderboard as generalization performance.'
 
 posco-pospeak:
   ko:

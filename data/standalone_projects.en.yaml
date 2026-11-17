@@ -1,0 +1,79 @@
+- id: heritage
+  short: Heritage RAG
+  title: Heritage guide — citation-verified RAG
+  tagline: Collect official heritage documents and Wikipedia, index them in ChromaDB,
+    and validate citation numbers in code.
+  summary: Collect official heritage documents and Wikipedia, index them in ChromaDB,
+    and validate citation numbers in code.
+  key: 55 offline tests
+  type: AI project
+  org: SSAFY 16
+  role: Individual project, collection through UI
+  period:
+    start: '2026.10'
+    end: '2026.10'
+  tags:
+  - LangGraph
+  - ChromaDB
+  - FastAPI
+  - Streamlit
+  - pytest
+  links:
+  - label: Code / evidence
+    url: https://github.com/0Ju12/heritage-rag-guide
+  star:
+    situation: Collect official heritage documents and Wikipedia, index them in ChromaDB,
+      and validate citation numbers in code.
+    task: Individual project, collection through UI
+    action: &id001
+    - Collect XML/EUC-KR official data and link relevant Wikipedia documents.
+    - Keep stable chunk IDs for idempotent indexing.
+    - Validate generated citation numbers; test with fake LLMs and APIs.
+    result: &id002
+    - 55 offline tests; real-model quality requires a separate evaluation.
+  digest:
+    problem: Collect official heritage documents and Wikipedia, index them in ChromaDB,
+      and validate citation numbers in code.
+    role: Individual project, collection through UI
+    did: *id001
+    result: *id002
+- id: vqa
+  short: VQA ensemble
+  title: VQA challenge — probability ensemble
+  tagline: Combine Qwen QLoRA, Gemma, OCR and multiple views; select candidates by
+    fixes minus breaks.
+  summary: Combine Qwen QLoRA, Gemma, OCR and multiple views; select candidates by
+    fixes minus breaks.
+  key: Public Score 0.96961
+  type: AI project
+  org: SSAFY 16
+  role: Team project, training and data refinement
+  period:
+    start: '2026.09'
+    end: '2026.09'
+  tags:
+  - PyTorch
+  - Hugging Face
+  - QLoRA
+  - Qwen
+  - Gemma
+  - OCR
+  links:
+  - label: Code / evidence
+    url: https://0ju12.github.io/posts/2026-11-vqa-ensemble-fixes-breaks.html
+  star:
+    situation: Combine Qwen QLoRA, Gemma, OCR and multiple views; select candidates
+      by fixes minus breaks.
+    task: Team project, training and data refinement
+    action: &id003
+    - Evaluate each candidate by corrected versus newly broken answers.
+    - Protect the best submission and inspect category regressions.
+    - Validate submission IDs, row counts and hashes for reproducibility.
+    result: &id004
+    - Public Score 0.96961; this is not a private-test or general-purpose VQA score.
+  digest:
+    problem: Combine Qwen QLoRA, Gemma, OCR and multiple views; select candidates
+      by fixes minus breaks.
+    role: Team project, training and data refinement
+    did: *id003
+    result: *id004

@@ -1,0 +1,81 @@
+- id: heritage
+  short: 국보 RAG
+  title: 국보 입문 가이드 — 인용을 검증하는 RAG
+  tagline: 국가유산청 오픈API·위키백과를 수집해 ChromaDB에 색인하고, 답변의 [근거 N]을 코드로 다시 검사해 실제 인용한 근거만
+    보여 주는 RAG
+  summary: 국가유산청 오픈API·위키백과를 수집해 ChromaDB에 색인하고, 답변의 [근거 N]을 코드로 다시 검사해 실제 인용한 근거만
+    보여 주는 RAG
+  key: 오프라인 테스트 55
+  type: AI 프로젝트
+  org: SSAFY 16기 AI 코어 프로젝트 2
+  role: 개인 · 데이터 수집부터 화면까지
+  period:
+    start: '2026.10'
+    end: '2026.10'
+  tags:
+  - LangGraph
+  - ChromaDB
+  - FastAPI
+  - Streamlit
+  - pytest
+  links:
+  - label: GitHub
+    url: https://github.com/0Ju12/heritage-rag-guide
+  star:
+    situation: 국가유산청 오픈API·위키백과를 수집해 ChromaDB에 색인하고, 답변의 [근거 N]을 코드로 다시 검사해 실제 인용한
+      근거만 보여 주는 RAG
+    task: 개인 · 데이터 수집부터 화면까지
+    action: &id001
+    - XML·EUC-KR 오픈API 수집, 국보명→위키 문서 자동 연결(일반명사 오연결 방지)
+    - 청크 ID 고정(국보ID:문서ID:순번)으로 재실행해도 중복 없는 색인
+    - LangGraph retrieve→generate, 없는 근거 번호는 제거 · 가짜 LLM으로 전 과정 테스트
+    result:
+    - 오프라인 테스트 55
+  digest:
+    problem: 국가유산청 오픈API·위키백과를 수집해 ChromaDB에 색인하고, 답변의 [근거 N]을 코드로 다시 검사해 실제 인용한 근거만
+      보여 주는 RAG
+    role: 개인 · 데이터 수집부터 화면까지
+    did: *id001
+    result:
+    - 오프라인 테스트 55
+- id: vqa
+  short: VQA 앙상블
+  title: VQA 챌린지 — 멀티모델 확률 앙상블
+  tagline: 이미지+질문 4지선다 VQA. Qwen QLoRA·Gemma·OCR·멀티뷰를 확률 앙상블하고, 후보는 정확도가 아니라 fixes−breaks로
+    채택
+  summary: 이미지+질문 4지선다 VQA. Qwen QLoRA·Gemma·OCR·멀티뷰를 확률 앙상블하고, 후보는 정확도가 아니라 fixes−breaks로
+    채택
+  key: Public Score 0.96961
+  type: AI 프로젝트
+  org: SSAFY 16기 AI 챌린지
+  role: 팀 · 모델 학습·정제 담당
+  period:
+    start: '2026.09'
+    end: '2026.09'
+  tags:
+  - PyTorch
+  - Hugging Face
+  - QLoRA
+  - Qwen
+  - Gemma
+  - OCR
+  links:
+  - label: 실험 기록
+    url: https://0ju12.github.io/posts/2026-11-vqa-ensemble-fixes-breaks.html
+  star:
+    situation: 이미지+질문 4지선다 VQA. Qwen QLoRA·Gemma·OCR·멀티뷰를 확률 앙상블하고, 후보는 정확도가 아니라 fixes−breaks로
+      채택
+    task: 팀 · 모델 학습·정제 담당
+    action: &id002
+    - 새 모델은 단독 성능이 아니라, 기존 앙상블에 더했을 때 고친 문제와 새로 틀린 문제(fixes−breaks)로 평가
+    - 최고 제출을 보호 기준선으로 고정하고 유형별 회귀를 확인한 뒤에만 교체
+    - 제출 전 자동 검사(6,714행·ID·확률 행합) + SHA-256 매니페스트로 GPU 없이 재현
+    result:
+    - Public Score 0.96961
+  digest:
+    problem: 이미지+질문 4지선다 VQA. Qwen QLoRA·Gemma·OCR·멀티뷰를 확률 앙상블하고, 후보는 정확도가 아니라 fixes−breaks로
+      채택
+    role: 팀 · 모델 학습·정제 담당
+    did: *id002
+    result:
+    - Public Score 0.96961

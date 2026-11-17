@@ -184,6 +184,8 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
   </div>
   {% endif %}
 
+  {% if sp.metric_evidence %}{% set m = sp.metric_evidence %}<section id="measurement"><h2>{{ 'Measurement conditions' if en else '성과 수치의 의미와 평가 조건' }}</h2><div class="boxed"><b>{{ m.value }}</b><p>{{ m.meaning }}</p><p>{{ m.conditions }}</p><a href="{{ m.source }}" target="_blank" rel="noopener">{{ 'Evidence ↗' if en else '평가 근거 ↗' }}</a></div></section>{% endif %}
+  {% if sp.id == 'heritage' %}<p><a class="btn" href="../evaluation.html">{{ 'Real-model evaluation procedure and reports' if en else '실제 모델 평가 절차·보고서 보기' }}</a></p>{% endif %}
   {% if st.action %}<section id="did"><h2>{{ L.did }}</h2><div class="boxed"><ol class="list">{% for x in st.action %}<li>{{ x }}</li>{% endfor %}</ol></div></section>{% endif %}
   {% if st.result %}<section id="result"><h2>{{ L.result }}</h2><div class="boxed"><ul class="list res">{% for x in st.result %}<li>{{ x }}</li>{% endfor %}</ul></div></section>{% endif %}
 
