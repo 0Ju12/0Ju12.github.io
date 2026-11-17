@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<title>면접 준비 · {{ profile.name }}</title>
+<title>준비 공간 · {{ profile.name }}</title>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#1f3a5f">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
@@ -18,6 +19,128 @@ a{color:var(--ink)}button,select,textarea{font:inherit;color:inherit}
 .top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .top .in{max-width:1100px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:6px}
 .brand{font-weight:900;letter-spacing:-.02em;text-decoration:none;color:var(--text);margin-right:10px;white-space:nowrap}
+.brand{font-weight:900;letter-spacing:-.02em;text-decoration:none;color:var(--text);margin-right:10px;white-space:nowrap}
+.brand small{font-weight:500;color:var(--faint);margin-left:6px;font-size:12px}
+.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{padding:7px 11px;border-radius:9px;text-decoration:none;color:var(--muted);font-weight:600;font-size:14px;white-space:nowrap}
+.tabs a:hover{background:var(--soft);color:var(--text)}
+.tabs a.on{background:var(--ink-soft);color:var(--ink)}
+.tabs a .n{font-size:11px;margin-left:4px;padding:0 6px;border-radius:99px;background:var(--bad);color:#fff;vertical-align:1px}
+.iconbtn{border:1px solid var(--line);background:var(--card);border-radius:9px;height:34px;min-width:34px;padding:0 10px;cursor:pointer;color:var(--muted);text-decoration:none;display:inline-grid;place-items:center;font-size:13px;white-space:nowrap}
+main{max-width:1080px;margin:0 auto;padding:26px 16px 70px}
+h1{font-size:clamp(22px,3.2vw,28px);letter-spacing:-.03em;margin:0 0 4px;line-height:1.3}
+h2{font-size:17px;letter-spacing:-.02em;margin:30px 0 12px}
+.sub{color:var(--muted);margin:0 0 20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.grid{display:grid;gap:12px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr))}
+.btn{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 16px;border-radius:11px;border:1px solid var(--ink);background:var(--ink);color:var(--on-ink);font-weight:700;cursor:pointer;text-decoration:none;font-size:14.5px}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.sm{height:32px;padding:0 11px;font-size:13px;border-radius:9px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.field{width:100%;height:40px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);padding:0 12px;font:inherit}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{text-decoration:none;border:1px solid var(--line);background:var(--card);border-radius:99px;padding:4px 12px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer}
+.chip.on{background:var(--ink);border-color:var(--ink);color:var(--on-ink)}
+.tag{display:inline-block;font-size:12px;font-weight:600;color:var(--muted);background:var(--soft);border-radius:6px;padding:1px 7px}
+.muted{color:var(--muted)}.faint{color:var(--faint)}.small{font-size:13px}
+.kpi b{display:block;font-size:26px;letter-spacing:-.03em;line-height:1.2}
+.kpi span{color:var(--muted);font-size:13px}
+.bar{height:6px;background:var(--soft);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ink);border-radius:99px}
+.today{display:grid;grid-template-columns:1.4fr 1fr;gap:12px}
+@media (max-width:760px){.today{grid-template-columns:1fr}}
+.hero{background:var(--hero);color:var(--on-hero);border-color:var(--hero)}
+.hero h2{margin:0 0 6px;font-size:20px}
+.hero p{margin:0 0 14px;opacity:.85}
+.hero .btn{background:var(--on-hero);color:var(--hero);border-color:var(--on-hero)}
+.hero .btn.ghost{background:transparent;color:var(--on-hero);border-color:color-mix(in srgb,var(--on-hero) 40%,transparent)}
+.days{display:flex;gap:4px;align-items:flex-end;height:58px;margin-top:10px}
+.days i{flex:1;background:var(--ink-soft);border-radius:4px 4px 2px 2px;min-height:4px}
+.days i.has{background:var(--ink)}
+.trk{display:flex;flex-direction:column;gap:8px}
+.trk .t{display:flex;justify-content:space-between;gap:8px;font-weight:700}
+.trk .t small{font-weight:500;color:var(--muted)}
+.search{width:100%;height:44px;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:0 14px}
+.search:focus,textarea:focus,input:focus{outline:2px solid var(--ink);outline-offset:1px}
+.snote{display:flex;flex-direction:column;gap:8px}
+.snote .h{display:flex;gap:10px;align-items:flex-start}
+.snote .h b{font-size:16px;letter-spacing:-.02em;line-height:1.4;flex:1}
+.snote p{margin:0;color:var(--muted);font-size:14px}
+.snote .meta{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+.snote .meta .bar{flex:1;max-width:140px}
+.read{width:22px;height:22px;border-radius:7px;border:1.5px solid var(--line);background:transparent;cursor:pointer;flex:none;display:grid;place-items:center;color:transparent;font-size:13px}
+.read.on{background:var(--ok);border-color:var(--ok);color:#fff}
+.q{max-width:760px;margin:0 auto}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;font-size:13px;color:var(--muted)}
+.progress{height:4px;background:var(--soft);border-radius:99px;margin-bottom:18px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--ink)}
+.prompt{font-size:18px;font-weight:700;letter-spacing:-.02em;line-height:1.55;margin:4px 0 16px;white-space:pre-wrap}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:12px 14px;cursor:pointer;display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt .k{flex:none;width:24px;height:24px;border-radius:7px;background:var(--soft);display:grid;place-items:center;font-size:12px;font-weight:700;color:var(--muted)}
+.opt.ok{border-color:var(--ok);background:var(--ok-soft)}.opt.ok .k{background:var(--ok);color:#fff}
+.opt.bad{border-color:var(--bad);background:var(--bad-soft)}.opt.bad .k{background:var(--bad);color:#fff}
+.opt:disabled{cursor:default}
+textarea,.input{width:100%;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:12px 14px;resize:vertical}
+.input{height:46px}
+.fb{margin-top:14px;border-radius:12px;padding:14px 16px;border:1px solid var(--line);background:var(--soft)}
+.fb.ok{background:var(--ok-soft);border-color:color-mix(in srgb,var(--ok) 40%,transparent)}
+.fb.bad{background:var(--bad-soft);border-color:color-mix(in srgb,var(--bad) 40%,transparent)}
+.fb b{display:block;margin-bottom:4px}
+.fb .ans{white-space:pre-wrap}
+.fb .ex{color:var(--muted);font-size:14px;margin-top:6px;white-space:pre-wrap}
+.grade{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.grade button{height:44px;border-radius:11px;border:1px solid var(--line);background:var(--card);font-weight:700;cursor:pointer}
+.grade .g-ok{border-color:var(--ok);color:var(--ok)}.grade .g-mid{border-color:var(--mid);color:var(--mid)}.grade .g-bad{border-color:var(--bad);color:var(--bad)}
+.qfoot{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:16px}
+.kbd{font:600 11px/1 "JetBrains Mono",monospace;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:2px 5px;color:var(--faint)}
+.star{border:0;background:none;cursor:pointer;font-size:18px;color:var(--faint);padding:0 4px}
+.star.on{color:var(--mid)}
+.flash{max-width:720px;margin:0 auto}
+.fcard{min-height:260px;cursor:pointer;display:flex;flex-direction:column;gap:10px}
+.fcard .nm{font-size:22px;font-weight:900;letter-spacing:-.03em}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:12px 14px;overflow-x:auto;font:13px/1.6 "JetBrains Mono",ui-monospace,monospace;margin:4px 0}
+.warn{border-left:3px solid var(--mid);padding:6px 12px;background:var(--mid-soft);border-radius:0 8px 8px 0;font-size:14px}
+.list{display:flex;flex-direction:column;gap:6px}
+.li{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:11px;background:var(--card);font-size:14px}
+.li .p{flex:1}
+.empty{text-align:center;padding:40px 16px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-weight:600;font-size:13px}
+.prog{display:flex;flex-direction:column;gap:6px}
+.prog p{margin:0;color:var(--muted);font-size:14px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:11px;font-size:14px;display:none;z-index:50}
+.setup label{display:block;font-weight:700;font-size:14px;margin:16px 0 8px}
+.hit{background:var(--mid-soft);color:inherit;border-radius:3px;padding:0 2px}
+.res{display:block;text-decoration:none;color:inherit;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.res:hover{border-color:var(--ink)}
+.res b{display:block;font-size:14.5px}.res p{margin:4px 0 0;color:var(--muted);font-size:13.5px;line-height:1.6}
+.one{border-left:3px solid var(--ink);padding:2px 0 2px 10px;color:var(--text)!important;font-size:13.5px!important}
+.secl{display:inline-block;margin-top:8px;font-size:13.5px;font-weight:700;text-decoration:none}
+.timer{font:700 15px/1 "JetBrains Mono",monospace;padding:6px 10px;border-radius:9px;background:var(--soft)}
+.timer.low{background:var(--bad-soft);color:var(--bad)}
+.qnav{display:flex;flex-wrap:wrap;gap:5px;margin:16px 0 0}
+.qnav button{width:34px;height:30px;border-radius:8px;border:1px solid var(--line);background:var(--card);font-size:12.5px;font-weight:700;cursor:pointer;color:var(--muted)}
+.qnav button.done{background:var(--ink-soft);color:var(--ink);border-color:transparent}
+.qnav button.cur{outline:2px solid var(--ink);outline-offset:1px}
+.qnav button.ok{background:var(--ok-soft);color:var(--ok);border-color:transparent}.qnav button.bad{background:var(--bad-soft);color:var(--bad);border-color:transparent}
+.opt.pick{border-color:var(--ink);background:var(--ink-soft)}.opt.pick .k{background:var(--ink);color:var(--on-ink)}
+.hist{display:flex;gap:6px;align-items:flex-end;height:120px;padding-top:18px;overflow-x:auto}
+.hist div{flex:0 0 34px;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end;font-size:11px;color:var(--muted)}
+.hist i{display:block;width:22px;background:var(--ink);border-radius:5px 5px 2px 2px;min-height:3px}
+.hist b{font-size:11.5px;color:var(--text)}
+details.ex summary{cursor:pointer;color:var(--muted);font-size:13.5px}
+.hide-m{display:inline}
+@media (max-width:640px){.hide-m{display:none}.prompt{font-size:16.5px}main{padding-top:18px}}
+/* 준비 공간: 큰 메뉴(오늘·공부·면접·지원·기록) 아래 하위 메뉴 */
+.subnav{max-width:1100px;margin:0 auto;padding:8px 16px 0;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.subnav::-webkit-scrollbar{display:none}.subnav:empty{display:none}.subnav a{flex:none;text-decoration:none;border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:99px;padding:5px 13px;font-size:13.5px;font-weight:600;white-space:nowrap}.subnav a.on{background:var(--ink-soft);color:var(--ink);border-color:transparent}.tabs a .n{font-size:11px;margin-left:4px;padding:0 6px;border-radius:99px;background:var(--bad);color:#fff;vertical-align:1px}.tlink{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:8px;font-size:13px}.tlink a{text-decoration:none}
+
 .tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1}.tabs::-webkit-scrollbar{display:none}
 .tabs a{padding:7px 11px;border-radius:9px;text-decoration:none;color:var(--muted);font-weight:600;font-size:14px;white-space:nowrap}
 .tabs a.on{background:var(--ink-soft);color:var(--ink)}
@@ -234,13 +357,14 @@ h2{font-weight:750;letter-spacing:-.025em;font-size:16px;margin:34px 0 12px;disp
 </head>
 <body>
 <header class="top"><div class="in">
-  <a class="brand" href="#/">면접 준비</a>
-  <nav class="tabs" id="tabs" aria-label="면접 준비 메뉴"><a href="#/" data-v="home">오늘</a><a href="#/questions" data-v="questions">질문</a><a href="#/mock" data-v="mock">모의<span class="hide-m"> 면접</span></a><a href="#/decks" data-v="decks">발표</a><a href="#/essay" data-v="essay">자소서</a><a href="#/jobs" data-v="jobs">공채<span class="hide-m"> 정보</span></a><a href="#/tools" data-v="tools">도구</a><a href="#/opic-exam" data-v="opic-exam">OPIc 실전</a><a href="#/drafts" data-v="drafts">내 답변 초안</a><a href="#/sources" data-v="sources">자료 현황</a></nav>
+  <a class="brand" href="#/">준비 공간</a>
+  <nav class="tabs" id="tabs" aria-label="준비 공간 메뉴"><a href="#/" data-v="home">오늘</a><a href="#/study" data-v="study">공부</a><a href="#/questions" data-v="interview">면접</a><a href="#/essay" data-v="apply">지원</a><a href="#/log" data-v="log">기록</a></nav>
   <select class="iconbtn" id="role" aria-label="지원 직무"></select>
+  <a class="iconbtn" href="lab/index.html">시각화 실험실</a>
   <button class="iconbtn" id="theme" type="button" aria-label="화면 테마 바꾸기">◐</button>
-  <a class="iconbtn" href="https://career-workspace-0ju12.affectionateimage.chatgpt.site/" target="_blank" rel="noopener">지원 준비실 · 서버 저장</a>
-  <a class="iconbtn hide-m" href="../study/index.html">강의 노트</a>
+  <a class="iconbtn hide-m" href="../index.html">포트폴리오</a>
 </div></header>
+<nav class="subnav" id="subnav" aria-label="하위 메뉴"></nav>
 <div class="storage-bar" style="max-width:1180px;margin:10px auto;padding:8px 16px;font-size:12px"><span id="save-status" role="status"></span><div class="row" style="margin-top:6px"><span class="muted">이 기기·브라우저에 저장 · GitHub/다른 기기와 자동 동기화되지 않음</span><button class="btn ghost sm" id="backup-local">지금 백업</button><button class="btn ghost sm" id="recover-local">직전 저장본 복구</button><a href="#/log">백업 가져오기·기기 옮기기</a></div></div><main id="app" aria-live="polite"></main>
 <div id="pres" role="dialog" aria-label="발표자 모드"></div>
 <div id="print" aria-hidden="true"></div>
@@ -269,11 +393,13 @@ function answerHTML(q,full){
   if(full!==false&&q.tail&&q.tail.length)h+='<div class="lbl">예상 꼬리질문</div><ul class="tails">'+q.tail.map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul>';
   if(q.verify)h+='<div class="guide"><b>본인 확인·수정</b> · '+esc(q.verify)+'</div>';
   if(q.sources&&q.sources.length)h+='<div class="links" style="margin-top:10px">'+q.sources.filter(function(x){return /^https:\/\//.test(x.url||'')}).map(function(x){return '<a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(x.title)+' ↗</a>'}).join('')+'</div>';
+  if(STUDY&&q.c==='전문지식')h+=STUDY.related(q);
   h+=answerEditor(q);
   return h;
 }
 var INTERVAL=[0,1,3,7,14,30];
 {% include '_sync.js.j2' %}
+{% include 'prep/study.js.j2' %}
 
 {% include 'interview/state.js.j2' %}
 {% include 'interview/answers.js.j2' %}
@@ -295,10 +421,11 @@ var keyHandler=null,timer=null;
 function route(){loadImportedQuestions();
   if(timer){clearInterval(timer);timer=null}discardRecording();if(typeof srStop==='function')srStop();
   var h=location.hash.replace(/^#\/?/,''),p=h.split('/'),v=p[0]||'home';
-  var TV={deck:'decks',board:'tools',cv:'tools',algo:'tools',ncs:'tools',opic:'tools',speak:'tools',log:'tools'};$$('#tabs a').forEach(function(a){a.classList.toggle('on',a.dataset.v===(TV[v]||v))});
+  drawNav(v,p);if(STUDY)STUDY.reset();
   keyHandler=null;window.scrollTo(0,0);
   if(v!=='opic-exam'&&opicRunning()){if(!confirm('시험 화면을 나가면 현재 답변까지 저장하고 중단합니다. 나갈까요?')){location.hash='#/opic-exam';return}finishOpic('interrupted')}
   if(v!=='opic-exam'){document.body.classList.remove('opic-room');if(OX&&OX.capture)OX.capture.stop();stopOpicSpeech()}
+  if(STUDY&&SVIEWS[v])return STUDY.view(v,p);
   if(v==='opic-exam')return opicExam();
   if(v==='drafts')return draftsView();
   if(v==='sources')return sourcesView();
@@ -318,6 +445,22 @@ function route(){loadImportedQuestions();
   if(v==='essay')return essay(decodeURIComponent(p[1]||''));
   home();
 }
+
+/* ---------- 메뉴: 오늘 · 공부 · 면접 · 지원 · 기록 ---------- */
+var SVIEWS={study:1,notes:1,cards:1,quiz:1,review:1,exam:1};
+var SUBNAV={
+  study:[['study','한눈에'],['notes','강의 노트'],['quiz','문제'],['review','복습'],['exam','모의고사'],['algo','알고리즘'],['ncs','인적성']],
+  interview:[['questions','질문 은행'],['drafts','내 답변 정리'],['mock','모의 면접'],['decks','발표'],['opic-exam','OPIc'],['speak','말하기 분석']],
+  apply:[['essay','자소서'],['jobs','공채 정보'],['board','지원 현황'],['cv','맞춤 이력서']],
+  log:[['log','기록·백업'],['sources','자료 현황']]};
+var GROUP_OF={home:'home',cards:'study',deck:'interview',opic:'interview',tools:'log'};
+Object.keys(SUBNAV).forEach(function(g){SUBNAV[g].forEach(function(x){GROUP_OF[x[0]]=g})});
+if(!STUDY){SUBNAV.study=SUBNAV.study.filter(function(x){return !SVIEWS[x[0]]});GROUP_OF.study='study'}
+var SUBALIAS={cards:'notes',deck:'decks',opic:'opic-exam'};
+function drawNav(v,p){var g=GROUP_OF[v]||'home',cur=SUBALIAS[v]||v;
+  $$('#tabs a').forEach(function(a){a.classList.toggle('on',a.dataset.v===g)});
+  var st=$('#tabs a[data-v="study"]');if(st){if(!STUDY)st.setAttribute('href','#/algo');var n=STUDY?STUDY.dueN():0;st.innerHTML='공부'+(n?'<span class="n">'+n+'</span>':'')}
+  var sub=SUBNAV[g]||[];$('#subnav').innerHTML=sub.map(function(x){return '<a href="#/'+x[0]+'"'+(x[0]===cur?' class="on" aria-current="page"':'')+'>'+x[1]+'</a>'}).join('')}
 window.addEventListener('hashchange',route);
 document.addEventListener('keydown',function(e){if(e.metaKey||e.ctrlKey||e.altKey)return;var t=(e.target.tagName||'').toLowerCase();if(t==='textarea'||t==='input'||t==='select')return;if(keyHandler)keyHandler(e)});
 
@@ -335,18 +478,19 @@ function home(){
   var d=due(),tried=QS.filter(function(q){return S.q[q.id]}).length,ok=QS.filter(function(q){var r=S.q[q.id];return r&&r.b>=3}).length;
   var intro=DECKS.filter(function(x){return x.id==='intro-'+S.role})[0];
   var now=new Date();
-  var h='<div class="hd"><div><span class="eyebrow">Interview Studio</span><h1 style="margin-top:6px">오늘의 면접 준비</h1>'+(D.pitch&&D.pitch.h1?'<p class="small" style="margin:0 0 4px;font-weight:700">내 한 줄 · '+esc(D.pitch.h1.join(' '))+'</p>':'')+'<p class="sub" style="margin:0">질문 '+QS.length+'개 · 발표 자료 '+DECKS.length+'개 · 공채 정보 '+(D.recruit&&D.recruit.sectors?D.recruit.sectors.reduce(function(a,x){return a+x.companies.length},0):0)+'곳. 답한 질문은 1·3·7·14·30일 간격으로 다시 나옵니다.</p></div><span class="date">'+(now.getMonth()+1)+'월 '+now.getDate()+'일 '+WD[now.getDay()]+'요일</span></div>';
+  var h='<div class="hd"><div><span class="eyebrow">준비 공간</span><h1 style="margin-top:6px">오늘의 준비</h1>'+(D.pitch&&D.pitch.h1?'<p class="small" style="margin:0 0 4px;font-weight:700">내 한 줄 · '+esc(D.pitch.h1.join(' '))+'</p>':'')+'<p class="sub" style="margin:0">'+(STUDY?'강의 노트 '+STUDY.notes.length+'편 · ':'')+'면접 질문 '+QS.length+'개 · 발표 자료 '+DECKS.length+'개 · 공채 정보 '+(D.recruit&&D.recruit.sectors?D.recruit.sectors.reduce(function(a,x){return a+x.companies.length},0):0)+'곳. 맞힌 문제와 답한 질문은 1·3·7·14·30일 간격으로 다시 나옵니다.</p></div><span class="date">'+(now.getMonth()+1)+'월 '+now.getDate()+'일 '+WD[now.getDay()]+'요일</span></div>';
   h+=goalsHTML()+'<div style="margin-top:12px">'+weekHTML()+'</div>'+todayBoard()+'<h2>오늘 연습</h2>';
-  h+='<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))"><div class="card hero">'+(d.length?'<h2>다시 연습할 질문 '+d.length+'개</h2><p>복습 차례가 된 질문입니다. 시간을 재고 소리 내어 답해 보세요.</p><div class="row"><button class="btn" id="hdue">복습 모의 면접</button><a class="btn ghost" href="#/mock">범위 고르기</a></div>':'<h2>모의 면접 5문항</h2><p>질문이 나오면 60초 안에 소리 내어 답하고, 답변 뼈대와 비교해 스스로 채점합니다.</p><div class="row"><button class="btn" id="hquick">바로 시작</button><a class="btn ghost" href="#/mock">범위 고르기</a></div>')+'</div>';
+  h+='<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))"><div class="card hero">'+(d.length?'<h2>다시 연습할 질문 '+d.length+'개</h2><p>복습 차례가 된 질문입니다. 시간을 재고 소리 내어 답해 보세요.</p><div class="row"><button class="btn" id="hdue">복습 모의 면접</button><a class="btn ghost" href="#/mock">범위 고르기</a></div>':'<h2>모의 면접 5문항</h2><p>질문이 나오면 60초 안에 소리 내어 답하고, 답변 뼈대와 비교해 스스로 채점합니다.</p><div class="row"><button class="btn" id="hquick">바로 시작</button><a class="btn ghost" href="#/mock">범위 고르기</a></div>')+'</div>'+(STUDY?STUDY.todayCard():'');
   h+='<div class="card"><b>발표 연습</b><p class="muted small" style="margin:6px 0 12px">'+esc(D.roles[S.role]||'')+' 기준 자기소개부터 시작하세요. 발표자 모드에서는 메모와 경과 시간이 함께 보입니다.</p><div class="row">'+(intro?'<a class="btn" href="#/deck/'+intro.id+'">'+esc(intro.title)+'</a>':'')+'<a class="btn ghost" href="#/decks">전체 발표 자료</a></div></div><div class="card"><b>OPIc 형식 · 40분 모의시험</b><p class="muted small" style="margin:6px 0 12px">자기소개·묘사·루틴·과거·비교·롤플레이·돌발을 실제 순서처럼 섞어 냅니다. 문항별 강제 종료 없이 전체 40분 안에서 답변하며 녹음을 저장합니다.</p><div class="row"><button class="btn" id="hopic">OPIc 시작</button><a class="btn ghost" href="#/questions/OPIc">답변 틀 보기</a></div></div><div class="card"><b>자소서</b><p class="muted small" style="margin:6px 0 12px">문항 '+(P.essays||[]).length+'개 · 완성 '+essayDone()+'개. 핵심 경험 6개를 문항마다 골라 겹치지 않게 씁니다.</p><div class="row"><a class="btn" href="#/essay">이어서 쓰기</a></div></div></div>';
-  h+='<div class="grid g4" style="margin-top:12px"><div class="card kpi"><b>'+tried+'<span class="small"> / '+QS.length+'</span></b><span>연습한 질문</span></div><div class="card kpi"><b>'+ok+'</b><span>익힌 질문 (3번 이상 알았다)</span></div><div class="card kpi"><b>'+Object.keys(S.memo).filter(function(k){return S.memo[k]}).length+'</b><span>내 메모를 단 질문</span></div><div class="card kpi"><b>'+S.mocks.length+'</b><span>모의 면접 횟수</span></div></div>';
+  var sk=STUDY?STUDY.kpi():null;
+  h+='<div class="grid g4" style="margin-top:12px">'+(sk?'<div class="card kpi"><b>'+sk.read+'<span class="small"> / '+sk.notes+'</span></b><span>읽은 노트</span></div><div class="card kpi"><b>'+sk.master+'<span class="small"> / '+sk.total+'</span></b><span>익힌 문제 (3번 이상 연속 맞힘)</span></div>':'')+'<div class="card kpi"><b>'+tried+'<span class="small"> / '+QS.length+'</span></b><span>연습한 면접 질문</span></div><div class="card kpi"><b>'+S.mocks.length+'</b><span>모의 면접 횟수</span></div></div>';
   h+='<h2>질문 분류</h2><div class="grid g4">'+CATS.map(function(c){var qs=QS.filter(function(q){return q.c===c}),t=qs.filter(function(q){return S.q[q.id]}).length;return '<a class="card" style="text-decoration:none;color:inherit" href="#/questions/'+encodeURIComponent(c)+'"><b>'+esc(c)+'</b><div class="muted small">'+qs.length+'문항 · 연습 '+t+'</div><div class="faint small" style="margin-top:4px">'+esc(groupsOf(c).slice(0,4).join(' · '))+'</div></a>'}).join('')+'</div>';
   var RR=D.recruit||{},top=recos(RR.sectors||[],3);
   h+='<h2>내 조건 추천 회사 <a class="small" href="#/jobs" style="margin-left:auto;font-weight:600">공채 정보 전체 →</a></h2><div class="rec-g">'+top.map(function(a){var m=a.co.match;return '<a class="card rc" href="#/jobs/'+a.x.id+':'+a.ci+'"><div class="top2"><span class="sec-tag">'+esc(a.x.name)+'</span>'+dots(m.score)+'</div><h3>'+esc(a.co.name)+'</h3><div class="why">'+esc(m.why)+'</div>'+(m.gap?'<div class="gap">보완 · '+esc(m.gap)+'</div>':'')+'</a>'}).join('')+'</div><p class="faint small" style="margin-top:8px">IT · 금융 · 자원개발 '+(RR.sectors||[]).reduce(function(x,y){return x+y.companies.length},0)+'곳 · 인재상·면접 컨설팅 포함 · 확인일 '+esc(RR.checked||'')+' (월·목 정기 업데이트)</p>';
   $('#app').innerHTML=h;
   var a=$('#hdue');if(a)a.onclick=function(){startMock(shuffle(d.slice()).slice(0,10),{sec:90,rec:false,label:'복습'})};
   var b=$('#hquick');if(b)b.onclick=function(){startMock(shuffle(QS.filter(function(q){return q.c!=='OPIc'})).slice(0,5),{sec:60,rec:false,label:'바로 시작'})};
-  $('#hopic').onclick=startOpic;bindGoals(home);
+  $('#hopic').onclick=startOpic;bindGoals(home);if(STUDY)STUDY.bindToday();
   $('#app').insertAdjacentHTML('beforeend',freshnessHTML());drawReleaseStatus();
 }
 
@@ -356,12 +500,19 @@ function home(){
 {% include 'interview/jobs.js.j2' %}
 /* ---------- 기록 ---------- */
 function log(){
-  var h='<div class="guide"><b>공고별 준비와 기기 간 저장</b><p>기존 기록은 이 브라우저에 유지됩니다. [지금 백업] JSON을 내려받아 새 비공개 준비실에서 한 번 가져오면 같은 계정으로 다른 기기에서 보관·열람할 수 있습니다.</p><a href="https://career-workspace-0ju12.affectionateimage.chatgpt.site/" target="_blank" rel="noopener">지원 준비실 열기 →</a></div><h1>기록</h1><p class="sub">연습 기록·메모·별표는 이 브라우저(localStorage)에만 있습니다. 다른 기기로 옮기려면 아래 [기기 옮기기]를 쓰세요.</p>';
-  h+='<div class="card" style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:14px"><tr style="color:var(--muted);text-align:left"><th style="padding:6px 0">묶음</th><th>질문</th><th>연습</th><th>익힘</th><th>메모</th></tr>'+GROUPS.map(function(g){var qs=QS.filter(function(q){return q.g===g});return '<tr><td style="padding:6px 0"><b>'+esc(g)+'</b></td><td>'+qs.length+'</td><td>'+qs.filter(function(q){return S.q[q.id]}).length+'</td><td>'+qs.filter(function(q){var r=S.q[q.id];return r&&r.b>=3}).length+'</td><td>'+qs.filter(function(q){return S.memo[q.id]}).length+'</td></tr>'}).join('')+'</table></div>';
-  var sy=SYNC.ui('interview',function(){return S},function(d){var n=mergeState(S,d);fix();save();return n},function(n){toast('합쳤습니다. 새로 들어온 항목 '+n+'개.');log()});
+  var h='<h1>기록</h1><p class="sub">공부·면접 연습 기록, 메모, 자소서는 이 브라우저(localStorage)에만 있습니다. 아래 [기기 옮기기] 한 번으로 둘 다 파일 하나에 담아 다른 기기와 합칠 수 있습니다.</p>';
+  if(STUDY)h+=STUDY.logHTML();
+  h+='<h2>면접 연습 기록</h2><div class="card" style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:14px"><tr style="color:var(--muted);text-align:left"><th style="padding:6px 0">묶음</th><th>질문</th><th>연습</th><th>익힘</th><th>메모</th></tr>'+GROUPS.map(function(g){var qs=QS.filter(function(q){return q.g===g});return '<tr><td style="padding:6px 0"><b>'+esc(g)+'</b></td><td>'+qs.length+'</td><td>'+qs.filter(function(q){return S.q[q.id]}).length+'</td><td>'+qs.filter(function(q){var r=S.q[q.id];return r&&r.b>=3}).length+'</td><td>'+qs.filter(function(q){return S.memo[q.id]}).length+'</td></tr>'}).join('')+'</table></div>';
+  /* 내보내기 파일 하나에 공부 기록(study)도 함께. 예전 '강의 노트' 앱에서 내보낸 파일(app: study)도 가져올 수 있음 */
+  var sy=SYNC.ui('interview',function(){if(!STUDY)return S;var o=JSON.parse(JSON.stringify(S));o.study=STUDY.state();return o},
+    function(d){var n=mergeState(S,d);if(STUDY&&d.study)n+=STUDY.merge(d.study);fix();save();return n},
+    function(n){toast('합쳤습니다. 새로 들어온 항목 '+n+'개.');log()},
+    STUDY?{study:function(d){return STUDY.merge(d)}}:null);
+  h+='<div class="guide" style="margin-top:22px"><b>내 기록을 활용하는 연결 공간</b><p>이 준비 공간의 공부·면접 연습 기록은 현재 브라우저에 저장됩니다. [지금 백업] 또는 아래 [내보내기] 파일에는 공부 기록도 함께 담깁니다. 비공개 지원 문서 보관함에서 암호가 있는 백업도 직접 열어 보관할 수 있으며, 파일 암호는 서버로 보내지 않습니다.</p><div class="row"><a class="btn ghost" href="https://career-workspace-0ju12.affectionateimage.chatgpt.site/" target="_blank" rel="noopener">지원 문서·백업 보관 ↗</a><a class="btn ghost" href="https://career-workspace-0ju12.affectionateimage.chatgpt.site/lab" target="_blank" rel="noopener">프로젝트·실험·회고 기록 ↗</a><a class="btn ghost" href="https://0ju12.github.io/data-projects/api-watch/" target="_blank" rel="noopener">API 관제·AI 학습 자료 ↗</a></div><p class="faint small">서버 공간과 이곳의 연습 기록은 자동으로 합쳐지지 않습니다. 원본 백업을 보존한 뒤 필요한 곳에서 가져오세요.</p></div>';
   h+=sy.html;
   $('#app').innerHTML=h;
-  sy.bind(function(){if(confirm('면접 준비 기록·메모·자소서를 모두 지울까요? 되돌릴 수 없습니다.')){var reset=stamp(S.updatedAt);S=blank();S.resetAt=reset;try{localStorage.removeItem(KEY);localStorage.removeItem(KEY+':recovery');storageNeedsRecovery=false}catch(_){}save();log()}});
+  if(STUDY)STUDY.bindLog();
+  sy.bind(function(){if(confirm('공부·면접 기록·메모·자소서를 모두 지울까요? 되돌릴 수 없습니다.')){if(STUDY)STUDY.clear();var reset=stamp(S.updatedAt);S=blank();S.resetAt=reset;try{localStorage.removeItem(KEY);localStorage.removeItem(KEY+':recovery');storageNeedsRecovery=false}catch(_){}save();log()}});
 }
 
 (function(){var r=document.documentElement,t=null;try{t=localStorage.getItem('theme')}catch(_){}if(t)r.dataset.theme=t;
@@ -373,3 +524,4 @@ checkRelease();
 </script>
 </body>
 </html>
+

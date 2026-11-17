@@ -1,11 +1,14 @@
-"""content/study/notes/*.html (노션 강의 요약) + quiz/lessons.json → docs/study/ 학습 앱 (암호로 잠김)
+"""content/study/notes/*.html (노션 강의 요약) + quiz/lessons.json → 준비 공간(docs/study/)의 '공부' 자료 (암호로 잠김)
+
+준비 공간 = 예전 '강의 노트' 앱과 '면접 준비' 앱을 합친 한 화면. 화면은 interview.py 가 templates/interview.html.j2 로
+그리고, 여기서는 노트 페이지(docs/study/notes/)·검색 색인·문제 자료(APP)를 만들어 넘깁니다.
 
 - 원본: 로컬의 content/study/notes/ (커밋 금지) 또는 잠긴 content/study_sealed/notes.sealed.json (배포 빌드에서 PRIVATE_KEY 로 풂)
 - 출력: 모든 노트·목록 페이지를 암호(STUDY_PASSWORD, 없으면 PRIVATE_PASSWORD)로 AES-GCM 암호화한 잠금 페이지.
   암호가 없는 빌드(로컬 등)에서는 내용 없는 '잠김' 페이지만 만들어 평문이 docs/ 에 남지 않음.
 
 - 각 노트에 학습 공간 내비게이션(목록·이전·다음)을 끼워 docs/study/notes/ 로 복사
-- 제목·날짜·목차·요약을 뽑아 docs/study/index.html 학습 앱 생성 (문제·키워드 카드·약점 리포트·모의고사)
+- 제목·날짜·목차·요약·문제를 뽑아 APP 으로 넘김 → 준비 공간의 '공부' 메뉴 (문제·키워드 카드·약점·모의고사)
 - 본문 검색 색인은 같은 키로 암호화해 docs/study/search.enc.json 에 (암호 없는 빌드엔 만들지 않음)
 - manifest.webmanifest · sw.js 로 홈 화면 설치·오프라인 사용
 """
@@ -95,7 +98,7 @@ NUM_PREFIX = re.compile(r"(<(?:title|h1)[^>]*>)\s*(?:(?:AI|SW)\s*)?\d+\.\s*")
 
 
 def inject(note, prev, nxt):
-    links = ['<a href="../index.html">← 학습 공간</a>', f'<span class="st-t">{html.escape(note["title"])}</span>']
+    links = ['<a href="../index.html#/notes">← 준비 공간</a>', f'<span class="st-t">{html.escape(note["title"])}</span>']
     if prev:
         links.append(f'<a href="{prev["slug"]}.html">‹ 이전</a>')
     if nxt:
@@ -170,7 +173,7 @@ class Locker:
 def pwa(out, slugs):
     """홈 화면 설치·오프라인용 manifest 와 service worker (페이지는 이미 암호화돼 있어 캐시해도 평문이 남지 않음)"""
     import hashlib
-    man = {"name": "학습 노트 · SSAFY 16기", "short_name": "학습 노트", "start_url": "./index.html", "scope": "./",
+    man = {"name": "준비 공간 · 공부와 면접", "short_name": "준비 공간", "start_url": "./index.html", "scope": "./",
            "display": "standalone", "background_color": "#0e1116", "theme_color": "#1f3a5f", "lang": "ko",
            "icons": [{"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
                      {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"}]}
@@ -190,11 +193,12 @@ self.addEventListener('fetch',e=>{const r=e.request;if(r.method!=='GET')return;c
 """
 
 
-LOCKER = None   # 같은 빌드의 면접 준비 앱(interview.py)도 이 키를 써서, 한 번 연 탭에서는 둘 다 다시 묻지 않음
+LOCKER = None   # 같은 빌드의 준비 공간(interview.py)도 이 키를 써서, 노트와 준비 공간을 한 번만 열면 됨
+APP = None      # 준비 공간의 공부 자료 (interview.py 가 화면에 넣음)
 
 
 def build(env, data):
-    global LOCKER
+    global LOCKER, APP
     LOCKER = Locker(env, os.environ.get("STUDY_PASSWORD") or os.environ.get("PRIVATE_PASSWORD"))
     src = _source()
     if not src:
@@ -228,8 +232,6 @@ def build(env, data):
         prev = same[j - 1] if j > 0 else None
         nxt = same[j + 1] if j + 1 < len(same) else None
         (OUT / "notes" / f"{n['slug']}.html").write_text(locker.page(n["title"], inject(n, prev, nxt), "../../index.html"), encoding="utf-8")
-    tracks = [{"id": t[0], "name": t[1], "desc": t[2], "notes": [n for n in notes if n["track"] == t[0]]} for t in TRACKS]
-    dated = sorted([n for n in notes if n["date"]], key=lambda n: (n["date"], order[n["track"]], n["file"]))
     app = {"tracks": [{"id": t[0], "name": t[1], "desc": t[2]} for t in TRACKS],
            "notes": [{k: n[k] for k in ("slug", "title", "num", "date", "sections", "summary", "track", "nq")} for n in notes],
            "pitch": (data.get("pitch") or {}), "units": units, "salt": base64.b64encode(locker.salt).decode() if locker.password else ""}
@@ -238,8 +240,6 @@ def build(env, data):
         search.write_text(json.dumps(locker.blob(index)), encoding="utf-8")
     elif search.exists():
         search.unlink()                                           # 암호 없는 빌드엔 색인을 남기지 않음
-    hub = env.get_template("study.html.j2").render(tracks=tracks, notes=notes, timeline=dated, app=app, **data)
-    (OUT / "index.html").write_text(locker.page("강의 노트", hub, "../index.html"), encoding="utf-8")
-    pwa(OUT, [n["slug"] for n in notes])
+    APP = app        # 화면(index.html)과 manifest·sw.js 는 interview.build 가 공부·면접을 합쳐 만듦
     return notes
 

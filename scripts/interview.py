@@ -1,4 +1,8 @@
-"""면접 준비 앱 → docs/interview/index.html (강의 노트와 같은 암호·같은 키로 잠김)
+"""준비 공간 → docs/study/index.html (공부 + 면접 + 지원을 한 화면으로, 노트와 같은 암호·같은 키로 잠김)
+
+- 예전에는 강의 노트 앱(docs/study/)과 면접 준비 앱(docs/interview/)이 따로 있어 '오늘' 화면·간격 반복·기록·백업이
+  두 벌이었음 → 하나로 합침. docs/interview/ 에는 예전 주소로 들어온 사람을 옮겨 주는 빈 안내 페이지만 남김
+- 공부 자료(노트 목록·문제)는 study.build 가 만든 study.APP 을 받아 app["study"] 로 넣음
 
 - 질문 은행: 면접 노트(content/private/interview.json, 배포 빌드에서는 잠긴 묶음을 PRIVATE_KEY 로 풂)
   + 포트폴리오 프로젝트에서 만든 답변 뼈대(digest·case_notes) + AI 트렌드 노트의 면접 질문
@@ -11,7 +15,8 @@ from uuid import uuid4
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-OUT = ROOT / "docs" / "interview"
+OUT = ROOT / "docs" / "study"
+OLD = ROOT / "docs" / "interview"   # 예전 주소 → 준비 공간으로 옮겨 주는 페이지
 PRIVATE_JSON = ROOT / "content" / "private" / "interview.json"
 BANK_JSON = ROOT / "content" / "private" / "interview_bank.json"
 CATS = ["인성", "프로젝트", "전문지식", "기타", "OPIc"]
@@ -180,6 +185,14 @@ def cv(data):
             "skills": data.get("skills") or []}
 
 
+MOVED = """<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>준비 공간으로 옮겼습니다</title>
+<style>body{margin:0;padding:40px 16px;font:16px/1.6 system-ui,sans-serif;background:#f7f7f8;color:#18181b}@media (prefers-color-scheme:dark){body{background:#0e1116;color:#eef1f5}a{color:#9db8dd}}</style>
+<script>location.replace('../study/index.html'+(location.hash||''))</script></head>
+<body><p>강의 노트와 면접 준비를 <a href="../study/index.html">준비 공간</a> 하나로 합쳤습니다.</p></body></html>
+"""
+
+
 def build(env, data):
     import yaml, study
     OUT.mkdir(parents=True, exist_ok=True)
@@ -220,6 +233,13 @@ def build(env, data):
     ])
     # Public metadata contains no questions, answers or private file contents.
     (OUT / "version.json").write_text(json.dumps(release), encoding="utf-8")
+    app["study"] = getattr(study, "APP", None)
     html = env.get_template("interview.html.j2").render(app=app, **data)
-    (OUT / "index.html").write_text(locker.page("면접 준비", html, "../index.html", pwa=False), encoding="utf-8")
+    (OUT / "index.html").write_text(locker.page("준비 공간", html, "../index.html", pwa=True), encoding="utf-8")
+    study.pwa(OUT, [])
+    OLD.mkdir(parents=True, exist_ok=True)
+    (OLD / "index.html").write_text(MOVED, encoding="utf-8")
+    old_ver = OLD / "version.json"
+    if old_ver.exists():
+        old_ver.unlink()
     return {"questions": len(app["questions"]), "decks": len(app["decks"])} if locker.password else None
