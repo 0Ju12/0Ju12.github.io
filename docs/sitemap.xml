@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://0ju12.github.io/</loc></url>
   <url><loc>https://0ju12.github.io/en.html</loc></url>
+  <url><loc>https://0ju12.github.io/projects/data-projects.html</loc></url>
+  <url><loc>https://0ju12.github.io/projects/data-projects-en.html</loc></url>
+  <url><loc>https://0ju12.github.io/projects/portfolio-site.html</loc></url>
+  <url><loc>https://0ju12.github.io/projects/portfolio-site-en.html</loc></url>
+  <url><loc>https://0ju12.github.io/projects/prep-apps.html</loc></url>
+  <url><loc>https://0ju12.github.io/projects/prep-apps-en.html</loc></url>
+  <url><loc>https://0ju12.github.io/projects/ssafy-16.html</loc></url>
+  <url><loc>https://0ju12.github.io/projects/ssafy-16-en.html</loc></url>
+  <url><loc>https://0ju12.github.io/projects/posco-pospeak.html</loc></url>
+  <url><loc>https://0ju12.github.io/projects/posco-pospeak-en.html</loc></url>
+  <url><loc>https://0ju12.github.io/projects/heritage.html</loc></url>
+  <url><loc>https://0ju12.github.io/projects/heritage-en.html</loc></url>
+  <url><loc>https://0ju12.github.io/projects/vqa.html</loc></url>
+  <url><loc>https://0ju12.github.io/projects/vqa-en.html</loc></url>
   <url><loc>https://0ju12.github.io/projects/masters.html</loc></url>
   <url><loc>https://0ju12.github.io/projects/masters-en.html</loc></url>
   <url><loc>https://0ju12.github.io/projects/calgary-2024.html</loc></url>
@@ -10,16 +24,6 @@
   <url><loc>https://0ju12.github.io/projects/undergrad-research-en.html</loc></url>
   <url><loc>https://0ju12.github.io/projects/wildfire-capstone.html</loc></url>
   <url><loc>https://0ju12.github.io/projects/wildfire-capstone-en.html</loc></url>
-  <url><loc>https://0ju12.github.io/projects/ssafy-16.html</loc></url>
-  <url><loc>https://0ju12.github.io/projects/ssafy-16-en.html</loc></url>
-  <url><loc>https://0ju12.github.io/projects/posco-pospeak.html</loc></url>
-  <url><loc>https://0ju12.github.io/projects/posco-pospeak-en.html</loc></url>
-  <url><loc>https://0ju12.github.io/projects/portfolio-site.html</loc></url>
-  <url><loc>https://0ju12.github.io/projects/portfolio-site-en.html</loc></url>
-  <url><loc>https://0ju12.github.io/projects/prep-apps.html</loc></url>
-  <url><loc>https://0ju12.github.io/projects/prep-apps-en.html</loc></url>
-  <url><loc>https://0ju12.github.io/projects/data-projects.html</loc></url>
-  <url><loc>https://0ju12.github.io/projects/data-projects-en.html</loc></url>
   <url><loc>https://0ju12.github.io/posts/2026-11-warehouse-dbt-airflow.html</loc></url>
   <url><loc>https://0ju12.github.io/posts/2026-11-fastapi-ai-proxy.html</loc></url>
   <url><loc>https://0ju12.github.io/posts/2026-11-django-relational-db.html</loc></url>

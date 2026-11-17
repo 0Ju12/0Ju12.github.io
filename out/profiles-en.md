@@ -6,7 +6,7 @@ LinkedIn 경력 설명은 2,000자 제한이 있어서, 묶음 활동은 하위 
 ## 1. 한 줄 소개 (LinkedIn 헤드라인, 220자 이내)
 
 ```
-Data & AI Engineer | M.S. (SCIE first author) · Spatiotemporal deep learning · LLM fine-tuning & RAG · Data pipelines
+Data Engineer · Data Analyst | M.S. (SCIE first author) · Spatiotemporal deep learning · LLM fine-tuning & RAG · Data pipelines
 ```
 
 ## 2. 자기소개 / About
@@ -16,7 +16,7 @@ M.S. in Environment and Energy (Jeonbuk National University, 2026) with a B.S. i
 
 My flagship SSAFY project is a heritage Q&A RAG guide — from collecting the Korea Heritage Service open API to an LLM whose citations are re-checked in code (github.com/0Ju12/heritage-rag-guide).
 
-Looking for: Data Engineer · AI/ML Engineer · Available: H1 2027 · Location: Open to any location
+Looking for: Data Engineer · Data Analyst · Available: H1 2027 · Location: Open to any location
 
 Portfolio: https://0ju12.github.io  (English: https://0ju12.github.io/en.html)
 GitHub: https://github.com/0Ju12
@@ -24,6 +24,26 @@ Research history: https://www.geoverselab.com/ko/research-history/13/
 ```
 
 ## 3. 경력·활동 항목 (칸 하나씩)
+
+### Public-data projects — earthquake pipeline · equipment anomaly detection · power demand forecasting · DART data mart · dbt warehouse
+- **직함/역할:** Collection · cleaning · modelling · validation · automation
+- **회사/기관:** Personal · GitHub (data-projects)
+- **기간:** 2026.11 – present
+- **설명:**
+```
+Data pipelines, anomaly detection, demand forecasting and a SQL data mart built on public data from energy, resources, manufacturing and finance, validated with time-ordered evaluation
+• Earthquake pipeline: incremental collection from the USGS FDSN API with per-region minimum magnitude and start date (re-fetching the last 3 days so runs are idempotent); only newer revisions replace an event; events without magnitude, out of range or non-earthquake are quarantined and counted; CSV (source) and SQLite (query) storage; Mc and b-value (Aki–Utsu, Shi & Bolt error); a Leaflet dashboard refreshed daily by GitHub Actions
+• Equipment anomaly detection: 136 cycle features from 2,205 cycles × 17 sensors of the UCI hydraulic rig; per-component normal models (Ledoit-Wolf Mahalanobis, 1% false-alarm threshold) with a k-consecutive alert rule; RandomForest vs LDA diagnosis under random and time-block splits
+• Power demand forecasting: day-ahead 24-hour forecasts from KPX 2025 national hourly demand and Open-Meteo temperature — features use only values at least 24 hours old (with a leakage test), holidays included; baseline, linear, GBM and ensemble tested on October–December
+• DART data mart: OpenDART collection (status-code handling, rate-limit waits), standardised accounts, pivot/LAG/RANK SQL views, and evidence search over business-report paragraphs with character-bigram BM25, returned with sources (API key only via Secrets)
+✔ Power demand: MAPE 6.17% for the same-hour-last-week baseline → 3.23% for the ensemble; daily-peak error 2.64%
+✔ Sensor diagnosis: RandomForest scored 0.99+ on every component with a random split but 0.46 on the valve with a time-block split; LDA kept 1.00 on cooler, valve and pump, while the accumulator (0.55) remains open
+✔ Earthquakes: b = 1.11 ± 0.05 on 2,474 events of M4+ in East Asia (the catalogue updates daily) · 39 tests across the four projects
+✔ Warehouse: six sources — earthquakes and power demand plus job postings, exchange prices with FX, package downloads and disaster alerts — 35 models · 101 data tests (ranges, relationships, date continuity, aggregate cross-checks, join coverage) passing; 37 pytest cases confirm that bad data fails the build and that the incremental aggregate equals a full rebuild · results published as a six-tab dashboard refreshed daily · Airflow verified for a single DAG run only (not operated continuously)
+✔ API monitoring: success rate is reported only as the share of observed checks (not called uptime), and the rules are covered by 34 tests — about 130 pytest tests across the eight projects
+Skills: Python, SQL, dbt, DuckDB, Airflow, Docker, scikit-learn, GitHub Actions, Time series
+Details: https://0ju12.github.io/projects/data-projects-en.html
+```
 
 ### Data-driven portfolio generator — YAML → Korean/English site · resume PDFs · automated checks
 - **직함/역할:** Design · development · operation
@@ -59,26 +79,7 @@ Skills: JavaScript, Web Crypto, PWA, Python, cryptography, Playwright
 Details: https://0ju12.github.io/projects/prep-apps-en.html
 ```
 
-### Public-data projects — earthquake pipeline · equipment anomaly detection · power demand forecasting · DART data mart · dbt warehouse
-- **직함/역할:** Collection · cleaning · modelling · validation · automation
-- **회사/기관:** Personal · GitHub (data-projects)
-- **기간:** 2026.11 – present
-- **설명:**
-```
-Data pipelines, anomaly detection, demand forecasting and a SQL data mart built on public data from energy, resources, manufacturing and finance, validated with time-ordered evaluation
-• Earthquake pipeline: incremental collection from the USGS FDSN API with per-region minimum magnitude and start date (re-fetching the last 3 days so runs are idempotent); only newer revisions replace an event; events without magnitude, out of range or non-earthquake are quarantined and counted; CSV (source) and SQLite (query) storage; Mc and b-value (Aki–Utsu, Shi & Bolt error); a Leaflet dashboard refreshed daily by GitHub Actions
-• Equipment anomaly detection: 136 cycle features from 2,205 cycles × 17 sensors of the UCI hydraulic rig; per-component normal models (Ledoit-Wolf Mahalanobis, 1% false-alarm threshold) with a k-consecutive alert rule; RandomForest vs LDA diagnosis under random and time-block splits
-• Power demand forecasting: day-ahead 24-hour forecasts from KPX 2025 national hourly demand and Open-Meteo temperature — features use only values at least 24 hours old (with a leakage test), holidays included; baseline, linear, GBM and ensemble tested on October–December
-• DART data mart: OpenDART collection (status-code handling, rate-limit waits), standardised accounts, pivot/LAG/RANK SQL views, and evidence search over business-report paragraphs with character-bigram BM25, returned with sources (API key only via Secrets)
-✔ Power demand: MAPE 6.17% for the same-hour-last-week baseline → 3.23% for the ensemble; daily-peak error 2.64%
-✔ Sensor diagnosis: RandomForest scored 0.99+ on every component with a random split but 0.46 on the valve with a time-block split; LDA kept 1.00 on cooler, valve and pump, while the accumulator (0.55) remains open
-✔ Earthquakes: b = 1.11 ± 0.05 on 2,474 events of M4+ in East Asia (the catalogue updates daily) · 39 tests across the four projects
-✔ Warehouse: six sources — earthquakes and power demand plus job postings, exchange prices with FX, package downloads and disaster alerts — 35 models · 101 data tests (ranges, relationships, date continuity, aggregate cross-checks, join coverage) passing; 37 pytest cases confirm that bad data fails the build and that the incremental aggregate equals a full rebuild · results published as a six-tab dashboard refreshed daily · Airflow verified for a single DAG run only (not operated continuously)
-Skills: Python, SQL, dbt, DuckDB, Airflow, scikit-learn, GitHub Actions, Time series
-Details: https://0ju12.github.io/projects/data-projects-en.html
-```
-
-### SSAFY — ThRead LLM comment-analysis pipeline · AI Challenge VQA ensemble
+### ThRead — LLM comment analysis and book community
 - **직함/역할:** Backend & data pipeline · model training (AI Challenge)
 - **회사/기관:** Samsung Software & AI Academy for Youth (SSAFY) · team of 2
 - **기간:** 2026.07 – present
@@ -111,6 +112,36 @@ A generator plus retrieval (RAG) that rewrites awkward or Konglish sentences int
 ✔ Team project Encouragement Award
 Skills: Python, Hugging Face, FLAN-T5, LoRA, RAG, FAISS
 Details: https://0ju12.github.io/projects/posco-pospeak-en.html
+```
+
+### Heritage guide — citation-verified RAG
+- **직함/역할:** Individual project, collection through UI
+- **회사/기관:** SSAFY 16
+- **기간:** 2026.10 – 2026.10
+- **설명:**
+```
+Collect official heritage documents and Wikipedia, index them in ChromaDB, and validate citation numbers in code.
+• Collect XML/EUC-KR official data and link relevant Wikipedia documents.
+• Keep stable chunk IDs for idempotent indexing.
+• Validate generated citation numbers; test with fake LLMs and APIs.
+✔ 55 offline tests; real-model quality requires a separate evaluation.
+Skills: LangGraph, ChromaDB, FastAPI, Streamlit, pytest
+Details: https://0ju12.github.io/projects/heritage-en.html
+```
+
+### VQA challenge — probability ensemble
+- **직함/역할:** Team project, training and data refinement
+- **회사/기관:** SSAFY 16
+- **기간:** 2026.09 – 2026.09
+- **설명:**
+```
+Combine Qwen QLoRA, Gemma, OCR and multiple views; select candidates by fixes minus breaks.
+• Evaluate each candidate by corrected versus newly broken answers.
+• Protect the best submission and inspect category regressions.
+• Validate submission IDs, row counts and hashes for reproducibility.
+✔ Public Score 0.96961; this is not a private-test or general-purpose VQA score.
+Skills: PyTorch, Hugging Face, QLoRA, Qwen, Gemma, OCR
+Details: https://0ju12.github.io/projects/vqa-en.html
 ```
 
 ### Wavenumber correlation of gravity & magnetic data for salt/basement structure (M.S. · SPE Journal first author)
@@ -199,7 +230,7 @@ Details: https://0ju12.github.io/projects/wildfire-capstone-en.html
 ## 5. 스킬 (LinkedIn Skills — 최대 50개, 상위 5개가 프로필에 노출)
 
 ```
-Python, SQL, PyTorch, Hugging Face, Pandas, Django, FastAPI, U-LSTM, LoRA/QLoRA fine-tuning, Model ensembles, RAG (LangGraph · ChromaDB), dbt (DuckDB), SCD2 modelling, Data tests, Airflow, GitHub Actions, ArcGIS, Gravity & magnetics, Seismic interpretation
+Python, SQL, dbt (DuckDB), SCD2 modelling, Data tests, Airflow, Docker Compose, SQL (window functions), Pandas, Time-series forecasting, Anomaly detection, PyTorch, Hugging Face, LoRA/QLoRA, RAG (LangGraph · ChromaDB), ArcGIS, Gravity & magnetics, Seismic interpretation
 ```
 
 ## 6. 수상·자격 (LinkedIn "Honors & awards" / "Licenses & certifications")

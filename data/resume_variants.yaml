@@ -1,7 +1,7 @@
 # 직무별 1쪽 이력서 변형 — portfolio.yaml 의 사실만 재배치·재서술 (새 사실 추가 금지)
 # build.py 가 docs/resume-<key>.html 로 렌더링, scripts/pdf.js 가 PDF 생성
 data:
-  label: "데이터 엔지니어"
+  label: "데이터 엔지니어·분석가"
   headline: "데이터 수집부터 정제·검증·색인까지 파이프라인을 만드는 데이터 엔지니어"
   highlights:
     - { value: "파이프라인 3종", label: "오픈API·크롤링 수집 → 정제 → 색인" }

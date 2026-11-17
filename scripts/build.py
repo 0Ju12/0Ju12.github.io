@@ -147,8 +147,8 @@ def normalize(data):
         for sp in group.get("projects") or []:
             sp["metric_evidence"] = data["metric_evidence"].get(sp["id"])
     data["selected_cases"] = {
-        "all": ["masters", "heritage", "ssafy-16"],
-        "data": ["data-projects", "ssafy-16", "heritage"],
+        "all": ["data-projects", "ssafy-16", "masters"],     # 주력: 데이터 엔지니어·분석가 (2026-11-17)
+        "data": ["data-projects", "ssafy-16", "masters"],
         "ai": ["heritage", "vqa", "wildfire-capstone"],
     }
     data["project_lookup"] = {sp["id"]: sp for g in acts for sp in g.get("projects") or []}

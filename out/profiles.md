@@ -6,7 +6,7 @@ LinkedIn 경력 설명은 2,000자 제한이 있어서, 묶음 활동은 하위 
 ## 1. 한 줄 소개 (LinkedIn 헤드라인, 220자 이내)
 
 ```
-데이터·AI 엔지니어 | 석사(SCIE 제1저자) · 시공간 딥러닝 · LLM 파인튜닝·RAG · 데이터 파이프라인
+데이터 엔지니어 · 데이터 분석가 | 석사(SCIE 제1저자) · 시공간 딥러닝 · LLM 파인튜닝·RAG · 데이터 파이프라인
 ```
 
 ## 2. 자기소개 / About
@@ -16,7 +16,7 @@ LinkedIn 경력 설명은 2,000자 제한이 있어서, 묶음 활동은 하위 
 
 지금은 삼성 청년 SW·AI 아카데미(SSAFY) 16기에서 LLM 파이프라인·RAG·모델 앙상블을 만들고 있습니다. 국가유산청 오픈API 수집부터, 답변의 인용을 코드로 다시 검사하는 RAG까지 직접 구현한 '국보 입문 가이드'(github.com/0Ju12/heritage-rag-guide)가 대표 작업입니다.
 
-희망 직무: 데이터 엔지니어 · AI/ML 엔지니어 · 입사 가능: 2027년 상반기 · 근무 지역: 무관
+희망 직무: 데이터 엔지니어 · 데이터 분석가 · 입사 가능: 2027년 상반기 · 근무 지역: 무관
 
 포트폴리오: https://0ju12.github.io  (English: https://0ju12.github.io/en.html)
 GitHub: https://github.com/0Ju12
@@ -24,6 +24,26 @@ GitHub: https://github.com/0Ju12
 ```
 
 ## 3. 경력·활동 항목 (칸 하나씩)
+
+### 공개 데이터 프로젝트 — 지진 파이프라인 · 설비 이상 탐지 · 전력 수요 예측 · DART 데이터 마트 · dbt 웨어하우스
+- **직함/역할:** 수집 · 정제 · 모델링 · 검증 · 자동화
+- **회사/기관:** 개인 · GitHub (data-projects)
+- **기간:** 2026.11 – 진행 중
+- **설명:**
+```
+에너지·자원·제조·금융 분야의 공개 데이터로 데이터 파이프라인, 이상 탐지, 수요 예측, SQL 데이터 마트를 만들고 시간 순서를 지킨 평가로 검증한 프로젝트 모음
+• 지진 데이터 파이프라인: USGS FDSN API 를 지역별 최소 규모·시작일로 증분 수집(마지막 실행 3일 전부터 겹쳐 받아 멱등), 같은 id 는 더 늦은 수정본만 교체, 규모 없음·범위 밖·발파는 격리해 개수만 보고, CSV(원본)·SQLite(질의용) 저장, Mc·b값(Aki–Utsu, Shi & Bolt 오차) 분석, Leaflet 지도 대시보드를 매일 GitHub Actions 로 갱신
+• 설비 센서 이상 탐지: UCI 유압 설비 2,205 사이클 × 17 센서에서 사이클 특징 136개 추출, 부품별 정상 모델(Ledoit-Wolf 마할라노비스, 1% 오경보 임계값)과 k 연속 경보 규칙, RandomForest·LDA 진단을 무작위 분할과 시간 구간 분할로 비교
+• 전력 수요 예측: 전력거래소 2025년 시간별 전국 수요와 Open-Meteo 기온으로 하루 전 24시간 예측 — 24시간 이상 지난 값만 쓰도록 특징을 만들고(누수 검사 테스트), 공휴일·연휴를 반영해 기준선·선형·GBM·앙상블을 10~12월로 시험
+• DART 데이터 마트: OpenDART 수집(오류 코드별 처리·한도 대기), 표준 계정 정규화, 피벗·LAG·RANK SQL 뷰, 사업보고서 문단을 글자 2-gram BM25 로 찾아 출처와 함께 보여 주는 근거 검색 (인증키는 Secrets 로만)
+✔ 전력 수요: 지난주 같은 시각 기준선 MAPE 6.17% → 앙상블 3.23%, 일 최대수요 오차 2.64%
+✔ 센서 진단: 무작위 분할에서 모든 부품 0.99 이상이던 RandomForest 가 시간 구간 분할에서 밸브 0.46 — LDA 는 냉각기·밸브·펌프 1.00 유지, 축압기 0.55 로 남은 과제 확인
+✔ 지진: 동아시아 M4+ 2,474건 기준 b = 1.11 ± 0.05 (목록은 매일 갱신) · 테스트 39개(4개 프로젝트 합계)
+✔ 웨어하우스: 지진·전력 수요에 채용 공고·거래소 시세와 환율·패키지 내려받기·재해 경보를 더해 6개 출처, 모델 35개 · 품질 테스트 101개(범위·관계·날짜 연속성·집계 대조·조인 누락) 통과, 잘못된 자료를 넣으면 빌드가 실패하는 것과 증분 집계가 전체 재계산과 같은 것까지 pytest 37개로 확인 · 결과는 6개 탭 대시보드로 매일 갱신 · Airflow 는 DAG 1회 실행까지만 확인(상시 운영은 아님)
+✔ API 관제: 성공률은 관측한 검사 표본의 비율로만 표시하고(가동률로 부르지 않음), 판정 규칙은 테스트 34개로 확인 — 공개 데이터 프로젝트 8개 합계 pytest 약 130개
+기술: Python, SQL, dbt, DuckDB, Airflow, Docker, scikit-learn, GitHub Actions, 시계열
+상세: https://0ju12.github.io/projects/data-projects.html
+```
 
 ### 데이터 기반 포트폴리오 생성기 — YAML → 국문·영문 사이트 · 이력서 PDF · 자동 점검
 - **직함/역할:** 설계 · 개발 · 운영
@@ -59,26 +79,7 @@ GitHub: https://github.com/0Ju12
 상세: https://0ju12.github.io/projects/prep-apps.html
 ```
 
-### 공개 데이터 프로젝트 — 지진 파이프라인 · 설비 이상 탐지 · 전력 수요 예측 · DART 데이터 마트 · dbt 웨어하우스
-- **직함/역할:** 수집 · 정제 · 모델링 · 검증 · 자동화
-- **회사/기관:** 개인 · GitHub (data-projects)
-- **기간:** 2026.11 – 진행 중
-- **설명:**
-```
-에너지·자원·제조·금융 분야의 공개 데이터로 데이터 파이프라인, 이상 탐지, 수요 예측, SQL 데이터 마트를 만들고 시간 순서를 지킨 평가로 검증한 프로젝트 모음
-• 지진 데이터 파이프라인: USGS FDSN API 를 지역별 최소 규모·시작일로 증분 수집(마지막 실행 3일 전부터 겹쳐 받아 멱등), 같은 id 는 더 늦은 수정본만 교체, 규모 없음·범위 밖·발파는 격리해 개수만 보고, CSV(원본)·SQLite(질의용) 저장, Mc·b값(Aki–Utsu, Shi & Bolt 오차) 분석, Leaflet 지도 대시보드를 매일 GitHub Actions 로 갱신
-• 설비 센서 이상 탐지: UCI 유압 설비 2,205 사이클 × 17 센서에서 사이클 특징 136개 추출, 부품별 정상 모델(Ledoit-Wolf 마할라노비스, 1% 오경보 임계값)과 k 연속 경보 규칙, RandomForest·LDA 진단을 무작위 분할과 시간 구간 분할로 비교
-• 전력 수요 예측: 전력거래소 2025년 시간별 전국 수요와 Open-Meteo 기온으로 하루 전 24시간 예측 — 24시간 이상 지난 값만 쓰도록 특징을 만들고(누수 검사 테스트), 공휴일·연휴를 반영해 기준선·선형·GBM·앙상블을 10~12월로 시험
-• DART 데이터 마트: OpenDART 수집(오류 코드별 처리·한도 대기), 표준 계정 정규화, 피벗·LAG·RANK SQL 뷰, 사업보고서 문단을 글자 2-gram BM25 로 찾아 출처와 함께 보여 주는 근거 검색 (인증키는 Secrets 로만)
-✔ 전력 수요: 지난주 같은 시각 기준선 MAPE 6.17% → 앙상블 3.23%, 일 최대수요 오차 2.64%
-✔ 센서 진단: 무작위 분할에서 모든 부품 0.99 이상이던 RandomForest 가 시간 구간 분할에서 밸브 0.46 — LDA 는 냉각기·밸브·펌프 1.00 유지, 축압기 0.55 로 남은 과제 확인
-✔ 지진: 동아시아 M4+ 2,474건 기준 b = 1.11 ± 0.05 (목록은 매일 갱신) · 테스트 39개(4개 프로젝트 합계)
-✔ 웨어하우스: 지진·전력 수요에 채용 공고·거래소 시세와 환율·패키지 내려받기·재해 경보를 더해 6개 출처, 모델 35개 · 품질 테스트 101개(범위·관계·날짜 연속성·집계 대조·조인 누락) 통과, 잘못된 자료를 넣으면 빌드가 실패하는 것과 증분 집계가 전체 재계산과 같은 것까지 pytest 37개로 확인 · 결과는 6개 탭 대시보드로 매일 갱신 · Airflow 는 DAG 1회 실행까지만 확인(상시 운영은 아님)
-기술: Python, SQL, dbt, DuckDB, Airflow, scikit-learn, GitHub Actions, 시계열
-상세: https://0ju12.github.io/projects/data-projects.html
-```
-
-### SSAFY 16기 관통 프로젝트 — ThRead: LLM 댓글 분석 파이프라인 · AI 도서 서비스
+### ThRead — LLM 댓글 분석·독서 커뮤니티
 - **직함/역할:** 백엔드 · 데이터 파이프라인 담당
 - **회사/기관:** 삼성 청년 SW·AI 아카데미 (SSAFY) 16기 · 2인 팀
 - **기간:** 2026.07 – 진행 중
@@ -111,6 +112,36 @@ GitHub: https://github.com/0Ju12
 ✔ 팀 프로젝트 장려상 수상
 기술: Python, Hugging Face, FLAN-T5, LoRA, RAG, FAISS
 상세: https://0ju12.github.io/projects/posco-pospeak.html
+```
+
+### 국보 입문 가이드 — 인용을 검증하는 RAG
+- **직함/역할:** 개인 · 데이터 수집부터 화면까지
+- **회사/기관:** SSAFY 16기 AI 코어 프로젝트 2
+- **기간:** 2026.10 – 2026.10
+- **설명:**
+```
+국가유산청 오픈API·위키백과를 수집해 ChromaDB에 색인하고, 답변의 [근거 N]을 코드로 다시 검사해 실제 인용한 근거만 보여 주는 RAG
+• XML·EUC-KR 오픈API 수집, 국보명→위키 문서 자동 연결(일반명사 오연결 방지)
+• 청크 ID 고정(국보ID:문서ID:순번)으로 재실행해도 중복 없는 색인
+• LangGraph retrieve→generate, 없는 근거 번호는 제거 · 가짜 LLM으로 전 과정 테스트
+✔ 오프라인 테스트 55
+기술: LangGraph, ChromaDB, FastAPI, Streamlit, pytest
+상세: https://0ju12.github.io/projects/heritage.html
+```
+
+### VQA 챌린지 — 멀티모델 확률 앙상블
+- **직함/역할:** 팀 · 모델 학습·정제 담당
+- **회사/기관:** SSAFY 16기 AI 챌린지
+- **기간:** 2026.09 – 2026.09
+- **설명:**
+```
+이미지+질문 4지선다 VQA. Qwen QLoRA·Gemma·OCR·멀티뷰를 확률 앙상블하고, 후보는 정확도가 아니라 fixes−breaks로 채택
+• 새 모델은 단독 성능이 아니라, 기존 앙상블에 더했을 때 고친 문제와 새로 틀린 문제(fixes−breaks)로 평가
+• 최고 제출을 보호 기준선으로 고정하고 유형별 회귀를 확인한 뒤에만 교체
+• 제출 전 자동 검사(6,714행·ID·확률 행합) + SHA-256 매니페스트로 GPU 없이 재현
+✔ Public Score 0.96961
+기술: PyTorch, Hugging Face, QLoRA, Qwen, Gemma, OCR
+상세: https://0ju12.github.io/projects/vqa.html
 ```
 
 ### 중력·자력 데이터 파수 상관 분석으로 지하 구조 규명 (석사 · SPE Journal 제1저자)
@@ -199,7 +230,7 @@ GPlates로 해외 대규모 CO2 저장소의 지질 형성사를 판구조 관�
 ## 5. 스킬 (LinkedIn Skills — 최대 50개, 상위 5개가 프로필에 노출)
 
 ```
-Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, Django, FastAPI, Selenium, SQL, 시공간 딥러닝(U-LSTM), CNN·LSTM, LLM 파인튜닝(FLAN-T5·Qwen·Gemma, LoRA·QLoRA), 멀티모델 확률 앙상블, RAG(LangGraph·ChromaDB·FAISS), 모델 평가(F1·BERTScore), dbt(DuckDB), 차원 모델링·SCD 2형, 데이터 품질 테스트, Airflow DAG 작성, GitHub Actions, ArcGIS, 래스터 데이터 구축, 중력·자력 자료 처리, 파수 상관 분석, 탄성파 자료 해석, GPlates
+Python, SQL, dbt(DuckDB), 차원 모델링·SCD 2형, 데이터 품질 테스트, Airflow DAG 작성, Docker Compose, GitHub Actions, SQL 분석(윈도우 함수·CTE), Pandas, 시계열 예측·시간 순서 검증, 이상 탐지, 통계 분석, 대시보드 시각화, PyTorch, TensorFlow, Hugging Face Transformers, LLM 파인튜닝(LoRA·QLoRA), RAG(LangGraph·ChromaDB), API 서버(Django·FastAPI), ArcGIS, 래스터 데이터 구축, 중력·자력 자료 처리, 파수 상관 분석, 탄성파 자료 해석, GPlates
 ```
 
 ## 6. 수상·자격 (LinkedIn "Honors & awards" / "Licenses & certifications")

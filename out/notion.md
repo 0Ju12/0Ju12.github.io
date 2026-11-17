@@ -1,6 +1,6 @@
-# 이영주 — 데이터·AI 엔지니어
+# 이영주 — 데이터 엔지니어 · 데이터 분석가
 
-> 복잡한 지구과학 데이터를 딥러닝과 분석으로 풀어내는 데이터·AI 엔지니어
+> 공개 데이터를 모으고 정제해 검증할 수 있는 지표와 분석으로 만드는 데이터 엔지니어·분석가
 
 자원에너지공학을 전공하고 환경에너지융합학과에서 석사 학위를 받았습니다(2026). 학부연구생으로 판구조 형성사를 고려한 해외 대규모 CO2 저장소 탄성파 해석 논문을 제1저자로 썼고, IAB 융합전공 캡스톤에서는 시공간 딥러닝(U-LSTM) 기반 산불 확산 경로 예측 모델의 설계와 학습을 맡았습니다. 석사 과정에서는 중력·자력 데이터의 파수 상관 분석으로 지하 구조를 규명해 SCIE 국제학술지 SPE Journal 제1저자 논문을 냈고, 학부·석사를 합쳐 논문 3편과 학회 발표 6건, 학회 우수논문 발표상의 성과를 냈습니다. 포스코 청년 AI·BigData 아카데미(POSTECH)에서는 FLAN-T5와 RAG를 결합한 영어 표현 교정 시스템 프로젝트에서 데이터 구축과 모델 실험을 맡았고, 팀은 장려상을 받았습니다. SSAFY 16기에서는 LLM 판단을 코드로 검증하는 데이터 파이프라인과 Django·FastAPI 서비스를 만들며 자동 테스트 142개로 동작을 확인했고, 개인 프로젝트로 근거 번호를 코드로 검증하는 RAG 가이드를 구현했습니다. 캐나다 캘거리대학교에서 두 차례 파견 연구를 하며 해외 연구진과 협업했고, ADsP(데이터분석 준전문가) 자격을 보유하고 있습니다.
 
@@ -9,6 +9,83 @@
 ---
 
 ## ⭐ 대표 활동
+
+### 개인 프로젝트 — 공개 데이터 웨어하우스·API 관제 · 포트폴리오 생성기 · 암호화 준비 공간
+`개인 프로젝트` · 2026.11 – 진행 중 · 개인 (GitHub Pages · GitHub Actions) · **기획 · 설계 · 개발 · 운영**
+
+포트폴리오를 데이터(YAML)로 관리해 사이트·이력서를 자동 생성하고, 공개하면 안 되는 학습·면접 자료는 암호화한 앱으로 직접 만들어 쓰는 개인 프로젝트
+
+- **상황** 
+- **역할·과제** 
+- **한 일**
+  - [공개 데이터 프로젝트] 지진 데이터 파이프라인: USGS FDSN API 를 지역별 최소 규모·시작일로 증분 수집(마지막 실행 3일 전부터 겹쳐 받아 멱등), 같은 id 는 더 늦은 수정본만 교체, 규모 없음·범위 밖·발파는 격리해 개수만 보고, CSV(원본)·SQLite(질의용) 저장, Mc·b값(Aki–Utsu, Shi & Bolt 오차) 분석, Leaflet 지도 대시보드를 매일 GitHub Actions 로 갱신
+  - [공개 데이터 프로젝트] 설비 센서 이상 탐지: UCI 유압 설비 2,205 사이클 × 17 센서에서 사이클 특징 136개 추출, 부품별 정상 모델(Ledoit-Wolf 마할라노비스, 1% 오경보 임계값)과 k 연속 경보 규칙, RandomForest·LDA 진단을 무작위 분할과 시간 구간 분할로 비교
+  - [공개 데이터 프로젝트] 전력 수요 예측: 전력거래소 2025년 시간별 전국 수요와 Open-Meteo 기온으로 하루 전 24시간 예측 — 24시간 이상 지난 값만 쓰도록 특징을 만들고(누수 검사 테스트), 공휴일·연휴를 반영해 기준선·선형·GBM·앙상블을 10~12월로 시험
+  - [공개 데이터 프로젝트] DART 데이터 마트: OpenDART 수집(오류 코드별 처리·한도 대기), 표준 계정 정규화, 피벗·LAG·RANK SQL 뷰, 사업보고서 문단을 글자 2-gram BM25 로 찾아 출처와 함께 보여 주는 근거 검색 (인증키는 Secrets 로만)
+  - [공개 데이터 프로젝트] 웨어하우스: 지진·수요·기온 원본을 dbt(DuckDB)로 staging → intermediate → marts 3단 모델링 — 날짜 × 24열 수요표를 시간별 행으로 풀면서 '24시'를 다음 날로 넘기지 않도록 시작 시각을 키로 삼고, USGS 가 고친 지진은 덮어쓰지 않고 이력(SCD 2형)으로 쌓음. 같은 함수를 Airflow DAG·명령줄·테스트가 함께 쓰고, 날짜 파티션 내보내기는 다시 돌려도 같은 파일이 나오게 함
+  - [공개 데이터 프로젝트] API 관제(API Watch): 공개 API 22개를 매시 점검 — HTTP 200 이어도 오래된 자료·빈 결과·중복·자료형 변경을 따로 판정하고, 첫 정상 응답의 구조를 저장해 필드 추가와 삭제·형 변경을 구분, 연속 실패만 이슈 한 건으로 모음 (Django 관리 화면·Docker Compose 실행판 포함)
+  - [공개 데이터 프로젝트] 산불 위험 지도: 화재기상지수(FFWI)와 NASA 위성 화재 탐지를 매일 모아 비교 — 탐지의 대부분이 제철소 같은 상시 열원이라 이를 가려내는 규칙을 만듦
+  - [공개 데이터 프로젝트] 데이터 에이전트: 위 결과를 LLM 이 SQL 로 조회하는 MCP 서버 — 읽기 전용 SQL 안전장치와, 답에 들어간 숫자를 조회 결과와 대조하는 검증
+  - [포트폴리오 생성기] 데이터: data/portfolio.yaml(국문)·portfolio.en.yaml(영문)에 활동·프로젝트를 STAR 구조로 저장, 프로젝트별 설계 판단·회고는 case_notes.yaml로 분리
+  - [포트폴리오 생성기] 빌드: Python + Jinja2로 메인 페이지, 프로젝트 상세(국·영 14쪽), 이력서(1장·상세·데이터/AI 직무별·영문)와 PDF 5종(Playwright 인쇄), 검색 색인, 프로젝트별 공유 이미지·sitemap, 노션·LinkedIn 문구를 한 번에 생성
+  - [포트폴리오 생성기] 점검: 필수 항목·링크 누락 경고를 --strict로 빌드 실패 처리, 배포 전 전체 페이지 링크 점검과 주요 페이지의 데스크톱·휴대폰 화면 점검(가로 넘침·겹침) 자동 실행
+  - [포트폴리오 생성기] 비공개 자료: 연락처·증빙·면접 답변 원문은 공개키(RSA-OAEP + AES-GCM)로 잠근 파일만 커밋하고, GitHub Actions가 비밀 키로 풀어 암호화 페이지로만 출력 — 평문은 저장소에 남지 않음
+  - [포트폴리오 생성기] 부가 기능: LLM 없이 사이트 글에서 문단을 찾아 출처와 함께 보여 주는 '포트폴리오에 질문하기', RAG 근거 번호 검증 미니 데모, 연구 지역 커리어 지도(Natural Earth), AI 트렌드 연재 글 목록
+  - [학습·면접 준비 앱] 암호화: 빌드에서 페이지마다 PBKDF2-SHA256(60만 회)로 만든 키와 AES-GCM으로 본문을 잠그고, 브라우저 Web Crypto로 풂 — 같은 빌드는 한 키를 써서 한 번 연 탭에서는 학습·면접 앱 모두 다시 묻지 않음. 암호가 없는 로컬 빌드는 내용 없는 잠금 페이지만 만듦
+  - [학습·면접 준비 앱] 학습 앱: 노트 54편에서 제목·목차·요약을 뽑고 확인 문제 1,545개(객관식·빈칸·서술)·키워드 카드·약점 리포트·모의고사를 생성, 본문 검색 색인은 gzip 후 같은 키로 암호화, 1·3·7·14·30일 간격 복습
+  - [학습·면접 준비 앱] 면접 앱: 예상·합격 답변 질문 은행, 포트폴리오 데이터로 만든 프로젝트별 답변 뼈대와 발표 자료(발표자 모드, PDF·PPTX를 잠금을 푼 브라우저에서 생성), 타이머·녹음 모의 면접, OPIc 실전 세트, 공채 정보 38곳, 자소서 30문항·핵심 경험 배분, 목표 D-day·주간 체크
+  - [학습·면접 준비 앱] 운영: 정기 작업은 개인키 없이 새 면접 질문을 공개키로 잠근 추가 파일로만 올리고 배포 빌드가 합침, 수식 폰트를 공용 파일로 분리해 노트 용량을 절반 이하로, 기기 간 기록은 암호를 건 파일로 옮겨 합침(덮어쓰지 않음)
+- **결과**
+  - [공개 데이터 프로젝트] 전력 수요: 지난주 같은 시각 기준선 MAPE 6.17% → 앙상블 3.23%, 일 최대수요 오차 2.64%
+  - [공개 데이터 프로젝트] 센서 진단: 무작위 분할에서 모든 부품 0.99 이상이던 RandomForest 가 시간 구간 분할에서 밸브 0.46 — LDA 는 냉각기·밸브·펌프 1.00 유지, 축압기 0.55 로 남은 과제 확인
+  - [공개 데이터 프로젝트] 지진: 동아시아 M4+ 2,474건 기준 b = 1.11 ± 0.05 (목록은 매일 갱신) · 테스트 39개(4개 프로젝트 합계)
+  - [공개 데이터 프로젝트] 웨어하우스: 지진·전력 수요에 채용 공고·거래소 시세와 환율·패키지 내려받기·재해 경보를 더해 6개 출처, 모델 35개 · 품질 테스트 101개(범위·관계·날짜 연속성·집계 대조·조인 누락) 통과, 잘못된 자료를 넣으면 빌드가 실패하는 것과 증분 집계가 전체 재계산과 같은 것까지 pytest 37개로 확인 · 결과는 6개 탭 대시보드로 매일 갱신 · Airflow 는 DAG 1회 실행까지만 확인(상시 운영은 아님)
+  - [공개 데이터 프로젝트] API 관제: 성공률은 관측한 검사 표본의 비율로만 표시하고(가동률로 부르지 않음), 판정 규칙은 테스트 34개로 확인 — 공개 데이터 프로젝트 8개 합계 pytest 약 130개
+  - [포트폴리오 생성기] 한 곳만 고치면 국문·영문 사이트·이력서 PDF·프로젝트 상세가 함께 바뀌어, 수상명 영문 표기 같은 오류도 한 번에 바로잡을 수 있음
+  - [포트폴리오 생성기] 배포마다 전체 페이지(90쪽 이상) 링크 점검과 데스크톱·휴대폰 화면 점검을 통과해야 배포
+  - [학습·면접 준비 앱] 서버 없이 GitHub Pages에서 운영하면서 저장소와 배포본 어디에도 평문을 남기지 않음 · 수식 폰트 분리로 암호화된 노트 용량 약 44MB → 20MB
+  - [학습·면접 준비 앱] 휴대폰 하단 탭·오프라인 설치(PWA)까지 지원, 데스크톱·휴대폰 주요 흐름 자동 점검 통과
+
+🏷 Python, Jinja2, GitHub Actions, Playwright, Web Crypto, PWA, JavaScript
+🔗 [GitHub 저장소](https://github.com/0Ju12/data-projects)  🔗 [지진 대시보드](https://0ju12.github.io/data-projects/)  🔗 [전력 수요 예측 탐색기 (직접 보기)](https://0ju12.github.io/data-projects/power/)  🔗 [산불 위험 지도 (매일 갱신)](https://0ju12.github.io/data-projects/fire/)  🔗 [데이터 에이전트 (MCP 서버 · 숫자 검증)](https://github.com/0Ju12/data-projects/tree/main/data-agent)  🔗 [웨어하우스 대시보드 (시세·채용·전력·지진·품질)](https://0ju12.github.io/data-projects/warehouse/)  🔗 [API 관제판 (공개 API 22개 · 매시 점검)](https://0ju12.github.io/data-projects/api-watch/)  🔗 [웨어하우스 코드 (dbt · Airflow)](https://github.com/0Ju12/data-projects/tree/main/warehouse)  🔗 [사이트](https://0ju12.github.io/)  🔗 [만든 과정 글](https://0ju12.github.io/posts/2026-11-portfolio-one-yaml.html)  🔗 [잠금 화면](https://0ju12.github.io/interview/)  
+
+### 부트캠프 — SSAFY 16기 · 포스코 청년 AI·BigData 아카데미 30기
+`AI 프로젝트` · 2025.06 – 진행 중 · 삼성 청년 SW·AI 아카데미(SSAFY) · 포스코인재창조원·POSTECH · **LLM 파인튜닝 · 데이터 파이프라인 · 백엔드**
+
+SSAFY에서 LLM 데이터 파이프라인·Django 서비스와 VQA 모델 앙상블을, 포스코 아카데미에서 콩글리시 교정 생성 모델+RAG를 구현
+
+- **상황** 
+- **역할·과제** 
+- **한 일**
+  - [ThRead] 관통 5 · 댓글 분석 파이프라인: Selenium으로 토스증권 커뮤니티 댓글 20개를 실시간 수집 → LLM이 부적절 댓글 번호만 판단하고 코드가 원본에서 제거 → pandas·정규식 정제 → IQR로 길이 이상치 기준 계산 → LLM 증강(개수 불일치 시 재시도) → 요약까지 단계별로 DB 저장
+  - [ThRead] 관통 5: 30초 이상 걸리는 작업의 진행 상황을 StreamingHttpResponse(NDJSON)+스레드·큐로 실시간 표시, 회사 없음·댓글 없음·LLM 실패 등 예외 상황을 구분해 안내
+  - [ThRead] 관통 6 · 관계형 DB 설계: AbstractUser 커스텀 User, 회원→도서→쓰레드→댓글 1:N과 팔로우(symmetrical=False)·좋아요·선호 장르 M:N 설계, User↔Category 순환 참조를 피하도록 마이그레이션을 3단계로 분리, 장르 삭제 시 도서는 SET_NULL로 보존
+  - [ThRead] 관통 6: 수정·삭제는 작성자 조건으로 조회해 타인 글은 404, 변경 요청은 POST 전용, 알라딘 검색 결과는 서명 토큰(1시간)으로 넘겨 제목·저자가 일치할 때만 ISBN·표지 저장 — 자동 테스트 36개
+  - [ThRead] 관통 7 · AI 프록시 서버 (FastAPI 담당): Django → FastAPI → GMS로 분리해 키·모델 선택·응답 검증을 프록시 한곳에서 처리, Guardrail은 JSON Schema 불리언만 받고 형식이 깨지면 503으로 막는 fail-closed, 텍스트/표지 라우팅·난이도별 nano/mini 선택, Gemini 이미지 응답 4가지 형태를 처리해 실제 JPEG로 정규화 — 자동 테스트 20개
+  - [ThRead] 관통 4 · AI 도서 서비스: Django 커스텀 User·인증(오픈 리다이렉트 방어, HTTP Method 제한), 도서 CRUD, 위키피디아+LLM 작가 정보 생성, AI 도서 분석, 등록 도서 안에서만 추천하도록 검증한 AI 맞춤 추천, 알라딘 API 수집 명령
+  - [ThRead] 관통 4: Django TestCase와 mock으로 외부 API 없이 요구사항별 동작을 검증하는 자동 테스트 45개 작성
+  - [ThRead] 관통 1~3: JSON 도서 데이터 집계·정렬, 알라딘 API 수집(페이지네이션·중복 제거)+LLM 분류+gTTS 음성 변환, Bootstrap 반응형 웹페이지
+  - [POSPEAK(KILL KONG)] [담당] 콩글리시·어색한 표현 → 원어민 표현 쌍으로 이루어진 단어 단위·문맥 단위 교정 데이터셋 구축 및 정제
+  - [POSPEAK(KILL KONG)] [담당] FLAN-T5를 LoRA로 파인튜닝하고, 학습 전략 3가지(단어→문맥 순차, 문맥→단어 순차, 통합 학습)를 BERTScore로 비교 실험
+  - [POSPEAK(KILL KONG)] [최종 서비스 'KILL KONG' — POSPEAK의 최종 버전] Qwen-2.5(1.5B) 파인튜닝(Friends 대사 기반 회화체 데이터 2,000건) + 콩글리시 RAG DB 630건 + 사용자별 개인화 메모리(오답노트)를 LangChain으로 결합, React Native·FastAPI 모바일 앱으로 구현
+  - [POSPEAK(KILL KONG)] [팀] 다국어 문장 임베딩(paraphrase-multilingual-MiniLM)과 FAISS로 유사 교정 예문 top-5를 검색해 모델 입력에 제공하는 RAG 파이프라인과 CLI 구성
+  - [국보 RAG] XML·EUC-KR 오픈API 수집, 국보명→위키 문서 자동 연결(일반명사 오연결 방지)
+  - [국보 RAG] 청크 ID 고정(국보ID:문서ID:순번)으로 재실행해도 중복 없는 색인
+  - [국보 RAG] LangGraph retrieve→generate, 없는 근거 번호는 제거 · 가짜 LLM으로 전 과정 테스트
+  - [VQA 앙상블] 새 모델은 단독 성능이 아니라, 기존 앙상블에 더했을 때 고친 문제와 새로 틀린 문제(fixes−breaks)로 평가
+  - [VQA 앙상블] 최고 제출을 보호 기준선으로 고정하고 유형별 회귀를 확인한 뒤에만 교체
+  - [VQA 앙상블] 제출 전 자동 검사(6,714행·ID·확률 행합) + SHA-256 매니페스트로 GPU 없이 재현
+- **결과**
+  - [ThRead] LLM 응답을 그대로 믿지 않고 코드로 검증하는 구조(번호 범위 검사, 뒤에서부터 제거, 등록 도서 id만 허용)로 안정적인 AI 기능 구현
+  - [ThRead] 자동 테스트 관통 4 45개 · 관통 5 41개 · 관통 6 36개 · 관통 7 20개 통과, 관통 5 요구사항(F601~F611) 전부 구현 + 진행 상황 스트리밍·분석 이력·11가지 화면 테마 추가
+  - [POSPEAK(KILL KONG)] 순차 학습에서 앞 단계 성능이 떨어지는 catastrophic forgetting(BERTScore F1 0.47 → 0.32)을 실험으로 확인하고 통합 학습으로 전환
+  - [POSPEAK(KILL KONG)] 통합 학습 모델의 검증 BERTScore F1 약 0.74 (순차 학습 0.32~0.47 대비 개선)
+  - [POSPEAK(KILL KONG)] 팀 프로젝트 장려상 수상
+  - [국보 RAG] 오프라인 테스트 55
+  - [VQA 앙상블] Public Score 0.96961
+
+🏷 Python, LLM 파인튜닝, QLoRA, RAG, FAISS, Django, Selenium, Pandas
+🔗 [GitHub 저장소](https://github.com/0Ju12/ssafy-thread)  🔗 [국보 입문 가이드 (RAG)](https://github.com/0Ju12/heritage-rag-guide)  🔗 [SWEA 풀이 36문제 (테스트 37개)](https://github.com/0Ju12/swea-solutions)  🔗 [팀 GitHub](https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5)  🔗 [GitHub](https://github.com/0Ju12/heritage-rag-guide)  🔗 [실험 기록](https://0ju12.github.io/posts/2026-11-vqa-ensemble-fixes-breaks.html)  
 
 ### 석사과정 — 중력·자력 데이터 파수 상관 분석으로 지하 구조 규명 (SPE Journal 제1저자)
 `연구` · 2024.03 – 2026.08 · 전북대학교 대학원 환경에너지융합학과 · 지구물리컴퓨팅연구실 · **석사과정 연구원 · 캘거리대 장기 파견**
@@ -67,82 +144,13 @@
 🏷 탄성파 해석, GPlates, CCS, 중력 데이터 처리, Python, TensorFlow, U-LSTM, ArcGIS
 🔗 [제1저자 논문](https://koreascience.or.kr/article/JAKO202410348585789.page)  🔗 [제2저자 논문](https://koreascience.or.kr/article/JAKO202335272000266.page)  🔗 [GitHub 코드](https://github.com/0Ju12/wildfire-spread-prediction)  
 
-### 부트캠프 — SSAFY 16기 · 포스코 청년 AI·BigData 아카데미 30기
-`AI 프로젝트` · 2025.06 – 진행 중 · 삼성 청년 SW·AI 아카데미(SSAFY) · 포스코인재창조원·POSTECH · **LLM 파인튜닝 · 데이터 파이프라인 · 백엔드**
-
-SSAFY에서 LLM 데이터 파이프라인·Django 서비스와 VQA 모델 앙상블을, 포스코 아카데미에서 콩글리시 교정 생성 모델+RAG를 구현
-
-- **상황** 
-- **역할·과제** 
-- **한 일**
-  - [SSAFY 16기] 관통 5 · 댓글 분석 파이프라인: Selenium으로 토스증권 커뮤니티 댓글 20개를 실시간 수집 → LLM이 부적절 댓글 번호만 판단하고 코드가 원본에서 제거 → pandas·정규식 정제 → IQR로 길이 이상치 기준 계산 → LLM 증강(개수 불일치 시 재시도) → 요약까지 단계별로 DB 저장
-  - [SSAFY 16기] 관통 5: 30초 이상 걸리는 작업의 진행 상황을 StreamingHttpResponse(NDJSON)+스레드·큐로 실시간 표시, 회사 없음·댓글 없음·LLM 실패 등 예외 상황을 구분해 안내
-  - [SSAFY 16기] 관통 6 · 관계형 DB 설계: AbstractUser 커스텀 User, 회원→도서→쓰레드→댓글 1:N과 팔로우(symmetrical=False)·좋아요·선호 장르 M:N 설계, User↔Category 순환 참조를 피하도록 마이그레이션을 3단계로 분리, 장르 삭제 시 도서는 SET_NULL로 보존
-  - [SSAFY 16기] 관통 6: 수정·삭제는 작성자 조건으로 조회해 타인 글은 404, 변경 요청은 POST 전용, 알라딘 검색 결과는 서명 토큰(1시간)으로 넘겨 제목·저자가 일치할 때만 ISBN·표지 저장 — 자동 테스트 36개
-  - [SSAFY 16기] 관통 7 · AI 프록시 서버 (FastAPI 담당): Django → FastAPI → GMS로 분리해 키·모델 선택·응답 검증을 프록시 한곳에서 처리, Guardrail은 JSON Schema 불리언만 받고 형식이 깨지면 503으로 막는 fail-closed, 텍스트/표지 라우팅·난이도별 nano/mini 선택, Gemini 이미지 응답 4가지 형태를 처리해 실제 JPEG로 정규화 — 자동 테스트 20개
-  - [SSAFY 16기] 관통 4 · AI 도서 서비스: Django 커스텀 User·인증(오픈 리다이렉트 방어, HTTP Method 제한), 도서 CRUD, 위키피디아+LLM 작가 정보 생성, AI 도서 분석, 등록 도서 안에서만 추천하도록 검증한 AI 맞춤 추천, 알라딘 API 수집 명령
-  - [SSAFY 16기] 관통 4: Django TestCase와 mock으로 외부 API 없이 요구사항별 동작을 검증하는 자동 테스트 45개 작성
-  - [SSAFY 16기] 관통 1~3: JSON 도서 데이터 집계·정렬, 알라딘 API 수집(페이지네이션·중복 제거)+LLM 분류+gTTS 음성 변환, Bootstrap 반응형 웹페이지
-  - [SSAFY 16기] SSAFY 16기 AI 챌린지 (2026.09, 이미지+질문 4지선다 VQA, 팀 B022, 모델 학습·정제 담당): Qwen 27B/4B QLoRA·Gemma 31B 파인튜닝·OCR·멀티뷰(해상도·crop) 확률 앙상블로 Public Score 0.96961, GPU 없이 제출을 그대로 재현하는 스크립트(SHA-256 검증)까지 정리
-  - [SSAFY 16기] AI 코어 프로젝트 2 · 국보 입문 가이드 (2026.10, 개인): 국가유산청 오픈API(XML·EUC-KR)로 국보 목록·상세·공식 설명을 수집하고 국보명을 위키백과 문서에 자동 연결(일반명사 문서 오연결 방지) → ChromaDB 2개 컬렉션(국보 1건=청크 1개 / 위키·공식 설명 청크, ID 고정으로 재실행해도 중복 없음) → 질문마다 LLM이 검색어 추출·문서 선별 후 수집·색인(캐시·위키 장애 시 저장본 대체) → LangGraph retrieve→generate, 답변의 [근거 N]을 코드로 검사해 없는 번호 제거. 관람 해설·통설 판정·조건 탐색 기능, Streamlit+FastAPI 화면, 가짜 LLM·AppTest 기반 테스트 55개
-  - [SSAFY 16기] 새내기 캠프 3인 팀 프로젝트 「요기유(YOGIU)」 — 대전·충청 AI 여행 커뮤니티 웹 서비스, 개발·발표 담당: 카카오맵 API 기반 동선 플래너(찜·지도), OpenAI API 기반 AI 추천 여행 경로·꿈돌이 테마 챗봇, 테마별 관광 정보·축제·익명 게시판(댓글) 구현
-  - [SSAFY 16기] SSAFY AI 과정: Perceptron 구현, Transformer·BERT, RAG 검색, 프롬프트 엔지니어링, CNN·ViT / 일타싸피(삼각함수 기반 당구 AI), 배틀싸피 자동 플레이 봇(매 턴 재계획 BFS·탄약 판단·보급 암호 해독), SWEA 알고리즘
-  - [POSPEAK(KILL KONG)] [담당] 콩글리시·어색한 표현 → 원어민 표현 쌍으로 이루어진 단어 단위·문맥 단위 교정 데이터셋 구축 및 정제
-  - [POSPEAK(KILL KONG)] [담당] FLAN-T5를 LoRA로 파인튜닝하고, 학습 전략 3가지(단어→문맥 순차, 문맥→단어 순차, 통합 학습)를 BERTScore로 비교 실험
-  - [POSPEAK(KILL KONG)] [최종 서비스 'KILL KONG' — POSPEAK의 최종 버전] Qwen-2.5(1.5B) 파인튜닝(Friends 대사 기반 회화체 데이터 2,000건) + 콩글리시 RAG DB 630건 + 사용자별 개인화 메모리(오답노트)를 LangChain으로 결합, React Native·FastAPI 모바일 앱으로 구현
-  - [POSPEAK(KILL KONG)] [팀] 다국어 문장 임베딩(paraphrase-multilingual-MiniLM)과 FAISS로 유사 교정 예문 top-5를 검색해 모델 입력에 제공하는 RAG 파이프라인과 CLI 구성
-- **결과**
-  - [SSAFY 16기] LLM 응답을 그대로 믿지 않고 코드로 검증하는 구조(번호 범위 검사, 뒤에서부터 제거, 등록 도서 id만 허용)로 안정적인 AI 기능 구현
-  - [SSAFY 16기] 자동 테스트 관통 4 45개 · 관통 5 41개 · 관통 6 36개 · 관통 7 20개 통과, 관통 5 요구사항(F601~F611) 전부 구현 + 진행 상황 스트리밍·분석 이력·11가지 화면 테마 추가
-  - [POSPEAK(KILL KONG)] 순차 학습에서 앞 단계 성능이 떨어지는 catastrophic forgetting(BERTScore F1 0.47 → 0.32)을 실험으로 확인하고 통합 학습으로 전환
-  - [POSPEAK(KILL KONG)] 통합 학습 모델의 검증 BERTScore F1 약 0.74 (순차 학습 0.32~0.47 대비 개선)
-  - [POSPEAK(KILL KONG)] 팀 프로젝트 장려상 수상
-
-🏷 Python, LLM 파인튜닝, QLoRA, RAG, FAISS, Django, Selenium, Pandas
-🔗 [GitHub 저장소](https://github.com/0Ju12/ssafy-thread)  🔗 [국보 입문 가이드 (RAG)](https://github.com/0Ju12/heritage-rag-guide)  🔗 [SWEA 풀이 36문제 (테스트 37개)](https://github.com/0Ju12/swea-solutions)  🔗 [팀 GitHub](https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5)  
-
-### 개인 프로젝트 — 데이터 기반 포트폴리오 생성기 · 암호화 학습 노트·면접 준비 앱
-`개인 프로젝트` · 2026.11 – 진행 중 · 개인 (GitHub Pages · GitHub Actions) · **기획 · 설계 · 개발 · 운영**
-
-포트폴리오를 데이터(YAML)로 관리해 사이트·이력서를 자동 생성하고, 공개하면 안 되는 학습·면접 자료는 암호화한 앱으로 직접 만들어 쓰는 개인 프로젝트
-
-- **상황** 
-- **역할·과제** 
-- **한 일**
-  - [포트폴리오 생성기] 데이터: data/portfolio.yaml(국문)·portfolio.en.yaml(영문)에 활동·프로젝트를 STAR 구조로 저장, 프로젝트별 설계 판단·회고는 case_notes.yaml로 분리
-  - [포트폴리오 생성기] 빌드: Python + Jinja2로 메인 페이지, 프로젝트 상세(국·영 14쪽), 이력서(1장·상세·데이터/AI 직무별·영문)와 PDF 5종(Playwright 인쇄), 검색 색인, 프로젝트별 공유 이미지·sitemap, 노션·LinkedIn 문구를 한 번에 생성
-  - [포트폴리오 생성기] 점검: 필수 항목·링크 누락 경고를 --strict로 빌드 실패 처리, 배포 전 전체 페이지 링크 점검과 주요 페이지의 데스크톱·휴대폰 화면 점검(가로 넘침·겹침) 자동 실행
-  - [포트폴리오 생성기] 비공개 자료: 연락처·증빙·면접 답변 원문은 공개키(RSA-OAEP + AES-GCM)로 잠근 파일만 커밋하고, GitHub Actions가 비밀 키로 풀어 암호화 페이지로만 출력 — 평문은 저장소에 남지 않음
-  - [포트폴리오 생성기] 부가 기능: LLM 없이 사이트 글에서 문단을 찾아 출처와 함께 보여 주는 '포트폴리오에 질문하기', RAG 근거 번호 검증 미니 데모, 연구 지역 커리어 지도(Natural Earth), AI 트렌드 연재 글 목록
-  - [학습·면접 준비 앱] 암호화: 빌드에서 페이지마다 PBKDF2-SHA256(60만 회)로 만든 키와 AES-GCM으로 본문을 잠그고, 브라우저 Web Crypto로 풂 — 같은 빌드는 한 키를 써서 한 번 연 탭에서는 학습·면접 앱 모두 다시 묻지 않음. 암호가 없는 로컬 빌드는 내용 없는 잠금 페이지만 만듦
-  - [학습·면접 준비 앱] 학습 앱: 노트 54편에서 제목·목차·요약을 뽑고 확인 문제 1,545개(객관식·빈칸·서술)·키워드 카드·약점 리포트·모의고사를 생성, 본문 검색 색인은 gzip 후 같은 키로 암호화, 1·3·7·14·30일 간격 복습
-  - [학습·면접 준비 앱] 면접 앱: 예상·합격 답변 질문 은행, 포트폴리오 데이터로 만든 프로젝트별 답변 뼈대와 발표 자료(발표자 모드, PDF·PPTX를 잠금을 푼 브라우저에서 생성), 타이머·녹음 모의 면접, OPIc 실전 세트, 공채 정보 38곳, 자소서 30문항·핵심 경험 배분, 목표 D-day·주간 체크
-  - [학습·면접 준비 앱] 운영: 정기 작업은 개인키 없이 새 면접 질문을 공개키로 잠근 추가 파일로만 올리고 배포 빌드가 합침, 수식 폰트를 공용 파일로 분리해 노트 용량을 절반 이하로, 기기 간 기록은 암호를 건 파일로 옮겨 합침(덮어쓰지 않음)
-  - [공개 데이터 프로젝트] 지진 데이터 파이프라인: USGS FDSN API 를 지역별 최소 규모·시작일로 증분 수집(마지막 실행 3일 전부터 겹쳐 받아 멱등), 같은 id 는 더 늦은 수정본만 교체, 규모 없음·범위 밖·발파는 격리해 개수만 보고, CSV(원본)·SQLite(질의용) 저장, Mc·b값(Aki–Utsu, Shi & Bolt 오차) 분석, Leaflet 지도 대시보드를 매일 GitHub Actions 로 갱신
-  - [공개 데이터 프로젝트] 설비 센서 이상 탐지: UCI 유압 설비 2,205 사이클 × 17 센서에서 사이클 특징 136개 추출, 부품별 정상 모델(Ledoit-Wolf 마할라노비스, 1% 오경보 임계값)과 k 연속 경보 규칙, RandomForest·LDA 진단을 무작위 분할과 시간 구간 분할로 비교
-  - [공개 데이터 프로젝트] 전력 수요 예측: 전력거래소 2025년 시간별 전국 수요와 Open-Meteo 기온으로 하루 전 24시간 예측 — 24시간 이상 지난 값만 쓰도록 특징을 만들고(누수 검사 테스트), 공휴일·연휴를 반영해 기준선·선형·GBM·앙상블을 10~12월로 시험
-  - [공개 데이터 프로젝트] DART 데이터 마트: OpenDART 수집(오류 코드별 처리·한도 대기), 표준 계정 정규화, 피벗·LAG·RANK SQL 뷰, 사업보고서 문단을 글자 2-gram BM25 로 찾아 출처와 함께 보여 주는 근거 검색 (인증키는 Secrets 로만)
-  - [공개 데이터 프로젝트] 웨어하우스: 지진·수요·기온 원본을 dbt(DuckDB)로 staging → intermediate → marts 3단 모델링 — 날짜 × 24열 수요표를 시간별 행으로 풀면서 '24시'를 다음 날로 넘기지 않도록 시작 시각을 키로 삼고, USGS 가 고친 지진은 덮어쓰지 않고 이력(SCD 2형)으로 쌓음. 같은 함수를 Airflow DAG·명령줄·테스트가 함께 쓰고, 날짜 파티션 내보내기는 다시 돌려도 같은 파일이 나오게 함
-- **결과**
-  - [포트폴리오 생성기] 한 곳만 고치면 국문·영문 사이트·이력서 PDF·프로젝트 상세가 함께 바뀌어, 수상명 영문 표기 같은 오류도 한 번에 바로잡을 수 있음
-  - [포트폴리오 생성기] 배포마다 전체 페이지(90쪽 이상) 링크 점검과 데스크톱·휴대폰 화면 점검을 통과해야 배포
-  - [학습·면접 준비 앱] 서버 없이 GitHub Pages에서 운영하면서 저장소와 배포본 어디에도 평문을 남기지 않음 · 수식 폰트 분리로 암호화된 노트 용량 약 44MB → 20MB
-  - [학습·면접 준비 앱] 휴대폰 하단 탭·오프라인 설치(PWA)까지 지원, 데스크톱·휴대폰 주요 흐름 자동 점검 통과
-  - [공개 데이터 프로젝트] 전력 수요: 지난주 같은 시각 기준선 MAPE 6.17% → 앙상블 3.23%, 일 최대수요 오차 2.64%
-  - [공개 데이터 프로젝트] 센서 진단: 무작위 분할에서 모든 부품 0.99 이상이던 RandomForest 가 시간 구간 분할에서 밸브 0.46 — LDA 는 냉각기·밸브·펌프 1.00 유지, 축압기 0.55 로 남은 과제 확인
-  - [공개 데이터 프로젝트] 지진: 동아시아 M4+ 2,474건 기준 b = 1.11 ± 0.05 (목록은 매일 갱신) · 테스트 39개(4개 프로젝트 합계)
-  - [공개 데이터 프로젝트] 웨어하우스: 지진·전력 수요에 채용 공고·거래소 시세와 환율·패키지 내려받기·재해 경보를 더해 6개 출처, 모델 35개 · 품질 테스트 101개(범위·관계·날짜 연속성·집계 대조·조인 누락) 통과, 잘못된 자료를 넣으면 빌드가 실패하는 것과 증분 집계가 전체 재계산과 같은 것까지 pytest 37개로 확인 · 결과는 6개 탭 대시보드로 매일 갱신 · Airflow 는 DAG 1회 실행까지만 확인(상시 운영은 아님)
-
-🏷 Python, Jinja2, GitHub Actions, Playwright, Web Crypto, PWA, JavaScript
-🔗 [사이트](https://0ju12.github.io/)  🔗 [만든 과정 글](https://0ju12.github.io/posts/2026-11-portfolio-one-yaml.html)  🔗 [잠금 화면](https://0ju12.github.io/interview/)  🔗 [GitHub 저장소](https://github.com/0Ju12/data-projects)  🔗 [지진 대시보드](https://0ju12.github.io/data-projects/)  🔗 [전력 수요 예측 탐색기 (직접 보기)](https://0ju12.github.io/data-projects/power/)  🔗 [산불 위험 지도 (매일 갱신)](https://0ju12.github.io/data-projects/fire/)  🔗 [데이터 에이전트 (MCP 서버 · 숫자 검증)](https://github.com/0Ju12/data-projects/tree/main/data-agent)  🔗 [웨어하우스 대시보드 (시세·채용·전력·지진·품질)](https://0ju12.github.io/data-projects/warehouse/)  🔗 [웨어하우스 코드 (dbt · Airflow)](https://github.com/0Ju12/data-projects/tree/main/warehouse)  
-
 ---
 
 ## 📋 전체 활동
 
 | 기간 | 유형 | 활동 | 기관 | 역할 |
 | --- | --- | --- | --- | --- |
-| 2026.11 – 진행 중 | 개인 프로젝트 | 개인 프로젝트 — 데이터 기반 포트폴리오 생성기 · 암호화 학습 노트·면접 준비 앱 | 개인 (GitHub Pages · GitHub Actions) | 기획 · 설계 · 개발 · 운영 |
+| 2026.11 – 진행 중 | 개인 프로젝트 | 개인 프로젝트 — 공개 데이터 웨어하우스·API 관제 · 포트폴리오 생성기 · 암호화 준비 공간 | 개인 (GitHub Pages · GitHub Actions) | 기획 · 설계 · 개발 · 운영 |
 | 2025.06 – 진행 중 | AI 프로젝트 | 부트캠프 — SSAFY 16기 · 포스코 청년 AI·BigData 아카데미 30기 | 삼성 청년 SW·AI 아카데미(SSAFY) · 포스코인재창조원·POSTECH | LLM 파인튜닝 · 데이터 파이프라인 · 백엔드 |
 | 2024.03 – 2026.08 | 연구 | 석사과정 — 중력·자력 데이터 파수 상관 분석으로 지하 구조 규명 (SPE Journal 제1저자) | 전북대학교 대학원 환경에너지융합학과 · 지구물리컴퓨팅연구실 | 석사과정 연구원 · 캘거리대 장기 파견 |
 | 2022 – 2024.02 | 연구 · AI 프로젝트 | 학부 — 판구조 기반 해외 CO2 저장소 탄성파 해석 (제1저자) · IAB 융합전공 시공간 딥러닝 | 전북대학교 자원에너지공학과 · IAB 융합전공 · 지구물리컴퓨팅연구실 | 학부연구생 · 캡스톤 모델 설계·학습 담당 |
@@ -163,9 +171,9 @@ SSAFY에서 LLM 데이터 파이프라인·Django 서비스와 VQA 모델 앙상
 - 2022 · GPU를 이용한 4차원 탄성파 모니터링 기술 적용성 검토
 
 ## 🛠 역량
-- **언어·프레임워크** Python, TensorFlow, PyTorch, Hugging Face Transformers, Pandas, Django, FastAPI, Selenium, SQL
-- **AI·데이터 분석** 시공간 딥러닝(U-LSTM), CNN·LSTM, LLM 파인튜닝(FLAN-T5·Qwen·Gemma, LoRA·QLoRA), 멀티모델 확률 앙상블, RAG(LangGraph·ChromaDB·FAISS), 모델 평가(F1·BERTScore)
-- **데이터 엔지니어링** dbt(DuckDB), 차원 모델링·SCD 2형, 데이터 품질 테스트, Airflow DAG 작성, GitHub Actions
+- **데이터 엔지니어링** Python, SQL, dbt(DuckDB), 차원 모델링·SCD 2형, 데이터 품질 테스트, Airflow DAG 작성, Docker Compose, GitHub Actions
+- **데이터 분석** SQL 분석(윈도우 함수·CTE), Pandas, 시계열 예측·시간 순서 검증, 이상 탐지, 통계 분석, 대시보드 시각화
+- **AI·ML** PyTorch, TensorFlow, Hugging Face Transformers, LLM 파인튜닝(LoRA·QLoRA), RAG(LangGraph·ChromaDB), API 서버(Django·FastAPI)
 - **공간·지구물리 데이터** ArcGIS, 래스터 데이터 구축, 중력·자력 자료 처리, 파수 상관 분석, 탄성파 자료 해석, GPlates
 
 ## 🎓 학력

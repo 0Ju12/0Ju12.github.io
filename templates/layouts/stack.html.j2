@@ -32,7 +32,7 @@
   'gen': 'generated from data/portfolio.yaml' if not en else 'generated from data/portfolio.en.yaml',
   'theme': 'Theme' if en else '테마',
   'roles': 'By role (1 page):' if en else '직무별 이력서(1장):',
-  'r_data': 'Data Engineer' if en else '데이터 엔지니어',
+  'r_data': 'Data Engineer · Analyst' if en else '데이터 엔지니어·분석가',
   'r_ai': 'AI/ML Engineer' if en else 'AI·ML 엔지니어',
   'want': 'Looking for' if en else '희망 직무',
   'loc': 'Location' if en else '근무 지역',
@@ -282,7 +282,7 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
 </style>
 </head>
 <body class="role-all">
-<nav class="top" aria-label="menu"><a class="me" href="#top">{{ p.avatar(profile) }}{{ profile.name }}</a><a class="n" href="#work">{{ T.work }}</a>{% if posts %}<a class="n" href="#writing">{{ T.writing }}</a>{% endif %}<a class="n" href="#map">{{ 'Map' if en else '지도' }}</a><a class="n" href="#about">{{ T.about }}</a>{% if alt_lang %}<a href="{{ alt_lang.url }}" hreflang="{{ alt_lang.code }}">{{ alt_lang.label }}</a>{% endif %}<button id="theme" type="button">{{ T.theme }}</button></nav>
+<nav class="top" aria-label="menu"><a class="me" href="#top">{{ p.avatar(profile) }}{{ profile.name }}</a><a class="n" href="#work">{{ T.work }}</a>{% if posts %}<a class="n" href="#writing">{{ T.writing }}</a>{% endif %}<a class="n" href="#map">{{ 'Map' if en else '지도' }}</a><a class="n" href="#about">{{ T.about }}</a>{% if alt_lang %}<a href="{{ alt_lang.url }}" hreflang="{{ alt_lang.code }}">{{ alt_lang.label }}</a>{% endif %}</nav>
 
 <div class="w" id="top">
   <header class="hero">
@@ -361,12 +361,13 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
       <div class="box"><h4 role="heading" aria-level="3"><i style="background:{{ dots[0] }}"></i>{{ T.edu }}</h4>{% for e in education %}<div class="it">{{ e.school }}<small>{{ e.major }} {{ e.degree }} · {{ e.period_str }}</small></div>{% endfor %}</div>
       <div class="box"><h4 role="heading" aria-level="3"><i style="background:{{ dots[3] }}"></i>{{ T.pubs }}</h4>{% for x in papers %}<div class="it">{% if x.url %}<a href="{{ x.url }}" target="_blank" rel="noopener">{{ x.title }}</a>{% else %}{{ x.title }}{% endif %}<small>{{ x.venue }} · {{ x.year }}</small></div>{% endfor %}<div class="it"><small>{{ T.talks }} {{ talks|length }}</small></div></div>
       <div class="box"><h4 role="heading" aria-level="3"><i style="background:{{ dots[2] }}"></i>{{ T.awards }}</h4>{% for x in awards + certifications %}<div class="it">{{ x.name }}<small>{{ x.org }} · {{ x.date }}</small></div>{% endfor %}</div>
+      {% if workstyle %}<div class="box wide"><h4 role="heading" aria-level="3"><i style="background:{{ dots[4] }}"></i>{{ 'How I work' if en else '일하는 방식' }}</h4>{% for w in workstyle %}<div class="it">{{ w }}</div>{% endfor %}</div>{% endif %}
       <div class="box wide"><h4 role="heading" aria-level="3"><i style="background:{{ dots[1] }}"></i>{{ T.skills }}</h4><p class="evhint">{{ T.ev_hint }}</p><div class="skills rv rv-all">{% for s in skills %}<div><b>{{ s.category }}</b>{% for i in s['items'] %}<button type="button" class="ev">{{ i }}</button>{% endfor %}</div>{% endfor %}</div>{% for k, rv in RV.items() %}<div class="skills rv rv-{{ k }}">{% for s in rv.skills %}<div><b>{{ s.category }}</b>{% for i in s['items'] %}<button type="button" class="ev">{{ i }}</button>{% endfor %}</div>{% endfor %}</div>{% endfor %}</div>
     </div>
   </section>
 
   <div class="end" id="contact"><h2>{{ T.end|safe }}</h2><p>{{ profile.email }}</p><div class="cta">{% if profile.email %}<a class="btn" href="mailto:{{ profile.email }}">{{ T.mail }}</a>{% endif %}<a class="btn ghost" href="resume.pdf" download>{{ T.full }}</a><a class="btn ghost" href="brief{{ '-en' if en else '' }}.html">{{ '30-second brief' if en else '30초 소개' }}</a>{% if not en %}<a class="btn ghost" href="resume-data.pdf" download>{{ T.r_data }} 이력서</a><a class="btn ghost" href="resume-ai.pdf" download>{{ T.r_ai }} 이력서</a>{% endif %}{% for l in profile.links if 'linkedin' in l.label|lower %}<a class="btn ghost" href="{{ l.url }}" target="_blank" rel="noopener">LinkedIn</a>{% endfor %}</div></div>
-  <footer>© {{ profile.name_en }} · {{ T.gen }}<br><span class="own">{{ 'Owner only (locked)' if en else '본인용 (잠김)' }} — {% if study_notes or interview_ready %}<a href="study/index.html" rel="nofollow">{{ 'Prep space (study · interview)' if en else '준비 공간 (공부·면접)' }}</a> · {% endif %}<a href="private/index.html" rel="nofollow">{{ 'Private files' if en else '비공개 자료' }}</a></span></footer>
+  <footer>© {{ profile.name_en }} · {{ T.gen }} · <button id="theme" type="button" style="font:inherit;color:inherit;background:none;border:0;padding:0;text-decoration:underline;cursor:pointer">{{ T.theme }}</button><br><span class="own">{{ 'Owner only (locked)' if en else '본인용 (잠김)' }} — {% if study_notes or interview_ready %}<a href="study/index.html" rel="nofollow">{{ 'Prep space (study · interview)' if en else '준비 공간 (공부·면접)' }}</a> · {% endif %}<a href="private/index.html" rel="nofollow">{{ 'Private files' if en else '비공개 자료' }}</a></span></footer>
 </div>
 <div class="evp" id="evp" role="dialog" aria-modal="false" aria-labelledby="evt" hidden><div class="evh"><span id="evt"></span><button type="button" id="evx" aria-label="{{ T.close }}">✕</button></div><ul id="evl"></ul></div>
 <script type="application/json" id="ev-data">{{ evidence|default([])|tojson }}</script>

@@ -1,5 +1,68 @@
 [
  {
+  "id": "data-projects",
+  "title": "공개 데이터 프로젝트 — 지진 파이프라인 · 설비 이상 탐지 · 전력 수요 예측 · DART 데이터 마트 · dbt 웨어하우스",
+  "tagline": "공개 데이터를 매일 모아 정제·모델링하고, 품질과 API 상태까지 관제하는 프로젝트 8개",
+  "key": "매일 갱신되는 dbt·Airflow 웨어하우스 · 공개 API 22개 관제 · 전력 수요 예측 오차 6.17% → 3.23%",
+  "period": "2026.11 – 진행 중",
+  "group": "개인 프로젝트 — 공개 데이터 웨어하우스·관제 · 포트폴리오 생성기 · 암호화 준비 공간",
+  "image": "assets/photos/data-projects/card/지진_파이프라인_지도.jpg"
+ },
+ {
+  "id": "portfolio-site",
+  "title": "데이터 기반 포트폴리오 생성기 — YAML → 국문·영문 사이트 · 이력서 PDF · 자동 점검",
+  "tagline": "YAML 한 곳의 데이터로 국문·영문 사이트와 이력서 PDF를 생성",
+  "key": "한 곳만 고치면 사이트·이력서 PDF 5종이 함께 바뀜",
+  "period": "2026.11 – 진행 중",
+  "group": "개인 프로젝트 — 공개 데이터 웨어하우스·관제 · 포트폴리오 생성기 · 암호화 준비 공간",
+  "image": "assets/photos/portfolio-site/card/포트폴리오_메인.jpg"
+ },
+ {
+  "id": "prep-apps",
+  "title": "암호화 학습 노트 · 면접 준비 앱 — 정적 호스팅 위의 PBKDF2·AES-GCM PWA",
+  "tagline": "공개하면 안 되는 학습·면접 자료를 암호화한 채로 쓰는 웹 앱",
+  "key": "PBKDF2 60만 회 + AES-GCM · 서버 없이 평문 0",
+  "period": "2026.11 – 진행 중",
+  "group": "개인 프로젝트 — 공개 데이터 웨어하우스·관제 · 포트폴리오 생성기 · 암호화 준비 공간",
+  "image": "assets/photos/prep-apps/card/면접준비_발표자료.jpg"
+ },
+ {
+  "id": "ssafy-16",
+  "title": "ThRead — LLM 댓글 분석·독서 커뮤니티",
+  "tagline": "수집 → LLM 분석 → 웹 서비스까지 직접 만든 독서 커뮤니티",
+  "key": "LLM 판단을 코드로 검증해 잘못된 응답이 DB·화면에 닿지 않게 함 · 자동 테스트 142개",
+  "period": "2026.07 – 진행 중",
+  "group": "부트캠프 — SSAFY 16기 · 포스코 AI 아카데미",
+  "image": "assets/photos/ssafy-16/관통5_LLM_댓글분석_결과화면.jpg"
+ },
+ {
+  "id": "posco-pospeak",
+  "title": "POSPEAK(KILL KONG) — 콩글리시 → 원어민 표현 교정 AI (FLAN-T5·Qwen + RAG)",
+  "tagline": "콩글리시를 원어민 표현으로 바꾸는 생성 모델 + RAG",
+  "key": "학습 전략 비교로 BERTScore F1 0.32 → 0.74 · 장려상",
+  "period": "2025.06 – 2025.08",
+  "group": "부트캠프 — SSAFY 16기 · 포스코 AI 아카데미",
+  "image": "assets/photos/posco-pospeak/card/KILLKONG_앱_화면_(홈·채팅·단어·연습).jpg"
+ },
+ {
+  "id": "heritage",
+  "title": "국보 입문 가이드 — 인용을 검증하는 RAG",
+  "tagline": "국가유산청 오픈API·위키백과를 수집해 ChromaDB에 색인하고, 답변의 [근거 N]을 코드로 다시 검사해 실제 인용한 근거만 보여 주는 RAG",
+  "key": "오프라인 테스트 55",
+  "period": "2026.10 – 2026.10",
+  "group": "부트캠프 — SSAFY 16기 · 포스코 AI 아카데미",
+  "image": ""
+ },
+ {
+  "id": "vqa",
+  "title": "VQA 챌린지 — 멀티모델 확률 앙상블",
+  "tagline": "이미지+질문 4지선다 VQA. Qwen QLoRA·Gemma·OCR·멀티뷰를 확률 앙상블하고, 후보는 정확도가 아니라 fixes−breaks로 채택",
+  "key": "Public Score 0.96961",
+  "period": "2026.09 – 2026.09",
+  "group": "부트캠프 — SSAFY 16기 · 포스코 AI 아카데미",
+  "image": ""
+ },
+ {
   "id": "masters",
   "title": "중력·자력 데이터 파수 상관 분석으로 지하 구조 규명 (석사 · SPE Journal 제1저자)",
   "tagline": "파수 영역 상관 분석으로 기반암(SLFI)·암염(DLFI) 지표 설계",
@@ -34,50 +97,5 @@
   "period": "2023.09 – 2023.12",
   "group": "학부 — CO2 저장소 탄성파 해석 · 산불 확산 딥러닝",
   "image": "assets/photos/wildfire-capstone/card/U-LSTM_강릉_산불_GIS_실제·예측_비교_(t1~t5).jpg"
- },
- {
-  "id": "ssafy-16",
-  "title": "SSAFY 16기 관통 프로젝트 — ThRead: LLM 댓글 분석 파이프라인 · AI 도서 서비스",
-  "tagline": "수집 → LLM 분석 → 웹 서비스까지 직접 만든 독서 커뮤니티",
-  "key": "LLM 판단을 코드로 검증 · 자동 테스트 142개",
-  "period": "2026.07 – 진행 중",
-  "group": "부트캠프 — SSAFY 16기 · 포스코 AI 아카데미",
-  "image": "assets/photos/ssafy-16/관통5_LLM_댓글분석_결과화면.jpg"
- },
- {
-  "id": "posco-pospeak",
-  "title": "POSPEAK(KILL KONG) — 콩글리시 → 원어민 표현 교정 AI (FLAN-T5·Qwen + RAG)",
-  "tagline": "콩글리시를 원어민 표현으로 바꾸는 생성 모델 + RAG",
-  "key": "학습 전략 비교로 BERTScore F1 0.32 → 0.74 · 장려상",
-  "period": "2025.06 – 2025.08",
-  "group": "부트캠프 — SSAFY 16기 · 포스코 AI 아카데미",
-  "image": "assets/photos/posco-pospeak/card/KILLKONG_앱_화면_(홈·채팅·단어·연습).jpg"
- },
- {
-  "id": "portfolio-site",
-  "title": "데이터 기반 포트폴리오 생성기 — YAML → 국문·영문 사이트 · 이력서 PDF · 자동 점검",
-  "tagline": "YAML 한 곳의 데이터로 국문·영문 사이트와 이력서 PDF를 생성",
-  "key": "한 곳만 고치면 사이트·이력서 PDF 5종이 함께 바뀜",
-  "period": "2026.11 – 진행 중",
-  "group": "개인 프로젝트 — 공개 데이터 프로젝트 · 포트폴리오 생성기 · 암호화 학습·면접 앱",
-  "image": "assets/photos/portfolio-site/card/포트폴리오_메인.jpg"
- },
- {
-  "id": "prep-apps",
-  "title": "암호화 학습 노트 · 면접 준비 앱 — 정적 호스팅 위의 PBKDF2·AES-GCM PWA",
-  "tagline": "공개하면 안 되는 학습·면접 자료를 암호화한 채로 쓰는 웹 앱",
-  "key": "PBKDF2 60만 회 + AES-GCM · 서버 없이 평문 0",
-  "period": "2026.11 – 진행 중",
-  "group": "개인 프로젝트 — 공개 데이터 프로젝트 · 포트폴리오 생성기 · 암호화 학습·면접 앱",
-  "image": "assets/photos/prep-apps/card/면접준비_발표자료.jpg"
- },
- {
-  "id": "data-projects",
-  "title": "공개 데이터 프로젝트 — 지진 파이프라인 · 설비 이상 탐지 · 전력 수요 예측 · DART 데이터 마트 · dbt 웨어하우스",
-  "tagline": "공개 데이터로 수집 → 정제 → 모델링 → 검증, 그리고 dbt·Airflow 웨어하우스까지",
-  "key": "전력 수요 MAPE 6.17% → 3.23% (기준선 대비) · dbt 웨어하우스 품질 테스트 101개",
-  "period": "2026.11 – 진행 중",
-  "group": "개인 프로젝트 — 공개 데이터 프로젝트 · 포트폴리오 생성기 · 암호화 학습·면접 앱",
-  "image": "assets/photos/data-projects/card/지진_파이프라인_지도.jpg"
  }
 ]

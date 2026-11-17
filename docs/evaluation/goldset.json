@@ -1,0 +1,17 @@
+[
+  {"id": "g01", "item": "숭례문", "question": "2008년 화재는 언제 일어났고, 복구 뒤 언제 다시 공개되었나?", "answerable": true,
+   "must_include": ["2008", "2013"], "evidence_clues": ["2008", "2013"]},
+  {"id": "g02", "item": "숭례문", "question": "숭례문을 남대문이라고도 부르는 이유는?", "answerable": true,
+   "must_include": ["남"], "evidence_clues": ["남대문"]},
+  {"id": "g03", "item": "다보탑", "question": "다보탑 기단의 돌사자는 지금 몇 마리 남아 있나?", "answerable": true,
+   "must_include": ["하나", "1"], "evidence_clues": ["돌사자"]},
+  {"id": "g04", "item": "훈민정음", "question": "훈민정음 해례본은 언제 간행되었고 지금 어디에 있나?", "answerable": true,
+   "must_include": ["1446", "간송"], "evidence_clues": ["1446", "간송"]},
+  {"id": "g05", "item": "석굴암", "question": "석굴암을 지금도 공식적으로 '국보 제24호'라고 부르나?", "answerable": true,
+   "must_include": ["2021"], "evidence_clues": ["지정번호"]},
+  {"id": "g06", "item": "반가사유상", "question": "이 반가사유상은 어디에 소장되어 있나?", "answerable": true,
+   "must_include": ["국립중앙박물관"], "evidence_clues": ["국립중앙박물관"]},
+  {"id": "g07", "item": "숭례문", "question": "숭례문 복원 공사에 참여한 목수의 이름과 하루 품삯은?", "answerable": false},
+  {"id": "g08", "item": "다보탑", "question": "다보탑을 설계한 석공의 고향은 어디인가?", "answerable": false},
+  {"id": "g09", "item": "훈민정음", "question": "해례본을 처음 발견한 사람이 받은 보상금은 얼마였나?", "answerable": false}
+]

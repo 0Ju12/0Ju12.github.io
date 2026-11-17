@@ -1,0 +1,292 @@
+{
+ "similarity·k4": {
+  "summary": {
+   "cases": 4,
+   "citation_precision": 0.667,
+   "answers_with_invented_citation": 4,
+   "sentence_coverage": 1.0,
+   "support_mean": 0.091,
+   "weak_support_sentences": 7,
+   "refusal_accuracy": 0.75,
+   "recall": 1.0,
+   "facts": 0.333,
+   "avg_seconds": 0.013
+  },
+  "cases": [
+   {
+    "id": "o01",
+    "item": "숭례문",
+    "question": "2008년 화재 뒤 복구는 어떻게 되었나?",
+    "answerable": true,
+    "citation_precision": 0.6666666666666666,
+    "invented_citations": [
+     99
+    ],
+    "sentence_coverage": 1.0,
+    "support_mean": 0.195,
+    "weak_support": [
+     {
+      "sentence": "기본 정보는 이렇습니다 .",
+      "cited": [
+       1
+      ],
+      "overlap": 0.0
+     }
+    ],
+    "refusal_ok": true,
+    "recall": 1.0,
+    "facts": 1.0,
+    "elapsed": 0.02,
+    "n_evidence": 7,
+    "n_cited": 2
+   },
+   {
+    "id": "o02",
+    "item": "다보탑",
+    "question": "다보탑 돌사자는 몇 마리 남아 있나?",
+    "answerable": true,
+    "citation_precision": 0.6666666666666666,
+    "invented_citations": [
+     99
+    ],
+    "sentence_coverage": 1.0,
+    "support_mean": 0.139,
+    "weak_support": [
+     {
+      "sentence": "숭례문은 2008년 화재 뒤 복구되었습니다 .",
+      "cited": [
+       2
+      ],
+      "overlap": 0.278
+     },
+     {
+      "sentence": "기본 정보는 이렇습니다 .",
+      "cited": [
+       1
+      ],
+      "overlap": 0.0
+     }
+    ],
+    "refusal_ok": true,
+    "recall": 1.0,
+    "facts": 0.0,
+    "elapsed": 0.01,
+    "n_evidence": 7,
+    "n_cited": 2
+   },
+   {
+    "id": "o03",
+    "item": "훈민정음",
+    "question": "해례본은 어디에 있나?",
+    "answerable": true,
+    "citation_precision": 0.6666666666666666,
+    "invented_citations": [
+     99
+    ],
+    "sentence_coverage": 1.0,
+    "support_mean": 0.028,
+    "weak_support": [
+     {
+      "sentence": "숭례문은 2008년 화재 뒤 복구되었습니다 .",
+      "cited": [
+       2
+      ],
+      "overlap": 0.056
+     },
+     {
+      "sentence": "기본 정보는 이렇습니다 .",
+      "cited": [
+       1
+      ],
+      "overlap": 0.0
+     }
+    ],
+    "refusal_ok": true,
+    "recall": 1.0,
+    "facts": 0.0,
+    "elapsed": 0.01,
+    "n_evidence": 7,
+    "n_cited": 2
+   },
+   {
+    "id": "o04",
+    "item": "숭례문",
+    "question": "복원 공사에 참여한 목수의 하루 품삯은?",
+    "answerable": false,
+    "citation_precision": 0.6666666666666666,
+    "invented_citations": [
+     99
+    ],
+    "sentence_coverage": 1.0,
+    "support_mean": 0.0,
+    "weak_support": [
+     {
+      "sentence": "숭례문은 2008년 화재 뒤 복구되었습니다 .",
+      "cited": [
+       2
+      ],
+      "overlap": 0.0
+     },
+     {
+      "sentence": "기본 정보는 이렇습니다 .",
+      "cited": [
+       1
+      ],
+      "overlap": 0.0
+     }
+    ],
+    "refusal_ok": false,
+    "recall": null,
+    "facts": null,
+    "elapsed": 0.01,
+    "n_evidence": 7,
+    "n_cited": 2
+   }
+  ]
+ },
+ "mmr·k4": {
+  "summary": {
+   "cases": 4,
+   "citation_precision": 0.667,
+   "answers_with_invented_citation": 4,
+   "sentence_coverage": 1.0,
+   "support_mean": 0.091,
+   "weak_support_sentences": 7,
+   "refusal_accuracy": 0.75,
+   "recall": 1.0,
+   "facts": 0.333,
+   "avg_seconds": 0.01
+  },
+  "cases": [
+   {
+    "id": "o01",
+    "item": "숭례문",
+    "question": "2008년 화재 뒤 복구는 어떻게 되었나?",
+    "answerable": true,
+    "citation_precision": 0.6666666666666666,
+    "invented_citations": [
+     99
+    ],
+    "sentence_coverage": 1.0,
+    "support_mean": 0.195,
+    "weak_support": [
+     {
+      "sentence": "기본 정보는 이렇습니다 .",
+      "cited": [
+       1
+      ],
+      "overlap": 0.0
+     }
+    ],
+    "refusal_ok": true,
+    "recall": 1.0,
+    "facts": 1.0,
+    "elapsed": 0.01,
+    "n_evidence": 7,
+    "n_cited": 2
+   },
+   {
+    "id": "o02",
+    "item": "다보탑",
+    "question": "다보탑 돌사자는 몇 마리 남아 있나?",
+    "answerable": true,
+    "citation_precision": 0.6666666666666666,
+    "invented_citations": [
+     99
+    ],
+    "sentence_coverage": 1.0,
+    "support_mean": 0.139,
+    "weak_support": [
+     {
+      "sentence": "숭례문은 2008년 화재 뒤 복구되었습니다 .",
+      "cited": [
+       2
+      ],
+      "overlap": 0.278
+     },
+     {
+      "sentence": "기본 정보는 이렇습니다 .",
+      "cited": [
+       1
+      ],
+      "overlap": 0.0
+     }
+    ],
+    "refusal_ok": true,
+    "recall": 1.0,
+    "facts": 0.0,
+    "elapsed": 0.01,
+    "n_evidence": 7,
+    "n_cited": 2
+   },
+   {
+    "id": "o03",
+    "item": "훈민정음",
+    "question": "해례본은 어디에 있나?",
+    "answerable": true,
+    "citation_precision": 0.6666666666666666,
+    "invented_citations": [
+     99
+    ],
+    "sentence_coverage": 1.0,
+    "support_mean": 0.028,
+    "weak_support": [
+     {
+      "sentence": "숭례문은 2008년 화재 뒤 복구되었습니다 .",
+      "cited": [
+       2
+      ],
+      "overlap": 0.056
+     },
+     {
+      "sentence": "기본 정보는 이렇습니다 .",
+      "cited": [
+       1
+      ],
+      "overlap": 0.0
+     }
+    ],
+    "refusal_ok": true,
+    "recall": 1.0,
+    "facts": 0.0,
+    "elapsed": 0.01,
+    "n_evidence": 7,
+    "n_cited": 2
+   },
+   {
+    "id": "o04",
+    "item": "숭례문",
+    "question": "복원 공사에 참여한 목수의 하루 품삯은?",
+    "answerable": false,
+    "citation_precision": 0.6666666666666666,
+    "invented_citations": [
+     99
+    ],
+    "sentence_coverage": 1.0,
+    "support_mean": 0.0,
+    "weak_support": [
+     {
+      "sentence": "숭례문은 2008년 화재 뒤 복구되었습니다 .",
+      "cited": [
+       2
+      ],
+      "overlap": 0.0
+     },
+     {
+      "sentence": "기본 정보는 이렇습니다 .",
+      "cited": [
+       1
+      ],
+      "overlap": 0.0
+     }
+    ],
+    "refusal_ok": false,
+    "recall": null,
+    "facts": null,
+    "elapsed": 0.01,
+    "n_evidence": 7,
+    "n_cited": 2
+   }
+  ]
+ }
+}

@@ -1,5 +1,68 @@
 [
  {
+  "id": "data-projects-en",
+  "title": "Public-data projects — earthquake pipeline · equipment anomaly detection · power demand forecasting · DART data mart · dbt warehouse",
+  "tagline": "Eight projects that collect and model public data daily and monitor data quality and API health",
+  "key": "dbt + Airflow warehouse refreshed daily · 22 public APIs monitored · power demand error 6.17% → 3.23%",
+  "period": "2026.11 – present",
+  "group": "Personal projects — public-data warehouse & monitoring · portfolio generator · encrypted prep space",
+  "image": "assets/photos/data-projects/card/지진_파이프라인_지도.jpg"
+ },
+ {
+  "id": "portfolio-site-en",
+  "title": "Data-driven portfolio generator — YAML → Korean/English site · resume PDFs · automated checks",
+  "tagline": "Korean/English site and resume PDFs generated from one YAML source",
+  "key": "One edit updates the site and all 5 resume PDFs",
+  "period": "2026.11 – present",
+  "group": "Personal projects — public-data warehouse & monitoring · portfolio generator · encrypted prep space",
+  "image": "assets/photos/portfolio-site/card/포트폴리오_메인.jpg"
+ },
+ {
+  "id": "prep-apps-en",
+  "title": "Encrypted study notes & interview-prep apps — a PBKDF2 · AES-GCM PWA on static hosting",
+  "tagline": "Web apps that use private study and interview material while keeping it encrypted",
+  "key": "PBKDF2 600k + AES-GCM · no server, no plaintext",
+  "period": "2026.11 – present",
+  "group": "Personal projects — public-data warehouse & monitoring · portfolio generator · encrypted prep space",
+  "image": "assets/photos/prep-apps/card/면접준비_발표자료.jpg"
+ },
+ {
+  "id": "ssafy-16-en",
+  "title": "ThRead — LLM comment analysis and book community",
+  "tagline": "A reading community built end to end — collection → LLM analysis → web service",
+  "key": "LLM judgments verified in code · 142 automated tests",
+  "period": "2026.07 – present",
+  "group": "Bootcamps — SSAFY · POSCO AI·BigData Academy",
+  "image": "assets/photos/ssafy-16/관통5_LLM_댓글분석_결과화면.jpg"
+ },
+ {
+  "id": "posco-pospeak-en",
+  "title": "POSPEAK (KILL KONG) — Konglish → natural English correction AI (FLAN-T5 · Qwen + RAG)",
+  "tagline": "Generator + RAG that rewrites Konglish into natural English",
+  "key": "Training-strategy comparison: BERTScore F1 0.32 → 0.74 · award",
+  "period": "2025.06 – 2025.08",
+  "group": "Bootcamps — SSAFY · POSCO AI·BigData Academy",
+  "image": "assets/photos/posco-pospeak/card/KILLKONG_앱_화면_(홈·채팅·단어·연습).jpg"
+ },
+ {
+  "id": "heritage-en",
+  "title": "Heritage guide — citation-verified RAG",
+  "tagline": "Collect official heritage documents and Wikipedia, index them in ChromaDB, and validate citation numbers in code.",
+  "key": "55 offline tests",
+  "period": "2026.10 – 2026.10",
+  "group": "Bootcamps — SSAFY · POSCO AI·BigData Academy",
+  "image": ""
+ },
+ {
+  "id": "vqa-en",
+  "title": "VQA challenge — probability ensemble",
+  "tagline": "Combine Qwen QLoRA, Gemma, OCR and multiple views; select candidates by fixes minus breaks.",
+  "key": "Public Score 0.96961",
+  "period": "2026.09 – 2026.09",
+  "group": "Bootcamps — SSAFY · POSCO AI·BigData Academy",
+  "image": ""
+ },
+ {
   "id": "masters-en",
   "title": "Wavenumber correlation of gravity & magnetic data for salt/basement structure (M.S. · SPE Journal first author)",
   "tagline": "Wavenumber-domain correlation → basement (SLFI) and salt (DLFI) indices",
@@ -34,50 +97,5 @@
   "period": "2023.09 – 2023.12",
   "group": "B.S. — CO2 storage seismic interpretation · wildfire deep learning",
   "image": "assets/photos/wildfire-capstone/card/U-LSTM_강릉_산불_GIS_실제·예측_비교_(t1~t5).jpg"
- },
- {
-  "id": "ssafy-16-en",
-  "title": "SSAFY — ThRead LLM comment-analysis pipeline · AI Challenge VQA ensemble",
-  "tagline": "A reading community built end to end — collection → LLM analysis → web service",
-  "key": "LLM judgments verified in code · 142 automated tests",
-  "period": "2026.07 – present",
-  "group": "Bootcamps — SSAFY · POSCO AI·BigData Academy",
-  "image": "assets/photos/ssafy-16/관통5_LLM_댓글분석_결과화면.jpg"
- },
- {
-  "id": "posco-pospeak-en",
-  "title": "POSPEAK (KILL KONG) — Konglish → natural English correction AI (FLAN-T5 · Qwen + RAG)",
-  "tagline": "Generator + RAG that rewrites Konglish into natural English",
-  "key": "Training-strategy comparison: BERTScore F1 0.32 → 0.74 · award",
-  "period": "2025.06 – 2025.08",
-  "group": "Bootcamps — SSAFY · POSCO AI·BigData Academy",
-  "image": "assets/photos/posco-pospeak/card/KILLKONG_앱_화면_(홈·채팅·단어·연습).jpg"
- },
- {
-  "id": "portfolio-site-en",
-  "title": "Data-driven portfolio generator — YAML → Korean/English site · resume PDFs · automated checks",
-  "tagline": "Korean/English site and resume PDFs generated from one YAML source",
-  "key": "One edit updates the site and all 5 resume PDFs",
-  "period": "2026.11 – present",
-  "group": "Personal projects — public-data projects · portfolio generator · encrypted study & interview apps",
-  "image": "assets/photos/portfolio-site/card/포트폴리오_메인.jpg"
- },
- {
-  "id": "prep-apps-en",
-  "title": "Encrypted study notes & interview-prep apps — a PBKDF2 · AES-GCM PWA on static hosting",
-  "tagline": "Web apps that use private study and interview material while keeping it encrypted",
-  "key": "PBKDF2 600k + AES-GCM · no server, no plaintext",
-  "period": "2026.11 – present",
-  "group": "Personal projects — public-data projects · portfolio generator · encrypted study & interview apps",
-  "image": "assets/photos/prep-apps/card/면접준비_발표자료.jpg"
- },
- {
-  "id": "data-projects-en",
-  "title": "Public-data projects — earthquake pipeline · equipment anomaly detection · power demand forecasting · DART data mart · dbt warehouse",
-  "tagline": "Public data from collection to validation — plus a dbt + Airflow warehouse",
-  "key": "Power demand MAPE 6.17% → 3.23% vs baseline · dbt warehouse with 101 data tests",
-  "period": "2026.11 – present",
-  "group": "Personal projects — public-data projects · portfolio generator · encrypted study & interview apps",
-  "image": "assets/photos/data-projects/card/지진_파이프라인_지도.jpg"
  }
 ]

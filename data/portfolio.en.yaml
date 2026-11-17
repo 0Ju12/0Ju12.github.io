@@ -4,8 +4,8 @@
 profile:
   name: Young-Ju Lee
   name_en: Young-Ju Lee
-  title: Data & AI Engineer
-  headline: "A data & AI engineer who turns complex geoscience data into answers with deep learning and analysis"
+  title: Data Engineer · Data Analyst
+  headline: "A data engineer and analyst who collects and cleans public data and turns it into metrics and analysis that can be checked"
   summary: >-
     M.S. in Environment and Energy (Jeonbuk National University, 2026) with a B.S. in Mineral Resources and Energy Engineering.
     As an undergraduate researcher I wrote a first-author paper interpreting seismic images of large overseas CO2 storage sites in light of plate-tectonic history,
@@ -20,7 +20,7 @@ profile:
   location: Republic of Korea
   photo: ""
   availability:
-    role: "Data Engineer · AI/ML Engineer"
+    role: "Data Engineer · Data Analyst"
     location: "Open to any location"
     start: "H1 2027"
   links:
@@ -30,7 +30,7 @@ profile:
 
 pitch:
   h1: ["Collect the data,", "verify the model,", "prove it with results."]
-  body: "I start by checking where the data came from and how good it is, and I verify what a model produces once more with code and evidence. Beyond producing good results, I build systems that can explain why those results can be trusted."
+  body: "Working with geophysical survey data, the work I spent longest on was checking where data came from, how good it was, and verifying results again. I now apply the same habits to public data: collecting and cleaning it daily, modelling it in a warehouse, and explaining with code and evidence why an analysis can be trusted."
 
 highlights:
   - { value: "1 SCIE", label: "First-author paper (SPE Journal)" }
@@ -39,9 +39,9 @@ highlights:
   - { value: "3 · 6", label: "Papers · conference talks" }
 
 proof:
-  - { k: "Research", t: "Designed indicators that separate overlapping gravity and magnetic signals — first-author SCIE paper (SPE Journal)", u: "projects/masters-en.html" }
-  - { k: "LLM", t: "A data pipeline that re-checks LLM judgements in code — 142 automated tests", u: "projects/ssafy-16-en.html" }
-  - { k: "Data", t: "Public data into a dbt + Airflow warehouse — 101 data tests and a dashboard refreshed daily", u: "https://0ju12.github.io/data-projects/warehouse/" }
+  - { k: "Data", t: "A dbt + Airflow warehouse that collects, cleans and models six public sources daily — bad data is stopped by tests before it reaches the dashboard", u: "https://0ju12.github.io/data-projects/warehouse/" }
+  - { k: "Pipeline", t: "A collection and analysis pipeline that re-checks LLM judgements in code instead of trusting them (SSAFY)", u: "projects/ssafy-16-en.html" }
+  - { k: "Analysis", t: "Designed indicators that separate overlapping gravity and magnetic signals to map the subsurface — first-author SCIE paper (SPE Journal)", u: "projects/masters-en.html" }
 
 site:
   theme: editorial
@@ -77,13 +77,18 @@ education:
     notes:
       - "IAB convergence major · undergraduate researcher"
 
+workstyle:
+  - "I make the design calls: problem framing, data sources, evaluation (time-ordered splits, fixes vs. breaks) and what gets adopted."
+  - "I build with generative AI such as Claude and GPT for drafts, refactoring and documentation, and public commits record the AI co-author."
+  - "I verify in code: every change must pass automated tests and layout checks before deploy, and numbers in posts and resumes are checked against the original results."
+
 skills:
-  - category: Languages & frameworks
-    items: [Python, SQL, PyTorch, Hugging Face, Pandas, Django, FastAPI]
-  - category: AI & data analysis
-    items: ["U-LSTM", "LoRA/QLoRA fine-tuning", Model ensembles, "RAG (LangGraph · ChromaDB)"]
   - category: Data engineering
-    items: ["dbt (DuckDB)", SCD2 modelling, Data tests, Airflow, GitHub Actions]
+    items: [Python, SQL, "dbt (DuckDB)", SCD2 modelling, Data tests, Airflow, Docker Compose]
+  - category: Data analysis
+    items: ["SQL (window functions)", Pandas, Time-series forecasting, Anomaly detection]
+  - category: AI & ML
+    items: [PyTorch, Hugging Face, "LoRA/QLoRA", "RAG (LangGraph · ChromaDB)"]
   - category: Spatial & geophysical data
     items: [ArcGIS, Gravity & magnetics, Seismic interpretation]
 
@@ -100,7 +105,7 @@ activities:
     period: { start: "2024.03", end: "2026.08" }
     role: Graduate researcher · 6-month stay at University of Calgary
     featured: true
-    priority: 1
+    priority: 3
     onepage_title: "M.S. research — gravity–magnetic signal separation"
     onepage_brief:
       - "Designed WCF, SLFI and DLFI indices; agreement r ≥ 0.94 with three independent models."
@@ -184,7 +189,7 @@ activities:
     period: { start: "2022", end: "2024.02" }
     role: Undergraduate researcher · capstone model design & training
     featured: true
-    priority: 2
+    priority: 4
     onepage_title: "B.S. research — CO2 storage and wildfire prediction"
     onepage_brief:
       - "First-author paper: tectonic reconstruction and seismic interpretation of eight CO2 storage sites."
@@ -266,7 +271,7 @@ activities:
     period: { start: "2025.06", end: "present" }
     role: LLM fine-tuning · data pipelines · backend
     featured: true
-    priority: 3
+    priority: 2
     onepage_title: "SSAFY / POSCO — LLM services, RAG and VQA"
     onepage_brief:
       - "VQA challenge: QLoRA, OCR and probability ensembles; Public Score 0.96961."
@@ -348,18 +353,18 @@ activities:
           - { label: Team GitHub, url: "https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5" }
 
   - id: personal
-    card_title: "Personal projects — public-data projects · portfolio generator · encrypted study & interview apps"
+    card_title: "Personal projects — public-data warehouse & monitoring · portfolio generator · encrypted prep space"
     tagline: "Site and resumes generated from one YAML source; private material served as encrypted apps"
     highlights: ["Power demand MAPE 6.17% → 3.23% vs baseline", "YAML → KO/EN site · 5 PDFs", "PBKDF2 · AES-GCM encrypted PWA"]
     icon: "🛠️"
     kpi: { value: "5 PDFs", label: "Resumes generated from one YAML source (1-page · full · role-specific · English)" }
-    title: "Personal projects — data-driven portfolio generator · encrypted study notes & interview-prep apps"
+    title: "Personal projects — public-data warehouse & API monitoring · portfolio generator · encrypted prep space"
     type: Personal project
     org: Personal (GitHub Pages · GitHub Actions)
     period: { start: "2026.11", end: "present" }
     role: Planning · design · development · operation
     featured: true
-    priority: 4
+    priority: 1
     onepage: false
     brief:
       - "Portfolio generator: YAML data → Jinja2 build → Korean/English pages, 14 project pages, 5 resume PDFs, search index and share images; links and layouts checked automatically before every deploy"
@@ -368,6 +373,46 @@ activities:
     tags: [Python, Jinja2, GitHub Actions, Playwright, Web Crypto, PWA, JavaScript]
     summary: Managing the portfolio as data (YAML) so the site and resumes are generated, and building encrypted apps for study and interview material that must not be public
     projects:
+      - id: data-projects
+        digest: {"problem": "I needed work in my target fields (energy, resources, manufacturing, finance) that goes from collection to validation on real data", "role": "Personal project · collection, cleaning, modelling, validation, automation", "did": ["Incremental USGS earthquake collection → revision handling and quarantine counts → CSV/SQLite → b-value analysis → a dashboard updated daily", "Per-component anomaly detection, streaming alerts and supervised diagnosis on UCI hydraulic-rig sensors, comparing random vs time-block splits", "Day-ahead power demand forecasting from KPX 2025 hourly demand plus temperature (baseline, linear, GBM, ensemble)", "OpenDART data mart: pivot, LAG and RANK SQL views and evidence search over business reports", "The same data modelled in dbt as staging → intermediate → marts and run by an Airflow DAG — data tests, earthquake revision history (SCD type 2), safe re-runs"], "result": ["Power demand MAPE: 6.17% for the same-hour-last-week baseline → 3.23% for the ensemble · daily-peak error 2.64%", "dbt warehouse: 6 sources · 35 models · 101 data tests passing, with a daily run log and dashboard", "Sensor diagnosis: 0.99 with a random split fell to 0.46 with a time split — the split changes the conclusion", "100 pytest cases across 7 folders · daily collection and deployment with GitHub Actions"]}
+        tagline: "Eight projects that collect and model public data daily and monitor data quality and API health"
+        key: "dbt + Airflow warehouse refreshed daily · 22 public APIs monitored · power demand error 6.17% → 3.23%"
+        short: "Public-data projects"
+        title: "Public-data projects — earthquake pipeline · equipment anomaly detection · power demand forecasting · DART data mart · dbt warehouse"
+        type: Personal project
+        org: Personal · GitHub (data-projects)
+        period: { start: "2026.11", end: "present" }
+        team: "Solo"
+        role: Collection · cleaning · modelling · validation · automation
+        tags: [Python, SQL, dbt, DuckDB, Airflow, Docker, scikit-learn, GitHub Actions, Time series]
+        summary: Data pipelines, anomaly detection, demand forecasting and a SQL data mart built on public data from energy, resources, manufacturing and finance, validated with time-ordered evaluation
+        star:
+          situation: I needed examples on real data from my target fields (resource development, energy, manufacturing IT, finance) that go from collection to validation, and the joint-research data cannot be published
+          task: Build projects that run repeatedly like production work and are evaluated honestly, using only data anyone can download
+          action:
+            - "Earthquake pipeline: incremental collection from the USGS FDSN API with per-region minimum magnitude and start date (re-fetching the last 3 days so runs are idempotent); only newer revisions replace an event; events without magnitude, out of range or non-earthquake are quarantined and counted; CSV (source) and SQLite (query) storage; Mc and b-value (Aki–Utsu, Shi & Bolt error); a Leaflet dashboard refreshed daily by GitHub Actions"
+            - "Equipment anomaly detection: 136 cycle features from 2,205 cycles × 17 sensors of the UCI hydraulic rig; per-component normal models (Ledoit-Wolf Mahalanobis, 1% false-alarm threshold) with a k-consecutive alert rule; RandomForest vs LDA diagnosis under random and time-block splits"
+            - "Power demand forecasting: day-ahead 24-hour forecasts from KPX 2025 national hourly demand and Open-Meteo temperature — features use only values at least 24 hours old (with a leakage test), holidays included; baseline, linear, GBM and ensemble tested on October–December"
+            - "DART data mart: OpenDART collection (status-code handling, rate-limit waits), standardised accounts, pivot/LAG/RANK SQL views, and evidence search over business-report paragraphs with character-bigram BM25, returned with sources (API key only via Secrets)"
+            - "Warehouse: earthquake, demand and temperature sources modelled in dbt (DuckDB) as staging → intermediate → marts — the date × 24-column demand table is unpivoted with the hour's start time as the key so that '24:00' does not slip into the next day, and earthquakes revised by USGS are kept as history (SCD type 2) instead of overwritten. The Airflow DAG, the CLI and the tests share the same functions, and date-partition exports produce identical files when re-run"
+            - "API monitoring (API Watch): checks 22 public APIs every hour — beyond HTTP 200 it flags stale data, empty results, duplicates and type changes, stores the first healthy schema to tell added fields from removed or retyped ones, and groups repeated failures into one issue (includes a Django admin and Docker Compose version)"
+            - "Wildfire risk map: compares the Fosberg fire weather index with NASA satellite fire detections daily — most detections are persistent heat sources such as steelworks, so rules filter them out"
+            - "Data agent: an MCP server that lets an LLM query these results in SQL — read-only SQL guards and a check that numbers in the answer match the query results"
+          result:
+            - "Power demand: MAPE 6.17% for the same-hour-last-week baseline → 3.23% for the ensemble; daily-peak error 2.64%"
+            - "Sensor diagnosis: RandomForest scored 0.99+ on every component with a random split but 0.46 on the valve with a time-block split; LDA kept 1.00 on cooler, valve and pump, while the accumulator (0.55) remains open"
+            - "Earthquakes: b = 1.11 ± 0.05 on 2,474 events of M4+ in East Asia (the catalogue updates daily) · 39 tests across the four projects"
+            - "Warehouse: six sources — earthquakes and power demand plus job postings, exchange prices with FX, package downloads and disaster alerts — 35 models · 101 data tests (ranges, relationships, date continuity, aggregate cross-checks, join coverage) passing; 37 pytest cases confirm that bad data fails the build and that the incremental aggregate equals a full rebuild · results published as a six-tab dashboard refreshed daily · Airflow verified for a single DAG run only (not operated continuously)"
+            - "API monitoring: success rate is reported only as the share of observed checks (not called uptime), and the rules are covered by 34 tests — about 130 pytest tests across the eight projects"
+        links:
+          - { label: "GitHub repository", url: "https://github.com/0Ju12/data-projects" }
+          - { label: "Earthquake dashboard", url: "https://0ju12.github.io/data-projects/" }
+          - { label: "Power demand forecast explorer (live)", url: "https://0ju12.github.io/data-projects/power/" }
+          - { label: "Wildfire risk map (updated daily)", url: "https://0ju12.github.io/data-projects/fire/" }
+          - { label: "Data agent (MCP server with number checks)", url: "https://github.com/0Ju12/data-projects/tree/main/data-agent" }
+          - { label: "Warehouse dashboard (prices · jobs · power · earthquakes · quality)", url: "https://0ju12.github.io/data-projects/warehouse/" }
+          - { label: "API monitoring board (22 public APIs · hourly)", url: "https://0ju12.github.io/data-projects/api-watch/" }
+          - { label: "Warehouse code (dbt · Airflow)", url: "https://github.com/0Ju12/data-projects/tree/main/warehouse" }
       - id: portfolio-site
         digest: {"problem": "Editing the same facts separately in resumes, the portfolio, Notion and LinkedIn made numbers and wording drift apart", "role": "Personal project · design through deployment and operation", "did": ["Kept portfolio data in one YAML source and generated Korean/English pages, 5 resume PDFs and Notion/LinkedIn text with Jinja2", "GitHub Actions: build → link and required-field checks → layout checks (Playwright) → Pages deploy", "Private material committed only as public-key-sealed files, unsealed in the deploy build and emitted as encrypted pages", "'Ask my portfolio': finds passages on the site and shows them with sources — no LLM"], "result": ["One edit updates the Korean/English site, resumes and 14 project pages together", "Every deploy checks links on all pages (90+) and desktop/phone layouts", "A 1-page resume that spills onto page 2 is caught in the build"]}
         tagline: "Korean/English site and resume PDFs generated from one YAML source"
@@ -422,41 +467,6 @@ activities:
             - "Bottom tab bar on phones and offline install (PWA); main desktop and phone flows pass automated checks"
         links:
           - { label: "Lock screen", url: "https://0ju12.github.io/interview/" }
-      - id: data-projects
-        digest: {"problem": "I needed work in my target fields (energy, resources, manufacturing, finance) that goes from collection to validation on real data", "role": "Personal project · collection, cleaning, modelling, validation, automation", "did": ["Incremental USGS earthquake collection → revision handling and quarantine counts → CSV/SQLite → b-value analysis → a dashboard updated daily", "Per-component anomaly detection, streaming alerts and supervised diagnosis on UCI hydraulic-rig sensors, comparing random vs time-block splits", "Day-ahead power demand forecasting from KPX 2025 hourly demand plus temperature (baseline, linear, GBM, ensemble)", "OpenDART data mart: pivot, LAG and RANK SQL views and evidence search over business reports", "The same data modelled in dbt as staging → intermediate → marts and run by an Airflow DAG — data tests, earthquake revision history (SCD type 2), safe re-runs"], "result": ["Power demand MAPE: 6.17% for the same-hour-last-week baseline → 3.23% for the ensemble · daily-peak error 2.64%", "dbt warehouse: 6 sources · 35 models · 101 data tests passing, with a daily run log and dashboard", "Sensor diagnosis: 0.99 with a random split fell to 0.46 with a time split — the split changes the conclusion", "100 pytest cases across 7 folders · daily collection and deployment with GitHub Actions"]}
-        tagline: "Public data from collection to validation — plus a dbt + Airflow warehouse"
-        key: "Power demand MAPE 6.17% → 3.23% vs baseline · dbt warehouse with 101 data tests"
-        short: "Public-data projects"
-        title: "Public-data projects — earthquake pipeline · equipment anomaly detection · power demand forecasting · DART data mart · dbt warehouse"
-        type: Personal project
-        org: Personal · GitHub (data-projects)
-        period: { start: "2026.11", end: "present" }
-        team: "Solo"
-        role: Collection · cleaning · modelling · validation · automation
-        tags: [Python, SQL, dbt, DuckDB, Airflow, scikit-learn, GitHub Actions, Time series]
-        summary: Data pipelines, anomaly detection, demand forecasting and a SQL data mart built on public data from energy, resources, manufacturing and finance, validated with time-ordered evaluation
-        star:
-          situation: I needed examples on real data from my target fields (resource development, energy, manufacturing IT, finance) that go from collection to validation, and the joint-research data cannot be published
-          task: Build projects that run repeatedly like production work and are evaluated honestly, using only data anyone can download
-          action:
-            - "Earthquake pipeline: incremental collection from the USGS FDSN API with per-region minimum magnitude and start date (re-fetching the last 3 days so runs are idempotent); only newer revisions replace an event; events without magnitude, out of range or non-earthquake are quarantined and counted; CSV (source) and SQLite (query) storage; Mc and b-value (Aki–Utsu, Shi & Bolt error); a Leaflet dashboard refreshed daily by GitHub Actions"
-            - "Equipment anomaly detection: 136 cycle features from 2,205 cycles × 17 sensors of the UCI hydraulic rig; per-component normal models (Ledoit-Wolf Mahalanobis, 1% false-alarm threshold) with a k-consecutive alert rule; RandomForest vs LDA diagnosis under random and time-block splits"
-            - "Power demand forecasting: day-ahead 24-hour forecasts from KPX 2025 national hourly demand and Open-Meteo temperature — features use only values at least 24 hours old (with a leakage test), holidays included; baseline, linear, GBM and ensemble tested on October–December"
-            - "DART data mart: OpenDART collection (status-code handling, rate-limit waits), standardised accounts, pivot/LAG/RANK SQL views, and evidence search over business-report paragraphs with character-bigram BM25, returned with sources (API key only via Secrets)"
-            - "Warehouse: earthquake, demand and temperature sources modelled in dbt (DuckDB) as staging → intermediate → marts — the date × 24-column demand table is unpivoted with the hour's start time as the key so that '24:00' does not slip into the next day, and earthquakes revised by USGS are kept as history (SCD type 2) instead of overwritten. The Airflow DAG, the CLI and the tests share the same functions, and date-partition exports produce identical files when re-run"
-          result:
-            - "Power demand: MAPE 6.17% for the same-hour-last-week baseline → 3.23% for the ensemble; daily-peak error 2.64%"
-            - "Sensor diagnosis: RandomForest scored 0.99+ on every component with a random split but 0.46 on the valve with a time-block split; LDA kept 1.00 on cooler, valve and pump, while the accumulator (0.55) remains open"
-            - "Earthquakes: b = 1.11 ± 0.05 on 2,474 events of M4+ in East Asia (the catalogue updates daily) · 39 tests across the four projects"
-            - "Warehouse: six sources — earthquakes and power demand plus job postings, exchange prices with FX, package downloads and disaster alerts — 35 models · 101 data tests (ranges, relationships, date continuity, aggregate cross-checks, join coverage) passing; 37 pytest cases confirm that bad data fails the build and that the incremental aggregate equals a full rebuild · results published as a six-tab dashboard refreshed daily · Airflow verified for a single DAG run only (not operated continuously)"
-        links:
-          - { label: "GitHub repository", url: "https://github.com/0Ju12/data-projects" }
-          - { label: "Earthquake dashboard", url: "https://0ju12.github.io/data-projects/" }
-          - { label: "Power demand forecast explorer (live)", url: "https://0ju12.github.io/data-projects/power/" }
-          - { label: "Wildfire risk map (updated daily)", url: "https://0ju12.github.io/data-projects/fire/" }
-          - { label: "Data agent (MCP server with number checks)", url: "https://github.com/0Ju12/data-projects/tree/main/data-agent" }
-          - { label: "Warehouse dashboard (prices · jobs · power · earthquakes · quality)", url: "https://0ju12.github.io/data-projects/warehouse/" }
-          - { label: "Warehouse code (dbt · Airflow)", url: "https://github.com/0Ju12/data-projects/tree/main/warehouse" }
 
 publications:
   - { kind: 논문, year: 2026, title: "Wavenumber Correlation of Gravity and Magnetic Anomalies for Constraining Salt/Basement Structure in Offshore Abu Dhabi", venue: "SPE Journal (SCIE) · first author", url: "https://doi.org/10.2118/236968-PA" }
