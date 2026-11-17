@@ -1,0 +1,4297 @@
+{
+  "source": "https://swexpertacademy.com/main/code/problem/problemList.do",
+  "fetchedAt": "2026-11-17T01:54:53.685285+00:00",
+  "levels": [
+    "D1",
+    "D2",
+    "D3",
+    "D4"
+  ],
+  "pageCount": 62,
+  "count": 611,
+  "counts": {
+    "D1": 119,
+    "D2": 50,
+    "D3": 231,
+    "D4": 211
+  },
+  "items": [
+    {
+      "number": 1204,
+      "title": "[S/W 문제해결 기본] 1일차 - 최빈수 구하기",
+      "level": "D2",
+      "contestProbId": "AV13zo1KAAACFAYh",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV13zo1KAAACFAYh&categoryId=AV13zo1KAAACFAYh&categoryType=CODE"
+    },
+    {
+      "number": 1206,
+      "title": "[S/W 문제해결 기본] 1일차 - View",
+      "level": "D3",
+      "contestProbId": "AV134DPqAA8CFAYh",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV134DPqAA8CFAYh&categoryId=AV134DPqAA8CFAYh&categoryType=CODE"
+    },
+    {
+      "number": 1208,
+      "title": "[S/W 문제해결 기본] 1일차 - Flatten",
+      "level": "D3",
+      "contestProbId": "AV139KOaABgCFAYh",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV139KOaABgCFAYh&categoryId=AV139KOaABgCFAYh&categoryType=CODE"
+    },
+    {
+      "number": 1209,
+      "title": "[S/W 문제해결 기본] 2일차 - Sum",
+      "level": "D3",
+      "contestProbId": "AV13_BWKACUCFAYh",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV13_BWKACUCFAYh&categoryId=AV13_BWKACUCFAYh&categoryType=CODE"
+    },
+    {
+      "number": 1210,
+      "title": "[S/W 문제해결 기본] 2일차 - Ladder1",
+      "level": "D4",
+      "contestProbId": "AV14ABYKADACFAYh",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14ABYKADACFAYh&categoryId=AV14ABYKADACFAYh&categoryType=CODE"
+    },
+    {
+      "number": 1211,
+      "title": "[S/W 문제해결 기본] 2일차 - Ladder2",
+      "level": "D4",
+      "contestProbId": "AV14BgD6AEECFAYh",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14BgD6AEECFAYh&categoryId=AV14BgD6AEECFAYh&categoryType=CODE"
+    },
+    {
+      "number": 1213,
+      "title": "[S/W 문제해결 기본] 3일차 - String",
+      "level": "D3",
+      "contestProbId": "AV14P0c6AAUCFAYi",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14P0c6AAUCFAYi&categoryId=AV14P0c6AAUCFAYi&categoryType=CODE"
+    },
+    {
+      "number": 1215,
+      "title": "[S/W 문제해결 기본] 3일차 - 회문1",
+      "level": "D3",
+      "contestProbId": "AV14QpAaAAwCFAYi",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14QpAaAAwCFAYi&categoryId=AV14QpAaAAwCFAYi&categoryType=CODE"
+    },
+    {
+      "number": 1216,
+      "title": "[S/W 문제해결 기본] 3일차 - 회문2",
+      "level": "D3",
+      "contestProbId": "AV14Rq5aABUCFAYi",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14Rq5aABUCFAYi&categoryId=AV14Rq5aABUCFAYi&categoryType=CODE"
+    },
+    {
+      "number": 1217,
+      "title": "[S/W 문제해결 기본] 4일차 - 거듭 제곱",
+      "level": "D3",
+      "contestProbId": "AV14dUIaAAUCFAYD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14dUIaAAUCFAYD&categoryId=AV14dUIaAAUCFAYD&categoryType=CODE"
+    },
+    {
+      "number": 1218,
+      "title": "[S/W 문제해결 기본] 4일차 - 괄호 짝짓기",
+      "level": "D4",
+      "contestProbId": "AV14eWb6AAkCFAYD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14eWb6AAkCFAYD&categoryId=AV14eWb6AAkCFAYD&categoryType=CODE"
+    },
+    {
+      "number": 1219,
+      "title": "[S/W 문제해결 기본] 4일차 - 길찾기",
+      "level": "D4",
+      "contestProbId": "AV14geLqABQCFAYD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14geLqABQCFAYD&categoryId=AV14geLqABQCFAYD&categoryType=CODE"
+    },
+    {
+      "number": 1220,
+      "title": "[S/W 문제해결 기본] 5일차 - Magnetic",
+      "level": "D3",
+      "contestProbId": "AV14hwZqABsCFAYD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14hwZqABsCFAYD&categoryId=AV14hwZqABsCFAYD&categoryType=CODE"
+    },
+    {
+      "number": 1221,
+      "title": "[S/W 문제해결 기본] 5일차 - GNS",
+      "level": "D3",
+      "contestProbId": "AV14jJh6ACYCFAYD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14jJh6ACYCFAYD&categoryId=AV14jJh6ACYCFAYD&categoryType=CODE"
+    },
+    {
+      "number": 1222,
+      "title": "[S/W 문제해결 기본] 6일차 - 계산기1",
+      "level": "D4",
+      "contestProbId": "AV14mbSaAEwCFAYD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14mbSaAEwCFAYD&categoryId=AV14mbSaAEwCFAYD&categoryType=CODE"
+    },
+    {
+      "number": 1223,
+      "title": "[S/W 문제해결 기본] 6일차 - 계산기2",
+      "level": "D4",
+      "contestProbId": "AV14nnAaAFACFAYD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14nnAaAFACFAYD&categoryId=AV14nnAaAFACFAYD&categoryType=CODE"
+    },
+    {
+      "number": 1224,
+      "title": "[S/W 문제해결 기본] 6일차 - 계산기3",
+      "level": "D4",
+      "contestProbId": "AV14tDX6AFgCFAYD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14tDX6AFgCFAYD&categoryId=AV14tDX6AFgCFAYD&categoryType=CODE"
+    },
+    {
+      "number": 1225,
+      "title": "[S/W 문제해결 기본] 7일차 - 암호생성기",
+      "level": "D3",
+      "contestProbId": "AV14uWl6AF0CFAYD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14uWl6AF0CFAYD&categoryId=AV14uWl6AF0CFAYD&categoryType=CODE"
+    },
+    {
+      "number": 1226,
+      "title": "[S/W 문제해결 기본] 7일차 - 미로1",
+      "level": "D4",
+      "contestProbId": "AV14vXUqAGMCFAYD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14vXUqAGMCFAYD&categoryId=AV14vXUqAGMCFAYD&categoryType=CODE"
+    },
+    {
+      "number": 1227,
+      "title": "[S/W 문제해결 기본] 7일차 - 미로2",
+      "level": "D4",
+      "contestProbId": "AV14wL9KAGkCFAYD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14wL9KAGkCFAYD&categoryId=AV14wL9KAGkCFAYD&categoryType=CODE"
+    },
+    {
+      "number": 1228,
+      "title": "[S/W 문제해결 기본] 8일차 - 암호문1",
+      "level": "D3",
+      "contestProbId": "AV14w-rKAHACFAYD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14w-rKAHACFAYD&categoryId=AV14w-rKAHACFAYD&categoryType=CODE"
+    },
+    {
+      "number": 1229,
+      "title": "[S/W 문제해결 기본] 8일차 - 암호문2",
+      "level": "D3",
+      "contestProbId": "AV14yIsqAHYCFAYD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14yIsqAHYCFAYD&categoryId=AV14yIsqAHYCFAYD&categoryType=CODE"
+    },
+    {
+      "number": 1230,
+      "title": "[S/W 문제해결 기본] 8일차 - 암호문3",
+      "level": "D3",
+      "contestProbId": "AV14zIwqAHwCFAYD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14zIwqAHwCFAYD&categoryId=AV14zIwqAHwCFAYD&categoryType=CODE"
+    },
+    {
+      "number": 1231,
+      "title": "[S/W 문제해결 기본] 9일차 - 중위순회",
+      "level": "D4",
+      "contestProbId": "AV140YnqAIECFAYD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV140YnqAIECFAYD&categoryId=AV140YnqAIECFAYD&categoryType=CODE"
+    },
+    {
+      "number": 1232,
+      "title": "[S/W 문제해결 기본] 9일차 - 사칙연산",
+      "level": "D4",
+      "contestProbId": "AV141J8KAIcCFAYD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV141J8KAIcCFAYD&categoryId=AV141J8KAIcCFAYD&categoryType=CODE"
+    },
+    {
+      "number": 1233,
+      "title": "[S/W 문제해결 기본] 9일차 - 사칙연산 유효성 검사",
+      "level": "D4",
+      "contestProbId": "AV141176AIwCFAYD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV141176AIwCFAYD&categoryId=AV141176AIwCFAYD&categoryType=CODE"
+    },
+    {
+      "number": 1234,
+      "title": "[S/W 문제해결 기본] 10일차 - 비밀번호",
+      "level": "D3",
+      "contestProbId": "AV14_DEKAJcCFAYD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14_DEKAJcCFAYD&categoryId=AV14_DEKAJcCFAYD&categoryType=CODE"
+    },
+    {
+      "number": 1238,
+      "title": "[S/W 문제해결 기본] 10일차 - Contact",
+      "level": "D4",
+      "contestProbId": "AV15B1cKAKwCFAYD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV15B1cKAKwCFAYD&categoryId=AV15B1cKAKwCFAYD&categoryType=CODE"
+    },
+    {
+      "number": 1240,
+      "title": "[S/W 문제해결 응용] 1일차 - 단순 2진 암호코드",
+      "level": "D3",
+      "contestProbId": "AV15FZuqAL4CFAYD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV15FZuqAL4CFAYD&categoryId=AV15FZuqAL4CFAYD&categoryType=CODE"
+    },
+    {
+      "number": 1244,
+      "title": "[S/W 문제해결 응용] 2일차 - 최대 상금",
+      "level": "D3",
+      "contestProbId": "AV15Khn6AN0CFAYD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV15Khn6AN0CFAYD&categoryId=AV15Khn6AN0CFAYD&categoryType=CODE"
+    },
+    {
+      "number": 1249,
+      "title": "[S/W 문제해결 응용] 4일차 - 보급로",
+      "level": "D4",
+      "contestProbId": "AV15QRX6APsCFAYD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV15QRX6APsCFAYD&categoryId=AV15QRX6APsCFAYD&categoryType=CODE"
+    },
+    {
+      "number": 1251,
+      "title": "[S/W 문제해결 응용] 4일차 - 하나로",
+      "level": "D4",
+      "contestProbId": "AV15StKqAQkCFAYD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV15StKqAQkCFAYD&categoryId=AV15StKqAQkCFAYD&categoryType=CODE"
+    },
+    {
+      "number": 1258,
+      "title": "[S/W 문제해결 응용] 7일차 - 행렬찾기",
+      "level": "D4",
+      "contestProbId": "AV18LoAqItcCFAZN",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV18LoAqItcCFAZN&categoryId=AV18LoAqItcCFAZN&categoryType=CODE"
+    },
+    {
+      "number": 1284,
+      "title": "수도 요금 경쟁",
+      "level": "D2",
+      "contestProbId": "AV189xUaI8UCFAZN",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV189xUaI8UCFAZN&categoryId=AV189xUaI8UCFAZN&categoryType=CODE"
+    },
+    {
+      "number": 1285,
+      "title": "아름이의 돌 던지기",
+      "level": "D2",
+      "contestProbId": "AV18-stqI8oCFAZN",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV18-stqI8oCFAZN&categoryId=AV18-stqI8oCFAZN&categoryType=CODE"
+    },
+    {
+      "number": 1288,
+      "title": "새로운 불면증 치료법",
+      "level": "D2",
+      "contestProbId": "AV18_yw6I9MCFAZN",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV18_yw6I9MCFAZN&categoryId=AV18_yw6I9MCFAZN&categoryType=CODE"
+    },
+    {
+      "number": 1289,
+      "title": "원재의 메모리 복구하기",
+      "level": "D3",
+      "contestProbId": "AV19AcoKI9sCFAZN",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV19AcoKI9sCFAZN&categoryId=AV19AcoKI9sCFAZN&categoryType=CODE"
+    },
+    {
+      "number": 1486,
+      "title": "장훈이의 높은 선반",
+      "level": "D4",
+      "contestProbId": "AV2b7Yf6ABcBBASw",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV2b7Yf6ABcBBASw&categoryId=AV2b7Yf6ABcBBASw&categoryType=CODE"
+    },
+    {
+      "number": 1491,
+      "title": "원재의 벽 꾸미기",
+      "level": "D3",
+      "contestProbId": "AV2b9AkKACkBBASw",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV2b9AkKACkBBASw&categoryId=AV2b9AkKACkBBASw&categoryType=CODE"
+    },
+    {
+      "number": 1493,
+      "title": "수의 새로운 연산",
+      "level": "D3",
+      "contestProbId": "AV2b-QGqADMBBASw",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV2b-QGqADMBBASw&categoryId=AV2b-QGqADMBBASw&categoryType=CODE"
+    },
+    {
+      "number": 1494,
+      "title": "사랑의 카운슬러",
+      "level": "D4",
+      "contestProbId": "AV2b_WPaAEIBBASw",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV2b_WPaAEIBBASw&categoryId=AV2b_WPaAEIBBASw&categoryType=CODE"
+    },
+    {
+      "number": 1545,
+      "title": "거꾸로 출력해 보아요",
+      "level": "D1",
+      "contestProbId": "AV2gbY0qAAQBBAS0",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV2gbY0qAAQBBAS0&categoryId=AV2gbY0qAAQBBAS0&categoryType=CODE"
+    },
+    {
+      "number": 1803,
+      "title": "Shortest Path Faster",
+      "level": "D4",
+      "contestProbId": "AV4yBSgaCaYDFAUx",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV4yBSgaCaYDFAUx&categoryId=AV4yBSgaCaYDFAUx&categoryType=CODE"
+    },
+    {
+      "number": 1808,
+      "title": "지희의 고장난 계산기",
+      "level": "D4",
+      "contestProbId": "AV4yC3pqCegDFAUx",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV4yC3pqCegDFAUx&categoryId=AV4yC3pqCegDFAUx&categoryType=CODE"
+    },
+    {
+      "number": 1824,
+      "title": "혁진이의 프로그램 검증",
+      "level": "D4",
+      "contestProbId": "AV4yLUiKDUoDFAUx",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV4yLUiKDUoDFAUx&categoryId=AV4yLUiKDUoDFAUx&categoryType=CODE"
+    },
+    {
+      "number": 1859,
+      "title": "백만 장자 프로젝트",
+      "level": "D2",
+      "contestProbId": "AV5LrsUaDxcDFAXc",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5LrsUaDxcDFAXc&categoryId=AV5LrsUaDxcDFAXc&categoryType=CODE"
+    },
+    {
+      "number": 1860,
+      "title": "진기의 최고급 붕어빵",
+      "level": "D3",
+      "contestProbId": "AV5LsaaqDzYDFAXc",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5LsaaqDzYDFAXc&categoryId=AV5LsaaqDzYDFAXc&categoryType=CODE"
+    },
+    {
+      "number": 1861,
+      "title": "정사각형 방",
+      "level": "D4",
+      "contestProbId": "AV5LtJYKDzsDFAXc",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5LtJYKDzsDFAXc&categoryId=AV5LtJYKDzsDFAXc&categoryType=CODE"
+    },
+    {
+      "number": 1865,
+      "title": "동철이의 일 분배",
+      "level": "D4",
+      "contestProbId": "AV5LuHfqDz8DFAXc",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5LuHfqDz8DFAXc&categoryId=AV5LuHfqDz8DFAXc&categoryType=CODE"
+    },
+    {
+      "number": 1868,
+      "title": "파핑파핑 지뢰찾기",
+      "level": "D4",
+      "contestProbId": "AV5LwsHaD1MDFAXc",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5LwsHaD1MDFAXc&categoryId=AV5LwsHaD1MDFAXc&categoryType=CODE"
+    },
+    {
+      "number": 1873,
+      "title": "상호의 배틀필드",
+      "level": "D3",
+      "contestProbId": "AV5LyE7KD2ADFAXc",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5LyE7KD2ADFAXc&categoryId=AV5LyE7KD2ADFAXc&categoryType=CODE"
+    },
+    {
+      "number": 1926,
+      "title": "간단한 369게임",
+      "level": "D2",
+      "contestProbId": "AV5PTeo6AHUDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PTeo6AHUDFAUq&categoryId=AV5PTeo6AHUDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 1928,
+      "title": "Base64 Decoder",
+      "level": "D2",
+      "contestProbId": "AV5PR4DKAG0DFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PR4DKAG0DFAUq&categoryId=AV5PR4DKAG0DFAUq&categoryType=CODE"
+    },
+    {
+      "number": 1933,
+      "title": "간단한 N 의 약수",
+      "level": "D1",
+      "contestProbId": "AV5PhcWaAKIDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PhcWaAKIDFAUq&categoryId=AV5PhcWaAKIDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 1936,
+      "title": "1대1 가위바위보",
+      "level": "D1",
+      "contestProbId": "AV5PjKXKALcDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PjKXKALcDFAUq&categoryId=AV5PjKXKALcDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 1938,
+      "title": "아주 간단한 계산기",
+      "level": "D1",
+      "contestProbId": "AV5PjsYKAMIDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PjsYKAMIDFAUq&categoryId=AV5PjsYKAMIDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 1940,
+      "title": "가랏! RC카!",
+      "level": "D2",
+      "contestProbId": "AV5PjMgaALgDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PjMgaALgDFAUq&categoryId=AV5PjMgaALgDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 1945,
+      "title": "간단한 소인수분해",
+      "level": "D2",
+      "contestProbId": "AV5Pl0Q6ANQDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5Pl0Q6ANQDFAUq&categoryId=AV5Pl0Q6ANQDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 1946,
+      "title": "간단한 압축 풀기",
+      "level": "D2",
+      "contestProbId": "AV5PmkDKAOMDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PmkDKAOMDFAUq&categoryId=AV5PmkDKAOMDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 1948,
+      "title": "날짜 계산기",
+      "level": "D2",
+      "contestProbId": "AV5PnnU6AOsDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PnnU6AOsDFAUq&categoryId=AV5PnnU6AOsDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 1954,
+      "title": "달팽이 숫자",
+      "level": "D2",
+      "contestProbId": "AV5PobmqAPoDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PobmqAPoDFAUq&categoryId=AV5PobmqAPoDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 1959,
+      "title": "두 개의 숫자열",
+      "level": "D2",
+      "contestProbId": "AV5PpoFaAS4DFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PpoFaAS4DFAUq&categoryId=AV5PpoFaAS4DFAUq&categoryType=CODE"
+    },
+    {
+      "number": 1961,
+      "title": "숫자 배열 회전",
+      "level": "D2",
+      "contestProbId": "AV5Pq-OKAVYDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5Pq-OKAVYDFAUq&categoryId=AV5Pq-OKAVYDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 1966,
+      "title": "숫자를 정렬하자",
+      "level": "D2",
+      "contestProbId": "AV5PrmyKAWEDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PrmyKAWEDFAUq&categoryId=AV5PrmyKAWEDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 1970,
+      "title": "쉬운 거스름돈",
+      "level": "D2",
+      "contestProbId": "AV5PsIl6AXIDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PsIl6AXIDFAUq&categoryId=AV5PsIl6AXIDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 1974,
+      "title": "스도쿠 검증",
+      "level": "D2",
+      "contestProbId": "AV5Psz16AYEDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5Psz16AYEDFAUq&categoryId=AV5Psz16AYEDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 1976,
+      "title": "시각 덧셈",
+      "level": "D2",
+      "contestProbId": "AV5PttaaAZIDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PttaaAZIDFAUq&categoryId=AV5PttaaAZIDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 1979,
+      "title": "어디에 단어가 들어갈 수 있을까",
+      "level": "D2",
+      "contestProbId": "AV5PuPq6AaQDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PuPq6AaQDFAUq&categoryId=AV5PuPq6AaQDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 1983,
+      "title": "조교의 성적 매기기",
+      "level": "D2",
+      "contestProbId": "AV5PwGK6AcIDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PwGK6AcIDFAUq&categoryId=AV5PwGK6AcIDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 1984,
+      "title": "중간 평균값 구하기",
+      "level": "D2",
+      "contestProbId": "AV5Pw_-KAdcDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5Pw_-KAdcDFAUq&categoryId=AV5Pw_-KAdcDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 1986,
+      "title": "지그재그 숫자",
+      "level": "D2",
+      "contestProbId": "AV5PxmBqAe8DFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PxmBqAe8DFAUq&categoryId=AV5PxmBqAe8DFAUq&categoryType=CODE"
+    },
+    {
+      "number": 1989,
+      "title": "초심자의 회문 검사",
+      "level": "D2",
+      "contestProbId": "AV5PyTLqAf4DFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PyTLqAf4DFAUq&categoryId=AV5PyTLqAf4DFAUq&categoryType=CODE"
+    },
+    {
+      "number": 2001,
+      "title": "파리 퇴치",
+      "level": "D2",
+      "contestProbId": "AV5PzOCKAigDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PzOCKAigDFAUq&categoryId=AV5PzOCKAigDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 2005,
+      "title": "파스칼의 삼각형",
+      "level": "D2",
+      "contestProbId": "AV5P0-h6Ak4DFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5P0-h6Ak4DFAUq&categoryId=AV5P0-h6Ak4DFAUq&categoryType=CODE"
+    },
+    {
+      "number": 2007,
+      "title": "패턴 마디의 길이",
+      "level": "D2",
+      "contestProbId": "AV5P1kNKAl8DFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5P1kNKAl8DFAUq&categoryId=AV5P1kNKAl8DFAUq&categoryType=CODE"
+    },
+    {
+      "number": 2019,
+      "title": "더블더블",
+      "level": "D1",
+      "contestProbId": "AV5QDEX6AqwDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5QDEX6AqwDFAUq&categoryId=AV5QDEX6AqwDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 2025,
+      "title": "N줄덧셈",
+      "level": "D1",
+      "contestProbId": "AV5QFZtaAscDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5QFZtaAscDFAUq&categoryId=AV5QFZtaAscDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 2027,
+      "title": "대각선 출력하기",
+      "level": "D1",
+      "contestProbId": "AV5QFuZ6As0DFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5QFuZ6As0DFAUq&categoryId=AV5QFuZ6As0DFAUq&categoryType=CODE"
+    },
+    {
+      "number": 2029,
+      "title": "몫과 나머지 출력하기",
+      "level": "D1",
+      "contestProbId": "AV5QGNvKAtEDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5QGNvKAtEDFAUq&categoryId=AV5QGNvKAtEDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 2043,
+      "title": "서랍의 비밀번호",
+      "level": "D1",
+      "contestProbId": "AV5QJ_8KAx8DFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5QJ_8KAx8DFAUq&categoryId=AV5QJ_8KAx8DFAUq&categoryType=CODE"
+    },
+    {
+      "number": 2046,
+      "title": "스탬프 찍기",
+      "level": "D1",
+      "contestProbId": "AV5QKdT6AyYDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5QKdT6AyYDFAUq&categoryId=AV5QKdT6AyYDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 2047,
+      "title": "신문 헤드라인",
+      "level": "D1",
+      "contestProbId": "AV5QKsLaAy0DFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5QKsLaAy0DFAUq&categoryId=AV5QKsLaAy0DFAUq&categoryType=CODE"
+    },
+    {
+      "number": 2050,
+      "title": "알파벳을 숫자로 변환",
+      "level": "D1",
+      "contestProbId": "AV5QLGxKAzQDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5QLGxKAzQDFAUq&categoryId=AV5QLGxKAzQDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 2056,
+      "title": "연월일 달력",
+      "level": "D1",
+      "contestProbId": "AV5QLkdKAz4DFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5QLkdKAz4DFAUq&categoryId=AV5QLkdKAz4DFAUq&categoryType=CODE"
+    },
+    {
+      "number": 2058,
+      "title": "자릿수 더하기",
+      "level": "D1",
+      "contestProbId": "AV5QPRjqA10DFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5QPRjqA10DFAUq&categoryId=AV5QPRjqA10DFAUq&categoryType=CODE"
+    },
+    {
+      "number": 2063,
+      "title": "중간값 찾기",
+      "level": "D1",
+      "contestProbId": "AV5QPsXKA2UDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5QPsXKA2UDFAUq&categoryId=AV5QPsXKA2UDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 2068,
+      "title": "최대수 구하기",
+      "level": "D1",
+      "contestProbId": "AV5QQhbqA4QDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5QQhbqA4QDFAUq&categoryId=AV5QQhbqA4QDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 2070,
+      "title": "큰 놈, 작은 놈, 같은 놈",
+      "level": "D1",
+      "contestProbId": "AV5QQ6qqA40DFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5QQ6qqA40DFAUq&categoryId=AV5QQ6qqA40DFAUq&categoryType=CODE"
+    },
+    {
+      "number": 2071,
+      "title": "평균값 구하기",
+      "level": "D1",
+      "contestProbId": "AV5QRnJqA5cDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5QRnJqA5cDFAUq&categoryId=AV5QRnJqA5cDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 2072,
+      "title": "홀수만 더하기",
+      "level": "D1",
+      "contestProbId": "AV5QSEhaA5sDFAUq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5QSEhaA5sDFAUq&categoryId=AV5QSEhaA5sDFAUq&categoryType=CODE"
+    },
+    {
+      "number": 2805,
+      "title": "농작물 수확하기",
+      "level": "D3",
+      "contestProbId": "AV7GLXqKAWYDFAXB",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV7GLXqKAWYDFAXB&categoryId=AV7GLXqKAWYDFAXB&categoryType=CODE"
+    },
+    {
+      "number": 2806,
+      "title": "N-Queen",
+      "level": "D3",
+      "contestProbId": "AV7GKs06AU0DFAXB",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV7GKs06AU0DFAXB&categoryId=AV7GKs06AU0DFAXB&categoryType=CODE"
+    },
+    {
+      "number": 2814,
+      "title": "최장 경로",
+      "level": "D3",
+      "contestProbId": "AV7GOPPaAeMDFAXB",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV7GOPPaAeMDFAXB&categoryId=AV7GOPPaAeMDFAXB&categoryType=CODE"
+    },
+    {
+      "number": 2817,
+      "title": "부분 수열의 합",
+      "level": "D3",
+      "contestProbId": "AV7IzvG6EksDFAXB",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV7IzvG6EksDFAXB&categoryId=AV7IzvG6EksDFAXB&categoryType=CODE"
+    },
+    {
+      "number": 2819,
+      "title": "격자판의 숫자 이어 붙이기",
+      "level": "D4",
+      "contestProbId": "AV7I5fgqEogDFAXB",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV7I5fgqEogDFAXB&categoryId=AV7I5fgqEogDFAXB&categoryType=CODE"
+    },
+    {
+      "number": 2930,
+      "title": "힙",
+      "level": "D3",
+      "contestProbId": "AV-Tj7ya3jYDFAXr",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV-Tj7ya3jYDFAXr&categoryId=AV-Tj7ya3jYDFAXr&categoryType=CODE"
+    },
+    {
+      "number": 2948,
+      "title": "문자열 교집합",
+      "level": "D3",
+      "contestProbId": "AV-Un3G64SUDFAXr",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV-Un3G64SUDFAXr&categoryId=AV-Un3G64SUDFAXr&categoryType=CODE"
+    },
+    {
+      "number": 2983,
+      "title": "두 번 이상 등장하는 문자열",
+      "level": "D4",
+      "contestProbId": "AV-eALvKRnsDFAXr",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV-eALvKRnsDFAXr&categoryId=AV-eALvKRnsDFAXr&categoryType=CODE"
+    },
+    {
+      "number": 3000,
+      "title": "중간값 구하기",
+      "level": "D4",
+      "contestProbId": "AV-fO0s6ARoDFAXT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV-fO0s6ARoDFAXT&categoryId=AV-fO0s6ARoDFAXT&categoryType=CODE"
+    },
+    {
+      "number": 3032,
+      "title": "홍준이의 숫자 놀이",
+      "level": "D3",
+      "contestProbId": "AV-0U8FKZLQDFAXT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV-0U8FKZLQDFAXT&categoryId=AV-0U8FKZLQDFAXT&categoryType=CODE"
+    },
+    {
+      "number": 3064,
+      "title": "Binary Indexed Tree",
+      "level": "D4",
+      "contestProbId": "AV_Wo_Sa6UEDFAXw",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV_Wo_Sa6UEDFAXw&categoryId=AV_Wo_Sa6UEDFAXw&categoryType=CODE"
+    },
+    {
+      "number": 3074,
+      "title": "입국심사",
+      "level": "D4",
+      "contestProbId": "AV_XEokaAEcDFAX7",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV_XEokaAEcDFAX7&categoryId=AV_XEokaAEcDFAX7&categoryType=CODE"
+    },
+    {
+      "number": 3124,
+      "title": "최소 스패닝 트리",
+      "level": "D4",
+      "contestProbId": "AV_mSnmKUckDFAWb",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV_mSnmKUckDFAWb&categoryId=AV_mSnmKUckDFAWb&categoryType=CODE"
+    },
+    {
+      "number": 3131,
+      "title": "100만 이하의 모든 소수",
+      "level": "D3",
+      "contestProbId": "AV_6mRsasV8DFAWS",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV_6mRsasV8DFAWS&categoryId=AV_6mRsasV8DFAWS&categoryType=CODE"
+    },
+    {
+      "number": 3142,
+      "title": "영준이와 신비한 뿔의 숲",
+      "level": "D3",
+      "contestProbId": "AV_6xWk6sbADFAWS",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV_6xWk6sbADFAWS&categoryId=AV_6xWk6sbADFAWS&categoryType=CODE"
+    },
+    {
+      "number": 3143,
+      "title": "가장 빠른 문자열 타이핑",
+      "level": "D4",
+      "contestProbId": "AV_65wkqsb4DFAWS",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV_65wkqsb4DFAWS&categoryId=AV_65wkqsb4DFAWS&categoryType=CODE"
+    },
+    {
+      "number": 3233,
+      "title": "정삼각형 분할 놀이",
+      "level": "D3",
+      "contestProbId": "AWAe5G8afT0DFAUw",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWAe5G8afT0DFAUw&categoryId=AWAe5G8afT0DFAUw&categoryType=CODE"
+    },
+    {
+      "number": 3234,
+      "title": "준환이의 양팔저울",
+      "level": "D4",
+      "contestProbId": "AWAe7XSKfUUDFAUw",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWAe7XSKfUUDFAUw&categoryId=AWAe7XSKfUUDFAUw&categoryType=CODE"
+    },
+    {
+      "number": 3260,
+      "title": "두 수의 덧셈",
+      "level": "D3",
+      "contestProbId": "AWBC1lOad9IDFAWr",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWBC1lOad9IDFAWr&categoryId=AWBC1lOad9IDFAWr&categoryType=CODE"
+    },
+    {
+      "number": 3263,
+      "title": "오름차순 줄 세우기",
+      "level": "D4",
+      "contestProbId": "AWBC_hNKd_IDFAWr",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWBC_hNKd_IDFAWr&categoryId=AWBC_hNKd_IDFAWr&categoryType=CODE"
+    },
+    {
+      "number": 3282,
+      "title": "0/1 Knapsack",
+      "level": "D3",
+      "contestProbId": "AWBJAVpqrzQDFAWr",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWBJAVpqrzQDFAWr&categoryId=AWBJAVpqrzQDFAWr&categoryType=CODE"
+    },
+    {
+      "number": 3289,
+      "title": "서로소 집합",
+      "level": "D4",
+      "contestProbId": "AWBJKA6qr2oDFAWr",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWBJKA6qr2oDFAWr&categoryId=AWBJKA6qr2oDFAWr&categoryType=CODE"
+    },
+    {
+      "number": 3304,
+      "title": "최장 공통 부분 수열",
+      "level": "D3",
+      "contestProbId": "AWBOHEx66kIDFAWr",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWBOHEx66kIDFAWr&categoryId=AWBOHEx66kIDFAWr&categoryType=CODE"
+    },
+    {
+      "number": 3307,
+      "title": "최장 증가 부분 수열",
+      "level": "D3",
+      "contestProbId": "AWBOKg-a6l0DFAWr",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWBOKg-a6l0DFAWr&categoryId=AWBOKg-a6l0DFAWr&categoryType=CODE"
+    },
+    {
+      "number": 3314,
+      "title": "보충학습과 평균",
+      "level": "D3",
+      "contestProbId": "AWBnA2jaxDsDFAWr",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWBnA2jaxDsDFAWr&categoryId=AWBnA2jaxDsDFAWr&categoryType=CODE"
+    },
+    {
+      "number": 3316,
+      "title": "동아리실 관리하기",
+      "level": "D4",
+      "contestProbId": "AWBnFuhqxE8DFAWr",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWBnFuhqxE8DFAWr&categoryId=AWBnFuhqxE8DFAWr&categoryType=CODE"
+    },
+    {
+      "number": 3347,
+      "title": "올림픽 종목 투표",
+      "level": "D4",
+      "contestProbId": "AWDTHsZ6r0EDFAWD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWDTHsZ6r0EDFAWD&categoryId=AWDTHsZ6r0EDFAWD&categoryType=CODE"
+    },
+    {
+      "number": 3349,
+      "title": "최솟값으로 이동하기",
+      "level": "D4",
+      "contestProbId": "AWDTN0cKr1oDFAWD",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWDTN0cKr1oDFAWD&categoryId=AWDTN0cKr1oDFAWD&categoryType=CODE"
+    },
+    {
+      "number": 3376,
+      "title": "파도반 수열",
+      "level": "D3",
+      "contestProbId": "AWD3Y27q3QIDFAUZ",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWD3Y27q3QIDFAUZ&categoryId=AWD3Y27q3QIDFAUZ&categoryType=CODE"
+    },
+    {
+      "number": 3378,
+      "title": "스타일리쉬 들여쓰기",
+      "level": "D4",
+      "contestProbId": "AWD3nB5q3T0DFAUZ",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWD3nB5q3T0DFAUZ&categoryId=AWD3nB5q3T0DFAUZ&categoryType=CODE"
+    },
+    {
+      "number": 3408,
+      "title": "세가지 합 구하기",
+      "level": "D3",
+      "contestProbId": "AWEbPukqySUDFAWs",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWEbPukqySUDFAWs&categoryId=AWEbPukqySUDFAWs&categoryType=CODE"
+    },
+    {
+      "number": 3431,
+      "title": "준환이의 운동관리",
+      "level": "D3",
+      "contestProbId": "AWE_ZXcqAAMDFAV2",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWE_ZXcqAAMDFAV2&categoryId=AWE_ZXcqAAMDFAV2&categoryType=CODE"
+    },
+    {
+      "number": 3456,
+      "title": "직사각형 길이 찾기",
+      "level": "D3",
+      "contestProbId": "AWFPmsqqALwDFAV0",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWFPmsqqALwDFAV0&categoryId=AWFPmsqqALwDFAV0&categoryType=CODE"
+    },
+    {
+      "number": 3459,
+      "title": "승자 예측하기",
+      "level": "D4",
+      "contestProbId": "AWFPoj1qANoDFAV0",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWFPoj1qANoDFAV0&categoryId=AWFPoj1qANoDFAV0&categoryType=CODE"
+    },
+    {
+      "number": 3499,
+      "title": "퍼펙트 셔플",
+      "level": "D3",
+      "contestProbId": "AWGsRbk6AQIDFAVW",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWGsRbk6AQIDFAVW&categoryId=AWGsRbk6AQIDFAVW&categoryType=CODE"
+    },
+    {
+      "number": 3501,
+      "title": "순환소수 짧게 표현하기",
+      "level": "D4",
+      "contestProbId": "AWGsVTvqAWsDFAVW",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWGsVTvqAWsDFAVW&categoryId=AWGsVTvqAWsDFAVW&categoryType=CODE"
+    },
+    {
+      "number": 3750,
+      "title": "Digit sum",
+      "level": "D3",
+      "contestProbId": "AWHPiSYKAD0DFAUn",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWHPiSYKAD0DFAUn&categoryId=AWHPiSYKAD0DFAUn&categoryType=CODE"
+    },
+    {
+      "number": 3752,
+      "title": "가능한 시험 점수",
+      "level": "D4",
+      "contestProbId": "AWHPkqBqAEsDFAUn",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWHPkqBqAEsDFAUn&categoryId=AWHPkqBqAEsDFAUn&categoryType=CODE"
+    },
+    {
+      "number": 3809,
+      "title": "화섭이의 정수 나열",
+      "level": "D3",
+      "contestProbId": "AWHz7xD6A20DFAVB",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWHz7xD6A20DFAVB&categoryId=AWHz7xD6A20DFAVB&categoryType=CODE"
+    },
+    {
+      "number": 3812,
+      "title": "호중이의 큐브색칠",
+      "level": "D4",
+      "contestProbId": "AWH0GF0aBNADFAVB",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWH0GF0aBNADFAVB&categoryId=AWH0GF0aBNADFAVB&categoryType=CODE"
+    },
+    {
+      "number": 3814,
+      "title": "[Professional] 평등주의",
+      "level": "D4",
+      "contestProbId": "AWH0Qk6qB0sDFAVB",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWH0Qk6qB0sDFAVB&categoryId=AWH0Qk6qB0sDFAVB&categoryType=CODE"
+    },
+    {
+      "number": 3816,
+      "title": "[Professional] 아나그램",
+      "level": "D4",
+      "contestProbId": "AWH0RjCqB14DFAVB",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWH0RjCqB14DFAVB&categoryId=AWH0RjCqB14DFAVB&categoryType=CODE"
+    },
+    {
+      "number": 3819,
+      "title": "[Professional] 최대 부분 배열",
+      "level": "D4",
+      "contestProbId": "AWH0S6rqB28DFAVB",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWH0S6rqB28DFAVB&categoryId=AWH0S6rqB28DFAVB&categoryType=CODE"
+    },
+    {
+      "number": 3820,
+      "title": "[Professional] 롤러코스터",
+      "level": "D4",
+      "contestProbId": "AWH0UTAqB3kDFAVB",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWH0UTAqB3kDFAVB&categoryId=AWH0UTAqB3kDFAVB&categoryType=CODE"
+    },
+    {
+      "number": 3947,
+      "title": "[Professional] 가장 짧은 길 전부 청소하기",
+      "level": "D4",
+      "contestProbId": "AWH998YaEa0DFAUG",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWH998YaEa0DFAUG&categoryId=AWH998YaEa0DFAUG&categoryType=CODE"
+    },
+    {
+      "number": 3951,
+      "title": "[Professional] CRT",
+      "level": "D4",
+      "contestProbId": "AWH-Dma6EgEDFAUG",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWH-Dma6EgEDFAUG&categoryId=AWH-Dma6EgEDFAUG&categoryType=CODE"
+    },
+    {
+      "number": 3952,
+      "title": "[Professional] 줄 세우기",
+      "level": "D4",
+      "contestProbId": "AWH-GSJ6EhsDFAUG",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWH-GSJ6EhsDFAUG&categoryId=AWH-GSJ6EhsDFAUG&categoryType=CODE"
+    },
+    {
+      "number": 3954,
+      "title": "[Professional] 파이의 합",
+      "level": "D4",
+      "contestProbId": "AWH-IAtaEj0DFAUG",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWH-IAtaEj0DFAUG&categoryId=AWH-IAtaEj0DFAUG&categoryType=CODE"
+    },
+    {
+      "number": 3975,
+      "title": "승률 비교하기",
+      "level": "D3",
+      "contestProbId": "AWIX_iFqjg4DFAVH",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWIX_iFqjg4DFAVH&categoryId=AWIX_iFqjg4DFAVH&categoryType=CODE"
+    },
+    {
+      "number": 3993,
+      "title": "[Professional] Pole",
+      "level": "D4",
+      "contestProbId": "AWIdomiKgA8DFAVH",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWIdomiKgA8DFAVH&categoryId=AWIdomiKgA8DFAVH&categoryType=CODE"
+    },
+    {
+      "number": 3996,
+      "title": "[Professional] Poker",
+      "level": "D4",
+      "contestProbId": "AWIdqqM6gMcDFAVH",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWIdqqM6gMcDFAVH&categoryId=AWIdqqM6gMcDFAVH&categoryType=CODE"
+    },
+    {
+      "number": 3998,
+      "title": "[Professional] Inversion Counting",
+      "level": "D4",
+      "contestProbId": "AWIdsYzagWYDFAVH",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWIdsYzagWYDFAVH&categoryId=AWIdsYzagWYDFAVH&categoryType=CODE"
+    },
+    {
+      "number": 4005,
+      "title": "[Professional] 비밀",
+      "level": "D4",
+      "contestProbId": "AWIdzT7ag9UDFAVH",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWIdzT7ag9UDFAVH&categoryId=AWIdzT7ag9UDFAVH&categoryType=CODE"
+    },
+    {
+      "number": 4006,
+      "title": "[Professional] 고속도로 건설 2",
+      "level": "D4",
+      "contestProbId": "AWId0sqahOUDFAVH",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWId0sqahOUDFAVH&categoryId=AWId0sqahOUDFAVH&categoryType=CODE"
+    },
+    {
+      "number": 4007,
+      "title": "[Professional] 간담회 참석",
+      "level": "D4",
+      "contestProbId": "AWId4Yn6hkwDFAVH",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWId4Yn6hkwDFAVH&categoryId=AWId4Yn6hkwDFAVH&categoryType=CODE"
+    },
+    {
+      "number": 4038,
+      "title": "[Professional] 단어가 등장하는 횟수",
+      "level": "D4",
+      "contestProbId": "AWIoEJzarUwDFAWN",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWIoEJzarUwDFAWN&categoryId=AWIoEJzarUwDFAWN&categoryType=CODE"
+    },
+    {
+      "number": 4039,
+      "title": "[Professional] 두 번 이상 등장하는 문자열",
+      "level": "D4",
+      "contestProbId": "AWIoG906rfMDFAWN",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWIoG906rfMDFAWN&categoryId=AWIoG906rfMDFAWN&categoryType=CODE"
+    },
+    {
+      "number": 4040,
+      "title": "[Professional] 문자열의 거듭제곱",
+      "level": "D4",
+      "contestProbId": "AWIoIh8arj4DFAWN",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWIoIh8arj4DFAWN&categoryId=AWIoIh8arj4DFAWN&categoryType=CODE"
+    },
+    {
+      "number": 4047,
+      "title": "영준이의 카드 카운팅",
+      "level": "D3",
+      "contestProbId": "AWIsY84KEPMDFAWN",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWIsY84KEPMDFAWN&categoryId=AWIsY84KEPMDFAWN&categoryType=CODE"
+    },
+    {
+      "number": 4050,
+      "title": "재관이의 대량 할인",
+      "level": "D4",
+      "contestProbId": "AWIseXoKEUcDFAWN",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWIseXoKEUcDFAWN&categoryId=AWIseXoKEUcDFAWN&categoryType=CODE"
+    },
+    {
+      "number": 4052,
+      "title": "[Professional] 프리랜서",
+      "level": "D4",
+      "contestProbId": "AWItDD5qAdkDFAWQ",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWItDD5qAdkDFAWQ&categoryId=AWItDD5qAdkDFAWQ&categoryType=CODE"
+    },
+    {
+      "number": 4062,
+      "title": "[Professional] Largest Empty Square",
+      "level": "D4",
+      "contestProbId": "AWI767MKZpUDFAUH",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWI767MKZpUDFAUH&categoryId=AWI767MKZpUDFAUH&categoryType=CODE"
+    },
+    {
+      "number": 4065,
+      "title": "[Professional] LCS",
+      "level": "D4",
+      "contestProbId": "AWI79PF6ZykDFAUH",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWI79PF6ZykDFAUH&categoryId=AWI79PF6ZykDFAUH&categoryType=CODE"
+    },
+    {
+      "number": 4111,
+      "title": "무선 단속 카메라",
+      "level": "D4",
+      "contestProbId": "AWJHjcFqdyoDFAUH",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWJHjcFqdyoDFAUH&categoryId=AWJHjcFqdyoDFAUH&categoryType=CODE"
+    },
+    {
+      "number": 4259,
+      "title": "제곱수의 합 계산하기",
+      "level": "D4",
+      "contestProbId": "AWLL3yk6ALUDFAUW",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWLL3yk6ALUDFAUW&categoryId=AWLL3yk6ALUDFAUW&categoryType=CODE"
+    },
+    {
+      "number": 4261,
+      "title": "빠른 휴대전화 키패드",
+      "level": "D4",
+      "contestProbId": "AWLL7kaaAPsDFAUW",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWLL7kaaAPsDFAUW&categoryId=AWLL7kaaAPsDFAUW&categoryType=CODE"
+    },
+    {
+      "number": 4299,
+      "title": "태혁이의 사랑은 타이밍",
+      "level": "D3",
+      "contestProbId": "AWLv6mx6htoDFAVV",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWLv6mx6htoDFAVV&categoryId=AWLv6mx6htoDFAVV&categoryType=CODE"
+    },
+    {
+      "number": 4301,
+      "title": "콩 많이 심기",
+      "level": "D4",
+      "contestProbId": "AWLv-yZah48DFAVV",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWLv-yZah48DFAVV&categoryId=AWLv-yZah48DFAVV&categoryType=CODE"
+    },
+    {
+      "number": 4366,
+      "title": "정식이의 은행업무",
+      "level": "D4",
+      "contestProbId": "AWMeRLz6kC0DFAXd",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWMeRLz6kC0DFAXd&categoryId=AWMeRLz6kC0DFAXd&categoryType=CODE"
+    },
+    {
+      "number": 4371,
+      "title": "항구에 들어오는 배",
+      "level": "D3",
+      "contestProbId": "AWMedCxalW8DFAXd",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWMedCxalW8DFAXd&categoryId=AWMedCxalW8DFAXd&categoryType=CODE"
+    },
+    {
+      "number": 4406,
+      "title": "모음이 보이지 않는 사람",
+      "level": "D3",
+      "contestProbId": "AWNcD_66pUEDFAV8",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWNcD_66pUEDFAV8&categoryId=AWNcD_66pUEDFAV8&categoryType=CODE"
+    },
+    {
+      "number": 4408,
+      "title": "자기 방으로 돌아가기",
+      "level": "D4",
+      "contestProbId": "AWNcJ2sapZMDFAV8",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWNcJ2sapZMDFAV8&categoryId=AWNcJ2sapZMDFAV8&categoryType=CODE"
+    },
+    {
+      "number": 4466,
+      "title": "최대 성적표 만들기",
+      "level": "D3",
+      "contestProbId": "AWOUfCJ6qVMDFAWg",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWOUfCJ6qVMDFAWg&categoryId=AWOUfCJ6qVMDFAWg&categoryType=CODE"
+    },
+    {
+      "number": 4522,
+      "title": "세상의 모든 팰린드롬",
+      "level": "D3",
+      "contestProbId": "AWO6Oao6N4QDFAWw",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWO6Oao6N4QDFAWw&categoryId=AWO6Oao6N4QDFAWw&categoryType=CODE"
+    },
+    {
+      "number": 4530,
+      "title": "극한의 청소 작업",
+      "level": "D4",
+      "contestProbId": "AWO6cgzKOIEDFAWw",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWO6cgzKOIEDFAWw&categoryId=AWO6cgzKOIEDFAWw&categoryType=CODE"
+    },
+    {
+      "number": 4579,
+      "title": "세상의 모든 팰린드롬 2",
+      "level": "D3",
+      "contestProbId": "AWQAz7IqAH8DFAWh",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWQAz7IqAH8DFAWh&categoryId=AWQAz7IqAH8DFAWh&categoryType=CODE"
+    },
+    {
+      "number": 4613,
+      "title": "러시아 국기 같은 깃발",
+      "level": "D4",
+      "contestProbId": "AWQl9TIK8qoDFAXj",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWQl9TIK8qoDFAXj&categoryId=AWQl9TIK8qoDFAXj&categoryType=CODE"
+    },
+    {
+      "number": 4615,
+      "title": "재미있는 오셀로 게임",
+      "level": "D3",
+      "contestProbId": "AWQmA4uK8ygDFAXj",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWQmA4uK8ygDFAXj&categoryId=AWQmA4uK8ygDFAXj&categoryType=CODE"
+    },
+    {
+      "number": 4672,
+      "title": "수진이의 팰린드롬",
+      "level": "D4",
+      "contestProbId": "AWRKNev6fqYDFAV8",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWRKNev6fqYDFAV8&categoryId=AWRKNev6fqYDFAV8&categoryType=CODE"
+    },
+    {
+      "number": 4676,
+      "title": "늘어지는 소리 만들기",
+      "level": "D3",
+      "contestProbId": "AWRKWITqfvIDFAV8",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWRKWITqfvIDFAV8&categoryId=AWRKWITqfvIDFAV8&categoryType=CODE"
+    },
+    {
+      "number": 4698,
+      "title": "테네스의 특별한 소수",
+      "level": "D3",
+      "contestProbId": "AWRuoqCKkE0DFAXt",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWRuoqCKkE0DFAXt&categoryId=AWRuoqCKkE0DFAXt&categoryType=CODE"
+    },
+    {
+      "number": 4699,
+      "title": "콩순이의 가장 싼 팰린드롬",
+      "level": "D4",
+      "contestProbId": "AWRurBkKkKADFAXt",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWRurBkKkKADFAXt&categoryId=AWRurBkKkKADFAXt&categoryType=CODE"
+    },
+    {
+      "number": 4751,
+      "title": "다솔이의 다이아몬드 장식",
+      "level": "D3",
+      "contestProbId": "AWSNw5jKzwMDFAUr",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWSNw5jKzwMDFAUr&categoryId=AWSNw5jKzwMDFAUr&categoryType=CODE"
+    },
+    {
+      "number": 4789,
+      "title": "성공적인 공연 기획",
+      "level": "D3",
+      "contestProbId": "AWS2dSgKA8MDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWS2dSgKA8MDFAVT&categoryId=AWS2dSgKA8MDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 4796,
+      "title": "의석이의 우뚝 선 산",
+      "level": "D4",
+      "contestProbId": "AWS2h6AKBCoDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWS2h6AKBCoDFAVT&categoryId=AWS2h6AKBCoDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 4828,
+      "title": "[S/W 문제해결 기본] 1일차 - min max",
+      "level": "D2",
+      "contestProbId": "AWTLQZwKon4DFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTLQZwKon4DFAVT&categoryId=AWTLQZwKon4DFAVT&categoryType=CODE"
+    },
+    {
+      "number": 4831,
+      "title": "[S/W 문제해결 기본] 1일차 - 전기버스",
+      "level": "D3",
+      "contestProbId": "AWTLS24ao9ADFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTLS24ao9ADFAVT&categoryId=AWTLS24ao9ADFAVT&categoryType=CODE"
+    },
+    {
+      "number": 4834,
+      "title": "[S/W 문제해결 기본] 1일차 - 숫자 카드",
+      "level": "D2",
+      "contestProbId": "AWTLVouKpUgDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTLVouKpUgDFAVT&categoryId=AWTLVouKpUgDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 4835,
+      "title": "[S/W 문제해결 기본] 1일차 - 구간합",
+      "level": "D2",
+      "contestProbId": "AWTLXCuapdcDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTLXCuapdcDFAVT&categoryId=AWTLXCuapdcDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 4836,
+      "title": "[S/W 문제해결 기본] 2일차 - 색칠하기",
+      "level": "D2",
+      "contestProbId": "AWTLZMRKpsYDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTLZMRKpsYDFAVT&categoryId=AWTLZMRKpsYDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 4837,
+      "title": "[S/W 문제해결 기본] 2일차 - 부분집합의 합",
+      "level": "D3",
+      "contestProbId": "AWTLbGI6p2UDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTLbGI6p2UDFAVT&categoryId=AWTLbGI6p2UDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 4839,
+      "title": "[S/W 문제해결 기본] 2일차 - 이진탐색",
+      "level": "D2",
+      "contestProbId": "AWTLcyA6qAMDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTLcyA6qAMDFAVT&categoryId=AWTLcyA6qAMDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 4843,
+      "title": "[S/W 문제해결 기본] 2일차 - 특별한 정렬",
+      "level": "D3",
+      "contestProbId": "AWTLeicaqHcDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTLeicaqHcDFAVT&categoryId=AWTLeicaqHcDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 4861,
+      "title": "[S/W 문제해결 기본] 3일차 - 회문",
+      "level": "D2",
+      "contestProbId": "AWTQQXcKQHkDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTQQXcKQHkDFAVT&categoryId=AWTQQXcKQHkDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 4864,
+      "title": "[S/W 문제해결 기본] 3일차 - 문자열 비교",
+      "level": "D2",
+      "contestProbId": "AWTQRytKQJ0DFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTQRytKQJ0DFAVT&categoryId=AWTQRytKQJ0DFAVT&categoryType=CODE"
+    },
+    {
+      "number": 4865,
+      "title": "[S/W 문제해결 기본] 3일차 - 글자수",
+      "level": "D2",
+      "contestProbId": "AWTQSs6qQL0DFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTQSs6qQL0DFAVT&categoryId=AWTQSs6qQL0DFAVT&categoryType=CODE"
+    },
+    {
+      "number": 4866,
+      "title": "[S/W 문제해결 기본] 4일차 - 괄호검사",
+      "level": "D2",
+      "contestProbId": "AWTQVdd6QToDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTQVdd6QToDFAVT&categoryId=AWTQVdd6QToDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 4869,
+      "title": "[S/W 문제해결 기본] 4일차 - 종이붙이기",
+      "level": "D2",
+      "contestProbId": "AWTQWhlqQWADFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTQWhlqQWADFAVT&categoryId=AWTQWhlqQWADFAVT&categoryType=CODE"
+    },
+    {
+      "number": 4871,
+      "title": "[S/W 문제해결 기본] 4일차 - 그래프 경로",
+      "level": "D2",
+      "contestProbId": "AWTQaUvqQdUDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTQaUvqQdUDFAVT&categoryId=AWTQaUvqQdUDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 4873,
+      "title": "[S/W 문제해결 기본] 4일차 - 반복문자 지우기",
+      "level": "D2",
+      "contestProbId": "AWTQbpTaQfEDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTQbpTaQfEDFAVT&categoryId=AWTQbpTaQfEDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 4874,
+      "title": "[S/W 문제해결 기본] 5일차 - Forth",
+      "level": "D2",
+      "contestProbId": "AWTQc1MKQiIDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTQc1MKQiIDFAVT&categoryId=AWTQc1MKQiIDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 4875,
+      "title": "[S/W 문제해결 기본] 5일차 - 미로",
+      "level": "D2",
+      "contestProbId": "AWTQeET6QlADFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTQeET6QlADFAVT&categoryId=AWTQeET6QlADFAVT&categoryType=CODE"
+    },
+    {
+      "number": 4880,
+      "title": "[S/W 문제해결 기본] 5일차 - 토너먼트 카드게임",
+      "level": "D2",
+      "contestProbId": "AWTQgnH6Qq4DFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTQgnH6Qq4DFAVT&categoryId=AWTQgnH6Qq4DFAVT&categoryType=CODE"
+    },
+    {
+      "number": 4881,
+      "title": "[S/W 문제해결 기본] 5일차 - 배열 최소 합",
+      "level": "D2",
+      "contestProbId": "AWTQh00qQs0DFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTQh00qQs0DFAVT&categoryId=AWTQh00qQs0DFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5097,
+      "title": "[S/W 문제해결 기본] 6일차 - 회전",
+      "level": "D2",
+      "contestProbId": "AWTVjgHKbn8DFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTVjgHKbn8DFAVT&categoryId=AWTVjgHKbn8DFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5099,
+      "title": "[S/W 문제해결 기본] 6일차 - 피자 굽기",
+      "level": "D3",
+      "contestProbId": "AWTVlVB6bvMDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTVlVB6bvMDFAVT&categoryId=AWTVlVB6bvMDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5102,
+      "title": "[S/W 문제해결 기본] 6일차 - 노드의 거리",
+      "level": "D2",
+      "contestProbId": "AWTVmxDKb1oDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTVmxDKb1oDFAVT&categoryId=AWTVmxDKb1oDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5105,
+      "title": "[S/W 문제해결 기본] 6일차 - 미로의 거리",
+      "level": "D3",
+      "contestProbId": "AWTVoHTab5gDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTVoHTab5gDFAVT&categoryId=AWTVoHTab5gDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5108,
+      "title": "[S/W 문제해결 기본] 7일차 - 숫자 추가",
+      "level": "D3",
+      "contestProbId": "AWTVpiGacAIDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTVpiGacAIDFAVT&categoryId=AWTVpiGacAIDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5110,
+      "title": "[S/W 문제해결 기본] 7일차 - 수열 합치기",
+      "level": "D3",
+      "contestProbId": "AWTVrO0acGgDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTVrO0acGgDFAVT&categoryId=AWTVrO0acGgDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5120,
+      "title": "[S/W 문제해결 기본] 7일차 - 암호",
+      "level": "D4",
+      "contestProbId": "AWTVsfe6cLkDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTVsfe6cLkDFAVT&categoryId=AWTVsfe6cLkDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5122,
+      "title": "[S/W 문제해결 기본] 7일차 - 수열 편집",
+      "level": "D4",
+      "contestProbId": "AWTVuc46cSIDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTVuc46cSIDFAVT&categoryId=AWTVuc46cSIDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5162,
+      "title": "두가지 빵의 딜레마",
+      "level": "D3",
+      "contestProbId": "AWTaTDua3OoDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTaTDua3OoDFAVT&categoryId=AWTaTDua3OoDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5174,
+      "title": "[S/W 문제해결 기본] 8일차 - subtree",
+      "level": "D2",
+      "contestProbId": "AWTay1Z64cQDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTay1Z64cQDFAVT&categoryId=AWTay1Z64cQDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5176,
+      "title": "[S/W 문제해결 기본] 8일차 - 이진탐색",
+      "level": "D2",
+      "contestProbId": "AWTa0jjq4ggDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTa0jjq4ggDFAVT&categoryId=AWTa0jjq4ggDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5177,
+      "title": "[S/W 문제해결 기본] 8일차 - 이진 힙",
+      "level": "D2",
+      "contestProbId": "AWTa1f7q4kIDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTa1f7q4kIDFAVT&categoryId=AWTa1f7q4kIDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5178,
+      "title": "[S/W 문제해결 기본] 8일차 - 노드의 합",
+      "level": "D3",
+      "contestProbId": "AWTa2VIq4mYDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTa2VIq4mYDFAVT&categoryId=AWTa2VIq4mYDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5185,
+      "title": "[S/W 문제해결 구현] 1일차 - 이진수",
+      "level": "D2",
+      "contestProbId": "AWTtiyIqd_wDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTtiyIqd_wDFAVT&categoryId=AWTtiyIqd_wDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5186,
+      "title": "[S/W 문제해결 구현] 1일차 - 이진수2",
+      "level": "D2",
+      "contestProbId": "AWTtj7GqeAgDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTtj7GqeAgDFAVT&categoryId=AWTtj7GqeAgDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5188,
+      "title": "[S/W 문제해결 구현] 2일차 - 최소합",
+      "level": "D3",
+      "contestProbId": "AWTtlrlKeDcDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTtlrlKeDcDFAVT&categoryId=AWTtlrlKeDcDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5189,
+      "title": "[S/W 문제해결 구현] 2일차 - 전자카트",
+      "level": "D3",
+      "contestProbId": "AWTtmmdKeD8DFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWTtmmdKeD8DFAVT&categoryId=AWTtmmdKeD8DFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5201,
+      "title": "[S/W 문제해결 구현] 3일차 - 컨테이너 운반",
+      "level": "D3",
+      "contestProbId": "AWT-JKa6caEDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWT-JKa6caEDFAVT&categoryId=AWT-JKa6caEDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5202,
+      "title": "[S/W 문제해결 구현] 3일차 - 화물 도크",
+      "level": "D3",
+      "contestProbId": "AWT-K6DaceYDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWT-K6DaceYDFAVT&categoryId=AWT-K6DaceYDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5203,
+      "title": "[S/W 문제해결 구현] 3일차 - 베이비진 게임",
+      "level": "D3",
+      "contestProbId": "AWT-MRHKchIDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWT-MRHKchIDFAVT&categoryId=AWT-MRHKchIDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5204,
+      "title": "[S/W 문제해결 구현] 4일차 - 병합 정렬",
+      "level": "D3",
+      "contestProbId": "AWT-Pu3acjYDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWT-Pu3acjYDFAVT&categoryId=AWT-Pu3acjYDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5205,
+      "title": "[S/W 문제해결 구현] 4일차 - 퀵 정렬",
+      "level": "D3",
+      "contestProbId": "AWT-VprKcqwDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWT-VprKcqwDFAVT&categoryId=AWT-VprKcqwDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5207,
+      "title": "[S/W 문제해결 구현] 4일차 - 이진 탐색",
+      "level": "D3",
+      "contestProbId": "AWT-W6oacsQDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWT-W6oacsQDFAVT&categoryId=AWT-W6oacsQDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5208,
+      "title": "[S/W 문제해결 구현] 5일차 - 전기버스2",
+      "level": "D3",
+      "contestProbId": "AWT-Yyf6cvwDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWT-Yyf6cvwDFAVT&categoryId=AWT-Yyf6cvwDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5209,
+      "title": "[S/W 문제해결 구현] 5일차 - 최소 생산 비용",
+      "level": "D3",
+      "contestProbId": "AWT-ZxiKcyIDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWT-ZxiKcyIDFAVT&categoryId=AWT-ZxiKcyIDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5213,
+      "title": "진수의 홀수 약수",
+      "level": "D4",
+      "contestProbId": "AWT-hF8KdBADFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWT-hF8KdBADFAVT&categoryId=AWT-hF8KdBADFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5215,
+      "title": "햄버거 다이어트",
+      "level": "D3",
+      "contestProbId": "AWT-lPB6dHUDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWT-lPB6dHUDFAVT&categoryId=AWT-lPB6dHUDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5247,
+      "title": "[S/W 문제해결 구현] 6일차 - 연산",
+      "level": "D4",
+      "contestProbId": "AWUS1FaKImUDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWUS1FaKImUDFAVT&categoryId=AWUS1FaKImUDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5248,
+      "title": "[S/W 문제해결 구현] 6일차 - 그룹 나누기",
+      "level": "D3",
+      "contestProbId": "AWUS2OVaIpgDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWUS2OVaIpgDFAVT&categoryId=AWUS2OVaIpgDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5249,
+      "title": "[S/W 문제해결 구현] 7일차 - 최소 신장 트리",
+      "level": "D4",
+      "contestProbId": "AWUS26fKIucDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWUS26fKIucDFAVT&categoryId=AWUS26fKIucDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5250,
+      "title": "[S/W 문제해결 구현] 7일차 - 최소 비용",
+      "level": "D3",
+      "contestProbId": "AWUS4nyaIycDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWUS4nyaIycDFAVT&categoryId=AWUS4nyaIycDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5251,
+      "title": "[S/W 문제해결 구현] 7일차 - 최소 이동 거리",
+      "level": "D4",
+      "contestProbId": "AWUS6BAaI4oDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWUS6BAaI4oDFAVT&categoryId=AWUS6BAaI4oDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5252,
+      "title": "[S/W 문제해결 최적화] 1일차 - 공통 단어 검색",
+      "level": "D3",
+      "contestProbId": "AWUS8yzqJCEDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWUS8yzqJCEDFAVT&categoryId=AWUS8yzqJCEDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5253,
+      "title": "[S/W 문제해결 최적화] 1일차 - 접두어 검색",
+      "level": "D3",
+      "contestProbId": "AWUS-JCKJIYDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWUS-JCKJIYDFAVT&categoryId=AWUS-JCKJIYDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5254,
+      "title": "[S/W 문제해결 최적화] 1일차 - 부분 문자열",
+      "level": "D3",
+      "contestProbId": "AWUS_hYKJQEDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWUS_hYKJQEDFAVT&categoryId=AWUS_hYKJQEDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5255,
+      "title": "[S/W 문제해결 최적화] 2일차 - 타일 붙이기",
+      "level": "D3",
+      "contestProbId": "AWUTSgfqKtADFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWUTSgfqKtADFAVT&categoryId=AWUTSgfqKtADFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5256,
+      "title": "[S/W 문제해결 최적화] 2일차 - 이항계수",
+      "level": "D3",
+      "contestProbId": "AWUTTIb6KvkDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWUTTIb6KvkDFAVT&categoryId=AWUTTIb6KvkDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5258,
+      "title": "[S/W 문제해결 최적화] 3일차 - 해피박스",
+      "level": "D3",
+      "contestProbId": "AWUTUxz6K50DFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWUTUxz6K50DFAVT&categoryId=AWUTUxz6K50DFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5260,
+      "title": "[S/W 문제해결 최적화] 3일차 - 부분 집합의 합",
+      "level": "D4",
+      "contestProbId": "AWUTWmcqLDcDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWUTWmcqLDcDFAVT&categoryId=AWUTWmcqLDcDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5262,
+      "title": "[S/W 문제해결 최적화] 4일차 - 정렬된 부분 집합",
+      "level": "D4",
+      "contestProbId": "AWUTbOmKLTkDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWUTbOmKLTkDFAVT&categoryId=AWUTbOmKLTkDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5263,
+      "title": "[S/W 문제해결 최적화] 4일차 - 그래프 최소 비용",
+      "level": "D4",
+      "contestProbId": "AWUTcNKKLV0DFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWUTcNKKLV0DFAVT&categoryId=AWUTcNKKLV0DFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5265,
+      "title": "[S/W 문제해결 최적화] 4일차 - 전기카트2",
+      "level": "D4",
+      "contestProbId": "AWUTfLEqLi8DFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWUTfLEqLi8DFAVT&categoryId=AWUTfLEqLi8DFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5286,
+      "title": "[S/W 문제해결 최적화] 5일차 - 그래프 색칠하기",
+      "level": "D4",
+      "contestProbId": "AWUYnQnq4ykDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWUYnQnq4ykDFAVT&categoryId=AWUYnQnq4ykDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5287,
+      "title": "[S/W 문제해결 최적화] 6일차 - 모의 담금질",
+      "level": "D3",
+      "contestProbId": "AWUYo5Vq458DFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWUYo5Vq458DFAVT&categoryId=AWUYo5Vq458DFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5290,
+      "title": "[S/W 문제해결 최적화] 7일차 - 확률",
+      "level": "D3",
+      "contestProbId": "AWUiqnTKob0DFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWUiqnTKob0DFAVT&categoryId=AWUiqnTKob0DFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5291,
+      "title": "[S/W 문제해결 최적화] 7일차 - 소수의 합",
+      "level": "D3",
+      "contestProbId": "AWUirjXaofEDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWUirjXaofEDFAVT&categoryId=AWUirjXaofEDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5292,
+      "title": "[S/W 문제해결 최적화] 7일차 - 정수의 교집합",
+      "level": "D3",
+      "contestProbId": "AWUitldaoqkDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWUitldaoqkDFAVT&categoryId=AWUitldaoqkDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5293,
+      "title": "이진 문자열 복원",
+      "level": "D3",
+      "contestProbId": "AWUiwoe6o00DFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWUiwoe6o00DFAVT&categoryId=AWUiwoe6o00DFAVT&categoryType=CODE"
+    },
+    {
+      "number": 5356,
+      "title": "의석이의 세로로 말해요",
+      "level": "D3",
+      "contestProbId": "AWVWgkP6sQ0DFAUO",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWVWgkP6sQ0DFAUO&categoryId=AWVWgkP6sQ0DFAUO&categoryType=CODE"
+    },
+    {
+      "number": 5431,
+      "title": "민석이의 과제 체크하기",
+      "level": "D3",
+      "contestProbId": "AWVl3rWKDBYDFAXm",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWVl3rWKDBYDFAXm&categoryId=AWVl3rWKDBYDFAXm&categoryType=CODE"
+    },
+    {
+      "number": 5432,
+      "title": "쇠막대기 자르기",
+      "level": "D4",
+      "contestProbId": "AWVl47b6DGMDFAXm",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWVl47b6DGMDFAXm&categoryId=AWVl47b6DGMDFAXm&categoryType=CODE"
+    },
+    {
+      "number": 5515,
+      "title": "2016년 요일 맞추기",
+      "level": "D3",
+      "contestProbId": "AWWOwecaFrIDFAV4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWWOwecaFrIDFAV4&categoryId=AWWOwecaFrIDFAV4&categoryType=CODE"
+    },
+    {
+      "number": 5549,
+      "title": "홀수일까 짝수일까",
+      "level": "D3",
+      "contestProbId": "AWWxpEDaAVoDFAW4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWWxpEDaAVoDFAW4&categoryId=AWWxpEDaAVoDFAW4&categoryType=CODE"
+    },
+    {
+      "number": 5550,
+      "title": "나는 개구리로소이다",
+      "level": "D4",
+      "contestProbId": "AWWxqfhKAWgDFAW4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWWxqfhKAWgDFAW4&categoryId=AWWxqfhKAWgDFAW4&categoryType=CODE"
+    },
+    {
+      "number": 5601,
+      "title": "[Professional] 쥬스 나누기",
+      "level": "D3",
+      "contestProbId": "AWXGAylqcdYDFAUo",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXGAylqcdYDFAUo&categoryId=AWXGAylqcdYDFAUo&categoryType=CODE"
+    },
+    {
+      "number": 5603,
+      "title": "[Professional] 건초더미",
+      "level": "D3",
+      "contestProbId": "AWXGEbd6cjMDFAUo",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXGEbd6cjMDFAUo&categoryId=AWXGEbd6cjMDFAUo&categoryType=CODE"
+    },
+    {
+      "number": 5604,
+      "title": "[Professional] 구간 합",
+      "level": "D4",
+      "contestProbId": "AWXGGNB6cnEDFAUo",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXGGNB6cnEDFAUo&categoryId=AWXGGNB6cnEDFAUo&categoryType=CODE"
+    },
+    {
+      "number": 5606,
+      "title": "[Professional] 두개의 미로",
+      "level": "D4",
+      "contestProbId": "AWXGIQG6crwDFAUo",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXGIQG6crwDFAUo&categoryId=AWXGIQG6crwDFAUo&categoryType=CODE"
+    },
+    {
+      "number": 5607,
+      "title": "[Professional] 조합",
+      "level": "D3",
+      "contestProbId": "AWXGKdbqczEDFAUo",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXGKdbqczEDFAUo&categoryId=AWXGKdbqczEDFAUo&categoryType=CODE"
+    },
+    {
+      "number": 5608,
+      "title": "[Professional] 큐브",
+      "level": "D4",
+      "contestProbId": "AWXGPQiKdBUDFAUo",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXGPQiKdBUDFAUo&categoryId=AWXGPQiKdBUDFAUo&categoryType=CODE"
+    },
+    {
+      "number": 5640,
+      "title": "[Professional] 디오판토스 방정식",
+      "level": "D4",
+      "contestProbId": "AWXMsefqGfEDFAUo",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXMsefqGfEDFAUo&categoryId=AWXMsefqGfEDFAUo&categoryType=CODE"
+    },
+    {
+      "number": 5642,
+      "title": "[Professional] 합",
+      "level": "D3",
+      "contestProbId": "AWXQm2SqdxkDFAUo",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXQm2SqdxkDFAUo&categoryId=AWXQm2SqdxkDFAUo&categoryType=CODE"
+    },
+    {
+      "number": 5643,
+      "title": "[Professional] 키 순서",
+      "level": "D4",
+      "contestProbId": "AWXQsLWKd5cDFAUo",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXQsLWKd5cDFAUo&categoryId=AWXQsLWKd5cDFAUo&categoryType=CODE"
+    },
+    {
+      "number": 5671,
+      "title": "[Professional] 지구 온난화",
+      "level": "D4",
+      "contestProbId": "AWXRefdagNIDFAUo",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXRefdagNIDFAUo&categoryId=AWXRefdagNIDFAUo&categoryType=CODE"
+    },
+    {
+      "number": 5672,
+      "title": "[Professional] 올해의 조련사",
+      "level": "D4",
+      "contestProbId": "AWXRgX36gSIDFAUo",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXRgX36gSIDFAUo&categoryId=AWXRgX36gSIDFAUo&categoryType=CODE"
+    },
+    {
+      "number": 5676,
+      "title": "[Professional] Intersection",
+      "level": "D4",
+      "contestProbId": "AWXRmS7qgvoDFAUo",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXRmS7qgvoDFAUo&categoryId=AWXRmS7qgvoDFAUo&categoryType=CODE"
+    },
+    {
+      "number": 5678,
+      "title": "[Professional] 팰린드롬",
+      "level": "D4",
+      "contestProbId": "AWXRrK7KhO4DFAUo",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXRrK7KhO4DFAUo&categoryId=AWXRrK7KhO4DFAUo&categoryType=CODE"
+    },
+    {
+      "number": 5684,
+      "title": "[Professional] 운동",
+      "level": "D4",
+      "contestProbId": "AWXRxnnah2sDFAUo",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXRxnnah2sDFAUo&categoryId=AWXRxnnah2sDFAUo&categoryType=CODE"
+    },
+    {
+      "number": 5688,
+      "title": "세제곱근을 찾아라",
+      "level": "D3",
+      "contestProbId": "AWXVyCaKugQDFAUo",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXVyCaKugQDFAUo&categoryId=AWXVyCaKugQDFAUo&categoryType=CODE"
+    },
+    {
+      "number": 5789,
+      "title": "현주의 상자 바꾸기",
+      "level": "D3",
+      "contestProbId": "AWYygN36Qn8DFAVm",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWYygN36Qn8DFAVm&categoryId=AWYygN36Qn8DFAVm&categoryType=CODE"
+    },
+    {
+      "number": 5948,
+      "title": "새샘이의 7-3-5 게임",
+      "level": "D3",
+      "contestProbId": "AWZ2IErKCwUDFAUQ",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWZ2IErKCwUDFAUQ&categoryId=AWZ2IErKCwUDFAUQ&categoryType=CODE"
+    },
+    {
+      "number": 5986,
+      "title": "새샘이와 세 소수",
+      "level": "D3",
+      "contestProbId": "AWaJ3q8qV-4DFAUQ",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWaJ3q8qV-4DFAUQ&categoryId=AWaJ3q8qV-4DFAUQ&categoryType=CODE"
+    },
+    {
+      "number": 5987,
+      "title": "달리기",
+      "level": "D4",
+      "contestProbId": "AWaJ4g86WA4DFAUQ",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWaJ4g86WA4DFAUQ&categoryId=AWaJ4g86WA4DFAUQ&categoryType=CODE"
+    },
+    {
+      "number": 6019,
+      "title": "기차 사이의 파리",
+      "level": "D3",
+      "contestProbId": "AWajaTmaZw4DFAWM",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWajaTmaZw4DFAWM&categoryId=AWajaTmaZw4DFAWM&categoryType=CODE"
+    },
+    {
+      "number": 6026,
+      "title": "성수의 비밀번호 공격",
+      "level": "D4",
+      "contestProbId": "AWajgCUaaAkDFAWM",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWajgCUaaAkDFAWM&categoryId=AWajgCUaaAkDFAWM&categoryType=CODE"
+    },
+    {
+      "number": 6057,
+      "title": "그래프의 삼각형",
+      "level": "D3",
+      "contestProbId": "AWbHcWd6AFcDFAV0",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWbHcWd6AFcDFAV0&categoryId=AWbHcWd6AFcDFAV0&categoryType=CODE"
+    },
+    {
+      "number": 6109,
+      "title": "추억의 2048게임",
+      "level": "D4",
+      "contestProbId": "AWbrg9uabZsDFAWQ",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWbrg9uabZsDFAWQ&categoryId=AWbrg9uabZsDFAWQ&categoryType=CODE"
+    },
+    {
+      "number": 6190,
+      "title": "정곤이의 단조 증가하는 수",
+      "level": "D3",
+      "contestProbId": "AWcPjEuKAFgDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcPjEuKAFgDFAU4&categoryId=AWcPjEuKAFgDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6196,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 4. 변수",
+      "level": "D1",
+      "contestProbId": "AWcUn02K4a0DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcUn02K4a0DFAU4&categoryId=AWcUn02K4a0DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6203,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 5. 객체지향 1",
+      "level": "D1",
+      "contestProbId": "AWcUzTD64fcDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcUzTD64fcDFAU4&categoryId=AWcUzTD64fcDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6204,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 5. 연산자 1",
+      "level": "D1",
+      "contestProbId": "AWcU5ILq4ggDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcU5ILq4ggDFAU4&categoryId=AWcU5ILq4ggDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6206,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 5. 연산자 2",
+      "level": "D1",
+      "contestProbId": "AWcU6Iua4hQDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcU6Iua4hQDFAU4&categoryId=AWcU6Iua4hQDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6207,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 5. 연산자 3",
+      "level": "D1",
+      "contestProbId": "AWcU6lua4hoDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcU6lua4hoDFAU4&categoryId=AWcU6lua4hoDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6208,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 5. 객체지향 2",
+      "level": "D1",
+      "contestProbId": "AWcU556a4g4DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcU556a4g4DFAU4&categoryId=AWcU556a4g4DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6209,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 5. 연산자 4",
+      "level": "D1",
+      "contestProbId": "AWcU60eq4h4DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcU60eq4h4DFAU4&categoryId=AWcU60eq4h4DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6216,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 5. 연산자 5",
+      "level": "D1",
+      "contestProbId": "AWcU7l_a4jkDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcU7l_a4jkDFAU4&categoryId=AWcU7l_a4jkDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6217,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 5. 객체지향 3",
+      "level": "D1",
+      "contestProbId": "AWcU7di64jIDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcU7di64jIDFAU4&categoryId=AWcU7di64jIDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6218,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 6. 흐름과 제어 - If 1",
+      "level": "D1",
+      "contestProbId": "AWcU7_G64j0DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcU7_G64j0DFAU4&categoryId=AWcU7_G64j0DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6219,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 6. 흐름과 제어 - If 2",
+      "level": "D1",
+      "contestProbId": "AWcU8gqq4kYDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcU8gqq4kYDFAU4&categoryId=AWcU8gqq4kYDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6220,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 6. 흐름과 제어 - If 3",
+      "level": "D1",
+      "contestProbId": "AWcU9JPq4k8DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcU9JPq4k8DFAU4&categoryId=AWcU9JPq4k8DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6221,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 6. 흐름과 제어 - If 4",
+      "level": "D1",
+      "contestProbId": "AWcU9bOK4lMDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcU9bOK4lMDFAU4&categoryId=AWcU9bOK4lMDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6222,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 6. 흐름과 제어 - If 5",
+      "level": "D1",
+      "contestProbId": "AWcU9v3a4lgDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcU9v3a4lgDFAU4&categoryId=AWcU9v3a4lgDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6223,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 5. 객체지향 4",
+      "level": "D1",
+      "contestProbId": "AWcU8f6a4kUDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcU8f6a4kUDFAU4&categoryId=AWcU8f6a4kUDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6224,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 6. 흐름과 제어 - If 6",
+      "level": "D1",
+      "contestProbId": "AWcU-Dea4lwDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcU-Dea4lwDFAU4&categoryId=AWcU-Dea4lwDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6225,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 5. 객체지향 5",
+      "level": "D1",
+      "contestProbId": "AWcU-MXK4mADFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcU-MXK4mADFAU4&categoryId=AWcU-MXK4mADFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6226,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 6. 흐름과 제어 - If 7",
+      "level": "D1",
+      "contestProbId": "AWcU-Vi64mUDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcU-Vi64mUDFAU4&categoryId=AWcU-Vi64mUDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6227,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 6. 흐름과 제어 - If 8",
+      "level": "D1",
+      "contestProbId": "AWcU-yn64m4DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcU-yn64m4DFAU4&categoryId=AWcU-yn64m4DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6228,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 5. 객체지향 6",
+      "level": "D1",
+      "contestProbId": "AWcU-ky64mkDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcU-ky64mkDFAU4&categoryId=AWcU-ky64mkDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6229,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 5. 객체지향 7",
+      "level": "D1",
+      "contestProbId": "AWcU_PF64nYDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcU_PF64nYDFAU4&categoryId=AWcU_PF64nYDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6230,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 7. 흐름과 제어 - 반복 1",
+      "level": "D1",
+      "contestProbId": "AWcU_IqK4nIDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcU_IqK4nIDFAU4&categoryId=AWcU_IqK4nIDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6231,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 7. 흐름과 제어 - 반복 2",
+      "level": "D1",
+      "contestProbId": "AWcU_ydK4n0DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcU_ydK4n0DFAU4&categoryId=AWcU_ydK4n0DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6232,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 4. 문자열 1",
+      "level": "D1",
+      "contestProbId": "AWcU_1164n4DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcU_1164n4DFAU4&categoryId=AWcU_1164n4DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6234,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 7. 흐름과 제어 - 반복 3",
+      "level": "D1",
+      "contestProbId": "AWcVAHLq4oMDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVAHLq4oMDFAU4&categoryId=AWcVAHLq4oMDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6238,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 7. 흐름과 제어 - 반복 4",
+      "level": "D1",
+      "contestProbId": "AWcVAYC64o8DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVAYC64o8DFAU4&categoryId=AWcVAYC64o8DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6239,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 4. 문자열 2",
+      "level": "D1",
+      "contestProbId": "AWcVAopq4poDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVAopq4poDFAU4&categoryId=AWcVAopq4poDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6240,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 7. 흐름과 제어 - 반복 5",
+      "level": "D1",
+      "contestProbId": "AWcVAtfa4p8DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVAtfa4p8DFAU4&categoryId=AWcVAtfa4p8DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6241,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 4. 문자열 3",
+      "level": "D1",
+      "contestProbId": "AWcVA-k64qMDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVA-k64qMDFAU4&categoryId=AWcVA-k64qMDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6242,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 7. 흐름과 제어 - 반복 6",
+      "level": "D1",
+      "contestProbId": "AWcVBCHq4qcDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVBCHq4qcDFAU4&categoryId=AWcVBCHq4qcDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6243,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 4. 문자열 5",
+      "level": "D1",
+      "contestProbId": "AWcVBy7q4rMDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVBy7q4rMDFAU4&categoryId=AWcVBy7q4rMDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6244,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 7. 흐름과 제어 - 반복 7",
+      "level": "D1",
+      "contestProbId": "AWcVCgj64roDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVCgj64roDFAU4&categoryId=AWcVCgj64roDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6245,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 4. 문자열 6",
+      "level": "D1",
+      "contestProbId": "AWcVCuAq4r4DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVCuAq4r4DFAU4&categoryId=AWcVCuAq4r4DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6246,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 7. 흐름과 제어 - 반복 8",
+      "level": "D1",
+      "contestProbId": "AWcVC21q4sUDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVC21q4sUDFAU4&categoryId=AWcVC21q4sUDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6247,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 7. 흐름과 제어 - 반복 9",
+      "level": "D1",
+      "contestProbId": "AWcVDRba4tIDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVDRba4tIDFAU4&categoryId=AWcVDRba4tIDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6248,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 4. 문자열 7",
+      "level": "D1",
+      "contestProbId": "AWcVDLya4swDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVDLya4swDFAU4&categoryId=AWcVDLya4swDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6249,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 7. 흐름과 제어 - 반복 10",
+      "level": "D1",
+      "contestProbId": "AWcVDjz64tYDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVDjz64tYDFAU4&categoryId=AWcVDjz64tYDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6250,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 3. 자료구조 - 셋, 딕셔너리 1",
+      "level": "D1",
+      "contestProbId": "AWcVD14K4tsDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVD14K4tsDFAU4&categoryId=AWcVD14K4tsDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6251,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 7. 흐름과 제어 - 반복 11",
+      "level": "D1",
+      "contestProbId": "AWcVEC-K4uADFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVEC-K4uADFAU4&categoryId=AWcVEC-K4uADFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6252,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 7. 흐름과 제어 - 반복 12",
+      "level": "D1",
+      "contestProbId": "AWcVEXu64ugDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVEXu64ugDFAU4&categoryId=AWcVEXu64ugDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6253,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 7. 흐름과 제어 - 반복 13",
+      "level": "D1",
+      "contestProbId": "AWcVFc9K4vQDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVFc9K4vQDFAU4&categoryId=AWcVFc9K4vQDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6254,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 3. 자료구조 - 셋, 딕셔너리 2",
+      "level": "D1",
+      "contestProbId": "AWcVESla4ucDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVESla4ucDFAU4&categoryId=AWcVESla4ucDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6255,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 3. 자료구조 - 셋, 딕셔너리 3",
+      "level": "D1",
+      "contestProbId": "AWcVJZ964z0DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVJZ964z0DFAU4&categoryId=AWcVJZ964z0DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6256,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 3. 자료구조 - 셋, 딕셔너리 4",
+      "level": "D1",
+      "contestProbId": "AWcVJ-EK40MDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVJ-EK40MDFAU4&categoryId=AWcVJ-EK40MDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6257,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 3. 자료구조 - 셋, 딕셔너리 5",
+      "level": "D1",
+      "contestProbId": "AWcVmIXq464DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVmIXq464DFAU4&categoryId=AWcVmIXq464DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6258,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 3. 자료구조 - 셋, 딕셔너리 6",
+      "level": "D1",
+      "contestProbId": "AWcVmn-647oDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVmn-647oDFAU4&categoryId=AWcVmn-647oDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6259,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 3. 자료구조 - 셋, 딕셔너리 7",
+      "level": "D1",
+      "contestProbId": "AWcVoVgK48QDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVoVgK48QDFAU4&categoryId=AWcVoVgK48QDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6260,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 3. 자료구조 - 셋, 딕셔너리 8",
+      "level": "D1",
+      "contestProbId": "AWcVo2pa480DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVo2pa480DFAU4&categoryId=AWcVo2pa480DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6261,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 3. 자료구조 - 셋, 딕셔너리 9",
+      "level": "D1",
+      "contestProbId": "AWcVpRE649QDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVpRE649QDFAU4&categoryId=AWcVpRE649QDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6262,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 3. 자료구조 - 셋, 딕셔너리 10",
+      "level": "D1",
+      "contestProbId": "AWcVqFBK4-IDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVqFBK4-IDFAU4&categoryId=AWcVqFBK4-IDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6273,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 1",
+      "level": "D1",
+      "contestProbId": "AWcVqgVK4-YDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVqgVK4-YDFAU4&categoryId=AWcVqgVK4-YDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6275,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 2",
+      "level": "D1",
+      "contestProbId": "AWcVryq65BEDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVryq65BEDFAU4&categoryId=AWcVryq65BEDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6276,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 3",
+      "level": "D1",
+      "contestProbId": "AWcVsKZq5B0DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcVsKZq5B0DFAU4&categoryId=AWcVsKZq5B0DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6277,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 4",
+      "level": "D1",
+      "contestProbId": "AWcV0Ll65EMDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcV0Ll65EMDFAU4&categoryId=AWcV0Ll65EMDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6278,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 5",
+      "level": "D1",
+      "contestProbId": "AWcV1MO65FYDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcV1MO65FYDFAU4&categoryId=AWcV1MO65FYDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6280,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 6",
+      "level": "D1",
+      "contestProbId": "AWcV1mla5GIDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcV1mla5GIDFAU4&categoryId=AWcV1mla5GIDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6281,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 7",
+      "level": "D1",
+      "contestProbId": "AWcV15cq5GgDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcV15cq5GgDFAU4&categoryId=AWcV15cq5GgDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6282,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 8",
+      "level": "D1",
+      "contestProbId": "AWcV2SNq5GwDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcV2SNq5GwDFAU4&categoryId=AWcV2SNq5GwDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6284,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 9",
+      "level": "D1",
+      "contestProbId": "AWcV20265HIDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcV20265HIDFAU4&categoryId=AWcV20265HIDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6285,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 10",
+      "level": "D1",
+      "contestProbId": "AWcV3wcq5HYDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcV3wcq5HYDFAU4&categoryId=AWcV3wcq5HYDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6286,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 11",
+      "level": "D1",
+      "contestProbId": "AWcV49NK5I4DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcV49NK5I4DFAU4&categoryId=AWcV49NK5I4DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6288,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 12",
+      "level": "D1",
+      "contestProbId": "AWcV5ZDq5JQDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcV5ZDq5JQDFAU4&categoryId=AWcV5ZDq5JQDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6289,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 13",
+      "level": "D1",
+      "contestProbId": "AWcV52B65JwDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcV52B65JwDFAU4&categoryId=AWcV52B65JwDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6290,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 14",
+      "level": "D1",
+      "contestProbId": "AWcV6cMq5KMDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcV6cMq5KMDFAU4&categoryId=AWcV6cMq5KMDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6291,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 15",
+      "level": "D1",
+      "contestProbId": "AWcV7L7q5LEDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcV7L7q5LEDFAU4&categoryId=AWcV7L7q5LEDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6292,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 16",
+      "level": "D1",
+      "contestProbId": "AWcV8H3K5MkDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcV8H3K5MkDFAU4&categoryId=AWcV8H3K5MkDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6293,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 17",
+      "level": "D1",
+      "contestProbId": "AWcV8oTa5M0DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcV8oTa5M0DFAU4&categoryId=AWcV8oTa5M0DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6295,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 18",
+      "level": "D1",
+      "contestProbId": "AWcV9MbK5NUDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcV9MbK5NUDFAU4&categoryId=AWcV9MbK5NUDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6296,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 19",
+      "level": "D1",
+      "contestProbId": "AWcV9wP65NkDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcV9wP65NkDFAU4&categoryId=AWcV9wP65NkDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6297,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 20",
+      "level": "D1",
+      "contestProbId": "AWcV-PIK5N8DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcV-PIK5N8DFAU4&categoryId=AWcV-PIK5N8DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6298,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 21",
+      "level": "D1",
+      "contestProbId": "AWcV-oCq5PoDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcV-oCq5PoDFAU4&categoryId=AWcV-oCq5PoDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6299,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 22",
+      "level": "D1",
+      "contestProbId": "AWcV-8w65P4DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcV-8w65P4DFAU4&categoryId=AWcV-8w65P4DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6300,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 23",
+      "level": "D1",
+      "contestProbId": "AWcV_Vj65QMDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcV_Vj65QMDFAU4&categoryId=AWcV_Vj65QMDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6301,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 24",
+      "level": "D1",
+      "contestProbId": "AWcV_mga5QkDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcV_mga5QkDFAU4&categoryId=AWcV_mga5QkDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6302,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 25",
+      "level": "D1",
+      "contestProbId": "AWcV_8mq5Q0DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcV_8mq5Q0DFAU4&categoryId=AWcV_8mq5Q0DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6303,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 26",
+      "level": "D1",
+      "contestProbId": "AWcWAPiq5REDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcWAPiq5REDFAU4&categoryId=AWcWAPiq5REDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6305,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 2. 자료구조 -리스트, 튜플 27",
+      "level": "D1",
+      "contestProbId": "AWcWAjaa5RkDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcWAjaa5RkDFAU4&categoryId=AWcWAjaa5RkDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6306,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 10. 예외처리",
+      "level": "D1",
+      "contestProbId": "AWcWA1Fa5SMDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcWA1Fa5SMDFAU4&categoryId=AWcWA1Fa5SMDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6308,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 9. 내장함수 1",
+      "level": "D1",
+      "contestProbId": "AWcWB0Ua5SoDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcWB0Ua5SoDFAU4&categoryId=AWcWB0Ua5SoDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6309,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 9. 내장함수 2",
+      "level": "D1",
+      "contestProbId": "AWcWCTGq5S4DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcWCTGq5S4DFAU4&categoryId=AWcWCTGq5S4DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6310,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 9. 내장함수 3",
+      "level": "D1",
+      "contestProbId": "AWcWC0Ba5T4DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcWC0Ba5T4DFAU4&categoryId=AWcWC0Ba5T4DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6311,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 9. 내장함수 4",
+      "level": "D1",
+      "contestProbId": "AWcWDP9a5UYDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcWDP9a5UYDFAU4&categoryId=AWcWDP9a5UYDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6312,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 9. 내장함수 5",
+      "level": "D1",
+      "contestProbId": "AWcWDw965VEDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcWDw965VEDFAU4&categoryId=AWcWDw965VEDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6313,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 9. 내장함수 6",
+      "level": "D1",
+      "contestProbId": "AWcWETX65WADFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcWETX65WADFAU4&categoryId=AWcWETX65WADFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6314,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 9. 내장함수 7",
+      "level": "D1",
+      "contestProbId": "AWcWFZL65W4DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcWFZL65W4DFAU4&categoryId=AWcWFZL65W4DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6315,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 9. 내장함수 8",
+      "level": "D1",
+      "contestProbId": "AWcWFtJq5XkDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcWFtJq5XkDFAU4&categoryId=AWcWFtJq5XkDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6316,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 9. 내장함수 9",
+      "level": "D1",
+      "contestProbId": "AWcWGQF65YMDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcWGQF65YMDFAU4&categoryId=AWcWGQF65YMDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6317,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 9. 내장함수 10",
+      "level": "D1",
+      "contestProbId": "AWcWGolK5YsDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcWGolK5YsDFAU4&categoryId=AWcWGolK5YsDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6318,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 9. 내장함수 11",
+      "level": "D1",
+      "contestProbId": "AWcWG7w65ZwDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcWG7w65ZwDFAU4&categoryId=AWcWG7w65ZwDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6319,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 8. 함수의 기초 1",
+      "level": "D1",
+      "contestProbId": "AWcWHOBa5aUDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcWHOBa5aUDFAU4&categoryId=AWcWHOBa5aUDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6320,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 8. 함수의 기초 2",
+      "level": "D1",
+      "contestProbId": "AWcWHqK65awDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcWHqK65awDFAU4&categoryId=AWcWHqK65awDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6321,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 8. 함수의 기초 3",
+      "level": "D1",
+      "contestProbId": "AWcWH66K5bADFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcWH66K5bADFAU4&categoryId=AWcWH66K5bADFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6323,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 8. 함수의 기초 4",
+      "level": "D1",
+      "contestProbId": "AWcWIgR65boDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcWIgR65boDFAU4&categoryId=AWcWIgR65boDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6324,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 8. 함수의 기초 5",
+      "level": "D1",
+      "contestProbId": "AWcWI1J65cUDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcWI1J65cUDFAU4&categoryId=AWcWI1J65cUDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6325,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 8. 함수의 기초 6",
+      "level": "D1",
+      "contestProbId": "AWcWJUGa5c0DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcWJUGa5c0DFAU4&categoryId=AWcWJUGa5c0DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6326,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 8. 함수의 기초 7",
+      "level": "D1",
+      "contestProbId": "AWcWL1iq5dkDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcWL1iq5dkDFAU4&categoryId=AWcWL1iq5dkDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6327,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 8. 함수의 기초 8",
+      "level": "D1",
+      "contestProbId": "AWcWMJsq5d4DFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcWMJsq5d4DFAU4&categoryId=AWcWMJsq5d4DFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6328,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 8. 함수의 기초 9",
+      "level": "D1",
+      "contestProbId": "AWcWMay65eIDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcWMay65eIDFAU4&categoryId=AWcWMay65eIDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6329,
+      "title": "[파이썬 프로그래밍 기초(1) 파이썬의 기본 구조와 기초 문법] 8. 함수의 기초 10",
+      "level": "D1",
+      "contestProbId": "AWcWMsaK5eYDFAU4",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWcWMsaK5eYDFAU4&categoryId=AWcWMsaK5eYDFAU4&categoryType=CODE"
+    },
+    {
+      "number": 6485,
+      "title": "삼성시의 버스 노선",
+      "level": "D3",
+      "contestProbId": "AWczm7QaACgDFAWn",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWczm7QaACgDFAWn&categoryId=AWczm7QaACgDFAWn&categoryType=CODE"
+    },
+    {
+      "number": 6678,
+      "title": "[파이썬 프로그래밍 기초(2) 파이썬의 기본 응용] 4. 문자열 4",
+      "level": "D1",
+      "contestProbId": "AWc6XsuqxZoDFAWn",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWc6XsuqxZoDFAWn&categoryId=AWc6XsuqxZoDFAWn&categoryType=CODE"
+    },
+    {
+      "number": 6692,
+      "title": "다솔이의 월급 상자",
+      "level": "D3",
+      "contestProbId": "AWdXofhKFkADFAWn",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWdXofhKFkADFAWn&categoryId=AWdXofhKFkADFAWn&categoryType=CODE"
+    },
+    {
+      "number": 6718,
+      "title": "희성이의 원근법",
+      "level": "D3",
+      "contestProbId": "AWd7qcdatpEDFAUh",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWd7qcdatpEDFAUh&categoryId=AWd7qcdatpEDFAUh&categoryType=CODE"
+    },
+    {
+      "number": 6719,
+      "title": "성수의 프로그래밍 강좌 시청",
+      "level": "D4",
+      "contestProbId": "AWd7sgDatsMDFAUh",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWd7sgDatsMDFAUh&categoryId=AWd7sgDatsMDFAUh&categoryType=CODE"
+    },
+    {
+      "number": 6730,
+      "title": "장애물 경주 난이도",
+      "level": "D3",
+      "contestProbId": "AWefy5x65PoDFAUh",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWefy5x65PoDFAUh&categoryId=AWefy5x65PoDFAUh&categoryType=CODE"
+    },
+    {
+      "number": 6731,
+      "title": "홍익이의 오델로 게임",
+      "level": "D4",
+      "contestProbId": "AWefzFeq5P8DFAUh",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWefzFeq5P8DFAUh&categoryId=AWefzFeq5P8DFAUh&categoryType=CODE"
+    },
+    {
+      "number": 6781,
+      "title": "삼삼 트리플 게임",
+      "level": "D3",
+      "contestProbId": "AWgqpQV6r8gDFAW0",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWgqpQV6r8gDFAW0&categoryId=AWgqpQV6r8gDFAW0&categoryType=CODE"
+    },
+    {
+      "number": 6808,
+      "title": "규영이와 인영이의 카드게임",
+      "level": "D3",
+      "contestProbId": "AWgv9va6HnkDFAW0",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWgv9va6HnkDFAW0&categoryId=AWgv9va6HnkDFAW0&categoryType=CODE"
+    },
+    {
+      "number": 6853,
+      "title": "직사각형과 점",
+      "level": "D3",
+      "contestProbId": "AWhT_2HKQNADFAW_",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWhT_2HKQNADFAW_&categoryId=AWhT_2HKQNADFAW_&categoryType=CODE"
+    },
+    {
+      "number": 6855,
+      "title": "신도시 전기 연결하기",
+      "level": "D4",
+      "contestProbId": "AWhUBBUqQO0DFAW_",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWhUBBUqQO0DFAW_&categoryId=AWhUBBUqQO0DFAW_&categoryType=CODE"
+    },
+    {
+      "number": 6900,
+      "title": "주혁이의 복권 당첨",
+      "level": "D3",
+      "contestProbId": "AWh4FhG6Ei4DFAXp",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWh4FhG6Ei4DFAXp&categoryId=AWh4FhG6Ei4DFAXp&categoryType=CODE"
+    },
+    {
+      "number": 6907,
+      "title": "단위 변환기 프로그램",
+      "level": "D4",
+      "contestProbId": "AWh4GaY6EkEDFAXp",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWh4GaY6EkEDFAXp&categoryId=AWh4GaY6EkEDFAXp&categoryType=CODE"
+    },
+    {
+      "number": 6913,
+      "title": "동철이의 프로그래밍 대회",
+      "level": "D3",
+      "contestProbId": "AWicMVWKTuMDFAUL",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWicMVWKTuMDFAUL&categoryId=AWicMVWKTuMDFAUL&categoryType=CODE"
+    },
+    {
+      "number": 6958,
+      "title": "동철이의 프로그래밍 대회",
+      "level": "D3",
+      "contestProbId": "AWjlFcGK3dMDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWjlFcGK3dMDFAVT&categoryId=AWjlFcGK3dMDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 6959,
+      "title": "이상한 나라의 덧셈게임",
+      "level": "D4",
+      "contestProbId": "AWjlH0k63joDFAVT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWjlH0k63joDFAVT&categoryId=AWjlH0k63joDFAVT&categoryType=CODE"
+    },
+    {
+      "number": 7087,
+      "title": "문제 제목 붙이기",
+      "level": "D3",
+      "contestProbId": "AWkIdD46A5EDFAXC",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWkIdD46A5EDFAXC&categoryId=AWkIdD46A5EDFAXC&categoryType=CODE"
+    },
+    {
+      "number": 7088,
+      "title": "은기의 송아지 세기",
+      "level": "D4",
+      "contestProbId": "AWkIeU76A9cDFAXC",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWkIeU76A9cDFAXC&categoryId=AWkIeU76A9cDFAXC&categoryType=CODE"
+    },
+    {
+      "number": 7102,
+      "title": "준홍이의 카드놀이",
+      "level": "D3",
+      "contestProbId": "AWkIlHWqBYcDFAXC",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWkIlHWqBYcDFAXC&categoryId=AWkIlHWqBYcDFAXC&categoryType=CODE"
+    },
+    {
+      "number": 7103,
+      "title": "준홍이의 네 개의 제곱수",
+      "level": "D4",
+      "contestProbId": "AWkImrCqBeoDFAXC",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWkImrCqBeoDFAXC&categoryId=AWkImrCqBeoDFAXC&categoryType=CODE"
+    },
+    {
+      "number": 7193,
+      "title": "승현이의 수학공부",
+      "level": "D3",
+      "contestProbId": "AWksRkI6AR0DFAVE",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWksRkI6AR0DFAVE&categoryId=AWksRkI6AR0DFAVE&categoryType=CODE"
+    },
+    {
+      "number": 7194,
+      "title": "화섭이의 미생물 배양",
+      "level": "D4",
+      "contestProbId": "AWksRe4KARQDFAVE",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWksRe4KARQDFAVE&categoryId=AWksRe4KARQDFAVE&categoryType=CODE"
+    },
+    {
+      "number": 7227,
+      "title": "사랑의 카운슬러",
+      "level": "D3",
+      "contestProbId": "AWlQUD2qtysDFAVS",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWlQUD2qtysDFAVS&categoryId=AWlQUD2qtysDFAVS&categoryType=CODE"
+    },
+    {
+      "number": 7272,
+      "title": "안경이 없어!",
+      "level": "D3",
+      "contestProbId": "AWl0ZQ8qn7UDFAXz",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWl0ZQ8qn7UDFAXz&categoryId=AWl0ZQ8qn7UDFAXz&categoryType=CODE"
+    },
+    {
+      "number": 7333,
+      "title": "한솔이의 택배 아르바이트",
+      "level": "D4",
+      "contestProbId": "AWmYaDf6AWQDFAV3",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWmYaDf6AWQDFAV3&categoryId=AWmYaDf6AWQDFAV3&categoryType=CODE"
+    },
+    {
+      "number": 7338,
+      "title": "현규의 연봉계산법",
+      "level": "D4",
+      "contestProbId": "AWmYcWyqAcQDFAV3",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWmYcWyqAcQDFAV3&categoryId=AWmYcWyqAcQDFAV3&categoryType=CODE"
+    },
+    {
+      "number": 7393,
+      "title": "대규의 팬덤활동",
+      "level": "D4",
+      "contestProbId": "AWm8gU7KljcDFASj",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWm8gU7KljcDFASj&categoryId=AWm8gU7KljcDFASj&categoryType=CODE"
+    },
+    {
+      "number": 7465,
+      "title": "창용 마을 무리의 개수",
+      "level": "D4",
+      "contestProbId": "AWngfZVa9XwDFAQU",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWngfZVa9XwDFAQU&categoryId=AWngfZVa9XwDFAQU&categoryType=CODE"
+    },
+    {
+      "number": 7466,
+      "title": "팩토리얼과 최대공약수",
+      "level": "D4",
+      "contestProbId": "AWnghFyq9eMDFAQU",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWnghFyq9eMDFAQU&categoryId=AWnghFyq9eMDFAQU&categoryType=CODE"
+    },
+    {
+      "number": 7510,
+      "title": "상원이의 연속 합",
+      "level": "D3",
+      "contestProbId": "AWoEzJFa2A4DFARq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWoEzJFa2A4DFARq&categoryId=AWoEzJFa2A4DFARq&categoryType=CODE"
+    },
+    {
+      "number": 7532,
+      "title": "세영이의 SEM력 연도",
+      "level": "D3",
+      "contestProbId": "AWooplJ60l8DFARx",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWooplJ60l8DFARx&categoryId=AWooplJ60l8DFARx&categoryType=CODE"
+    },
+    {
+      "number": 7584,
+      "title": "자가 복제 문자열",
+      "level": "D3",
+      "contestProbId": "AWpMsQfaCPMDFAQi",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWpMsQfaCPMDFAQi&categoryId=AWpMsQfaCPMDFAQi&categoryType=CODE"
+    },
+    {
+      "number": 7675,
+      "title": "통역사 성경이",
+      "level": "D3",
+      "contestProbId": "AWqPvqoqSLQDFAT_",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWqPvqoqSLQDFAT_&categoryId=AWqPvqoqSLQDFAT_&categoryType=CODE"
+    },
+    {
+      "number": 7699,
+      "title": "수지의 수지 맞는 여행",
+      "level": "D4",
+      "contestProbId": "AWqUzj0arpkDFARG",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWqUzj0arpkDFARG&categoryId=AWqUzj0arpkDFARG&categoryType=CODE"
+    },
+    {
+      "number": 7701,
+      "title": "염라대왕의 이름 정렬",
+      "level": "D4",
+      "contestProbId": "AWqU0zh6rssDFARG",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWqU0zh6rssDFARG&categoryId=AWqU0zh6rssDFARG&categoryType=CODE"
+    },
+    {
+      "number": 7728,
+      "title": "다양성 측정",
+      "level": "D3",
+      "contestProbId": "AWq40NEKLyADFARG",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWq40NEKLyADFARG&categoryId=AWq40NEKLyADFARG&categoryType=CODE"
+    },
+    {
+      "number": 7732,
+      "title": "시간 개념",
+      "level": "D3",
+      "contestProbId": "AWrDLM0aRA8DFARG",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWrDLM0aRA8DFARG&categoryId=AWrDLM0aRA8DFARG&categoryType=CODE"
+    },
+    {
+      "number": 7733,
+      "title": "치즈 도둑",
+      "level": "D4",
+      "contestProbId": "AWrDOdQqRCUDFARG",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWrDOdQqRCUDFARG&categoryId=AWrDOdQqRCUDFARG&categoryType=CODE"
+    },
+    {
+      "number": 7792,
+      "title": "반장 선출",
+      "level": "D4",
+      "contestProbId": "AWsBNHuqMMADFARG",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWsBNHuqMMADFARG&categoryId=AWsBNHuqMMADFARG&categoryType=CODE"
+    },
+    {
+      "number": 7810,
+      "title": "승현이의 질문",
+      "level": "D4",
+      "contestProbId": "AWslG2zqFQcDFASy",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWslG2zqFQcDFASy&categoryId=AWslG2zqFQcDFASy&categoryType=CODE"
+    },
+    {
+      "number": 7829,
+      "title": "보물왕 태혁",
+      "level": "D4",
+      "contestProbId": "AWtInr3auH0DFASy",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWtInr3auH0DFASy&categoryId=AWtInr3auH0DFASy&categoryType=CODE"
+    },
+    {
+      "number": 7853,
+      "title": "오타",
+      "level": "D3",
+      "contestProbId": "AWttUKkq5hQDFASy",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWttUKkq5hQDFASy&categoryId=AWttUKkq5hQDFASy&categoryType=CODE"
+    },
+    {
+      "number": 7854,
+      "title": "최약수",
+      "level": "D4",
+      "contestProbId": "AWttVkiq5jEDFASy",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWttVkiq5jEDFASy&categoryId=AWttVkiq5jEDFASy&categoryType=CODE"
+    },
+    {
+      "number": 7964,
+      "title": "부먹왕국의 차원 관문",
+      "level": "D3",
+      "contestProbId": "AWuSgKpqmooDFASy",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWuSgKpqmooDFASy&categoryId=AWuSgKpqmooDFASy&categoryType=CODE"
+    },
+    {
+      "number": 7965,
+      "title": "퀴즈",
+      "level": "D4",
+      "contestProbId": "AWuSh2IKmu0DFASy",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWuSh2IKmu0DFASy&categoryId=AWuSh2IKmu0DFASy&categoryType=CODE"
+    },
+    {
+      "number": 7985,
+      "title": "Rooted Binary Tree 재구성",
+      "level": "D3",
+      "contestProbId": "AWu1JmN6Js4DFASy",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWu1JmN6Js4DFASy&categoryId=AWu1JmN6Js4DFASy&categoryType=CODE"
+    },
+    {
+      "number": 7988,
+      "title": "내전 경기",
+      "level": "D4",
+      "contestProbId": "AWvQZmdKUoEDFASy",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWvQZmdKUoEDFASy&categoryId=AWvQZmdKUoEDFASy&categoryType=CODE"
+    },
+    {
+      "number": 8016,
+      "title": "홀수 피라미드",
+      "level": "D3",
+      "contestProbId": "AWvzGUKKPVwDFASy",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWvzGUKKPVwDFASy&categoryId=AWvzGUKKPVwDFASy&categoryType=CODE"
+    },
+    {
+      "number": 8049,
+      "title": "폭탄 감식반",
+      "level": "D4",
+      "contestProbId": "AWv0_-j6aRsDFASy",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWv0_-j6aRsDFASy&categoryId=AWv0_-j6aRsDFASy&categoryType=CODE"
+    },
+    {
+      "number": 8104,
+      "title": "조 만들기",
+      "level": "D3",
+      "contestProbId": "AWwXCn2KQjEDFATu",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWwXCn2KQjEDFATu&categoryId=AWwXCn2KQjEDFATu&categoryType=CODE"
+    },
+    {
+      "number": 8189,
+      "title": "우편함",
+      "level": "D4",
+      "contestProbId": "AWwtU7XqhL0DFAWU",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWwtU7XqhL0DFAWU&categoryId=AWwtU7XqhL0DFAWU&categoryType=CODE"
+    },
+    {
+      "number": 8275,
+      "title": "햄스터",
+      "level": "D4",
+      "contestProbId": "AWxQ310aOlQDFAWL",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWxQ310aOlQDFAWL&categoryId=AWxQ310aOlQDFAWL&categoryType=CODE"
+    },
+    {
+      "number": 8338,
+      "title": "계산기",
+      "level": "D3",
+      "contestProbId": "AWxpQia60FgDFAWL",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWxpQia60FgDFAWL&categoryId=AWxpQia60FgDFAWL&categoryType=CODE"
+    },
+    {
+      "number": 8382,
+      "title": "방향 전환",
+      "level": "D4",
+      "contestProbId": "AWyNQrCahHcDFAVP",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWyNQrCahHcDFAVP&categoryId=AWyNQrCahHcDFAVP&categoryType=CODE"
+    },
+    {
+      "number": 8424,
+      "title": "유일한 사이클",
+      "level": "D4",
+      "contestProbId": "AWyxsBd6lyADFAVP",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWyxsBd6lyADFAVP&categoryId=AWyxsBd6lyADFAVP&categoryType=CODE"
+    },
+    {
+      "number": 8425,
+      "title": "님 게임",
+      "level": "D4",
+      "contestProbId": "AWyxxlvKmJEDFAVP",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWyxxlvKmJEDFAVP&categoryId=AWyxxlvKmJEDFAVP&categoryType=CODE"
+    },
+    {
+      "number": 8457,
+      "title": "알 덴테 스파게티",
+      "level": "D3",
+      "contestProbId": "AWzal4EKksEDFAVU",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWzal4EKksEDFAVU&categoryId=AWzal4EKksEDFAVU&categoryType=CODE"
+    },
+    {
+      "number": 8458,
+      "title": "원점으로 집합",
+      "level": "D4",
+      "contestProbId": "AWzaq5KKk_ADFAVU",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWzaq5KKk_ADFAVU&categoryId=AWzaq5KKk_ADFAVU&categoryType=CODE"
+    },
+    {
+      "number": 8500,
+      "title": "극장 좌석",
+      "level": "D3",
+      "contestProbId": "AWz5yIfq74QDFARQ",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWz5yIfq74QDFARQ&categoryId=AWz5yIfq74QDFARQ&categoryType=CODE"
+    },
+    {
+      "number": 8501,
+      "title": "은비의 동전 뒤집기",
+      "level": "D4",
+      "contestProbId": "AWz50CHK8DgDFARQ",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWz50CHK8DgDFARQ&categoryId=AWz50CHK8DgDFARQ&categoryType=CODE"
+    },
+    {
+      "number": 8556,
+      "title": "북북서",
+      "level": "D3",
+      "contestProbId": "AW1BsILa2X0DFARC",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW1BsILa2X0DFARC&categoryId=AW1BsILa2X0DFARC&categoryType=CODE"
+    },
+    {
+      "number": 8567,
+      "title": "약수의 개수가 많은 수",
+      "level": "D4",
+      "contestProbId": "AW1B2yIa28MDFARC",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW1B2yIa28MDFARC&categoryId=AW1B2yIa28MDFARC&categoryType=CODE"
+    },
+    {
+      "number": 8568,
+      "title": "3으로 나눈 순열",
+      "level": "D4",
+      "contestProbId": "AW1B8rJq3NUDFARC",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW1B8rJq3NUDFARC&categoryId=AW1B8rJq3NUDFARC&categoryType=CODE"
+    },
+    {
+      "number": 8658,
+      "title": "Summation",
+      "level": "D3",
+      "contestProbId": "AW1lwyh6WPwDFARC",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW1lwyh6WPwDFARC&categoryId=AW1lwyh6WPwDFARC&categoryType=CODE"
+    },
+    {
+      "number": 8659,
+      "title": "GCD",
+      "level": "D4",
+      "contestProbId": "AW1l1s2KWn4DFARC",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW1l1s2KWn4DFARC&categoryId=AW1l1s2KWn4DFARC&categoryType=CODE"
+    },
+    {
+      "number": 8673,
+      "title": "코딩 토너먼트1",
+      "level": "D3",
+      "contestProbId": "AW2Jldrqlo4DFASu",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW2Jldrqlo4DFASu&categoryId=AW2Jldrqlo4DFASu&categoryType=CODE"
+    },
+    {
+      "number": 8676,
+      "title": "동현이와 한결이는 아이돌",
+      "level": "D4",
+      "contestProbId": "AW2Jo6bqABMDFATy",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW2Jo6bqABMDFATy&categoryId=AW2Jo6bqABMDFATy&categoryType=CODE"
+    },
+    {
+      "number": 8741,
+      "title": "두문자어",
+      "level": "D3",
+      "contestProbId": "AW2y6n3qPXQDFATy",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW2y6n3qPXQDFATy&categoryId=AW2y6n3qPXQDFATy&categoryType=CODE"
+    },
+    {
+      "number": 8743,
+      "title": "경재와 대환이의 돌게임",
+      "level": "D4",
+      "contestProbId": "AW2y9NKqPfkDFATy",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW2y9NKqPfkDFATy&categoryId=AW2y9NKqPfkDFATy&categoryType=CODE"
+    },
+    {
+      "number": 8771,
+      "title": "덧셈 문제",
+      "level": "D4",
+      "contestProbId": "AW3R9ga6F9wDFATy",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW3R9ga6F9wDFATy&categoryId=AW3R9ga6F9wDFATy&categoryType=CODE"
+    },
+    {
+      "number": 8821,
+      "title": "적고 지우기",
+      "level": "D3",
+      "contestProbId": "AW37UDPKCgQDFATy",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW37UDPKCgQDFATy&categoryId=AW37UDPKCgQDFATy&categoryType=CODE"
+    },
+    {
+      "number": 8822,
+      "title": "홀수 중간값 피라미드 1",
+      "level": "D4",
+      "contestProbId": "AW37cfmqC7YDFATy",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW37cfmqC7YDFATy&categoryId=AW37cfmqC7YDFATy&categoryType=CODE"
+    },
+    {
+      "number": 8840,
+      "title": "아바바바",
+      "level": "D3",
+      "contestProbId": "AW4Z8x2KAL8DFAQ7",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW4Z8x2KAL8DFAQ7&categoryId=AW4Z8x2KAL8DFAQ7&categoryType=CODE"
+    },
+    {
+      "number": 8852,
+      "title": "단어 단위 회문",
+      "level": "D4",
+      "contestProbId": "AW4Z_j9aASsDFAQ7",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW4Z_j9aASsDFAQ7&categoryId=AW4Z_j9aASsDFAQ7&categoryType=CODE"
+    },
+    {
+      "number": 8888,
+      "title": "시험",
+      "level": "D3",
+      "contestProbId": "AW45RuSae2gDFAQ7",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW45RuSae2gDFAQ7&categoryId=AW45RuSae2gDFAQ7&categoryType=CODE"
+    },
+    {
+      "number": 8898,
+      "title": "3차원 농부",
+      "level": "D4",
+      "contestProbId": "AW45TzHae8UDFAQ7",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW45TzHae8UDFAQ7&categoryId=AW45TzHae8UDFAQ7&categoryType=CODE"
+    },
+    {
+      "number": 8931,
+      "title": "제로",
+      "level": "D3",
+      "contestProbId": "AW5jBWLq7jwDFATQ",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW5jBWLq7jwDFATQ&categoryId=AW5jBWLq7jwDFATQ&categoryType=CODE"
+    },
+    {
+      "number": 8934,
+      "title": "팰린드롬 공포증",
+      "level": "D4",
+      "contestProbId": "AW5jJcZ68LsDFATQ",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW5jJcZ68LsDFATQ&categoryId=AW5jJcZ68LsDFATQ&categoryType=CODE"
+    },
+    {
+      "number": 8993,
+      "title": "하지 추측",
+      "level": "D4",
+      "contestProbId": "AW6GFM8aLacDFAVX",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW6GFM8aLacDFAVX&categoryId=AW6GFM8aLacDFAVX&categoryType=CODE"
+    },
+    {
+      "number": 8998,
+      "title": "세운이는 내일 할거야",
+      "level": "D4",
+      "contestProbId": "AW6GMWCqLdkDFAVX",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW6GMWCqLdkDFAVX&categoryId=AW6GMWCqLdkDFAVX&categoryType=CODE"
+    },
+    {
+      "number": 9088,
+      "title": "다이아몬드",
+      "level": "D4",
+      "contestProbId": "AW7Oktj6WMQDFAWY",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW7Oktj6WMQDFAWY&categoryId=AW7Oktj6WMQDFAWY&categoryType=CODE"
+    },
+    {
+      "number": 9229,
+      "title": "한빈이와 Spot Mart",
+      "level": "D3",
+      "contestProbId": "AW8Wj7cqbY0DFAXN",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW8Wj7cqbY0DFAXN&categoryId=AW8Wj7cqbY0DFAXN&categoryType=CODE"
+    },
+    {
+      "number": 9280,
+      "title": "진용이네 주차타워",
+      "level": "D3",
+      "contestProbId": "AW9j74FacD0DFAUY",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW9j74FacD0DFAUY&categoryId=AW9j74FacD0DFAUY&categoryType=CODE"
+    },
+    {
+      "number": 9282,
+      "title": "초콜릿과 건포도",
+      "level": "D4",
+      "contestProbId": "AW9j-qfacIEDFAUY",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW9j-qfacIEDFAUY&categoryId=AW9j-qfacIEDFAUY&categoryType=CODE"
+    },
+    {
+      "number": 9317,
+      "title": "석찬이의 받아쓰기",
+      "level": "D3",
+      "contestProbId": "AW-hOY5KeEIDFAVg",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW-hOY5KeEIDFAVg&categoryId=AW-hOY5KeEIDFAVg&categoryType=CODE"
+    },
+    {
+      "number": 9480,
+      "title": "민정이와 광직이의 알파벳 공부",
+      "level": "D3",
+      "contestProbId": "AXAdrmW61ssDFAXq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXAdrmW61ssDFAXq&categoryId=AXAdrmW61ssDFAXq&categoryType=CODE"
+    },
+    {
+      "number": 9482,
+      "title": "전구 끄기",
+      "level": "D4",
+      "contestProbId": "AXAdtcu61xwDFAXq",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXAdtcu61xwDFAXq&categoryId=AXAdtcu61xwDFAXq&categoryType=CODE"
+    },
+    {
+      "number": 9611,
+      "title": "명진이와 동휘의 숫자 맞추기",
+      "level": "D3",
+      "contestProbId": "AXBbOcTav0QDFAVg",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXBbOcTav0QDFAVg&categoryId=AXBbOcTav0QDFAVg&categoryType=CODE"
+    },
+    {
+      "number": 9614,
+      "title": "다채로운 구간",
+      "level": "D4",
+      "contestProbId": "AXBbgtPKwzEDFAVg",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXBbgtPKwzEDFAVg&categoryId=AXBbgtPKwzEDFAVg&categoryType=CODE"
+    },
+    {
+      "number": 9658,
+      "title": "유효숫자 표기",
+      "level": "D3",
+      "contestProbId": "AXCjn9TKJmUDFAX0",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXCjn9TKJmUDFAX0&categoryId=AXCjn9TKJmUDFAX0&categoryType=CODE"
+    },
+    {
+      "number": 9659,
+      "title": "다항식 계산",
+      "level": "D4",
+      "contestProbId": "AXCjsn0KJzcDFAX0",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXCjsn0KJzcDFAX0&categoryId=AXCjsn0KJzcDFAX0&categoryType=CODE"
+    },
+    {
+      "number": 9700,
+      "title": "USB 꽂기의 미스터리",
+      "level": "D3",
+      "contestProbId": "AXDNEA3aaU0DFAVX",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXDNEA3aaU0DFAVX&categoryId=AXDNEA3aaU0DFAVX&categoryType=CODE"
+    },
+    {
+      "number": 9708,
+      "title": "가장 긴 수열",
+      "level": "D4",
+      "contestProbId": "AXDNGXlKagUDFAVX",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXDNGXlKagUDFAVX&categoryId=AXDNGXlKagUDFAVX&categoryType=CODE"
+    },
+    {
+      "number": 9778,
+      "title": "카드 게임",
+      "level": "D3",
+      "contestProbId": "AXE0YJiK3QcDFAVX",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXE0YJiK3QcDFAVX&categoryId=AXE0YJiK3QcDFAVX&categoryType=CODE"
+    },
+    {
+      "number": 9839,
+      "title": "최고의 쌍",
+      "level": "D3",
+      "contestProbId": "AXGBGehqPAADFAXR",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXGBGehqPAADFAXR&categoryId=AXGBGehqPAADFAXR&categoryType=CODE"
+    },
+    {
+      "number": 9940,
+      "title": "순열1",
+      "level": "D3",
+      "contestProbId": "AXHx23oq0REDFAXR",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXHx23oq0REDFAXR&categoryId=AXHx23oq0REDFAXR&categoryType=CODE"
+    },
+    {
+      "number": 9942,
+      "title": "순열2",
+      "level": "D4",
+      "contestProbId": "AXHx5_FK0UUDFAXR",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXHx5_FK0UUDFAXR&categoryId=AXHx5_FK0UUDFAXR&categoryType=CODE"
+    },
+    {
+      "number": 9997,
+      "title": "미니멀리즘 시계",
+      "level": "D3",
+      "contestProbId": "AXIvNBzKapEDFAXR",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXIvNBzKapEDFAXR&categoryId=AXIvNBzKapEDFAXR&categoryType=CODE"
+    },
+    {
+      "number": 10032,
+      "title": "과자 분배",
+      "level": "D3",
+      "contestProbId": "AXJZ6_6KCLcDFAU3",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXJZ6_6KCLcDFAU3&categoryId=AXJZ6_6KCLcDFAU3&categoryType=CODE"
+    },
+    {
+      "number": 10059,
+      "title": "유효기간",
+      "level": "D3",
+      "contestProbId": "AXK6YRNaKq0DFAU3",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXK6YRNaKq0DFAU3&categoryId=AXK6YRNaKq0DFAU3&categoryType=CODE"
+    },
+    {
+      "number": 10200,
+      "title": "구독자 전쟁",
+      "level": "D3",
+      "contestProbId": "AXMCXV_qVgkDFAWv",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXMCXV_qVgkDFAWv&categoryId=AXMCXV_qVgkDFAWv&categoryType=CODE"
+    },
+    {
+      "number": 10505,
+      "title": "소득 불균형",
+      "level": "D3",
+      "contestProbId": "AXNP4CvauaMDFAXS",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXNP4CvauaMDFAXS&categoryId=AXNP4CvauaMDFAXS&categoryType=CODE"
+    },
+    {
+      "number": 10570,
+      "title": "제곱 팰린드롬 수",
+      "level": "D3",
+      "contestProbId": "AXO72aaqPrcDFAXS",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXO72aaqPrcDFAXS&categoryId=AXO72aaqPrcDFAXS&categoryType=CODE"
+    },
+    {
+      "number": 10571,
+      "title": "잔디 깎기",
+      "level": "D4",
+      "contestProbId": "AXO8Cd0aQI0DFAXS",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXO8Cd0aQI0DFAXS&categoryId=AXO8Cd0aQI0DFAXS&categoryType=CODE"
+    },
+    {
+      "number": 10580,
+      "title": "전봇대",
+      "level": "D3",
+      "contestProbId": "AXO8QBw6Qu4DFAXS",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXO8QBw6Qu4DFAXS&categoryId=AXO8QBw6Qu4DFAXS&categoryType=CODE"
+    },
+    {
+      "number": 10581,
+      "title": "부하 테스트",
+      "level": "D4",
+      "contestProbId": "AXO8SgnKQ2sDFAXS",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXO8SgnKQ2sDFAXS&categoryId=AXO8SgnKQ2sDFAXS&categoryType=CODE"
+    },
+    {
+      "number": 10726,
+      "title": "이진수 표현",
+      "level": "D3",
+      "contestProbId": "AXRSXf_a9qsDFAXS",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXRSXf_a9qsDFAXS&categoryId=AXRSXf_a9qsDFAXS&categoryType=CODE"
+    },
+    {
+      "number": 10761,
+      "title": "신뢰",
+      "level": "D3",
+      "contestProbId": "AXSVc1TqEAYDFAQT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXSVc1TqEAYDFAQT&categoryId=AXSVc1TqEAYDFAQT&categoryType=CODE"
+    },
+    {
+      "number": 10762,
+      "title": "사탕 나누기",
+      "level": "D4",
+      "contestProbId": "AXSVhGoqED8DFAQT",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXSVhGoqED8DFAQT&categoryId=AXSVhGoqED8DFAQT&categoryType=CODE"
+    },
+    {
+      "number": 10804,
+      "title": "문자열의 거울상",
+      "level": "D3",
+      "contestProbId": "AXTC0x16D8EDFASe",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXTC0x16D8EDFASe&categoryId=AXTC0x16D8EDFASe&categoryType=CODE"
+    },
+    {
+      "number": 10805,
+      "title": "야바위",
+      "level": "D4",
+      "contestProbId": "AXTC3GH6D-EDFASe",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXTC3GH6D-EDFASe&categoryId=AXTC3GH6D-EDFASe&categoryType=CODE"
+    },
+    {
+      "number": 10908,
+      "title": "짝수인 이항 계수",
+      "level": "D4",
+      "contestProbId": "AXVJo0WKK7kDFASe",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXVJo0WKK7kDFASe&categoryId=AXVJo0WKK7kDFASe&categoryType=CODE"
+    },
+    {
+      "number": 10912,
+      "title": "외로운 문자",
+      "level": "D3",
+      "contestProbId": "AXVJuEvqLAADFASe",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXVJuEvqLAADFASe&categoryId=AXVJuEvqLAADFASe&categoryType=CODE"
+    },
+    {
+      "number": 10965,
+      "title": "제곱수 만들기",
+      "level": "D3",
+      "contestProbId": "AXWXH_h695kDFAST",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXWXH_h695kDFAST&categoryId=AXWXH_h695kDFAST&categoryType=CODE"
+    },
+    {
+      "number": 10966,
+      "title": "물놀이를 가자",
+      "level": "D4",
+      "contestProbId": "AXWXMZta-PsDFAST",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXWXMZta-PsDFAST&categoryId=AXWXMZta-PsDFAST&categoryType=CODE"
+    },
+    {
+      "number": 10993,
+      "title": "군주제와 공화제",
+      "level": "D3",
+      "contestProbId": "AXXfloFa29EDFAST",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXXfloFa29EDFAST&categoryId=AXXfloFa29EDFAST&categoryType=CODE"
+    },
+    {
+      "number": 10994,
+      "title": "동전 수집",
+      "level": "D4",
+      "contestProbId": "AXXjAdya60IDFAST",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXXjAdya60IDFAST&categoryId=AXXjAdya60IDFAST&categoryType=CODE"
+    },
+    {
+      "number": 11112,
+      "title": "셀로판지",
+      "level": "D4",
+      "contestProbId": "AXYmjC8adSkDFAST",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXYmjC8adSkDFAST&categoryId=AXYmjC8adSkDFAST&categoryType=CODE"
+    },
+    {
+      "number": 11285,
+      "title": "다트 게임",
+      "level": "D3",
+      "contestProbId": "AXZuaLsqz9wDFAST",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXZuaLsqz9wDFAST&categoryId=AXZuaLsqz9wDFAST&categoryType=CODE"
+    },
+    {
+      "number": 11315,
+      "title": "오목 판정",
+      "level": "D3",
+      "contestProbId": "AXaSUPYqPYMDFASQ",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXaSUPYqPYMDFASQ&categoryId=AXaSUPYqPYMDFASQ&categoryType=CODE"
+    },
+    {
+      "number": 11316,
+      "title": "주기 찾기",
+      "level": "D4",
+      "contestProbId": "AXaSVuaqPZkDFASQ",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXaSVuaqPZkDFASQ&categoryId=AXaSVuaqPZkDFASQ&categoryType=CODE"
+    },
+    {
+      "number": 11387,
+      "title": "몬스터 사냥",
+      "level": "D3",
+      "contestProbId": "AXb6LR76vCcDFARR",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXb6LR76vCcDFARR&categoryId=AXb6LR76vCcDFARR&categoryType=CODE"
+    },
+    {
+      "number": 11445,
+      "title": "무한 사전",
+      "level": "D3",
+      "contestProbId": "AXdHwI1aCy0DFAS5",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXdHwI1aCy0DFAS5&categoryId=AXdHwI1aCy0DFAS5&categoryType=CODE"
+    },
+    {
+      "number": 11446,
+      "title": "사탕 가방",
+      "level": "D4",
+      "contestProbId": "AXdHxTNqC2IDFAS5",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXdHxTNqC2IDFAS5&categoryId=AXdHxTNqC2IDFAS5&categoryType=CODE"
+    },
+    {
+      "number": 11545,
+      "title": "틱택톰",
+      "level": "D4",
+      "contestProbId": "AXeJGPgqR9cDFAS5",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXeJGPgqR9cDFAS5&categoryId=AXeJGPgqR9cDFAS5&categoryType=CODE"
+    },
+    {
+      "number": 11592,
+      "title": "크루즈 컨트롤",
+      "level": "D4",
+      "contestProbId": "AXfRhBl6KTMDFAS5",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXfRhBl6KTMDFAS5&categoryId=AXfRhBl6KTMDFAS5&categoryType=CODE"
+    },
+    {
+      "number": 11688,
+      "title": "Calkin-Wilf tree 1",
+      "level": "D3",
+      "contestProbId": "AXgZSOn6ApIDFASW",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXgZSOn6ApIDFASW&categoryId=AXgZSOn6ApIDFASW&categoryType=CODE"
+    },
+    {
+      "number": 11736,
+      "title": "평범한 숫자",
+      "level": "D3",
+      "contestProbId": "AXhh-H-KwUcDFARQ",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXhh-H-KwUcDFARQ&categoryId=AXhh-H-KwUcDFARQ&categoryType=CODE"
+    },
+    {
+      "number": 11856,
+      "title": "반반",
+      "level": "D3",
+      "contestProbId": "AXjS1GXqZ8gDFATi",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXjS1GXqZ8gDFATi&categoryId=AXjS1GXqZ8gDFATi&categoryType=CODE"
+    },
+    {
+      "number": 12004,
+      "title": "구구단 1",
+      "level": "D3",
+      "contestProbId": "AXkcWgFa8sADFAS8",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXkcWgFa8sADFAS8&categoryId=AXkcWgFa8sADFAS8&categoryType=CODE"
+    },
+    {
+      "number": 12005,
+      "title": "서로소 XOR 방정식",
+      "level": "D4",
+      "contestProbId": "AXkcTJ5q8qEDFAS8",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXkcTJ5q8qEDFAS8&categoryId=AXkcTJ5q8qEDFAS8&categoryType=CODE"
+    },
+    {
+      "number": 12051,
+      "title": "프리셀 통계",
+      "level": "D3",
+      "contestProbId": "AXmwMidaSLIDFARX",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXmwMidaSLIDFARX&categoryId=AXmwMidaSLIDFARX&categoryType=CODE"
+    },
+    {
+      "number": 12052,
+      "title": "부서진 타일",
+      "level": "D4",
+      "contestProbId": "AXmwOSJaSNIDFARX",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXmwOSJaSNIDFARX&categoryId=AXmwOSJaSNIDFARX&categoryType=CODE"
+    },
+    {
+      "number": 12221,
+      "title": "구구단2",
+      "level": "D3",
+      "contestProbId": "AXpz3dravpQDFATi",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXpz3dravpQDFATi&categoryId=AXpz3dravpQDFATi&categoryType=CODE"
+    },
+    {
+      "number": 12222,
+      "title": "문자열 나누기",
+      "level": "D4",
+      "contestProbId": "AXpz5_AavskDFATi",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXpz5_AavskDFATi&categoryId=AXpz5_AavskDFATi&categoryType=CODE"
+    },
+    {
+      "number": 12368,
+      "title": "24시간",
+      "level": "D3",
+      "contestProbId": "AXsEBlLqedsDFARX",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXsEBlLqedsDFARX&categoryId=AXsEBlLqedsDFARX&categoryType=CODE"
+    },
+    {
+      "number": 12369,
+      "title": "일련번호 붙이기",
+      "level": "D4",
+      "contestProbId": "AXsEDGUqef0DFARX",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXsEDGUqef0DFARX&categoryId=AXsEDGUqef0DFARX&categoryType=CODE"
+    },
+    {
+      "number": 12741,
+      "title": "두 전구",
+      "level": "D3",
+      "contestProbId": "AXuUo_Tqs9kDFARa",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXuUo_Tqs9kDFARa&categoryId=AXuUo_Tqs9kDFARa&categoryType=CODE"
+    },
+    {
+      "number": 12742,
+      "title": "장마 속의 막대",
+      "level": "D4",
+      "contestProbId": "AXuUrGbatNMDFARa",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXuUrGbatNMDFARa&categoryId=AXuUrGbatNMDFARa&categoryType=CODE"
+    },
+    {
+      "number": 13038,
+      "title": "교환학생",
+      "level": "D3",
+      "contestProbId": "AXxNn6GaPW4DFASZ",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXxNn6GaPW4DFASZ&categoryId=AXxNn6GaPW4DFASZ&categoryType=CODE"
+    },
+    {
+      "number": 13041,
+      "title": "게으름뱅이 왕국",
+      "level": "D4",
+      "contestProbId": "AXxNrV-6PZUDFASZ",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXxNrV-6PZUDFASZ&categoryId=AXxNrV-6PZUDFASZ&categoryType=CODE"
+    },
+    {
+      "number": 13218,
+      "title": "조별과제",
+      "level": "D3",
+      "contestProbId": "AXzjvCCq-PwDFASs",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXzjvCCq-PwDFASs&categoryId=AXzjvCCq-PwDFASs&categoryType=CODE"
+    },
+    {
+      "number": 13219,
+      "title": "진행률",
+      "level": "D4",
+      "contestProbId": "AXzjxA7K-QcDFASs",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXzjxA7K-QcDFASs&categoryId=AXzjxA7K-QcDFASs&categoryType=CODE"
+    },
+    {
+      "number": 13229,
+      "title": "일요일",
+      "level": "D3",
+      "contestProbId": "AX0SaDW6L2oDFASs",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AX0SaDW6L2oDFASs&categoryId=AX0SaDW6L2oDFASs&categoryType=CODE"
+    },
+    {
+      "number": 13240,
+      "title": "정사각형 글꼴",
+      "level": "D4",
+      "contestProbId": "AX1Zl87ad94DFAQX",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AX1Zl87ad94DFAQX&categoryId=AX1Zl87ad94DFAQX&categoryType=CODE"
+    },
+    {
+      "number": 13428,
+      "title": "숫자 조작",
+      "level": "D3",
+      "contestProbId": "AX4EJPs68IkDFARe",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AX4EJPs68IkDFARe&categoryId=AX4EJPs68IkDFARe&categoryType=CODE"
+    },
+    {
+      "number": 13432,
+      "title": "비서로소 그래프",
+      "level": "D4",
+      "contestProbId": "AX4ENOBK8MkDFARe",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AX4ENOBK8MkDFARe&categoryId=AX4ENOBK8MkDFARe&categoryType=CODE"
+    },
+    {
+      "number": 13547,
+      "title": "팔씨름",
+      "level": "D3",
+      "contestProbId": "AX6PP9G6p1sDFAS9",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AX6PP9G6p1sDFAS9&categoryId=AX6PP9G6p1sDFAS9&categoryType=CODE"
+    },
+    {
+      "number": 13549,
+      "title": "최대공약수 최대화",
+      "level": "D4",
+      "contestProbId": "AX6PUEfaqAADFAS9",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AX6PUEfaqAADFAS9&categoryId=AX6PUEfaqAADFAS9&categoryType=CODE"
+    },
+    {
+      "number": 13732,
+      "title": "정사각형 판정",
+      "level": "D3",
+      "contestProbId": "AX8BAN1qTwoDFARO",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AX8BAN1qTwoDFARO&categoryId=AX8BAN1qTwoDFARO&categoryType=CODE"
+    },
+    {
+      "number": 13736,
+      "title": "사탕 분배",
+      "level": "D4",
+      "contestProbId": "AX8BB5d6T7gDFARO",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AX8BB5d6T7gDFARO&categoryId=AX8BB5d6T7gDFARO&categoryType=CODE"
+    },
+    {
+      "number": 14178,
+      "title": "1차원 정원",
+      "level": "D3",
+      "contestProbId": "AX_N3oSqcyUDFARi",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AX_N3oSqcyUDFARi&categoryId=AX_N3oSqcyUDFARi&categoryType=CODE"
+    },
+    {
+      "number": 14179,
+      "title": "복제한 수열의 인버전 수",
+      "level": "D4",
+      "contestProbId": "AX_N7oHac6QDFARi",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AX_N7oHac6QDFARi&categoryId=AX_N7oHac6QDFARi&categoryType=CODE"
+    },
+    {
+      "number": 14361,
+      "title": "숫자가 같은 배수",
+      "level": "D3",
+      "contestProbId": "AYCnY9Kqu6YDFARx",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYCnY9Kqu6YDFARx&categoryId=AYCnY9Kqu6YDFARx&categoryType=CODE"
+    },
+    {
+      "number": 14362,
+      "title": "무한로봇",
+      "level": "D4",
+      "contestProbId": "AYCne646vKQDFARx",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYCne646vKQDFARx&categoryId=AYCne646vKQDFARx&categoryType=CODE"
+    },
+    {
+      "number": 14413,
+      "title": "격자판 칠하기",
+      "level": "D3",
+      "contestProbId": "AYEXgKnKKg0DFARx",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYEXgKnKKg0DFARx&categoryId=AYEXgKnKKg0DFARx&categoryType=CODE"
+    },
+    {
+      "number": 14450,
+      "title": "정수 입력기",
+      "level": "D4",
+      "contestProbId": "AYEYsXtaM_4DFARx",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYEYsXtaM_4DFARx&categoryId=AYEYsXtaM_4DFARx&categoryType=CODE"
+    },
+    {
+      "number": 14555,
+      "title": "공과 잡초",
+      "level": "D3",
+      "contestProbId": "AYGtoa3qARcDFARC",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYGtoa3qARcDFARC&categoryId=AYGtoa3qARcDFARC&categoryType=CODE"
+    },
+    {
+      "number": 14557,
+      "title": "카드 제거",
+      "level": "D4",
+      "contestProbId": "AYGt7M5qAbkDFARC",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYGt7M5qAbkDFARC&categoryId=AYGt7M5qAbkDFARC&categoryType=CODE"
+    },
+    {
+      "number": 14692,
+      "title": "통나무 자르기",
+      "level": "D3",
+      "contestProbId": "AYJW0g-qlO8DFASv",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYJW0g-qlO8DFASv&categoryId=AYJW0g-qlO8DFASv&categoryType=CODE"
+    },
+    {
+      "number": 14695,
+      "title": "거미",
+      "level": "D4",
+      "contestProbId": "AYJW63G6lQ4DFASv",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYJW63G6lQ4DFASv&categoryId=AYJW63G6lQ4DFASv&categoryType=CODE"
+    },
+    {
+      "number": 15230,
+      "title": "알파벳 공부",
+      "level": "D3",
+      "contestProbId": "AYLnMQT6vPADFATf",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYLnMQT6vPADFATf&categoryId=AYLnMQT6vPADFATf&categoryType=CODE"
+    },
+    {
+      "number": 15231,
+      "title": "바이너리 트리",
+      "level": "D4",
+      "contestProbId": "AYLnPaLqvY8DFATf",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYLnPaLqvY8DFATf&categoryId=AYLnPaLqvY8DFATf&categoryType=CODE"
+    },
+    {
+      "number": 15612,
+      "title": "체스판 위의 룩 배치",
+      "level": "D3",
+      "contestProbId": "AYOBfxwaAXsDFATW",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYOBfxwaAXsDFATW&categoryId=AYOBfxwaAXsDFATW&categoryType=CODE"
+    },
+    {
+      "number": 15623,
+      "title": "이중 최단 경로 문제",
+      "level": "D4",
+      "contestProbId": "AYOCL0GaCF4DFATW",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYOCL0GaCF4DFATW&categoryId=AYOCL0GaCF4DFATW&categoryType=CODE"
+    },
+    {
+      "number": 15758,
+      "title": "무한 문자열",
+      "level": "D3",
+      "contestProbId": "AYP5JmsqcngDFATW",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYP5JmsqcngDFATW&categoryId=AYP5JmsqcngDFATW&categoryType=CODE"
+    },
+    {
+      "number": 15761,
+      "title": "크고 작은 이진수의 곱셈",
+      "level": "D4",
+      "contestProbId": "AYQHbyrq-JkDFATW",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYQHbyrq-JkDFATW&categoryId=AYQHbyrq-JkDFATW&categoryType=CODE"
+    },
+    {
+      "number": 15868,
+      "title": "XOR 2차원 배열",
+      "level": "D3",
+      "contestProbId": "AYTAurfKJDEDFARs",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYTAurfKJDEDFARs&categoryId=AYTAurfKJDEDFARs&categoryType=CODE"
+    },
+    {
+      "number": 15869,
+      "title": "새로운 괄호 문자열 문제",
+      "level": "D4",
+      "contestProbId": "AYTAwkJaJD0DFARs",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYTAwkJaJD0DFARs&categoryId=AYTAwkJaJD0DFARs&categoryType=CODE"
+    },
+    {
+      "number": 15941,
+      "title": "평행사변형",
+      "level": "D3",
+      "contestProbId": "AYVgOZEKOpcDFAQK",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYVgOZEKOpcDFAQK&categoryId=AYVgOZEKOpcDFAQK&categoryType=CODE"
+    },
+    {
+      "number": 15942,
+      "title": "외계인 침공",
+      "level": "D4",
+      "contestProbId": "AYVgWGZKOroDFAQK",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYVgWGZKOroDFAQK&categoryId=AYVgWGZKOroDFAQK&categoryType=CODE"
+    },
+    {
+      "number": 16002,
+      "title": "합성수 방정식",
+      "level": "D3",
+      "contestProbId": "AYYAGCNKPgIDFARc",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYYAGCNKPgIDFARc&categoryId=AYYAGCNKPgIDFARc&categoryType=CODE"
+    },
+    {
+      "number": 16003,
+      "title": "화면 캡쳐",
+      "level": "D4",
+      "contestProbId": "AYYAGjgqPgcDFARc",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYYAGjgqPgcDFARc&categoryId=AYYAGjgqPgcDFARc&categoryType=CODE"
+    },
+    {
+      "number": 16800,
+      "title": "구구단 걷기",
+      "level": "D3",
+      "contestProbId": "AYaf9W8afyMDFAQ9",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYaf9W8afyMDFAQ9&categoryId=AYaf9W8afyMDFAQ9&categoryType=CODE"
+    },
+    {
+      "number": 16801,
+      "title": "식신",
+      "level": "D4",
+      "contestProbId": "AYagAnBqgFADFAQ9",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYagAnBqgFADFAQ9&categoryId=AYagAnBqgFADFAQ9&categoryType=CODE"
+    },
+    {
+      "number": 16910,
+      "title": "원 안의 점",
+      "level": "D3",
+      "contestProbId": "AYcllbDqUVgDFASR",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYcllbDqUVgDFASR&categoryId=AYcllbDqUVgDFASR&categoryType=CODE"
+    },
+    {
+      "number": 16911,
+      "title": "수 색칠하기",
+      "level": "D4",
+      "contestProbId": "AYclnrUKUdADFASR",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYclnrUKUdADFASR&categoryId=AYclnrUKUdADFASR&categoryType=CODE"
+    },
+    {
+      "number": 17299,
+      "title": "최소 덧셈",
+      "level": "D4",
+      "contestProbId": "AYe7x0DKBJADFARP",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYe7x0DKBJADFARP&categoryId=AYe7x0DKBJADFARP&categoryType=CODE"
+    },
+    {
+      "number": 17319,
+      "title": "문자열문자열",
+      "level": "D3",
+      "contestProbId": "AYgEiwbKy48DFARP",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYgEiwbKy48DFARP&categoryId=AYgEiwbKy48DFARP&categoryType=CODE"
+    },
+    {
+      "number": 17322,
+      "title": "앞만 보는 나이트",
+      "level": "D4",
+      "contestProbId": "AYgEu2460GwDFARP",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYgEu2460GwDFARP&categoryId=AYgEu2460GwDFARP&categoryType=CODE"
+    },
+    {
+      "number": 17642,
+      "title": "최대 조작 횟수",
+      "level": "D3",
+      "contestProbId": "AYj_Dz-6qLgDFASl",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYj_Dz-6qLgDFASl&categoryId=AYj_Dz-6qLgDFASl&categoryType=CODE"
+    },
+    {
+      "number": 17643,
+      "title": "로봇",
+      "level": "D4",
+      "contestProbId": "AYj_GSkqqNEDFASl",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYj_GSkqqNEDFASl&categoryId=AYj_GSkqqNEDFASl&categoryType=CODE"
+    },
+    {
+      "number": 17937,
+      "title": "큰 수의 최대공약수",
+      "level": "D3",
+      "contestProbId": "AYmRI_8ajv8DFARi",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYmRI_8ajv8DFARi&categoryId=AYmRI_8ajv8DFARi&categoryType=CODE"
+    },
+    {
+      "number": 17938,
+      "title": "문자열 세 개",
+      "level": "D4",
+      "contestProbId": "AYmRMhpakYADFARi",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYmRMhpakYADFARi&categoryId=AYmRMhpakYADFARi&categoryType=CODE"
+    },
+    {
+      "number": 18662,
+      "title": "등차수열 만들기",
+      "level": "D3",
+      "contestProbId": "AYo-e9EKmGoDFAQI",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYo-e9EKmGoDFAQI&categoryId=AYo-e9EKmGoDFAQI&categoryType=CODE"
+    },
+    {
+      "number": 18799,
+      "title": "평균의 평균",
+      "level": "D4",
+      "contestProbId": "AYqmDqj6Uu8DFAQI",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYqmDqj6Uu8DFAQI&categoryId=AYqmDqj6Uu8DFAQI&categoryType=CODE"
+    },
+    {
+      "number": 19003,
+      "title": "팰린드롬 문제",
+      "level": "D3",
+      "contestProbId": "AYtrCJQaDb4DFAR-",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYtrCJQaDb4DFAR-&categoryId=AYtrCJQaDb4DFAR-&categoryType=CODE"
+    },
+    {
+      "number": 19004,
+      "title": "점프 놀이",
+      "level": "D4",
+      "contestProbId": "AYtrEOraDk0DFAR-",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYtrEOraDk0DFAR-&categoryId=AYtrEOraDk0DFAR-&categoryType=CODE"
+    },
+    {
+      "number": 19113,
+      "title": "식료품 가게",
+      "level": "D3",
+      "contestProbId": "AYxCRFA6iiEDFASu",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYxCRFA6iiEDFASu&categoryId=AYxCRFA6iiEDFASu&categoryType=CODE"
+    },
+    {
+      "number": 19185,
+      "title": "육십갑자",
+      "level": "D3",
+      "contestProbId": "AYzIZNkq-v4DFAQ9",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYzIZNkq-v4DFAQ9&categoryId=AYzIZNkq-v4DFAQ9&categoryType=CODE"
+    },
+    {
+      "number": 19189,
+      "title": "순열의 아름다움",
+      "level": "D4",
+      "contestProbId": "AYzIcBsq_agDFAQ9",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYzIcBsq_agDFAQ9&categoryId=AYzIcBsq_agDFAQ9&categoryType=CODE"
+    },
+    {
+      "number": 20019,
+      "title": "회문의 회문",
+      "level": "D3",
+      "contestProbId": "AY2hjCWKbykDFATh",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AY2hjCWKbykDFATh&categoryId=AY2hjCWKbykDFATh&categoryType=CODE"
+    },
+    {
+      "number": 20021,
+      "title": "소수 그래프",
+      "level": "D4",
+      "contestProbId": "AY2hmhc6cSsDFATh",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AY2hmhc6cSsDFATh&categoryId=AY2hmhc6cSsDFATh&categoryType=CODE"
+    },
+    {
+      "number": 20551,
+      "title": "증가하는 사탕 수열",
+      "level": "D3",
+      "contestProbId": "AY4XhKTKU0IDFARM",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AY4XhKTKU0IDFARM&categoryId=AY4XhKTKU0IDFARM&categoryType=CODE"
+    },
+    {
+      "number": 20552,
+      "title": "XOR과 합",
+      "level": "D4",
+      "contestProbId": "AY4XixFKU7IDFARM",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AY4XixFKU7IDFARM&categoryId=AY4XixFKU7IDFARM&categoryType=CODE"
+    },
+    {
+      "number": 20728,
+      "title": "공평한 분배 2",
+      "level": "D3",
+      "contestProbId": "AY6cg0MKeVkDFAXt",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AY6cg0MKeVkDFAXt&categoryId=AY6cg0MKeVkDFAXt&categoryType=CODE"
+    },
+    {
+      "number": 20731,
+      "title": "서로소 그리드",
+      "level": "D4",
+      "contestProbId": "AY6ci8cKecUDFAXt",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AY6ci8cKecUDFAXt&categoryId=AY6ci8cKecUDFAXt&categoryType=CODE"
+    },
+    {
+      "number": 20934,
+      "title": "방울 마술",
+      "level": "D3",
+      "contestProbId": "AY9QTGqqcckDFAVF",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AY9QTGqqcckDFAVF&categoryId=AY9QTGqqcckDFAVF&categoryType=CODE"
+    },
+    {
+      "number": 20936,
+      "title": "상자 정렬하기",
+      "level": "D4",
+      "contestProbId": "AY9QUhl6cfQDFAVF",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AY9QUhl6cfQDFAVF&categoryId=AY9QUhl6cfQDFAVF&categoryType=CODE"
+    },
+    {
+      "number": 20955,
+      "title": "XY 문자열 1",
+      "level": "D3",
+      "contestProbId": "AY_gm8_6NjcDFAVF",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AY_gm8_6NjcDFAVF&categoryId=AY_gm8_6NjcDFAVF&categoryType=CODE"
+    },
+    {
+      "number": 21131,
+      "title": "행렬정렬",
+      "level": "D3",
+      "contestProbId": "AZCQ28pKbaQDFAUC",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZCQ28pKbaQDFAUC&categoryId=AZCQ28pKbaQDFAUC&categoryType=CODE"
+    },
+    {
+      "number": 21425,
+      "title": "+=",
+      "level": "D2",
+      "contestProbId": "AZD8K_UayDoDFAVs",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZD8K_UayDoDFAVs&categoryId=AZD8K_UayDoDFAVs&categoryType=CODE"
+    },
+    {
+      "number": 21426,
+      "title": "흰 종이와 검은 종이",
+      "level": "D4",
+      "contestProbId": "AZD8M-IKyFEDFAVs",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZD8M-IKyFEDFAVs&categoryId=AZD8M-IKyFEDFAVs&categoryType=CODE"
+    },
+    {
+      "number": 22039,
+      "title": "피보나치 수 분배",
+      "level": "D3",
+      "contestProbId": "AZGSf4TaM08DFAXd",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZGSf4TaM08DFAXd&categoryId=AZGSf4TaM08DFAXd&categoryType=CODE"
+    },
+    {
+      "number": 22574,
+      "title": "높은 곳으로",
+      "level": "D3",
+      "contestProbId": "AZIieDaq5AEDFAXd",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZIieDaq5AEDFAXd&categoryId=AZIieDaq5AEDFAXd&categoryType=CODE"
+    },
+    {
+      "number": 22759,
+      "title": "묶음 판매",
+      "level": "D3",
+      "contestProbId": "AZK3fpuaBJwDFAXk",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZK3fpuaBJwDFAXk&categoryId=AZK3fpuaBJwDFAXk&categoryType=CODE"
+    },
+    {
+      "number": 22795,
+      "title": "일곱 부하의 평균",
+      "level": "D3",
+      "contestProbId": "AZND_Dyq8SUDFAWB",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZND_Dyq8SUDFAWB&categoryId=AZND_Dyq8SUDFAWB&categoryType=CODE"
+    },
+    {
+      "number": 22979,
+      "title": "문자열 옮기기",
+      "level": "D3",
+      "contestProbId": "AZPOBiaqNo8DFAWB",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZPOBiaqNo8DFAWB&categoryId=AZPOBiaqNo8DFAWB&categoryType=CODE"
+    },
+    {
+      "number": 23003,
+      "title": "색상환",
+      "level": "D3",
+      "contestProbId": "AZROsPgqE88DFAWB",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZROsPgqE88DFAWB&categoryId=AZROsPgqE88DFAWB&categoryType=CODE"
+    },
+    {
+      "number": 23005,
+      "title": "회문 만들기",
+      "level": "D4",
+      "contestProbId": "AZROkFPqENsDFAWB",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZROkFPqENsDFAWB&categoryId=AZROkFPqENsDFAWB&categoryType=CODE"
+    },
+    {
+      "number": 23791,
+      "title": "지명 선수",
+      "level": "D3",
+      "contestProbId": "AZU2weVqkoPHBIRK",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZU2weVqkoPHBIRK&categoryId=AZU2weVqkoPHBIRK&categoryType=CODE"
+    },
+    {
+      "number": 24001,
+      "title": "로봇 언어",
+      "level": "D3",
+      "contestProbId": "AZVqPrHaAy_HBIOy",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZVqPrHaAy_HBIOy&categoryId=AZVqPrHaAy_HBIOy&categoryType=CODE"
+    },
+    {
+      "number": 24396,
+      "title": "공과 상자",
+      "level": "D3",
+      "contestProbId": "AZZ_XjxKgVLHBINj",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZZ_XjxKgVLHBINj&categoryId=AZZ_XjxKgVLHBINj&categoryType=CODE"
+    },
+    {
+      "number": 24397,
+      "title": "거듭제곱 후 나누기",
+      "level": "D4",
+      "contestProbId": "AZZ_X7N6gWDHBINj",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZZ_X7N6gWDHBINj&categoryId=AZZ_X7N6gWDHBINj&categoryType=CODE"
+    },
+    {
+      "number": 24420,
+      "title": "집합 비교",
+      "level": "D3",
+      "contestProbId": "AZcKaddqidnHBITY",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZcKaddqidnHBITY&categoryId=AZcKaddqidnHBITY&categoryType=CODE"
+    },
+    {
+      "number": 24524,
+      "title": "레벨업",
+      "level": "D3",
+      "contestProbId": "AZelvp3qmdDHBISV",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZelvp3qmdDHBISV&categoryId=AZelvp3qmdDHBISV&categoryType=CODE"
+    },
+    {
+      "number": 24527,
+      "title": "장애물 피하기",
+      "level": "D4",
+      "contestProbId": "AZelzNgKmknHBISV",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZelzNgKmknHBISV&categoryId=AZelzNgKmknHBISV&categoryType=CODE"
+    },
+    {
+      "number": 24696,
+      "title": "직육면체 자르기",
+      "level": "D3",
+      "contestProbId": "AZhd5eNKLHnHBINp",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZhd5eNKLHnHBINp&categoryId=AZhd5eNKLHnHBINp&categoryType=CODE"
+    },
+    {
+      "number": 25330,
+      "title": "거리 문자열",
+      "level": "D3",
+      "contestProbId": "AZjpmyoKGZTHBIO0",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZjpmyoKGZTHBIO0&categoryId=AZjpmyoKGZTHBIO0&categoryType=CODE"
+    },
+    {
+      "number": 25331,
+      "title": "최소공배수 집합",
+      "level": "D4",
+      "contestProbId": "AZjpm1GaGZjHBIO0",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZjpm1GaGZjHBIO0&categoryId=AZjpm1GaGZjHBIO0&categoryType=CODE"
+    },
+    {
+      "number": 25469,
+      "title": "페인트칠",
+      "level": "D3",
+      "contestProbId": "AZlP2QbavInHBIO0",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZlP2QbavInHBIO0&categoryId=AZlP2QbavInHBIO0&categoryType=CODE"
+    },
+    {
+      "number": 25471,
+      "title": "약수 게임",
+      "level": "D4",
+      "contestProbId": "AZlP4WFKvNPHBIO0",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZlP4WFKvNPHBIO0&categoryId=AZlP4WFKvNPHBIO0&categoryType=CODE"
+    },
+    {
+      "number": 25655,
+      "title": "유치원생은 쉽게 푸는 문제",
+      "level": "D3",
+      "contestProbId": "AZmeHlF68SDHBIPN",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZmeHlF68SDHBIPN&categoryId=AZmeHlF68SDHBIPN&categoryType=CODE"
+    },
+    {
+      "number": 25656,
+      "title": "등비수열의 합집합",
+      "level": "D4",
+      "contestProbId": "AZmeJDoq8TXHBIPN",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZmeJDoq8TXHBIPN&categoryId=AZmeJDoq8TXHBIPN&categoryType=CODE"
+    },
+    {
+      "number": 25695,
+      "title": "세 정수",
+      "level": "D3",
+      "contestProbId": "AZqV4CD6bJLHBIPC",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZqV4CD6bJLHBIPC&categoryId=AZqV4CD6bJLHBIPC&categoryType=CODE"
+    },
+    {
+      "number": 25697,
+      "title": "점프점프 1",
+      "level": "D4",
+      "contestProbId": "AZqV8I5qbfHHBIPC",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZqV8I5qbfHHBIPC&categoryId=AZqV8I5qbfHHBIPC&categoryType=CODE"
+    },
+    {
+      "number": 25837,
+      "title": "합과 곱",
+      "level": "D3",
+      "contestProbId": "AZtxkCpquDPHBIQE",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZtxkCpquDPHBIQE&categoryId=AZtxkCpquDPHBIQE&categoryType=CODE"
+    },
+    {
+      "number": 25838,
+      "title": "여우 줄이기",
+      "level": "D4",
+      "contestProbId": "AZtxnSyquD7HBIQE",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZtxnSyquD7HBIQE&categoryId=AZtxnSyquD7HBIQE&categoryType=CODE"
+    },
+    {
+      "number": 26009,
+      "title": "곱의 합",
+      "level": "D3",
+      "contestProbId": "AZv9opVqDDXHBIQE",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZv9opVqDDXHBIQE&categoryId=AZv9opVqDDXHBIQE&categoryType=CODE"
+    },
+    {
+      "number": 26011,
+      "title": "정수들의 합",
+      "level": "D4",
+      "contestProbId": "AZv-iZeqx2PHBIN6",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZv-iZeqx2PHBIN6&categoryId=AZv-iZeqx2PHBIN6&categoryType=CODE"
+    },
+    {
+      "number": 26389,
+      "title": "여행",
+      "level": "D3",
+      "contestProbId": "AZyNUDmaATzHBIRj",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZyNUDmaATzHBIRj&categoryId=AZyNUDmaATzHBIRj&categoryType=CODE"
+    },
+    {
+      "number": 26390,
+      "title": "트리 바꾸기",
+      "level": "D4",
+      "contestProbId": "AZyNVrgKAVXHBIRj",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZyNVrgKAVXHBIRj&categoryId=AZyNVrgKAVXHBIRj&categoryType=CODE"
+    },
+    {
+      "number": 26502,
+      "title": "쉬운 삼각형",
+      "level": "D3",
+      "contestProbId": "AZz7DObKASzHBIRj",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZz7DObKASzHBIRj&categoryId=AZz7DObKASzHBIRj&categoryType=CODE"
+    },
+    {
+      "number": 26504,
+      "title": "MST 만들기",
+      "level": "D4",
+      "contestProbId": "AZz7FPpqAUnHBIRj",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZz7FPpqAUnHBIRj&categoryId=AZz7FPpqAUnHBIRj&categoryType=CODE"
+    },
+    {
+      "number": 26792,
+      "title": "덧셈과 뺄셈",
+      "level": "D3",
+      "contestProbId": "AZ3XsaWKSB3HBIPV",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZ3XsaWKSB3HBIPV&categoryId=AZ3XsaWKSB3HBIPV&categoryType=CODE"
+    },
+    {
+      "number": 26793,
+      "title": "게으름뱅이",
+      "level": "D4",
+      "contestProbId": "AZ3XsxFqSCvHBIPV",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZ3XsxFqSCvHBIPV&categoryId=AZ3XsxFqSCvHBIPV&categoryType=CODE"
+    },
+    {
+      "number": 26837,
+      "title": "DNA 수열",
+      "level": "D3",
+      "contestProbId": "AZ5ipX4ahvPHBITl",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZ5ipX4ahvPHBITl&categoryId=AZ5ipX4ahvPHBITl&categoryType=CODE"
+    },
+    {
+      "number": 26838,
+      "title": "화려한 경로",
+      "level": "D4",
+      "contestProbId": "AZ5irXmKhwrHBITl",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZ5irXmKhwrHBITl&categoryId=AZ5irXmKhwrHBITl&categoryType=CODE"
+    },
+    {
+      "number": 27005,
+      "title": "산불 수열",
+      "level": "D3",
+      "contestProbId": "AZ8R7IlKeXjHBITH",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZ8R7IlKeXjHBITH&categoryId=AZ8R7IlKeXjHBITH&categoryType=CODE"
+    },
+    {
+      "number": 27006,
+      "title": "대칭 찾기",
+      "level": "D4",
+      "contestProbId": "AZ8R8haaeYnHBITH",
+      "url": "https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AZ8R8haaeYnHBITH&categoryId=AZ8R8haaeYnHBITH&categoryType=CODE"
+    }
+  ]
+}

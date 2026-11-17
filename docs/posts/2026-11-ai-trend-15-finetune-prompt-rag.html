@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>파인튜닝 vs 프롬프트 vs RAG — 모델을 바꿀지, 입력을 바꿀지 · 이영주</title>
+<meta name="description" content="같은 문제를 프롬프트로 풀지, 검색(RAG)으로 풀지, 파인튜닝으로 풀지를 정하는 기준을 정리했습니다. 세 방법은 각각 지시·지식·행동을 바꾸고, 고르는 순서보다 평가 기준을 먼저 세우는 것이 중요합니다.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="이영주 포트폴리오">
+<meta property="og:title" content="파인튜닝 vs 프롬프트 vs RAG — 모델을 바꿀지, 입력을 바꿀지 · 이영주">
+<meta property="og:description" content="같은 문제를 프롬프트로 풀지, 검색(RAG)으로 풀지, 파인튜닝으로 풀지를 정하는 기준을 정리했습니다. 세 방법은 각각 지시·지식·행동을 바꾸고, 고르는 순서보다 평가 기준을 먼저 세우는 것이 중요합니다.">
+<meta property="og:url" content="https://0ju12.github.io/posts/2026-11-ai-trend-15-finetune-prompt-rag.html">
+<meta property="og:image" content="https://0ju12.github.io/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#18181b">
+<script>/* 방문 수 집계 (가입 없는 공개 카운터, 쿠키 없음, 숫자만 올림). 본인 기기 제외: 주소 뒤에 ?nostat=1 을 한 번 붙여 열기 */
+(function(){try{var L=localStorage,S=sessionStorage;if(location.search.indexOf('nostat=1')>-1)L.setItem('nostat','1');if(location.search.indexOf('nostat=0')>-1)L.removeItem('nostat');
+if(L.getItem('nostat')||navigator.webdriver||!/github\.io$/.test(location.hostname)||/bot|crawl|spider|headless|lighthouse/i.test(navigator.userAgent))return;
+var B='https://abacus.jasoncameron.dev/hit/pf-3c8cffe9/',h=function(k){try{fetch(B+encodeURIComponent(k.slice(0,60)),{keepalive:true}).catch(function(){})}catch(e){}};
+var p=location.pathname.replace(/^\/+|\/+$/g,'').replace(/\.html$/,'').replace(/\//g,'.')||'home';if(p==='index')p='home';
+var d=new Date().toISOString().slice(0,10).replace(/-/g,'');
+if(!S.getItem('st:'+p)){S.setItem('st:'+p,'1');h('p.'+p);h('d.'+d);if(!S.getItem('st:v')){S.setItem('st:v','1');h('v.'+d);h('v.all')}}
+window.stat=function(e){if(!S.getItem('se:'+e)){S.setItem('se:'+e,'1');h('e.'+e)}};
+document.addEventListener('click',function(ev){var a=ev.target.closest&&ev.target.closest('a[href]');if(!a)return;var u=a.getAttribute('href');
+if(/resume|cv[./]/.test(u))stat('resume');else if(/github\.com/.test(u))stat('github');else if(/doi\.org|koreascience/.test(u))stat('paper');else if(/^mailto:/.test(u))stat('mail');else if(/linkedin/.test(u))stat('linkedin');else if(/data-projects|\/demo/.test(u))stat('demo')},true);
+}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--surface:#f7f7f8;--text:#0d0d0f;--muted:#5d5f66;--line:#e7e7ea;--accent:#0a7c66;--accent-2:#14b8a6;--chip:#eef2f1;--code:#0f1117;--code-text:#e6e6e6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}}
+:root[data-theme="dark"]{--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.85 "Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:740px;margin:0 auto;padding:0 20px}
+nav{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;padding:10px 2px}
+nav .home{font-weight:900;color:var(--text);margin-right:auto}
+#theme{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 12px;font:inherit;font-size:12px;cursor:pointer}
+header.post{padding:56px 0 28px;border-bottom:2px solid var(--text);margin-bottom:36px}
+header.post .meta{color:var(--accent);font-weight:700;font-size:14px;letter-spacing:.04em}
+header.post h1{font-size:clamp(28px,5vw,42px);line-height:1.25;letter-spacing:-.03em;margin:10px 0 14px;font-weight:900}
+header.post p{color:var(--muted);margin:0 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--chip);color:var(--muted)}
+article h2{font-size:24px;letter-spacing:-.02em;margin:48px 0 14px;font-weight:900}
+article h3{font-size:19px;margin:32px 0 10px}
+article p,article li{margin:0 0 16px}
+article ul,article ol{padding-left:22px}
+article li{margin-bottom:6px}
+article blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--surface);border-radius:0 12px 12px 0;font-weight:700}
+article blockquote p{margin:0}
+article code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em;background:var(--chip);padding:2px 6px;border-radius:6px}
+article pre{background:var(--code);color:var(--code-text);padding:18px 20px;border-radius:14px;overflow-x:auto;line-height:1.6;margin:0 0 20px}
+article pre code{background:none;padding:0;font-size:13.5px;color:inherit}
+article table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:15px;display:block;overflow-x:auto}
+article th,article td{border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+article th{background:var(--surface)}
+.endcard{margin:56px 0 0;padding:24px;border:1px solid var(--line);border-radius:18px;background:var(--surface);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.endcard b{display:block}
+.endcard span{color:var(--muted);font-size:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--line);color:var(--text);background:var(--bg)}
+.others{margin:40px 0 0}
+.others a{display:block;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--text);font-weight:700}
+.others a span{display:block;color:var(--muted);font-weight:400;font-size:14px}
+footer{padding:64px 0 40px;color:var(--muted);font-size:13px}
+.readbar{position:fixed;top:0;left:0;height:3px;width:0;background:var(--text);z-index:60;transition:width .1s linear}
+.series{margin:36px 0 0;padding:20px 22px;border:1px solid var(--line);border-radius:18px;background:var(--card)}
+.series b{font-size:15px}.series ol{margin:10px 0 0;padding-left:20px;font-size:14.5px;line-height:1.6}.series li{padding:3px 0}.series li small{color:var(--muted);margin-left:8px;font-size:12.5px}.series li.me a{font-weight:800;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="readbar" id="readbar"></div>
+<div class="wrap">
+  <nav><a class="home" href="../index.html">Young-Ju Lee</a><a href="../index.html#writing">Writing</a><a href="../index.html#work">Work</a><button id="theme" type="button">테마</button></nav>
+  <header class="post">
+    <div class="meta"><a href="ai-trend.html" style="color:inherit">AI 트렌드 노트</a> #15 · 2026-11-17 · 6분 읽기</div>
+    <h1>파인튜닝 vs 프롬프트 vs RAG — 모델을 바꿀지, 입력을 바꿀지</h1>
+    <p>같은 문제를 프롬프트로 풀지, 검색(RAG)으로 풀지, 파인튜닝으로 풀지를 정하는 기준을 정리했습니다. 세 방법은 각각 지시·지식·행동을 바꾸고, 고르는 순서보다 평가 기준을 먼저 세우는 것이 중요합니다.</p>
+    <div class="chips"><span class="chip">파인튜닝</span><span class="chip">RAG</span><span class="chip">프롬프트</span></div>
+  </header>
+  <article><blockquote>
+<p><strong>한 줄 요약</strong> — 지난 회차에서 작은 모델을 좁은 과제에 맞추는 방법으로 "미세조정"을 미뤄 두었습니다. 모델이 원하는 대로 답하지 않을 때 손댈 수 있는 곳은 세 군데입니다. <strong>지시를 바꾸거나(프롬프트), 보여 주는 자료를 바꾸거나(RAG), 모델 자체를 바꾸는(파인튜닝)</strong> 것입니다. 문제의 원인이 어디에 있는지에 따라 고를 곳이 달라집니다.</p>
+</blockquote>
+<h2>핵심 개념</h2>
+<ul>
+<li><strong>프롬프트</strong>: 모델의 가중치는 그대로 두고 지시문·예시·출력 형식을 바꿉니다. 고치고 확인하는 데 몇 분이면 됩니다.</li>
+<li><strong>RAG</strong>: 질문할 때마다 관련 자료를 찾아 입력에 붙입니다(#7). 모델이 <strong>모르는 사실</strong>, 자주 바뀌는 사실, 사내 문서처럼 학습에 없던 지식을 다룰 때 씁니다.</li>
+<li><strong>파인튜닝</strong>: 예시 데이터로 모델의 가중치를 조금 바꿉니다. 지식을 넣기보다는 <strong>말투·형식·판단 기준 같은 행동</strong>을 일관되게 만들 때 맞습니다. LoRA·QLoRA처럼 일부 가중치만 학습하는 방법이 흔합니다.</li>
+<li><strong>비유</strong>: 신입 직원에게 일을 맡기는 경우와 같습니다. 업무 지시서를 고쳐 주는 것이 프롬프트, 참고할 자료철을 책상에 놓아 주는 것이 RAG, 몇 주 동안 같은 일을 반복해 몸에 익히게 하는 것이 파인튜닝입니다. 자료철이 없어서 틀리는 사람을 몇 주 훈련시켜도 자료에 없는 내용은 여전히 모릅니다.</li>
+</ul>
+<h2>지금 무슨 일이 일어나고 있나</h2>
+<ul>
+<li><strong>"프롬프트부터, 평가 세트와 함께"가 공통 권고입니다.</strong> OpenAI의 정확도 최적화 가이드는 프롬프트로 시작해 평가 세트로 기준선을 잡고, 문제가 <strong>지식 부족</strong>이면 RAG, <strong>행동 불일치</strong>면 파인튜닝으로 가라고 정리합니다. 다만 이 순서를 한 번 지나가는 직선이 아니라 반복하는 과정으로 설명합니다.</li>
+<li><strong>2026년의 실무 정리들도 같은 구분을 씁니다.</strong> "프롬프트는 지시를, RAG는 모델이 볼 수 있는 지식을, 파인튜닝은 모델의 행동을 바꾼다"는 식의 정리가 여러 글에 반복됩니다. 셋을 함께 쓰는 구성(파인튜닝으로 형식, RAG로 지식, 프롬프트로 조율)도 흔하다고 소개됩니다. 다만 비용·기간 수치는 글마다 크게 다르고 출처가 없는 경우가 많아 이 글에서는 인용하지 않습니다.</li>
+<li><strong>연구 결과는 한쪽으로 모이지 않습니다.</strong> 의료 분야 리뷰는 RAG를 비용 대비 효과가 좋은 방법으로, 파인튜닝을 데이터가 충분할 때 정확도가 높은 방법으로 정리합니다. 물류 분야의 한 연구는 검색으로 고른 예시를 프롬프트에 넣는 방식이 전통적인 파인튜닝보다 나았다고 보고합니다. 과제와 데이터 양에 따라 결과가 달라진다는 뜻으로 읽는 것이 맞습니다.</li>
+<li><strong>파인튜닝이 RAG를 돕기도 합니다.</strong> OpenAI의 예제(오래된 자료)는 RAG 위에 파인튜닝을 더해 "자료에 답이 없을 때 모른다고 하기"를 개선한 사례를 보입니다. 지식이 아니라 <strong>행동</strong>을 학습시킨 경우입니다.</li>
+</ul>
+<h2>동작 구조</h2>
+<pre><code>모델 답이 기대와 다르다
+   │
+   ├─ 지시가 모호하다 / 형식이 흔들린다 ─────▶ 프롬프트 수정 (예시·출력 형식)
+   │
+   ├─ 모델이 모르는 사실이다 / 자주 바뀐다 ───▶ RAG (검색 품질부터 확인)
+   │
+   └─ 프롬프트로 고쳐도 행동이 일관되지 않다 ─▶ 파인튜닝 (좋은 예시 데이터가 있을 때)
+                 │
+           모든 단계에서 같은 평가 세트로 비교
+</code></pre>
+<pre><code class="language-python">def choose(evalset):
+    base = score(prompt_v1, evalset)                  # 기준선
+    errs = classify_errors(prompt_v1, evalset)        # 틀린 이유를 직접 분류
+    if errs.most_common == &quot;instruction&quot;:
+        return improve_prompt()                       # 몇 분~몇 시간
+    if errs.most_common == &quot;missing_knowledge&quot;:
+        return add_retrieval(), check_recall()        # 검색이 맞는 문서를 가져오는지부터
+    if errs.most_common == &quot;inconsistent_behavior&quot; and has_good_examples():
+        return finetune(examples), compare(base)      # 같은 평가 세트로 다시 측정
+</code></pre>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>프롬프트</th>
+<th>RAG</th>
+<th>파인튜닝</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>바꾸는 것</td>
+<td>지시·예시</td>
+<td>입력에 붙는 자료</td>
+<td>모델 가중치</td>
+</tr>
+<tr>
+<td>잘 고치는 문제</td>
+<td>모호한 지시, 형식</td>
+<td>모르는 사실, 최신 정보</td>
+<td>일관된 행동·말투·판단</td>
+</tr>
+<tr>
+<td>준비물</td>
+<td>평가 세트</td>
+<td>문서·검색 파이프라인</td>
+<td>질 좋은 학습 예시</td>
+</tr>
+<tr>
+<td>수정 속도</td>
+<td>빠름</td>
+<td>문서만 바꾸면 반영</td>
+<td>다시 학습해야 함</td>
+</tr>
+<tr>
+<td>출처 제시</td>
+<td>어려움</td>
+<td>가능(검색된 문서)</td>
+<td>어려움</td>
+</tr>
+</tbody>
+</table>
+<h2>왜 중요한가 / 한계</h2>
+<ul>
+<li><strong>원인을 잘못 짚으면 비용만 듭니다.</strong> 지식이 없어서 틀리는 문제를 파인튜닝으로 풀려고 하면, 학습 데이터에 없던 질문에서는 여전히 틀리고 그럴듯한 답만 늘 수 있습니다.</li>
+<li><strong>한계 1 — 오류 분류가 먼저입니다.</strong> 위 의사코드의 <code>classify_errors</code>는 사람이 틀린 답을 직접 보고 나누는 단계입니다. 이걸 건너뛰면 어느 방법이 맞는지 판단할 근거가 없습니다(#10의 평가와 이어집니다).</li>
+<li><strong>한계 2 — RAG의 실패는 검색에서 많이 납니다.</strong> 생성 단계만 고쳐서는 맞는 문서를 못 가져오는 문제가 해결되지 않습니다. 검색 재현율을 따로 재야 합니다.</li>
+<li><strong>한계 3 — 파인튜닝은 유지 비용이 따라옵니다.</strong> 기반 모델이 바뀌면 다시 학습해야 하고, 학습 순서에 따라 앞서 배운 것을 잊는 문제도 생깁니다.</li>
+<li><strong>한계 4 — 섞을수록 원인 추적이 어려워집니다.</strong> 셋을 다 쓰면 어디서 틀렸는지 나누기 어려워지므로, 단계마다 따로 평가할 수 있게 만들어야 합니다.</li>
+</ul>
+<h2>내 프로젝트와 연결</h2>
+<ul>
+<li><strong>국보 입문 가이드</strong>는 RAG를 택한 사례입니다. 국보 설명은 모델이 정확히 알 것이라고 기대할 수 없는 지식이라 검색으로 자료를 붙였고, 답에 붙은 근거 번호가 실제 검색 결과에 있는지 코드로 확인했습니다. 지식 문제를 검색으로, 출처 문제를 코드 검증으로 나눠 다룬 것입니다.</li>
+<li><strong>POSPEAK(KILL KONG)</strong> 에서는 FLAN-T5에 LoRA를 붙여 콩글리시 교정이라는 좁은 행동을 학습시켰고, 학습 전략에 따라 F1이 0.32에서 0.74로 달라졌습니다. 같은 파인튜닝이라도 데이터 구성과 학습 순서가 결과를 크게 바꾼다는 것을 본 사례이고, 앞서 배운 것을 잊는 문제도 겪었습니다.</li>
+<li><strong>AI 챌린지 VQA</strong>에서는 QLoRA 미세조정과 여러 관점의 확률 앙상블을 함께 썼습니다. 무엇을 채택할지는 정확도 평균이 아니라 고친 문항과 망친 문항 수(fixes−breaks)로 판단했습니다. 위에서 말한 "같은 평가 세트로 비교"를 실제로 적용한 방식입니다.</li>
+<li><strong>관통 4·5</strong>에서는 모델을 바꾸지 않고 프롬프트와 출력 검증 코드로 LLM 판단을 다뤘습니다. 파인튜닝을 하지 않은 대신 형식이 깨진 출력을 코드에서 걸러 냈습니다.</li>
+</ul>
+<h2>면접 질문</h2>
+<p><strong>Q. 파인튜닝, RAG, 프롬프트 개선 중 무엇을 먼저 하겠습니까?</strong></p>
+<blockquote>
+<p>먼저 평가 세트를 만들고 지금 프롬프트로 기준선을 잡은 뒤, 틀린 답을 직접 보고 원인을 나누겠습니다. 지시가 모호해서 틀리면 프롬프트를, 모델이 모르는 사실이라서 틀리면 RAG를, 프롬프트로도 행동이 일관되지 않고 좋은 예시 데이터가 있으면 파인튜닝을 고르겠습니다. 국보 가이드는 지식 문제라 RAG를 택했고, POSPEAK은 교정이라는 좁은 행동이라 LoRA 파인튜닝을 했습니다. 어느 경우든 같은 평가 세트로 전후를 비교했고, VQA 챌린지에서는 고친 문항과 망친 문항을 세어 채택 여부를 정했습니다.</p>
+</blockquote>
+<h2>출처</h2>
+<ul>
+<li>OpenAI, <a href="https://developers.openai.com/api/docs/guides/optimizing-llm-accuracy">Optimizing LLM Accuracy</a> — 프롬프트 → RAG → 파인튜닝의 구분과 평가 세트 권고 (작성 시점이 오래된 문서)</li>
+<li>OpenAI Cookbook, <a href="https://developers.openai.com/cookbook/examples/fine-tuned_qa/ft_retrieval_augmented_generation_qdrant">Fine-Tuning for retrieval augmented generation (RAG) with Qdrant</a> — RAG 위에 파인튜닝을 더한 예제 (오래된 자료)</li>
+<li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12292519/">Medical LLMs: Fine-Tuning vs. Retrieval-Augmented Generation</a> — 의료 분야 비교 리뷰</li>
+<li><a href="https://arxiv.org/pdf/2512.19247">Auto-Prompting with Retrieval Guidance for Frame Detection in Logistics</a> — 검색으로 고른 예시와 파인튜닝 비교 (한 분야의 결과)</li>
+<li>Analytics Vidhya, <a href="https://www.analyticsvidhya.com/blog/2026/03/fine-tuning-vs-rag-vs-prompt-engineering/">Fine-Tuning vs RAG vs Prompt Engineering</a> (2026.03, 2차 자료)</li>
+</ul></article>
+  <div class="endcard">
+    <div><b>AI 트렌드 노트 · 16편</b><span>에이전트 개념부터 차례로 이어서 쓰는 시리즈입니다. 다음 회차: #16 비용·지연 최적화 — 캐싱·라우팅·배치로 같은 답을 더 싸고 빠르게</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="2026-11-ai-trend-14-small-on-device-models.html">← #14</a><a class="btn" href="ai-trend.html">전체 목록</a><a class="btn" href="2026-11-ai-trend-16-cost-latency-optimization.html">#16 →</a></div>
+  </div>
+<div class="others"><b style="font-size:14px;color:var(--muted)">다른 글</b><a href="2026-11-ai-trend-16-cost-latency-optimization.html">비용·지연 최적화 — 캐싱·라우팅·배치로 같은 답을 더 싸고 빠르게<span>LLM 서비스의 비용과 지연을 줄이는 세 가지 장치, 프롬프트 캐싱·모델 라우팅·배치 처리를 정리했습니다. 공식 문서의 캐시 수명과 가격 배수, 그리고 캐시가 맞지 않는 구조를 봅니다.</span></a><a href="2026-11-ai-trend-14-small-on-device-models.html">소형·온디바이스 모델 — 작은 모델로 충분한 일은 얼마나 되나<span>수십억 개 이하 파라미터의 작은 모델을 기기 안에서 돌리는 흐름을 정리했습니다. 양자화가 무엇을 줄이는지, 큰 모델과 작은 모델을 섞어 쓰는 구조, 그리고 &#39;작아도 된다&#39;는 주장의 조건을 봅니다.</span></a><a href="2026-11-ai-trend-13-reasoning-test-time-compute.html">추론 모델과 test-time compute — 더 오래 생각하게 하면 무엇이 달라지나<span>답하기 전에 생각하는 데 계산을 더 쓰는 추론 모델의 원리와, &#39;생각 예산&#39;을 조절할 때 생기는 비용·지연·과잉 사고 문제를 정리했습니다.</span></a><a href="2026-11-ai-trend-12-computer-use.html">컴퓨터 사용 에이전트 — 화면을 보고 클릭하는 모델<span>API가 없는 프로그램을 사람처럼 화면으로 다루는 에이전트를 정리했습니다. 화면 캡처 → 좌표 → 행동의 루프, 벤치마크 점수가 사람 기준선을 넘었다는 보고와 그 점수를 그대로 믿기 어려운 이유를 봅니다.</span></a><a href="2026-11-ai-trend-11-coding-agents.html">코딩 에이전트 — 코드를 쓰는 것보다 확인하는 것이 일이다<span>자동 완성에서 &#39;저장소를 읽고, 고치고, 테스트를 돌리는&#39; 에이전트로 넘어온 흐름을 정리했습니다. 벤치마크 점수가 출처마다 엇갈리는 이유와, 사람의 일이 작성에서 검증으로 옮겨 가는 지점을 봅니다.</span></a><a href="2026-11-ai-trend-10-agent-evaluation.html">에이전트 평가 — 점수가 높다는 것과 믿을 수 있다는 것<span>에이전트는 답 하나가 아니라 과정 전체를 평가해야 합니다. 채점기의 세 종류, 한 번 성공과 매번 성공의 차이, 그리고 공개 벤치마크 점수가 오염으로 흔들리는 사례를 정리했습니다.</span></a><a href="2026-11-ai-trend-09-guardrails-prompt-injection.html">가드레일과 프롬프트 인젝션 방어 — 모델이 읽는 모든 글이 공격 경로다<span>프롬프트 인젝션이 왜 필터 하나로 막히지 않는지, 직접·간접 인젝션의 차이와 &#39;탐지&#39;에서 &#39;권한 설계&#39;로 옮겨 가는 방어 흐름을 정리했습니다.</span></a><a href="2026-11-ai-trend-08-multi-agent.html">멀티 에이전트 오케스트레이션 — 나누면 빨라지지만 맥락이 끊긴다<span>일을 여러 에이전트에게 나눠 맡기는 구조(지휘자-작업자, 핸드오프)의 장단점을 정리했습니다. 병렬 조사에서는 효과가 보고됐지만 토큰이 크게 늘고, 맥락이 쪼개져 생기는 실패가 따로 연구될 만큼 흔합니다.</span></a><a href="2026-11-ai-trend-07-agentic-rag.html">RAG에서 Agentic RAG로 — 검색을 한 번 할지, 에이전트가 여러 번 할지<span>한 번 검색해 답하는 RAG와, 검색 여부·횟수·결과 품질을 스스로 판단하는 Agentic RAG의 차이를 정리했습니다. Self-RAG·CRAG·Adaptive-RAG가 각각 어느 판단을 추가했는지와, 반복이 늘 때 생기는 비용과 평가 문제를 봅니다.</span></a><a href="2026-11-ai-trend-06-agent-memory.html">에이전트 메모리 — 대화가 끝나도 남는 것과 남기면 안 되는 것<span>컨텍스트 창 안의 단기 기억과 대화 밖에 저장하는 장기 기억을 나누고, 무엇을 쓰고 언제 꺼내는지의 설계를 정리했습니다. 한 번 오염되면 세션이 끝나도 남는 메모리 포이즈닝도 함께 봅니다.</span></a><a href="2026-11-ai-trend-05-react-plan-execute.html">ReAct와 Plan-and-Execute — 에이전트는 어떻게 계획하나<span>한 걸음마다 다시 생각하는 ReAct와, 먼저 계획을 세우고 실행하는 Plan-and-Execute의 차이를 비용·속도·실패 방식으로 비교했습니다. ReWOO·LLMCompiler 같은 변형과 코딩 에이전트의 plan mode까지 이어서 봅니다.</span></a><a href="2026-11-ai-trend-04-a2a.html">에이전트 간 통신 — A2A는 MCP와 무엇이 다른가<span>MCP가 &#39;에이전트와 도구&#39;를 잇는다면 A2A는 &#39;에이전트와 에이전트&#39;를 잇습니다. Agent Card로 상대를 찾고, 상태가 있는 task로 일을 맡기는 구조와, 버전마다 바뀐 부분·엇갈리는 보도를 정리했습니다.</span></a><a href="2026-11-ai-trend-03-mcp.html">MCP — 도구를 매번 새로 붙이지 않는 방법<span>지난 회차의 tool use를 앱마다 다시 만들지 않도록 &#39;도구 서버&#39;를 표준 규격으로 분리한 MCP의 구조(호스트·클라이언트·서버, tools·resources·prompts)와 최근 사양 변화, 보안상 약한 고리를 정리했습니다.</span></a><a href="2026-11-ai-trend-02-tool-use.html">Tool use — 모델은 함수를 실행하지 않는다<span>Function calling의 실제 동작(모델은 호출 &#39;요청&#39;만 만들고 실행은 내 코드가 한다), strict 스키마와 Structured Outputs의 관계, 도구를 쓸 때와 출력 형식만 고정할 때를 구분했습니다.</span></a><a href="2026-11-ai-trend-01-agent.html">AI 에이전트란 무엇인가 — LLM이 도구를 쥐고 반복할 때<span>에이전트를 &#39;도구를 쓰며 스스로 다음 단계를 정하는 LLM 루프&#39;로 정의하고, 워크플로와 무엇이 다른지, 기업 도입 숫자가 왜 엇갈리는지 정리했습니다.</span></a></div>  <footer>© Young-Ju Lee · iyju990312@naver.com</footer>
+</div>
+<script>
+(function(){var r=document.documentElement,K='theme';
+try{var s=localStorage.getItem(K);if(s)r.setAttribute('data-theme',s)}catch(e){}
+var b=document.getElementById('theme');if(b)b.addEventListener('click',function(){
+var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});})();
+</script>
+<script>(function(){var b=document.getElementById('readbar'),a=document.querySelector('article');if(!b||!a)return;function f(){var r=a.getBoundingClientRect(),h=r.height-innerHeight*0.6,p=Math.min(1,Math.max(0,-r.top/(h>0?h:1)));b.style.width=(p*100)+'%'}addEventListener('scroll',function(){requestAnimationFrame(f)},{passive:true});f()})();</script>
+</body>
+</html>
