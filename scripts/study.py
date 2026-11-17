@@ -12,7 +12,7 @@
 - 본문 검색 색인은 같은 키로 암호화해 docs/study/search.enc.json 에 (암호 없는 빌드엔 만들지 않음)
 - manifest.webmanifest · sw.js 로 홈 화면 설치·오프라인 사용
 """
-import base64, html, io, json, os, re, shutil, tempfile, zipfile
+import base64, hashlib, html, io, json, os, re, shutil, tempfile, zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -211,6 +211,11 @@ def build(env, data):
         if asset.is_file():
             shutil.copy2(asset, lab / asset.name)
     lab_html = env.get_template("study_lab.html.j2").render()
+    for asset_name in ("app.js", "style.css", "text-files.js"):
+        asset_path = ROOT / "content" / "study_lab" / asset_name
+        if asset_path.exists():
+            version = hashlib.sha256(asset_path.read_bytes()).hexdigest()[:12]
+            lab_html = lab_html.replace(f'"{asset_name}"', f'"{asset_name}?v={version}"')
     (lab / "index.html").write_text(locker.page("알고리즘 시각화 실험실", lab_html, "../../index.html"), encoding="utf-8")
     notes = [parse(p) for p in sorted(src.glob("*.html"))]
     for n in notes:
