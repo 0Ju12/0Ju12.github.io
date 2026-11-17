@@ -1,5 +1,6 @@
 """Render only synthetic data for browser tests; never unseal personal content."""
 import json
+import shutil
 import sys
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
@@ -15,6 +16,11 @@ def render(target):
     }
     env = Environment(loader=FileSystemLoader(ROOT / 'templates'))
     (target / 'index.html').write_text(env.get_template('interview.html.j2').render(app=app, profile={'name': '검증 사용자'}), encoding='utf-8')
+    lab = target / 'lab'
+    lab.mkdir(exist_ok=True)
+    for asset in (ROOT / 'content/study_lab').iterdir():
+        if asset.is_file(): shutil.copy2(asset, lab / asset.name)
+    (lab / 'index.html').write_text(env.get_template('study_lab.html.j2').render(), encoding='utf-8')
     (target / 'version.json').write_text(json.dumps({'version': 'fixture-v1'}), encoding='utf-8')
 if __name__ == '__main__':
     render(Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / 'work' / 'interview-fixture')

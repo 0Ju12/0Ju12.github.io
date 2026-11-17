@@ -64,6 +64,7 @@ $('export').onclick=()=>{const payload={problem:examples[selected].title,exporte
 $('code').oninput=()=>{breakpoints.clear();invalidate('코드가 바뀌었어요. 다시 실행해 주세요.')};$('code').onscroll=()=>{$('numbers').scrollTop=$('code').scrollTop};$('code').onkeydown=e=>{if(e.key==='Tab'){e.preventDefault();const a=e.target.selectionStart,b=e.target.selectionEnd;e.target.setRangeText('    ',a,b,'end');$('code').oninput()}};$('input').oninput=()=>invalidate('입력이 바뀌었어요. 다시 실행해 주세요.');$('restore').onclick=()=>{persist('algo-code-'+selected,examples[selected].code);persist('algo-input-'+selected,examples[selected].input);selectExample(selected)};$('notesNav').onclick=()=>$('note').scrollIntoView({behavior:'smooth'});$('lab').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
 document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();if(!busy)$('run').click();return}if(/^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(e.target.tagName)||e.target.isContentEditable)return;if(e.key===' '){e.preventDefault();$('play').click()}if(e.key==='ArrowRight'){e.preventDefault();$('next').click()}if(e.key==='ArrowLeft'){e.preventDefault();$('prev').click()}});// Same-origin handoff: only code and note identity are passed, never study keys.
 const params=new URLSearchParams(location.search);
+if(params.get('embedded')!=='1')location.replace('../index.html#/algo');
 const noteSlug=params.get('note')||'list2';
 const safeNote=/^[a-z0-9_]+$/.test(noteSlug)?noteSlug:'list2';
 const noteHref='../notes/'+safeNote+'.html';
@@ -82,4 +83,32 @@ if(params.get('import')==='note'){
         $('desc').textContent='필요한 입력값을 넣고 실행하세요. 원본 강의 노트는 수정되지 않습니다.';
         invalidate('강의 코드를 가져왔어요. 입력값을 확인하고 실행하세요.');
     }else notify('가져올 코드가 없거나 만료되었어요. 노트에서 다시 열어 주세요.');
+}
+
+// Embedded workspace: the host owns per-problem drafts and portable backups.
+if(params.get('embedded')==='1'){
+    document.body.classList.add('embedded-workspace');
+    const workToken=params.get('token');
+    let loaded=false;
+    function emitWork(){if(!loaded)return;window.parent.postMessage({type:'algo-work:state',token:workToken,code:$('code').value,input:$('input').value,output:finalOutput,error:runError,ran:events.length>0},location.origin)}
+    window.addEventListener('message',function(e){
+        const m=e.data;
+        if(e.source!==window.parent||e.origin!==location.origin||!m||m.type!=='algo-work:load'||m.token!==workToken||loaded)return;
+        if(typeof m.code!=='string'||m.code.length>100000||typeof m.input!=='string'||m.input.length>100000)return;
+        loaded=true;stop();if(busy)cancelRun();events=[];pos=0;finalOutput='';runError=null;
+        $('code').value=m.code;$('input').value=m.input;
+        $('title').textContent=(m.problem.number?m.problem.number+'. ':'')+m.problem.title;
+        $('filename').textContent='my_solution.py';$('desc').textContent='알고리즘 기록에 연결된 내 풀이';
+        $('concepts').replaceChildren();$('visName').textContent='내 코드 실행 상태';updateWatchOptions();render();
+        $('status').textContent='코드와 입력을 작성하고 실행하세요.';
+        $('restore').hidden=true;
+        emitWork();
+    });
+    $('code').addEventListener('input',emitWork);$('input').addEventListener('input',emitWork);
+    const oldTab=$('code').onkeydown;$('code').onkeydown=function(e){oldTab(e);if(e.key==='Tab')emitWork()};
+    const originalRun=$('run').onclick;
+    $('run').onclick=function(){originalRun();if(worker){const onResult=worker.onmessage;worker.onmessage=function(e){onResult(e);emitWork()}}};
+    window.addEventListener('pagehide',emitWork);
+    window.parent.postMessage({type:'algo-work:ready',token:workToken},location.origin);
+    if(typeof ResizeObserver!=='undefined')new ResizeObserver(function(){window.parent.postMessage({type:'algo-work:height',token:workToken,height:document.body.scrollHeight+24},location.origin)}).observe(document.body);
 }

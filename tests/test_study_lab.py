@@ -38,7 +38,7 @@ class StudyLabTest(unittest.TestCase):
             for name in ['app.js','worker.js','style.css']:
                 self.assertTrue((out / 'lab' / name).exists())
             injected=study.inject(notes[0],None,None)
-            self.assertIn('../lab/index.html?example=fly&amp;note=list2',injected)
+            self.assertIn('../index.html#/algo',injected)
             self.assertIn('../lab/note-bridge.js',injected)
 
     def test_non_algorithm_note_has_no_python_handoff(self):
