@@ -1,0 +1,182 @@
+{
+  "repository": "0Ju12/swea-solutions",
+  "branch": "main",
+  "observedAt": "2026-11-17",
+  "items": [
+    {
+      "number": 14510,
+      "path": "backtracking-dp-greedy/14510_tree_height.py",
+      "sha": "cb1c8a234af030112a0c273fd324f3bda00f8257"
+    },
+    {
+      "number": 1952,
+      "path": "backtracking-dp-greedy/1952_swimming_pool_dp.py",
+      "sha": "4a2ebd28265480708a196b544071514e031c1826"
+    },
+    {
+      "number": 22375,
+      "path": "backtracking-dp-greedy/22375_switch_greedy.py",
+      "sha": "6496591bbca87ca49c53a3eaa2bc3d58c7f49723"
+    },
+    {
+      "number": 2806,
+      "path": "backtracking-dp-greedy/2806_n_queen.py",
+      "sha": "cfed1ba420d5643daf4460c906697e4ee1a15a0c"
+    },
+    {
+      "number": 3234,
+      "path": "backtracking-dp-greedy/3234_balance_a_backtracking.py",
+      "sha": "977821834278f659f0424ee43b98bb83d90562c3"
+    },
+    {
+      "number": 3234,
+      "path": "backtracking-dp-greedy/3234_balance_b_bitmask_memo.py",
+      "sha": "2c135f3836ae0768cce8fdf6a3130d08ced47a2f"
+    },
+    {
+      "number": 1219,
+      "path": "graph/1219_find_road.py",
+      "sha": "b5d63d98b5b5bf53a02671c9322396ba006d61d9"
+    },
+    {
+      "number": 1251,
+      "path": "graph/1251_hanaro_prim.py",
+      "sha": "036bc1cd97217d85574eb16503559c038aa3127b"
+    },
+    {
+      "number": 1267,
+      "path": "graph/1267_task_order_a.py",
+      "sha": "1d8c8ec12096fa140cab3f8c683076791f123ae9"
+    },
+    {
+      "number": 1267,
+      "path": "graph/1267_task_order_b.py",
+      "sha": "16016ed747ea7b804bf858315c1a158b8fee1e2c"
+    },
+    {
+      "number": 10761,
+      "path": "implementation/10761_bot_trust.py",
+      "sha": "c49bf26b2a5496b3699b8fc6018b7f761dde0acc"
+    },
+    {
+      "number": 1208,
+      "path": "implementation/1208_flatten.py",
+      "sha": "73f9c4f1f0218a143c31eb9010f43aa6b46700dc"
+    },
+    {
+      "number": 12712,
+      "path": "implementation/12712_fly_swatter3.py",
+      "sha": "625593075d5b45fbc3c836ea276aa48e3ec9d16c"
+    },
+    {
+      "number": 18575,
+      "path": "implementation/18575_balloon_bonus.py",
+      "sha": "a362bce4c5c88e4ab94e54fc440526295f41324a"
+    },
+    {
+      "number": 1860,
+      "path": "implementation/1860_bungeoppang.py",
+      "sha": "a939ec8a52731029980a29a261139094bfab2509"
+    },
+    {
+      "number": 1926,
+      "path": "implementation/1926_simple_369.py",
+      "sha": "79a9e18dfe80a6ef4500ac694ca15fa4f09472e4"
+    },
+    {
+      "number": 1959,
+      "path": "implementation/1959_two_sequences.py",
+      "sha": "21523c67f3f5b468bd1abe7db1295763e554d1f2"
+    },
+    {
+      "number": 1961,
+      "path": "implementation/1961_rotate_array.py",
+      "sha": "8826a0a1e27fd2c2f485e212f76c168ce9c40325"
+    },
+    {
+      "number": 1974,
+      "path": "implementation/1974_sudoku_check.py",
+      "sha": "2629688044247caa8257f6c86a0f573bebf99b8c"
+    },
+    {
+      "number": 1979,
+      "path": "implementation/1979_word_fit.py",
+      "sha": "250c7ffdb87dc94f42b302fbd0d8199058078a27"
+    },
+    {
+      "number": 2001,
+      "path": "implementation/2001_fly_swatter.py",
+      "sha": "fb64a200abdec7dfe6edf2a8163de908abf31cce"
+    },
+    {
+      "number": 23795,
+      "path": "implementation/23795_space_monster.py",
+      "sha": "148961ec1d91afddadb1b8cce32cef6100781f19"
+    },
+    {
+      "number": 25052,
+      "path": "implementation/25052_hiking_trail.py",
+      "sha": "c3f3ffdf98efd8712f53934d86f8b1cd55e45812"
+    },
+    {
+      "number": 25985,
+      "path": "implementation/25985_max_product.py",
+      "sha": "b9fb6d98c0dffdadef515b4c6a0d93fcfaf7414e"
+    },
+    {
+      "number": 26059,
+      "path": "implementation/26059_fruit_grading.py",
+      "sha": "fe40932cd85a3ca845680b956d60be4c42ffb11b"
+    },
+    {
+      "number": 2805,
+      "path": "implementation/2805_farm_harvest.py",
+      "sha": "d019b9ddd9b93844b299e28114b304a8fd4d0d61"
+    },
+    {
+      "number": 29638,
+      "path": "implementation/29638_downhill.py",
+      "sha": "5c48a17331bd3bb336bfd0ab42d68fb38ca6a3fd"
+    },
+    {
+      "number": 3499,
+      "path": "implementation/3499_perfect_shuffle.py",
+      "sha": "db377475351287ae7d5a9e3752b533b46a492d33"
+    },
+    {
+      "number": 4613,
+      "path": "implementation/4613_russian_flag.py",
+      "sha": "1ca5ebd40d90c1a435692bddb10661d9e10cd6fd"
+    },
+    {
+      "number": 8702,
+      "path": "implementation/8702_carrot_harvest.py",
+      "sha": "e53ccc11fd9d5827cd2009d26e1c30bfd629aad3"
+    },
+    {
+      "number": 1215,
+      "path": "string-stack/1215_palindrome1.py",
+      "sha": "6cdafa601e490c27527a48e9ce51a7d8f99448bb"
+    },
+    {
+      "number": 1218,
+      "path": "string-stack/1218_bracket_pairs.py",
+      "sha": "252ac34c19395bbf43b7ef89cf9a8c823a52ed14"
+    },
+    {
+      "number": 1222,
+      "path": "string-stack/1222_calculator1.py",
+      "sha": "bd86bbe9c2826b752cbc6fa6722d021a565f8f32"
+    },
+    {
+      "number": 21936,
+      "path": "string-stack/21936_palindrome_m.py",
+      "sha": "39bdd50f2e47075d296621c6552b994315cd92fd"
+    },
+    {
+      "number": 26045,
+      "path": "string-stack/26045_subsequence_two_pointer.py",
+      "sha": "290ee6aff9a5fe6f24384b8c3916f20fd928a29b"
+    }
+  ]
+}
