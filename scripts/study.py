@@ -211,7 +211,7 @@ def build(env, data):
         if asset.is_file():
             shutil.copy2(asset, lab / asset.name)
     lab_html = env.get_template("study_lab.html.j2").render()
-    for asset_name in ("app.js", "style.css", "text-files.js"):
+    for asset_name in ("app.js", "style.css", "text-files.js", "visualizers.js"):
         asset_path = ROOT / "content" / "study_lab" / asset_name
         if asset_path.exists():
             version = hashlib.sha256(asset_path.read_bytes()).hexdigest()[:12]

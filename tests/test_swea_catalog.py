@@ -19,4 +19,4 @@ class SweaCatalogTest(unittest.TestCase):
             self.assertIn(p['contestProbId'],p['url'])
             self.assertTrue(p['url'].startswith('https://swexpertacademy.com/'))
     def test_workspace_and_backup_behaviour(self):
-        subprocess.run(['node','--test','tests/swea.test.cjs','tests/drive-sync.test.cjs','tests/text-files.test.cjs'],cwd=ROOT,check=True)
+        subprocess.run(['node','--test','tests/swea.test.cjs','tests/drive-sync.test.cjs','tests/text-files.test.cjs','tests/practice.test.cjs'],cwd=ROOT,check=True)

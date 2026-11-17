@@ -1,0 +1,17 @@
+/* UI wiring uses a deterministic worker; real Python traces are tested separately. */
+const assert=require('node:assert/strict');
+module.exports=async function(page){
+ await page.route('**/lab/worker.js*',r=>r.fulfill({contentType:'text/javascript',body:`onmessage=({data:m})=>{const n=Number(m.input)||1;const vars={arr:[3,1,2],values:[3,6],operators:['+'],queue:[0,1],graph:{0:[1],1:[0]},visited:[true,false],u:0};postMessage({output:String(n*2)+'\\n',error:null,steps:4,elapsedMs:1,events:m.trace===false?[]:[{line:1,vars,stack:[{name:'<module>',line:1,vars:{}},{name:'factorial',line:1,vars:{n:3}}]},{kind:'end',line:null,vars,stack:[]}]})}` }));
+ const frame=page.frameLocator('#sw-frame');await frame.locator('#run').click();await page.waitForFunction(()=>{const f=document.querySelector('#sw-frame');return f.contentDocument.querySelector('#stepCount').textContent!=='0 / 0'});
+ await frame.locator('#visMode').selectOption('stack');await frame.locator('#watchArray').selectOption('values');assert(await frame.locator('.structurePanel').count()>=2);
+ await frame.locator('#visMode').selectOption('graph');await frame.locator('#watchArray').selectOption('graph');assert.equal(await frame.locator('.traceGraph').count(),1);
+ await frame.locator('#visMode').selectOption('calls');assert.equal(await frame.locator('.callFrame').count(),2);
+ await frame.locator('#input').fill('1');await page.locator('#sw-expected').fill('2');await page.waitForFunction(()=>JSON.parse(localStorage.getItem('interview-app-v1')).algoDrafts['swea-2001'].input==='1');
+ await page.locator('#sw-case-add').click();await page.locator('#sw-case-add').click();await page.locator('#sw-case-input').fill('2');await page.locator('#sw-case-expected').fill('999');await page.locator('#sw-batch-run').click();await page.waitForSelector('.testResult.fail');assert.equal(await page.locator('.testResult.pass').count(),1);assert.equal(await page.locator('.testResult.fail').count(),1);
+ await page.locator('.testResult.fail button').click();await page.waitForFunction(()=>document.querySelector('#sw-frame').contentDocument.querySelector('#input').value==='2');
+ await page.locator('[data-mistake="경계 조건 누락"]').click();await page.locator('#sw-save-record').click();const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('interview-app-v1')).algo[0]);assert(saved.versions.length>=2);assert(saved.reviewAt);assert(saved.mistakes.includes('경계 조건 누락'));
+ await page.locator('#sw-versions').evaluate(e=>e.open=true);await page.locator('#sw-version-left').selectOption('0');assert(await page.locator('#sw-version-diff').innerText());
+ page.once('dialog',d=>d.accept());await page.locator('#sw-version-restore').click();await page.waitForFunction(()=>document.querySelector('#sw-frame').contentDocument.querySelector('#code').value.includes('3, 1, 2'));
+ page.once('dialog',d=>d.accept());await page.locator('#sw-blind').click();await page.waitForFunction(()=>document.querySelector('#sw-frame').contentDocument.querySelector('#code').value.includes('다시 풀어'));assert(await page.locator('#sw-versions').isHidden());await page.locator('#sw-reveal').click();assert((await page.locator('#sw-reveal-code').innerText()).includes('3, 1, 2'));
+ await page.locator('#sw-version-left').selectOption('0');page.once('dialog',d=>d.accept());await page.locator('#sw-version-restore').click();await page.waitForFunction(()=>document.querySelector('#sw-frame').contentDocument.querySelector('#code').value.includes('3, 1, 2'));await page.locator('#sw-save-record').click();return 10;
+};
