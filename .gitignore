@@ -20,4 +20,5 @@ __pycache__/
 /work/
 
 # 빌드할 때마다 시각이 바뀌는 면접 앱 버전 표시 — 배포 빌드(CI)가 새로 만듦
+docs/study/version.json
 docs/interview/version.json

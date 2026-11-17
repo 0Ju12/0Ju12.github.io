@@ -1,6 +1,6 @@
 {
- "name": "학습 노트 · SSAFY 16기",
- "short_name": "학습 노트",
+ "name": "준비 공간 · 공부와 면접",
+ "short_name": "준비 공간",
  "start_url": "./index.html",
  "scope": "./",
  "display": "standalone",
