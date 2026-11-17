@@ -42,3 +42,7 @@ class AlgorithmTraceTest(unittest.TestCase):
         r=run('dist=[0,float("inf")]\nprint(1)')
         self.assertEqual(r['_events'][-1]['vars']['dist'],[0,'inf'])
         json.loads(json.dumps(r['_events'],allow_nan=False))
+
+    def test_large_integer_values_are_exact_in_json(self):
+        r=run('n=10**30')
+        self.assertEqual(r['_events'][-1]['vars']['n'],str(10**30))

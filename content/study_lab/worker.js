@@ -17,6 +17,7 @@ _count, _bytes = 0, 0
 _scope = {}
 def _value(v, depth=0):
     if depth>4: return '…'
+    if isinstance(v,int) and not isinstance(v,bool) and abs(v)>9007199254740991: return str(v)
     if isinstance(v,float) and not math.isfinite(v): return str(v)
     if isinstance(v,(int,float,str,bool,type(None))): return v[:2000] if isinstance(v,str) else v
     if isinstance(v,(list,tuple,set,deque)): return [_value(x,depth+1) for x in list(v)[:150]]
