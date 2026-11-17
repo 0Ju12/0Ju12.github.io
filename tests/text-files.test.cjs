@@ -3,3 +3,5 @@ const file=text=>({size:Buffer.byteLength(text),text:async()=>text});
 test('imports input.txt literally and removes only the UTF-8 BOM',async()=>{assert.equal(await api.read(file('\ufeff10\n  a+b  \n')),'10\n  a+b  \n')});
 test('does not overwrite an existing input when the user declines',async()=>{assert.equal(await api.apply(file('new'),'old',()=>false),null);assert.equal(await api.apply(file('new'),'old',()=>true),'new');assert.equal(await api.apply(file('new'),'',()=>{throw Error('should not ask')}),'new')});
 test('rejects oversized or binary files and keeps HTML as literal text',async()=>{await assert.rejects(api.read({size:1000001,text:async()=>''}));await assert.rejects(api.read(file('x'.repeat(100001))));await assert.rejects(api.read(file('\u0000binary')));assert.equal(await api.read(file('<script>example</script>')),'<script>example</script>')});
+
+test('parent and iframe use the same text import rules',()=>{assert.equal(fs.readFileSync(path.join(__dirname,'../content/study_lab/text-files.js'),'utf8'),fs.readFileSync(path.join(__dirname,'../templates/interview/text-files.js.j2'),'utf8'))});

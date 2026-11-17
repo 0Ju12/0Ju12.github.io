@@ -368,7 +368,6 @@ h2{font-weight:750;letter-spacing:-.025em;font-size:16px;margin:34px 0 12px;disp
 <div id="pres" role="dialog" aria-label="발표자 모드"></div>
 <div id="print" aria-hidden="true"></div>
 <div class="toast" id="toast" role="status"></div>
-<script src="lab/text-files.js"></script>
 <script id="data" type="application/json">{{ app|tojson }}</script>
 <script>
 (function(){
@@ -469,6 +468,7 @@ function startOpic(){if(location.hash==='#/opic-exam')opicExam();else location.h
 
 {% include 'interview/essay.js.j2' %}
 {% include '_tools.js.j2' %}
+{% include 'interview/text-files.js.j2' %}
 {% include 'interview/swea.js.j2' %}
 {% include 'interview/drive-sync.js.j2' %}
 {% include 'interview/sources.js.j2' %}
