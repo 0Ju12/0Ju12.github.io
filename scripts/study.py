@@ -9,7 +9,7 @@
 - 본문 검색 색인은 같은 키로 암호화해 docs/study/search.enc.json 에 (암호 없는 빌드엔 만들지 않음)
 - manifest.webmanifest · sw.js 로 홈 화면 설치·오프라인 사용
 """
-import base64, html, io, json, os, re, tempfile, zipfile
+import base64, html, io, json, os, re, shutil, tempfile, zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -102,8 +102,13 @@ def inject(note, prev, nxt):
         links.append(f'<a href="{nxt["slug"]}.html">다음 ›</a>')
     if note.get("nq"):
         links.append(f'<a href="../index.html#/quiz/{note["slug"]}">문제 {note["nq"]}개 풀기</a>')
+    if note.get("track") == "algo":
+        example = "selection" if note["slug"] == "list1" else "fly"
+        links.append(f'<a href="../lab/index.html?example={example}&amp;note={html.escape(note["slug"], quote=True)}">시각화 실험실</a>')
     links.append('<a href="../../index.html">포트폴리오</a>')
     bar = NAV_CSS + HASH_JS + '<nav class="st-nav">' + "".join(links) + "</nav>"
+    if note.get("track") == "algo":
+        bar += '<script defer src="../lab/note-bridge.js"></script>'
     raw = NUM_PREFIX.sub(r"\1", note["raw"])                         # <title>·<h1> 앞 번호 제거
     return re.sub(r"(<body[^>]*>)", r"\1" + bar.replace("\\", "\\\\"), raw, count=1)
 
@@ -195,6 +200,14 @@ def build(env, data):
     if not src:
         return []
     locker = LOCKER
+    # The app shell uses the same encryption key and password as lecture notes.
+    lab = OUT / "lab"
+    lab.mkdir(parents=True, exist_ok=True)
+    for asset in (ROOT / "content" / "study_lab").iterdir():
+        if asset.is_file():
+            shutil.copy2(asset, lab / asset.name)
+    lab_html = env.get_template("study_lab.html.j2").render()
+    (lab / "index.html").write_text(locker.page("알고리즘 시각화 실험실", lab_html, "../../index.html"), encoding="utf-8")
     notes = [parse(p) for p in sorted(src.glob("*.html"))]
     for n in notes:
         n["raw"] = slim(n["raw"], OUT / "fonts")
@@ -229,3 +242,4 @@ def build(env, data):
     (OUT / "index.html").write_text(locker.page("강의 노트", hub, "../index.html"), encoding="utf-8")
     pwa(OUT, [n["slug"] for n in notes])
     return notes
+
