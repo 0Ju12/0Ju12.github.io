@@ -49,7 +49,7 @@ function board(){
     return '<section class="kc"><div class="kh"><b>'+STAGES[st]+'</b><span class="muted small">'+its.length+'</span></div>'+(its.length?its.map(function(i){var n=ddays(i.due),c=i.key?coByKey(i.key):null;
       return '<article class="ki"><div class="row" style="justify-content:space-between;gap:6px"><b style="font-size:14.5px">'+esc(i.name)+'</b>'+(i.due?'<span class="dv-s'+(n!=null&&n<=3&&n>=0?' soon':'')+'">'+dlab(n)+'</span>':'')+'</div>'+
       (i.role?'<div class="muted small">'+esc(i.role)+'</div>':'')+(i.due?'<div class="faint small">마감 '+kdate(i.due)+'</div>':'')+
-      '<textarea class="kmemo" data-bm="'+i.id+'" rows="2" placeholder="메모 (전형 일정, 준비할 것)">'+esc(i.memo||'')+'</textarea>'+
+      '<a class="small" href="#/career/'+encodeURIComponent(i.id)+'">요건·경험 준비하기 →</a><textarea class="kmemo" data-bm="'+i.id+'" rows="2" placeholder="메모 (전형 일정, 준비할 것)">'+esc(i.memo||'')+'</textarea>'+
       '<div class="row" style="justify-content:space-between;margin-top:6px"><span class="row" style="gap:4px"><button class="btn sm ghost" data-bmv="'+i.id+'" data-d="-1" aria-label="이전 단계">←</button><button class="btn sm ghost" data-bmv="'+i.id+'" data-d="1" aria-label="다음 단계">→</button></span><span class="row" style="gap:6px">'+(c?'<a class="small" href="#/jobs/'+i.key+'">컨설팅</a><a class="small" href="#/cv/'+i.key+'">이력서</a>':'')+'<button class="xbtn" data-bdel="'+i.id+'" aria-label="삭제">✕</button></span></div></article>'}).join(''):'<p class="faint small" style="margin:6px 2px">비어 있음</p>')+'</section>'}).join('')+'</div>';
   $('#app').innerHTML=h;
   $('#bco').onchange=function(){var c=coByKey(this.value);if(c){$('#bname').value=c.co.name.replace(/\s*\(.*\)\s*$/,'');}};

@@ -355,6 +355,19 @@ h2{font-weight:750;letter-spacing:-.025em;font-size:16px;margin:34px 0 12px;disp
 
 
 .codeComparison{max-height:350px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font:11px/1.8 monospace;background:var(--soft);padding:12px;border-radius:8px}.testResult{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-left:3px solid var(--ok);padding:9px;margin:7px 0;background:var(--soft)}.testResult.fail,.testResult.error{border-color:var(--bad)}.testResult pre{max-height:170px;overflow:auto;white-space:pre-wrap}.diff-add{background:var(--ok-soft);color:var(--ok)}.diff-remove{background:var(--bad-soft);color:var(--bad)}
+
+/* Career forms need intrinsic textarea height and unclipped select text. */
+.career-ui label{display:block;margin:10px 0}
+.career-ui select.field{height:44px;padding:8px 12px;line-height:normal}
+.career-ui textarea.field{height:auto;min-height:100px;line-height:1.6;padding:10px 12px}
+/* Consistent, restrained workspace hierarchy. */
+.card{border-radius:14px;box-shadow:none}.btn{border-radius:8px}.field{border-radius:8px}
+.review-start{display:grid;grid-template-columns:1.4fr 1fr;gap:24px;padding:28px;background:var(--card);border:1px solid var(--line);border-top:3px solid var(--ink);border-radius:14px;margin-bottom:26px}
+.review-start h2{font-size:24px;margin:8px 0}.review-start p{color:var(--muted)}.review-actions{display:grid;align-content:center;gap:12px}.review-actions a{padding:12px;border-bottom:1px solid var(--line);text-decoration:none}
+.review-connections{padding:14px;border:1px solid var(--line);border-radius:10px;margin-bottom:16px}.review-connections summary{cursor:pointer;font-weight:700}
+.review-search{width:min(680px,calc(100% - 32px));max-height:80vh;border:1px solid var(--line);border-radius:16px;padding:24px;background:var(--card);color:var(--text)}.review-search::backdrop{background:#10182888}.review-result{display:block;text-align:left;width:100%;padding:14px;background:transparent;color:inherit;border:0;border-bottom:1px solid var(--line);cursor:pointer;overflow-wrap:anywhere}
+@media(max-width:640px){.review-start{grid-template-columns:1fr;padding:20px}.brand small{display:none}.top .in{flex-wrap:wrap}.top .tabs{min-width:60%}}
+
 </style>
 </head>
 <body>
@@ -420,7 +433,7 @@ roleSel.onchange=function(){S.role=roleSel.value;save();route()};
 
 /* ---------- 라우팅 ---------- */
 var keyHandler=null,timer=null;
-function route(){loadImportedQuestions();
+function route(){loadImportedQuestions();if(typeof PREP_LABS!=='undefined')PREP_LABS.stop();
   if(timer){clearInterval(timer);timer=null}discardRecording();if(typeof srStop==='function')srStop();
   var h=location.hash.replace(/^#\/?/,''),p=h.split('/'),v=p[0]||'home';
   drawNav(v,p);if(STUDY)STUDY.reset();
@@ -438,6 +451,10 @@ function route(){loadImportedQuestions();
   if(v==='deck'){var d=DECKS.filter(function(x){return x.id===p[1]})[0];if(d)return deck(d,+(p[2]||0))}
   if(v==='log')return log();
   if(v==='tools')return tools();
+  if(v==='sql')return PREP_LABS.sql();
+  if(v==='packet')return PREP_LABS.packet();
+  if(v==='defense')return PREP_LABS.defense();
+  if(v==='career')return CAREER.view(decodeURIComponent(p[1]||''));
   if(v==='board')return board();
   if(v==='cv')return cvView(decodeURIComponent(p[1]||''));
   if(v==='algo')return algo();
@@ -451,9 +468,9 @@ function route(){loadImportedQuestions();
 /* ---------- 메뉴: 오늘 · 공부 · 면접 · 지원 · 기록 ---------- */
 var SVIEWS={study:1,notes:1,cards:1,quiz:1,review:1,exam:1};
 var SUBNAV={
-  study:[['study','한눈에'],['notes','강의 노트'],['quiz','문제'],['review','복습'],['exam','모의고사'],['algo','알고리즘'],['ncs','인적성']],
-  interview:[['questions','질문 은행'],['drafts','내 답변 정리'],['mock','모의 면접'],['decks','발표'],['opic-exam','OPIc'],['speak','말하기 분석']],
-  apply:[['essay','자소서'],['jobs','공채 정보'],['board','지원 현황'],['cv','맞춤 이력서']],
+  study:[['study','한눈에'],['notes','강의 노트'],['quiz','문제'],['review','복습'],['exam','모의고사'],['algo','알고리즘'],['sql','SQL 실습'],['ncs','인적성']],
+  interview:[['defense','프로젝트 방어'],['questions','질문 은행'],['drafts','내 답변 정리'],['mock','모의 면접'],['decks','발표'],['opic-exam','OPIc'],['speak','말하기 분석']],
+  apply:[['career','지원 준비'],['essay','자소서'],['jobs','공채 정보'],['board','지원 현황'],['cv','맞춤 이력서'],['packet','포트폴리오 구성']],
   log:[['log','기록·백업'],['sources','자료 현황']]};
 var GROUP_OF={home:'home',cards:'study',deck:'interview',opic:'interview',tools:'log'};
 Object.keys(SUBNAV).forEach(function(g){SUBNAV[g].forEach(function(x){GROUP_OF[x[0]]=g})});
@@ -479,6 +496,9 @@ function startOpic(){if(location.hash==='#/opic-exam')opicExam();else location.h
 {% include 'interview/learning-core.js.j2' %}
 {% include 'interview/learning.js.j2' %}
 {% include 'interview/sources.js.j2' %}
+{% include 'interview/career.js.j2' %}
+{% include 'interview/prep-labs.js.j2' %}
+{% include 'interview/design-review.js.j2' %}
 {% include 'interview/opic-engine.js.j2' %}
 {% include 'interview/opic-storage.js.j2' %}
 {% include 'interview/opic-exam.js.j2' %}
@@ -500,7 +520,7 @@ function home(){
   var a=$('#hdue');if(a)a.onclick=function(){startMock(shuffle(d.slice()).slice(0,10),{sec:90,rec:false,label:'복습'})};
   var b=$('#hquick');if(b)b.onclick=function(){startMock(shuffle(QS.filter(function(q){return q.c!=='OPIc'})).slice(0,5),{sec:60,rec:false,label:'바로 시작'})};
   $('#hopic').onclick=startOpic;bindGoals(home);if(STUDY)STUDY.bindToday();
-  $('#app').insertAdjacentHTML('beforeend',freshnessHTML());drawReleaseStatus();
+  $('#app').insertAdjacentHTML('beforeend',freshnessHTML());drawReleaseStatus();DESIGN_REVIEW.home();var careerHome=CAREER.summary();if(careerHome){var ch=document.createElement('section');ch.innerHTML='<h2>다가오는 지원 · 다음 행동</h2>'+careerHome;$('#app').prepend(ch)}
 }
 
 {% include 'interview/questions.js.j2' %}
