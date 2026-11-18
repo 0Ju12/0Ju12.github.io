@@ -85,6 +85,8 @@ a{color:inherit;text-decoration:none}
 .try code{display:block;font:13px/1.6 ui-monospace,Menlo,Consolas,monospace;background:var(--bg);border-radius:10px;padding:10px 12px;color:var(--text)}
 .try s{color:#c2410c}
 .try .tx{font-size:13.5px;color:var(--muted)}
+.trys{display:flex;flex-direction:column;min-width:0}
+.try2{margin-top:10px;padding:12px 16px!important;gap:4px!important}
 .hero-in{max-width:900px}
 .who{display:flex;align-items:center;gap:14px;margin:0 0 30px}
 .who span{display:flex;flex-direction:column;font-size:14.5px;color:var(--muted);line-height:1.45}
@@ -301,12 +303,13 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
       {% set av = profile.availability or {} %}
       <div class="avail">{% if av.role %}<span><b>{{ T.want }}</b>{{ av.role }}</span>{% endif %}{% if av.location %}<span><b>{{ T.loc }}</b>{{ av.location }}</span>{% endif %}{% if av.start %}<span><b>{{ T.start }}</b>{{ av.start }}</span>{% endif %}</div>
     </div>
-    <a class="try" href="demo{{ '-en' if en else '' }}.html">
-      <span class="tl">{{ 'Try it' if en else '직접 해 보기' }}</span>
-      <b>{{ 'Does the LLM cite evidence that exists?' if en else 'LLM이 붙인 [근거 N], 정말 있는 근거일까?' }}</b>
-      <span class="demo"><code>{{ '…restored in 2013 [Evidence 3, ' if en else '…2013년에 복구되었습니다[근거 3, ' }}<s>8</s>]</code></span>
-      <span class="tx">{{ 'Replay the citation check from my RAG guide in your browser →' if en else '국보 RAG 가이드의 인용 검사를 브라우저에서 재현해 보세요 →' }}</span>
+    <div class="trys"><a class="try" href="https://0ju12.github.io/data-projects/warehouse/" target="_blank" rel="noopener">
+      <span class="tl">{{ 'See it running' if en else '매일 돌아가는 것 보기' }}</span>
+      <b>{{ 'Six public sources, refreshed every day — would bad data reach the dashboard?' if en else '공개 출처 6곳을 매일 모으는 웨어하우스 — 잘못된 자료가 대시보드까지 갈까?' }}</b>
+      <span class="demo"><code>{{ 'dbt test · 101 data tests · runs/history.csv' if en else 'dbt test · 품질 테스트 101개 · 실행 기록 매일 추가' }}</code></span>
+      <span class="tx">{{ 'Open the warehouse dashboard (prices · jobs · power · quakes · quality) →' if en else '웨어하우스 대시보드 열기 (시세·채용·전력·지진·품질) →' }}</span>
     </a>
+    <a class="try try2" href="demo{{ '-en' if en else '' }}.html"><span class="tl">{{ 'Try it' if en else '직접 해 보기' }}</span><span class="tx">{{ 'Citation check from my RAG guide →' if en else 'RAG 가이드의 근거 번호 검사 재현 →' }}</span></a></div>
   </header>
 
   {% include "_selected-cases.j2" %}

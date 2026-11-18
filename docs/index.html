@@ -56,6 +56,8 @@ a{color:inherit;text-decoration:none}
 .try code{display:block;font:13px/1.6 ui-monospace,Menlo,Consolas,monospace;background:var(--bg);border-radius:10px;padding:10px 12px;color:var(--text)}
 .try s{color:#c2410c}
 .try .tx{font-size:13.5px;color:var(--muted)}
+.trys{display:flex;flex-direction:column;min-width:0}
+.try2{margin-top:10px;padding:12px 16px!important;gap:4px!important}
 .hero-in{max-width:900px}
 .who{display:flex;align-items:center;gap:14px;margin:0 0 30px}
 .who span{display:flex;flex-direction:column;font-size:14.5px;color:var(--muted);line-height:1.45}
@@ -302,12 +304,13 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
 <p class="rv rv-data rolehead"><b>공개 데이터 수집·정제부터 웨어하우스 모델링과 분석까지 하는 데이터 엔지니어·분석가</b><small>이 직무에 맞춘 순서·핵심 문장·기술로 보는 중입니다.</small></p><p class="rv rv-ai rolehead"><b>LLM 파인튜닝·RAG·시공간 딥러닝을 실험으로 검증하는 AI·ML 엔지니어</b><small>이 직무에 맞춘 순서·핵심 문장·기술로 보는 중입니다.</small></p>      <div class="cta"><a class="btn pri" href="#selected-cases">작업 보기</a><a class="btn" id="resume-btn" href="resume-1page.pdf" data-all="resume-1page.pdf" data-data="resume-data.pdf" data-ai="resume-ai.pdf" download>이력서 PDF</a><a class="btn" href="https://github.com/0Ju12" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg> GitHub</a></div>
 <ul class="proof" aria-label="대표 근거"><li><a href="https://0ju12.github.io/data-projects/warehouse/" target="_blank" rel="noopener"><b>데이터</b><span>공개 출처 6곳을 매일 모아 정제·모델링하는 dbt·Airflow 웨어하우스 — 잘못된 자료는 품질 검사에서 막혀 대시보드에 닿지 않음</span><i aria-hidden="true">→</i></a></li><li><a href="projects/ssafy-16.html"><b>파이프라인</b><span>LLM이 내린 판단을 그대로 쓰지 않고 코드로 다시 확인하는 데이터 수집·분석 파이프라인 (SSAFY)</span><i aria-hidden="true">→</i></a></li><li><a href="projects/masters.html"><b>분석</b><span>겹쳐 있는 중력·자력 신호를 분리하는 지표를 만들어 땅속 구조를 규명 — SCIE 제1저자 논문 (SPE Journal)</span><i aria-hidden="true">→</i></a></li></ul>      <div class="avail"><span><b>희망 직무</b>데이터 엔지니어 · 데이터 분석가</span><span><b>근무 지역</b>무관</span><span><b>입사 가능</b>2027년 상반기</span></div>
     </div>
-    <a class="try" href="demo.html">
-      <span class="tl">직접 해 보기</span>
-      <b>LLM이 붙인 [근거 N], 정말 있는 근거일까?</b>
-      <span class="demo"><code>…2013년에 복구되었습니다[근거 3, <s>8</s>]</code></span>
-      <span class="tx">국보 RAG 가이드의 인용 검사를 브라우저에서 재현해 보세요 →</span>
+    <div class="trys"><a class="try" href="https://0ju12.github.io/data-projects/warehouse/" target="_blank" rel="noopener">
+      <span class="tl">매일 돌아가는 것 보기</span>
+      <b>공개 출처 6곳을 매일 모으는 웨어하우스 — 잘못된 자료가 대시보드까지 갈까?</b>
+      <span class="demo"><code>dbt test · 품질 테스트 101개 · 실행 기록 매일 추가</code></span>
+      <span class="tx">웨어하우스 대시보드 열기 (시세·채용·전력·지진·품질) →</span>
     </a>
+    <a class="try try2" href="demo.html"><span class="tl">직접 해 보기</span><span class="tx">RAG 가이드의 근거 번호 검사 재현 →</span></a></div>
   </header>
 
 <section id="selected-cases" style="padding-top:30px" aria-label="대표 프로젝트">
