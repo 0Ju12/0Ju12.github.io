@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>멀티모달 생성 — 이미지·음성·영상을 만드는 모델은 무엇이 다른가 · 이영주</title>
+<meta name="description" content="글자 대신 이미지·음성·영상을 만들어 내는 생성 모델의 구조와 2026년의 흐름(소리까지 함께 만드는 영상 모델, 여러 입력을 섞는 모델)을 정리했습니다. 평가와 출처 표시가 텍스트보다 어려운 이유도 봅니다.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="이영주 포트폴리오">
+<meta property="og:title" content="멀티모달 생성 — 이미지·음성·영상을 만드는 모델은 무엇이 다른가 · 이영주">
+<meta property="og:description" content="글자 대신 이미지·음성·영상을 만들어 내는 생성 모델의 구조와 2026년의 흐름(소리까지 함께 만드는 영상 모델, 여러 입력을 섞는 모델)을 정리했습니다. 평가와 출처 표시가 텍스트보다 어려운 이유도 봅니다.">
+<meta property="og:url" content="https://0ju12.github.io/posts/2026-11-ai-trend-17-multimodal-generation.html">
+<meta property="og:image" content="https://0ju12.github.io/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#18181b">
+<script>/* 방문 수 집계 (가입 없는 공개 카운터, 쿠키 없음, 숫자만 올림). 본인 기기 제외: 주소 뒤에 ?nostat=1 을 한 번 붙여 열기 */
+(function(){try{var L=localStorage,S=sessionStorage;if(location.search.indexOf('nostat=1')>-1)L.setItem('nostat','1');if(location.search.indexOf('nostat=0')>-1)L.removeItem('nostat');
+if(L.getItem('nostat')||navigator.webdriver||!/github\.io$/.test(location.hostname)||/bot|crawl|spider|headless|lighthouse/i.test(navigator.userAgent))return;
+var B='https://abacus.jasoncameron.dev/hit/pf-3c8cffe9/',h=function(k){try{fetch(B+encodeURIComponent(k.slice(0,60)),{keepalive:true}).catch(function(){})}catch(e){}};
+var p=location.pathname.replace(/^\/+|\/+$/g,'').replace(/\.html$/,'').replace(/\//g,'.')||'home';if(p==='index')p='home';
+var d=new Date().toISOString().slice(0,10).replace(/-/g,'');
+if(!S.getItem('st:'+p)){S.setItem('st:'+p,'1');h('p.'+p);h('d.'+d);if(!S.getItem('st:v')){S.setItem('st:v','1');h('v.'+d);h('v.all')}}
+window.stat=function(e){if(!S.getItem('se:'+e)){S.setItem('se:'+e,'1');h('e.'+e)}};
+document.addEventListener('click',function(ev){var a=ev.target.closest&&ev.target.closest('a[href]');if(!a)return;var u=a.getAttribute('href');
+if(/resume|cv[./]/.test(u))stat('resume');else if(/github\.com/.test(u))stat('github');else if(/doi\.org|koreascience/.test(u))stat('paper');else if(/^mailto:/.test(u))stat('mail');else if(/linkedin/.test(u))stat('linkedin');else if(/data-projects|\/demo/.test(u))stat('demo')},true);
+}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--surface:#f7f7f8;--text:#0d0d0f;--muted:#5d5f66;--line:#e7e7ea;--accent:#0a7c66;--accent-2:#14b8a6;--chip:#eef2f1;--code:#0f1117;--code-text:#e6e6e6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}}
+:root[data-theme="dark"]{--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.85 "Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:740px;margin:0 auto;padding:0 20px}
+nav{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;padding:10px 2px}
+nav .home{font-weight:900;color:var(--text);margin-right:auto}
+#theme{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 12px;font:inherit;font-size:12px;cursor:pointer}
+header.post{padding:56px 0 28px;border-bottom:2px solid var(--text);margin-bottom:36px}
+header.post .meta{color:var(--accent);font-weight:700;font-size:14px;letter-spacing:.04em}
+header.post h1{font-size:clamp(28px,5vw,42px);line-height:1.25;letter-spacing:-.03em;margin:10px 0 14px;font-weight:900}
+header.post p{color:var(--muted);margin:0 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--chip);color:var(--muted)}
+article h2{font-size:24px;letter-spacing:-.02em;margin:48px 0 14px;font-weight:900}
+article h3{font-size:19px;margin:32px 0 10px}
+article p,article li{margin:0 0 16px}
+article ul,article ol{padding-left:22px}
+article li{margin-bottom:6px}
+article blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--surface);border-radius:0 12px 12px 0;font-weight:700}
+article blockquote p{margin:0}
+article code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em;background:var(--chip);padding:2px 6px;border-radius:6px}
+article pre{background:var(--code);color:var(--code-text);padding:18px 20px;border-radius:14px;overflow-x:auto;line-height:1.6;margin:0 0 20px}
+article pre code{background:none;padding:0;font-size:13.5px;color:inherit}
+article table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:15px;display:block;overflow-x:auto}
+article th,article td{border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+article th{background:var(--surface)}
+.endcard{margin:56px 0 0;padding:24px;border:1px solid var(--line);border-radius:18px;background:var(--surface);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.endcard b{display:block}
+.endcard span{color:var(--muted);font-size:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--line);color:var(--text);background:var(--bg)}
+.others{margin:40px 0 0}
+.others a{display:block;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--text);font-weight:700}
+.others a span{display:block;color:var(--muted);font-weight:400;font-size:14px}
+footer{padding:64px 0 40px;color:var(--muted);font-size:13px}
+.readbar{position:fixed;top:0;left:0;height:3px;width:0;background:var(--text);z-index:60;transition:width .1s linear}
+.series{margin:36px 0 0;padding:20px 22px;border:1px solid var(--line);border-radius:18px;background:var(--card)}
+.series b{font-size:15px}.series ol{margin:10px 0 0;padding-left:20px;font-size:14.5px;line-height:1.6}.series li{padding:3px 0}.series li small{color:var(--muted);margin-left:8px;font-size:12.5px}.series li.me a{font-weight:800;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="readbar" id="readbar"></div>
+<div class="wrap">
+  <nav><a class="home" href="../index.html">Young-Ju Lee</a><a href="../index.html#writing">Writing</a><a href="../index.html#work">Work</a><button id="theme" type="button">테마</button></nav>
+  <header class="post">
+    <div class="meta"><a href="ai-trend.html" style="color:inherit">AI 트렌드 노트</a> #17 · 2026-11-18 · 5분 읽기</div>
+    <h1>멀티모달 생성 — 이미지·음성·영상을 만드는 모델은 무엇이 다른가</h1>
+    <p>글자 대신 이미지·음성·영상을 만들어 내는 생성 모델의 구조와 2026년의 흐름(소리까지 함께 만드는 영상 모델, 여러 입력을 섞는 모델)을 정리했습니다. 평가와 출처 표시가 텍스트보다 어려운 이유도 봅니다.</p>
+    <div class="chips"><span class="chip">멀티모달</span><span class="chip">생성 모델</span><span class="chip">영상 생성</span></div>
+  </header>
+  <article><blockquote>
+<p><strong>한 줄 요약</strong> — 지난 회차까지는 모델이 글자를 만드는 경우만 다뤘습니다. 이미지·음성·영상을 <strong>만드는</strong> 모델은 출력의 크기와 형태가 달라서 구조도, 비용도, 평가 방식도 달라집니다. 2026년에는 영상과 소리를 <strong>한 번에</strong> 만들고, 글·이미지·음성·영상을 섞어 지시하는 모델이 잇달아 나왔습니다.</p>
+</blockquote>
+<h2>핵심 개념</h2>
+<ul>
+<li><strong>이해와 생성은 다릅니다</strong>: 이미지를 보고 답하는 모델(이미지 → 글)과 이미지를 만드는 모델(글 → 이미지)은 다른 문제입니다. 앞쪽은 출력이 짧은 글이고, 뒤쪽은 출력이 수백만 개의 픽셀입니다.</li>
+<li><strong>확산(diffusion) 방식</strong>: 잡음에서 시작해 조금씩 잡음을 걷어 내며 이미지를 만듭니다. 영상은 여기에 시간 축이 더해집니다.</li>
+<li><strong>토큰 방식</strong>: 이미지·소리를 작은 조각(토큰)으로 바꿔 글처럼 이어서 생성합니다. 언어 모델과 같은 구조를 쓸 수 있다는 장점이 있습니다.</li>
+<li><strong>잠재 공간</strong>: 원본 픽셀이 아니라 압축된 표현 위에서 생성한 뒤 마지막에 복원합니다. 계산량을 줄이는 핵심 장치입니다.</li>
+<li><strong>비유</strong>: 글 생성이 원고를 쓰는 일이라면 영상 생성은 촬영·녹음·편집을 한꺼번에 하는 일입니다. 원고는 한 줄씩 고칠 수 있지만, 영상은 한 장면만 고쳐도 앞뒤 장면과 소리가 맞아야 합니다.</li>
+</ul>
+<h2>지금 무슨 일이 일어나고 있나</h2>
+<ul>
+<li><strong>소리까지 함께 만드는 영상 모델.</strong> ByteDance Seed 팀은 2026년 2월 Seedance 2.0을 공개하며 글·이미지·소리·영상을 섞은 입력과 소리·영상 동시 생성을 소개했습니다. MiniMax는 7월 말 H3를 발표하며 글·이미지·영상·소리를 함께 이해하고 소리가 들어간 영상을 최대 2K, 15초까지 만든다고 밝혔습니다. 예전에는 영상을 만든 뒤 소리를 따로 입히는 방식이 많았습니다.</li>
+<li><strong>여러 입력을 섞는 모델.</strong> Google은 5월 I/O에서 글·이미지·소리·영상을 섞어 영상을 만들고 고치는 Gemini Omni 계열을 발표한 것으로 보도됐습니다. 이번 조사에서는 Google 원문이 아니라 2차 보도로만 확인했습니다.</li>
+<li><strong>공개 가중치 약속과 실제의 차이.</strong> 일부 회사는 가중치 공개를 예고했지만, 조사 시점에는 API로만 쓸 수 있는 경우가 있었습니다. 성능 수치도 대부분 회사가 직접 낸 것이라, 독립적인 비교는 아직 부족합니다.</li>
+</ul>
+<h2>동작 구조</h2>
+<pre><code>입력 (글 · 참고 이미지 · 소리 · 영상)
+   │ 인코더: 각 입력을 같은 표현 공간으로
+   ▼
+잠재 공간에서 생성 (확산 또는 토큰을 이어 붙이는 방식)
+   │  영상 프레임 + 소리 파형을 함께 → 입 모양과 소리가 맞아야 함
+   ▼
+디코더: 픽셀·파형으로 복원 ─▶ 결과 영상 (+ 생성물 표시·워터마크)
+</code></pre>
+<pre><code class="language-python">def make_clip(prompt, ref_image=None):
+    job = video_api.create(prompt=prompt, image=ref_image, seconds=8, audio=True)
+    while job.status == &quot;running&quot;:                 # 글과 달리 수십 초~수 분 걸리는 비동기 작업
+        sleep(5); job = video_api.get(job.id)
+    clip = job.result
+    checks = {
+        &quot;length_ok&quot;: abs(clip.seconds - 8) &lt; 0.5,  # 요청한 조건은 코드로 확인
+        &quot;has_audio&quot;: clip.audio is not None,
+        &quot;labeled&quot;: clip.metadata.get(&quot;ai_generated&quot;) is True,
+    }
+    return clip, checks                            # 내용이 맞는지는 사람이 본다
+</code></pre>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>글 생성</th>
+<th>이미지·영상·음성 생성</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>출력 크기</td>
+<td>수백~수천 토큰</td>
+<td>수백만 픽셀, 초당 수십 프레임</td>
+</tr>
+<tr>
+<td>응답 방식</td>
+<td>바로 흘려보냄</td>
+<td>비동기 작업, 수십 초 이상</td>
+</tr>
+<tr>
+<td>비용 단위</td>
+<td>토큰</td>
+<td>장 수 · 초 · 해상도</td>
+</tr>
+<tr>
+<td>자동 평가</td>
+<td>정답 비교 가능한 경우 많음</td>
+<td>어려움 (사람 평가·선호 비교 위주)</td>
+</tr>
+<tr>
+<td>출처 표시</td>
+<td>근거 문서 인용</td>
+<td>생성물 표시·워터마크</td>
+</tr>
+</tbody>
+</table>
+<h2>왜 중요한가 / 한계</h2>
+<ul>
+<li><strong>서비스 설계가 달라집니다.</strong> 결과가 바로 나오지 않으므로 작업 대기열, 진행 상태 표시, 실패 시 재시도가 필요합니다. 관통 5에서 30초 넘는 작업의 진행 상황을 흘려보낸 것과 같은 문제를 더 크게 겪게 됩니다.</li>
+<li><strong>한계 1 — 평가가 어렵습니다.</strong> "이 영상이 지시를 잘 따랐나"는 정답이 하나가 아닙니다. 길이·해상도·소리 유무처럼 코드로 확인할 수 있는 것과, 사람이 봐야 하는 것을 나눠야 합니다(#10).</li>
+<li><strong>한계 2 — 일관성.</strong> 같은 인물·물체가 장면마다 바뀌거나 물리적으로 맞지 않는 움직임이 생기는 문제가 여전히 보고됩니다.</li>
+<li><strong>한계 3 — 비용과 시간.</strong> 몇 초짜리 영상도 글 답변보다 훨씬 많은 계산을 씁니다. 캐싱처럼 재사용할 방법도 제한적입니다(#16).</li>
+<li><strong>한계 4 — 진위와 권리.</strong> 실제와 구분하기 어려운 결과물이 나오므로 생성물 표시, 초상권·저작권 문제가 따라옵니다. 다음 회차의 규제와 직접 이어집니다.</li>
+</ul>
+<h2>내 프로젝트와 연결</h2>
+<ul>
+<li><strong>AI 챌린지 VQA</strong>는 이미지와 질문을 함께 보고 답을 고르는 <strong>멀티모달 이해</strong> 과제였습니다. 생성은 아니지만, 같은 이미지를 해상도와 자르기를 바꿔 여러 번 보여 주고 확률을 합친 경험이 있습니다. 이미지 입력은 보여 주는 방식에 따라 결과가 달라진다는 것을 그때 확인했습니다.</li>
+<li><strong>관통 7의 FastAPI 프록시</strong>에서는 텍스트 요청과 표지 이미지 요청을 나눠 라우팅했습니다. 입력 종류에 따라 모델과 처리 경로를 나누는 구조는 생성 모델을 붙일 때도 같은 자리에 들어갑니다.</li>
+<li><strong>포트폴리오의 여정 영상</strong>에서 그림풍 장면 일부는 생성형 이미지로 만들었고, 영상 안에 AI 생성 이미지라고 표시했습니다. 영상 생성 모델을 직접 학습시키거나 서비스에 붙인 적은 없습니다.</li>
+</ul>
+<h2>면접 질문</h2>
+<p><strong>Q. 이미지·영상 생성 기능을 서비스에 넣는다면 무엇을 먼저 설계하겠습니까?</strong></p>
+<blockquote>
+<p>결과가 바로 나오지 않는다는 점부터 설계하겠습니다. 작업을 대기열에 넣고 진행 상태를 보여 주며, 실패하면 재시도하거나 사용자에게 알리는 흐름이 필요합니다. 품질은 길이·해상도·소리 유무처럼 코드로 확인할 수 있는 항목과 사람이 봐야 하는 항목을 나눠 관리하겠습니다. 그리고 결과물에는 AI 생성물이라는 표시를 남기겠습니다. VQA 챌린지에서 이미지를 보여 주는 방식에 따라 결과가 달라지는 것을 겪었기 때문에, 입력 조건을 기록해 두고 같은 조건으로 비교할 수 있게 하겠습니다.</p>
+</blockquote>
+<h2>출처</h2>
+<ul>
+<li>ByteDance Seed, <a href="https://seed.bytedance.com/en/blog/official-launch-of-seedance-2-0">Seedance 2.0 Official Launch</a> (2026.02)</li>
+<li>MiniMax, <a href="https://www.minimax.io/blog/minimax-h3">MiniMax H3: An Open Model Breaking the Boundaries Between Tasks and Modalities</a> (2026.07)</li>
+<li>The Next Web, <a href="https://thenextweb.com/news/google-gemini-omni-flash-video-model-io-2026">Google launches Gemini Omni Flash</a> (2026.05, 2차 보도)</li>
+<li>How AI Works, <a href="https://howaiworks.ai/blog/minimax-h3-open-weights-video-model">MiniMax H3: 2K Video With Native Audio, Weights Promised</a> (2차 자료 — 가중치 공개 여부)</li>
+</ul></article>
+  <div class="endcard">
+    <div><b>AI 트렌드 노트 · 18편</b><span>에이전트 개념부터 차례로 이어서 쓰는 시리즈입니다. 다음 회차: #18 AI 규제·안전 — EU AI Act와 한국 AI 기본법은 개발자에게 무엇을 요구하나</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="2026-11-ai-trend-16-cost-latency-optimization.html">← #16</a><a class="btn" href="ai-trend.html">전체 목록</a><a class="btn" href="2026-11-ai-trend-18-ai-regulation-safety.html">#18 →</a></div>
+  </div>
+<div class="others"><b style="font-size:14px;color:var(--muted)">다른 글</b><a href="2026-11-ai-trend-18-ai-regulation-safety.html">AI 규제·안전 — EU AI Act와 한국 AI 기본법은 개발자에게 무엇을 요구하나<span>2026년 실제로 시행되거나 일정이 바뀐 EU AI Act와 한국 AI 기본법을 개발자 관점에서 정리했습니다. 위험도에 따라 의무가 달라지는 구조, 생성물 표시, 그리고 일정이 출처마다 엇갈리는 부분을 봅니다.</span></a><a href="2026-11-ai-trend-16-cost-latency-optimization.html">비용·지연 최적화 — 캐싱·라우팅·배치로 같은 답을 더 싸고 빠르게<span>LLM 서비스의 비용과 지연을 줄이는 세 가지 장치, 프롬프트 캐싱·모델 라우팅·배치 처리를 정리했습니다. 공식 문서의 캐시 수명과 가격 배수, 그리고 캐시가 맞지 않는 구조를 봅니다.</span></a><a href="2026-11-ai-trend-15-finetune-prompt-rag.html">파인튜닝 vs 프롬프트 vs RAG — 모델을 바꿀지, 입력을 바꿀지<span>같은 문제를 프롬프트로 풀지, 검색(RAG)으로 풀지, 파인튜닝으로 풀지를 정하는 기준을 정리했습니다. 세 방법은 각각 지시·지식·행동을 바꾸고, 고르는 순서보다 평가 기준을 먼저 세우는 것이 중요합니다.</span></a><a href="2026-11-ai-trend-14-small-on-device-models.html">소형·온디바이스 모델 — 작은 모델로 충분한 일은 얼마나 되나<span>수십억 개 이하 파라미터의 작은 모델을 기기 안에서 돌리는 흐름을 정리했습니다. 양자화가 무엇을 줄이는지, 큰 모델과 작은 모델을 섞어 쓰는 구조, 그리고 &#39;작아도 된다&#39;는 주장의 조건을 봅니다.</span></a><a href="2026-11-ai-trend-13-reasoning-test-time-compute.html">추론 모델과 test-time compute — 더 오래 생각하게 하면 무엇이 달라지나<span>답하기 전에 생각하는 데 계산을 더 쓰는 추론 모델의 원리와, &#39;생각 예산&#39;을 조절할 때 생기는 비용·지연·과잉 사고 문제를 정리했습니다.</span></a><a href="2026-11-ai-trend-12-computer-use.html">컴퓨터 사용 에이전트 — 화면을 보고 클릭하는 모델<span>API가 없는 프로그램을 사람처럼 화면으로 다루는 에이전트를 정리했습니다. 화면 캡처 → 좌표 → 행동의 루프, 벤치마크 점수가 사람 기준선을 넘었다는 보고와 그 점수를 그대로 믿기 어려운 이유를 봅니다.</span></a><a href="2026-11-ai-trend-11-coding-agents.html">코딩 에이전트 — 코드를 쓰는 것보다 확인하는 것이 일이다<span>자동 완성에서 &#39;저장소를 읽고, 고치고, 테스트를 돌리는&#39; 에이전트로 넘어온 흐름을 정리했습니다. 벤치마크 점수가 출처마다 엇갈리는 이유와, 사람의 일이 작성에서 검증으로 옮겨 가는 지점을 봅니다.</span></a><a href="2026-11-ai-trend-10-agent-evaluation.html">에이전트 평가 — 점수가 높다는 것과 믿을 수 있다는 것<span>에이전트는 답 하나가 아니라 과정 전체를 평가해야 합니다. 채점기의 세 종류, 한 번 성공과 매번 성공의 차이, 그리고 공개 벤치마크 점수가 오염으로 흔들리는 사례를 정리했습니다.</span></a><a href="2026-11-ai-trend-09-guardrails-prompt-injection.html">가드레일과 프롬프트 인젝션 방어 — 모델이 읽는 모든 글이 공격 경로다<span>프롬프트 인젝션이 왜 필터 하나로 막히지 않는지, 직접·간접 인젝션의 차이와 &#39;탐지&#39;에서 &#39;권한 설계&#39;로 옮겨 가는 방어 흐름을 정리했습니다.</span></a><a href="2026-11-ai-trend-08-multi-agent.html">멀티 에이전트 오케스트레이션 — 나누면 빨라지지만 맥락이 끊긴다<span>일을 여러 에이전트에게 나눠 맡기는 구조(지휘자-작업자, 핸드오프)의 장단점을 정리했습니다. 병렬 조사에서는 효과가 보고됐지만 토큰이 크게 늘고, 맥락이 쪼개져 생기는 실패가 따로 연구될 만큼 흔합니다.</span></a><a href="2026-11-ai-trend-07-agentic-rag.html">RAG에서 Agentic RAG로 — 검색을 한 번 할지, 에이전트가 여러 번 할지<span>한 번 검색해 답하는 RAG와, 검색 여부·횟수·결과 품질을 스스로 판단하는 Agentic RAG의 차이를 정리했습니다. Self-RAG·CRAG·Adaptive-RAG가 각각 어느 판단을 추가했는지와, 반복이 늘 때 생기는 비용과 평가 문제를 봅니다.</span></a><a href="2026-11-ai-trend-06-agent-memory.html">에이전트 메모리 — 대화가 끝나도 남는 것과 남기면 안 되는 것<span>컨텍스트 창 안의 단기 기억과 대화 밖에 저장하는 장기 기억을 나누고, 무엇을 쓰고 언제 꺼내는지의 설계를 정리했습니다. 한 번 오염되면 세션이 끝나도 남는 메모리 포이즈닝도 함께 봅니다.</span></a><a href="2026-11-ai-trend-05-react-plan-execute.html">ReAct와 Plan-and-Execute — 에이전트는 어떻게 계획하나<span>한 걸음마다 다시 생각하는 ReAct와, 먼저 계획을 세우고 실행하는 Plan-and-Execute의 차이를 비용·속도·실패 방식으로 비교했습니다. ReWOO·LLMCompiler 같은 변형과 코딩 에이전트의 plan mode까지 이어서 봅니다.</span></a><a href="2026-11-ai-trend-04-a2a.html">에이전트 간 통신 — A2A는 MCP와 무엇이 다른가<span>MCP가 &#39;에이전트와 도구&#39;를 잇는다면 A2A는 &#39;에이전트와 에이전트&#39;를 잇습니다. Agent Card로 상대를 찾고, 상태가 있는 task로 일을 맡기는 구조와, 버전마다 바뀐 부분·엇갈리는 보도를 정리했습니다.</span></a><a href="2026-11-ai-trend-03-mcp.html">MCP — 도구를 매번 새로 붙이지 않는 방법<span>지난 회차의 tool use를 앱마다 다시 만들지 않도록 &#39;도구 서버&#39;를 표준 규격으로 분리한 MCP의 구조(호스트·클라이언트·서버, tools·resources·prompts)와 최근 사양 변화, 보안상 약한 고리를 정리했습니다.</span></a><a href="2026-11-ai-trend-02-tool-use.html">Tool use — 모델은 함수를 실행하지 않는다<span>Function calling의 실제 동작(모델은 호출 &#39;요청&#39;만 만들고 실행은 내 코드가 한다), strict 스키마와 Structured Outputs의 관계, 도구를 쓸 때와 출력 형식만 고정할 때를 구분했습니다.</span></a><a href="2026-11-ai-trend-01-agent.html">AI 에이전트란 무엇인가 — LLM이 도구를 쥐고 반복할 때<span>에이전트를 &#39;도구를 쓰며 스스로 다음 단계를 정하는 LLM 루프&#39;로 정의하고, 워크플로와 무엇이 다른지, 기업 도입 숫자가 왜 엇갈리는지 정리했습니다.</span></a></div>  <footer>© Young-Ju Lee · iyju990312@naver.com</footer>
+</div>
+<script>
+(function(){var r=document.documentElement,K='theme';
+try{var s=localStorage.getItem(K);if(s)r.setAttribute('data-theme',s)}catch(e){}
+var b=document.getElementById('theme');if(b)b.addEventListener('click',function(){
+var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});})();
+</script>
+<script>(function(){var b=document.getElementById('readbar'),a=document.querySelector('article');if(!b||!a)return;function f(){var r=a.getBoundingClientRect(),h=r.height-innerHeight*0.6,p=Math.min(1,Math.max(0,-r.top/(h>0?h:1)));b.style.width=(p*100)+'%'}addEventListener('scroll',function(){requestAnimationFrame(f)},{passive:true});f()})();</script>
+</body>
+</html>
