@@ -4,7 +4,7 @@
     python3 scripts/check_site.py      # 문제가 있으면 목록을 출력하고 종료 코드 1
 build.py / pdf.js 실행 뒤에 돌립니다. GitHub Actions(deploy.yml)에서 배포 전에 자동 실행됩니다.
 """
-import re, sys
+import os, re, sys
 from pathlib import Path
 
 DOCS = Path(__file__).resolve().parent.parent / "docs"
@@ -65,6 +65,19 @@ for f in [DOCS / "en.html"] + sorted((DOCS / "projects").glob("*-en.html")):
     left = sorted({m.strip() for m in re.findall(r"[가-힣][가-힣 ·]*", text)} - ALLOW)
     if left:
         warnings.append(f"{f.relative_to(DOCS)}: 번역 안 된 한국어 {left[:5]}")
+
+# 6) 메인에서 링크하는 내 데이터 프로젝트 페이지가 실제로 열리는지 (경고만 — 다른 저장소가 배포하므로 배포를 막지 않음)
+#    2026-11-18: 다른 워크플로가 Pages 를 다시 배포하며 /warehouse/ 가 몇 시간 동안 404 였는데 아무 점검에도 걸리지 않았음
+if os.environ.get("CHECK_LIVE", "1") != "0":
+    import urllib.request
+    live = sorted(set(re.findall(r'href="(https://0ju12\.github\.io/data-projects/[^"#?]*)"', (DOCS / "index.html").read_text(encoding="utf-8"))))
+    for url in live:
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, method="HEAD", headers={"User-Agent": "site-check"}), timeout=15) as r:
+                if r.status >= 400:
+                    warnings.append(f"외부 페이지 응답 {r.status}: {url}")
+        except Exception as ex:   # 404 포함 — 네트워크가 없는 환경에서도 배포는 계속
+            warnings.append(f"외부 페이지 확인 실패: {url} ({getattr(ex, 'code', '') or type(ex).__name__})")
 
 for w in warnings:
     print("⚠", w)
