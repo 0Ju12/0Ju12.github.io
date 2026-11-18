@@ -33,8 +33,8 @@ pitch:
   body: "Working with geophysical survey data, the work I spent longest on was checking where data came from, how good it was, and verifying results again. I now apply the same habits to public data: collecting and cleaning it daily, modelling it in a warehouse, and explaining with code and evidence why an analysis can be trusted."
 
 highlights:
+  - { value: "Daily", label: "Public-data warehouse · API monitoring" }
   - { value: "1 SCIE", label: "First-author paper (SPE Journal)" }
-  - { value: "2× Calgary", label: "Research stays · international collaboration" }
   - { value: "SSAFY 16th", label: "Samsung SW & AI Academy (in progress)" }
   - { value: "3 · 6", label: "Papers · conference talks" }
 

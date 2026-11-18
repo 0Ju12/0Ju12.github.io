@@ -2,10 +2,10 @@
 # build.py 가 docs/resume-<key>.html 로 렌더링, scripts/pdf.js 가 PDF 생성
 data:
   label: "데이터 엔지니어·분석가"
-  headline: "데이터 수집부터 정제·검증·색인까지 파이프라인을 만드는 데이터 엔지니어"
+  headline: "공개 데이터 수집·정제부터 웨어하우스 모델링과 분석까지 하는 데이터 엔지니어·분석가"
   highlights:
-    - { value: "파이프라인 3종", label: "오픈API·크롤링 수집 → 정제 → 색인" }
     - { value: "dbt 웨어하우스", label: "6개 출처 · 품질 테스트 101개 · 매일 실행" }
+    - { value: "API 관제", label: "공개 API 22개 · 매시 점검 · 품질 판정" }
     - { value: "SCIE 1편", label: "SPE Journal 제1저자 · 분석 코드 공개" }
     - { value: "SSAFY 16기", label: "삼성 청년 SW·AI 아카데미" }
   order: [personal, bootcamp, grad, undergrad]
