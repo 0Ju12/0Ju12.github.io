@@ -97,8 +97,13 @@ def slim(raw, fontdir):
 NUM_PREFIX = re.compile(r"(<(?:title|h1)[^>]*>)\s*(?:(?:AI|SW)\s*)?\d+\.\s*")
 
 
+EASY_VIEWER = ROOT / "templates" / "prep" / "easy_viewer.html"
+
+
 def inject(note, prev, nxt):
     links = ['<a href="../index.html#/notes">← 준비 공간</a>', f'<span class="st-t">{html.escape(note["title"])}</span>']
+    if note.get("easy"):                                             # 쉬운 설명 카드 (같은 화면 위에 열림, 원래 노트는 그대로)
+        links.append('<a class="ez-open" href="#easy">쉬운 설명 ▶</a>')
     if prev:
         links.append(f'<a href="{prev["slug"]}.html">‹ 이전</a>')
     if nxt:
@@ -112,6 +117,9 @@ def inject(note, prev, nxt):
     bar = NAV_CSS + HASH_JS + '<nav class="st-nav">' + "".join(links) + "</nav>"
     if note.get("track") == "algo":
         bar += '<script defer src="../lab/note-bridge.js"></script>'
+    if note.get("easy"):
+        data = json.dumps(dict(note["easy"], slug=note["slug"]), ensure_ascii=False).replace("</", "<\\/")
+        bar += f'<script type="application/json" id="easy-data">{data}</script>' + EASY_VIEWER.read_text(encoding="utf-8")
     # Stable paragraph targets stay inside the encrypted note, not a public extract.
     anchor_index = [0]
     def anchor(m):
@@ -228,8 +236,12 @@ def build(env, data):
             lab_html = lab_html.replace(f'"{asset_name}"', f'"{asset_name}?v={version}"')
     (lab / "index.html").write_text(locker.page("알고리즘 시각화 실험실", lab_html, "../../index.html"), encoding="utf-8")
     notes = [parse(p) for p in sorted(src.glob("*.html"))]
+    easy_dir = src / "easy" if (src / "easy").is_dir() else ROOT / "content" / "study" / "easy"
     for n in notes:
         n["raw"] = slim(n["raw"], OUT / "fonts")
+        f = easy_dir / (Path(n["file"]).stem + ".json")
+        if f.exists():
+            n["easy"] = json.loads(f.read_text(encoding="utf-8"))
     import study_quiz
     quiz_file = src / "quiz" / "lessons.json"
     if not quiz_file.exists():
@@ -248,7 +260,7 @@ def build(env, data):
         nxt = same[j + 1] if j + 1 < len(same) else None
         (OUT / "notes" / f"{n['slug']}.html").write_text(locker.page(n["title"], inject(n, prev, nxt), "../../index.html"), encoding="utf-8")
     app = {"tracks": [{"id": t[0], "name": t[1], "desc": t[2]} for t in TRACKS],
-           "notes": [{k: n[k] for k in ("slug", "title", "num", "date", "sections", "summary", "track", "nq")} for n in notes],
+           "notes": [dict({k: n[k] for k in ("slug", "title", "num", "date", "sections", "summary", "track", "nq")}, easy=len(n["easy"]["cards"]) if n.get("easy") else 0) for n in notes],
            "pitch": (data.get("pitch") or {}), "units": units, "salt": base64.b64encode(locker.salt).decode() if locker.password else ""}
     search = OUT / "search.enc.json"
     if locker.password:

@@ -99,7 +99,7 @@ function notes(track){
       (u.one?'<p class="one">'+esc(u.one)+'</p>':n.summary?'<p>'+esc(n.summary)+'</p>':'')+
       (n.sections.length?'<div class="chips">'+n.sections.slice(0,4).map(function(x){return '<span class="tag">'+esc(x.length>20?x.slice(0,19)+'…':x)+'</span>'}).join('')+'</div>':'')+
       '<div class="meta">'+(n.date?'<span>'+esc(n.date.slice(5))+'</span>':'')+(s.total?'<span>문제 '+s.total+'</span><span class="bar" title="익힌 문제 비율"><i style="width:'+s.pct+'%"></i></span><span>'+s.pct+'%</span>':'<span class="faint">문제 없음</span>')+'</div>'+
-      '<div class="row"><button class="btn sm" data-open="'+n.slug+'">노트 열기</button>'+(s.total?'<a class="btn sm ghost" href="#/quiz/'+n.slug+'">문제 풀기</a>':'')+(cardList(n.slug).length?'<a class="btn sm ghost" href="#/cards/'+n.slug+'">키워드 카드 '+cardList(n.slug).length+'</a>':'')+'</div></article>'}).join(''):'<div class="empty card">"'+esc(noteQuery)+'"에 맞는 노트가 없습니다.</div>';
+      '<div class="row"><button class="btn sm" data-open="'+n.slug+'">노트 열기</button>'+(n.easy?'<a class="btn sm ghost" href="notes/'+n.slug+'.html#easy" title="카드 '+n.easy+'장 · 같은 화면에서 넘겨 보기">쉬운 설명 ▶</a>':'')+(s.total?'<a class="btn sm ghost" href="#/quiz/'+n.slug+'">문제 풀기</a>':'')+(cardList(n.slug).length?'<a class="btn sm ghost" href="#/cards/'+n.slug+'">키워드 카드 '+cardList(n.slug).length+'</a>':'')+'</div></article>'}).join(''):'<div class="empty card">"'+esc(noteQuery)+'"에 맞는 노트가 없습니다.</div>';
     $$('[data-open]').forEach(function(b){b.onclick=function(){openNote(b.dataset.open)}});
     $$('[data-read]').forEach(function(b){b.onclick=function(){var k=b.dataset.read;if(S.read[k])delete S.read[k];else S.read[k]=today();save();b.classList.toggle('on')}});
   };

@@ -1,4 +1,4 @@
-"""강의 노트 원본을 공개키로 잠금 (평문 content/study/notes/·quiz/ 는 커밋 금지)
+"""강의 노트 원본을 공개키로 잠금 (평문 content/study/notes/·quiz/·easy/ 는 커밋 금지)
 
     python3 scripts/study_seal.py                      # 전체 → content/study_sealed/notes.sealed.json (추가 묶음 정리)
     python3 scripts/study_seal.py --add a.html b.html  # 새로 받은 노트만 → content/study_sealed/notes-<시각>.sealed.json
@@ -40,13 +40,14 @@ if len(sys.argv) > 2 and sys.argv[1] == "--add":
         if p.suffix == ".html":
             files.append((p, p.name))
         elif p.suffix == ".json":
-            files.append((p, f"quiz/{p.name}"))
+            files.append((p, f"{'easy' if p.parent.name == 'easy' else 'quiz'}/{p.name}"))   # 쉬운 설명 카드 / 문제
         else:
             sys.exit(f"✗ {p.name}: .html 노트 또는 quiz .json 만 넣을 수 있습니다")
     seal(files, DIR / time.strftime("notes-%Y%m%d-%H%M%S.sealed.json", time.gmtime()))
 else:
     files = [(f, f.name) for f in sorted(SRC.glob("*.html"))]
     files += [(f, f"quiz/{f.name}") for f in sorted((SRC.parent / "quiz").glob("*.json"))]   # 문제·개념 데이터도 함께
+    files += [(f, f"easy/{f.name}") for f in sorted((SRC.parent / "easy").glob("*.json"))]   # 쉬운 설명 카드
     if len(files) < 10:
         sys.exit("✗ 전체 원본이 없습니다. 새 노트만 올릴 때는 --add 를 쓰세요")
     seal(files, DIR / "notes.sealed.json")

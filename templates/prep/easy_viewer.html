@@ -1,0 +1,112 @@
+<style>
+/* 쉬운 설명 모드 — 노트 위에 같은 화면에서 한 장씩 넘어가는 카드 (새 창 없음) */
+.ez-open{background:linear-gradient(135deg,#7c5cff,#20c4b4)!important;color:#fff!important;border-radius:999px;padding:3px 12px;text-decoration:none!important;font-weight:700}
+#ez{position:fixed;inset:0;z-index:2147483000;display:none;font:16px/1.7 "Pretendard Variable","Noto Sans KR",system-ui,sans-serif;color:var(--ez-text);
+  --ez-bg1:#0d1023;--ez-bg2:#1b1440;--ez-card:rgba(255,255,255,.96);--ez-text:#151826;--ez-muted:#5d6475;--ez-line:#e6e8ef;--ez-acc:#6b4dff;--ez-acc2:#13b3a4;--ez-soft:#f3f1ff;--ez-code:#11142a}
+@media (prefers-color-scheme:dark){#ez{--ez-card:rgba(22,24,40,.94);--ez-text:#eef0f7;--ez-muted:#a6adbf;--ez-line:#2c3048;--ez-soft:#24204a;--ez-code:#0a0c1c}}
+#ez.on{display:block}
+#ez .bg{position:absolute;inset:0;background:radial-gradient(1200px 600px at 10% -10%,#4b2fd6 0%,transparent 60%),radial-gradient(900px 500px at 110% 110%,#0f8f88 0%,transparent 55%),linear-gradient(160deg,var(--ez-bg1),var(--ez-bg2));animation:ezbg 18s ease-in-out infinite alternate}
+@keyframes ezbg{to{filter:hue-rotate(25deg)}}
+#ez .top{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;gap:12px;padding:14px 20px;color:#e9e6ff}
+#ez .top b{font-size:14px;letter-spacing:.02em;opacity:.9;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#ez .x{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;border-radius:999px;padding:6px 14px;font:inherit;font-size:13.5px;cursor:pointer}
+#ez .bar{position:absolute;top:0;left:0;height:3px;background:linear-gradient(90deg,#a68bff,#3ee6d3);transition:width .5s cubic-bezier(.2,.8,.2,1)}
+#ez .stage{position:absolute;top:58px;bottom:78px;left:0;right:0;overflow:hidden}
+#ez .card{position:absolute;left:50%;top:50%;width:min(780px,calc(100% - 32px));max-height:100%;overflow:auto;transform:translate(-50%,-50%);background:var(--ez-card);border-radius:26px;padding:34px 38px;box-shadow:0 30px 80px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.08) inset;backdrop-filter:blur(14px);transition:transform .55s cubic-bezier(.2,.8,.2,1),opacity .45s ease;will-change:transform,opacity}
+#ez .card.in-r{transform:translate(calc(-50% + 70px),-50%) scale(.98);opacity:0}
+#ez .card.in-l{transform:translate(calc(-50% - 70px),-50%) scale(.98);opacity:0}
+#ez .card.out-l{transform:translate(calc(-50% - 90px),-50%) scale(.96);opacity:0}
+#ez .card.out-r{transform:translate(calc(-50% + 90px),-50%) scale(.96);opacity:0}
+#ez .chip{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--ez-acc);background:var(--ez-soft);border-radius:999px;padding:4px 12px;margin-bottom:12px}
+#ez h2{border:0;padding:0;font-size:clamp(23px,3.6vw,31px);line-height:1.3;letter-spacing:-.03em;margin:0 0 14px;font-weight:800}
+#ez .say{font-size:18px;line-height:1.8;margin:0 0 16px}
+#ez .say b,#ez li b{background:linear-gradient(transparent 60%,rgba(107,77,255,.22) 0);font-weight:800}
+#ez .ana{display:flex;gap:12px;align-items:flex-start;background:linear-gradient(135deg,rgba(107,77,255,.10),rgba(19,179,164,.10));border:1px solid var(--ez-line);border-radius:16px;padding:14px 16px;margin:6px 0 4px;font-size:16px}
+#ez .ana i{font-style:normal;font-size:22px;line-height:1.2}
+#ez ul.pts{margin:6px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+#ez ul.pts li{position:relative;padding:12px 14px 12px 44px;border:1px solid var(--ez-line);border-radius:14px;opacity:0;transform:translateY(8px);animation:ezup .5s forwards}
+#ez ul.pts li::before{content:attr(data-n);position:absolute;left:12px;top:11px;width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--ez-acc),var(--ez-acc2));color:#fff;font-size:12px;font-weight:800;display:grid;place-items:center}
+@keyframes ezup{to{opacity:1;transform:none}}
+#ez .cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
+#ez .cmp>div{border:1px solid var(--ez-line);border-radius:16px;padding:14px 16px}
+#ez .cmp>div:last-child{border-color:transparent;background:linear-gradient(var(--ez-card),var(--ez-card)) padding-box,linear-gradient(135deg,var(--ez-acc),var(--ez-acc2)) border-box;border:1.5px solid transparent}
+#ez .cmp h4{margin:0 0 8px;font-size:15px}
+#ez .cmp ul{margin:0;padding-left:18px;font-size:15px}
+#ez .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
+#ez .flow span{padding:8px 13px;border-radius:12px;background:var(--ez-soft);font-weight:700;font-size:15px;opacity:0;animation:ezup .45s forwards}
+#ez .flow em{font-style:normal;color:var(--ez-muted);opacity:0;animation:ezup .45s forwards}
+#ez pre{font-variant-ligatures:none;background:var(--ez-code);color:#e8e6ff;border-radius:16px;padding:16px 18px;overflow:auto;font:14.5px/1.65 "JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;margin:4px 0 12px}
+#ez pre .kw{color:#b89cff;font-weight:700}#ez pre .st{color:#7ee8d6}#ez pre .nu{color:#ffc27a}#ez pre .cm{color:#7d84a6}
+#ez table{width:100%;border-collapse:collapse;font-size:14.5px}
+#ez td{padding:8px 10px;border-top:1px solid var(--ez-line);vertical-align:top}
+#ez td:first-child{font:13.5px ui-monospace,Menlo,monospace;color:var(--ez-acc);white-space:nowrap}
+#ez .opts{display:grid;gap:10px;margin-top:8px}
+#ez .opts button{text-align:left;font:inherit;font-size:16px;padding:13px 16px;border-radius:14px;border:1px solid var(--ez-line);background:transparent;color:inherit;cursor:pointer;transition:transform .15s,border-color .2s,background .2s}
+#ez .opts button:hover{transform:translateY(-1px);border-color:var(--ez-acc)}
+#ez .opts button.ok{background:rgba(19,179,164,.14);border-color:#13b3a4}
+#ez .opts button.no{background:rgba(255,92,92,.12);border-color:#ff6b6b}
+#ez .why{margin-top:12px;padding:12px 14px;border-radius:14px;background:var(--ez-soft);display:none}
+#ez .cover h2{font-size:clamp(28px,4.6vw,40px)}
+#ez .meta{color:var(--ez-muted);font-size:14px;margin-bottom:14px}
+#ez .bot{position:absolute;bottom:0;left:0;right:0;height:78px;display:flex;align-items:center;justify-content:center;gap:14px;color:#fff}
+#ez .nav{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:#fff;font-size:20px;cursor:pointer;transition:background .2s,transform .15s}
+#ez .nav:hover{background:rgba(255,255,255,.2);transform:scale(1.05)}#ez .nav:disabled{opacity:.3;cursor:default;transform:none}
+#ez .dots{display:flex;gap:6px;max-width:60vw;flex-wrap:wrap;justify-content:center}
+#ez .dots i{width:7px;height:7px;border-radius:99px;background:rgba(255,255,255,.3);transition:width .3s,background .3s;cursor:pointer}
+#ez .dots i.on{width:22px;background:#fff}
+#ez .cnt{font-size:13px;opacity:.75;min-width:52px;text-align:center}
+@media (max-width:600px){#ez .card{padding:24px 20px;border-radius:22px}#ez .say{font-size:16.5px}#ez .cmp{grid-template-columns:1fr}#ez .stage{bottom:70px}#ez .bot{height:70px}#ez .dots{display:none}}
+@media (prefers-reduced-motion:reduce){#ez *{animation:none!important;transition:none!important}#ez ul.pts li,#ez .flow span,#ez .flow em{opacity:1;transform:none}}
+@media print{#ez{display:none!important}}
+</style>
+<div id="ez" role="dialog" aria-modal="true" aria-label="쉬운 설명">
+  <div class="bg"></div><div class="bar" id="ez-bar"></div>
+  <div class="top"><b id="ez-title"></b><button class="x" id="ez-x" type="button">원래 노트로 ✕</button></div>
+  <div class="stage" id="ez-stage"></div>
+  <div class="bot"><button class="nav" id="ez-p" type="button" aria-label="이전">←</button><div class="dots" id="ez-dots"></div><span class="cnt" id="ez-c"></span><button class="nav" id="ez-n" type="button" aria-label="다음">→</button></div>
+</div>
+<script>
+(function(){
+  var D=JSON.parse(document.getElementById('easy-data').textContent),C=D.cards||[],i=0,root=document.getElementById('ez'),stage=document.getElementById('ez-stage');
+  function e(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  function md(s){return e(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`([^`]+)`/g,'<code>$1</code>')}
+  function hl(code){var t=e(code);t=t.replace(/(--[^\n]*)/g,'<span class="cm">$1</span>');
+    t=t.replace(/('[^'\n]*')/g,'<span class="st">$1</span>');
+    t=t.replace(/\b(SELECT|FROM|WHERE|GROUP BY|HAVING|ORDER BY|LIMIT|OFFSET|DISTINCT|AND|OR|NOT|IN|BETWEEN|LIKE|IS|NULL|AS|ASC|DESC|COUNT|AVG|SUM|MAX|MIN|CREATE|TABLE|INSERT|INTO|VALUES|UPDATE|SET|DELETE|JOIN|ON|def|return|for|in|if|else|const|let|function)\b/g,'<span class="kw">$1</span>');
+    return t.replace(/\b(\d+)\b/g,'<span class="nu">$1</span>')}
+  var ICON={cover:'📘 시작',idea:'💬 개념',compare:'⚖️ 비교',steps:'🧩 구성',flow:'➡️ 순서',code:'⌨️ 코드',quiz:'✅ 확인',recap:'📌 정리'};
+  function render(c){var h='<span class="chip">'+(ICON[c.k]||'')+'</span>';
+    if(c.k==='cover'){h+='<h2>'+md(c.title||D.title)+'</h2><div class="meta">'+e(c.sub||'')+(c.minutes?' · 약 '+c.minutes+'분':'')+'</div>'+(c.goals?'<p class="say">이번에 알게 될 것</p><ul class="pts">'+c.goals.map(function(g,j){return '<li data-n="'+(j+1)+'" style="animation-delay:'+(j*90)+'ms">'+md(g)+'</li>'}).join('')+'</ul>':'');return '<div class="cover">'+h+'</div>'}
+    if(c.h)h+='<h2>'+md(c.h)+'</h2>';
+    if(c.say)h+='<p class="say">'+md(c.say)+'</p>';
+    if(c.k==='compare')h+='<div class="cmp">'+[c.left,c.right].map(function(s){return '<div><h4>'+md(s.t)+'</h4><ul>'+s.items.map(function(x){return '<li>'+md(x)+'</li>'}).join('')+'</ul></div>'}).join('')+'</div>';
+    if(c.points)h+='<ul class="pts">'+c.points.map(function(p,j){return '<li data-n="'+(j+1)+'" style="animation-delay:'+(j*90)+'ms">'+md(p)+'</li>'}).join('')+'</ul>';
+    if(c.flow)h+='<div class="flow">'+c.flow.map(function(f,j){return (j?'<em style="animation-delay:'+(j*120-60)+'ms">→</em>':'')+'<span style="animation-delay:'+(j*120)+'ms">'+md(f)+'</span>'}).join('')+'</div>';
+    if(c.code)h+='<pre>'+hl(c.code)+'</pre>';
+    if(c.explain)h+='<table>'+c.explain.map(function(r){return '<tr><td>'+e(r[0])+'</td><td>'+md(r[1])+'</td></tr>'}).join('')+'</table>';
+    if(c.k==='quiz')h+='<p class="say">'+md(c.q)+'</p><div class="opts">'+c.options.map(function(o,j){return '<button type="button" data-j="'+j+'">'+md(o)+'</button>'}).join('')+'</div><div class="why">'+md(c.why||'')+'</div>';
+    if(c.analogy)h+='<div class="ana"><i>💡</i><div>'+md(c.analogy)+'</div></div>';
+    return h}
+  function bind(card,c){if(c.k!=='quiz')return;card.querySelectorAll('.opts button').forEach(function(b){b.onclick=function(){var j=+b.dataset.j;card.querySelectorAll('.opts button').forEach(function(x){x.disabled=true;if(+x.dataset.j===c.a)x.classList.add('ok')});if(j!==c.a)b.classList.add('no');card.querySelector('.why').style.display='block'}})}
+  function show(n,dir){if(n<0||n>=C.length)return;var old=stage.querySelector('.card');
+    var card=document.createElement('div');card.className='card '+(dir<0?'in-l':'in-r');card.innerHTML=render(C[n]);stage.appendChild(card);bind(card,C[n]);
+    requestAnimationFrame(function(){requestAnimationFrame(function(){card.className='card'})});
+    if(old){old.className='card '+(dir<0?'out-r':'out-l');setTimeout(function(){old.remove()},500)}
+    i=n;document.getElementById('ez-bar').style.width=((n+1)/C.length*100)+'%';document.getElementById('ez-c').textContent=(n+1)+' / '+C.length;
+    document.getElementById('ez-p').disabled=n===0;document.getElementById('ez-n').textContent=n===C.length-1?'✓':'→';
+    document.getElementById('ez-dots').innerHTML=C.map(function(_,j){return '<i class="'+(j===n?'on':'')+'" data-j="'+j+'"></i>'}).join('');
+    document.querySelectorAll('#ez-dots i').forEach(function(d){d.onclick=function(){var j=+d.dataset.j;show(j,j<i?-1:1)}});
+    try{localStorage.setItem('ez:'+D.slug,String(n))}catch(_){}}
+  function open(){root.classList.add('on');document.documentElement.style.overflow='hidden';document.getElementById('ez-title').textContent='쉬운 설명 · '+D.title;
+    var s=0;try{s=+localStorage.getItem('ez:'+D.slug)||0}catch(_){}if(s>=C.length-1)s=0;stage.innerHTML='';show(s,1)}
+  function close(){root.classList.remove('on');document.documentElement.style.overflow='';if(location.hash==='#easy')history.replaceState(null,'',location.pathname+location.search)}
+  document.getElementById('ez-x').onclick=close;document.getElementById('ez-p').onclick=function(){show(i-1,-1)};
+  document.getElementById('ez-n').onclick=function(){if(i===C.length-1)close();else show(i+1,1)};
+  document.addEventListener('keydown',function(ev){if(!root.classList.contains('on'))return;if(ev.key==='ArrowRight'||ev.key===' '){ev.preventDefault();if(i<C.length-1)show(i+1,1)}else if(ev.key==='ArrowLeft'){ev.preventDefault();show(i-1,-1)}else if(ev.key==='Escape')close()});
+  var sx=null;stage.addEventListener('touchstart',function(ev){sx=ev.touches[0].clientX},{passive:true});
+  stage.addEventListener('touchend',function(ev){if(sx==null)return;var dx=ev.changedTouches[0].clientX-sx;sx=null;if(Math.abs(dx)>50){if(dx<0&&i<C.length-1)show(i+1,1);else if(dx>0)show(i-1,-1)}});
+  document.querySelectorAll('a[href="#easy"]').forEach(function(a){a.addEventListener('click',function(ev){ev.preventDefault();open()})});
+  if(location.hash==='#easy')setTimeout(open,60);
+  window.addEventListener('hashchange',function(){if(location.hash==='#easy')open()});
+})();
+</script>
