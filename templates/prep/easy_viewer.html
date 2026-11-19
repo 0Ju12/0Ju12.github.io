@@ -2,17 +2,15 @@
 /* 쉬운 설명 모드 — 노트 위에 같은 화면에서 한 장씩 넘어가는 카드 (새 창 없음) */
 .ez-open{background:linear-gradient(135deg,#7c5cff,#20c4b4)!important;color:#fff!important;border-radius:999px;padding:3px 12px;text-decoration:none!important;font-weight:700}
 #ez{position:fixed;inset:0;z-index:2147483000;display:none;font:16px/1.7 "Pretendard Variable","Noto Sans KR",system-ui,sans-serif;color:var(--ez-text);
-  --ez-bg1:#0d1023;--ez-bg2:#1b1440;--ez-card:rgba(255,255,255,.96);--ez-text:#151826;--ez-muted:#5d6475;--ez-line:#e6e8ef;--ez-acc:#6b4dff;--ez-acc2:#13b3a4;--ez-soft:#f3f1ff;--ez-code:#11142a}
-@media (prefers-color-scheme:dark){#ez{--ez-card:rgba(22,24,40,.94);--ez-text:#eef0f7;--ez-muted:#a6adbf;--ez-line:#2c3048;--ez-soft:#24204a;--ez-code:#0a0c1c}}
+  --ez-ink:#3b3560;--ez-card:#fff;--ez-text:#1d1b33;--ez-muted:#6a6884;--ez-line:#e9e6f6;--ez-acc:#6b4dff;--ez-acc2:#13b3a4;--ez-soft:#f3f0ff;--ez-code:#f8f7ff}
 #ez.on{display:block}
-#ez .bg{position:absolute;inset:0;background:radial-gradient(1200px 600px at 10% -10%,#4b2fd6 0%,transparent 60%),radial-gradient(900px 500px at 110% 110%,#0f8f88 0%,transparent 55%),linear-gradient(160deg,var(--ez-bg1),var(--ez-bg2));animation:ezbg 18s ease-in-out infinite alternate}
-@keyframes ezbg{to{filter:hue-rotate(25deg)}}
-#ez .top{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;gap:12px;padding:14px 20px;color:#e9e6ff}
+#ez .bg{position:absolute;inset:0;background:radial-gradient(900px 520px at 8% -8%,#e4dcff 0%,transparent 62%),radial-gradient(800px 480px at 105% 108%,#cdf4ec 0%,transparent 58%),radial-gradient(600px 400px at 95% 0%,#ffe9f3 0%,transparent 55%),linear-gradient(160deg,#fbfaff,#f3fbf9)}
+#ez .top{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;gap:12px;padding:14px 20px;color:var(--ez-ink)}
 #ez .top b{font-size:14px;letter-spacing:.02em;opacity:.9;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#ez .x{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;border-radius:999px;padding:6px 14px;font:inherit;font-size:13.5px;cursor:pointer}
-#ez .bar{position:absolute;top:0;left:0;height:3px;background:linear-gradient(90deg,#a68bff,#3ee6d3);transition:width .5s cubic-bezier(.2,.8,.2,1)}
+#ez .x{background:#fff;border:1px solid var(--ez-line);color:var(--ez-ink);box-shadow:0 2px 8px rgba(80,60,180,.08);border-radius:999px;padding:6px 14px;font:inherit;font-size:13.5px;cursor:pointer}
+#ez .bar{position:absolute;top:0;left:0;height:4px;z-index:2;background:linear-gradient(90deg,#7c5cff,#20c4b4);transition:width .5s cubic-bezier(.2,.8,.2,1)}
 #ez .stage{position:absolute;top:58px;bottom:78px;left:0;right:0;overflow:hidden}
-#ez .card{position:absolute;left:50%;top:50%;width:min(780px,calc(100% - 32px));max-height:100%;overflow:auto;transform:translate(-50%,-50%);background:var(--ez-card);border-radius:26px;padding:34px 38px;box-shadow:0 30px 80px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.08) inset;backdrop-filter:blur(14px);transition:transform .55s cubic-bezier(.2,.8,.2,1),opacity .45s ease;will-change:transform,opacity}
+#ez .card{position:absolute;left:50%;top:50%;width:min(780px,calc(100% - 32px));max-height:100%;overflow:auto;transform:translate(-50%,-50%);background:var(--ez-card);border-radius:26px;padding:34px 38px;box-shadow:0 24px 60px rgba(80,60,180,.13),0 2px 6px rgba(80,60,180,.06);border:1px solid var(--ez-line);transition:transform .55s cubic-bezier(.2,.8,.2,1),opacity .45s ease;will-change:transform,opacity}
 #ez .card.in-r{transform:translate(calc(-50% + 70px),-50%) scale(.98);opacity:0}
 #ez .card.in-l{transform:translate(calc(-50% - 70px),-50%) scale(.98);opacity:0}
 #ez .card.out-l{transform:translate(calc(-50% - 90px),-50%) scale(.96);opacity:0}
@@ -35,8 +33,8 @@
 #ez .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
 #ez .flow span{padding:8px 13px;border-radius:12px;background:var(--ez-soft);font-weight:700;font-size:15px;opacity:0;animation:ezup .45s forwards}
 #ez .flow em{font-style:normal;color:var(--ez-muted);opacity:0;animation:ezup .45s forwards}
-#ez pre{font-variant-ligatures:none;background:var(--ez-code);color:#e8e6ff;border-radius:16px;padding:16px 18px;overflow:auto;font:14.5px/1.65 "JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;margin:4px 0 12px}
-#ez pre .kw{color:#b89cff;font-weight:700}#ez pre .st{color:#7ee8d6}#ez pre .nu{color:#ffc27a}#ez pre .cm{color:#7d84a6}
+#ez pre{font-variant-ligatures:none;background:var(--ez-code);color:#2a2550;border:1px solid var(--ez-line);border-radius:16px;padding:16px 18px;overflow:auto;font:14.5px/1.65 "JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;margin:4px 0 12px}
+#ez pre .kw{color:#6b3fe0;font-weight:700}#ez pre .st{color:#0d8a7c}#ez pre .nu{color:#c26200}#ez pre .cm{color:#9896b3}
 #ez table{width:100%;border-collapse:collapse;font-size:14.5px}
 #ez td{padding:8px 10px;border-top:1px solid var(--ez-line);vertical-align:top}
 #ez td:first-child{font:13.5px ui-monospace,Menlo,monospace;color:var(--ez-acc);white-space:nowrap}
@@ -48,12 +46,12 @@
 #ez .why{margin-top:12px;padding:12px 14px;border-radius:14px;background:var(--ez-soft);display:none}
 #ez .cover h2{font-size:clamp(28px,4.6vw,40px)}
 #ez .meta{color:var(--ez-muted);font-size:14px;margin-bottom:14px}
-#ez .bot{position:absolute;bottom:0;left:0;right:0;height:78px;display:flex;align-items:center;justify-content:center;gap:14px;color:#fff}
-#ez .nav{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:#fff;font-size:20px;cursor:pointer;transition:background .2s,transform .15s}
-#ez .nav:hover{background:rgba(255,255,255,.2);transform:scale(1.05)}#ez .nav:disabled{opacity:.3;cursor:default;transform:none}
+#ez .bot{position:absolute;bottom:0;left:0;right:0;height:78px;display:flex;align-items:center;justify-content:center;gap:14px;color:var(--ez-ink)}
+#ez .nav{width:46px;height:46px;border-radius:50%;border:1px solid var(--ez-line);background:#fff;color:#4b3fb0;box-shadow:0 4px 14px rgba(80,60,180,.10);font-size:20px;cursor:pointer;transition:background .2s,transform .15s}
+#ez .nav:hover{background:var(--ez-soft);transform:scale(1.05)}#ez .nav:disabled{opacity:.3;cursor:default;transform:none}
 #ez .dots{display:flex;gap:6px;max-width:60vw;flex-wrap:wrap;justify-content:center}
-#ez .dots i{width:7px;height:7px;border-radius:99px;background:rgba(255,255,255,.3);transition:width .3s,background .3s;cursor:pointer}
-#ez .dots i.on{width:22px;background:#fff}
+#ez .dots i{width:7px;height:7px;border-radius:99px;background:rgba(75,63,176,.18);transition:width .3s,background .3s;cursor:pointer}
+#ez .dots i.on{width:22px;background:linear-gradient(90deg,var(--ez-acc),var(--ez-acc2))}
 #ez .cnt{font-size:13px;opacity:.75;min-width:52px;text-align:center}
 @media (max-width:600px){#ez .card{padding:24px 20px;border-radius:22px}#ez .say{font-size:16.5px}#ez .cmp{grid-template-columns:1fr}#ez .stage{bottom:70px}#ez .bot{height:70px}#ez .dots{display:none}}
 @media (prefers-reduced-motion:reduce){#ez *{animation:none!important;transition:none!important}#ez ul.pts li,#ez .flow span,#ez .flow em{opacity:1;transform:none}}
@@ -72,7 +70,7 @@
   function md(s){return e(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`([^`]+)`/g,'<code>$1</code>')}
   function hl(code){var t=e(code);t=t.replace(/(--[^\n]*)/g,'<span class="cm">$1</span>');
     t=t.replace(/('[^'\n]*')/g,'<span class="st">$1</span>');
-    t=t.replace(/\b(SELECT|FROM|WHERE|GROUP BY|HAVING|ORDER BY|LIMIT|OFFSET|DISTINCT|AND|OR|NOT|IN|BETWEEN|LIKE|IS|NULL|AS|ASC|DESC|COUNT|AVG|SUM|MAX|MIN|CREATE|TABLE|INSERT|INTO|VALUES|UPDATE|SET|DELETE|JOIN|ON|def|return|for|in|if|else|const|let|function)\b/g,'<span class="kw">$1</span>');
+    t=t.replace(/\b(SELECT|FROM|WHERE|GROUP BY|HAVING|ORDER BY|LIMIT|OFFSET|DISTINCT|AND|OR|NOT|IN|BETWEEN|LIKE|IS|NULL|AS|ASC|DESC|COUNT|AVG|SUM|MAX|MIN|CREATE|TABLE|INSERT|INTO|VALUES|UPDATE|SET|DELETE|JOIN|ON|def|return|for|in|if|elif|else|while|import|from|class|not|and|or|True|False|None|break|continue|const|let|function|of|new)\b/g,'<span class="kw">$1</span>');
     return t.replace(/\b(\d+)\b/g,'<span class="nu">$1</span>')}
   var ICON={cover:'📘 시작',idea:'💬 개념',compare:'⚖️ 비교',steps:'🧩 구성',flow:'➡️ 순서',code:'⌨️ 코드',quiz:'✅ 확인',recap:'📌 정리'};
   function render(c){var h='<span class="chip">'+(ICON[c.k]||'')+'</span>';
@@ -88,7 +86,7 @@
     if(c.analogy)h+='<div class="ana"><i>💡</i><div>'+md(c.analogy)+'</div></div>';
     return h}
   function bind(card,c){if(c.k!=='quiz')return;card.querySelectorAll('.opts button').forEach(function(b){b.onclick=function(){var j=+b.dataset.j;card.querySelectorAll('.opts button').forEach(function(x){x.disabled=true;if(+x.dataset.j===c.a)x.classList.add('ok')});if(j!==c.a)b.classList.add('no');card.querySelector('.why').style.display='block'}})}
-  function show(n,dir){if(n<0||n>=C.length)return;var old=stage.querySelector('.card');
+  function show(n,dir){if(n<0||n>=C.length)return;var cs=stage.querySelectorAll('.card'),old=cs[cs.length-1]||null;for(var q=0;q<cs.length-1;q++)cs[q].remove();
     var card=document.createElement('div');card.className='card '+(dir<0?'in-l':'in-r');card.innerHTML=render(C[n]);stage.appendChild(card);bind(card,C[n]);
     requestAnimationFrame(function(){requestAnimationFrame(function(){card.className='card'})});
     if(old){old.className='card '+(dir<0?'out-r':'out-l');setTimeout(function(){old.remove()},500)}
