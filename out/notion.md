@@ -13,7 +13,7 @@
 ### 개인 프로젝트 — 공개 데이터 웨어하우스·API 관제 · 포트폴리오 생성기 · 암호화 준비 공간
 `개인 프로젝트` · 2026.11 – 진행 중 · 개인 (GitHub Pages · GitHub Actions) · **기획 · 설계 · 개발 · 운영**
 
-공개 데이터를 매일 모아 정제하고 dbt·Airflow 웨어하우스로 모델링하며, 공개 API 22개의 응답과 데이터 품질을 시간마다 관제합니다. 포트폴리오도 데이터(YAML)로 관리해 사이트·이력서를 자동 생성하고, 공개하면 안 되는 학습·면접 자료는 암호화한 준비 공간으로 운영합니다.
+공개 데이터를 매일 모아 정제하고 dbt·Airflow 웨어하우스로 모델링하며, 공개 API 22개의 응답과 데이터 품질을 정기적으로 관제합니다. 포트폴리오도 데이터(YAML)로 관리해 사이트·이력서를 자동 생성하고, 공개하면 안 되는 학습·면접 자료는 암호화한 준비 공간으로 운영합니다.
 
 - **상황** 
 - **역할·과제** 
@@ -23,7 +23,7 @@
   - [공개 데이터 프로젝트] 전력 수요 예측: 전력거래소 2025년 시간별 전국 수요와 Open-Meteo 기온으로 하루 전 24시간 예측 — 24시간 이상 지난 값만 쓰도록 특징을 만들고(누수 검사 테스트), 공휴일·연휴를 반영해 기준선·선형·GBM·앙상블을 10~12월로 시험
   - [공개 데이터 프로젝트] DART 데이터 마트: OpenDART 수집(오류 코드별 처리·한도 대기), 표준 계정 정규화, 피벗·LAG·RANK SQL 뷰, 사업보고서 문단을 글자 2-gram BM25 로 찾아 출처와 함께 보여 주는 근거 검색 (인증키는 Secrets 로만)
   - [공개 데이터 프로젝트] 웨어하우스: 지진·수요·기온 원본을 dbt(DuckDB)로 staging → intermediate → marts 3단 모델링 — 날짜 × 24열 수요표를 시간별 행으로 풀면서 '24시'를 다음 날로 넘기지 않도록 시작 시각을 키로 삼고, USGS 가 고친 지진은 덮어쓰지 않고 이력(SCD 2형)으로 쌓음. 같은 함수를 Airflow DAG·명령줄·테스트가 함께 쓰고, 날짜 파티션 내보내기는 다시 돌려도 같은 파일이 나오게 함
-  - [공개 데이터 프로젝트] API 관제(API Watch): 공개 API 22개를 매시 점검 — HTTP 200 이어도 오래된 자료·빈 결과·중복·자료형 변경을 따로 판정하고, 첫 정상 응답의 구조를 저장해 필드 추가와 삭제·형 변경을 구분, 연속 실패만 이슈 한 건으로 모음 (Django 관리 화면·Docker Compose 실행판 포함)
+  - [공개 데이터 프로젝트] API 관제(API Watch): 공개 API 22개를 정기 점검 — HTTP 200 이어도 오래된 자료·빈 결과·중복·자료형 변경을 따로 판정하고, 첫 정상 응답의 구조를 저장해 필드 추가와 삭제·형 변경을 구분, 연속 실패만 이슈 한 건으로 모음 (Django 관리 화면·Docker Compose 실행판 포함)
   - [공개 데이터 프로젝트] 산불 위험 지도: 화재기상지수(FFWI)와 NASA 위성 화재 탐지를 매일 모아 비교 — 탐지의 대부분이 제철소 같은 상시 열원이라 이를 가려내는 규칙을 만듦
   - [공개 데이터 프로젝트] 데이터 에이전트: 위 결과를 LLM 이 SQL 로 조회하는 MCP 서버 — 읽기 전용 SQL 안전장치와, 답에 들어간 숫자를 조회 결과와 대조하는 검증
   - [포트폴리오 생성기] 데이터: data/portfolio.yaml(국문)·portfolio.en.yaml(영문)에 활동·프로젝트를 STAR 구조로 저장, 프로젝트별 설계 판단·회고는 case_notes.yaml로 분리
@@ -47,7 +47,7 @@
   - [학습·면접 준비 앱] 휴대폰 하단 탭·오프라인 설치(PWA)까지 지원, 데스크톱·휴대폰 주요 흐름 자동 점검 통과
 
 🏷 Python, Jinja2, GitHub Actions, Playwright, Web Crypto, PWA, JavaScript
-🔗 [GitHub 저장소](https://github.com/0Ju12/data-projects)  🔗 [지진 대시보드](https://0ju12.github.io/data-projects/)  🔗 [전력 수요 예측 탐색기 (직접 보기)](https://0ju12.github.io/data-projects/power/)  🔗 [산불 위험 지도 (매일 갱신)](https://0ju12.github.io/data-projects/fire/)  🔗 [데이터 에이전트 (MCP 서버 · 숫자 검증)](https://github.com/0Ju12/data-projects/tree/main/data-agent)  🔗 [웨어하우스 대시보드 (시세·채용·전력·지진·품질)](https://0ju12.github.io/data-projects/warehouse/)  🔗 [API 관제판 (공개 API 22개 · 매시 점검)](https://0ju12.github.io/data-projects/api-watch/)  🔗 [웨어하우스 코드 (dbt · Airflow)](https://github.com/0Ju12/data-projects/tree/main/warehouse)  🔗 [사이트](https://0ju12.github.io/)  🔗 [만든 과정 글](https://0ju12.github.io/posts/2026-11-portfolio-one-yaml.html)  🔗 [잠금 화면](https://0ju12.github.io/interview/)  
+🔗 [GitHub 저장소](https://github.com/0Ju12/data-projects)  🔗 [지진 대시보드](https://0ju12.github.io/data-projects/)  🔗 [전력 수요 예측 탐색기 (직접 보기)](https://0ju12.github.io/data-projects/power/)  🔗 [산불 위험 지도 (매일 갱신)](https://0ju12.github.io/data-projects/fire/)  🔗 [데이터 에이전트 (MCP 서버 · 숫자 검증)](https://github.com/0Ju12/data-projects/tree/main/data-agent)  🔗 [웨어하우스 대시보드 (시세·채용·전력·지진·품질)](https://0ju12.github.io/data-projects/warehouse/)  🔗 [API 관제판 (공개 API 22개 · 정기 점검)](https://0ju12.github.io/data-projects/api-watch/)  🔗 [웨어하우스 코드 (dbt · Airflow)](https://github.com/0Ju12/data-projects/tree/main/warehouse)  🔗 [사이트](https://0ju12.github.io/)  🔗 [만든 과정 글](https://0ju12.github.io/posts/2026-11-portfolio-one-yaml.html)  🔗 [잠금 화면](https://0ju12.github.io/interview/)  
 
 ### 부트캠프 — SSAFY 16기 · 포스코 청년 AI·BigData 아카데미 30기
 `AI 프로젝트` · 2025.06 – 진행 중 · 삼성 청년 SW·AI 아카데미(SSAFY) · 포스코인재창조원·POSTECH · **LLM 파인튜닝 · 데이터 파이프라인 · 백엔드**
