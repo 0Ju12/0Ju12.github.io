@@ -565,6 +565,16 @@ def main():
     sitemap(data)   # 배포 시 CI 가 scripts/lock_resumes.py 로 실제 잠금 페이지를 만듦
     (OUT / "notion.md").write_text(md_env.get_template("notion.md.j2").render(**data), encoding="utf-8")
     (OUT / "profiles.md").write_text(md_env.get_template("profiles.md.j2").render(**data), encoding="utf-8")
+    # 한국어 줄바꿈 다듬기 (공개 페이지 전체) — 잠긴 준비 공간·비공개·이력서(PDF 1쪽 맞춤)는 각자 처리하거나 제외
+    import wrapfix
+    for f in DOCS.rglob("*.html"):
+        rel = f.relative_to(DOCS)
+        if rel.parts[0] in ("study", "private", "interview") or f.name.startswith(("resume", "cv")):
+            continue
+        before = f.read_text(encoding="utf-8")
+        after = wrapfix.polish_html(before, js=True)
+        if after != before:
+            f.write_text(after, encoding="utf-8")
 
     warnings = collect_warnings(data) + en_parity()
     report = "# 보완 체크리스트\n\n" + (

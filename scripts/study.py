@@ -15,6 +15,8 @@
 import base64, hashlib, html, io, json, os, re, shutil, tempfile, zipfile
 from pathlib import Path
 
+import wrapfix
+
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "content" / "study" / "notes"
 SEALED = ROOT / "content" / "study_sealed" / "notes.sealed.json"
@@ -100,6 +102,9 @@ NUM_PREFIX = re.compile(r"(<(?:title|h1)[^>]*>)\s*(?:(?:AI|SW)\s*)?\d+\.\s*")
 EASY_VIEWER = ROOT / "templates" / "prep" / "easy_viewer.html"
 
 
+NOTE_WRAP_CSS = "<style>td,th,td p,td li,th p,th li{overflow-wrap:break-word}h1,h2,h3,h4{word-break:keep-all}</style>"
+
+
 def inject(note, prev, nxt):
     links = ['<a href="../index.html#/notes">← 준비 공간</a>', f'<span class="st-t">{html.escape(note["title"])}</span>']
     if note.get("easy"):                                             # 쉬운 설명 카드 (같은 화면 위에 열림, 원래 노트는 그대로)
@@ -131,6 +136,9 @@ def inject(note, prev, nxt):
         return f'<span id="learn-section-{i}" style="scroll-margin-top:80px"></span>' + m.group(0)
     note = dict(note, raw=re.sub(r"(<h2\b[^>]*>)(.*?)(</h2>)", anchor, note["raw"], flags=re.S))
     raw = NUM_PREFIX.sub(r"\1", note["raw"])                         # <title>·<h1> 앞 번호 제거
+    # 한국어 줄바꿈: 단어 중간 끊김·줄 첫머리 구분 기호 방지 (표 칸은 단어 단위로만 접고, 쉬운 설명 카드는 그려진 뒤 적용)
+    raw = wrapfix.polish_html(raw).replace("</head>", NOTE_WRAP_CSS + "</head>", 1)
+    bar += wrapfix.WRAP_JS
     return re.sub(r"(<body[^>]*>)", r"\1" + bar.replace("\\", "\\\\"), raw, count=1)
 
 

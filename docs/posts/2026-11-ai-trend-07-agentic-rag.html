@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RAG에서 Agentic RAG로 — 검색을 한 번 할지, 에이전트가 여러 번 할지 · 이영주</title>
+<title>RAG에서 Agentic RAG로 — 검색을 한 번 할지, 에이전트가 여러 번 할지 · 이영주</title>
 <meta name="description" content="한 번 검색해 답하는 RAG와, 검색 여부·횟수·결과 품질을 스스로 판단하는 Agentic RAG의 차이를 정리했습니다. Self-RAG·CRAG·Adaptive-RAG가 각각 어느 판단을 추가했는지와, 반복이 늘 때 생기는 비용과 평가 문제를 봅니다.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="이영주 포트폴리오">
@@ -74,19 +74,19 @@ footer{padding:64px 0 40px;color:var(--muted);font-size:13px}
 .series{margin:36px 0 0;padding:20px 22px;border:1px solid var(--line);border-radius:18px;background:var(--card)}
 .series b{font-size:15px}.series ol{margin:10px 0 0;padding-left:20px;font-size:14.5px;line-height:1.6}.series li{padding:3px 0}.series li small{color:var(--muted);margin-left:8px;font-size:12.5px}.series li.me a{font-weight:800;text-decoration:none}
 </style>
-</head>
+<style data-wrapfix>:where(html:lang(ko)) :where(body){word-break:keep-all;overflow-wrap:anywhere}:where(body){text-wrap-style:pretty}:where(h1,h2,h3,h4,h5,h6,figcaption,summary,dt,th,caption){text-wrap-style:balance}:where(pre,code,kbd,samp,textarea,input){word-break:normal;text-wrap-style:auto}:where(td,th){overflow-wrap:break-word}</style></head>
 <body>
 <div class="readbar" id="readbar"></div>
 <div class="wrap">
   <nav><a class="home" href="../index.html">Young-Ju Lee</a><a href="../index.html#writing">Writing</a><a href="../index.html#work">Work</a><button id="theme" type="button">테마</button></nav>
   <header class="post">
-    <div class="meta"><a href="ai-trend.html" style="color:inherit">AI 트렌드 노트</a> #7 · 2026-11-12 · 6분 읽기</div>
-    <h1>RAG에서 Agentic RAG로 — 검색을 한 번 할지, 에이전트가 여러 번 할지</h1>
-    <p>한 번 검색해 답하는 RAG와, 검색 여부·횟수·결과 품질을 스스로 판단하는 Agentic RAG의 차이를 정리했습니다. Self-RAG·CRAG·Adaptive-RAG가 각각 어느 판단을 추가했는지와, 반복이 늘 때 생기는 비용과 평가 문제를 봅니다.</p>
+    <div class="meta"><a href="ai-trend.html" style="color:inherit">AI 트렌드 노트</a> #7 · 2026-11-12 · 6분 읽기</div>
+    <h1>RAG에서 Agentic RAG로 — 검색을 한 번 할지, 에이전트가 여러 번 할지</h1>
+    <p>한 번 검색해 답하는 RAG와, 검색 여부⁠·​횟수⁠·​결과 품질을 스스로 판단하는 Agentic RAG의 차이를 정리했습니다. Self-RAG⁠·​CRAG⁠·​Adaptive-RAG가 각각 어느 판단을 추가했는지와, 반복이 늘 때 생기는 비용과 평가 문제를 봅니다.</p>
     <div class="chips"><span class="chip">RAG</span><span class="chip">에이전트</span><span class="chip">검색</span></div>
   </header>
   <article><blockquote>
-<p><strong>한 줄 요약</strong> — 지난 회차의 메모리는 에이전트가 스스로 쓰고 꺼내는 기억이었습니다. RAG는 사람이 준비한 문서를 꺼내 쓰는 쪽입니다. 기본 RAG는 질문마다 <strong>검색 한 번, 생성 한 번</strong>으로 끝나고, Agentic RAG는 #5의 루프를 검색에 적용해 <strong>검색할지, 무엇으로 다시 검색할지, 결과가 쓸 만한지</strong>를 단계마다 판단합니다.</p>
+<p><strong>한 줄 요약</strong> — 지난 회차의 메모리는 에이전트가 스스로 쓰고 꺼내는 기억이었습니다. RAG는 사람이 준비한 문서를 꺼내 쓰는 쪽입니다. 기본 RAG는 질문마다 <strong>검색 한 번, 생성 한 번</strong>으로 끝나고, Agentic RAG는 #5의 루프를 검색에 적용해 <strong>검색할지, 무엇으로 다시 검색할지, 결과가 쓸 만한지</strong>를 단계마다 판단합니다.</p>
 </blockquote>
 <h2>핵심 개념</h2>
 <ul>
@@ -97,8 +97,8 @@ footer{padding:64px 0 40px;color:var(--muted);font-size:13px}
 <h2>지금 무슨 일이 일어나고 있나</h2>
 <ul>
 <li><strong>판단을 하나씩 추가한 연구들</strong>이 뼈대가 되었습니다. <strong>Self-RAG</strong>(2023)는 모델이 검색이 필요한지와 자기 답이 근거에 맞는지를 나타내는 특수 토큰(reflection token)을 내도록 학습시켰습니다. <strong>CRAG</strong>(2024)는 가져온 문서의 품질을 매기는 가벼운 평가기를 두고, 점수가 낮으면 웹 검색으로 보충하는 것으로 소개됩니다. <strong>Adaptive-RAG</strong>(2024)는 질문의 난이도를 먼저 분류해 검색 없이 답할지, 한 번 검색할지, 여러 단계로 검색할지를 고르는 방식으로 알려져 있습니다. CRAG와 Adaptive-RAG의 세부는 2차 자료로 확인했습니다.</li>
-<li><strong>정리하는 논문이 여럿 나왔습니다.</strong> Singh 외의 서베이(arXiv 2501.09136, 2026년 4월 개정)는 Agentic RAG를 에이전트 수, 제어 구조, 자율성 등으로 분류합니다. 2026년 ACL Findings에는 데이터 관점의 서베이가 실렸고, 다른 논문은 기존의 BLEU·ROUGE 같은 정적 지표로는 Agentic RAG를 평가하기에 부족하다고 지적합니다.</li>
-<li><strong>프레임워크에서는 그래프로 구현합니다.</strong> LangChain은 검색 → 문서 채점 → (부족하면) 질문 재작성 → 생성 → 답 점검을 노드와 조건 분기로 엮는 예제를 공개했습니다. 판단은 모델이 하되, 어느 판단 뒤에 어디로 갈 수 있는지는 코드가 정합니다.</li>
+<li><strong>정리하는 논문이 여럿 나왔습니다.</strong> Singh 외의 서베이(arXiv 2501.09136, 2026년 4월 개정)는 Agentic RAG를 에이전트 수, 제어 구조, 자율성 등으로 분류합니다. 2026년 ACL Findings에는 데이터 관점의 서베이가 실렸고, 다른 논문은 기존의 BLEU⁠·​ROUGE 같은 정적 지표로는 Agentic RAG를 평가하기에 부족하다고 지적합니다.</li>
+<li><strong>프레임워크에서는 그래프로 구현합니다.</strong> LangChain은 검색 → 문서 채점 → (부족하면) 질문 재작성 → 생성 → 답 점검을 노드와 조건 분기로 엮는 예제를 공개했습니다. 판단은 모델이 하되, 어느 판단 뒤에 어디로 갈 수 있는지는 코드가 정합니다.</li>
 </ul>
 <h2>동작 구조</h2>
 <pre><code>기본 RAG:     질문 ─▶ 검색(k개) ─▶ 생성 ─▶ 답
@@ -131,14 +131,14 @@ Agentic RAG:  질문 ─▶ ① 검색이 필요한가? ──아니오──▶
 <h2>왜 중요한가 / 한계</h2>
 <ul>
 <li><strong>검색 실패를 스스로 알아챌 기회가 생깁니다.</strong> 기본 RAG는 빗나간 문서를 받아도 그대로 답을 만듭니다. 문서 채점과 재검색이 그 지점을 끊습니다.</li>
-<li><strong>한계 1 — 비용과 지연</strong>: 판단마다 모델 호출이 붙습니다. 채점, 재작성, 점검을 모두 넣으면 호출 수가 몇 배가 되고, 대부분의 쉬운 질문에는 과합니다. Adaptive-RAG처럼 쉬운 질문을 먼저 걸러 내는 이유입니다.</li>
-<li><strong>한계 2 — 판단도 모델이 합니다.</strong> "문서가 관련 있다"는 채점 자체가 틀릴 수 있습니다. 코드로 확인할 수 있는 것(인용 번호가 실제로 있는가, 숫자가 원문에 있는가)은 코드로 확인하는 편이 안전합니다.</li>
-<li><strong>한계 3 — 평가가 어려워집니다.</strong> 경로가 질문마다 달라져서, 최종 답만 채점해서는 어디가 문제인지 알 수 없습니다. 검색 재현율, 인용 정밀도, 거절 정확도, 호출 수를 따로 재야 합니다.</li>
-<li><strong>한계 4 — 끝나지 않는 재검색</strong>: 자료에 답이 없는 질문은 몇 번을 다시 찾아도 없습니다. 반복 횟수 제한과 "확인되지 않습니다"라는 출구가 필요합니다.</li>
+<li><strong>한계 1 — 비용과 지연</strong>: 판단마다 모델 호출이 붙습니다. 채점, 재작성, 점검을 모두 넣으면 호출 수가 몇 배가 되고, 대부분의 쉬운 질문에는 과합니다. Adaptive-RAG처럼 쉬운 질문을 먼저 걸러 내는 이유입니다.</li>
+<li><strong>한계 2 — 판단도 모델이 합니다.</strong> "문서가 관련 있다"는 채점 자체가 틀릴 수 있습니다. 코드로 확인할 수 있는 것(인용 번호가 실제로 있는가, 숫자가 원문에 있는가)은 코드로 확인하는 편이 안전합니다.</li>
+<li><strong>한계 3 — 평가가 어려워집니다.</strong> 경로가 질문마다 달라져서, 최종 답만 채점해서는 어디가 문제인지 알 수 없습니다. 검색 재현율, 인용 정밀도, 거절 정확도, 호출 수를 따로 재야 합니다.</li>
+<li><strong>한계 4 — 끝나지 않는 재검색</strong>: 자료에 답이 없는 질문은 몇 번을 다시 찾아도 없습니다. 반복 횟수 제한과 "확인되지 않습니다"라는 출구가 필요합니다.</li>
 </ul>
 <h2>내 프로젝트와 연결</h2>
 <ul>
-<li><strong>국보 RAG 가이드</strong>는 위 구조 가운데 일부만 넣은 형태입니다. LangGraph로 검색 → 생성 → 근거 번호 검증을 노드로 나누었고, 답에 붙은 [근거 N]이 실제 검색 결과에 있는 번호인지는 모델이 아니라 코드로 검사했습니다. 자료에 없는 질문에는 "확인되지 않습니다"로 답하게 했습니다. 문서 채점이나 질문 재작성 같은 반복은 넣지 않았으므로, Agentic RAG라고 부르기보다는 검증이 붙은 기본 RAG에 가깝습니다.</li>
+<li><strong>국보 RAG 가이드</strong>는 위 구조 가운데 일부만 넣은 형태입니다. LangGraph로 검색 → 생성 → 근거 번호 검증을 노드로 나누었고, 답에 붙은 [근거 N]이 실제 검색 결과에 있는 번호인지는 모델이 아니라 코드로 검사했습니다. 자료에 없는 질문에는 "확인되지 않습니다"로 답하게 했습니다. 문서 채점이나 질문 재작성 같은 반복은 넣지 않았으므로, Agentic RAG라고 부르기보다는 검증이 붙은 기본 RAG에 가깝습니다.</li>
 <li>같은 프로젝트의 <strong>평가 도구</strong>는 검색 방식(similarity, MMR)과 k를 바꿔 가며 인용 정밀도, 문장 인용률, 거절 정확도, 검색 재현율을 표로 비교합니다. 한계 3에서 말한 "단계별로 따로 재기"를 작은 규모로 해 본 것입니다. 정답셋이 9문항이라 수치로 결론을 내기에는 작습니다.</li>
 <li>최근 만든 <strong>data-agent</strong>는 문서 대신 SQL로 데이터를 꺼내는 경우인데, 답 속 숫자가 조회 결과에 있는지 코드로 대조합니다. 위 그림의 ⑥을 숫자에 적용한 것입니다. 실제 LLM을 붙인 평가는 아직 하지 않았습니다.</li>
 </ul>
@@ -150,17 +150,17 @@ Agentic RAG:  질문 ─▶ ① 검색이 필요한가? ──아니오──▶
 <h2>출처</h2>
 <ul>
 <li>Asai 외, <a href="https://arxiv.org/abs/2310.11511">Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection</a> (2023)</li>
-<li>Yan 외, <a href="https://arxiv.org/abs/2401.15884">Corrective Retrieval Augmented Generation (CRAG)</a> (2024) — 세부는 2차 자료로 확인</li>
-<li>Jeong 외, <a href="https://arxiv.org/abs/2403.14403">Adaptive-RAG</a> (2024) — 세부는 2차 자료로 확인</li>
+<li>Yan 외, <a href="https://arxiv.org/abs/2401.15884">Corrective Retrieval Augmented Generation (CRAG)</a> (2024) — 세부는 2차 자료로 확인</li>
+<li>Jeong 외, <a href="https://arxiv.org/abs/2403.14403">Adaptive-RAG</a> (2024) — 세부는 2차 자료로 확인</li>
 <li>Singh 외, <a href="https://arxiv.org/abs/2501.09136">Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG</a> (2026년 4월 개정)</li>
 <li>Deng 외, <a href="https://aclanthology.org/2026.findings-acl.78.pdf">Data-Centric Perspectives on Agentic RAG: A Survey</a> (ACL Findings 2026)</li>
 <li>LangChain Blog, <a href="https://blog.langchain.com/agentic-rag-with-langgraph">Self-Reflective RAG with LangGraph</a></li>
 </ul></article>
   <div class="endcard">
-    <div><b>AI 트렌드 노트 · 20편</b><span>에이전트 개념부터 차례로 이어서 쓰는 시리즈입니다. 다음 회차: #8 멀티 에이전트 오케스트레이션 — 나누면 빨라지지만 맥락이 끊긴다</span></div>
+    <div><b>AI 트렌드 노트 · 20편</b><span>에이전트 개념부터 차례로 이어서 쓰는 시리즈입니다. 다음 회차: #8 멀티 에이전트 오케스트레이션 — 나누면 빨라지지만 맥락이 끊긴다</span></div>
     <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="2026-11-ai-trend-06-agent-memory.html">← #6</a><a class="btn" href="ai-trend.html">전체 목록</a><a class="btn" href="2026-11-ai-trend-08-multi-agent.html">#8 →</a></div>
   </div>
-<div class="others"><b style="font-size:14px;color:var(--muted)">다른 글</b><a href="2026-11-ai-trend-20-dbt-v2-remote-mcp.html">11월 dbt 업데이트 — dbt v2 지원 확대와 원격 MCP 서버의 권한 검사<span>dbt의 11월 정리 글과 릴리스 노트를 바탕으로, dbt v2가 지원하는 웨어하우스·묶음 테스트, 원격 dbt MCP 서버의 권한 검사 변경을 정리했습니다. 에이전트가 dbt 프로젝트를 읽고 실행하게 될 때 무엇을 확인해야 하는지 봅니다.</span></a><a href="2026-11-ai-trend-19-data-platform-ontology.html">11/9 Databricks Genie Ontology GA · 11/3 Snowflake Business Ontology — 에이전트에게 &#39;업무 정의&#39;를 주는 계층<span>데이터 플랫폼 두 곳이 11월 초 에이전트용 &#39;온톨로지(업무 정의) 계층&#39;을 잇달아 내놓았습니다. 무엇을 발표했는지, 공식 자료끼리 상태 표기가 어떻게 엇갈리는지, 데이터 엔지니어에게 어떤 일이 생기는지 정리했습니다.</span></a><a href="2026-11-ai-trend-18-ai-regulation-safety.html">AI 규제·안전 — EU AI Act와 한국 AI 기본법은 개발자에게 무엇을 요구하나<span>2026년 실제로 시행되거나 일정이 바뀐 EU AI Act와 한국 AI 기본법을 개발자 관점에서 정리했습니다. 위험도에 따라 의무가 달라지는 구조, 생성물 표시, 그리고 일정이 출처마다 엇갈리는 부분을 봅니다.</span></a><a href="2026-11-ai-trend-17-multimodal-generation.html">멀티모달 생성 — 이미지·음성·영상을 만드는 모델은 무엇이 다른가<span>글자 대신 이미지·음성·영상을 만들어 내는 생성 모델의 구조와 2026년의 흐름(소리까지 함께 만드는 영상 모델, 여러 입력을 섞는 모델)을 정리했습니다. 평가와 출처 표시가 텍스트보다 어려운 이유도 봅니다.</span></a><a href="2026-11-ai-trend-16-cost-latency-optimization.html">비용·지연 최적화 — 캐싱·라우팅·배치로 같은 답을 더 싸고 빠르게<span>LLM 서비스의 비용과 지연을 줄이는 세 가지 장치, 프롬프트 캐싱·모델 라우팅·배치 처리를 정리했습니다. 공식 문서의 캐시 수명과 가격 배수, 그리고 캐시가 맞지 않는 구조를 봅니다.</span></a><a href="2026-11-ai-trend-15-finetune-prompt-rag.html">파인튜닝 vs 프롬프트 vs RAG — 모델을 바꿀지, 입력을 바꿀지<span>같은 문제를 프롬프트로 풀지, 검색(RAG)으로 풀지, 파인튜닝으로 풀지를 정하는 기준을 정리했습니다. 세 방법은 각각 지시·지식·행동을 바꾸고, 고르는 순서보다 평가 기준을 먼저 세우는 것이 중요합니다.</span></a><a href="2026-11-ai-trend-14-small-on-device-models.html">소형·온디바이스 모델 — 작은 모델로 충분한 일은 얼마나 되나<span>수십억 개 이하 파라미터의 작은 모델을 기기 안에서 돌리는 흐름을 정리했습니다. 양자화가 무엇을 줄이는지, 큰 모델과 작은 모델을 섞어 쓰는 구조, 그리고 &#39;작아도 된다&#39;는 주장의 조건을 봅니다.</span></a><a href="2026-11-ai-trend-13-reasoning-test-time-compute.html">추론 모델과 test-time compute — 더 오래 생각하게 하면 무엇이 달라지나<span>답하기 전에 생각하는 데 계산을 더 쓰는 추론 모델의 원리와, &#39;생각 예산&#39;을 조절할 때 생기는 비용·지연·과잉 사고 문제를 정리했습니다.</span></a><a href="2026-11-ai-trend-12-computer-use.html">컴퓨터 사용 에이전트 — 화면을 보고 클릭하는 모델<span>API가 없는 프로그램을 사람처럼 화면으로 다루는 에이전트를 정리했습니다. 화면 캡처 → 좌표 → 행동의 루프, 벤치마크 점수가 사람 기준선을 넘었다는 보고와 그 점수를 그대로 믿기 어려운 이유를 봅니다.</span></a><a href="2026-11-ai-trend-11-coding-agents.html">코딩 에이전트 — 코드를 쓰는 것보다 확인하는 것이 일이다<span>자동 완성에서 &#39;저장소를 읽고, 고치고, 테스트를 돌리는&#39; 에이전트로 넘어온 흐름을 정리했습니다. 벤치마크 점수가 출처마다 엇갈리는 이유와, 사람의 일이 작성에서 검증으로 옮겨 가는 지점을 봅니다.</span></a><a href="2026-11-ai-trend-10-agent-evaluation.html">에이전트 평가 — 점수가 높다는 것과 믿을 수 있다는 것<span>에이전트는 답 하나가 아니라 과정 전체를 평가해야 합니다. 채점기의 세 종류, 한 번 성공과 매번 성공의 차이, 그리고 공개 벤치마크 점수가 오염으로 흔들리는 사례를 정리했습니다.</span></a><a href="2026-11-ai-trend-09-guardrails-prompt-injection.html">가드레일과 프롬프트 인젝션 방어 — 모델이 읽는 모든 글이 공격 경로다<span>프롬프트 인젝션이 왜 필터 하나로 막히지 않는지, 직접·간접 인젝션의 차이와 &#39;탐지&#39;에서 &#39;권한 설계&#39;로 옮겨 가는 방어 흐름을 정리했습니다.</span></a><a href="2026-11-ai-trend-08-multi-agent.html">멀티 에이전트 오케스트레이션 — 나누면 빨라지지만 맥락이 끊긴다<span>일을 여러 에이전트에게 나눠 맡기는 구조(지휘자-작업자, 핸드오프)의 장단점을 정리했습니다. 병렬 조사에서는 효과가 보고됐지만 토큰이 크게 늘고, 맥락이 쪼개져 생기는 실패가 따로 연구될 만큼 흔합니다.</span></a><a href="2026-11-ai-trend-06-agent-memory.html">에이전트 메모리 — 대화가 끝나도 남는 것과 남기면 안 되는 것<span>컨텍스트 창 안의 단기 기억과 대화 밖에 저장하는 장기 기억을 나누고, 무엇을 쓰고 언제 꺼내는지의 설계를 정리했습니다. 한 번 오염되면 세션이 끝나도 남는 메모리 포이즈닝도 함께 봅니다.</span></a><a href="2026-11-ai-trend-05-react-plan-execute.html">ReAct와 Plan-and-Execute — 에이전트는 어떻게 계획하나<span>한 걸음마다 다시 생각하는 ReAct와, 먼저 계획을 세우고 실행하는 Plan-and-Execute의 차이를 비용·속도·실패 방식으로 비교했습니다. ReWOO·LLMCompiler 같은 변형과 코딩 에이전트의 plan mode까지 이어서 봅니다.</span></a><a href="2026-11-ai-trend-04-a2a.html">에이전트 간 통신 — A2A는 MCP와 무엇이 다른가<span>MCP가 &#39;에이전트와 도구&#39;를 잇는다면 A2A는 &#39;에이전트와 에이전트&#39;를 잇습니다. Agent Card로 상대를 찾고, 상태가 있는 task로 일을 맡기는 구조와, 버전마다 바뀐 부분·엇갈리는 보도를 정리했습니다.</span></a><a href="2026-11-ai-trend-03-mcp.html">MCP — 도구를 매번 새로 붙이지 않는 방법<span>지난 회차의 tool use를 앱마다 다시 만들지 않도록 &#39;도구 서버&#39;를 표준 규격으로 분리한 MCP의 구조(호스트·클라이언트·서버, tools·resources·prompts)와 최근 사양 변화, 보안상 약한 고리를 정리했습니다.</span></a><a href="2026-11-ai-trend-02-tool-use.html">Tool use — 모델은 함수를 실행하지 않는다<span>Function calling의 실제 동작(모델은 호출 &#39;요청&#39;만 만들고 실행은 내 코드가 한다), strict 스키마와 Structured Outputs의 관계, 도구를 쓸 때와 출력 형식만 고정할 때를 구분했습니다.</span></a><a href="2026-11-ai-trend-01-agent.html">AI 에이전트란 무엇인가 — LLM이 도구를 쥐고 반복할 때<span>에이전트를 &#39;도구를 쓰며 스스로 다음 단계를 정하는 LLM 루프&#39;로 정의하고, 워크플로와 무엇이 다른지, 기업 도입 숫자가 왜 엇갈리는지 정리했습니다.</span></a></div>  <footer>© Young-Ju Lee · iyju990312@naver.com</footer>
+<div class="others"><b style="font-size:14px;color:var(--muted)">다른 글</b><a href="2026-11-ai-trend-20-dbt-v2-remote-mcp.html">11월 dbt 업데이트 — dbt v2 지원 확대와 원격 MCP 서버의 권한 검사<span>dbt의 11월 정리 글과 릴리스 노트를 바탕으로, dbt v2가 지원하는 웨어하우스⁠·​묶음 테스트, 원격 dbt MCP 서버의 권한 검사 변경을 정리했습니다. 에이전트가 dbt 프로젝트를 읽고 실행하게 될 때 무엇을 확인해야 하는지 봅니다.</span></a><a href="2026-11-ai-trend-19-data-platform-ontology.html">11/9 Databricks Genie Ontology GA · 11/3 Snowflake Business Ontology — 에이전트에게 &#39;업무 정의&#39;를 주는 계층<span>데이터 플랫폼 두 곳이 11월 초 에이전트용 &#39;온톨로지(업무 정의) 계층&#39;을 잇달아 내놓았습니다. 무엇을 발표했는지, 공식 자료끼리 상태 표기가 어떻게 엇갈리는지, 데이터 엔지니어에게 어떤 일이 생기는지 정리했습니다.</span></a><a href="2026-11-ai-trend-18-ai-regulation-safety.html">AI 규제⁠·​안전 — EU AI Act와 한국 AI 기본법은 개발자에게 무엇을 요구하나<span>2026년 실제로 시행되거나 일정이 바뀐 EU AI Act와 한국 AI 기본법을 개발자 관점에서 정리했습니다. 위험도에 따라 의무가 달라지는 구조, 생성물 표시, 그리고 일정이 출처마다 엇갈리는 부분을 봅니다.</span></a><a href="2026-11-ai-trend-17-multimodal-generation.html">멀티모달 생성 — 이미지⁠·​음성⁠·​영상을 만드는 모델은 무엇이 다른가<span>글자 대신 이미지⁠·​음성⁠·​영상을 만들어 내는 생성 모델의 구조와 2026년의 흐름(소리까지 함께 만드는 영상 모델, 여러 입력을 섞는 모델)을 정리했습니다. 평가와 출처 표시가 텍스트보다 어려운 이유도 봅니다.</span></a><a href="2026-11-ai-trend-16-cost-latency-optimization.html">비용⁠·​지연 최적화 — 캐싱⁠·​라우팅⁠·​배치로 같은 답을 더 싸고 빠르게<span>LLM 서비스의 비용과 지연을 줄이는 세 가지 장치, 프롬프트 캐싱⁠·​모델 라우팅⁠·​배치 처리를 정리했습니다. 공식 문서의 캐시 수명과 가격 배수, 그리고 캐시가 맞지 않는 구조를 봅니다.</span></a><a href="2026-11-ai-trend-15-finetune-prompt-rag.html">파인튜닝 vs 프롬프트 vs RAG — 모델을 바꿀지, 입력을 바꿀지<span>같은 문제를 프롬프트로 풀지, 검색(RAG)으로 풀지, 파인튜닝으로 풀지를 정하는 기준을 정리했습니다. 세 방법은 각각 지시⁠·​지식⁠·​행동을 바꾸고, 고르는 순서보다 평가 기준을 먼저 세우는 것이 중요합니다.</span></a><a href="2026-11-ai-trend-14-small-on-device-models.html">소형⁠·​온디바이스 모델 — 작은 모델로 충분한 일은 얼마나 되나<span>수십억 개 이하 파라미터의 작은 모델을 기기 안에서 돌리는 흐름을 정리했습니다. 양자화가 무엇을 줄이는지, 큰 모델과 작은 모델을 섞어 쓰는 구조, 그리고 &#39;작아도 된다&#39;는 주장의 조건을 봅니다.</span></a><a href="2026-11-ai-trend-13-reasoning-test-time-compute.html">추론 모델과 test-time compute — 더 오래 생각하게 하면 무엇이 달라지나<span>답하기 전에 생각하는 데 계산을 더 쓰는 추론 모델의 원리와, &#39;생각 예산&#39;을 조절할 때 생기는 비용⁠·​지연⁠·​과잉 사고 문제를 정리했습니다.</span></a><a href="2026-11-ai-trend-12-computer-use.html">컴퓨터 사용 에이전트 — 화면을 보고 클릭하는 모델<span>API가 없는 프로그램을 사람처럼 화면으로 다루는 에이전트를 정리했습니다. 화면 캡처 → 좌표 → 행동의 루프, 벤치마크 점수가 사람 기준선을 넘었다는 보고와 그 점수를 그대로 믿기 어려운 이유를 봅니다.</span></a><a href="2026-11-ai-trend-11-coding-agents.html">코딩 에이전트 — 코드를 쓰는 것보다 확인하는 것이 일이다<span>자동 완성에서 &#39;저장소를 읽고, 고치고, 테스트를 돌리는&#39; 에이전트로 넘어온 흐름을 정리했습니다. 벤치마크 점수가 출처마다 엇갈리는 이유와, 사람의 일이 작성에서 검증으로 옮겨 가는 지점을 봅니다.</span></a><a href="2026-11-ai-trend-10-agent-evaluation.html">에이전트 평가 — 점수가 높다는 것과 믿을 수 있다는 것<span>에이전트는 답 하나가 아니라 과정 전체를 평가해야 합니다. 채점기의 세 종류, 한 번 성공과 매번 성공의 차이, 그리고 공개 벤치마크 점수가 오염으로 흔들리는 사례를 정리했습니다.</span></a><a href="2026-11-ai-trend-09-guardrails-prompt-injection.html">가드레일과 프롬프트 인젝션 방어 — 모델이 읽는 모든 글이 공격 경로다<span>프롬프트 인젝션이 왜 필터 하나로 막히지 않는지, 직접⁠·​간접 인젝션의 차이와 &#39;탐지&#39;에서 &#39;권한 설계&#39;로 옮겨 가는 방어 흐름을 정리했습니다.</span></a><a href="2026-11-ai-trend-08-multi-agent.html">멀티 에이전트 오케스트레이션 — 나누면 빨라지지만 맥락이 끊긴다<span>일을 여러 에이전트에게 나눠 맡기는 구조(지휘자-작업자, 핸드오프)의 장단점을 정리했습니다. 병렬 조사에서는 효과가 보고됐지만 토큰이 크게 늘고, 맥락이 쪼개져 생기는 실패가 따로 연구될 만큼 흔합니다.</span></a><a href="2026-11-ai-trend-06-agent-memory.html">에이전트 메모리 — 대화가 끝나도 남는 것과 남기면 안 되는 것<span>컨텍스트 창 안의 단기 기억과 대화 밖에 저장하는 장기 기억을 나누고, 무엇을 쓰고 언제 꺼내는지의 설계를 정리했습니다. 한 번 오염되면 세션이 끝나도 남는 메모리 포이즈닝도 함께 봅니다.</span></a><a href="2026-11-ai-trend-05-react-plan-execute.html">ReAct와 Plan-and-Execute — 에이전트는 어떻게 계획하나<span>한 걸음마다 다시 생각하는 ReAct와, 먼저 계획을 세우고 실행하는 Plan-and-Execute의 차이를 비용⁠·​속도⁠·​실패 방식으로 비교했습니다. ReWOO⁠·​LLMCompiler 같은 변형과 코딩 에이전트의 plan mode까지 이어서 봅니다.</span></a><a href="2026-11-ai-trend-04-a2a.html">에이전트 간 통신 — A2A는 MCP와 무엇이 다른가<span>MCP가 &#39;에이전트와 도구&#39;를 잇는다면 A2A는 &#39;에이전트와 에이전트&#39;를 잇습니다. Agent Card로 상대를 찾고, 상태가 있는 task로 일을 맡기는 구조와, 버전마다 바뀐 부분⁠·​엇갈리는 보도를 정리했습니다.</span></a><a href="2026-11-ai-trend-03-mcp.html">MCP — 도구를 매번 새로 붙이지 않는 방법<span>지난 회차의 tool use를 앱마다 다시 만들지 않도록 &#39;도구 서버&#39;를 표준 규격으로 분리한 MCP의 구조(호스트⁠·​클라이언트⁠·​서버, tools⁠·​resources⁠·​prompts)와 최근 사양 변화, 보안상 약한 고리를 정리했습니다.</span></a><a href="2026-11-ai-trend-02-tool-use.html">Tool use — 모델은 함수를 실행하지 않는다<span>Function calling의 실제 동작(모델은 호출 &#39;요청&#39;만 만들고 실행은 내 코드가 한다), strict 스키마와 Structured Outputs의 관계, 도구를 쓸 때와 출력 형식만 고정할 때를 구분했습니다.</span></a><a href="2026-11-ai-trend-01-agent.html">AI 에이전트란 무엇인가 — LLM이 도구를 쥐고 반복할 때<span>에이전트를 &#39;도구를 쓰며 스스로 다음 단계를 정하는 LLM 루프&#39;로 정의하고, 워크플로와 무엇이 다른지, 기업 도입 숫자가 왜 엇갈리는지 정리했습니다.</span></a></div>  <footer>© Young-Ju Lee · iyju990312@naver.com</footer>
 </div>
 <script>
 (function(){var r=document.documentElement,K='theme';
@@ -170,5 +170,12 @@ var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').
 var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});})();
 </script>
 <script>(function(){var b=document.getElementById('readbar'),a=document.querySelector('article');if(!b||!a)return;function f(){var r=a.getBoundingClientRect(),h=r.height-innerHeight*0.6,p=Math.min(1,Math.max(0,-r.top/(h>0?h:1)));b.style.width=(p*100)+'%'}addEventListener('scroll',function(){requestAnimationFrame(f)},{passive:true});f()})();</script>
-</body>
+<script id="wrapfix-js">(function(){var R=[[/ \u00b7 /g,'\u00a0\u00b7 '],[/ \u2014 /g,'\u00a0\u2014 '],[/ \u2192 /g,'\u00a0\u2192 '],[/ \u2013 /g,'\u00a0\u2013\u00a0'],[/([^\s\u00a0\u2060])\u00b7(?=[^\s\u00a0\u200b])/g,'$1\u2060\u00b7\u200b']];
+var SKIP=/^(SCRIPT|STYLE|PRE|CODE|TEXTAREA|INPUT|SVG|MATH|KBD|SAMP|OPTION)$/;
+function fix(root){if(!root)return;if(root.nodeType===3){one(root);return}if(root.nodeType!==1||SKIP.test(root.nodeName)||root.isContentEditable)return;
+var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:function(n){for(var p=n.parentNode;p&&p!==root.parentNode;p=p.parentNode){if(p.nodeType===1&&(SKIP.test(p.nodeName)||p.isContentEditable))return 2}return 1}}),n;while((n=w.nextNode()))one(n)}
+function one(n){var v=n.nodeValue,o=v;if(!v||v.length<3)return;for(var i=0;i<R.length;i++)v=v.replace(R[i][0],R[i][1]);if(v!==o)n.nodeValue=v}
+var q=[],t=0;function flush(){t=0;var a=q;q=[];for(var i=0;i<a.length;i++)fix(a[i])}
+function start(){fix(document.body);new MutationObserver(function(ms){for(var i=0;i<ms.length;i++)for(var j=0;j<ms[i].addedNodes.length;j++)q.push(ms[i].addedNodes[j]);if(!t)t=requestAnimationFrame(flush)}).observe(document.body,{childList:true,subtree:true})}
+if(document.body)start();else document.addEventListener('DOMContentLoaded',start)})();</script></body>
 </html>

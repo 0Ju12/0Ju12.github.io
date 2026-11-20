@@ -13,6 +13,7 @@ import json, os, re
 from datetime import datetime, timezone
 from uuid import uuid4
 from pathlib import Path
+import wrapfix
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "docs" / "study"
@@ -235,6 +236,7 @@ def build(env, data):
     (OUT / "version.json").write_text(json.dumps(release), encoding="utf-8")
     app["study"] = getattr(study, "APP", None)
     html = env.get_template("interview.html.j2").render(app=app, **data)
+    html = html.replace("</head>", wrapfix.WRAP_CSS + "</head>", 1).replace("</body>", wrapfix.WRAP_JS + "</body>", 1)   # 한국어 줄바꿈
     (OUT / "index.html").write_text(locker.page("준비 공간", html, "../index.html", pwa=True), encoding="utf-8")
     study.pwa(OUT, [])
     OLD.mkdir(parents=True, exist_ok=True)

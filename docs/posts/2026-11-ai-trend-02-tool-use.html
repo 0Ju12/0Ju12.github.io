@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tool use — 모델은 함수를 실행하지 않는다 · 이영주</title>
+<title>Tool use — 모델은 함수를 실행하지 않는다 · 이영주</title>
 <meta name="description" content="Function calling의 실제 동작(모델은 호출 &#39;요청&#39;만 만들고 실행은 내 코드가 한다), strict 스키마와 Structured Outputs의 관계, 도구를 쓸 때와 출력 형식만 고정할 때를 구분했습니다.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="이영주 포트폴리오">
@@ -74,23 +74,23 @@ footer{padding:64px 0 40px;color:var(--muted);font-size:13px}
 .series{margin:36px 0 0;padding:20px 22px;border:1px solid var(--line);border-radius:18px;background:var(--card)}
 .series b{font-size:15px}.series ol{margin:10px 0 0;padding-left:20px;font-size:14.5px;line-height:1.6}.series li{padding:3px 0}.series li small{color:var(--muted);margin-left:8px;font-size:12.5px}.series li.me a{font-weight:800;text-decoration:none}
 </style>
-</head>
+<style data-wrapfix>:where(html:lang(ko)) :where(body){word-break:keep-all;overflow-wrap:anywhere}:where(body){text-wrap-style:pretty}:where(h1,h2,h3,h4,h5,h6,figcaption,summary,dt,th,caption){text-wrap-style:balance}:where(pre,code,kbd,samp,textarea,input){word-break:normal;text-wrap-style:auto}:where(td,th){overflow-wrap:break-word}</style></head>
 <body>
 <div class="readbar" id="readbar"></div>
 <div class="wrap">
   <nav><a class="home" href="../index.html">Young-Ju Lee</a><a href="../index.html#writing">Writing</a><a href="../index.html#work">Work</a><button id="theme" type="button">테마</button></nav>
   <header class="post">
-    <div class="meta"><a href="ai-trend.html" style="color:inherit">AI 트렌드 노트</a> #2 · 2026-11-09 · 6분 읽기</div>
-    <h1>Tool use — 모델은 함수를 실행하지 않는다</h1>
+    <div class="meta"><a href="ai-trend.html" style="color:inherit">AI 트렌드 노트</a> #2 · 2026-11-09 · 6분 읽기</div>
+    <h1>Tool use — 모델은 함수를 실행하지 않는다</h1>
     <p>Function calling의 실제 동작(모델은 호출 &#39;요청&#39;만 만들고 실행은 내 코드가 한다), strict 스키마와 Structured Outputs의 관계, 도구를 쓸 때와 출력 형식만 고정할 때를 구분했습니다.</p>
     <div class="chips"><span class="chip">Tool use</span><span class="chip">Function calling</span><span class="chip">Structured Outputs</span></div>
   </header>
   <article><blockquote>
-<p><strong>한 줄 요약</strong> — "모델이 함수를 호출한다"는 말은 정확하지 않습니다. 모델은 <strong>어떤 함수를 어떤 인자로 부르고 싶은지 구조화된 요청</strong>을 만들 뿐이고, 실행·검증·권한 판단은 전부 애플리케이션 코드의 몫입니다.</p>
+<p><strong>한 줄 요약</strong> — "모델이 함수를 호출한다"는 말은 정확하지 않습니다. 모델은 <strong>어떤 함수를 어떤 인자로 부르고 싶은지 구조화된 요청</strong>을 만들 뿐이고, 실행⁠·​검증⁠·​권한 판단은 전부 애플리케이션 코드의 몫입니다.</p>
 </blockquote>
 <h2>핵심 개념</h2>
 <ul>
-<li><strong>흐름</strong>: ① 개발자가 도구 이름·설명·입력 스키마(JSON Schema)를 모델에 알려 줌 → ② 모델이 필요하다고 판단하면 <code>tool_use</code>(호출 요청)를 응답 → ③ 내 코드가 실제로 실행 → ④ 결과를 <code>tool_result</code>로 다시 넣어 주면 모델이 이어서 답합니다.</li>
+<li><strong>흐름</strong>: ① 개발자가 도구 이름⁠·​설명⁠·​입력 스키마(JSON Schema)를 모델에 알려 줌 → ② 모델이 필요하다고 판단하면 <code>tool_use</code>(호출 요청)를 응답 → ③ 내 코드가 실제로 실행 → ④ 결과를 <code>tool_result</code>로 다시 넣어 주면 모델이 이어서 답합니다.</li>
 <li><strong>이름은 달라도 같은 구조</strong>: OpenAI는 function calling, Anthropic은 tool use라고 부르지만 "모델은 요청, 실행은 코드"라는 구조는 같습니다. Anthropic 문서도 Claude가 직접 실행하는 일은 없다고 명시합니다(서버에서 대신 실행해 주는 '서버 도구'는 예외).</li>
 <li><strong>비유</strong>: 모델은 주문서를 쓰는 점원이고, 주방(내 코드)이 주문서를 보고 요리할지, 재료가 있는지, 이 손님에게 팔아도 되는지를 결정합니다.</li>
 </ul>
@@ -99,7 +99,7 @@ footer{padding:64px 0 40px;color:var(--muted);font-size:13px}
 <li><strong>strict 스키마가 기본값이 되는 중입니다.</strong> OpenAI 문서는 function calling에서 strict 모드를 "항상 켜라"고 권하며, 이때 모든 객체에 <code>additionalProperties: false</code>, 모든 필드를 required로 두고 선택 필드는 <code>null</code> 허용으로 표현해야 한다고 설명합니다. strict 모드는 내부적으로 Structured Outputs 기능을 씁니다.</li>
 <li><strong>API마다 기본 동작이 다릅니다.</strong> 같은 문서 기준으로 Responses API는 strict를 생략하면 strict를 먼저 시도하고, Chat Completions는 기본이 non-strict입니다. "같은 모델이니 같겠지"라고 가정하면 안 되는 부분입니다.</li>
 <li><strong>병렬 호출은 짝 맞추기가 핵심입니다.</strong> Anthropic 문서는 한 번에 여러 도구를 요청받으면 각 결과를 <code>tool_use_id</code>로 짝지어, 다음 메시지에 한꺼번에 돌려줘야 한다고 정해 둡니다. 실패한 호출은 <code>is_error</code>로 표시해 모델이 다른 방법을 찾게 할 수 있습니다.</li>
-<li><strong>도구 목록이 커지는 문제</strong>: 도구가 수십~수백 개가 되면 설명만으로 컨텍스트가 찹니다. Anthropic은 필요한 도구만 검색해서 불러오는 tool search 도구를 문서에 따로 두고 있습니다. 이 "도구를 어떻게 연결·관리하나"가 다음 회차 MCP로 이어지는 문제입니다.</li>
+<li><strong>도구 목록이 커지는 문제</strong>: 도구가 수십~수백 개가 되면 설명만으로 컨텍스트가 찹니다. Anthropic은 필요한 도구만 검색해서 불러오는 tool search 도구를 문서에 따로 두고 있습니다. 이 "도구를 어떻게 연결⁠·​관리하나"가 다음 회차 MCP로 이어지는 문제입니다.</li>
 </ul>
 <h2>동작 구조</h2>
 <pre><code>사용자 ──▶ 모델 ──(tool_use: get_book, {&quot;isbn&quot;: &quot;...&quot;})──▶ 내 코드
@@ -143,12 +143,12 @@ return tool_result(call.id, result)
 <ul>
 <li><strong>중요한 이유</strong>: LLM이 바깥 세계(DB, 검색, 결제, 파일)와 닿는 유일한 통로가 이 구조입니다. 에이전트의 신뢰성은 결국 "도구 호출 요청을 코드가 얼마나 잘 걸러 내는가"로 결정됩니다.</li>
 <li><strong>한계</strong>: 스키마는 <strong>형식</strong>만 보장합니다. <code>{"isbn": "123"}</code>처럼 형식은 맞지만 틀린 값, 혹은 사용자가 시킨 적 없는 행동 요청(프롬프트 인젝션)은 스키마로 막을 수 없습니다. 의미 검증과 권한 확인은 코드에 따로 있어야 합니다.</li>
-<li><strong>비용·지연</strong>: 도구 한 번마다 왕복이 생깁니다. 루프가 길어지면 사용자 화면의 응답 시간이 빠르게 늘어납니다.</li>
+<li><strong>비용⁠·​지연</strong>: 도구 한 번마다 왕복이 생깁니다. 루프가 길어지면 사용자 화면의 응답 시간이 빠르게 늘어납니다.</li>
 </ul>
 <h2>내 프로젝트와 연결</h2>
 <ul>
-<li><strong>관통 7 AI 프록시</strong>의 Guardrail·라우트·점수는 표의 첫 줄, 즉 <strong>Structured Outputs</strong> 쪽이었습니다. 행동을 고르는 게 아니라 정해진 모양의 판정이 필요했기 때문에 <code>strict: true</code> 스키마로 받고, 코드에서 타입·범위·enum을 한 번 더 확인했습니다. 형식이 깨지면 통과가 아니라 503으로 막았습니다.</li>
-<li><strong>관통 4·5</strong>에서는 LLM이 "부적절한 댓글 번호", "추천 도서 id"만 내놓게 하고, 번호 범위·등록된 id인지를 코드가 확인한 뒤에만 반영했습니다. 위 의사코드의 1)·2)에 해당하는 일을 도구 없이 해 본 셈입니다.</li>
+<li><strong>관통 7 AI 프록시</strong>의 Guardrail⁠·​라우트⁠·​점수는 표의 첫 줄, 즉 <strong>Structured Outputs</strong> 쪽이었습니다. 행동을 고르는 게 아니라 정해진 모양의 판정이 필요했기 때문에 <code>strict: true</code> 스키마로 받고, 코드에서 타입⁠·​범위⁠·​enum을 한 번 더 확인했습니다. 형식이 깨지면 통과가 아니라 503으로 막았습니다.</li>
+<li><strong>관통 4⁠·​5</strong>에서는 LLM이 "부적절한 댓글 번호", "추천 도서 id"만 내놓게 하고, 번호 범위⁠·​등록된 id인지를 코드가 확인한 뒤에만 반영했습니다. 위 의사코드의 1)⁠·​2)에 해당하는 일을 도구 없이 해 본 셈입니다.</li>
 <li>이 경험을 tool use로 옮긴다면, 도구 인자 검증 실패를 예외로 끝내지 않고 <code>is_error</code> 결과로 모델에게 돌려줘 스스로 고치게 하는 부분을 더하겠습니다.</li>
 </ul>
 <h2>면접 질문</h2>
@@ -158,14 +158,14 @@ return tool_result(call.id, result)
 </blockquote>
 <h2>출처</h2>
 <ul>
-<li>OpenAI, <a href="https://developers.openai.com/api/docs/guides/function-calling">Function calling</a> · <a href="https://developers.openai.com/api/docs/guides/structured-outputs">Structured model outputs</a> · <a href="https://openai.com/index/introducing-structured-outputs-in-the-api/">Introducing Structured Outputs in the API</a></li>
-<li>Anthropic (Claude Platform Docs), <a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Tool use overview</a> · <a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/how-tool-use-works">How tool use works</a> · <a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls">Handle tool calls</a> · <a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool">Tool search tool</a></li>
+<li>OpenAI, <a href="https://developers.openai.com/api/docs/guides/function-calling">Function calling</a> · <a href="https://developers.openai.com/api/docs/guides/structured-outputs">Structured model outputs</a> · <a href="https://openai.com/index/introducing-structured-outputs-in-the-api/">Introducing Structured Outputs in the API</a></li>
+<li>Anthropic (Claude Platform Docs), <a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Tool use overview</a> · <a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/how-tool-use-works">How tool use works</a> · <a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls">Handle tool calls</a> · <a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool">Tool search tool</a></li>
 </ul></article>
   <div class="endcard">
-    <div><b>AI 트렌드 노트 · 20편</b><span>에이전트 개념부터 차례로 이어서 쓰는 시리즈입니다. 다음 회차: #3 MCP — 도구를 매번 새로 붙이지 않는 방법</span></div>
+    <div><b>AI 트렌드 노트 · 20편</b><span>에이전트 개념부터 차례로 이어서 쓰는 시리즈입니다. 다음 회차: #3 MCP — 도구를 매번 새로 붙이지 않는 방법</span></div>
     <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="2026-11-ai-trend-01-agent.html">← #1</a><a class="btn" href="ai-trend.html">전체 목록</a><a class="btn" href="2026-11-ai-trend-03-mcp.html">#3 →</a></div>
   </div>
-<div class="others"><b style="font-size:14px;color:var(--muted)">다른 글</b><a href="2026-11-ai-trend-20-dbt-v2-remote-mcp.html">11월 dbt 업데이트 — dbt v2 지원 확대와 원격 MCP 서버의 권한 검사<span>dbt의 11월 정리 글과 릴리스 노트를 바탕으로, dbt v2가 지원하는 웨어하우스·묶음 테스트, 원격 dbt MCP 서버의 권한 검사 변경을 정리했습니다. 에이전트가 dbt 프로젝트를 읽고 실행하게 될 때 무엇을 확인해야 하는지 봅니다.</span></a><a href="2026-11-ai-trend-19-data-platform-ontology.html">11/9 Databricks Genie Ontology GA · 11/3 Snowflake Business Ontology — 에이전트에게 &#39;업무 정의&#39;를 주는 계층<span>데이터 플랫폼 두 곳이 11월 초 에이전트용 &#39;온톨로지(업무 정의) 계층&#39;을 잇달아 내놓았습니다. 무엇을 발표했는지, 공식 자료끼리 상태 표기가 어떻게 엇갈리는지, 데이터 엔지니어에게 어떤 일이 생기는지 정리했습니다.</span></a><a href="2026-11-ai-trend-18-ai-regulation-safety.html">AI 규제·안전 — EU AI Act와 한국 AI 기본법은 개발자에게 무엇을 요구하나<span>2026년 실제로 시행되거나 일정이 바뀐 EU AI Act와 한국 AI 기본법을 개발자 관점에서 정리했습니다. 위험도에 따라 의무가 달라지는 구조, 생성물 표시, 그리고 일정이 출처마다 엇갈리는 부분을 봅니다.</span></a><a href="2026-11-ai-trend-17-multimodal-generation.html">멀티모달 생성 — 이미지·음성·영상을 만드는 모델은 무엇이 다른가<span>글자 대신 이미지·음성·영상을 만들어 내는 생성 모델의 구조와 2026년의 흐름(소리까지 함께 만드는 영상 모델, 여러 입력을 섞는 모델)을 정리했습니다. 평가와 출처 표시가 텍스트보다 어려운 이유도 봅니다.</span></a><a href="2026-11-ai-trend-16-cost-latency-optimization.html">비용·지연 최적화 — 캐싱·라우팅·배치로 같은 답을 더 싸고 빠르게<span>LLM 서비스의 비용과 지연을 줄이는 세 가지 장치, 프롬프트 캐싱·모델 라우팅·배치 처리를 정리했습니다. 공식 문서의 캐시 수명과 가격 배수, 그리고 캐시가 맞지 않는 구조를 봅니다.</span></a><a href="2026-11-ai-trend-15-finetune-prompt-rag.html">파인튜닝 vs 프롬프트 vs RAG — 모델을 바꿀지, 입력을 바꿀지<span>같은 문제를 프롬프트로 풀지, 검색(RAG)으로 풀지, 파인튜닝으로 풀지를 정하는 기준을 정리했습니다. 세 방법은 각각 지시·지식·행동을 바꾸고, 고르는 순서보다 평가 기준을 먼저 세우는 것이 중요합니다.</span></a><a href="2026-11-ai-trend-14-small-on-device-models.html">소형·온디바이스 모델 — 작은 모델로 충분한 일은 얼마나 되나<span>수십억 개 이하 파라미터의 작은 모델을 기기 안에서 돌리는 흐름을 정리했습니다. 양자화가 무엇을 줄이는지, 큰 모델과 작은 모델을 섞어 쓰는 구조, 그리고 &#39;작아도 된다&#39;는 주장의 조건을 봅니다.</span></a><a href="2026-11-ai-trend-13-reasoning-test-time-compute.html">추론 모델과 test-time compute — 더 오래 생각하게 하면 무엇이 달라지나<span>답하기 전에 생각하는 데 계산을 더 쓰는 추론 모델의 원리와, &#39;생각 예산&#39;을 조절할 때 생기는 비용·지연·과잉 사고 문제를 정리했습니다.</span></a><a href="2026-11-ai-trend-12-computer-use.html">컴퓨터 사용 에이전트 — 화면을 보고 클릭하는 모델<span>API가 없는 프로그램을 사람처럼 화면으로 다루는 에이전트를 정리했습니다. 화면 캡처 → 좌표 → 행동의 루프, 벤치마크 점수가 사람 기준선을 넘었다는 보고와 그 점수를 그대로 믿기 어려운 이유를 봅니다.</span></a><a href="2026-11-ai-trend-11-coding-agents.html">코딩 에이전트 — 코드를 쓰는 것보다 확인하는 것이 일이다<span>자동 완성에서 &#39;저장소를 읽고, 고치고, 테스트를 돌리는&#39; 에이전트로 넘어온 흐름을 정리했습니다. 벤치마크 점수가 출처마다 엇갈리는 이유와, 사람의 일이 작성에서 검증으로 옮겨 가는 지점을 봅니다.</span></a><a href="2026-11-ai-trend-10-agent-evaluation.html">에이전트 평가 — 점수가 높다는 것과 믿을 수 있다는 것<span>에이전트는 답 하나가 아니라 과정 전체를 평가해야 합니다. 채점기의 세 종류, 한 번 성공과 매번 성공의 차이, 그리고 공개 벤치마크 점수가 오염으로 흔들리는 사례를 정리했습니다.</span></a><a href="2026-11-ai-trend-09-guardrails-prompt-injection.html">가드레일과 프롬프트 인젝션 방어 — 모델이 읽는 모든 글이 공격 경로다<span>프롬프트 인젝션이 왜 필터 하나로 막히지 않는지, 직접·간접 인젝션의 차이와 &#39;탐지&#39;에서 &#39;권한 설계&#39;로 옮겨 가는 방어 흐름을 정리했습니다.</span></a><a href="2026-11-ai-trend-08-multi-agent.html">멀티 에이전트 오케스트레이션 — 나누면 빨라지지만 맥락이 끊긴다<span>일을 여러 에이전트에게 나눠 맡기는 구조(지휘자-작업자, 핸드오프)의 장단점을 정리했습니다. 병렬 조사에서는 효과가 보고됐지만 토큰이 크게 늘고, 맥락이 쪼개져 생기는 실패가 따로 연구될 만큼 흔합니다.</span></a><a href="2026-11-ai-trend-07-agentic-rag.html">RAG에서 Agentic RAG로 — 검색을 한 번 할지, 에이전트가 여러 번 할지<span>한 번 검색해 답하는 RAG와, 검색 여부·횟수·결과 품질을 스스로 판단하는 Agentic RAG의 차이를 정리했습니다. Self-RAG·CRAG·Adaptive-RAG가 각각 어느 판단을 추가했는지와, 반복이 늘 때 생기는 비용과 평가 문제를 봅니다.</span></a><a href="2026-11-ai-trend-06-agent-memory.html">에이전트 메모리 — 대화가 끝나도 남는 것과 남기면 안 되는 것<span>컨텍스트 창 안의 단기 기억과 대화 밖에 저장하는 장기 기억을 나누고, 무엇을 쓰고 언제 꺼내는지의 설계를 정리했습니다. 한 번 오염되면 세션이 끝나도 남는 메모리 포이즈닝도 함께 봅니다.</span></a><a href="2026-11-ai-trend-05-react-plan-execute.html">ReAct와 Plan-and-Execute — 에이전트는 어떻게 계획하나<span>한 걸음마다 다시 생각하는 ReAct와, 먼저 계획을 세우고 실행하는 Plan-and-Execute의 차이를 비용·속도·실패 방식으로 비교했습니다. ReWOO·LLMCompiler 같은 변형과 코딩 에이전트의 plan mode까지 이어서 봅니다.</span></a><a href="2026-11-ai-trend-04-a2a.html">에이전트 간 통신 — A2A는 MCP와 무엇이 다른가<span>MCP가 &#39;에이전트와 도구&#39;를 잇는다면 A2A는 &#39;에이전트와 에이전트&#39;를 잇습니다. Agent Card로 상대를 찾고, 상태가 있는 task로 일을 맡기는 구조와, 버전마다 바뀐 부분·엇갈리는 보도를 정리했습니다.</span></a><a href="2026-11-ai-trend-03-mcp.html">MCP — 도구를 매번 새로 붙이지 않는 방법<span>지난 회차의 tool use를 앱마다 다시 만들지 않도록 &#39;도구 서버&#39;를 표준 규격으로 분리한 MCP의 구조(호스트·클라이언트·서버, tools·resources·prompts)와 최근 사양 변화, 보안상 약한 고리를 정리했습니다.</span></a><a href="2026-11-ai-trend-01-agent.html">AI 에이전트란 무엇인가 — LLM이 도구를 쥐고 반복할 때<span>에이전트를 &#39;도구를 쓰며 스스로 다음 단계를 정하는 LLM 루프&#39;로 정의하고, 워크플로와 무엇이 다른지, 기업 도입 숫자가 왜 엇갈리는지 정리했습니다.</span></a></div>  <footer>© Young-Ju Lee · iyju990312@naver.com</footer>
+<div class="others"><b style="font-size:14px;color:var(--muted)">다른 글</b><a href="2026-11-ai-trend-20-dbt-v2-remote-mcp.html">11월 dbt 업데이트 — dbt v2 지원 확대와 원격 MCP 서버의 권한 검사<span>dbt의 11월 정리 글과 릴리스 노트를 바탕으로, dbt v2가 지원하는 웨어하우스⁠·​묶음 테스트, 원격 dbt MCP 서버의 권한 검사 변경을 정리했습니다. 에이전트가 dbt 프로젝트를 읽고 실행하게 될 때 무엇을 확인해야 하는지 봅니다.</span></a><a href="2026-11-ai-trend-19-data-platform-ontology.html">11/9 Databricks Genie Ontology GA · 11/3 Snowflake Business Ontology — 에이전트에게 &#39;업무 정의&#39;를 주는 계층<span>데이터 플랫폼 두 곳이 11월 초 에이전트용 &#39;온톨로지(업무 정의) 계층&#39;을 잇달아 내놓았습니다. 무엇을 발표했는지, 공식 자료끼리 상태 표기가 어떻게 엇갈리는지, 데이터 엔지니어에게 어떤 일이 생기는지 정리했습니다.</span></a><a href="2026-11-ai-trend-18-ai-regulation-safety.html">AI 규제⁠·​안전 — EU AI Act와 한국 AI 기본법은 개발자에게 무엇을 요구하나<span>2026년 실제로 시행되거나 일정이 바뀐 EU AI Act와 한국 AI 기본법을 개발자 관점에서 정리했습니다. 위험도에 따라 의무가 달라지는 구조, 생성물 표시, 그리고 일정이 출처마다 엇갈리는 부분을 봅니다.</span></a><a href="2026-11-ai-trend-17-multimodal-generation.html">멀티모달 생성 — 이미지⁠·​음성⁠·​영상을 만드는 모델은 무엇이 다른가<span>글자 대신 이미지⁠·​음성⁠·​영상을 만들어 내는 생성 모델의 구조와 2026년의 흐름(소리까지 함께 만드는 영상 모델, 여러 입력을 섞는 모델)을 정리했습니다. 평가와 출처 표시가 텍스트보다 어려운 이유도 봅니다.</span></a><a href="2026-11-ai-trend-16-cost-latency-optimization.html">비용⁠·​지연 최적화 — 캐싱⁠·​라우팅⁠·​배치로 같은 답을 더 싸고 빠르게<span>LLM 서비스의 비용과 지연을 줄이는 세 가지 장치, 프롬프트 캐싱⁠·​모델 라우팅⁠·​배치 처리를 정리했습니다. 공식 문서의 캐시 수명과 가격 배수, 그리고 캐시가 맞지 않는 구조를 봅니다.</span></a><a href="2026-11-ai-trend-15-finetune-prompt-rag.html">파인튜닝 vs 프롬프트 vs RAG — 모델을 바꿀지, 입력을 바꿀지<span>같은 문제를 프롬프트로 풀지, 검색(RAG)으로 풀지, 파인튜닝으로 풀지를 정하는 기준을 정리했습니다. 세 방법은 각각 지시⁠·​지식⁠·​행동을 바꾸고, 고르는 순서보다 평가 기준을 먼저 세우는 것이 중요합니다.</span></a><a href="2026-11-ai-trend-14-small-on-device-models.html">소형⁠·​온디바이스 모델 — 작은 모델로 충분한 일은 얼마나 되나<span>수십억 개 이하 파라미터의 작은 모델을 기기 안에서 돌리는 흐름을 정리했습니다. 양자화가 무엇을 줄이는지, 큰 모델과 작은 모델을 섞어 쓰는 구조, 그리고 &#39;작아도 된다&#39;는 주장의 조건을 봅니다.</span></a><a href="2026-11-ai-trend-13-reasoning-test-time-compute.html">추론 모델과 test-time compute — 더 오래 생각하게 하면 무엇이 달라지나<span>답하기 전에 생각하는 데 계산을 더 쓰는 추론 모델의 원리와, &#39;생각 예산&#39;을 조절할 때 생기는 비용⁠·​지연⁠·​과잉 사고 문제를 정리했습니다.</span></a><a href="2026-11-ai-trend-12-computer-use.html">컴퓨터 사용 에이전트 — 화면을 보고 클릭하는 모델<span>API가 없는 프로그램을 사람처럼 화면으로 다루는 에이전트를 정리했습니다. 화면 캡처 → 좌표 → 행동의 루프, 벤치마크 점수가 사람 기준선을 넘었다는 보고와 그 점수를 그대로 믿기 어려운 이유를 봅니다.</span></a><a href="2026-11-ai-trend-11-coding-agents.html">코딩 에이전트 — 코드를 쓰는 것보다 확인하는 것이 일이다<span>자동 완성에서 &#39;저장소를 읽고, 고치고, 테스트를 돌리는&#39; 에이전트로 넘어온 흐름을 정리했습니다. 벤치마크 점수가 출처마다 엇갈리는 이유와, 사람의 일이 작성에서 검증으로 옮겨 가는 지점을 봅니다.</span></a><a href="2026-11-ai-trend-10-agent-evaluation.html">에이전트 평가 — 점수가 높다는 것과 믿을 수 있다는 것<span>에이전트는 답 하나가 아니라 과정 전체를 평가해야 합니다. 채점기의 세 종류, 한 번 성공과 매번 성공의 차이, 그리고 공개 벤치마크 점수가 오염으로 흔들리는 사례를 정리했습니다.</span></a><a href="2026-11-ai-trend-09-guardrails-prompt-injection.html">가드레일과 프롬프트 인젝션 방어 — 모델이 읽는 모든 글이 공격 경로다<span>프롬프트 인젝션이 왜 필터 하나로 막히지 않는지, 직접⁠·​간접 인젝션의 차이와 &#39;탐지&#39;에서 &#39;권한 설계&#39;로 옮겨 가는 방어 흐름을 정리했습니다.</span></a><a href="2026-11-ai-trend-08-multi-agent.html">멀티 에이전트 오케스트레이션 — 나누면 빨라지지만 맥락이 끊긴다<span>일을 여러 에이전트에게 나눠 맡기는 구조(지휘자-작업자, 핸드오프)의 장단점을 정리했습니다. 병렬 조사에서는 효과가 보고됐지만 토큰이 크게 늘고, 맥락이 쪼개져 생기는 실패가 따로 연구될 만큼 흔합니다.</span></a><a href="2026-11-ai-trend-07-agentic-rag.html">RAG에서 Agentic RAG로 — 검색을 한 번 할지, 에이전트가 여러 번 할지<span>한 번 검색해 답하는 RAG와, 검색 여부⁠·​횟수⁠·​결과 품질을 스스로 판단하는 Agentic RAG의 차이를 정리했습니다. Self-RAG⁠·​CRAG⁠·​Adaptive-RAG가 각각 어느 판단을 추가했는지와, 반복이 늘 때 생기는 비용과 평가 문제를 봅니다.</span></a><a href="2026-11-ai-trend-06-agent-memory.html">에이전트 메모리 — 대화가 끝나도 남는 것과 남기면 안 되는 것<span>컨텍스트 창 안의 단기 기억과 대화 밖에 저장하는 장기 기억을 나누고, 무엇을 쓰고 언제 꺼내는지의 설계를 정리했습니다. 한 번 오염되면 세션이 끝나도 남는 메모리 포이즈닝도 함께 봅니다.</span></a><a href="2026-11-ai-trend-05-react-plan-execute.html">ReAct와 Plan-and-Execute — 에이전트는 어떻게 계획하나<span>한 걸음마다 다시 생각하는 ReAct와, 먼저 계획을 세우고 실행하는 Plan-and-Execute의 차이를 비용⁠·​속도⁠·​실패 방식으로 비교했습니다. ReWOO⁠·​LLMCompiler 같은 변형과 코딩 에이전트의 plan mode까지 이어서 봅니다.</span></a><a href="2026-11-ai-trend-04-a2a.html">에이전트 간 통신 — A2A는 MCP와 무엇이 다른가<span>MCP가 &#39;에이전트와 도구&#39;를 잇는다면 A2A는 &#39;에이전트와 에이전트&#39;를 잇습니다. Agent Card로 상대를 찾고, 상태가 있는 task로 일을 맡기는 구조와, 버전마다 바뀐 부분⁠·​엇갈리는 보도를 정리했습니다.</span></a><a href="2026-11-ai-trend-03-mcp.html">MCP — 도구를 매번 새로 붙이지 않는 방법<span>지난 회차의 tool use를 앱마다 다시 만들지 않도록 &#39;도구 서버&#39;를 표준 규격으로 분리한 MCP의 구조(호스트⁠·​클라이언트⁠·​서버, tools⁠·​resources⁠·​prompts)와 최근 사양 변화, 보안상 약한 고리를 정리했습니다.</span></a><a href="2026-11-ai-trend-01-agent.html">AI 에이전트란 무엇인가 — LLM이 도구를 쥐고 반복할 때<span>에이전트를 &#39;도구를 쓰며 스스로 다음 단계를 정하는 LLM 루프&#39;로 정의하고, 워크플로와 무엇이 다른지, 기업 도입 숫자가 왜 엇갈리는지 정리했습니다.</span></a></div>  <footer>© Young-Ju Lee · iyju990312@naver.com</footer>
 </div>
 <script>
 (function(){var r=document.documentElement,K='theme';
@@ -175,5 +175,12 @@ var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').
 var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});})();
 </script>
 <script>(function(){var b=document.getElementById('readbar'),a=document.querySelector('article');if(!b||!a)return;function f(){var r=a.getBoundingClientRect(),h=r.height-innerHeight*0.6,p=Math.min(1,Math.max(0,-r.top/(h>0?h:1)));b.style.width=(p*100)+'%'}addEventListener('scroll',function(){requestAnimationFrame(f)},{passive:true});f()})();</script>
-</body>
+<script id="wrapfix-js">(function(){var R=[[/ \u00b7 /g,'\u00a0\u00b7 '],[/ \u2014 /g,'\u00a0\u2014 '],[/ \u2192 /g,'\u00a0\u2192 '],[/ \u2013 /g,'\u00a0\u2013\u00a0'],[/([^\s\u00a0\u2060])\u00b7(?=[^\s\u00a0\u200b])/g,'$1\u2060\u00b7\u200b']];
+var SKIP=/^(SCRIPT|STYLE|PRE|CODE|TEXTAREA|INPUT|SVG|MATH|KBD|SAMP|OPTION)$/;
+function fix(root){if(!root)return;if(root.nodeType===3){one(root);return}if(root.nodeType!==1||SKIP.test(root.nodeName)||root.isContentEditable)return;
+var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:function(n){for(var p=n.parentNode;p&&p!==root.parentNode;p=p.parentNode){if(p.nodeType===1&&(SKIP.test(p.nodeName)||p.isContentEditable))return 2}return 1}}),n;while((n=w.nextNode()))one(n)}
+function one(n){var v=n.nodeValue,o=v;if(!v||v.length<3)return;for(var i=0;i<R.length;i++)v=v.replace(R[i][0],R[i][1]);if(v!==o)n.nodeValue=v}
+var q=[],t=0;function flush(){t=0;var a=q;q=[];for(var i=0;i<a.length;i++)fix(a[i])}
+function start(){fix(document.body);new MutationObserver(function(ms){for(var i=0;i<ms.length;i++)for(var j=0;j<ms[i].addedNodes.length;j++)q.push(ms[i].addedNodes[j]);if(!t)t=requestAnimationFrame(flush)}).observe(document.body,{childList:true,subtree:true})}
+if(document.body)start();else document.addEventListener('DOMContentLoaded',start)})();</script></body>
 </html>
