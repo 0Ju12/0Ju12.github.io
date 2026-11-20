@@ -33,8 +33,8 @@ if(/resume|cv[./]/.test(u))stat('resume');else if(/github\.com/.test(u))stat('gi
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 :root{--bg:#f7f7f8;--text:#18181b;--muted:#5f5f68;--faint:#6e6e78;--mixc:#000;--line:#e4e4e8;--card:#fff;--ink:#18181b;--on-ink:#fafafa;--shadow:0 1px 2px rgba(0,0,0,.04),0 18px 48px -18px rgba(0,0,0,.16);--t1:#eef1ff;--t2:#eafaf3;--t3:#fff4e8}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d10;--mixc:#fff;--text:#f4f4f5;--muted:#a1a1aa;--faint:#71717a;--line:#27272a;--card:#17171a;--ink:#f4f4f5;--on-ink:#0d0d10;--shadow:0 18px 48px -18px rgba(0,0,0,.6);--t1:#1a1e2e;--t2:#132520;--t3:#2a1f14}}
-:root[data-theme="dark"]{--bg:#0d0d10;--mixc:#fff;--text:#f4f4f5;--muted:#a1a1aa;--faint:#71717a;--line:#27272a;--card:#17171a;--ink:#f4f4f5;--on-ink:#0d0d10;--shadow:0 18px 48px -18px rgba(0,0,0,.6);--t1:#1a1e2e;--t2:#132520;--t3:#2a1f14}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d10;--mixc:#fff;--text:#f4f4f5;--muted:#a1a1aa;--faint:#8e8e98;--line:#27272a;--card:#17171a;--ink:#f4f4f5;--on-ink:#0d0d10;--shadow:0 18px 48px -18px rgba(0,0,0,.6);--t1:#1a1e2e;--t2:#132520;--t3:#2a1f14}}
+:root[data-theme="dark"]{--bg:#0d0d10;--mixc:#fff;--text:#f4f4f5;--muted:#a1a1aa;--faint:#8e8e98;--line:#27272a;--card:#17171a;--ink:#f4f4f5;--on-ink:#0d0d10;--shadow:0 18px 48px -18px rgba(0,0,0,.6);--t1:#1a1e2e;--t2:#132520;--t3:#2a1f14}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 "Pretendard Variable",Pretendard,system-ui,sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:anywhere}
 a{color:inherit;text-decoration:none}
@@ -118,7 +118,7 @@ section{scroll-margin-top:80px}
 .tags span{font-size:12px;font-weight:600;padding:3px 10px;border-radius:8px;background:color-mix(in srgb,var(--card) 75%,transparent);color:var(--muted)}
 
 /* 카드 안 세부 프로젝트 탭 */
-.window{border-radius:20px;overflow:hidden;background:var(--card);box-shadow:0 30px 60px -20px rgba(0,0,0,.22);border:1px solid var(--line)}
+.window{border-radius:20px;overflow:hidden;background:var(--card);box-shadow:0 14px 28px -16px rgba(0,0,0,.22);border:1px solid var(--line)}
 .tabs{display:flex;gap:4px;padding:8px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
 .tabs.more{-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent)}
@@ -224,8 +224,8 @@ footer .own{font-size:12px;opacity:.75}
 .bento{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .box{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:26px}
 .box.wide{grid-column:1/-1}
-.box h4{margin:0 0 12px;font-size:14px;color:var(--muted);display:flex;align-items:center;gap:8px}
-.box h4 i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.box h3,.box h4{margin:0 0 12px;font-size:14px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.box h3 i,.box h4 i{width:8px;height:8px;border-radius:50%;display:inline-block}
 .box .it{padding:9px 0;border-top:1px solid var(--line);font-size:14.5px}
 .box .it:first-of-type{border-top:0}
 .box .it small{display:block;color:var(--faint);font-size:13px}
@@ -335,7 +335,7 @@ Young-Ju Lee</a><a class="n" href="#work">Work</a><a class="n" href="#about">Bac
           <div class="panel" role="tabpanel" id="pn-data-projects" aria-labelledby="tab-data-projects">
 <figure class="shot" style="margin:0"><img style="object-position:center" src="assets/thumbs/2103dede20afb4.webp" width="760" height="408" alt="Earthquake pipeline — dashboard of USGS M4+ events in East Asia" loading="lazy"><figcaption>Earthquake pipeline — dashboard of USGS M4+ events in East Asia</figcaption></figure>
             <div class="pb">
-              <h4 role="heading" aria-level="3">Eight projects that collect and model public data daily and monitor data quality and API health</h4>
+              <h4>Eight projects that collect and model public data daily and monitor data quality and API health</h4>
               <div class="meta">2026.11 – present · Collection · cleaning · modelling · validation · automation</div>
 <p class="sum"><b class="why">Why</b>I needed work in my target fields (energy, resources, manufacturing, finance) that goes from collection to validation on real data</p><p class="key"><i></i>Accuracy 0.99 on a random split fell to 0.46 on a time split — the evaluation choice changed the conclusion · power demand MAPE 3.23% (vs 6.17% for the same-hour-last-week baseline)</p>              <div class="acts"><a class="go" href="projects/data-projects-en.html">Design &amp; validation →</a><a href="https://github.com/0Ju12/data-projects" target="_blank" rel="noopener">GitHub repository ↗</a></div>
             </div>
@@ -343,7 +343,7 @@ Young-Ju Lee</a><a class="n" href="#work">Work</a><a class="n" href="#about">Bac
           <div class="panel" role="tabpanel" id="pn-portfolio-site" aria-labelledby="tab-portfolio-site" hidden>
 <figure class="shot" style="margin:0"><img style="object-position:center" src="assets/thumbs/9b1c5c018196ce.webp" width="760" height="475" alt="Portfolio main page — generated from YAML data" loading="lazy"><figcaption>Portfolio main page — generated from YAML data</figcaption></figure>
             <div class="pb">
-              <h4 role="heading" aria-level="3">Korean/English site and resume PDFs generated from one YAML source</h4>
+              <h4>Korean/English site and resume PDFs generated from one YAML source</h4>
               <div class="meta">2026.11 – present · Design · development · operation</div>
 <p class="sum"><b class="why">Why</b>Editing the same facts separately in resumes, the portfolio, Notion and LinkedIn made numbers and wording drift apart</p><p class="key"><i></i>One edit updates the site and all 5 resume PDFs</p>              <div class="acts"><a class="go" href="projects/portfolio-site-en.html">Design &amp; validation →</a><a href="https://0ju12.github.io/en.html" target="_blank" rel="noopener">Site ↗</a></div>
             </div>
@@ -351,7 +351,7 @@ Young-Ju Lee</a><a class="n" href="#work">Work</a><a class="n" href="#about">Bac
           <div class="panel" role="tabpanel" id="pn-prep-apps" aria-labelledby="tab-prep-apps" hidden>
 <figure class="shot" style="margin:0"><img style="object-position:center" src="assets/thumbs/9b5da9be533c6e.webp" width="760" height="475" alt="Interview app — deck with presenter notes, generated from portfolio data" loading="lazy"><figcaption>Interview app — deck with presenter notes, generated from portfolio data</figcaption></figure>
             <div class="pb">
-              <h4 role="heading" aria-level="3">Web apps that use private study and interview material while keeping it encrypted</h4>
+              <h4>Web apps that use private study and interview material while keeping it encrypted</h4>
               <div class="meta">2026.11 – present · Planning · design · development</div>
 <p class="sum"><b class="why">Why</b>Lecture notes, interview answers and cover letters must not be public, but I wanted to review and practise on both phone and PC</p><p class="key"><i></i>PBKDF2 600k + AES-GCM · no server, no plaintext</p>              <div class="acts"><a class="go" href="projects/prep-apps-en.html">Design &amp; validation →</a><a href="https://0ju12.github.io/interview/" target="_blank" rel="noopener">Lock screen ↗</a></div>
             </div>
@@ -369,7 +369,7 @@ Young-Ju Lee</a><a class="n" href="#work">Work</a><a class="n" href="#about">Bac
           <div class="panel" role="tabpanel" id="pn-hankki" aria-labelledby="tab-hankki">
 <figure class="shot" style="margin:0"><img style="object-position:center" src="assets/thumbs/f1ee3eba7a9f9f.webp" width="760" height="496" alt="Hankki — today dashboard" loading="lazy"><figcaption>Hankki — today dashboard</figcaption></figure>
             <div class="pb">
-              <h4 role="heading" aria-level="3">A life-coach agent that plans meals, shopping and workouts from what&#39;s in your fridge</h4>
+              <h4>A life-coach agent that plans meals, shopping and workouts from what&#39;s in your fridge</h4>
               <div class="meta">2026.11 – present · Solo · planning, design, agent, backend, UI</div>
 <p class="sum"><b class="why">Why</b>Having tofu in the fridge doesn&#39;t tell you whether it&#39;s enough for two, whether it must be used this week, or whether there&#39;s time left to work out after cooking — each has to be checked separately</p><p class="key"><i></i>The model interprets, picks tools and words answers; code decides stock and portions — unknown tools are dropped and a model failure falls back to the rule plan</p>              <div class="acts"><a class="go" href="projects/hankki-en.html">Design &amp; validation →</a><a href="https://github.com/0Ju12/ai-agents" target="_blank" rel="noopener">GitHub repository ↗</a></div>
             </div>
@@ -377,7 +377,7 @@ Young-Ju Lee</a><a class="n" href="#work">Work</a><a class="n" href="#about">Bac
           <div class="panel" role="tabpanel" id="pn-posco-pospeak" aria-labelledby="tab-posco-pospeak" hidden>
 <figure class="shot" style="margin:0"><img style="object-position:center" src="assets/thumbs/d60fe0d1433599.webp" width="760" height="271" alt="KILL KONG app — home · chat correction · word list · practice dashboard" loading="lazy"><figcaption>KILL KONG app — home · chat correction · word list · practice dashboard</figcaption></figure>
             <div class="pb">
-              <h4 role="heading" aria-level="3">Generator + RAG that rewrites Konglish into natural English</h4>
+              <h4>Generator + RAG that rewrites Konglish into natural English</h4>
               <div class="meta">2025.06 – 2025.08 · Dataset building &amp; model experiments</div>
 <p class="sum"><b class="why">Why</b>Konglish and stiff formal English slip past grammar checkers</p><p class="key"><i></i>Training-strategy comparison: BERTScore F1 0.32 → 0.74 · award</p>              <div class="acts"><a class="go" href="projects/posco-pospeak-en.html">Design &amp; validation →</a><a href="https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5" target="_blank" rel="noopener">Team GitHub ↗</a></div>
             </div>
@@ -385,14 +385,14 @@ Young-Ju Lee</a><a class="n" href="#work">Work</a><a class="n" href="#about">Bac
           <div class="panel" role="tabpanel" id="pn-heritage" aria-labelledby="tab-heritage" hidden>
 <figure class="shot" style="margin:0"><img src="assets/demo/heritage-rag-demo.gif" alt="Heritage RAG guide — pick a national treasure, ask, and see only the evidence actually cited (offline demo mode, no API key)" loading="lazy"><figcaption>▶ Demo — Heritage RAG guide</figcaption></figure>
             <div class="pb">
-              <h4 role="heading" aria-level="3">Collect official heritage documents and Wikipedia, index them in ChromaDB, and validate citation numbers in code.</h4>
+              <h4>Collect official heritage documents and Wikipedia, index them in ChromaDB, and validate citation numbers in code.</h4>
               <div class="meta">2026.10 – 2026.10 · Individual project, collection through UI</div>
 <p class="sum"><b class="why">Why</b>Collect official heritage documents and Wikipedia, index them in ChromaDB, and validate citation numbers in code.</p><p class="key"><i></i>55 offline tests</p>              <div class="acts"><a class="go" href="projects/heritage-en.html">Design &amp; validation →</a><a href="projects/heritage-en.html#demo">▶ Demo</a><a href="https://github.com/0Ju12/heritage-rag-guide" target="_blank" rel="noopener">Code / evidence ↗</a></div>
             </div>
           </div>
           <div class="panel" role="tabpanel" id="pn-vqa" aria-labelledby="tab-vqa" hidden>
             <div class="pb">
-              <h4 role="heading" aria-level="3">Combine Qwen QLoRA, Gemma, OCR and multiple views; select candidates by fixes minus breaks.</h4>
+              <h4>Combine Qwen QLoRA, Gemma, OCR and multiple views; select candidates by fixes minus breaks.</h4>
               <div class="meta">2026.09 – 2026.09 · Team project, training and data refinement</div>
 <p class="sum"><b class="why">Why</b>Combine Qwen QLoRA, Gemma, OCR and multiple views; select candidates by fixes minus breaks.</p><p class="key"><i></i>Public Score 0.96961</p>              <div class="acts"><a class="go" href="projects/vqa-en.html">Design &amp; validation →</a><a href="https://0ju12.github.io/posts/2026-11-vqa-ensemble-fixes-breaks.html" target="_blank" rel="noopener">Code / evidence ↗</a></div>
             </div>
@@ -410,7 +410,7 @@ Young-Ju Lee</a><a class="n" href="#work">Work</a><a class="n" href="#about">Bac
           <div class="panel" role="tabpanel" id="pn-masters" aria-labelledby="tab-masters">
 <figure class="shot" style="margin:0"><img style="object-position:center 45%" src="assets/thumbs/50effa57ef47ad.webp" width="760" height="570" alt="M.S. thesis Fig. 11 — SLFI (basement) · DLFI (salt) maps" loading="lazy"><figcaption>M.S. thesis Fig. 11 — SLFI (basement) · DLFI (salt) maps</figcaption></figure>
             <div class="pb">
-              <h4 role="heading" aria-level="3">Wavenumber-domain correlation → basement (SLFI) and salt (DLFI) indices</h4>
+              <h4>Wavenumber-domain correlation → basement (SLFI) and salt (DLFI) indices</h4>
               <div class="meta">2024.03 – 2026.08 · Graduate researcher</div>
 <p class="sum"><b class="why">Why</b>Salt and basement signals overlap beneath 8–10 km of sediment; earlier interpretation put the salt far too shallow (~6,000 m vs ~9,300 m)</p><p class="key"><i></i>Agrees with 3 independent models at r ≥ 0.94</p>              <div class="acts"><a class="go" href="projects/masters-en.html">Design &amp; validation →</a><a href="https://doi.org/10.2118/236968-PA" target="_blank" rel="noopener">SPE Journal paper ↗</a></div>
             </div>
@@ -418,7 +418,7 @@ Young-Ju Lee</a><a class="n" href="#work">Work</a><a class="n" href="#about">Bac
           <div class="panel" role="tabpanel" id="pn-calgary-2024" aria-labelledby="tab-calgary-2024" hidden>
 <figure class="shot" style="margin:0"><img style="object-position:center" src="assets/photos/calgary-2024/card/카나나스키스_(캐나다_로키).jpg" width="636" height="227" alt="Kananaskis Country, Canadian Rockies — field survey area (2024.08)" loading="lazy"><figcaption>Kananaskis Country, Canadian Rockies — field survey area (2024.08) · Photo: KaleighAlysse · CC BY-SA 4.0 (Wikimedia Commons)</figcaption></figure>
             <div class="pb">
-              <h4 role="heading" aria-level="3">Joint gravity–magnetic interpretation of the Ghasha salt domes and basement</h4>
+              <h4>Joint gravity–magnetic interpretation of the Ghasha salt domes and basement</h4>
               <div class="meta">2024.06 – 2024.12 · Visiting graduate researcher</div>
 <p class="sum"><b class="why">Why</b>Salt domes and basement are hard to interpret from one kind of survey data</p><p class="key"><i></i>First-author SPE Journal paper from the collaboration (2026)</p>              <div class="acts"><a class="go" href="projects/calgary-2024-en.html">Design &amp; validation →</a><a href="https://doi.org/10.2118/236968-PA" target="_blank" rel="noopener">SPE Journal paper ↗</a></div>
             </div>
@@ -436,7 +436,7 @@ Young-Ju Lee</a><a class="n" href="#work">Work</a><a class="n" href="#about">Bac
           <div class="panel" role="tabpanel" id="pn-undergrad-research" aria-labelledby="tab-undergrad-research">
 <figure class="shot" style="margin:0"><img style="object-position:center" src="assets/thumbs/ade57c39110e72.webp" width="760" height="245" alt="B.S. first-author paper, Fig. 2 — geological history of North America reconstructed with GPlates" loading="lazy"><figcaption>B.S. first-author paper, Fig. 2 — geological history of North America reconstructed with GPlates</figcaption></figure>
             <div class="pb">
-              <h4 role="heading" aria-level="3">Reconstructed the geological history of CO2 storage sites with GPlates and interpreted their seismic images</h4>
+              <h4>Reconstructed the geological history of CO2 storage sites with GPlates and interpreted their seismic images</h4>
               <div class="meta">2022 – 2024.02 · Undergraduate researcher · first author</div>
 <p class="sum"><b class="why">Why</b>Little systematic analysis of how large CO2 storage sites formed geologically</p><p class="key"><i></i>First-author paper (2024) · outstanding student paper award</p>              <div class="acts"><a class="go" href="projects/undergrad-research-en.html">Design &amp; validation →</a><a href="https://koreascience.or.kr/article/JAKO202410348585789.page" target="_blank" rel="noopener">First-author paper ↗</a></div>
             </div>
@@ -444,7 +444,7 @@ Young-Ju Lee</a><a class="n" href="#work">Work</a><a class="n" href="#about">Bac
           <div class="panel" role="tabpanel" id="pn-wildfire-capstone" aria-labelledby="tab-wildfire-capstone" hidden>
 <figure class="shot" style="margin:0"><img style="object-position:center" src="assets/thumbs/2429c42da588df.webp" width="760" height="269" alt="Unseen Gangneung wildfire — actual spread vs U-LSTM prediction (t1→t5)" loading="lazy"><figcaption>Unseen Gangneung wildfire — actual spread vs U-LSTM prediction (t1→t5)</figcaption></figure>
             <div class="pb">
-              <h4 role="heading" aria-level="3">U-LSTM that predicts the next fire front from past fronts, weather and terrain</h4>
+              <h4>U-LSTM that predicts the next fire front from past fronts, weather and terrain</h4>
               <div class="meta">2023.09 – 2023.12 · Model design &amp; training</div>
 <p class="sum"><b class="why">Why</b>No model in Korea predicted wildfire spread in real time</p><p class="key"><i></i>F1 0.85 on an unseen wildfire (Gangneung)</p>              <div class="acts"><a class="go" href="projects/wildfire-capstone-en.html">Design &amp; validation →</a><a href="https://github.com/0Ju12/wildfire-spread-prediction" target="_blank" rel="noopener">GitHub ↗</a></div>
             </div>
@@ -459,10 +459,10 @@ Young-Ju Lee</a><a class="n" href="#work">Work</a><a class="n" href="#about">Bac
   <section id="about">
     <div class="sec-t"><h2>Background</h2><p>Education · publications · awards · skills</p></div>
     <div class="bento">
-      <div class="box"><h4 role="heading" aria-level="3"><i style="background:#5b6cff"></i>Education</h4><div class="it">Samsung SW &amp; AI Academy (SSAFY)<small>16th cohort Training program · 2026.07 – present</small></div><div class="it">Jeonbuk National Univ. (Graduate)<small>Environment and Energy M.S. · 2024.03 – 2026.08</small></div><div class="it">POSCO Youth AI &amp; Big Data Academy<small>30th cohort Completed · 2025.06 – 2025.08</small></div><div class="it">Jeonbuk National Univ.<small>Mineral Resources and Energy Engineering B.S. · ~ 2024.02</small></div></div>
-      <div class="box"><h4 role="heading" aria-level="3"><i style="background:#db2777"></i>Publications</h4><div class="it"><a href="https://doi.org/10.2118/236968-PA" target="_blank" rel="noopener">Wavenumber Correlation of Gravity and Magnetic Anomalies for Constraining Salt/Basement Structure in Offshore Abu Dhabi</a><small>SPE Journal (SCIE) · first author · 2026</small></div><div class="it"><a href="https://koreascience.or.kr/article/JAKO202410348585789.page" target="_blank" rel="noopener">Analysis on Seismic Interpretation for Overseas Large-scale CO2 Storage Considering Geological History Related to Plate Tectonics</a><small>Geophysics and Geophysical Exploration 27(1), 1–22 · first author (in Korean) · 2024</small></div><div class="it"><a href="https://koreascience.or.kr/article/JAKO202335272000266.page" target="_blank" rel="noopener">Geological Analysis of the CarbonNet CCS Project in the Gippsland Basin, Australia</a><small>Geophysics and Geophysical Exploration · second author (in Korean) · 2023</small></div><div class="it"><small>conference talks 6</small></div></div>
-      <div class="box"><h4 role="heading" aria-level="3"><i style="background:#ea7a0c"></i>Awards · Certifications</h4><div class="it">Project Encouragement Award, POSCO Youth AI &amp; Big Data Academy (30th)<small>POSCO HRD Center · POSTECH · 2025.08</small></div><div class="it">Outstanding Student Paper Award (poster), KSEG Spring Conference 2024<small>Korean Society of Earth and Exploration Geophysicists · 2024.10</small></div><div class="it">ADsP (Advanced Data Analytics Semi-Professional)<small>Korea Data Agency · 2022.09</small></div></div>
-<div class="box wide"><h4 role="heading" aria-level="3"><i style="background:#0284c7"></i>How I work</h4><div class="it">I make the design calls: problem framing, data sources, evaluation (time-ordered splits, fixes vs. breaks) and what gets adopted.</div><div class="it">I build with generative AI such as Claude and GPT for drafts, refactoring and documentation, and public commits record the AI co-author.</div><div class="it">I verify in code: every change must pass automated tests and layout checks before deploy, and numbers in posts and resumes are checked against the original results.</div></div>      <div class="box wide"><h4 role="heading" aria-level="3"><i style="background:#16a34a"></i>Skills</h4><p class="evhint">Click a skill to see where I used it</p><div class="skills rv rv-all"><div><b>Data engineering</b><button type="button" class="ev">Python</button><button type="button" class="ev">SQL</button><button type="button" class="ev">dbt (DuckDB)</button><button type="button" class="ev">SCD2 modelling</button><button type="button" class="ev">Data tests</button><button type="button" class="ev">Airflow</button><button type="button" class="ev">Docker Compose</button></div><div><b>Data analysis</b><button type="button" class="ev">SQL (window functions)</button><button type="button" class="ev">Pandas</button><button type="button" class="ev">Time-series forecasting</button><button type="button" class="ev">Anomaly detection</button></div><div><b>AI &amp; ML</b><button type="button" class="ev">PyTorch</button><button type="button" class="ev">Hugging Face</button><button type="button" class="ev">LoRA/QLoRA</button><button type="button" class="ev">RAG (LangGraph · ChromaDB)</button></div><div><b>Spatial &amp; geophysical data</b><button type="button" class="ev">ArcGIS</button><button type="button" class="ev">Gravity &amp; magnetics</button><button type="button" class="ev">Seismic interpretation</button></div></div></div>
+      <div class="box"><h3><i style="background:#5b6cff"></i>Education</h3><div class="it">Samsung SW &amp; AI Academy (SSAFY)<small>16th cohort Training program · 2026.07 – present</small></div><div class="it">Jeonbuk National Univ. (Graduate)<small>Environment and Energy M.S. · 2024.03 – 2026.08</small></div><div class="it">POSCO Youth AI &amp; Big Data Academy<small>30th cohort Completed · 2025.06 – 2025.08</small></div><div class="it">Jeonbuk National Univ.<small>Mineral Resources and Energy Engineering B.S. · ~ 2024.02</small></div></div>
+      <div class="box"><h3><i style="background:#db2777"></i>Publications</h3><div class="it"><a href="https://doi.org/10.2118/236968-PA" target="_blank" rel="noopener">Wavenumber Correlation of Gravity and Magnetic Anomalies for Constraining Salt/Basement Structure in Offshore Abu Dhabi</a><small>SPE Journal (SCIE) · first author · 2026</small></div><div class="it"><a href="https://koreascience.or.kr/article/JAKO202410348585789.page" target="_blank" rel="noopener">Analysis on Seismic Interpretation for Overseas Large-scale CO2 Storage Considering Geological History Related to Plate Tectonics</a><small>Geophysics and Geophysical Exploration 27(1), 1–22 · first author (in Korean) · 2024</small></div><div class="it"><a href="https://koreascience.or.kr/article/JAKO202335272000266.page" target="_blank" rel="noopener">Geological Analysis of the CarbonNet CCS Project in the Gippsland Basin, Australia</a><small>Geophysics and Geophysical Exploration · second author (in Korean) · 2023</small></div><div class="it"><small>conference talks 6</small></div></div>
+      <div class="box"><h3><i style="background:#ea7a0c"></i>Awards · Certifications</h3><div class="it">Project Encouragement Award, POSCO Youth AI &amp; Big Data Academy (30th)<small>POSCO HRD Center · POSTECH · 2025.08</small></div><div class="it">Outstanding Student Paper Award (poster), KSEG Spring Conference 2024<small>Korean Society of Earth and Exploration Geophysicists · 2024.10</small></div><div class="it">ADsP (Advanced Data Analytics Semi-Professional)<small>Korea Data Agency · 2022.09</small></div></div>
+<div class="box wide"><h3><i style="background:#0284c7"></i>How I work</h3><div class="it">I make the design calls: problem framing, data sources, evaluation (time-ordered splits, fixes vs. breaks) and what gets adopted.</div><div class="it">I build with generative AI such as Claude and GPT for drafts, refactoring and documentation, and public commits record the AI co-author.</div><div class="it">I verify in code: every change must pass automated tests and layout checks before deploy, and numbers in posts and resumes are checked against the original results.</div></div>      <div class="box wide"><h3><i style="background:#16a34a"></i>Skills</h3><p class="evhint">Click a skill to see where I used it</p><div class="skills rv rv-all"><div><b>Data engineering</b><button type="button" class="ev">Python</button><button type="button" class="ev">SQL</button><button type="button" class="ev">dbt (DuckDB)</button><button type="button" class="ev">SCD2 modelling</button><button type="button" class="ev">Data tests</button><button type="button" class="ev">Airflow</button><button type="button" class="ev">Docker Compose</button></div><div><b>Data analysis</b><button type="button" class="ev">SQL (window functions)</button><button type="button" class="ev">Pandas</button><button type="button" class="ev">Time-series forecasting</button><button type="button" class="ev">Anomaly detection</button></div><div><b>AI &amp; ML</b><button type="button" class="ev">PyTorch</button><button type="button" class="ev">Hugging Face</button><button type="button" class="ev">LoRA/QLoRA</button><button type="button" class="ev">RAG (LangGraph · ChromaDB)</button></div><div><b>Spatial &amp; geophysical data</b><button type="button" class="ev">ArcGIS</button><button type="button" class="ev">Gravity &amp; magnetics</button><button type="button" class="ev">Seismic interpretation</button></div></div></div>
     </div>
   </section>
 
@@ -515,7 +515,7 @@ Young-Ju Lee</a><a class="n" href="#work">Work</a><a class="n" href="#about">Bac
 .pin.partner:hover i,.pin.partner.on i{transform:rotate(45deg) scale(1.5)}
 .pin:focus-visible{outline:2px solid var(--text);outline-offset:2px;border-radius:50%}
 .pin.grp{width:28px;height:28px}
-.pin.grp b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--c);color:#fff;font-size:11.5px;font-weight:800;box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 30%,transparent),0 0 0 5px var(--card);transition:transform .15s}
+.pin.grp b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:color-mix(in srgb,var(--c) 72%,#000);color:#fff;font-size:11.5px;font-weight:800;box-shadow:0 0 0 2px var(--card);transition:transform .15s}
 .pin.grp:hover b,.pin.grp.on b{transform:scale(1.15)}
 .pin.grp.off,.plabel.off{display:none}
 .cmap-info .mlist{list-style:none;margin:6px 0 0;padding:0}
@@ -524,13 +524,13 @@ Young-Ju Lee</a><a class="n" href="#work">Work</a><a class="n" href="#about">Bac
 .cmap-info .mlist i{flex:none;width:9px;height:9px;border-radius:50%}
 .pin.kgroup{width:auto;height:auto;transform:translate(-8px,-50%)}
 .pin.kgroup span{display:inline-flex;align-items:center;gap:6px;background:var(--ink);color:var(--on-ink);font-size:11.5px;font-weight:700;padding:3px 9px 3px 4px;border-radius:999px;box-shadow:var(--shadow);white-space:nowrap}
-.pin.kgroup span b{width:16px;height:16px;border-radius:50%;background:var(--stay);display:grid;place-items:center;font-size:10px;color:#fff}
+.pin.kgroup span b{width:16px;height:16px;border-radius:50%;background:color-mix(in srgb,var(--stay) 72%,#000);display:grid;place-items:center;font-size:10px;color:#fff}
 .plabel{position:absolute;transform:translate(10px,-50%);font-size:11.5px;font-weight:700;color:var(--muted);white-space:nowrap;pointer-events:none;z-index:1;text-shadow:0 0 4px var(--card),0 0 4px var(--card)}
 .plabel.left{transform:translate(calc(-100% - 10px),-50%)}
 .cmap.hide-stay .pin.stay:not(.grp),.cmap.hide-data .pin.data:not(.grp),.cmap.hide-partner .pin.partner:not(.grp),.cmap.hide-stay .plabel.stay:not(.grp-l),.cmap.hide-data .plabel.data:not(.grp-l),.cmap.hide-partner .plabel.partner:not(.grp-l){display:none}
 .cmap-inset{padding:12px 12px 6px;align-self:stretch}
 .cmap-list{align-self:stretch}
-.cmap-inset h4,.cmap-info h4,.cmap-list h4{margin:0 0 6px;font-size:13px;color:var(--faint);font-weight:700;letter-spacing:.02em}
+.cmap-inset h3,.cmap-info h3,.cmap-inset h4,.cmap-info h4,.cmap-list h4{margin:0 0 6px;font-size:13px;color:var(--faint);font-weight:700;letter-spacing:.02em}
 .cmap-info{padding:18px 20px;min-height:180px}
 .cmap-info .nm{font-size:17px;font-weight:800;letter-spacing:-.02em;line-height:1.4;margin:6px 0 2px}
 .cmap-info .wh{font-size:13px;color:var(--faint);margin-bottom:10px}
@@ -594,7 +594,7 @@ document.getElementById('cmap-dlg-x').addEventListener('click',function(){d.clos
 <button type="button" class="pin kgroup stay left" style="left:84.57%;top:25.74%;--c:var(--stay)" data-id="jeonju" aria-label="5 Korea — see the zoomed map"><span><b>5</b> Korea</span></button>      </div>
     </div>
       <div class="cmap-card cmap-inset" id="cmap-korea">
-        <h4 role="heading" aria-level="3">Korea (zoomed)</h4>
+        <h3>Korea (zoomed)</h3>
         <div class="cmap-stage">
           <svg viewBox="0 0 300 340" role="img" aria-label="Map of Korea"><path class="ctx" d="M182.8,0L187.4,3.2L189.2,5L193.2,7.4L196.8,11.1L198.9,14.5L198.9,14.5L197.3,15.4L194.5,20.2L192,26.5L189.6,29.8L186.6,31.6L183.7,32.7L177.5,33.2L172.1,32.8L170.3,32.1L162.7,32.5L160.6,32.9L149.8,32.5L144.1,33L140.5,34.1L136.9,36.6L133.6,40.5L130.8,44.5L125.2,51.8L121.2,55.4L121.2,60.5L121.2,62.1L119.7,63.2L119.2,62.7L116.9,62.3L107.7,57.6L100.2,60.5L98.2,64.2L96.3,65.4L93.2,58.1L88.3,57.9L80.4,51.4L77,52.7L76.1,55.3L71.9,61.3L65.8,66.1L63.9,66.8L61.7,66.5L62.1,65.1L59.6,59.6L50.1,57.4L46.7,55.1L44.9,54.5L54.2,48.4L56.7,47.3L54.9,45.9L52.9,45.2L45.2,46.1L41.3,44.1L35.4,44.8L31.5,43.2L39.8,37.1L40.1,33.5L40,30.8L44.2,22.7L48.5,18.3L59.4,12L64.4,11.1L67.8,11.4L70.6,10.8L67.6,8.4L64.7,7.3L59,7.5L53.1,3.8L52.6,0L182.8,0ZM240,268.7L237,270.9L235.7,267.6L237,257.8L242.6,259.8L242.6,262.8ZM244.9,256L243.9,258.7L240.8,256.9L239.5,255.1L242.3,246.8L241.9,243.6L242.1,242L247.8,237.7L248.8,238.5L249.1,239.7L248.7,241.6L249,245.8L244.6,252.6ZM230.8,338.6L229.7,339.2L228.2,334.3L227.2,332.6L228.9,331.7L232.3,322.8L232.9,326.3L234.3,329.8L235.6,330.4L234.3,332.9L232.3,333.8ZM249.6,317.9L246.5,320.5L244.1,320.5L246.2,317.4L246.5,316L248.3,312L251.8,310.6L253.2,310.4L250.5,314.5ZM263.6,289.2L260.3,291.5L258,289.7L259.1,284.9L260,283.3L262.6,284.9ZM297.8,340L297.6,339.1L292.9,332.6L290.1,325L285.8,321.6L283.5,320.4L280.7,322.2L278.4,324.3L280.6,329.3L280.4,333.7L280.7,338.1L282.9,338.3L285.5,337.2L287.6,338L288.6,340L261.5,340L261.5,340L258.6,336.8L257.7,333.8L257.3,330.3L258.2,326.8L262.7,330.8L265,335.8L268.3,338L272.4,338.1L269.3,330.6L268.1,328.8L263.6,325.5L257.5,319.9L253.7,317.2L255,311.3L257.3,310.2L259.3,310.5L265.7,312.5L266.3,309.6L265.4,308.1L264.9,306.2L269.1,303.7L276,301.7L277.5,300.6L278.8,298.5L280.4,297.5L285.3,297.5L289.4,295.5L292.7,290L293.5,287.1L294.8,284.5L300,281.8L300,340Z"/><path class="kr" d="M119.7,63.2L121.2,62.1L121.2,60.5L121.2,55.4L125.2,51.8L130.8,44.5L133.6,40.5L136.9,36.6L140.5,34.1L144.1,33L149.8,32.5L160.6,32.9L162.7,32.5L170.3,32.1L172.1,32.8L177.5,33.2L183.7,32.7L186.6,31.6L189.6,29.8L192,26.5L194.5,20.2L197.3,15.4L198.9,14.5L210,40.5L220.5,57.1L229.7,69.2L242.6,92.2L246.4,104.5L246.7,112.1L248.8,122.6L247,128.5L247.5,137.9L246.7,142.7L245.2,146.3L245.1,153.1L245.5,156.7L245.7,161.5L246.7,163.4L248.2,164.1L250.5,162.3L253.4,161.6L252.9,167.4L249.3,182L246.4,192.6L242.3,201.8L237,210.2L230.8,213.4L226.4,214.7L218,215.1L211,213.6L205.1,214.7L202.7,216.4L200.9,219.4L202.2,224.1L202,227.5L199.4,227.2L194.3,225.2L188.8,225L186.1,224L183.5,219L180.7,219.2L176,222.2L168.8,222.8L166.3,224.4L165.5,226.5L166.5,229L170.1,232.3L168.9,235.8L165.2,237.5L162.1,233.3L160.1,229.2L158,229L154.7,230.1L154.1,234.5L155.7,237.6L158.1,241.1L154.5,245.1L153.7,248L151.1,250L144.2,245.5L145.2,242.2L148.2,239L148.6,235.8L147.7,233.9L137.7,242.1L131.6,251.3L128.5,250.6L127,248.2L125.2,247.3L118.7,253.3L117.4,258L115.1,258.2L113.9,256.2L113.9,251.9L112.8,248.3L106.1,243L103,238.4L104.6,235.8L110.2,237.2L114.8,237L113.8,234.8L112.3,233.8L115.4,232.6L117.9,230L115.7,229.3L112.6,230.8L110,230.1L109,224.1L105.8,217.8L104.1,211.7L107.2,208.2L108.9,202.8L111.8,195L113.3,192.4L117.4,190.5L118.9,188.5L116.6,187.4L113,186.5L113.1,184.2L115.6,183L118.2,180.5L123.4,177.4L125.1,171.7L123.6,170.2L120.3,168.8L121.2,165.9L122.5,163.7L122,162.3L118,158.6L115.4,155.1L116.2,151.2L115.6,145.3L115.9,140.3L115.7,137.5L113.9,131.4L113.1,125.3L110.5,126.2L108.5,127.7L101.3,125.5L99.1,125.4L98.2,120.8L100.7,115.2L106.9,110.3L110.3,109.7L113,107.5L117.2,106.8L122.1,110.2L126.6,110.9L129,116.7L130.5,117.9L130.8,115.7L134.4,113.2L135.2,111.3L134.6,110.3L130.5,109.3L126.7,102.1L126.2,98.9L124.8,96.9L126.9,91.1L122.6,84.4L120.5,82.3L120.8,76.4L118.5,72.6L117.2,70.5L116.6,66.9L117.2,65.3L119.2,64.7ZM215.6,231.5L211.2,234.9L205.4,230.3L204.1,227.8L208.4,224.1L212.2,219.8L214.6,219.5ZM184.8,231.1L184.3,236.5L181.1,236.7L179.3,233.3L177.1,234.9L176.1,235L174.5,230.7L174.2,227.2L177.9,224.7L180.2,226.3L183.5,227ZM101.5,255.1L98.6,256L96.9,254.1L95.8,253.5L96.4,251L101.2,246.1L102.2,244.5L106.6,245.5L108.2,248.1L106.1,252.1ZM114.6,65.8L114.3,73.4L111.8,73L110.2,72.3L109.4,70.8L107.7,63.7L109.5,60.8L113.3,63.1ZM125.1,256.6L125.9,259.2L122.3,258.7L120.3,256.2L120.5,254L122.8,253.7ZM172.7,241.6L172.2,243.4L169.9,240.8L172.2,237.9ZM109.9,136.7L109.2,140.4L106.3,137.9L105.4,129.9L108.5,132.2ZM98.7,235.2L98.1,236.5L96.1,236.2L94.1,232.3L93.3,229.3L91.2,227.6L94.5,225L98.6,229.7ZM105.8,317.8L103.6,319.1L101.8,318.3L101.3,317.7L99.1,314.6L98.4,313L100,310L106.3,305L122.5,300.2L125.4,300L131.8,301.9L133.3,305.9L132.1,309.2L130.6,311.5L123.1,315.3L117.4,317.1Z"/></svg>
           <button type="button" class="pin stay" style="left:47.4%;top:50.91%;--c:var(--stay)" data-id="jeonju" aria-label="Jeonbuk National Univ. (Jeonju)" title="Jeonbuk National Univ. (Jeonju)"><i></i></button>
@@ -633,7 +633,7 @@ function pick(id,btn){var p=INFO[id];if(!p)return;
   root.querySelectorAll('[data-goto]').forEach(function(x){x.classList.toggle('on',x.dataset.goto===id)});
   root.querySelectorAll('.pin.on').forEach(function(x){x.classList.remove('on')});
   root.querySelectorAll('.pin[data-id="'+id+'"]').forEach(function(x){if(!x.classList.contains('kgroup'))x.classList.add('on')});
-  box.innerHTML='<h4 role="heading" aria-level="3">Details</h4><span class="lb" style="--c:var(--'+p.l+')">'+esc(LBL[p.l])+'</span><div class="nm">'+esc(p.n)+'</div><div class="wh">'+esc(p.w)+'</div>'+(p.ph?'<figure><img width="640" height="420" src="'+esc(p.ph)+'" alt="'+esc(p.n)+'" loading="lazy">'+(p.cr?'<figcaption>'+(p.pg?'<a href="'+esc(p.pg)+'" target="_blank" rel="noopener">':'')+esc(p.cr)+(p.pg?'</a>':'')+'</figcaption>':'')+'</figure>':'')+(p.a?'<p class="ab">'+esc(p.a)+(p.as?' <a class="src" href="'+esc(p.as)+'" target="_blank" rel="noopener">Wikipedia ↗</a>':'')+'</p>':'')+'<p>'+esc(p.d)+'</p>'+(p.u?'<a class="go" href="'+p.u+'">'+GO+'</a>':'');
+  box.innerHTML='<h3>Details</h3><span class="lb" style="--c:var(--'+p.l+')">'+esc(LBL[p.l])+'</span><div class="nm">'+esc(p.n)+'</div><div class="wh">'+esc(p.w)+'</div>'+(p.ph?'<figure><img width="640" height="420" src="'+esc(p.ph)+'" alt="'+esc(p.n)+'" loading="lazy">'+(p.cr?'<figcaption>'+(p.pg?'<a href="'+esc(p.pg)+'" target="_blank" rel="noopener">':'')+esc(p.cr)+(p.pg?'</a>':'')+'</figcaption>':'')+'</figure>':'')+(p.a?'<p class="ab">'+esc(p.a)+(p.as?' <a class="src" href="'+esc(p.as)+'" target="_blank" rel="noopener">Wikipedia ↗</a>':'')+'</p>':'')+'<p>'+esc(p.d)+'</p>'+(p.u?'<a class="go" href="'+p.u+'">'+GO+'</a>':'');
   if(btn&&btn.classList.contains('kgroup')){var k=document.getElementById('cmap-korea');if(k&&k.scrollIntoView&&matchMedia('(max-width:960px)').matches)k.scrollIntoView({block:'nearest',behavior:'smooth'})}
 }
 var HID={};
