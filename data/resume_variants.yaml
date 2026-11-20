@@ -17,7 +17,6 @@ data:
       - "전력 수요 하루 전 예측: 지난주 같은 시각 기준선 MAPE 6.17% → 3.23% (시간 순서 분할·누수 검사)"
     bootcamp:
       - "국보 입문 가이드(개인): 국가유산청 오픈API(XML·EUC-KR)·위키백과 수집 → 정제 → ChromaDB 색인. 청크 ID 고정으로 재실행해도 중복 없는 색인, 질문별 수집 캐시·위키 장애 시 저장본 대체, 429/5xx Retry-After 재시도"
-      - "ThRead: Selenium 댓글 수집 → LLM 판단을 코드로 검증 → pandas 정제·IQR 길이 기준·증강·요약, NDJSON 진행 상황 스트리밍 · 알라딘 API 페이지네이션·중복 제거 수집 · Django 백엔드 · 관계형 DB 설계 · FastAPI AI 프록시 · 자동 테스트 142개"
     grad:
       - "항공 중력·자력 격자 자료를 파수 영역에서 처리하는 분석 파이프라인을 만들고, 겹친 신호를 분리하는 지표(SLFI·DLFI) 설계 — 독립 모델 3개와 상관계수 0.94 이상 일치"
       - "분석 코드를 Python 패키지·테스트로 정리해 공개 · 캘거리대 6개월 파견, 3개 기관 공동연구 → SCIE SPE Journal 제1저자 (2026)"
@@ -25,7 +24,7 @@ data:
       - "IAB 융합전공 캡스톤: ArcGIS로 산불 래스터 데이터를 구축하고 U-LSTM으로 화선 예측 — 미학습 산불 테스트 Accuracy 0.90 · F1 0.85"
       - "제1저자 논문: GPlates 판구조 복원 + 대규모 CO2 저장소 탄성파 해석 (지구물리와 물리탐사, 2024) · 제2저자 논문 1편 · 학회 발표 3건"
   skills:
-    - { category: "수집·처리", items: [Python, Pandas, SQL, Selenium, "오픈API(XML·JSON)", 웹 크롤링] }
+    - { category: "수집·처리", items: [Python, Pandas, SQL, "오픈API(XML·JSON)", 웹 수집] }
     - { category: "모델링·저장", items: ["dbt(DuckDB)", 차원 모델링, "변경 이력(SCD 2형)", ChromaDB, Django ORM] }
     - { category: "품질·운영", items: [데이터 품질 테스트, pytest, GitHub Actions, "Airflow DAG 작성"] }
     - { category: "분석·ML", items: [PyTorch, Hugging Face, LangGraph RAG, ArcGIS] }
@@ -45,7 +44,6 @@ ai:
       - "AI 챌린지(VQA): Qwen 4B 0.94608 → 27B 0.95591 → 확률 앙상블 → Qwen QLoRA·Gemma·OCR·멀티뷰 결합으로 Public 0.96961. 후보는 정확도가 아닌 fixes−breaks와 유형별 회귀로 채택"
       - "국보 입문 가이드(개인): LangGraph retrieve→generate RAG, 출처별 청킹·MMR 검색, 답변의 [근거 N]을 코드로 검증해 없는 번호 제거 · 가짜 LLM 기반 테스트 55개"
       - "POSPEAK(KILL KONG): 콩글리시 교정 데이터셋 구축, FLAN-T5 LoRA 학습 전략 비교(F1 0.32→0.74)·catastrophic forgetting 분석 + RAG · 장려상"
-      - "ThRead: LLM 판단(부적절 댓글·도서 추천)을 코드로 검증하는 파이프라인 · Django 백엔드 · 관계형 DB 설계 · FastAPI AI 프록시 · 자동 테스트 142개"
     undergrad:
       - "IAB 융합전공 캡스톤: Conv2D 인코더–LSTM–디코더 U-LSTM을 설계·학습해 산불 4건의 소규모 데이터로 화선 예측 — 미학습 산불 테스트 Accuracy 0.90 · F1 0.85"
       - "제1저자 논문: GPlates 판구조 복원 + 대규모 CO2 저장소 탄성파 해석 (지구물리와 물리탐사, 2024) · 학회 발표 3건"

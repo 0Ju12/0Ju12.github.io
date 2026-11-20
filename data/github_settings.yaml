@@ -1,6 +1,7 @@
 # GitHub 저장소 About(설명·웹사이트·토픽)과 프로필 이름·소개 — .github/workflows/github-settings.yml 이 적용
 # 적용 조건: 저장소 Settings → Secrets → Actions 에 GH_ADMIN_TOKEN (fine-grained 토큰) 이 있을 때만. 없으면 건너뜀.
 # 이 파일을 고쳐 push 하거나 Actions 탭에서 "Apply GitHub settings" 를 직접 실행하면 다시 적용됩니다.
+# private: true 인 저장소는 설명·토픽 대신 비공개로만 바꿉니다.
 # 고정(Pin)·프로필 사진은 GitHub API 가 없어 웹에서 직접 해야 합니다. 라이선스는 넣지 않습니다.
 owner: 0Ju12
 
@@ -23,9 +24,7 @@ repos:
     homepage: "https://0ju12.github.io/projects/masters.html"
     topics: [geophysics, gravity, magnetics, signal-processing, fft, numpy, python]
   ssafy-thread:
-    description: "ThRead — Selenium 수집 → LLM 판단을 코드로 검증하는 댓글 분석 파이프라인 · Django 독서 커뮤니티 (SSAFY 관통 프로젝트)"
-    homepage: "https://0ju12.github.io/projects/ssafy-16.html"
-    topics: [django, selenium, pandas, llm, fastapi, python]
+    private: true   # SSAFY 관통 프로젝트 — 비공개 (2026-11-20 요청)
   heritage-rag-guide:
     description: "국보 입문 가이드 — 국가유산청 오픈API·위키백과 수집 → LangGraph RAG, 답변의 근거 번호를 코드로 검증"
     homepage: "https://0ju12.github.io/projects/heritage.html"

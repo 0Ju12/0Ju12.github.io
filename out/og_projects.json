@@ -36,15 +36,6 @@
   "image": "assets/photos/hankki/card/한끼_오늘_대시보드.jpg"
  },
  {
-  "id": "ssafy-16",
-  "title": "ThRead — LLM 댓글 분석·독서 커뮤니티",
-  "tagline": "수집 → LLM 분석 → 웹 서비스까지 직접 만든 독서 커뮤니티",
-  "key": "LLM은 부적절한 댓글의 번호만 고르고, 코드가 번호 범위를 검사해 원본에서 제거 — 잘못된 응답이 DB·화면에 닿지 않음",
-  "period": "2026.07 – 진행 중",
-  "group": "부트캠프 — SSAFY 16기 · 포스코 AI 아카데미",
-  "image": "assets/photos/ssafy-16/관통5_LLM_댓글분석_결과화면.jpg"
- },
- {
   "id": "posco-pospeak",
   "title": "POSPEAK(KILL KONG) — 콩글리시 → 원어민 표현 교정 AI (FLAN-T5·Qwen + RAG)",
   "tagline": "콩글리시를 원어민 표현으로 바꾸는 생성 모델 + RAG",
@@ -60,7 +51,7 @@
   "key": "오프라인 테스트 55",
   "period": "2026.10 – 2026.10",
   "group": "부트캠프 — SSAFY 16기 · 포스코 AI 아카데미",
-  "image": ""
+  "image": "assets/photos/heritage/국보입문가이드_RAG_질의응답_화면.jpg"
  },
  {
   "id": "vqa",

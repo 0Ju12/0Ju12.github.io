@@ -14,7 +14,7 @@ profile:
     In my master's I separated overlapping gravity and magnetic signals with wavenumber-domain correlation analysis and published a first-author paper in SPE Journal (SCIE);
     across both degrees: 3 papers, 6 conference presentations and an outstanding student paper award.
     At the POSCO Youth AI & Big Data Academy (with POSTECH) I built the training data and ran model experiments for an English expression correction system (FLAN-T5 + RAG) that won an Encouragement Award,
-    and at the Samsung Software & AI Academy for Youth (SSAFY) I build LLM data pipelines and Django/FastAPI services checked by 142 automated tests, plus personal projects: a RAG guide that verifies its citation numbers in code, and a fridge-life coach agent (Hankki) whose stock and portion decisions stay in code.
+    and at the Samsung Software & AI Academy for Youth (SSAFY) I build personal projects: a RAG guide that verifies its citation numbers in code, and a fridge-life coach agent (Hankki) whose stock and portion decisions stay in code.
     Two research stays at the University of Calgary; ADsP (Advanced Data Analytics Semi-Professional) certified.
   email: "iyju990312@naver.com"
   phone: ""
@@ -264,32 +264,31 @@ activities:
   - id: bootcamp
     card_title: "Bootcamps — SSAFY · POSCO AI·BigData Academy"
     tagline: "An LLM agent, data pipelines, RAG and fine-tuning, built through to working services"
-    highlights: ["LLM agent — code makes the calls", "LLM output checked in code", "QLoRA · RAG · Django", "Encouragement Award (POSCO)"]
+    highlights: ["LLM agent — code makes the calls", "RAG citations checked in code", "QLoRA · RAG · FastAPI", "Encouragement Award (POSCO)"]
     icon: "💻"
     kpi: { value: "0.96961", label: "SSAFY AI Challenge VQA public score · POSCO Encouragement Award" }
     title: "Bootcamps — SSAFY 16th cohort · POSCO Youth AI & Big Data Academy 30th cohort"
     type: AI project
     org: Samsung SSAFY · POSCO HRD Center · POSTECH
     period: { start: "2025.06", end: "present" }
-    role: LLM fine-tuning · data pipelines · backend
+    role: LLM agent · RAG · fine-tuning
     featured: true
     priority: 2
     onepage_title: "SSAFY / POSCO — LLM services, RAG and VQA"
     onepage_brief:
       - "VQA challenge: QLoRA, OCR and probability ensembles; Public Score 0.96961."
-      - "ThRead: Django backend and validated LLM/data pipeline in a two-person team; 142 tests."
+      - "Hankki agent (solo): LangGraph fridge, meal and workout coach — the model interprets and words answers, code decides stock and portions; 110 tests."
       - "Heritage RAG (solo): public-data ingestion, verified citations, 55 offline tests and quality-evaluation harness."
       - "POSPEAK: correction data and LoRA experiments; BERTScore F1 0.32 → 0.74; team award."
     brief:
       - "Hankki (solo, AI core project 3 → final project): a fridge-inventory meal, shopping and workout coach agent — LangGraph analyse → plan → execute → judge ⟲ replan (max 3) → respond; the model interprets, picks helper tools and words the answer, while stock and portion decisions stay in code · FastAPI · SQLite · Chroma RAG (31 guide documents) · Android shell · 110 automated tests"
       - "SSAFY AI Challenge (VQA): Qwen/Gemma QLoRA, OCR, multi-view probability ensemble → public 0.96961"
-      - "ThRead: crawling → LLM judgments verified in code → pandas pipeline, Django backend · 142 tests"
       - "Heritage RAG guide (solo): public-API & Wikipedia collection → LangGraph RAG that shows only citations verified in code · 55 offline tests · an answer-quality evaluation harness (citation precision, refusal accuracy)"
       - "POSPEAK: correction datasets, FLAN-T5 LoRA strategy comparison (BERTScore F1 0.32 → 0.74) + RAG · award"
-    tags: [Python, LangGraph, FastAPI, LLM fine-tuning, QLoRA, RAG, FAISS, Django, Selenium, Pandas]
+    tags: [Python, LangGraph, FastAPI, LLM fine-tuning, QLoRA, RAG, ChromaDB, FAISS]
     image: "assets/photos/posco-pospeak/2025-08-29_프로젝트_장려상·수료증.jpg"
     image_caption: "POSCO Youth AI & Big Data Academy — project Encouragement Award (left) and certificate of completion (right), 2025.08.29"
-    summary: A fridge-life coach agent (Hankki), LLM data pipelines, a Django service and a VQA model ensemble at SSAFY; a Konglish-correction generator with RAG at the POSCO academy
+    summary: A fridge-life coach agent (Hankki), a RAG guide that verifies its citations and a VQA model ensemble at SSAFY; a Konglish-correction generator with RAG at the POSCO academy
     projects:
       - id: hankki
         digest: {"problem": "Having tofu in the fridge doesn't tell you whether it's enough for two, whether it must be used this week, or whether there's time left to work out after cooking — each has to be checked separately", "role": "Solo · from planning and design to the agent, backend, UI and Android shell", "did": ["LangGraph flow: analyse → plan → execute → judge ⟲ replan (max 3) → verify → respond", "The model only interprets the request, picks helper tools and words the answer; code decides stock, portions, missing grams and timing", "Unregistered tools are dropped in code, and if the model fails the rule-based plan carries on", "Event bus → logging agent (no LLM) flags duplicate calls, off-plan calls, repeated failures and the replan cap", "Chroma RAG over 31 guide documents — says 'not found' instead of inventing an answer"], "result": ["Six representative scenarios (normal, replan, cap, missing key, no tool, time limit) match expected values", "Re-sending after a lost response reuses the first request ID, so records are never counted twice", "110 automated tests passing (4 needing real keys skipped) · web and Android share one API"]}
@@ -325,42 +324,6 @@ activities:
           - { label: "GitHub repository", url: "https://github.com/0Ju12/ai-agents" }
           - { label: "Validation log (Korean)", url: "https://github.com/0Ju12/ai-agents/blob/main/fridge_agent/docs/validation.md" }
           - { label: "Design (use cases, system, ERD; Korean)", url: "https://github.com/0Ju12/ai-agents/blob/main/fridge_agent/docs/design.md" }
-      - id: ssafy-16
-        digest: {"problem": "Grow one service (ThRead) every round while keeping its LLM features trustworthy", "role": "Django backend · LLM integration · crawling pipeline in a team of two", "did": ["Comment collection (Selenium) → LLM judgment → code check → cleaning, augmentation, summary", "Live progress streaming for long jobs", "Django auth · book CRUD · AI recommendations limited to registered books", "Relational model for users, books, threads and comments (1:N, M:N) · owner-only edits", "Personal RAG project (Heritage guide) · AI challenge VQA ensemble"], "result": ["Stable AI features by verifying LLM output in code", "142 automated tests passing · every requirement implemented", "AI challenge (VQA) public score 0.96961"]}
-        tagline: "A reading community built end to end — collection → LLM analysis → web service"
-        key: "The LLM only returns the numbers of inappropriate comments; code range-checks them and removes items from the original — bad output never reaches the DB or UI"
-        short: "SSAFY 16th"
-        title: "SSAFY — ThRead LLM comment-analysis pipeline · AI Challenge VQA ensemble"
-        type: AI project
-        org: Samsung Software & AI Academy for Youth (SSAFY) · team of 2
-        period: { start: "2026.07", end: "present" }
-        team: "Team of 2"
-        role: Backend & data pipeline · model training (AI Challenge)
-        tags: [Python, Django, Selenium, Pandas, LLM API]
-        summary: Extended a reading-community service across seven projects, from data collection to LLM analysis and web service, plus a multimodal QA challenge
-        star:
-          situation: SSAFY's capstone series grows one service (ThRead) each round — data processing → external APIs → responsive web → Django auth → crawling and LLM pipelines → relational database design → AI proxy server
-          task: Own the Django design, backend, generative-AI and API integration, and the crawling/data pipeline in a team of two
-          action:
-            - "Comment pipeline: Selenium collects live comments → the LLM returns only the numbers of inappropriate comments and code removes them → pandas/regex cleaning → IQR length thresholds → LLM augmentation (retry on count mismatch) → summary, each step stored"
-            - "Streamed progress of 30-second jobs with StreamingHttpResponse (NDJSON) and distinguished failure cases (no company, no comments, LLM failure)"
-            - "Relational DB design (project 6): custom AbstractUser; user→book→thread→comment 1:N plus follow (asymmetric), like and favorite-genre M:N; migrations split in three steps to avoid a User↔Category cycle; books kept with SET_NULL when a genre is deleted"
-            - "Project 6: edits and deletes look up rows by author, so other users' posts return 404; changes are POST-only; Aladin search results pass through a signed 1-hour token so ISBN and cover are saved only when title and author still match — 36 tests"
-            - "AI proxy server (project 7, FastAPI owner): Django → FastAPI → GMS so keys, model choice and output checks live in one place; JSON-Schema guardrail that fails closed (503) on malformed output; text/image routing and nano/mini model tiers; four Gemini image response shapes normalized to real JPEG; 20 tests"
-            - "AI book service (project 4): custom Django user and auth (open-redirect protection, HTTP method limits), book CRUD, author bios from Wikipedia + LLM, AI book analysis, AI recommendations restricted to registered books, Aladin API import command"
-            - "Project 4: 45 automated tests with Django TestCase and mocks that check each requirement without external APIs"
-            - "Projects 1–3: aggregating and sorting JSON book data, Aladin API collection (pagination, de-duplication) + LLM classification + gTTS audio, responsive Bootstrap pages"
-            - "AI core project 2 · National-treasure RAG guide (2026.10, solo): collected treasures and official descriptions from the Korea Heritage Service open API (XML, EUC-KR) and auto-linked each to Korean Wikipedia; two ChromaDB collections with fixed chunk IDs (idempotent re-indexing); per-question LLM query extraction and document selection with caching and offline fallback; LangGraph retrieve→generate where [evidence N] tags are checked in code and unknown numbers removed; Streamlit + FastAPI UIs; 55 tests with a fake LLM and Streamlit AppTest"
-            - "AI Challenge (2026.09, image + question 4-choice VQA, model training & refinement): Qwen 27B/4B QLoRA, Gemma, OCR and multi-view probability ensembling; accepted changes by fixes − breaks and per-type regressions; SHA-256 manifests reproduce the submission without a GPU"
-            - "Newcomer camp team project “YOGIU” (team of three, development and presentation): a Daejeon–Chungcheong AI travel community — route planner on the Kakao Map API (saves, map), AI-recommended routes and a themed chatbot on the OpenAI API, themed tourism and festival info, anonymous board with comments"
-            - "SSAFY AI course: perceptron from scratch, Transformer · BERT, RAG retrieval, prompt engineering, CNN · ViT; a trigonometry-based billiards AI; an auto-play bot for Battle SSAFY (BFS re-planned every turn, ammo decisions, supply-code decoding); SWEA algorithms"
-          result:
-            - "AI Challenge public score 0.94608 (4B baseline) → 0.96961"
-            - "142 automated tests passing (45 + 41 + 36 + 20); all project-5 requirements implemented, plus progress streaming and analysis history"
-        links:
-          - { label: GitHub, url: "https://github.com/0Ju12/ssafy-thread" }
-          - { label: "Heritage RAG guide", url: "https://github.com/0Ju12/heritage-rag-guide" }
-          - { label: "SWEA solutions (36 problems, 37 tests)", url: "https://github.com/0Ju12/swea-solutions" }
       - id: posco-pospeak
         digest: {"problem": "Konglish and stiff formal English slip past grammar checkers", "role": "Built the correction dataset and ran model experiments for the team", "did": ["Built and cleaned word- and context-level correction pairs", "Compared 3 FLAN-T5 LoRA training strategies with BERTScore", "Final app KILL KONG: Qwen-2.5 + RAG + personal mistake notes"], "result": ["Found catastrophic forgetting in sequential training → switched to joint training", "BERTScore F1 0.32 → 0.74", "Team Encouragement Award"]}
         tagline: "Generator + RAG that rewrites Konglish into natural English"

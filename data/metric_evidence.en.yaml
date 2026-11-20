@@ -27,12 +27,6 @@ hankki:
   meaning: Automated tests with a stand-in model and fixed provider responses (4 real-account checks run on demand)
   conditions: Final submission re-run on 2026-11-20. Six representative and eleven conversational scenarios match expected behaviour. Verifies the agent flow and judgment rules, not real-model interpretation quality, latency or user metrics. Expected vs. actual values for six representative scenarios are in the validation log.
   source: https://github.com/0Ju12/ai-agents/blob/main/fridge_agent/docs/validation.md
-ssafy-16:
-  value: '142'
-  meaning: Automated tests across stages 4, 5, 6 and 7
-  conditions: 45 + 41 + 36 + 20. Mock-based functional tests, not production throughput
-    or real-model quality.
-  source: https://github.com/0Ju12/ssafy-thread
 posco-pospeak:
   value: BERTScore F1 0.32 → 0.74
   meaning: English-expression correction training-strategy comparison

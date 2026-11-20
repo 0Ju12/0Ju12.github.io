@@ -15,7 +15,7 @@
     - "제출 전 자동 검사(6,714행·ID·확률 행합) + SHA-256 매니페스트로 GPU 없이 재현"
   stack: [PyTorch, Hugging Face, QLoRA, Qwen, Gemma, OCR]
   post: 2026-11-vqa-ensemble-fixes-breaks
-  activity: ssafy-16
+  activity: vqa
 - id: heritage
   title: "국보 입문 가이드 — 인용을 검증하는 RAG"
   org: "SSAFY 16기 AI 코어 프로젝트 2"
@@ -29,29 +29,10 @@
     - "청크 ID 고정(국보ID:문서ID:순번)으로 재실행해도 중복 없는 색인"
     - "LangGraph retrieve→generate, 없는 근거 번호는 제거 · 가짜 LLM으로 전 과정 테스트"
   stack: [LangGraph, ChromaDB, FastAPI, Streamlit, pytest]
-  image: assets/photos/ssafy-16/국보입문가이드_RAG_질의응답_화면.jpg
+  image: assets/photos/heritage/국보입문가이드_RAG_질의응답_화면.jpg
   links: [{ label: GitHub, url: "https://github.com/0Ju12/heritage-rag-guide" }]
   post: 2026-11-rag-citation-verify
-  activity: ssafy-16
-- id: thread
-  title: "ThRead — LLM 댓글 분석 파이프라인"
-  org: "SSAFY 16기 관통 프로젝트"
-  period: "2026.07 – 진행 중"
-  team: "2인 · 백엔드·데이터 파이프라인"
-  cat: [llm, data]
-  metric: { value: "142", label: "자동 테스트" }
-  oneliner: "Selenium 수집 → LLM 판단(번호만) → 코드 검증 → pandas 정제·증강·요약. 도서 서비스를 7회에 걸쳐 확장"
-  points:
-    - "LLM에는 판단만, 삭제·채택은 코드가 — 번호 범위 검사·등록 도서 id만 허용·개수 불일치 재시도"
-    - "IQR 길이 기준 정제, NDJSON 진행 상황 스트리밍, 예외 안내"
-    - "Django 커스텀 User·오픈 리다이렉트 방어, 알라딘 API 페이지네이션·중복 제거"
-    - "관계형 DB 설계: 1:N·M:N(팔로우·좋아요·선호 장르), 작성자 권한(타인 글 404), 서명 토큰으로 외부 메타데이터 위조 방지"
-    - "FastAPI AI 프록시: 키·모델 선택·응답 검증을 한곳에, Guardrail은 형식이 깨지면 막는 fail-closed"
-  stack: [Python, Django, FastAPI, Selenium, Pandas, LLM API]
-  image: assets/photos/ssafy-16/관통5_LLM_댓글분석_결과화면.jpg
-  links: [{ label: GitHub, url: "https://github.com/0Ju12/ssafy-thread" }]
-  post: 2026-11-llm-verify-pipeline
-  activity: ssafy-16
+  activity: heritage
 - id: pospeak
   title: "POSPEAK — 콩글리시 교정 생성 모델 + RAG"
   org: "포스코 청년 AI·BigData 아카데미 30기"

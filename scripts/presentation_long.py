@@ -10,7 +10,6 @@ POSTS={
 'calgary-2024':['2026-11-wavenumber-correlation'],
 'undergrad-research':['2026-11-plate-tectonics-co2-storage'],
 'wildfire-capstone':['2026-11-small-data-spatiotemporal'],
-'ssafy-16':['2026-11-llm-verify-pipeline','2026-11-rag-citation-verify','2026-11-fastapi-ai-proxy','2026-11-django-relational-db'],
 'posco-pospeak':['2026-11-catastrophic-forgetting'],
 'portfolio-site':['2026-11-portfolio-one-yaml'],
 'prep-apps':['2026-11-portfolio-one-yaml'],
@@ -43,11 +42,6 @@ FIGURE_GUIDES={
  ('GIS_실제','미학습 강릉 산불의 실제·예측 비교','위쪽과 아래쪽의 실제와 예측을 같은 시점 기준으로 비교하겠습니다. 초기 화선이 작을 때와 확산이 커진 뒤의 형태가 어떻게 다른지 확인할 수 있습니다. 한 장면이 비슷하다는 사실과 전체 사건에 대한 일반화 성능은 구분해야 합니다. 강릉 사건을 학습에서 제외했다는 조건을 함께 설명하겠습니다.'),
  ('예측_마스크','픽셀 마스크에서 보는 오류','검은 영역은 실제와 예측의 화선 마스크입니다. 넓은 배경을 맞히는 것과 작은 화선의 형태를 맞히는 것은 다른 문제입니다. 이런 불균형 때문에 Accuracy만 보면 오류를 충분히 이해하기 어렵습니다. 경계의 누락과 과대 예측을 살펴본 뒤 F1과 IoU 같은 지표가 필요한 이유를 설명하겠습니다.'),
  ('학습_곡선','원래 보고서의 학습 곡선','이 곡선은 원래 보고서에 있던 학습·검증 기록입니다. 새로 측정하거나 임의로 그린 곡선이 아닙니다. 다만 회고에서 밀양 검증 구간이 학습 윈도우와 일부 겹쳤다는 점을 확인했으므로, 곡선이 안정적이라는 사실만으로 일반화가 입증됐다고 말하지 않겠습니다.'),
-],
-'ssafy-16':[
- ('도서목록','ThRead 서비스의 실제 도서 목록 화면','이 화면은 사용자가 보는 ThRead의 도서 목록입니다. 화면에 보이는 추천·목록 결과가 어떤 데이터에서 만들어지는지 뒤쪽 처리 흐름과 연결해 설명하겠습니다. 등록된 데이터의 범위와 외부 모델의 응답 범위를 구분하는 것이 설계의 중요한 조건이었습니다.'),
- ('LLM_댓글','댓글 분석 결과와 진행 상태','이 화면에서는 댓글 분석 결과가 서비스에 전달되는 형태를 볼 수 있습니다. 오래 걸리는 작업을 한 번에 기다리게 하는 대신 진행 상황을 전달하는 방식과 연결됩니다. 화면이 존재한다는 사실이 모델의 품질이나 사용자 만족도를 검증하는 것은 아니므로, 뒤에서 테스트의 범위를 구분하겠습니다.'),
- ('RAG_질의','국보 입문 가이드의 근거 제시','국보 입문 가이드는 ThRead와 구분되는 개인 RAG 프로젝트입니다. 이 화면에서는 답변과 실제 인용된 근거를 함께 확인하는 방식을 볼 수 있습니다. 검색 결과에 존재하는 번호만 허용하고, 답변에 인용되지 않은 출처를 근거처럼 늘어놓지 않는 구조를 설명하겠습니다.'),
 ],
 'posco-pospeak':[
  ('①','KILL KONG 앱의 실제 화면','홈·채팅·단어·연습 화면을 통해 최종 팀 결과물의 사용 흐름을 소개하겠습니다. 저는 이 앱 전체를 혼자 만든 것이 아니라 교정 데이터 구축과 모델 실험을 담당했습니다. 화면은 팀 결과물의 맥락을 보여 주며, 제 기여 범위는 별도로 구분하겠습니다.'),
@@ -148,7 +142,7 @@ def long_decks(data,variants,projects):
         d['estimated_seconds']=round(sum(len(s.get('note',''))for s in slides)/6.5);project_decks[pid]=d;decks.append(d)
     result=[]
     for role,v in variants.items():
-        for kind,pids in [('intro',['data-projects','masters']if role=='data'else['posco-pospeak','ssafy-16']),('role',['data-projects','ssafy-16']if role=='data'else['ssafy-16','posco-pospeak'])]:
+        for kind,pids in [('intro',['data-projects','masters']if role=='data'else['posco-pospeak','hankki']),('role',['data-projects','hankki']if role=='data'else['hankki','posco-pospeak'])]:
             available=[project_decks[p] for p in pids if p in project_decks]
             if not available:continue
             label=v.get('label',role);slides=[{'t':'title','h':name+' · '+label,'kicker':'5~10분 경험 소개'if kind=='intro'else'5~10분 직무 발표','sub':'문제에서 출발해 검증 가능한 결과로 연결한 경험','note':f'안녕하세요. {label} 직무를 준비하는 {name}입니다. 두 가지 경험을 통해 제가 문제를 이해하고 결과를 검증하는 방식을 설명하겠습니다. 특정 기술을 사용했다는 사실뿐 아니라 어떤 기준으로 선택했고 어디까지 확인했는지 보여 드리겠습니다.'}]

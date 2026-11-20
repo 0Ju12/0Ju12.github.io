@@ -75,25 +75,6 @@ hankki:
     - 'Tests: a stand-in model and fixed provider responses let tests run without keys — deterministic, but they do not measure the real model''s interpretation quality or latency.'
     next:
     - 'Next: re-run the representative scenarios with real keys to record latency (target under 5 s) and failure rate, and measure how many recommendations turn into actual cooking, split by stock-entry style and diet goal.'
-ssafy-16:
-  ko:
-    tradeoffs:
-    - 'ThRead: LLM에는 ''어떤 댓글이 부적절한가'' 같은 판단(번호)만 맡기고, 삭제·채택은 코드가 원본에서 처리 — LLM이 직접
-      고쳐 쓰는 방식보다 유연성은 줄지만 원본 보존과 개수 보장을 얻음'
-    - '테스트: 외부 API 대신 mock·가짜 LLM으로 결정적인 테스트를 만듦 — 빠르고 매번 같은 결과가 나오는 대신, 실제 모델의 답변
-      품질은 측정하지 않음'
-    next:
-    - 고정된 댓글 수와 입력으로 성공률·응답 시간·재시도를 측정하고, 외부 API mock 테스트와 실제 서비스 성능을 구분해 기록할 계획입니다.
-  en:
-    tradeoffs:
-    - 'ThRead: the LLM only judges (returns numbers, e.g. which comments are inappropriate)
-      and code removes or keeps items from the original — less flexible than letting
-      the LLM rewrite, but the original is preserved and counts are guaranteed.'
-    - 'Tests: mocks and a fake LLM instead of external APIs — fast and deterministic,
-      but they don''t measure the real model''s answer quality.'
-    next:
-    - 'Next: measure success rate, latency and retries on fixed-size inputs; keep
-      mock-based tests separate from production performance.'
 heritage:
   demo: assets/demo/heritage-rag-demo.gif
   demo_caption_ko: 국보 입문 가이드 — 국보를 고르고 질문하면 실제로 인용한 근거만 표시 (API 키 없이 도는 데모 모드)

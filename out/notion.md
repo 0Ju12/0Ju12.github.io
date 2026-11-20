@@ -2,7 +2,7 @@
 
 > 공개 데이터를 모으고 정제해 검증할 수 있는 지표와 분석으로 만드는 데이터 엔지니어·분석가
 
-자원에너지공학을 전공하고 환경에너지융합학과에서 석사 학위를 받았습니다(2026). 학부연구생으로 판구조 형성사를 고려한 해외 대규모 CO2 저장소 탄성파 해석 논문을 제1저자로 썼고, IAB 융합전공 캡스톤에서는 시공간 딥러닝(U-LSTM) 기반 산불 확산 경로 예측 모델의 설계와 학습을 맡았습니다. 석사 과정에서는 중력·자력 데이터의 파수 상관 분석으로 지하 구조를 규명해 SCIE 국제학술지 SPE Journal 제1저자 논문을 냈고, 학부·석사를 합쳐 논문 3편과 학회 발표 6건, 학회 우수논문 발표상의 성과를 냈습니다. 포스코 청년 AI·BigData 아카데미(POSTECH)에서는 FLAN-T5와 RAG를 결합한 영어 표현 교정 시스템 프로젝트에서 데이터 구축과 모델 실험을 맡았고, 팀은 장려상을 받았습니다. SSAFY 16기에서는 LLM 판단을 코드로 검증하는 데이터 파이프라인과 Django·FastAPI 서비스를 만들며 자동 테스트 142개로 동작을 확인했고, 개인 프로젝트로 근거 번호를 코드로 검증하는 RAG 가이드와, 냉장고 재고로 식단·운동을 짜 주되 재고·분량 판정은 코드가 맡는 생활 코치 Agent(한끼)를 만들고 있습니다. 캐나다 캘거리대학교에서 두 차례 파견 연구를 하며 해외 연구진과 협업했고, ADsP(데이터분석 준전문가) 자격을 보유하고 있습니다.
+자원에너지공학을 전공하고 환경에너지융합학과에서 석사 학위를 받았습니다(2026). 학부연구생으로 판구조 형성사를 고려한 해외 대규모 CO2 저장소 탄성파 해석 논문을 제1저자로 썼고, IAB 융합전공 캡스톤에서는 시공간 딥러닝(U-LSTM) 기반 산불 확산 경로 예측 모델의 설계와 학습을 맡았습니다. 석사 과정에서는 중력·자력 데이터의 파수 상관 분석으로 지하 구조를 규명해 SCIE 국제학술지 SPE Journal 제1저자 논문을 냈고, 학부·석사를 합쳐 논문 3편과 학회 발표 6건, 학회 우수논문 발표상의 성과를 냈습니다. 포스코 청년 AI·BigData 아카데미(POSTECH)에서는 FLAN-T5와 RAG를 결합한 영어 표현 교정 시스템 프로젝트에서 데이터 구축과 모델 실험을 맡았고, 팀은 장려상을 받았습니다. SSAFY 16기에서는 개인 프로젝트로 근거 번호를 코드로 검증하는 RAG 가이드와, 냉장고 재고로 식단·운동을 짜 주되 재고·분량 판정은 코드가 맡는 생활 코치 Agent(한끼)를 만들고 있습니다. 캐나다 캘거리대학교에서 두 차례 파견 연구를 하며 해외 연구진과 협업했고, ADsP(데이터분석 준전문가) 자격을 보유하고 있습니다.
 
 📧 iyju990312@naver.com · [GitHub](https://github.com/0Ju12) · [연구 이력](https://www.geoverselab.com/ko/research-history/13/) · [LinkedIn](https://www.linkedin.com/in/%EC%98%81%EC%A3%BC-%EC%9D%B4-a335ab251/)
 
@@ -50,9 +50,9 @@
 🔗 [GitHub 저장소](https://github.com/0Ju12/data-projects)  🔗 [지진 대시보드](https://0ju12.github.io/data-projects/)  🔗 [전력 수요 예측 탐색기 (직접 보기)](https://0ju12.github.io/data-projects/power/)  🔗 [산불 위험 지도 (매일 갱신)](https://0ju12.github.io/data-projects/fire/)  🔗 [데이터 에이전트 (MCP 서버 · 숫자 검증)](https://github.com/0Ju12/data-projects/tree/main/data-agent)  🔗 [웨어하우스 대시보드 (시세·채용·전력·지진·품질)](https://0ju12.github.io/data-projects/warehouse/)  🔗 [API 관제판 (공개 API 22개 · 정기 점검)](https://0ju12.github.io/data-projects/api-watch/)  🔗 [웨어하우스 코드 (dbt · Airflow)](https://github.com/0Ju12/data-projects/tree/main/warehouse)  🔗 [사이트](https://0ju12.github.io/)  🔗 [만든 과정 글](https://0ju12.github.io/posts/2026-11-portfolio-one-yaml.html)  🔗 [잠금 화면](https://0ju12.github.io/interview/)  
 
 ### 부트캠프 — SSAFY 16기 · 포스코 청년 AI·BigData 아카데미 30기
-`AI 프로젝트` · 2025.06 – 진행 중 · 삼성 청년 SW·AI 아카데미(SSAFY) · 포스코인재창조원·POSTECH · **LLM 파인튜닝 · 데이터 파이프라인 · 백엔드**
+`AI 프로젝트` · 2025.06 – 진행 중 · 삼성 청년 SW·AI 아카데미(SSAFY) · 포스코인재창조원·POSTECH · **LLM Agent · RAG · 파인튜닝**
 
-SSAFY에서 냉장고 생활 코치 Agent(한끼)·LLM 데이터 파이프라인·Django 서비스·VQA 모델 앙상블을, 포스코 아카데미에서 콩글리시 교정 생성 모델+RAG를 구현
+SSAFY에서 냉장고 생활 코치 Agent(한끼)·근거를 검증하는 RAG 가이드·VQA 모델 앙상블을, 포스코 아카데미에서 콩글리시 교정 생성 모델+RAG를 구현
 
 - **상황** 
 - **역할·과제** 
@@ -66,14 +66,6 @@ SSAFY에서 냉장고 생활 코치 Agent(한끼)·LLM 데이터 파이프라인
   - [한끼 Agent] 결함 수정: 응답을 잃은 뒤 '다시 보내기'를 하면 물·섭취 기록이 두 번 쌓일 수 있던 경로 → 첫 요청 ID를 재사용해 서버 합계가 한 번만 늘도록 수정 · 식물성 식단에서 소고기가 후보에 남던 문제 → 재료 분류를 보강하고, 원재료를 검증할 수 없는 외부 레시피는 자동 후보에서 제외
   - [한끼 Agent] 화면·배포: 모바일 하단 탭·데스크톱 사이드바 웹, Android WebView 셸(알림·Health Connect 일일 합계 미리보기), 디버그 APK·미서명 AAB 빌드, Docker 운영 모드 이미지에서 브라우저별 기록 분리 확인
   - [한끼 Agent] 테스트: 대역 모델(가짜 LLM)과 고정 제공처 응답으로 키 없이 도는 pytest, GitHub Actions로 실행
-  - [ThRead] 관통 5 · 댓글 분석 파이프라인: Selenium으로 토스증권 커뮤니티 댓글 20개를 실시간 수집 → LLM이 부적절 댓글 번호만 판단하고 코드가 원본에서 제거 → pandas·정규식 정제 → IQR로 길이 이상치 기준 계산 → LLM 증강(개수 불일치 시 재시도) → 요약까지 단계별로 DB 저장
-  - [ThRead] 관통 5: 30초 이상 걸리는 작업의 진행 상황을 StreamingHttpResponse(NDJSON)+스레드·큐로 실시간 표시, 회사 없음·댓글 없음·LLM 실패 등 예외 상황을 구분해 안내
-  - [ThRead] 관통 6 · 관계형 DB 설계: AbstractUser 커스텀 User, 회원→도서→쓰레드→댓글 1:N과 팔로우(symmetrical=False)·좋아요·선호 장르 M:N 설계, User↔Category 순환 참조를 피하도록 마이그레이션을 3단계로 분리, 장르 삭제 시 도서는 SET_NULL로 보존
-  - [ThRead] 관통 6: 수정·삭제는 작성자 조건으로 조회해 타인 글은 404, 변경 요청은 POST 전용, 알라딘 검색 결과는 서명 토큰(1시간)으로 넘겨 제목·저자가 일치할 때만 ISBN·표지 저장 — 자동 테스트 36개
-  - [ThRead] 관통 7 · AI 프록시 서버 (FastAPI 담당): Django → FastAPI → GMS로 분리해 키·모델 선택·응답 검증을 프록시 한곳에서 처리, Guardrail은 JSON Schema 불리언만 받고 형식이 깨지면 503으로 막는 fail-closed, 텍스트/표지 라우팅·난이도별 nano/mini 선택, Gemini 이미지 응답 4가지 형태를 처리해 실제 JPEG로 정규화 — 자동 테스트 20개
-  - [ThRead] 관통 4 · AI 도서 서비스: Django 커스텀 User·인증(오픈 리다이렉트 방어, HTTP Method 제한), 도서 CRUD, 위키피디아+LLM 작가 정보 생성, AI 도서 분석, 등록 도서 안에서만 추천하도록 검증한 AI 맞춤 추천, 알라딘 API 수집 명령
-  - [ThRead] 관통 4: Django TestCase와 mock으로 외부 API 없이 요구사항별 동작을 검증하는 자동 테스트 45개 작성
-  - [ThRead] 관통 1~3: JSON 도서 데이터 집계·정렬, 알라딘 API 수집(페이지네이션·중복 제거)+LLM 분류+gTTS 음성 변환, Bootstrap 반응형 웹페이지
   - [POSPEAK(KILL KONG)] [담당] 콩글리시·어색한 표현 → 원어민 표현 쌍으로 이루어진 단어 단위·문맥 단위 교정 데이터셋 구축 및 정제
   - [POSPEAK(KILL KONG)] [담당] FLAN-T5를 LoRA로 파인튜닝하고, 학습 전략 3가지(단어→문맥 순차, 문맥→단어 순차, 통합 학습)를 BERTScore로 비교 실험
   - [POSPEAK(KILL KONG)] [최종 서비스 'KILL KONG' — POSPEAK의 최종 버전] Qwen-2.5(1.5B) 파인튜닝(Friends 대사 기반 회화체 데이터 2,000건) + 콩글리시 RAG DB 630건 + 사용자별 개인화 메모리(오답노트)를 LangChain으로 결합, React Native·FastAPI 모바일 앱으로 구현
@@ -88,16 +80,14 @@ SSAFY에서 냉장고 생활 코치 Agent(한끼)·LLM 데이터 파이프라인
   - [한끼 Agent] 대표 시나리오 6개(재료 충분·후보 재계획·재계획 상한·제공처 키 누락·도구 불필요·시간 제약)에서 기대값과 실제값, 도구 호출 수, 재계획 횟수가 일치
   - [한끼 Agent] 자동 테스트 110개 통과, 실제 계정이 필요한 4개는 선택 실행 (2026-11-20 최종 제출본 재실행) · 모바일 390×844·데스크톱 1440×940 브라우저에서 재료 등록 → 조리 → 섭취 → 기록 흐름을 직접 조작해 확인
   - [한끼 Agent] 남은 검증: 실제 발급 키로 모델·식약처·YouTube 전 구간, Android 실기기의 Health Connect 권한 철회·알림, 계정 단위 저장
-  - [ThRead] LLM 응답을 그대로 믿지 않고 코드로 검증하는 구조(번호 범위 검사, 뒤에서부터 제거, 등록 도서 id만 허용)로 안정적인 AI 기능 구현
-  - [ThRead] 자동 테스트 관통 4 45개 · 관통 5 41개 · 관통 6 36개 · 관통 7 20개 통과, 관통 5 요구사항(F601~F611) 전부 구현 + 진행 상황 스트리밍·분석 이력·11가지 화면 테마 추가
   - [POSPEAK(KILL KONG)] 순차 학습에서 앞 단계 성능이 떨어지는 catastrophic forgetting(BERTScore F1 0.47 → 0.32)을 실험으로 확인하고 통합 학습으로 전환
   - [POSPEAK(KILL KONG)] 통합 학습 모델의 검증 BERTScore F1 약 0.74 (순차 학습 0.32~0.47 대비 개선)
   - [POSPEAK(KILL KONG)] 팀 프로젝트 장려상 수상
   - [국보 RAG] 오프라인 테스트 55
   - [VQA 앙상블] Public Score 0.96961
 
-🏷 Python, LangGraph, FastAPI, LLM 파인튜닝, QLoRA, RAG, FAISS, Django, Selenium, Pandas
-🔗 [GitHub 저장소](https://github.com/0Ju12/ai-agents)  🔗 [검증 기록](https://github.com/0Ju12/ai-agents/blob/main/fridge_agent/docs/validation.md)  🔗 [설계도(유스케이스·시스템·ERD)](https://github.com/0Ju12/ai-agents/blob/main/fridge_agent/docs/design.md)  🔗 [GitHub 저장소](https://github.com/0Ju12/ssafy-thread)  🔗 [국보 입문 가이드 (RAG)](https://github.com/0Ju12/heritage-rag-guide)  🔗 [SWEA 풀이 36문제 (테스트 37개)](https://github.com/0Ju12/swea-solutions)  🔗 [팀 GitHub](https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5)  🔗 [GitHub](https://github.com/0Ju12/heritage-rag-guide)  🔗 [실험 기록](https://0ju12.github.io/posts/2026-11-vqa-ensemble-fixes-breaks.html)  
+🏷 Python, LangGraph, FastAPI, LLM 파인튜닝, QLoRA, RAG, ChromaDB, FAISS
+🔗 [GitHub 저장소](https://github.com/0Ju12/ai-agents)  🔗 [검증 기록](https://github.com/0Ju12/ai-agents/blob/main/fridge_agent/docs/validation.md)  🔗 [설계도(유스케이스·시스템·ERD)](https://github.com/0Ju12/ai-agents/blob/main/fridge_agent/docs/design.md)  🔗 [팀 GitHub](https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5)  🔗 [GitHub](https://github.com/0Ju12/heritage-rag-guide)  🔗 [실험 기록](https://0ju12.github.io/posts/2026-11-vqa-ensemble-fixes-breaks.html)  
 
 ### 석사과정 — 중력·자력 데이터 파수 상관 분석으로 지하 구조 규명 (SPE Journal 제1저자)
 `연구` · 2024.03 – 2026.08 · 전북대학교 대학원 환경에너지융합학과 · 지구물리컴퓨팅연구실 · **석사과정 연구원 · 캘거리대 장기 파견**
@@ -163,7 +153,7 @@ SSAFY에서 냉장고 생활 코치 Agent(한끼)·LLM 데이터 파이프라인
 | 기간 | 유형 | 활동 | 기관 | 역할 |
 | --- | --- | --- | --- | --- |
 | 2026.11 – 진행 중 | 개인 프로젝트 | 개인 프로젝트 — 공개 데이터 웨어하우스·API 관제 · 포트폴리오 생성기 · 암호화 준비 공간 | 개인 (GitHub Pages · GitHub Actions) | 기획 · 설계 · 개발 · 운영 |
-| 2025.06 – 진행 중 | AI 프로젝트 | 부트캠프 — SSAFY 16기 · 포스코 청년 AI·BigData 아카데미 30기 | 삼성 청년 SW·AI 아카데미(SSAFY) · 포스코인재창조원·POSTECH | LLM 파인튜닝 · 데이터 파이프라인 · 백엔드 |
+| 2025.06 – 진행 중 | AI 프로젝트 | 부트캠프 — SSAFY 16기 · 포스코 청년 AI·BigData 아카데미 30기 | 삼성 청년 SW·AI 아카데미(SSAFY) · 포스코인재창조원·POSTECH | LLM Agent · RAG · 파인튜닝 |
 | 2024.03 – 2026.08 | 연구 | 석사과정 — 중력·자력 데이터 파수 상관 분석으로 지하 구조 규명 (SPE Journal 제1저자) | 전북대학교 대학원 환경에너지융합학과 · 지구물리컴퓨팅연구실 | 석사과정 연구원 · 캘거리대 장기 파견 |
 | 2022 – 2024.02 | 연구 · AI 프로젝트 | 학부 — 판구조 기반 해외 CO2 저장소 탄성파 해석 (제1저자) · IAB 융합전공 시공간 딥러닝 | 전북대학교 자원에너지공학과 · IAB 융합전공 · 지구물리컴퓨팅연구실 | 학부연구생 · 캡스톤 모델 설계·학습 담당 |
 

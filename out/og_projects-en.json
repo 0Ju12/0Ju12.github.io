@@ -36,15 +36,6 @@
   "image": "assets/photos/hankki/card/한끼_오늘_대시보드.jpg"
  },
  {
-  "id": "ssafy-16-en",
-  "title": "ThRead — LLM comment analysis and book community",
-  "tagline": "A reading community built end to end — collection → LLM analysis → web service",
-  "key": "The LLM only returns the numbers of inappropriate comments; code range-checks them and removes items from the original — bad output never reaches the DB or UI",
-  "period": "2026.07 – present",
-  "group": "Bootcamps — SSAFY · POSCO AI·BigData Academy",
-  "image": "assets/photos/ssafy-16/관통5_LLM_댓글분석_결과화면.jpg"
- },
- {
   "id": "posco-pospeak-en",
   "title": "POSPEAK (KILL KONG) — Konglish → natural English correction AI (FLAN-T5 · Qwen + RAG)",
   "tagline": "Generator + RAG that rewrites Konglish into natural English",
@@ -60,7 +51,7 @@
   "key": "55 offline tests",
   "period": "2026.10 – 2026.10",
   "group": "Bootcamps — SSAFY · POSCO AI·BigData Academy",
-  "image": ""
+  "image": "assets/photos/heritage/국보입문가이드_RAG_질의응답_화면.jpg"
  },
  {
   "id": "vqa-en",

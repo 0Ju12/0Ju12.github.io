@@ -12,7 +12,7 @@ Data Engineer · Data Analyst | M.S. (SCIE first author) · Spatiotemporal deep 
 ## 2. 자기소개 / About
 
 ```
-M.S. in Environment and Energy (Jeonbuk National University, 2026) with a B.S. in Mineral Resources and Energy Engineering. As an undergraduate researcher I wrote a first-author paper interpreting seismic images of large overseas CO2 storage sites in light of plate-tectonic history, and in the IAB convergence-major capstone I designed and trained a spatiotemporal deep learning model (U-LSTM) that predicts wildfire spread. In my master's I separated overlapping gravity and magnetic signals with wavenumber-domain correlation analysis and published a first-author paper in SPE Journal (SCIE); across both degrees: 3 papers, 6 conference presentations and an outstanding student paper award. At the POSCO Youth AI & Big Data Academy (with POSTECH) I built the training data and ran model experiments for an English expression correction system (FLAN-T5 + RAG) that won an Encouragement Award, and at the Samsung Software & AI Academy for Youth (SSAFY) I build LLM data pipelines and Django/FastAPI services checked by 142 automated tests, plus personal projects: a RAG guide that verifies its citation numbers in code, and a fridge-life coach agent (Hankki) whose stock and portion decisions stay in code. Two research stays at the University of Calgary; ADsP (Advanced Data Analytics Semi-Professional) certified.
+M.S. in Environment and Energy (Jeonbuk National University, 2026) with a B.S. in Mineral Resources and Energy Engineering. As an undergraduate researcher I wrote a first-author paper interpreting seismic images of large overseas CO2 storage sites in light of plate-tectonic history, and in the IAB convergence-major capstone I designed and trained a spatiotemporal deep learning model (U-LSTM) that predicts wildfire spread. In my master's I separated overlapping gravity and magnetic signals with wavenumber-domain correlation analysis and published a first-author paper in SPE Journal (SCIE); across both degrees: 3 papers, 6 conference presentations and an outstanding student paper award. At the POSCO Youth AI & Big Data Academy (with POSTECH) I built the training data and ran model experiments for an English expression correction system (FLAN-T5 + RAG) that won an Encouragement Award, and at the Samsung Software & AI Academy for Youth (SSAFY) I build personal projects: a RAG guide that verifies its citation numbers in code, and a fridge-life coach agent (Hankki) whose stock and portion decisions stay in code. Two research stays at the University of Calgary; ADsP (Advanced Data Analytics Semi-Professional) certified.
 
 My main SSAFY project is Hankki, a fridge-inventory meal and workout coach agent where the model only interprets and words answers while code decides stock and portions (github.com/0Ju12/ai-agents); I also built a heritage RAG guide whose citations are re-checked in code (github.com/0Ju12/heritage-rag-guide).
 
@@ -95,23 +95,6 @@ A Korean web and Android app that works out menus, missing ingredients and the t
 ✔ Still to verify: the full path with real model, food-safety and YouTube keys; Health Connect permission revocation and notifications on a real Android device; account-level storage
 Skills: Python, LangGraph, LangChain, FastAPI, Pydantic, SQLite, ChromaDB, Android, pytest
 Details: https://0ju12.github.io/projects/hankki-en.html
-```
-
-### ThRead — LLM comment analysis and book community
-- **직함/역할:** Backend & data pipeline · model training (AI Challenge)
-- **회사/기관:** Samsung Software & AI Academy for Youth (SSAFY) · team of 2
-- **기간:** 2026.07 – present
-- **설명:**
-```
-Extended a reading-community service across seven projects, from data collection to LLM analysis and web service, plus a multimodal QA challenge
-• Comment pipeline: Selenium collects live comments → the LLM returns only the numbers of inappropriate comments and code removes them → pandas/regex cleaning → IQR length thresholds → LLM augmentation (retry on count mismatch) → summary, each step stored
-• Streamed progress of 30-second jobs with StreamingHttpResponse (NDJSON) and distinguished failure cases (no company, no comments, LLM failure)
-• Relational DB design (project 6): custom AbstractUser; user→book→thread→comment 1:N plus follow (asymmetric), like and favorite-genre M:N; migrations split in three steps to avoid a User↔Category cycle; books kept with SET_NULL when a genre is deleted
-• Project 6: edits and deletes look up rows by author, so other users' posts return 404; changes are POST-only; Aladin search results pass through a signed 1-hour token so ISBN and cover are saved only when title and author still match — 36 tests
-✔ AI Challenge public score 0.94608 (4B baseline) → 0.96961
-✔ 142 automated tests passing (45 + 41 + 36 + 20); all project-5 requirements implemented, plus progress streaming and analysis history
-Skills: Python, Django, Selenium, Pandas, LLM API
-Details: https://0ju12.github.io/projects/ssafy-16-en.html
 ```
 
 ### POSPEAK (KILL KONG) — Konglish → natural English correction AI (FLAN-T5 · Qwen + RAG)

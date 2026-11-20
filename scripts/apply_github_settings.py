@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""data/github_settings.yaml 의 저장소 About(설명·웹사이트·토픽)과 프로필 이름·소개를 GitHub 에 적용.
+"""data/github_settings.yaml 의 저장소 About(설명·웹사이트·토픽)·비공개 전환과 프로필 이름·소개를 GitHub 에 적용.
 
 토큰은 환경 변수 GH_ADMIN_TOKEN 에서만 읽고 출력하지 않습니다. 없으면 아무것도 하지 않고 끝납니다.
 필요한 fine-grained 토큰 권한: 대상 저장소의 Administration(Read and write) + Metadata(Read),
@@ -43,6 +43,11 @@ def main():
     cfg = yaml.safe_load(CFG.read_text(encoding="utf-8"))
     owner, failures = cfg["owner"], 0
     for name, r in (cfg.get("repos") or {}).items():
+        if r.get("private"):
+            code, msg = call("PATCH", f"/repos/{owner}/{name}", {"private": True}, token)
+            failures += code != 200
+            print(f"{'✔' if code == 200 else '✗'} {name}: 비공개 전환 {code}{' ' + msg if msg else ''}")
+            continue
         code, msg = call("PATCH", f"/repos/{owner}/{name}", {"description": r.get("description", ""), "homepage": r.get("homepage", "")}, token)
         ok1 = code == 200
         code2, msg2 = call("PUT", f"/repos/{owner}/{name}/topics", {"names": r.get("topics") or []}, token)

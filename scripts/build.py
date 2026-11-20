@@ -63,17 +63,9 @@ def normalize(data):
     extra_file = DATA.parent / ("standalone_projects.en.yaml" if is_english else "standalone_projects.yaml")
     extra = yaml.safe_load(extra_file.read_text(encoding="utf-8")) if extra_file.exists() else []
     for g in acts:
-        if any(x.get("id") == "ssafy-16" for x in g.get("projects") or []):
-            known = {x.get("id") for x in g["projects"]}
-            g["projects"].extend(x for x in extra if x["id"] not in known)
-        for sp in g.get("projects") or []:
-            if sp.get("id") == "ssafy-16":
-                sp["title"] = "ThRead — LLM comment analysis and book community" if is_english else "ThRead — LLM 댓글 분석·독서 커뮤니티"
-                sp["short"] = "ThRead"
-                actions = sp.get("star", {}).get("action") or []
-                sp["star"]["action"] = [x for x in actions if not x.startswith(("SSAFY 16기 AI 챌린지", "AI 코어 프로젝트", "새내기 캠프", "SSAFY AI 과정", "SSAFY 16 AI Challenge", "AI core project", "Freshman camp", "SSAFY AI curriculum"))]
-                if sp.get("digest"):
-                    sp["digest"]["result"] = [x for x in sp["digest"].get("result", []) if "Public" not in x]
+        if g.get("id") == "bootcamp":   # SSAFY 개인·팀 사례(국보 RAG·VQA)를 부트캠프 묶음에 붙임
+            known = {x.get("id") for x in g.get("projects") or []}
+            g.setdefault("projects", []).extend(x for x in extra if x["id"] not in known)
 
     photos = DOCS / "assets" / "photos"
 
@@ -148,7 +140,7 @@ def normalize(data):
             sp["metric_evidence"] = data["metric_evidence"].get(sp["id"])
     data["selected_cases"] = {
         "all": ["data-projects", "hankki", "masters"],       # 주력: 데이터 엔지니어·분석가 + SSAFY 대표 활동 한끼 (2026-11-20)
-        "data": ["data-projects", "ssafy-16", "masters"],
+        "data": ["data-projects", "hankki", "masters"],
         "ai": ["hankki", "heritage", "vqa"],
     }
     data["project_lookup"] = {sp["id"]: sp for g in acts for sp in g.get("projects") or []}

@@ -18,10 +18,9 @@ class LearningTest(unittest.TestCase):
   for ids in data['selected_cases'].values():
    for i in ids:self.assertIn(i,data['project_lookup'])
   self.assertIn('heritage',data['project_lookup']);self.assertIn('vqa',data['project_lookup'])
-  thread=data['project_lookup']['ssafy-16']
-  self.assertFalse(any(x.startswith('AI 코어') for x in thread['star']['action']))
+  self.assertNotIn('ssafy-16',data['project_lookup'])   # 관통 프로젝트는 비공개
   env=Environment(loader=FileSystemLoader(ROOT/'templates'))
-  for i in ['heritage','vqa','ssafy-16']:
+  for i in ['heritage','vqa','hankki']:
    html=env.get_template('project.html.j2').render(sp=data['project_lookup'][i],group={},prev=None,next=None,related=[],en=False,**data)
    self.assertIn('성과 수치의 의미',html)
   for t in ['learning-demo.html.j2','evaluation.html.j2']:
