@@ -63,7 +63,7 @@ class CareerContentTest(unittest.TestCase):
         data['case_notes']=yaml.safe_load((ROOT/'data/case_notes.yaml').read_text())
         variants=yaml.safe_load((ROOT/'data/resume_variants.yaml').read_text())
         rows=rebuild_decks(data,variants,interview._projects(data))
-        self.assertEqual(len(rows),13)
+        self.assertEqual(len(rows),14)   # 직무별 4개 + 프로젝트 10개(한끼 포함)
         for deck in rows:
             self.assertTrue(300<=deck['estimated_seconds']<=600,deck['id'])
             figures=[s for s in deck['slides'] if s.get('img')]
