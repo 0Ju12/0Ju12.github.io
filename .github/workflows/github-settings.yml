@@ -1,0 +1,22 @@
+# data/github_settings.yaml 의 저장소 설명·웹사이트·토픽과 프로필 이름·소개를 적용합니다.
+# 저장소 Settings → Secrets and variables → Actions 에 GH_ADMIN_TOKEN 이 있을 때만 동작하고, 없으면 건너뜁니다.
+name: Apply GitHub settings
+on:
+  push:
+    branches: [main]
+    paths: [data/github_settings.yaml, scripts/apply_github_settings.py, .github/workflows/github-settings.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install pyyaml
+      - name: Apply repository About and profile
+        run: python scripts/apply_github_settings.py
+        env:
+          GH_ADMIN_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}

@@ -1,0 +1,44 @@
+# GitHub 저장소 About(설명·웹사이트·토픽)과 프로필 이름·소개 — .github/workflows/github-settings.yml 이 적용
+# 적용 조건: 저장소 Settings → Secrets → Actions 에 GH_ADMIN_TOKEN (fine-grained 토큰) 이 있을 때만. 없으면 건너뜀.
+# 이 파일을 고쳐 push 하거나 Actions 탭에서 "Apply GitHub settings" 를 직접 실행하면 다시 적용됩니다.
+# 고정(Pin)·프로필 사진은 GitHub API 가 없어 웹에서 직접 해야 합니다. 라이선스는 넣지 않습니다.
+owner: 0Ju12
+
+profile:
+  name: "이영주 (Young-Ju Lee)"
+  bio: "데이터 엔지니어 · 데이터 분석가 | 지구물리 탐사 연구 석사 · SCIE 제1저자 | SSAFY 16기"
+  blog: "https://0ju12.github.io"
+
+repos:
+  data-projects:
+    description: "공개 데이터 프로젝트 — dbt·Airflow 웨어하우스, 공개 API 관제, 지진 파이프라인, 설비 이상 탐지, 전력 수요 예측, DART 데이터 마트"
+    homepage: "https://0ju12.github.io/data-projects/"
+    topics: [data-engineering, dbt, duckdb, airflow, github-actions, time-series, sql, python]
+  ai-agents:
+    description: "한끼 — 냉장고 재고 기반 식단·장보기·운동 코치 Agent (LangGraph · FastAPI · Android) · SSAFY AI 코어 프로젝트"
+    homepage: "https://0ju12.github.io/projects/hankki.html"
+    topics: [llm-agent, langgraph, fastapi, rag, chromadb, android, python]
+  gravmag-wcf:
+    description: "중력·자력 파수 상관 필터링(WCF)으로 기반암·암염 지표(SLFI·DLFI)를 만드는 석사 연구 코드 · SPE Journal"
+    homepage: "https://0ju12.github.io/projects/masters.html"
+    topics: [geophysics, gravity, magnetics, signal-processing, fft, numpy, python]
+  ssafy-thread:
+    description: "ThRead — Selenium 수집 → LLM 판단을 코드로 검증하는 댓글 분석 파이프라인 · Django 독서 커뮤니티 (SSAFY 관통 프로젝트)"
+    homepage: "https://0ju12.github.io/projects/ssafy-16.html"
+    topics: [django, selenium, pandas, llm, fastapi, python]
+  heritage-rag-guide:
+    description: "국보 입문 가이드 — 국가유산청 오픈API·위키백과 수집 → LangGraph RAG, 답변의 근거 번호를 코드로 검증"
+    homepage: "https://0ju12.github.io/projects/heritage.html"
+    topics: [rag, langgraph, chromadb, fastapi, streamlit, llm, python]
+  wildfire-spread-prediction:
+    description: "U-LSTM 시공간 딥러닝으로 산불 확산 경로 예측 — IAB 융합전공 캡스톤 (미학습 산불 F1 0.85)"
+    homepage: "https://0ju12.github.io/projects/wildfire-capstone.html"
+    topics: [deep-learning, tensorflow, lstm, spatiotemporal, wildfire, gis]
+  swea-solutions:
+    description: "SSAFY에서 푼 SWEA 36문제 주제별 풀이 · 직접 만든 입력 테스트 37개"
+    homepage: ""
+    topics: [algorithms, python, pytest]
+  0Ju12.github.io:
+    description: "데이터 엔지니어·분석가 이영주 포트폴리오 — YAML 하나로 사이트·이력서 PDF 생성, 배포 전 자동 점검"
+    homepage: "https://0ju12.github.io"
+    topics: [portfolio, github-pages, github-actions, jinja2]
