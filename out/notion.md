@@ -23,6 +23,7 @@
   - [공개 데이터 프로젝트] 전력 수요 예측: 전력거래소 2025년 시간별 전국 수요와 Open-Meteo 기온으로 하루 전 24시간 예측 — 24시간 이상 지난 값만 쓰도록 특징을 만들고(누수 검사 테스트), 공휴일·연휴를 반영해 기준선·선형·GBM·앙상블을 10~12월로 시험
   - [공개 데이터 프로젝트] DART 데이터 마트: OpenDART 수집(오류 코드별 처리·한도 대기), 표준 계정 정규화, 피벗·LAG·RANK SQL 뷰, 사업보고서 문단을 글자 2-gram BM25 로 찾아 출처와 함께 보여 주는 근거 검색 (인증키는 Secrets 로만)
   - [공개 데이터 프로젝트] 분석 웨어하우스: 전력 수요·기온과 데이터 직무 채용 공고로 질문 7개를 세우고, 질문마다 dbt 분석 표 하나로 답함 — 평일만 골라 기온 두 구간 모형(꺾이는 기온 0.5℃ 격자 탐색), 공휴일 seed로 날 종류를 다시 나눠 쉬는 날·긴 연휴 비교, 계절별 최대 시각, 봄 한낮 감소, 직무별 기술 언급률. 원본은 dbt(DuckDB)로 원본 → 정제 → 집계 → 분석 4단, '24시'는 시작 시각을 키로 삼아 다음 날로 넘기지 않음 · Airflow DAG·명령줄·테스트가 같은 함수를 씀
+  - [공개 데이터 프로젝트] 전력 전환 분석: Ember 월별 발전량·Our World in Data 연간 에너지(키 없는 공개 자료)로 한국 발전 구성 25년, 석탄 감소 속도(12개국 비교), 태양광 성장·계절성, 탄소 집약도를 SQL 쿼리 7개로 분석하고 D3 대시보드(연도 재생 산점도·비교 나라 선택)로 공개 — 석탄 46.3%(2009) → 31.1%(2025), 태양광 비중은 5월 7.6%·12월 3.4%로 웨어하우스의 '봄 한낮 수요 감소'와 같은 방향
   - [공개 데이터 프로젝트] API 관제(API Watch): 공개 API 22개를 정기 점검 — HTTP 200 이어도 오래된 자료·빈 결과·중복·자료형 변경을 따로 판정하고, 첫 정상 응답의 구조를 저장해 필드 추가와 삭제·형 변경을 구분, 연속 실패만 이슈 한 건으로 모음 (Django 관리 화면·Docker Compose 실행판 포함)
   - [공개 데이터 프로젝트] 산불 위험 지도: 화재기상지수(FFWI)와 NASA 위성 화재 탐지를 매일 모아 비교 — 탐지의 대부분이 제철소 같은 상시 열원이라 이를 가려내는 규칙을 만듦
   - [공개 데이터 프로젝트] 데이터 에이전트: 위 결과를 LLM 이 SQL 로 조회하는 MCP 서버 — 읽기 전용 SQL 안전장치와, 답에 들어간 숫자를 조회 결과와 대조하는 검증
@@ -48,7 +49,7 @@
   - [학습·면접 준비 앱] 휴대폰 하단 탭·오프라인 설치(PWA)까지 지원, 데스크톱·휴대폰 주요 흐름 자동 점검 통과
 
 🏷 Python, Jinja2, GitHub Actions, Playwright, Web Crypto, PWA, JavaScript
-🔗 [GitHub 저장소](https://github.com/0Ju12/data-projects)  🔗 [지진 대시보드](https://0ju12.github.io/data-projects/)  🔗 [전력 수요 예측 탐색기 (직접 보기)](https://0ju12.github.io/data-projects/power/)  🔗 [산불 위험 지도 (매일 갱신)](https://0ju12.github.io/data-projects/fire/)  🔗 [데이터 에이전트 (MCP 서버 · 숫자 검증)](https://github.com/0Ju12/data-projects/tree/main/data-agent)  🔗 [분석 대시보드 (전력 수요·채용 공고 · 질문 7개)](https://0ju12.github.io/data-projects/warehouse/)  🔗 [API 관제판 (공개 API 22개 · 정기 점검)](https://0ju12.github.io/data-projects/api-watch/)  🔗 [웨어하우스 코드 (dbt · Airflow)](https://github.com/0Ju12/data-projects/tree/main/warehouse)  🔗 [사이트](https://0ju12.github.io/)  🔗 [만든 과정 글](https://0ju12.github.io/posts/2026-11-portfolio-one-yaml.html)  🔗 [잠금 화면](https://0ju12.github.io/interview/)  
+🔗 [GitHub 저장소](https://github.com/0Ju12/data-projects)  🔗 [지진 대시보드](https://0ju12.github.io/data-projects/)  🔗 [전력 수요 예측 탐색기 (직접 보기)](https://0ju12.github.io/data-projects/power/)  🔗 [산불 위험 지도 (매일 갱신)](https://0ju12.github.io/data-projects/fire/)  🔗 [데이터 에이전트 (MCP 서버 · 숫자 검증)](https://github.com/0Ju12/data-projects/tree/main/data-agent)  🔗 [분석 대시보드 (전력 수요·채용 공고 · 질문 7개)](https://0ju12.github.io/data-projects/warehouse/)  🔗 [전력 전환 분석 (Ember·OWID · D3)](https://0ju12.github.io/data-projects/energy/)  🔗 [API 관제판 (공개 API 22개 · 정기 점검)](https://0ju12.github.io/data-projects/api-watch/)  🔗 [웨어하우스 코드 (dbt · Airflow)](https://github.com/0Ju12/data-projects/tree/main/warehouse)  🔗 [사이트](https://0ju12.github.io/)  🔗 [만든 과정 글](https://0ju12.github.io/posts/2026-11-portfolio-one-yaml.html)  🔗 [잠금 화면](https://0ju12.github.io/interview/)  
 
 ### 부트캠프 — SSAFY 16기 · 포스코 청년 AI·BigData 아카데미 30기
 `AI 프로젝트` · 2025.06 – 진행 중 · 삼성 청년 SW·AI 아카데미(SSAFY) · 포스코인재창조원·POSTECH · **LLM Agent · RAG · 파인튜닝**
