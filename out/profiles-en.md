@@ -91,7 +91,7 @@ A Korean web and Android app that works out menus, missing ingredients and the t
 • Task chaining: 'I want kimchi stew — what do I need to buy?' → recipe lookup → compare with fridge stock → pass only the missing ingredients to shopping search. 'Two of us, only what we have' applies servings and leaves the cart alone · every action is shown with an undo button
 • Run records: event bus → logging agent (no LLM) → SQLite subscription stores analyse/plan/execute/judge/respond with tool arguments, latency and replan reasons, and flags duplicate calls, off-plan calls, repeated failures of one tool and the replan cap — logging errors never block the conversation
 ✔ Six representative scenarios (enough ingredients, candidate replan, replan cap, missing provider key, no tool needed, time limit) match expected values, tool-call counts and replan counts
-✔ 100 automated tests passing, 4 needing real keys skipped (re-run 2026-11-20) · ingredient entry → cooking → intake → records exercised by hand in mobile 390×844 and desktop 1440×940 browsers
+✔ 110 automated tests passing, 4 real-account checks run on demand (final submission re-run 2026-11-20) · ingredient entry → cooking → intake → records exercised by hand in mobile 390×844 and desktop 1440×940 browsers
 ✔ Still to verify: the full path with real model, food-safety and YouTube keys; Health Connect permission revocation and notifications on a real Android device; account-level storage
 Skills: Python, LangGraph, LangChain, FastAPI, Pydantic, SQLite, ChromaDB, Android, pytest
 Details: https://0ju12.github.io/projects/hankki-en.html

@@ -41,7 +41,7 @@ ai:
   order: [bootcamp, undergrad, grad]
   brief:
     bootcamp:
-      - "한끼 Agent(개인): 냉장고 재고 기반 식단·운동 코치 — LangGraph 분석→계획→실행→판정⟲재계획(최대 3회)→응답, 모델은 해석·보조 도구 선택·문장만 맡고 재고·분량 판정은 코드 · 로깅 Agent로 중복·계획 밖 호출 판정 · Chroma RAG · 자동 테스트 100개"
+      - "한끼 Agent(개인): 냉장고 재고 기반 식단·운동 코치 — LangGraph 분석→계획→실행→판정⟲재계획(최대 3회)→응답, 모델은 해석·보조 도구 선택·문장만 맡고 재고·분량 판정은 코드 · 로깅 Agent로 중복·계획 밖 호출 판정 · Chroma RAG · 자동 테스트 110개"
       - "AI 챌린지(VQA): Qwen 4B 0.94608 → 27B 0.95591 → 확률 앙상블 → Qwen QLoRA·Gemma·OCR·멀티뷰 결합으로 Public 0.96961. 후보는 정확도가 아닌 fixes−breaks와 유형별 회귀로 채택"
       - "국보 입문 가이드(개인): LangGraph retrieve→generate RAG, 출처별 청킹·MMR 검색, 답변의 [근거 N]을 코드로 검증해 없는 번호 제거 · 가짜 LLM 기반 테스트 55개"
       - "POSPEAK(KILL KONG): 콩글리시 교정 데이터셋 구축, FLAN-T5 LoRA 학습 전략 비교(F1 0.32→0.74)·catastrophic forgetting 분석 + RAG · 장려상"
