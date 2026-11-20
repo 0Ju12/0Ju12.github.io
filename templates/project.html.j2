@@ -12,7 +12,7 @@
   'role': 'My role' if en else '역할',
   'did': 'What I did' if en else '한 일',
   'result': 'Results' if en else '결과',
-  'trade': 'Decisions & trade-offs' if en else '설계 판단 · 트레이드오프',
+  'trade': 'Decisions I made & trade-offs' if en else '직접 내린 설계 판단 · 트레이드오프',
   'trade_sub': 'What I chose, and what I gave up for it' if en else '무엇을 고르고, 그 대신 무엇을 포기했는지',
   'next': 'Looking back · open questions' if en else '돌아보면 · 남은 과제',
   'next_sub': 'What I would change, and what is still open' if en else '다시 한다면 바꿀 것, 아직 남은 것',
@@ -185,6 +185,7 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
   {% endif %}
 
   {% if sp.metric_evidence %}{% set m = sp.metric_evidence %}<section id="measurement"><h2>{{ 'Measurement conditions' if en else '성과 수치의 의미와 평가 조건' }}</h2><div class="boxed"><b>{{ m.value }}</b><p>{{ m.meaning }}</p><p>{{ m.conditions }}</p><a href="{{ m.source }}" target="_blank" rel="noopener">{{ 'Evidence ↗' if en else '평가 근거 ↗' }}</a></div></section>{% endif %}
+  {% if sp.id == 'data-projects' and ops and ops.daily %}{% set o = ops.daily %}<section id="operations"><h2>{{ 'Actual run log' if en else '실제 운영 기록' }}</h2><div class="boxed"><b>{% if en %}{{ o.total }} runs · {{ o.success }} succeeded · {{ o.failure }} failed{% else %}{{ o.total }}회 실행 · 성공 {{ o.success }}회 · 실패 {{ o.failure }}회{% endif %}</b><p>{% if en %}Daily collection and deploy workflow (<code>{{ o.workflow }}</code>), completed runs from {{ o.first }} to {{ o.last }} KST — {{ o.scheduled }} scheduled, the rest manual or on push. Counted automatically from GitHub Actions at build time (as of {{ ops.as_of }}).{% else %}매일 수집·배포 작업(<code>{{ o.workflow }}</code>)의 완료된 실행, {{ o.first }} ~ {{ o.last }} (한국 시간) — 예약 실행 {{ o.scheduled }}회, 나머지는 수동·푸시 실행. 빌드할 때 GitHub Actions 기록에서 자동으로 셉니다 ({{ ops.as_of }} 기준).{% endif %}</p><a href="{{ o.url }}" target="_blank" rel="noopener">{{ 'All runs on GitHub Actions ↗' if en else 'GitHub Actions 실행 기록 전체 ↗' }}</a></div></section>{% endif %}
   {% if sp.id == 'heritage' %}<p><a class="btn" href="../evaluation.html">{{ 'Real-model evaluation procedure and reports' if en else '실제 모델 평가 절차·보고서 보기' }}</a></p>{% endif %}
   {% if st.action %}<section id="did"><h2>{{ L.did }}</h2><div class="boxed"><ol class="list">{% for x in st.action %}<li>{{ x }}</li>{% endfor %}</ol></div></section>{% endif %}
   {% if st.result %}<section id="result"><h2>{{ L.result }}</h2><div class="boxed"><ul class="list res">{% for x in st.result %}<li>{{ x }}</li>{% endfor %}</ul></div></section>{% endif %}

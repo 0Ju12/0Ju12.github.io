@@ -3,7 +3,7 @@
   "id": "data-projects-en",
   "title": "Public-data projects — earthquake pipeline · equipment anomaly detection · power demand forecasting · DART data mart · dbt warehouse",
   "tagline": "Eight projects that collect and model public data daily and monitor data quality and API health",
-  "key": "dbt + Airflow warehouse refreshed daily · 22 public APIs monitored · power demand error 6.17% → 3.23%",
+  "key": "Accuracy 0.99 on a random split fell to 0.46 on a time split — the evaluation choice changed the conclusion · power demand MAPE 3.23% (vs 6.17% for the same-hour-last-week baseline)",
   "period": "2026.11 – present",
   "group": "Personal projects — public-data warehouse & monitoring · portfolio generator · encrypted prep space",
   "image": "assets/photos/data-projects/card/지진_파이프라인_지도.jpg"
@@ -27,10 +27,19 @@
   "image": "assets/photos/prep-apps/card/면접준비_발표자료.jpg"
  },
  {
+  "id": "hankki-en",
+  "title": "Hankki — a fridge-inventory meal and workout coach agent (LangGraph · FastAPI · Android)",
+  "tagline": "A life-coach agent that plans meals, shopping and workouts from what's in your fridge",
+  "key": "The model interprets, picks tools and words answers; code decides stock and portions — unknown tools are dropped and a model failure falls back to the rule plan",
+  "period": "2026.11 – present",
+  "group": "Bootcamps — SSAFY · POSCO AI·BigData Academy",
+  "image": "assets/photos/hankki/card/한끼_오늘_대시보드.jpg"
+ },
+ {
   "id": "ssafy-16-en",
   "title": "ThRead — LLM comment analysis and book community",
   "tagline": "A reading community built end to end — collection → LLM analysis → web service",
-  "key": "LLM judgments verified in code · 142 automated tests",
+  "key": "The LLM only returns the numbers of inappropriate comments; code range-checks them and removes items from the original — bad output never reaches the DB or UI",
   "period": "2026.07 – present",
   "group": "Bootcamps — SSAFY · POSCO AI·BigData Academy",
   "image": "assets/photos/ssafy-16/관통5_LLM_댓글분석_결과화면.jpg"

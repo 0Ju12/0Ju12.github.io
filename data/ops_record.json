@@ -1,0 +1,26 @@
+{
+  "daily": {
+    "workflow": "geo-daily.yml",
+    "first": "2026-11-10",
+    "total": 17,
+    "success": 16,
+    "failure": 1,
+    "scheduled": 9,
+    "last": "2026-11-19 11:36",
+    "last_conclusion": "success",
+    "url": "https://github.com/0Ju12/data-projects/actions/workflows/geo-daily.yml"
+  },
+  "hourly": {
+    "workflow": "api-watch.yml",
+    "first": "2026-11-16",
+    "total": 20,
+    "success": 20,
+    "failure": 0,
+    "scheduled": 10,
+    "last": "2026-11-20 03:38",
+    "last_conclusion": "success",
+    "url": "https://github.com/0Ju12/data-projects/actions/workflows/api-watch.yml"
+  },
+  "as_of": "2026-11-20",
+  "repo": "0Ju12/data-projects"
+}

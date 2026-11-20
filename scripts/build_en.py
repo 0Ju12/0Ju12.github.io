@@ -125,6 +125,11 @@ CAPTIONS = {
     "지진_파이프라인": "Earthquake pipeline — dashboard of USGS M4+ events in East Asia",
     "설비_센서": "Equipment sensors — anomaly score per component (UCI hydraulic rig)",
     "전력_수요_예측": "Power demand — actual vs models (Oct–Dec 2025 test)",
+    "한끼_오늘_대시보드": "Hankki — today dashboard",
+    "오늘_대시보드_추천_레시피": "Hankki — today: recommended recipe, daily log and schedule",
+    "냉장고_소비기한순_재고와_부족분만": "Hankki — fridge stock by use-by date, with only the missing amounts in the cart",
+    "조리_모드_2인분으로_바꾸면": "Hankki — cooking mode: switching to two servings recomputes the missing grams",
+    "Agent_실행_과정_펼치기": "Hankki — expanding the agent's run steps (analyse · judge · verify · respond)",
 }
 
 

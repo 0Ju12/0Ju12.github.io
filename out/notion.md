@@ -2,7 +2,7 @@
 
 > 공개 데이터를 모으고 정제해 검증할 수 있는 지표와 분석으로 만드는 데이터 엔지니어·분석가
 
-자원에너지공학을 전공하고 환경에너지융합학과에서 석사 학위를 받았습니다(2026). 학부연구생으로 판구조 형성사를 고려한 해외 대규모 CO2 저장소 탄성파 해석 논문을 제1저자로 썼고, IAB 융합전공 캡스톤에서는 시공간 딥러닝(U-LSTM) 기반 산불 확산 경로 예측 모델의 설계와 학습을 맡았습니다. 석사 과정에서는 중력·자력 데이터의 파수 상관 분석으로 지하 구조를 규명해 SCIE 국제학술지 SPE Journal 제1저자 논문을 냈고, 학부·석사를 합쳐 논문 3편과 학회 발표 6건, 학회 우수논문 발표상의 성과를 냈습니다. 포스코 청년 AI·BigData 아카데미(POSTECH)에서는 FLAN-T5와 RAG를 결합한 영어 표현 교정 시스템 프로젝트에서 데이터 구축과 모델 실험을 맡았고, 팀은 장려상을 받았습니다. SSAFY 16기에서는 LLM 판단을 코드로 검증하는 데이터 파이프라인과 Django·FastAPI 서비스를 만들며 자동 테스트 142개로 동작을 확인했고, 개인 프로젝트로 근거 번호를 코드로 검증하는 RAG 가이드를 구현했습니다. 캐나다 캘거리대학교에서 두 차례 파견 연구를 하며 해외 연구진과 협업했고, ADsP(데이터분석 준전문가) 자격을 보유하고 있습니다.
+자원에너지공학을 전공하고 환경에너지융합학과에서 석사 학위를 받았습니다(2026). 학부연구생으로 판구조 형성사를 고려한 해외 대규모 CO2 저장소 탄성파 해석 논문을 제1저자로 썼고, IAB 융합전공 캡스톤에서는 시공간 딥러닝(U-LSTM) 기반 산불 확산 경로 예측 모델의 설계와 학습을 맡았습니다. 석사 과정에서는 중력·자력 데이터의 파수 상관 분석으로 지하 구조를 규명해 SCIE 국제학술지 SPE Journal 제1저자 논문을 냈고, 학부·석사를 합쳐 논문 3편과 학회 발표 6건, 학회 우수논문 발표상의 성과를 냈습니다. 포스코 청년 AI·BigData 아카데미(POSTECH)에서는 FLAN-T5와 RAG를 결합한 영어 표현 교정 시스템 프로젝트에서 데이터 구축과 모델 실험을 맡았고, 팀은 장려상을 받았습니다. SSAFY 16기에서는 LLM 판단을 코드로 검증하는 데이터 파이프라인과 Django·FastAPI 서비스를 만들며 자동 테스트 142개로 동작을 확인했고, 개인 프로젝트로 근거 번호를 코드로 검증하는 RAG 가이드와, 냉장고 재고로 식단·운동을 짜 주되 재고·분량 판정은 코드가 맡는 생활 코치 Agent(한끼)를 만들고 있습니다. 캐나다 캘거리대학교에서 두 차례 파견 연구를 하며 해외 연구진과 협업했고, ADsP(데이터분석 준전문가) 자격을 보유하고 있습니다.
 
 📧 iyju990312@naver.com · [GitHub](https://github.com/0Ju12) · [연구 이력](https://www.geoverselab.com/ko/research-history/13/) · [LinkedIn](https://www.linkedin.com/in/%EC%98%81%EC%A3%BC-%EC%9D%B4-a335ab251/)
 
@@ -52,11 +52,20 @@
 ### 부트캠프 — SSAFY 16기 · 포스코 청년 AI·BigData 아카데미 30기
 `AI 프로젝트` · 2025.06 – 진행 중 · 삼성 청년 SW·AI 아카데미(SSAFY) · 포스코인재창조원·POSTECH · **LLM 파인튜닝 · 데이터 파이프라인 · 백엔드**
 
-SSAFY에서 LLM 데이터 파이프라인·Django 서비스와 VQA 모델 앙상블을, 포스코 아카데미에서 콩글리시 교정 생성 모델+RAG를 구현
+SSAFY에서 냉장고 생활 코치 Agent(한끼)·LLM 데이터 파이프라인·Django 서비스·VQA 모델 앙상블을, 포스코 아카데미에서 콩글리시 교정 생성 모델+RAG를 구현
 
 - **상황** 
 - **역할·과제** 
 - **한 일**
+  - [한끼 Agent] Agent 흐름: LangGraph로 분석(모델: 자연어 → 조건) → 계획(규칙이 핵심 작업을 정하고, 모델은 도구 목록을 보고 구조화 출력 Plan으로 보조 도구만 고름) → 실행(Worker) → 판정(재고·소비기한·부족 g·조리 시간, 코드) ⟲ 재계획(최대 3회) → 검증 → 응답(확인된 값만으로 문장)
+  - [한끼 Agent] 안전장치: 등록되지 않은 도구·중복 작업은 코드가 버리고, 모델 호출이 실패하면 규칙 계획만으로 계속 진행 · 외부 제공처 키가 없으면 MISSING_KEY로 구분하고 직접 검색 링크를 남김 · 키와 원문 예외는 사용자 응답·실행 로그에서 제외
+  - [한끼 Agent] 작업 연결: '김치찌개 먹고 싶은데 뭐 사야 해?' → 레시피 조회 → 냉장고 재고와 비교 → 없는 재료만 쇼핑 검색에 넘김. '둘이 먹을 거고 있는 재료로만'처럼 말하면 인분을 적용하고 장바구니는 건드리지 않음 · 한 일은 되돌리기 버튼과 함께 표시
+  - [한끼 Agent] 실행 기록: 이벤트 버스 → 로깅 Agent(모델 미사용) → SQLite 구독 구조로 분석·계획·실행·판정·응답과 도구 인자·지연·재계획 사유를 기록하고, 중복 호출·계획 밖 호출·같은 도구 연속 실패·재계획 상한 도달을 판정 — 기록 쪽 오류가 대화를 막지 않게 분리
+  - [한끼 Agent] 근거 검색(RAG): 영양 섭취기준·식품 안전·운동 지침 등 공개 자료를 요약한 안내 문서 31편(출처 링크 포함)을 Chroma에 색인, 외부 API로 확인할 수 없는 질문에 근거 문단과 출처를 붙여 답하고 관련 근거가 없으면 '찾지 못했어요'로 답함
+  - [한끼 Agent] 도메인: 직접 작성한 1인분 레시피 110종(USDA 영양 참조로 열량·단백질 계산), 포장 단위 재고와 소비기한, 인분을 바꾸면 부족한 g를 다시 계산하는 조리 모드, 숙련도별 운동 루틴·세트 타이머, 일정 겹침 확인과 조리 시작 시각 역산
+  - [한끼 Agent] 결함 수정: 응답을 잃은 뒤 '다시 보내기'를 하면 물·섭취 기록이 두 번 쌓일 수 있던 경로 → 첫 요청 ID를 재사용해 서버 합계가 한 번만 늘도록 수정 · 식물성 식단에서 소고기가 후보에 남던 문제 → 재료 분류를 보강하고, 원재료를 검증할 수 없는 외부 레시피는 자동 후보에서 제외
+  - [한끼 Agent] 화면·배포: 모바일 하단 탭·데스크톱 사이드바 웹, Android WebView 셸(알림·Health Connect 일일 합계 미리보기), 디버그 APK·미서명 AAB 빌드, Docker 운영 모드 이미지에서 브라우저별 기록 분리 확인
+  - [한끼 Agent] 테스트: 대역 모델(가짜 LLM)과 고정 제공처 응답으로 키 없이 도는 pytest, GitHub Actions로 실행
   - [ThRead] 관통 5 · 댓글 분석 파이프라인: Selenium으로 토스증권 커뮤니티 댓글 20개를 실시간 수집 → LLM이 부적절 댓글 번호만 판단하고 코드가 원본에서 제거 → pandas·정규식 정제 → IQR로 길이 이상치 기준 계산 → LLM 증강(개수 불일치 시 재시도) → 요약까지 단계별로 DB 저장
   - [ThRead] 관통 5: 30초 이상 걸리는 작업의 진행 상황을 StreamingHttpResponse(NDJSON)+스레드·큐로 실시간 표시, 회사 없음·댓글 없음·LLM 실패 등 예외 상황을 구분해 안내
   - [ThRead] 관통 6 · 관계형 DB 설계: AbstractUser 커스텀 User, 회원→도서→쓰레드→댓글 1:N과 팔로우(symmetrical=False)·좋아요·선호 장르 M:N 설계, User↔Category 순환 참조를 피하도록 마이그레이션을 3단계로 분리, 장르 삭제 시 도서는 SET_NULL로 보존
@@ -76,6 +85,9 @@ SSAFY에서 LLM 데이터 파이프라인·Django 서비스와 VQA 모델 앙상
   - [VQA 앙상블] 최고 제출을 보호 기준선으로 고정하고 유형별 회귀를 확인한 뒤에만 교체
   - [VQA 앙상블] 제출 전 자동 검사(6,714행·ID·확률 행합) + SHA-256 매니페스트로 GPU 없이 재현
 - **결과**
+  - [한끼 Agent] 대표 시나리오 6개(재료 충분·후보 재계획·재계획 상한·제공처 키 누락·도구 불필요·시간 제약)에서 기대값과 실제값, 도구 호출 수, 재계획 횟수가 일치
+  - [한끼 Agent] 자동 테스트 100개 통과, 실제 키가 필요한 4개는 건너뜀 (2026-11-20 재실행) · 모바일 390×844·데스크톱 1440×940 브라우저에서 재료 등록 → 조리 → 섭취 → 기록 흐름을 직접 조작해 확인
+  - [한끼 Agent] 남은 검증: 실제 발급 키로 모델·식약처·YouTube 전 구간, Android 실기기의 Health Connect 권한 철회·알림, 계정 단위 저장
   - [ThRead] LLM 응답을 그대로 믿지 않고 코드로 검증하는 구조(번호 범위 검사, 뒤에서부터 제거, 등록 도서 id만 허용)로 안정적인 AI 기능 구현
   - [ThRead] 자동 테스트 관통 4 45개 · 관통 5 41개 · 관통 6 36개 · 관통 7 20개 통과, 관통 5 요구사항(F601~F611) 전부 구현 + 진행 상황 스트리밍·분석 이력·11가지 화면 테마 추가
   - [POSPEAK(KILL KONG)] 순차 학습에서 앞 단계 성능이 떨어지는 catastrophic forgetting(BERTScore F1 0.47 → 0.32)을 실험으로 확인하고 통합 학습으로 전환
@@ -84,8 +96,8 @@ SSAFY에서 LLM 데이터 파이프라인·Django 서비스와 VQA 모델 앙상
   - [국보 RAG] 오프라인 테스트 55
   - [VQA 앙상블] Public Score 0.96961
 
-🏷 Python, LLM 파인튜닝, QLoRA, RAG, FAISS, Django, Selenium, Pandas
-🔗 [GitHub 저장소](https://github.com/0Ju12/ssafy-thread)  🔗 [국보 입문 가이드 (RAG)](https://github.com/0Ju12/heritage-rag-guide)  🔗 [SWEA 풀이 36문제 (테스트 37개)](https://github.com/0Ju12/swea-solutions)  🔗 [팀 GitHub](https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5)  🔗 [GitHub](https://github.com/0Ju12/heritage-rag-guide)  🔗 [실험 기록](https://0ju12.github.io/posts/2026-11-vqa-ensemble-fixes-breaks.html)  
+🏷 Python, LangGraph, FastAPI, LLM 파인튜닝, QLoRA, RAG, FAISS, Django, Selenium, Pandas
+🔗 [GitHub 저장소](https://github.com/0Ju12/ai-agents)  🔗 [검증 기록](https://github.com/0Ju12/ai-agents/blob/main/fridge_agent/docs/validation.md)  🔗 [설계도(유스케이스·시스템·ERD)](https://github.com/0Ju12/ai-agents/blob/main/fridge_agent/docs/design.md)  🔗 [GitHub 저장소](https://github.com/0Ju12/ssafy-thread)  🔗 [국보 입문 가이드 (RAG)](https://github.com/0Ju12/heritage-rag-guide)  🔗 [SWEA 풀이 36문제 (테스트 37개)](https://github.com/0Ju12/swea-solutions)  🔗 [팀 GitHub](https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5)  🔗 [GitHub](https://github.com/0Ju12/heritage-rag-guide)  🔗 [실험 기록](https://0ju12.github.io/posts/2026-11-vqa-ensemble-fixes-breaks.html)  
 
 ### 석사과정 — 중력·자력 데이터 파수 상관 분석으로 지하 구조 규명 (SPE Journal 제1저자)
 `연구` · 2024.03 – 2026.08 · 전북대학교 대학원 환경에너지융합학과 · 지구물리컴퓨팅연구실 · **석사과정 연구원 · 캘거리대 장기 파견**

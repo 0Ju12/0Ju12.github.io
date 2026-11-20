@@ -9,6 +9,7 @@
 <meta property="og:title" content="국보 입문 가이드 — 인용을 검증하는 RAG — 이영주">
 <meta property="og:description" content="국가유산청 오픈API·위키백과를 수집해 ChromaDB에 색인하고, 답변의 [근거 N]을 코드로 다시 검사해 실제 인용한 근거만 보여 주는 RAG">
 <meta property="og:url" content="https://0ju12.github.io/projects/heritage.html">
+<link rel="canonical" href="https://0ju12.github.io/projects/heritage.html">
 <meta property="og:image" content="https://0ju12.github.io/og/heritage.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta property="og:locale" content="ko_KR">
@@ -155,7 +156,7 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
 <p class="lead">국가유산청 오픈API·위키백과를 수집해 ChromaDB에 색인하고, 답변의 [근거 N]을 코드로 다시 검사해 실제 인용한 근거만 보여 주는 RAG</p>    <div class="meta">SSAFY 16기 AI 코어 프로젝트 2 · 개인 · 데이터 수집부터 화면까지</div>
 <p class="keyline"><i>핵심</i><span>오프라인 테스트 55</span></p><div class="acts"><a href="https://github.com/0Ju12/heritage-rag-guide" target="_blank" rel="noopener">GitHub ↗</a></div>  </header>
 
-  <nav class="toc" aria-label="이 페이지"><a href="#demo">▶ 데모</a><a href="#glance">한눈에</a><a class="st" href="#story"><b>1</b>문제 · 역할</a><a class="st" href="#did"><b>2</b>한 일</a><a class="st" href="#result"><b>3</b>결과</a><a href="#tradeoffs">설계 판단 · 트레이드오프</a><a class="st" href="#next"><b>4</b>돌아보면 · 남은 과제</a></nav>
+  <nav class="toc" aria-label="이 페이지"><a href="#demo">▶ 데모</a><a href="#glance">한눈에</a><a class="st" href="#story"><b>1</b>문제 · 역할</a><a class="st" href="#did"><b>2</b>한 일</a><a class="st" href="#result"><b>3</b>결과</a><a href="#tradeoffs">직접 내린 설계 판단 · 트레이드오프</a><a class="st" href="#next"><b>4</b>돌아보면 · 남은 과제</a></nav>
   <div class="media" id="demo"><figure><img src="../assets/demo/heritage-rag-demo.gif" alt="국보 입문 가이드 — 국보를 고르고 질문하면 실제로 인용한 근거만 표시 (API 키 없이 도는 데모 모드)"><figcaption>▶ 데모 — 국보 입문 가이드 — 국보를 고르고 질문하면 실제로 인용한 근거만 표시 (API 키 없이 도는 데모 모드)</figcaption></figure></div>
 
   <section class="glance" id="glance"><h2>한눈에 보기</h2>
@@ -165,7 +166,7 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
 <div class="card"><h3>문제</h3><p>국가유산청 오픈API·위키백과를 수집해 ChromaDB에 색인하고, 답변의 [근거 N]을 코드로 다시 검사해 실제 인용한 근거만 보여 주는 RAG</p></div><div class="card"><h3>역할</h3><p>개인 · 데이터 수집부터 화면까지</p></div>  </div>
 
 <section id="measurement"><h2>성과 수치의 의미와 평가 조건</h2><div class="boxed"><b>55개</b><p>가짜 LLM·API 대체를 이용한 자동 테스트 수</p><p>인용·예외 처리 규칙 검증. 실제 모델 답변 품질은 별도 평가가 필요. 공개 평가 보고서는 가짜 LLM의 도구 검증용 결과.</p><a href="https://github.com/0Ju12/heritage-rag-guide/tree/main/evals" target="_blank" rel="noopener">평가 근거 ↗</a></div></section><p><a class="btn" href="../evaluation.html">실제 모델 평가 절차·보고서 보기</a></p><section id="did"><h2>한 일</h2><div class="boxed"><ol class="list"><li>XML·EUC-KR 오픈API 수집, 국보명→위키 문서 자동 연결(일반명사 오연결 방지)</li><li>청크 ID 고정(국보ID:문서ID:순번)으로 재실행해도 중복 없는 색인</li><li>LangGraph retrieve→generate, 없는 근거 번호는 제거 · 가짜 LLM으로 전 과정 테스트</li></ol></div></section><section id="result"><h2>결과</h2><div class="boxed"><ul class="list res"><li>오프라인 테스트 55</li></ul></div></section>
-<section id="tradeoffs"><h2>설계 판단 · 트레이드오프</h2><p class="sub">무엇을 고르고, 그 대신 무엇을 포기했는지</p><div class="trade"><div>국보 가이드: 근거 번호를 검색 단계에서 고정하고 LLM은 가리키기만 하게 함 — 답변 표현의 자유는 줄지만 인용 검증이 단순한 집합 비교가 됨</div><div>테스트: 외부 API 대신 mock·가짜 LLM으로 결정적인 테스트를 만듦 — 빠르고 매번 같은 결과가 나오는 대신, 실제 모델의 답변 품질은 측정하지 않음</div></div></section><section id="next"><h2>돌아보면 · 남은 과제</h2><p class="sub">다시 한다면 바꿀 것, 아직 남은 것</p><div class="trade next"><div>고정 질문 9개와 similarity/MMR 비교 평가 도구를 마련했습니다. 공개 오프라인 보고서는 가짜 LLM 검증용이며, 실제 모델의 답변 품질·비용은 별도로 실행·기록해야 합니다.</div></div></section>
+<section id="tradeoffs"><h2>직접 내린 설계 판단 · 트레이드오프</h2><p class="sub">무엇을 고르고, 그 대신 무엇을 포기했는지</p><div class="trade"><div>국보 가이드: 근거 번호를 검색 단계에서 고정하고 LLM은 가리키기만 하게 함 — 답변 표현의 자유는 줄지만 인용 검증이 단순한 집합 비교가 됨</div><div>테스트: 외부 API 대신 mock·가짜 LLM으로 결정적인 테스트를 만듦 — 빠르고 매번 같은 결과가 나오는 대신, 실제 모델의 답변 품질은 측정하지 않음</div></div></section><section id="next"><h2>돌아보면 · 남은 과제</h2><p class="sub">다시 한다면 바꿀 것, 아직 남은 것</p><div class="trade next"><div>고정 질문 9개와 similarity/MMR 비교 평가 도구를 마련했습니다. 공개 오프라인 보고서는 가짜 LLM 검증용이며, 실제 모델의 답변 품질·비용은 별도로 실행·기록해야 합니다.</div></div></section>
 
 
 

@@ -16,9 +16,9 @@ LinkedIn 경력 설명은 2,000자 제한이 있어서, 묶음 활동은 하위 
 {% set en = profile.name == profile.name_en %}{% set av = profile.availability or {} %}
 {{ '' }}
 {% if en %}
-My flagship SSAFY project is a heritage Q&A RAG guide — from collecting the Korea Heritage Service open API to an LLM whose citations are re-checked in code (github.com/0Ju12/heritage-rag-guide).
+My main SSAFY project is Hankki, a fridge-inventory meal and workout coach agent where the model only interprets and words answers while code decides stock and portions (github.com/0Ju12/ai-agents); I also built a heritage RAG guide whose citations are re-checked in code (github.com/0Ju12/heritage-rag-guide).
 {% else %}
-지금은 삼성 청년 SW·AI 아카데미(SSAFY) 16기에서 LLM 파이프라인·RAG·모델 앙상블을 만들고 있습니다. 국가유산청 오픈API 수집부터, 답변의 인용을 코드로 다시 검사하는 RAG까지 직접 구현한 '국보 입문 가이드'(github.com/0Ju12/heritage-rag-guide)가 대표 작업입니다.
+지금은 삼성 청년 SW·AI 아카데미(SSAFY) 16기에서 LLM Agent·RAG·모델 앙상블을 만들고 있습니다. 대표 작업은 냉장고 재고로 식단·운동을 짜 주되 재고·분량 판정은 코드가 맡는 생활 코치 Agent '한끼'(github.com/0Ju12/ai-agents)이고, 답변의 인용을 코드로 다시 검사하는 RAG '국보 입문 가이드'(github.com/0Ju12/heritage-rag-guide)도 직접 구현했습니다.
 {% endif %}
 {% if av.role %}
 {{ '' }}

@@ -147,11 +147,13 @@ def normalize(data):
         for sp in group.get("projects") or []:
             sp["metric_evidence"] = data["metric_evidence"].get(sp["id"])
     data["selected_cases"] = {
-        "all": ["data-projects", "ssafy-16", "masters"],     # 주력: 데이터 엔지니어·분석가 (2026-11-17)
+        "all": ["data-projects", "hankki", "masters"],       # 주력: 데이터 엔지니어·분석가 + SSAFY 대표 활동 한끼 (2026-11-20)
         "data": ["data-projects", "ssafy-16", "masters"],
-        "ai": ["heritage", "vqa", "wildfire-capstone"],
+        "ai": ["hankki", "heritage", "vqa"],
     }
     data["project_lookup"] = {sp["id"]: sp for g in acts for sp in g.get("projects") or []}
+    ops_file = DATA.parent / "ops_record.json"   # scripts/ops_record.py 가 갱신 (data-projects 실제 실행 기록)
+    data["ops"] = json.loads(ops_file.read_text(encoding="utf-8")) if ops_file.exists() else {}
 
     return data
 

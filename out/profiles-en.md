@@ -12,9 +12,9 @@ Data Engineer · Data Analyst | M.S. (SCIE first author) · Spatiotemporal deep 
 ## 2. 자기소개 / About
 
 ```
-M.S. in Environment and Energy (Jeonbuk National University, 2026) with a B.S. in Mineral Resources and Energy Engineering. As an undergraduate researcher I wrote a first-author paper interpreting seismic images of large overseas CO2 storage sites in light of plate-tectonic history, and in the IAB convergence-major capstone I designed and trained a spatiotemporal deep learning model (U-LSTM) that predicts wildfire spread. In my master's I separated overlapping gravity and magnetic signals with wavenumber-domain correlation analysis and published a first-author paper in SPE Journal (SCIE); across both degrees: 3 papers, 6 conference presentations and a outstanding student paper award. At the POSCO Youth AI & Big Data Academy (with POSTECH) I built the training data and ran model experiments for an English expression correction system (FLAN-T5 + RAG) that won an Encouragement Award, and at the Samsung Software & AI Academy for Youth (SSAFY) I build LLM data pipelines and Django/FastAPI services checked by 142 automated tests, plus a personal RAG guide that verifies its citation numbers in code. Two research stays at the University of Calgary; ADsP (Advanced Data Analytics Semi-Professional) certified.
+M.S. in Environment and Energy (Jeonbuk National University, 2026) with a B.S. in Mineral Resources and Energy Engineering. As an undergraduate researcher I wrote a first-author paper interpreting seismic images of large overseas CO2 storage sites in light of plate-tectonic history, and in the IAB convergence-major capstone I designed and trained a spatiotemporal deep learning model (U-LSTM) that predicts wildfire spread. In my master's I separated overlapping gravity and magnetic signals with wavenumber-domain correlation analysis and published a first-author paper in SPE Journal (SCIE); across both degrees: 3 papers, 6 conference presentations and an outstanding student paper award. At the POSCO Youth AI & Big Data Academy (with POSTECH) I built the training data and ran model experiments for an English expression correction system (FLAN-T5 + RAG) that won an Encouragement Award, and at the Samsung Software & AI Academy for Youth (SSAFY) I build LLM data pipelines and Django/FastAPI services checked by 142 automated tests, plus personal projects: a RAG guide that verifies its citation numbers in code, and a fridge-life coach agent (Hankki) whose stock and portion decisions stay in code. Two research stays at the University of Calgary; ADsP (Advanced Data Analytics Semi-Professional) certified.
 
-My flagship SSAFY project is a heritage Q&A RAG guide — from collecting the Korea Heritage Service open API to an LLM whose citations are re-checked in code (github.com/0Ju12/heritage-rag-guide).
+My main SSAFY project is Hankki, a fridge-inventory meal and workout coach agent where the model only interprets and words answers while code decides stock and portions (github.com/0Ju12/ai-agents); I also built a heritage RAG guide whose citations are re-checked in code (github.com/0Ju12/heritage-rag-guide).
 
 Looking for: Data Engineer · Data Analyst · Available: H1 2027 · Location: Open to any location
 
@@ -77,6 +77,24 @@ Study and interview-practice apps whose content is encrypted at build time, host
 ✔ Bottom tab bar on phones and offline install (PWA); main desktop and phone flows pass automated checks
 Skills: JavaScript, Web Crypto, PWA, Python, cryptography, Playwright
 Details: https://0ju12.github.io/projects/prep-apps-en.html
+```
+
+### Hankki — a fridge-inventory meal and workout coach agent (LangGraph · FastAPI · Android)
+- **직함/역할:** Solo · planning, design, agent, backend, UI
+- **회사/기관:** Samsung SSAFY 16th cohort · AI core project 3 (solo) → being extended into the final project
+- **기간:** 2026.11 – present
+- **설명:**
+```
+A Korean web and Android app that works out menus, missing ingredients and the time left after cooking from fridge stock (weight and use-by date), and turns one sentence about your situation into a recommendation, a shopping list and a cooking mode
+• Agent flow: LangGraph analyse (model: natural language → conditions) → plan (rules fix the core tasks; the model only picks helper tools from the tool list via a structured Plan output) → execute (worker) → judge (stock, use-by date, missing grams, cooking time — in code) ⟲ replan (max 3) → verify → respond (sentences from confirmed values only)
+• Safeguards: unregistered tools and duplicate tasks are dropped in code; if the model call fails the rule plan carries on alone · a missing provider key is reported as MISSING_KEY with a direct search link · keys and raw exceptions never reach user replies or run logs
+• Task chaining: 'I want kimchi stew — what do I need to buy?' → recipe lookup → compare with fridge stock → pass only the missing ingredients to shopping search. 'Two of us, only what we have' applies servings and leaves the cart alone · every action is shown with an undo button
+• Run records: event bus → logging agent (no LLM) → SQLite subscription stores analyse/plan/execute/judge/respond with tool arguments, latency and replan reasons, and flags duplicate calls, off-plan calls, repeated failures of one tool and the replan cap — logging errors never block the conversation
+✔ Six representative scenarios (enough ingredients, candidate replan, replan cap, missing provider key, no tool needed, time limit) match expected values, tool-call counts and replan counts
+✔ 100 automated tests passing, 4 needing real keys skipped (re-run 2026-11-20) · ingredient entry → cooking → intake → records exercised by hand in mobile 390×844 and desktop 1440×940 browsers
+✔ Still to verify: the full path with real model, food-safety and YouTube keys; Health Connect permission revocation and notifications on a real Android device; account-level storage
+Skills: Python, LangGraph, LangChain, FastAPI, Pydantic, SQLite, ChromaDB, Android, pytest
+Details: https://0ju12.github.io/projects/hankki-en.html
 ```
 
 ### ThRead — LLM comment analysis and book community

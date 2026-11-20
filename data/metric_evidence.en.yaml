@@ -22,6 +22,11 @@ heritage:
   conditions: Validates citation and error-handling rules. Real-model answer quality
     requires a separate evaluation. Published default evaluation uses a fake LLM.
   source: https://github.com/0Ju12/heritage-rag-guide/tree/main/evals
+hankki:
+  value: '100'
+  meaning: Automated tests with a stand-in model and fixed provider responses (4 tests needing real keys skipped)
+  conditions: Full repository re-run on 2026-11-20. Verifies the agent flow and judgment rules, not real-model interpretation quality, latency or user metrics. Expected vs. actual values for six representative scenarios are in the validation log.
+  source: https://github.com/0Ju12/ai-agents/blob/main/fridge_agent/docs/validation.md
 ssafy-16:
   value: '142'
   meaning: Automated tests across stages 4, 5, 6 and 7

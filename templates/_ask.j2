@@ -19,6 +19,7 @@
 .askfab:hover{transform:translateY(-2px)}
 .askfab{transition:opacity .25s,transform .25s}.askfab.away{opacity:0;transform:translateY(12px);pointer-events:none}
 .askfab kbd{font:inherit;font-size:11px;opacity:.6;border:1px solid currentColor;border-radius:5px;padding:0 5px}
+.askfab{width:48px;padding:0;justify-content:center;font-size:0;gap:0;box-shadow:0 6px 20px rgba(0,0,0,.18)}.askfab kbd{display:none}.askfab svg{width:19px;height:19px}
 dialog.ask{border:0;padding:0;border-radius:26px;width:min(720px,calc(100% - 24px));max-height:min(86vh,760px);background:var(--card);color:var(--text);box-shadow:0 40px 110px rgba(0,0,0,.4);overflow:hidden}
 dialog.ask::backdrop{background:rgba(10,10,14,.5);backdrop-filter:blur(4px)}
 .ask-in{display:flex;flex-direction:column;max-height:min(86vh,760px)}
@@ -45,7 +46,7 @@ mark.hl{background:color-mix(in srgb,#fbbf24 40%,transparent);color:inherit;bord
 .ask-msg{color:var(--muted);font-size:14.5px;padding:10px 2px}
 @media (max-width:960px){.askfab{right:14px;bottom:calc(14px + env(safe-area-inset-bottom));height:48px;width:48px;padding:0;justify-content:center;font-size:0;gap:0}.askfab kbd{display:none}.askfab svg{width:19px;height:19px}}
 </style>
-<button class="askfab" id="ask-open" type="button" aria-haspopup="dialog"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>{{ A.open }} <kbd>/</kbd></button>
+<button class="askfab" id="ask-open" type="button" aria-haspopup="dialog" aria-label="{{ A.open }} (/)" title="{{ A.open }} (/)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>{{ A.open }} <kbd>/</kbd></button>
 <dialog class="ask" id="ask" aria-label="{{ A.open }}">
   <div class="ask-in">
     <form class="ask-h" id="ask-form" role="search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="ask-q" type="text" enterkeyhint="search" placeholder="{{ A.ph }}" autocomplete="off" aria-label="{{ A.open }}"><button type="button" id="ask-x" aria-label="{{ A.close }}">✕</button></form>

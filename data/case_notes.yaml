@@ -60,6 +60,21 @@ wildfire-capstone:
       - "I didn't trace which axis the tensors actually flowed along; I later realized the LSTM was looking at the spatial axis rather than time."
       - "If I rebuilt it: ConvLSTM, event-level cross-validation, Dice loss + IoU, and satellite-based fire-front data."
 
+hankki:
+  ko:
+    tradeoffs:
+    - '한끼: 핵심 작업은 규칙이 정하고 모델은 보조 도구만 고르게 함 — 모델에게 계획 전체를 맡기는 것보다 유연성은 줄지만, 모델이 틀리거나 실패해도 재고·분량 계산과 기본 추천은 그대로 동작'
+    - '실행 기록: 로깅 Agent는 모델을 쓰지 않고 이벤트 규칙(중복·계획 밖 호출·연속 실패·재계획 상한)으로 판정 — 미묘한 이상은 놓칠 수 있지만, 기록이 빠르고 매번 같은 결과가 나오며 비용이 들지 않음'
+    - '테스트: 대역 모델과 고정 제공처 응답으로 키 없이 돌게 함 — 매번 같은 결과를 얻는 대신 실제 모델의 해석 품질과 응답 시간은 이 테스트로 측정하지 않음'
+    next:
+    - 실제 발급 키로 대표 시나리오를 다시 돌려 응답 시간(목표 5초 이내)과 실패율을 기록하고, 추천을 받은 요청 중 실제 조리로 이어진 비율을 재고 입력 방식·식단 목표별로 나눠 측정할 계획입니다.
+  en:
+    tradeoffs:
+    - 'Hankki: rules fix the core tasks and the model only picks helper tools — less flexible than letting the model plan everything, but stock/portion maths and the basic recommendation keep working when the model is wrong or down.'
+    - 'Run records: the logging agent uses event rules (duplicates, off-plan calls, repeated failures, replan cap) instead of an LLM — subtle anomalies can slip through, but logging is fast, deterministic and free.'
+    - 'Tests: a stand-in model and fixed provider responses let tests run without keys — deterministic, but they do not measure the real model''s interpretation quality or latency.'
+    next:
+    - 'Next: re-run the representative scenarios with real keys to record latency (target under 5 s) and failure rate, and measure how many recommendations turn into actual cooking, split by stock-entry style and diet goal.'
 ssafy-16:
   ko:
     tradeoffs:
@@ -180,6 +195,7 @@ data-projects:
     next:
       - "축압기 진단(0.55)은 모델보다 압력 상승 구간의 시정수 같은 특징이 더 필요해 보임"
       - "전력 수요는 1년치만 공개돼 같은 계절을 두 번 학습하지 못함 — 여러 해 자료와 실제 기온 예보로 다시 평가할 계획"
+      - "지금 비교 기준은 '지난주 같은 시각'이라는 단순 기준선 — 3.23%는 이 기준선 대비 개선이며, 전력거래소 공식 하루 전 예측보다 낫다는 뜻이 아님. 공식 예측치를 같은 기간으로 받아 나란히 비교하는 것이 다음 단계"
   en:
     tradeoffs:
       - "Evaluation split: in time series where neighbouring points are nearly identical, random splits inflate scores, so both the sensor diagnosis and the demand forecast default to time-ordered splits (train on the past, test on the future), with random-split results reported alongside."
@@ -188,3 +204,4 @@ data-projects:
     next:
       - "Accumulator diagnosis (0.55) seems to need features such as the time constant of pressure build-up more than a different model."
       - "Only one year of demand data is public, so no season is seen twice; I plan to re-evaluate with several years and real temperature forecasts."
+      - "The current reference is a naive same-hour-last-week baseline — 3.23% is an improvement over that baseline, not a claim of beating the grid operator's official day-ahead forecast. Comparing against the official forecast over the same period is the next step."

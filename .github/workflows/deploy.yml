@@ -1,9 +1,10 @@
-# main 브랜치에 push하면 포트폴리오를 다시 빌드하고, 점검(링크·이미지·1쪽 이력서·화면 넘침)을 통과해야 GitHub Pages에 배포합니다.
+# main 브랜치에 push하거나 매일 아침 포트폴리오를 다시 빌드하고, 점검(링크·이미지·1쪽 이력서·화면 넘침)을 통과해야 GitHub Pages에 배포합니다.
 # 최초 1회: 저장소 Settings → Pages → Source 를 "GitHub Actions" 로 설정
 name: Deploy portfolio
 on:
   push:
     branches: [main]
+  schedule: [{ cron: "37 22 * * *" }]   # 매일 07:37 KST — 공개 데이터 프로젝트의 실제 실행 기록(운영 기록) 갱신
   workflow_dispatch:
 permissions:
   contents: read
@@ -26,6 +27,10 @@ jobs:
         run: |
           node --test tests/interview.test.cjs tests/opic.test.cjs
           python -m unittest discover -s tests -p 'test_*.py'
+      - name: Refresh run log of the public-data projects (keeps the committed copy if the API is unreachable)
+        run: python scripts/ops_record.py
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
       - name: Build site
         run: python scripts/build.py --strict
         env:

@@ -56,6 +56,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ profile.name }} — {{ profile.title }}</title>
 {{ h.meta(profile.name ~ ' — ' ~ profile.title, profile.headline, ('en.html' if en else ''), '', en) }}
+{% set ld = {'@context': 'https://schema.org', '@type': 'Person', 'name': profile.name, 'alternateName': profile.name_en, 'jobTitle': profile.title, 'description': profile.headline, 'url': 'https://0ju12.github.io/' ~ ('en.html' if en else ''), 'image': 'https://0ju12.github.io/assets/photos/profile.jpg', 'sameAs': (profile.links or [])|map(attribute='url')|list, 'alumniOf': (education or [])|map(attribute='school')|unique|list} %}<script type="application/ld+json">{{ ld|tojson }}</script>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
@@ -85,7 +86,9 @@ a{color:inherit;text-decoration:none}
 .try code{display:block;font:13px/1.6 ui-monospace,Menlo,Consolas,monospace;background:var(--bg);border-radius:10px;padding:10px 12px;color:var(--text)}
 .try s{color:#c2410c}
 .try .tx{font-size:13.5px;color:var(--muted)}
-.trys{display:flex;flex-direction:column;min-width:0}
+.trys{display:flex;flex-direction:column;min-width:0;align-self:start;margin-top:86px}
+.try .ops{font-size:12.5px;color:var(--muted);line-height:1.5}.try .ops b{font-size:inherit;color:var(--text);font-weight:700;letter-spacing:0}
+.hero .proof-h{margin:30px 0 0;font-size:12.5px;line-height:1.4;font-weight:800;letter-spacing:.02em;color:var(--muted)}.hero .proof-h+.proof{margin-top:10px}
 .try2{margin-top:10px;padding:12px 16px!important;gap:4px!important}
 .hero-in{max-width:900px}
 .who{display:flex;align-items:center;gap:14px;margin:0 0 30px}
@@ -233,6 +236,7 @@ footer .own{font-size:12px;opacity:.75}
 .end h2{font-size:clamp(32px,5vw,60px);letter-spacing:-.05em;margin:0 0 14px;line-height:1.1}
 .end p{opacity:.7;margin:0 0 28px}
 .end .btn{background:var(--on-ink);color:var(--ink);border-color:transparent}
+.end .cta{justify-content:center}.end .sub{margin:18px 0 0;font-size:13.5px;opacity:.75}.end .sub a{color:inherit;text-decoration:underline;text-underline-offset:3px}
 .end .btn.ghost{background:transparent;color:var(--on-ink);border-color:color-mix(in srgb,var(--on-ink) 30%,transparent)}
 footer{text-align:center;color:var(--faint);font-size:13px;padding:32px 0 40px}
 footer a:hover{color:var(--text)}
@@ -272,7 +276,7 @@ html[lang="en"] body{word-break:normal;overflow-wrap:break-word;hyphens:auto}
 html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{text-wrap:pretty}
 @media (max-width:960px){
   .top{font-size:13px;top:12px;max-width:calc(100vw - 24px);overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}.top::-webkit-scrollbar{display:none}.top a,.top button{flex:none;padding:7px 11px}.top .me{font-size:0;gap:0;padding:5px}.top .me .avatar{width:24px;height:24px}
-  .hero{padding:104px 0 48px;grid-template-columns:1fr;gap:28px}
+  .hero{padding:104px 0 48px;grid-template-columns:1fr;gap:28px}.trys{margin-top:0}.try2{display:none!important}
   .sec-t{flex-direction:column;align-items:flex-start}.sec-t p{text-align:left}
   .card{grid-template-columns:1fr;gap:22px;padding:22px;border-radius:26px;position:relative;top:auto!important;transform:none!important;filter:none!important;margin-bottom:20px}
   .panel .shot img{height:190px}
@@ -288,18 +292,18 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
 </style>
 </head>
 <body class="role-all">
-<nav class="top" aria-label="menu"><a class="me" href="#top">{{ p.avatar(profile) }}{{ profile.name }}</a><a class="n" href="#work">{{ T.work }}</a>{% if posts %}<a class="n" href="#writing">{{ T.writing }}</a>{% endif %}<a class="n" href="#map">{{ 'Map' if en else '지도' }}</a><a class="n" href="#about">{{ T.about }}</a>{% if alt_lang %}<a href="{{ alt_lang.url }}" hreflang="{{ alt_lang.code }}">{{ alt_lang.label }}</a>{% endif %}</nav>
+<nav class="top" aria-label="menu"><a class="me" href="#top">{{ p.avatar(profile) }}{{ profile.name }}</a><a class="n" href="#work">{{ T.work }}</a>{% if posts %}<a class="n" href="#writing">{{ T.writing }}</a>{% endif %}<a class="n" href="#about">{{ T.about }}</a><a class="n" href="#map">{{ 'Map' if en else '지도' }}</a>{% if alt_lang %}<a href="{{ alt_lang.url }}" hreflang="{{ alt_lang.code }}">{{ alt_lang.label }}</a>{% endif %}</nav>
 
 <div class="w" id="top">
   <header class="hero">
     <div class="hero-in">
-      <div class="who">{{ p.avatar(profile, 'avatar big') }}<span><b>{{ profile.name }}</b>{{ profile.title }} · {{ T.avail }}</span></div>
+      <div class="who">{{ p.avatar(profile, 'avatar big') }}<span><b>{{ profile.name }}</b>{{ profile.title }}{% if profile.background %} · {{ profile.background }}{% endif %} · {{ T.avail }}</span></div>
       <h1>{{ T.h1|safe }}</h1>
       {% set RV = {} if en else (role_variants or {}) %}
       <p class="rv rv-all lede">{{ T.intro }}</p>
       {% for k, rv in RV.items() %}<p class="rv rv-{{ k }} rolehead"><b>{{ rv.headline }}</b><small>{{ T.role_note }}</small></p>{% endfor %}
       <div class="cta"><a class="btn pri" href="#selected-cases">{{ T.see }}</a><a class="btn" id="resume-btn" href="resume-1page.pdf" data-all="resume-1page.pdf"{% for k in RV %} data-{{ k }}="resume-{{ k }}.pdf"{% endfor %} download>{{ T.resume }}</a>{% for l in profile.links if 'github' in l.label|lower %}<a class="btn" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.icon('github', 16) }} GitHub</a>{% endfor %}</div>
-      {% if proof %}<ul class="proof" aria-label="{{ 'Key evidence' if en else '대표 근거' }}">{% for x in proof %}<li><a href="{{ x.u }}"{% if x.u.startswith('http') %} target="_blank" rel="noopener"{% endif %}><b>{{ x.k }}</b><span>{{ x.t }}</span><i aria-hidden="true">→</i></a></li>{% endfor %}</ul>{% endif %}
+      {% if proof %}<p class="proof-h">{{ 'Three calls I made' if en else '직접 내린 판단 3가지' }}</p><ul class="proof" aria-label="{{ 'Key evidence' if en else '대표 근거' }}">{% for x in proof %}<li><a href="{{ x.u }}"{% if x.u.startswith('http') %} target="_blank" rel="noopener"{% endif %}><b>{{ x.k }}</b><span>{{ x.t }}</span><i aria-hidden="true">→</i></a></li>{% endfor %}</ul>{% endif %}
       {% set av = profile.availability or {} %}
       <div class="avail">{% if av.role %}<span><b>{{ T.want }}</b>{{ av.role }}</span>{% endif %}{% if av.location %}<span><b>{{ T.loc }}</b>{{ av.location }}</span>{% endif %}{% if av.start %}<span><b>{{ T.start }}</b>{{ av.start }}</span>{% endif %}</div>
     </div>
@@ -307,6 +311,7 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
       <span class="tl">{{ 'See it running' if en else '매일 돌아가는 것 보기' }}</span>
       <b>{{ 'Six public sources, refreshed every day — would bad data reach the dashboard?' if en else '공개 출처 6곳을 매일 모으는 웨어하우스 — 잘못된 자료가 대시보드까지 갈까?' }}</b>
       <span class="demo"><code>{{ 'dbt test · 101 data tests · runs/history.csv' if en else 'dbt test · 품질 테스트 101개 · 실행 기록 매일 추가' }}</code></span>
+      {% if ops and ops.daily %}<span class="ops">{% if en %}Actual run log: daily collection <b>{{ ops.daily.total }} runs · {{ ops.daily.failure }} failed</b> since {{ ops.daily.first }} (as of {{ ops.as_of }}){% else %}실제 실행 기록: {{ ops.daily.first }}부터 매일 수집 <b>{{ ops.daily.total }}회 · 실패 {{ ops.daily.failure }}회</b> ({{ ops.as_of }} 기준){% endif %}</span>{% endif %}
       <span class="tx">{{ 'Open the warehouse dashboard (prices · jobs · power · quakes · quality) →' if en else '웨어하우스 대시보드 열기 (시세·채용·전력·지진·품질) →' }}</span>
     </a>
     <a class="try try2" href="demo{{ '-en' if en else '' }}.html"><span class="tl">{{ 'Try it' if en else '직접 해 보기' }}</span><span class="tx">{{ 'Citation check from my RAG guide →' if en else 'RAG 가이드의 근거 번호 검사 재현 →' }}</span></a></div>
@@ -351,14 +356,13 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
 
   </section>
 
-  {% include "_map.j2" %}
-
   {% if posts %}
   <section id="writing">
     <div class="sec-t"><h2>{{ T.writing }}</h2><div class="carr"><button type="button" data-dir="-1" aria-label="이전 글">←</button><button type="button" data-dir="1" aria-label="다음 글">→</button></div></div>
     {% set pins = ['2026-11-rag-citation-verify', '2026-11-vqa-ensemble-fixes-breaks', '2026-11-wavenumber-correlation'] %}{% set ordered = [] %}{% for sl in pins %}{% for w in posts if w.slug == sl %}{% set _ = ordered.append(w) %}{% endfor %}{% endfor %}{% for w in posts if w.slug not in pins %}{% set _ = ordered.append(w) %}{% endfor %}
     <div class="carousel" id="carousel">{% for w in ordered %}{% set c = dots[loop.index0 % 7] %}<a class="post" href="posts/{{ w.slug }}.html"><span class="tag" style="color:{{ c }};background:color-mix(in srgb,{{ c }} 12%,transparent)">{{ (w.tags or ['글'])[0] }}</span>{% if w.slug in pins %}<i class="pinb">{{ '★ Featured' if en else '★ 대표 글' }}</i>{% endif %}<b>{{ w.title }}</b><p>{{ w.summary|truncate(90) }}</p><small>{{ w.date }}{% if w.minutes and not en %} · {{ w.minutes }}분{% endif %} · {{ T.read }}</small></a>{% endfor %}</div>
     {% if trend_posts and not en %}<p style="margin:14px 0 0;font-size:14.5px"><a href="posts/ai-trend.html" style="font-weight:700">AI 트렌드 노트 · {{ trend_posts|length }}편 →</a> <span style="color:var(--muted)">에이전트 개념부터 순서대로 정리한 학습 노트입니다 (최근: {{ (trend_posts|last).title|truncate(30) }})</span></p>{% endif %}
+    <p style="margin:8px 0 0;font-size:14.5px"><a href="learning-demo.html" style="font-weight:700">{{ 'Algorithm study app (public demo) →' if en else '알고리즘 학습 앱 공개 체험 →' }}</a></p>
   </section>
   {% endif %}
 
@@ -373,8 +377,10 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
     </div>
   </section>
 
-  <div class="end" id="contact"><h2>{{ T.end|safe }}</h2><p>{{ profile.email }}</p><div class="cta">{% if profile.email %}<a class="btn" href="mailto:{{ profile.email }}">{{ T.mail }}</a>{% endif %}<a class="btn ghost" href="resume.pdf" download>{{ T.full }}</a><a class="btn ghost" href="brief{{ '-en' if en else '' }}.html">{{ '30-second brief' if en else '30초 소개' }}</a>{% if not en %}<a class="btn ghost" href="resume-data.pdf" download>{{ T.r_data }} 이력서</a><a class="btn ghost" href="resume-ai.pdf" download>{{ T.r_ai }} 이력서</a>{% endif %}{% for l in profile.links if 'linkedin' in l.label|lower %}<a class="btn ghost" href="{{ l.url }}" target="_blank" rel="noopener">LinkedIn</a>{% endfor %}</div></div>
-  <footer>© {{ profile.name_en }} · {{ T.gen }} · <button id="theme" type="button" style="font:inherit;color:inherit;background:none;border:0;padding:0;text-decoration:underline;cursor:pointer">{{ T.theme }}</button><br><span class="own">{{ 'Owner only (locked)' if en else '본인용 (잠김)' }} — {% if study_notes or interview_ready %}<a href="study/index.html" rel="nofollow">{{ 'Prep space (study · interview)' if en else '준비 공간 (공부·면접)' }}</a> · {% endif %}<a href="private/index.html" rel="nofollow">{{ 'Private files' if en else '비공개 자료' }}</a></span></footer>
+  {% include "_map.j2" %}
+
+  <div class="end" id="contact"><h2>{{ T.end|safe }}</h2><p>{{ profile.email }}</p><div class="cta">{% if profile.email %}<a class="btn" href="mailto:{{ profile.email }}">{{ T.mail }}</a>{% endif %}<a class="btn ghost" href="resume.pdf" download>{{ T.full }}</a>{% for l in profile.links if 'linkedin' in l.label|lower %}<a class="btn ghost" href="{{ l.url }}" target="_blank" rel="noopener">LinkedIn</a>{% endfor %}</div><p class="sub">{% if en %}Also: <a href="resume-1page-en.pdf" download>one-page résumé</a> · <a href="brief-en.html">30-second brief</a>{% else %}직무별 1쪽 이력서: <a href="resume-data.pdf" download>{{ T.r_data }}</a> · <a href="resume-ai.pdf" download>{{ T.r_ai }}</a> · <a href="brief.html">30초 소개</a>{% endif %}</p></div>
+  <footer>© {{ profile.name_en }} · {{ T.gen }} · <button id="theme" type="button" style="font:inherit;color:inherit;background:none;border:0;padding:0;text-decoration:underline;cursor:pointer">{{ T.theme }}</button></footer>
 </div>
 <div class="evp" id="evp" role="dialog" aria-modal="false" aria-labelledby="evt" hidden><div class="evh"><span id="evt"></span><button type="button" id="evx" aria-label="{{ T.close }}">✕</button></div><ul id="evl"></ul></div>
 <script type="application/json" id="ev-data">{{ evidence|default([])|tojson }}</script>
