@@ -5,7 +5,7 @@ summary: "OpenAI가 11월 17일 공개한 GPT-6.2 Astra·Sol은 시스템 카드
 tags: [이슈 분석, AI 안전, 가드레일]
 series: ai-trend
 episode: 22
-next_topic: "#23 이슈 분석 — 다음 주 AI 뉴스"
+next_topic: "#23 11/17~20 Microsoft Ignite 2026 — Fabric HorizonDB·Database Hub·Fabric apps, 운영 DB와 분석 저장소를 한 플랫폼에 두기"
 ---
 
 > **한 줄 요약** — 지난 회차는 에이전트의 행동을 "기록"하는 쪽이었습니다. 이번은 모델 회사가 공개 전에 "어디까지 할 수 있는 모델인가"를 평가하고 그에 맞춰 사용을 제한하는 쪽입니다. OpenAI는 11월 17일 GPT-6.2 Astra와 Sol을 내놓으면서, 시스템 카드에 **두 모델 모두 사이버보안 능력이 자체 기준의 가장 높은 단계(Critical)에 해당한다**고 적고, 위험도가 높은 보안 작업은 **검증된 사용자에게만 단계적으로 여는 조건**을 붙였습니다. #9(가드레일)와 #18(위험도별 규제)을 모델 공개 절차에서 보는 사례입니다.
