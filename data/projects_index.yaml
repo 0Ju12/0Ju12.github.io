@@ -1,4 +1,4 @@
-# 디자인 시안(report · gallery · pipeline)용 프로젝트 단위 목록 — portfolio.yaml 에 있는 사실만 사용
+# 디자인 시안(report · gallery · pipeline)용 프로젝트 단위 목록 — portfolio.yaml에 있는 사실만 사용
 # cat: llm | dl | data | research   (gallery 시안의 필터)
 - id: vqa
   title: "VQA 챌린지 — 멀티모델 확률 앙상블"

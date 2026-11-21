@@ -156,7 +156,7 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
 <p class="lead">이미지+질문 4지선다 VQA. Qwen QLoRA⁠·​Gemma⁠·​OCR⁠·​멀티뷰를 확률 앙상블하고, 후보는 정확도가 아니라 fixes−breaks로 채택</p>    <div class="meta">SSAFY 16기 AI 챌린지 · 팀 · 모델 학습⁠·​정제 담당</div>
 <p class="keyline"><i>핵심</i><span>Public Score 0.96961</span></p><div class="acts"><a href="https://0ju12.github.io/posts/2026-11-vqa-ensemble-fixes-breaks.html" target="_blank" rel="noopener">실험 기록 ↗</a></div>  </header>
 
-  <nav class="toc" aria-label="이 페이지"><a href="#glance">한눈에</a><a class="st" href="#story"><b>1</b>문제 · 역할</a><a class="st" href="#did"><b>2</b>한 일</a><a class="st" href="#result"><b>3</b>결과</a><a href="#tradeoffs">직접 내린 설계 판단 · 트레이드오프</a><a class="st" href="#next"><b>4</b>돌아보면 · 남은 과제</a><a href="#posts">관련 글</a></nav>
+  <nav class="toc" aria-label="이 페이지"><a href="#glance">한눈에</a><a class="st" href="#story"><b>1</b>문제 · 역할</a><a class="st" href="#did"><b>2</b>한 일</a><a class="st" href="#result"><b>3</b>결과</a><a href="#tradeoffs">설계 판단과 트레이드오프</a><a class="st" href="#next"><b>4</b>돌아보면 · 남은 과제</a><a href="#posts">관련 글</a></nav>
 
   <section class="glance" id="glance"><h2>한눈에 보기</h2>
     <div class="gl"><div><i>1</i><span>Public Score 0.96961</span></div></div>
@@ -165,13 +165,13 @@ footer{padding:40px 0 48px;color:var(--faint);font-size:13px;text-align:center}
 <div class="card"><h3>문제</h3><p>이미지+질문 4지선다 VQA. Qwen QLoRA⁠·​Gemma⁠·​OCR⁠·​멀티뷰를 확률 앙상블하고, 후보는 정확도가 아니라 fixes−breaks로 채택</p></div><div class="card"><h3>역할</h3><p>팀 · 모델 학습⁠·​정제 담당</p></div>  </div>
 
 <section id="measurement"><h2>성과 수치의 의미와 평가 조건</h2><div class="boxed"><b>0.96961</b><p>대회 Public Score</p><p>공개 리더보드 기준. Private Score 또는 일반 이미지 QA 성능으로 해석하지 않음. 기준선 Qwen 4B 0.94608.</p><a href="https://0ju12.github.io/posts/2026-11-vqa-ensemble-fixes-breaks.html" target="_blank" rel="noopener">평가 근거 ↗</a></div></section><section id="did"><h2>한 일</h2><div class="boxed"><ol class="list"><li>새 모델은 단독 성능이 아니라, 기존 앙상블에 더했을 때 고친 문제와 새로 틀린 문제(fixes−breaks)로 평가</li><li>최고 제출을 보호 기준선으로 고정하고 유형별 회귀를 확인한 뒤에만 교체</li><li>제출 전 자동 검사(6,714행⁠·​ID⁠·​확률 행합) + SHA-256 매니페스트로 GPU 없이 재현</li></ol></div></section><section id="result"><h2>결과</h2><div class="boxed"><ul class="list res"><li>Public Score 0.96961</li></ul></div></section>
-<section id="tradeoffs"><h2>직접 내린 설계 판단 · 트레이드오프</h2><p class="sub">무엇을 고르고, 그 대신 무엇을 포기했는지</p><div class="trade"><div>VQA 챌린지: 새 후보를 정확도 대신 고친 문제와 새로 틀린 문제(fixes−breaks)⁠·​유형별 회귀로 채택 — 점수 상승 폭만 보는 것보다 느리지만 &#39;믿을 수 있게 오른&#39; 제출만 남김</div></div></section><section id="next"><h2>돌아보면 · 남은 과제</h2><p class="sub">다시 한다면 바꿀 것, 아직 남은 것</p><div class="trade next"><div>Public Score를 일반화 성능으로 해석하지 않고, 후보 선택에 쓰지 않은 독립 검증셋과 유형별 회귀를 별도로 평가하는 것이 다음 단계입니다.</div></div></section>
+<section id="tradeoffs"><h2>설계 판단과 트레이드오프</h2><p class="sub">무엇을 고르고, 그 대신 무엇을 포기했는지</p><div class="trade"><div>VQA 챌린지: 새 후보를 정확도 대신 고친 문제와 새로 틀린 문제(fixes−breaks)⁠·​유형별 회귀로 채택 — 점수 상승 폭만 보는 것보다 느리지만 &#39;믿을 수 있게 오른&#39; 제출만 남김</div></div></section><section id="next"><h2>돌아보면 · 남은 과제</h2><p class="sub">다시 한다면 바꿀 것, 아직 남은 것</p><div class="trade next"><div>Public Score를 일반화 성능으로 해석하지 않고, 후보 선택에 쓰지 않은 독립 검증셋과 유형별 회귀를 별도로 평가하는 것이 다음 단계입니다.</div></div></section>
 
 <section id="posts"><h2>관련 글</h2><div class="posts"><a href="../posts/2026-11-vqa-ensemble-fixes-breaks.html"><span>점수를 지키면서 올리기 — VQA 챌린지에서 앙상블 후보를 고른 기준<small>2026-11-03</small></span><span>→</span></a></div></section>
 
   <nav class="pn" aria-label="projects">
 <a href="heritage.html"><small>← 이전 프로젝트</small>국보 입문 가이드 — 인용을 검증하는 RAG</a><a class="r" href="masters.html"><small>다음 프로젝트 →</small>중력⁠·​자력 데이터 파수 상관 분석으로 지하 구조 규명 (석사 · SPE Journal 제1저자)</a>  </nav>
-  <footer>© Young-Ju Lee · data/portfolio.yaml 에서 자동 생성</footer>
+  <footer>© Young-Ju Lee · data/portfolio.yaml에서 자동 생성</footer>
 </main>
 <script>
 (function(){var r=document.documentElement,K='theme';

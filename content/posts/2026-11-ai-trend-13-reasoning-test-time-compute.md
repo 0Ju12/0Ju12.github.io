@@ -80,7 +80,7 @@ def answer(question):
 ## 출처
 
 - [Thinking Hard, Not Smart: Reasoning Models Fail to Ration Test-Time Compute Across Questions](https://arxiv.org/pdf/2608.07968) (2026.08)
-- [arXiv 2608.03401](https://arxiv.org/pdf/2608.03401) (2026.08) — 벤치마크 점수와 허용된 test-time compute 의 관계 (2차 요약으로 확인)
+- [arXiv 2608.03401](https://arxiv.org/pdf/2608.03401) (2026.08) — 벤치마크 점수와 허용된 test-time compute의 관계 (2차 요약으로 확인)
 - Anthropic, [Inverse Scaling in Test-Time Compute](https://arxiv.org/abs/2507.14417) (2025) — 2차 자료로 확인
 - IntuitionLabs, [Reasoning tokens and thinking budgets](https://intuitionlabs.ai/pdfs/reasoning-tokens-thinking-budgets.pdf) (2026.09) — 여러 회사의 조절 장치 정리 (2차 자료)
 - Towards Data Science, [Inference scaling: why reasoning models raise your compute bill](https://towardsdatascience.com/inference-scaling-test-time-compute-why-reasoning-models-raise-your-compute-bill/) (2차 자료)
