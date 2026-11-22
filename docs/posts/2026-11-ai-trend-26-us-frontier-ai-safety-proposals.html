@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11/18~19 미국 프런티어 AI 규제 — 캘리포니아 &#39;AI Safety in 2026 and Beyond&#39;와 하원 SAFE AI Act 개요 · 이영주</title>
+<meta name="description" content="캘리포니아 주정부가 대형 프런티어 AI 개발사에 독립 검증 기관의 상시 감독과 비상 정지 권한을 두자는 보고서를 냈고, 다음 날 미국 하원 의원 세 명이 연방 차원의 SAFE AI Act 개요를 공개했습니다. 둘 다 아직 법안 문구가 아닌 제안 단계입니다.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="이영주 포트폴리오">
+<meta property="og:title" content="11/18~19 미국 프런티어 AI 규제 — 캘리포니아 &#39;AI Safety in 2026 and Beyond&#39;와 하원 SAFE AI Act 개요 · 이영주">
+<meta property="og:description" content="캘리포니아 주정부가 대형 프런티어 AI 개발사에 독립 검증 기관의 상시 감독과 비상 정지 권한을 두자는 보고서를 냈고, 다음 날 미국 하원 의원 세 명이 연방 차원의 SAFE AI Act 개요를 공개했습니다. 둘 다 아직 법안 문구가 아닌 제안 단계입니다.">
+<meta property="og:url" content="https://0ju12.github.io/posts/2026-11-ai-trend-26-us-frontier-ai-safety-proposals.html">
+<link rel="canonical" href="https://0ju12.github.io/posts/2026-11-ai-trend-26-us-frontier-ai-safety-proposals.html">
+<meta property="og:image" content="https://0ju12.github.io/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#18181b">
+<script>/* 방문 수 집계 (가입 없는 공개 카운터, 쿠키 없음, 숫자만 올림). 본인 기기 제외: 주소 뒤에 ?nostat=1 을 한 번 붙여 열기 */
+(function(){try{var L=localStorage,S=sessionStorage;if(location.search.indexOf('nostat=1')>-1)L.setItem('nostat','1');if(location.search.indexOf('nostat=0')>-1)L.removeItem('nostat');
+if(L.getItem('nostat')||navigator.webdriver||!/github\.io$/.test(location.hostname)||/bot|crawl|spider|headless|lighthouse/i.test(navigator.userAgent))return;
+var B='https://abacus.jasoncameron.dev/hit/pf-3c8cffe9/',h=function(k){try{fetch(B+encodeURIComponent(k.slice(0,60)),{keepalive:true}).catch(function(){})}catch(e){}};
+var p=location.pathname.replace(/^\/+|\/+$/g,'').replace(/\.html$/,'').replace(/\//g,'.')||'home';if(p==='index')p='home';
+var d=new Date().toISOString().slice(0,10).replace(/-/g,'');
+if(!S.getItem('st:'+p)){S.setItem('st:'+p,'1');h('p.'+p);h('d.'+d);if(!S.getItem('st:v')){S.setItem('st:v','1');h('v.'+d);h('v.all')}}
+window.stat=function(e){if(!S.getItem('se:'+e)){S.setItem('se:'+e,'1');h('e.'+e)}};
+document.addEventListener('click',function(ev){var a=ev.target.closest&&ev.target.closest('a[href]');if(!a)return;var u=a.getAttribute('href');
+if(/resume|cv[./]/.test(u))stat('resume');else if(/github\.com/.test(u))stat('github');else if(/doi\.org|koreascience/.test(u))stat('paper');else if(/^mailto:/.test(u))stat('mail');else if(/linkedin/.test(u))stat('linkedin');else if(/data-projects|\/demo/.test(u))stat('demo')},true);
+}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--surface:#f7f7f8;--text:#0d0d0f;--muted:#5d5f66;--line:#e7e7ea;--accent:#0a7c66;--accent-2:#14b8a6;--chip:#eef2f1;--code:#0f1117;--code-text:#e6e6e6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}}
+:root[data-theme="dark"]{--bg:#0d0d0f;--surface:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--line:#26262b;--accent:#2dd4bf;--accent-2:#5eead4;--chip:#1f2422;--code:#000;--code-text:#e6e6e6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.85 "Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:740px;margin:0 auto;padding:0 20px}
+nav{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;padding:10px 2px}
+nav .home{font-weight:900;color:var(--text);margin-right:auto}
+#theme{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 12px;font:inherit;font-size:12px;cursor:pointer}
+header.post{padding:56px 0 28px;border-bottom:2px solid var(--text);margin-bottom:36px}
+header.post .meta{color:var(--accent);font-weight:700;font-size:14px;letter-spacing:.04em}
+header.post h1{font-size:clamp(28px,5vw,42px);line-height:1.25;letter-spacing:-.03em;margin:10px 0 14px;font-weight:900}
+header.post p{color:var(--muted);margin:0 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--chip);color:var(--muted)}
+article h2{font-size:24px;letter-spacing:-.02em;margin:48px 0 14px;font-weight:900}
+article h3{font-size:19px;margin:32px 0 10px}
+article p,article li{margin:0 0 16px}
+article ul,article ol{padding-left:22px}
+article li{margin-bottom:6px}
+article blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--surface);border-radius:0 12px 12px 0;font-weight:700}
+article blockquote p{margin:0}
+article code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em;background:var(--chip);padding:2px 6px;border-radius:6px}
+article pre{background:var(--code);color:var(--code-text);padding:18px 20px;border-radius:14px;overflow-x:auto;line-height:1.6;margin:0 0 20px}
+article pre code{background:none;padding:0;font-size:13.5px;color:inherit}
+article table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:15px;display:block;overflow-x:auto}
+article th,article td{border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+article th{background:var(--surface)}
+.endcard{margin:56px 0 0;padding:24px;border:1px solid var(--line);border-radius:18px;background:var(--surface);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.endcard b{display:block}
+.endcard span{color:var(--muted);font-size:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--line);color:var(--text);background:var(--bg)}
+.others{margin:40px 0 0}
+.others a{display:block;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--text);font-weight:700}
+.others a span{display:block;color:var(--muted);font-weight:400;font-size:14px}
+footer{padding:64px 0 40px;color:var(--muted);font-size:13px}
+.readbar{position:fixed;top:0;left:0;height:3px;width:0;background:var(--text);z-index:60;transition:width .1s linear}
+.series{margin:36px 0 0;padding:20px 22px;border:1px solid var(--line);border-radius:18px;background:var(--card)}
+.series b{font-size:15px}.series ol{margin:10px 0 0;padding-left:20px;font-size:14.5px;line-height:1.6}.series li{padding:3px 0}.series li small{color:var(--muted);margin-left:8px;font-size:12.5px}.series li.me a{font-weight:800;text-decoration:none}
+</style>
+<style data-wrapfix>:where(html:lang(ko)) :where(body){word-break:keep-all;overflow-wrap:anywhere}:where(body){text-wrap-style:pretty}:where(h1,h2,h3,h4,h5,h6,figcaption,summary,dt,th,caption){text-wrap-style:balance}:where(pre,code,kbd,samp,textarea,input){word-break:normal;text-wrap-style:auto}:where(td,th){overflow-wrap:break-word}</style></head>
+<body>
+<div class="readbar" id="readbar"></div>
+<div class="wrap">
+  <nav><a class="home" href="../index.html">Young-Ju Lee</a><a href="../index.html#writing">Writing</a><a href="../index.html#work">Work</a><button id="theme" type="button">테마</button></nav>
+  <header class="post">
+    <div class="meta"><a href="ai-trend.html" style="color:inherit">AI 트렌드 노트</a> #26 · 2026-11-22 · 8분 읽기</div>
+    <h1>11/18~19 미국 프런티어 AI 규제 — 캘리포니아 &#39;AI Safety in 2026 and Beyond&#39;와 하원 SAFE AI Act 개요</h1>
+    <p>캘리포니아 주정부가 대형 프런티어 AI 개발사에 독립 검증 기관의 상시 감독과 비상 정지 권한을 두자는 보고서를 냈고, 다음 날 미국 하원 의원 세 명이 연방 차원의 SAFE AI Act 개요를 공개했습니다. 둘 다 아직 법안 문구가 아닌 제안 단계입니다.</p>
+    <div class="chips"><span class="chip">이슈 분석</span><span class="chip">AI 규제</span><span class="chip">AI 안전</span></div>
+  </header>
+  <article><blockquote>
+<p><strong>한 줄 요약</strong> — #22와 #24에서는 모델 회사가 스스로 위험 등급을 매기고 위험한 기능을 승인된 사용자에게만 여는 방식을 봤습니다. 이번 주에는 정부 쪽에서 비슷한 질문이 나왔습니다. 캘리포니아 주지사실은 11월 18일 <strong>대형 프런티어 AI 개발사를 면허를 받은 독립 검증 기관이 상시 감독하고, 위급할 때 모델을 정지시킬 권한을 주정부가 갖자</strong>는 보고서를 공개했습니다. 다음 날 미국 하원 의원 세 명은 안전 체계⁠·​사고 보고⁠·​투명성을 의무로 하는 <strong>연방 SAFE AI Act 개요</strong>를 냈습니다. #18에서 본 위험도별 규제가 미국에서는 '누가 확인하는가'를 중심으로 구체화되는 모습입니다.</p>
+</blockquote>
+<h2>핵심 개념</h2>
+<ul>
+<li><strong>프런티어 AI 개발사</strong>: 가장 큰 규모의 모델을 만드는 회사입니다. 법안마다 학습 연산량이나 매출로 기준을 정합니다.</li>
+<li><strong>독립 검증 기관(IVO)</strong>: 개발사가 아닌 제3자가 안전 조치가 실제로 동작하는지 확인하는 기관입니다. 회계 감사처럼, 회사가 낸 자료를 외부에서 검증하는 역할입니다.</li>
+<li><strong>사고 보고(incident reporting)</strong>: 모델이 위험한 행동을 했거나 그럴 뻔한 일을 정해진 기한 안에 정부에 알리는 의무입니다.</li>
+<li><strong>비유</strong>: 대형 건물의 소방 설비를 건물주가 "설치했다"고 신고하는 것으로 끝내지 않고, 면허를 받은 점검 업체가 정기적으로 와서 스프링클러가 실제로 도는지 확인하고, 화재가 나면 소방서가 건물 사용을 바로 멈추게 할 수 있게 하는 것과 비슷합니다.</li>
+</ul>
+<h2>지금 무슨 일이 일어나고 있나</h2>
+<ul>
+<li><strong>캘리포니아 보고서(11/18).</strong> 주지사실은 정부운영청(GovOps)이 작성한 'AI Safety in 2026 and Beyond'를 공개했습니다. 주요 권고는 다음과 같습니다.</li>
+<li><strong>기준은 주정부가 정합니다.</strong> 모든 대형 프런티어 개발사가 따라야 할 안전⁠·​보안⁠·​투명성 기본 기준을 주정부가 정해야 한다고 권고했습니다.</li>
+<li><strong>상시 독립 감독.</strong> 대형 프런티어 개발사는 면허를 받은 독립 검증 기관의 상시 감독을 받아야 하고, 검증 기관은 필요한 사람과 정보에 모두 접근할 수 있어야 한다고 적었습니다.</li>
+<li><strong>정지 장치와 비상 정지 권한.</strong> 개발사는 모델을 멈출 수 있는 검증된 위험 차단 절차를 갖춰야 하고, 비상시 주정부가 즉시 정지를 명령할 수 있어야 한다고 했습니다. 사고 보고 범위도 넓히자고 했습니다.</li>
+<li><strong>자기 개선 AI.</strong> 자신의 다음 모델을 개선하는 AI(재귀적 자기 개선)가 재앙적 위험을 낳을 때, 그 개발과 사용을 제한할 권한을 주정부가 가져야 한다고 권고했습니다.</li>
+<li><strong>앞선 조치와 다음 단계.</strong></li>
+<li>이 보고서는 9월 행정명령(독립 감독과 '킬 스위치' 마련 지시)의 후속입니다.</li>
+<li>독립 검증 기관 인증 체계를 만드는 SB 813, AI 감사인 등록부를 만드는 AB 1405에 이미 서명했고, 2025년의 프런티어 AI 투명성법(SB 53) 위에 쌓는 구조입니다.</li>
+<li>차기 주지사 당선인은 1월 의회가 열리면 권고를 빠르게 입법하겠다고 밝혔습니다.</li>
+<li><strong>하원 SAFE AI Act 개요(11/19).</strong> Sara Jacobs(민주⁠·​캘리포니아), Celeste Maloy(공화⁠·​유타), Don Beyer(민주⁠·​버지니아) 의원은 법안 문구가 아닌 개요를 공개했습니다.</li>
+<li><strong>주요 내용</strong>: 프런티어 연구소에 안전 체계, 사고 보고, 투명성 강화를 의무화합니다. 위반 시 민사 벌금을 물리고, 심각하고 즉각적인 위험이 있는 모델을 멈출 비상 권한을 둡니다.</li>
+<li><strong>주 법과의 관계</strong>: 연방 기준은 '최저선'이고, 주가 더 강한 규칙을 둘 수 있다고 설명했습니다. 학계 연구는 대부분 예외입니다.</li>
+<li><strong>진행 단계</strong>: 법안 문구는 전문가 의견을 받아 관련 위원회와 조율하며 준비 중입니다.</li>
+<li><strong>같은 날의 다른 움직임.</strong> 같은 날 하원의 다른 초당적 법안인 FRONTIER Act의 개정 조항 요약도 공개됐습니다. 보고 대상 사고에 아차 사고(near miss), 모델이 개발자를 속인 경우, 핵심 기반시설에 영향을 준 사고를 넣었습니다.</li>
+<li><strong>확인 범위.</strong> 캘리포니아 내용은 주정부 공식 도메인(gov.ca.gov, govops.ca.gov), 하원 내용은 의원실 공식 도메인(house.gov)으로 범위를 제한한 검색 결과 발췌로 확인했습니다. SAFE AI Act의 보고 기한이나 대상 기준(연산량⁠·​매출 등)은 개요에서 확인하지 못했습니다.</li>
+</ul>
+<h2>동작 구조</h2>
+<p>보고서와 개요를 한 흐름으로 놓으면 이렇습니다.</p>
+<pre><code>대형 프런티어 개발사
+   │  ① 주정부가 정한 기본 기준(안전·보안·투명성)을 따름
+   │  ② 모델을 멈출 수 있는 위험 차단 절차를 갖춤
+   ▼
+면허를 받은 독립 검증 기관 ── 상시 감독, 사람·정보에 접근, 정지 장치가 동작하는지 확인
+   │
+   ├─ 사고 발생 ──▶ 정부에 보고 (아차 사고·개발자 기만 포함 — FRONTIER Act 개정안)
+   └─ 심각하고 즉각적인 위험 ──▶ 정부가 정지 명령
+</code></pre>
+<p>회사 안의 시스템으로 옮기면, 사고 기록은 "나중에 누가 보든 같은 사실을 확인할 수 있는가"가 핵심입니다.</p>
+<pre><code class="language-python">def report_incident(event, store):
+    record = {
+        &quot;id&quot;: event.id,                       # 같은 사고를 두 번 세지 않도록 고유 ID
+        &quot;occurred_at&quot;: event.occurred_at,
+        &quot;detected_at&quot;: event.detected_at,     # 보고 기한은 '알게 된 시각'부터 잼
+        &quot;kind&quot;: event.kind,                   # incident / near_miss / deception ...
+        &quot;model&quot;: event.model_version,
+        &quot;evidence&quot;: event.log_refs,           # 원문 대신 기록 위치를 남김 (키·개인정보 제외)
+    }
+    store.upsert(record)                      # 재전송돼도 한 건
+    return record
+</code></pre>
+<h2>왜 중요한가 / 한계</h2>
+<ul>
+<li><strong>'회사가 스스로 확인'에서 '외부가 확인'으로.</strong> #22의 OpenAI와 #24의 Google은 자체 기준으로 위험 등급을 매겼고, #22에서는 그것이 한계라고 적었습니다. 캘리포니아 보고서는 바로 그 지점, 곧 외부 검증 기관이 사람과 정보에 접근해 확인하는 구조를 제안합니다.</li>
+<li><strong>사고 보고의 범위가 넓어집니다.</strong> 실제 피해뿐 아니라 아차 사고와 모델이 개발자를 속인 경우까지 보고 대상으로 넣자는 방향입니다(FRONTIER Act 개정안). 회사 쪽에서는 무엇을 언제 알았는지 시각까지 남기는 기록이 필요해집니다.</li>
+<li><strong>연방과 주의 관계.</strong> SAFE AI Act 개요는 연방 기준을 최저선으로 두고 주가 더 강한 규칙을 둘 수 있게 했습니다. 연방법이 주법을 대체할지는 미국에서 계속 논쟁 중인 부분입니다.</li>
+<li><strong>한계 1 — 아직 제안입니다.</strong> 캘리포니아 보고서는 입법 권고이고, SAFE AI Act는 법안 문구가 없는 개요입니다. 실제 의무는 법안이 통과돼야 생깁니다.</li>
+<li><strong>한계 2 — 기준이 비어 있습니다.</strong> 누가 '대형 프런티어 개발사'인지, 보고 기한이 며칠인지는 이번 자료에서 확인하지 못했습니다.</li>
+<li><strong>한계 3 — 정지 장치의 검증 방법.</strong> "정지 장치가 실제로 동작하는지 계속 검증"이 무엇을 시험한다는 뜻인지는 아직 구체적이지 않습니다.</li>
+</ul>
+<h2>내 프로젝트와 연결</h2>
+<ul>
+<li>규제 대상인 규모의 모델을 다룬 적은 없습니다. 가장 가까운 경험은 기록입니다. <strong>한끼 에이전트</strong>는 이벤트 버스로 분석⁠·​계획⁠·​실행⁠·​판정⁠·​응답과 도구 인자⁠·​지연⁠·​재계획 사유를 SQLite에 남기고, 로깅 에이전트가 모델 없이 규칙으로 중복 호출⁠·​계획 밖 호출⁠·​연속 실패⁠·​재계획 상한 도달을 판정합니다. 키와 원문 예외는 기록에서 뺐습니다. 위 의사코드에서 원문 대신 기록 위치를 남기는 것과 같은 판단입니다.</li>
+<li><strong>API Watch</strong>는 같은 원인으로 반복되는 실패를 이슈 한 건으로 모읍니다. 사고 보고에서 "같은 사고를 두 번 세지 않는" 문제와 같습니다.</li>
+<li><strong>데이터 에이전트</strong>는 답에 들어간 숫자를 조회 결과와 대조합니다. 외부 검증은 아니지만, 모델의 답을 다른 경로로 확인한다는 점에서 독립 검증과 같은 방향입니다.</li>
+</ul>
+<h2>면접 질문</h2>
+<p><strong>Q. AI 기능에 '사고 보고' 의무가 생긴다면, 서비스 쪽에서 무엇을 먼저 준비하겠습니까?</strong></p>
+<blockquote>
+<p>사고를 나중에 같은 사실로 재구성할 수 있는 기록부터 만들겠습니다. 사건마다 고유 ID와 발생 시각⁠·​인지 시각⁠·​모델 버전을 남기고, 원문 대신 로그 위치를 남겨 키나 개인정보가 보고서에 섞이지 않게 하겠습니다. 재전송돼도 한 건으로 세도록 ID 기준으로 저장하겠습니다. 한끼 에이전트에서 실행 단계와 재계획 사유를 기록하되 키와 원문 예외는 빼고, 이상 판정은 규칙으로 했던 방식을 그대로 쓰겠습니다.</p>
+</blockquote>
+<h2>출처</h2>
+<ul>
+<li>Office of Governor Gavin Newsom, <a href="https://www.gov.ca.gov/2026/11/18/governor-newsoms-nation-leading-ai-safety-framework-is-getting-even-stronger-as-california-releases-next-steps-on-mandatory-safety-standards-and-oversight/">Governor Newsom's nation-leading AI safety framework is getting even stronger…</a> — 2026-11-18 (공식 도메인 검색 발췌로 확인)</li>
+<li>California GovOps, <a href="https://www.govops.ca.gov/wp-content/uploads/sites/11/2026/11/FINAL_-AI-Safety-in-2026-and-Beyond-v2.pdf">AI Safety in 2026 and Beyond (PDF)</a> — 기본 기준, 독립 검증 기관, 정지 절차⁠·​비상 정지, 자기 개선 AI</li>
+<li>Office of Governor Gavin Newsom, <a href="https://www.gov.ca.gov/2026/09/18/governor-newsom-issues-executive-order-to-accelerate-independent-oversight-and-advance-the-creation-of-an-ai-kill-switch/">Executive order to accelerate independent oversight and advance the creation of an AI kill switch</a> — 2026-09-18</li>
+<li>Rep. Sara Jacobs, <a href="https://sarajacobs.house.gov/news/press-releases/jacobs-maloy-beyer-release-outline-for-sweeping-bipartisan-ai-safety-legislation">Jacobs, Maloy, Beyer Release Outline For Sweeping, Bipartisan AI Safety Legislation</a> — SAFE AI Act 개요</li>
+<li>Rep. Lori Trahan, <a href="https://trahan.house.gov/news/documentsingle.aspx?DocumentID=3871">Trahan Releases Updated FRONTIER Act Section-by-Section</a> — 보고 대상 사고 확대</li>
+</ul></article>
+  <div class="endcard">
+    <div><b>AI 트렌드 노트 · 26편</b><span>에이전트 개념부터 차례로 이어서 쓰는 시리즈입니다. 다음 회차: #27 이슈 분석 — 다음 주 AI 뉴스</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="2026-11-ai-trend-25-databricks-genie-zeroops.html">← #25</a><a class="btn" href="ai-trend.html">전체 목록</a></div>
+  </div>
+<div class="others"><b style="font-size:14px;color:var(--muted)">다른 글</b><a href="2026-11-ai-trend-25-databricks-genie-zeroops.html">11/19 Databricks Genie ZeroOps 공개 베타 — 실패한 파이프라인을 찾고 고침안까지 내는 에이전트<span>Databricks가 작업⁠·​파이프라인⁠·​테이블을 지켜보다가 실패와 품질 문제를 찾아 원인을 추적하고, 고친 코드를 PR로 제안하는 에이전트 Genie ZeroOps를 공개 베타로 열었습니다. 사람 승인 없이는 바꾸지 않는다는 조건과 베타의 범위를 정리했습니다.</span></a><a href="2026-11-ai-trend-24-gemini-4-neon.html">11/18 Google Gemini 4 Neon — &#39;깊은 분석&#39; 자리의 새 모델과, 사이버 변형을 따로 여는 방식<span>Google이 11월 18일 Gemini 4 Neon을 공개했습니다. 빠른 모델과 장시간 작업용 모델 사이에 놓인 위치, 생각 수준⁠·​가격⁠·​캐시 할인, 그리고 사이버 변형은 검증된 방어자에게만 따로 여는 조건을 #22의 OpenAI 사례와 비교했습니다.</span></a><a href="2026-11-ai-trend-23-ignite-fabric-horizondb.html">11/17~20 Microsoft Ignite 2026 — Fabric HorizonDB⁠·​Database Hub⁠·​Fabric apps, 운영 DB와 분석 저장소를 한 플랫폼에 두기<span>Microsoft가 Ignite 2026에서 Fabric 안에 서버리스 PostgreSQL(HorizonDB, 공개 미리보기)을 넣고, Database Hub와 Fabric apps를 정식 출시했습니다. 운영 DB와 분석 저장소 사이를 미러링과 역 ETL로 잇는 구조, 그리고 자료마다 엇갈리는 출시 단계를 정리했습니다.</span></a><a href="2026-11-ai-trend-22-gpt-6-2-critical-cyber.html">11/17 OpenAI GPT-6.2 Astra⁠·​Sol — 사이버보안 &#39;Critical&#39; 등급 모델을 내보내며 붙인 조건<span>OpenAI가 11월 17일 공개한 GPT-6.2 Astra⁠·​Sol은 시스템 카드에서 두 모델 모두 사이버보안 &#39;Critical&#39; 등급으로 평가됐습니다. 등급이 무엇을 뜻하는지, 공개하면서 어떤 접근 제한을 걸었는지, 자료끼리 엇갈리는 부분을 정리했습니다.</span></a><a href="2026-11-ai-trend-21-bigquery-agent-observability.html">11/14 BigQuery⁠·​Looker 에이전트 관측⁠·​평가 — 에이전트의 대화와 비용을 내 BigQuery 테이블에 남기기<span>Google Data Cloud가 11월 14일 BigQuery⁠·​Looker 데이터 에이전트의 관측⁠·​평가 기능을 넓혔습니다. 무엇이 GA이고 무엇이 아직 미리 보기인지, 어떤 기록이 어디에 남는지, 데이터 엔지니어가 이 기록으로 무엇을 확인할 수 있는지 정리했습니다.</span></a><a href="2026-11-ai-trend-20-dbt-v2-remote-mcp.html">11월 dbt 업데이트 — dbt v2 지원 확대와 원격 MCP 서버의 권한 검사<span>dbt의 11월 정리 글과 릴리스 노트를 바탕으로, dbt v2가 지원하는 웨어하우스⁠·​묶음 테스트, 원격 dbt MCP 서버의 권한 검사 변경을 정리했습니다. 에이전트가 dbt 프로젝트를 읽고 실행하게 될 때 무엇을 확인해야 하는지 봅니다.</span></a><a href="2026-11-ai-trend-19-data-platform-ontology.html">11/9 Databricks Genie Ontology GA · 11/3 Snowflake Business Ontology — 에이전트에게 &#39;업무 정의&#39;를 주는 계층<span>데이터 플랫폼 두 곳이 11월 초 에이전트용 &#39;온톨로지(업무 정의) 계층&#39;을 잇달아 내놓았습니다. 무엇을 발표했는지, 공식 자료끼리 상태 표기가 어떻게 엇갈리는지, 데이터 엔지니어에게 어떤 일이 생기는지 정리했습니다.</span></a><a href="2026-11-ai-trend-18-ai-regulation-safety.html">AI 규제⁠·​안전 — EU AI Act와 한국 AI 기본법은 개발자에게 무엇을 요구하나<span>2026년 실제로 시행되거나 일정이 바뀐 EU AI Act와 한국 AI 기본법을 개발자 관점에서 정리했습니다. 위험도에 따라 의무가 달라지는 구조, 생성물 표시, 그리고 일정이 출처마다 엇갈리는 부분을 봅니다.</span></a><a href="2026-11-ai-trend-17-multimodal-generation.html">멀티모달 생성 — 이미지⁠·​음성⁠·​영상을 만드는 모델은 무엇이 다른가<span>글자 대신 이미지⁠·​음성⁠·​영상을 만들어 내는 생성 모델의 구조와 2026년의 흐름(소리까지 함께 만드는 영상 모델, 여러 입력을 섞는 모델)을 정리했습니다. 평가와 출처 표시가 텍스트보다 어려운 이유도 봅니다.</span></a><a href="2026-11-ai-trend-16-cost-latency-optimization.html">비용⁠·​지연 최적화 — 캐싱⁠·​라우팅⁠·​배치로 같은 답을 더 싸고 빠르게<span>LLM 서비스의 비용과 지연을 줄이는 세 가지 장치, 프롬프트 캐싱⁠·​모델 라우팅⁠·​배치 처리를 정리했습니다. 공식 문서의 캐시 수명과 가격 배수, 그리고 캐시가 맞지 않는 구조를 봅니다.</span></a><a href="2026-11-ai-trend-15-finetune-prompt-rag.html">파인튜닝 vs 프롬프트 vs RAG — 모델을 바꿀지, 입력을 바꿀지<span>같은 문제를 프롬프트로 풀지, 검색(RAG)으로 풀지, 파인튜닝으로 풀지를 정하는 기준을 정리했습니다. 세 방법은 각각 지시⁠·​지식⁠·​행동을 바꾸고, 고르는 순서보다 평가 기준을 먼저 세우는 것이 중요합니다.</span></a><a href="2026-11-ai-trend-14-small-on-device-models.html">소형⁠·​온디바이스 모델 — 작은 모델로 충분한 일은 얼마나 되나<span>수십억 개 이하 파라미터의 작은 모델을 기기 안에서 돌리는 흐름을 정리했습니다. 양자화가 무엇을 줄이는지, 큰 모델과 작은 모델을 섞어 쓰는 구조, 그리고 &#39;작아도 된다&#39;는 주장의 조건을 봅니다.</span></a><a href="2026-11-ai-trend-13-reasoning-test-time-compute.html">추론 모델과 test-time compute — 더 오래 생각하게 하면 무엇이 달라지나<span>답하기 전에 생각하는 데 계산을 더 쓰는 추론 모델의 원리와, &#39;생각 예산&#39;을 조절할 때 생기는 비용⁠·​지연⁠·​과잉 사고 문제를 정리했습니다.</span></a><a href="2026-11-ai-trend-12-computer-use.html">컴퓨터 사용 에이전트 — 화면을 보고 클릭하는 모델<span>API가 없는 프로그램을 사람처럼 화면으로 다루는 에이전트를 정리했습니다. 화면 캡처 → 좌표 → 행동의 루프, 벤치마크 점수가 사람 기준선을 넘었다는 보고와 그 점수를 그대로 믿기 어려운 이유를 봅니다.</span></a><a href="2026-11-ai-trend-11-coding-agents.html">코딩 에이전트 — 코드를 쓰는 것보다 확인하는 것이 일이다<span>자동 완성에서 &#39;저장소를 읽고, 고치고, 테스트를 돌리는&#39; 에이전트로 넘어온 흐름을 정리했습니다. 벤치마크 점수가 출처마다 엇갈리는 이유와, 사람의 일이 작성에서 검증으로 옮겨 가는 지점을 봅니다.</span></a><a href="2026-11-ai-trend-10-agent-evaluation.html">에이전트 평가 — 점수가 높다는 것과 믿을 수 있다는 것<span>에이전트는 답 하나가 아니라 과정 전체를 평가해야 합니다. 채점기의 세 종류, 한 번 성공과 매번 성공의 차이, 그리고 공개 벤치마크 점수가 오염으로 흔들리는 사례를 정리했습니다.</span></a><a href="2026-11-ai-trend-09-guardrails-prompt-injection.html">가드레일과 프롬프트 인젝션 방어 — 모델이 읽는 모든 글이 공격 경로다<span>프롬프트 인젝션이 왜 필터 하나로 막히지 않는지, 직접⁠·​간접 인젝션의 차이와 &#39;탐지&#39;에서 &#39;권한 설계&#39;로 옮겨 가는 방어 흐름을 정리했습니다.</span></a><a href="2026-11-ai-trend-08-multi-agent.html">멀티 에이전트 오케스트레이션 — 나누면 빨라지지만 맥락이 끊긴다<span>일을 여러 에이전트에게 나눠 맡기는 구조(지휘자-작업자, 핸드오프)의 장단점을 정리했습니다. 병렬 조사에서는 효과가 보고됐지만 토큰이 크게 늘고, 맥락이 쪼개져 생기는 실패가 따로 연구될 만큼 흔합니다.</span></a><a href="2026-11-ai-trend-07-agentic-rag.html">RAG에서 Agentic RAG로 — 검색을 한 번 할지, 에이전트가 여러 번 할지<span>한 번 검색해 답하는 RAG와, 검색 여부⁠·​횟수⁠·​결과 품질을 스스로 판단하는 Agentic RAG의 차이를 정리했습니다. Self-RAG⁠·​CRAG⁠·​Adaptive-RAG가 각각 어느 판단을 추가했는지와, 반복이 늘 때 생기는 비용과 평가 문제를 봅니다.</span></a><a href="2026-11-ai-trend-06-agent-memory.html">에이전트 메모리 — 대화가 끝나도 남는 것과 남기면 안 되는 것<span>컨텍스트 창 안의 단기 기억과 대화 밖에 저장하는 장기 기억을 나누고, 무엇을 쓰고 언제 꺼내는지의 설계를 정리했습니다. 한 번 오염되면 세션이 끝나도 남는 메모리 포이즈닝도 함께 봅니다.</span></a><a href="2026-11-ai-trend-05-react-plan-execute.html">ReAct와 Plan-and-Execute — 에이전트는 어떻게 계획하나<span>한 걸음마다 다시 생각하는 ReAct와, 먼저 계획을 세우고 실행하는 Plan-and-Execute의 차이를 비용⁠·​속도⁠·​실패 방식으로 비교했습니다. ReWOO⁠·​LLMCompiler 같은 변형과 코딩 에이전트의 plan mode까지 이어서 봅니다.</span></a><a href="2026-11-ai-trend-04-a2a.html">에이전트 간 통신 — A2A는 MCP와 무엇이 다른가<span>MCP가 &#39;에이전트와 도구&#39;를 잇는다면 A2A는 &#39;에이전트와 에이전트&#39;를 잇습니다. Agent Card로 상대를 찾고, 상태가 있는 task로 일을 맡기는 구조와, 버전마다 바뀐 부분⁠·​엇갈리는 보도를 정리했습니다.</span></a><a href="2026-11-ai-trend-03-mcp.html">MCP — 도구를 매번 새로 붙이지 않는 방법<span>지난 회차의 tool use를 앱마다 다시 만들지 않도록 &#39;도구 서버&#39;를 표준 규격으로 분리한 MCP의 구조(호스트⁠·​클라이언트⁠·​서버, tools⁠·​resources⁠·​prompts)와 최근 사양 변화, 보안상 약한 고리를 정리했습니다.</span></a><a href="2026-11-ai-trend-02-tool-use.html">Tool use — 모델은 함수를 실행하지 않는다<span>Function calling의 실제 동작(모델은 호출 &#39;요청&#39;만 만들고 실행은 내 코드가 한다), strict 스키마와 Structured Outputs의 관계, 도구를 쓸 때와 출력 형식만 고정할 때를 구분했습니다.</span></a><a href="2026-11-ai-trend-01-agent.html">AI 에이전트란 무엇인가 — LLM이 도구를 쥐고 반복할 때<span>에이전트를 &#39;도구를 쓰며 스스로 다음 단계를 정하는 LLM 루프&#39;로 정의하고, 워크플로와 무엇이 다른지, 기업 도입 숫자가 왜 엇갈리는지 정리했습니다.</span></a></div>  <footer>© Young-Ju Lee · iyju990312@naver.com</footer>
+</div>
+<script>
+(function(){var r=document.documentElement,K='theme';
+try{var s=localStorage.getItem(K);if(s)r.setAttribute('data-theme',s)}catch(e){}
+var b=document.getElementById('theme');if(b)b.addEventListener('click',function(){
+var c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+var n=c==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n)}catch(e){}});})();
+</script>
+<script>(function(){var b=document.getElementById('readbar'),a=document.querySelector('article');if(!b||!a)return;function f(){var r=a.getBoundingClientRect(),h=r.height-innerHeight*0.6,p=Math.min(1,Math.max(0,-r.top/(h>0?h:1)));b.style.width=(p*100)+'%'}addEventListener('scroll',function(){requestAnimationFrame(f)},{passive:true});f()})();</script>
+<script id="wrapfix-js">(function(){var R=[[/ \u00b7 /g,'\u00a0\u00b7 '],[/ \u2014 /g,'\u00a0\u2014 '],[/ \u2192 /g,'\u00a0\u2192 '],[/ \u2013 /g,'\u00a0\u2013\u00a0'],[/([^\s\u00a0\u2060])\u00b7(?=[^\s\u00a0\u200b])/g,'$1\u2060\u00b7\u200b']];
+var SKIP=/^(SCRIPT|STYLE|PRE|CODE|TEXTAREA|INPUT|SVG|MATH|KBD|SAMP|OPTION)$/;
+function fix(root){if(!root)return;if(root.nodeType===3){one(root);return}if(root.nodeType!==1||SKIP.test(root.nodeName)||root.isContentEditable)return;
+var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:function(n){for(var p=n.parentNode;p&&p!==root.parentNode;p=p.parentNode){if(p.nodeType===1&&(SKIP.test(p.nodeName)||p.isContentEditable))return 2}return 1}}),n;while((n=w.nextNode()))one(n)}
+function one(n){var v=n.nodeValue,o=v;if(!v||v.length<3)return;for(var i=0;i<R.length;i++)v=v.replace(R[i][0],R[i][1]);if(v!==o)n.nodeValue=v}
+var q=[],t=0;function flush(){t=0;var a=q;q=[];for(var i=0;i<a.length;i++)fix(a[i])}
+function start(){fix(document.body);new MutationObserver(function(ms){for(var i=0;i<ms.length;i++)for(var j=0;j<ms[i].addedNodes.length;j++)q.push(ms[i].addedNodes[j]);if(!t)t=requestAnimationFrame(flush)}).observe(document.body,{childList:true,subtree:true})}
+if(document.body)start();else document.addEventListener('DOMContentLoaded',start)})();</script></body>
+</html>
