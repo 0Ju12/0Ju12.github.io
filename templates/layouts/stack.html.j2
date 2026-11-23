@@ -220,7 +220,7 @@ footer .own{font-size:12px;opacity:.75}
 .bento{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .box{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:26px}
 .box.wide{grid-column:1/-1}
-.box h3,.box h4{margin:0 0 12px;font-size:14px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.box h3,.box h4{margin:0 0 14px;font-size:17px;font-weight:700;letter-spacing:-.02em;color:var(--text);display:flex;align-items:center;gap:8px}
 .box h3 i,.box h4 i{width:8px;height:8px;border-radius:50%;display:inline-block}
 .box .it{padding:9px 0;border-top:1px solid var(--line);font-size:14.5px}
 .box .it:first-of-type{border-top:0}
@@ -309,8 +309,8 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
     </div>
     <div class="trys"><a class="try" href="https://0ju12.github.io/data-projects/warehouse/" target="_blank" rel="noopener">
       <span class="tl">{{ 'See it running' if en else '매일 돌아가는 것 보기' }}</span>
-      <b>{{ 'Seven questions on power demand and job postings — answered from tables recomputed every day' if en else '전력 수요와 채용 공고로 세운 질문 7개 — 답은 매일 표에서 다시 계산' }}</b>
-      <span class="demo"><code>{{ 'dbt · 9 analysis tables · 123 data tests' if en else 'dbt 분석 표 9개 · 테스트 123개 · 실행 기록 매일 추가' }}</code></span>
+      <b>{{ 'Eight questions on power demand and job postings — answered from tables recomputed every day' if en else '전력 수요와 채용 공고로 세운 질문 8개, 답은 매일 표에서 다시 계산' }}</b>
+      <span class="demo"><code>{{ 'dbt · 12 analysis tables · 129 data tests' if en else 'dbt 분석 표 12개 · 테스트 129개 · 실행 기록 매일 추가' }}</code></span>
       {% if ops and ops.daily %}<span class="ops">{% if en %}Actual run log: daily collection <b>{{ ops.daily.total }} runs · {{ ops.daily.failure }} failed</b> since {{ ops.daily.first }} (as of {{ ops.as_of }}){% else %}실제 실행 기록: {{ ops.daily.first }}부터 매일 수집 <b>{{ ops.daily.total }}회 · 실패 {{ ops.daily.failure }}회</b> ({{ ops.as_of }} 기준){% endif %}</span>{% endif %}
       <span class="tx">{{ 'Open the analysis dashboard (power · job postings · quality) →' if en else '분석 대시보드 열기 (전력·채용 공고·품질) →' }}</span>
     </a>

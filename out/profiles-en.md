@@ -40,7 +40,7 @@ Data pipelines, anomaly detection, demand forecasting and a SQL data mart built 
 ✔ Sensor diagnosis: RandomForest scored 0.99+ on every component with a random split but 0.46 on the valve with a time-block split; LDA kept 1.00 on cooler, valve and pump, while the accumulator (0.55) remains open
 ✔ Earthquakes: b = 1.11 ± 0.05 on 2,474 events of M4+ in East Asia (the catalogue updates daily) · 39 tests across the four projects
 ✔ Analysis: above 17.5 °C weekday demand rises +1,636 MW per °C, below 13 °C +969 MW (R² 0.83); Saturdays −10.8% and Sundays/holidays −16.7% vs weekdays; Lunar New Year and Chuseok −21.6% and −18.7% vs nearby weekdays; on 14 of 22 April weekdays midday demand fell below the night minimum · data-engineer postings mention SQL 90% and Spark 68%, data-analyst postings SQL 51% and Tableau 27% (107 postings over one week, so no trend claims yet)
-✔ Warehouse: 40 models (9 analysis tables) · 123 dbt tests · 40 pytest cases; the analysis dashboard is recomputed daily · Airflow verified for a single DAG run only (not operated continuously)
+✔ Warehouse: 44 models (12 analysis tables) · 129 dbt tests · 42 pytest cases; the analysis dashboard is recomputed daily · Airflow verified for a single DAG run only (not operated continuously)
 ✔ API monitoring: success rate is reported only as the share of observed checks (not called uptime), and the rules are covered by 34 tests — about 130 pytest tests across the eight projects
 Skills: Python, SQL, dbt, DuckDB, Airflow, Docker, scikit-learn, GitHub Actions, Time series
 Details: https://0ju12.github.io/projects/data-projects-en.html

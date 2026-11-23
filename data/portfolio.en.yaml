@@ -34,7 +34,7 @@ pitch:
   body: "Working with geophysical survey data, the work I spent longest on was checking where data came from, how good it was, and verifying results again. I now apply the same habits to public data: collecting and cleaning it daily, modelling it in a warehouse, and explaining with code and evidence why an analysis can be trusted."
 
 highlights:
-  - { value: "7 questions", label: "Power-demand & job-posting analysis warehouse" }
+  - { value: "8 questions", label: "Power-demand, solar & job-posting analysis warehouse" }
   - { value: "1 SCIE", label: "First-author paper (SPE Journal)" }
   - { value: "SSAFY 16th", label: "Samsung SW & AI Academy (in progress)" }
   - { value: "3 · 6", label: "Papers · conference talks" }
@@ -369,7 +369,7 @@ activities:
     brief:
       - "Portfolio generator: YAML data → Jinja2 build → Korean/English pages, 14 project pages, 5 resume PDFs, search index and share images; links and layouts checked automatically before every deploy"
       - "Study & interview apps: 54 lecture notes with 1,545 practice questions, plus interview questions, decks, recruiting info and cover-letter drafts — served as a PWA encrypted with PBKDF2 (600k) + AES-GCM"
-      - "Public-data projects: incremental USGS earthquake pipeline and dashboard, equipment-sensor anomaly detection with time-split validation, power demand forecasting (baseline MAPE 6.17% → 3.23%), a dbt + Airflow warehouse (6 sources, 101 data tests), DART SQL data mart"
+      - "Public-data projects: incremental USGS earthquake pipeline and dashboard, equipment-sensor anomaly detection with time-split validation, power demand forecasting (baseline MAPE 6.17% → 3.23%), DART SQL data mart, a power-demand and job-posting analysis warehouse (12 dbt analysis tables, 129 tests)"
     tags: [Python, Jinja2, GitHub Actions, Playwright, Web Crypto, PWA, JavaScript]
     summary: Collecting and cleaning public data daily, modelling it in a dbt + Airflow warehouse and monitoring 22 public APIs and their data quality on a regular schedule; the portfolio itself is managed as data (YAML) to generate the site and resumes, and private study and interview material runs in an encrypted prep space.
     projects:
@@ -394,7 +394,7 @@ activities:
             - "Equipment anomaly detection: 136 cycle features from 2,205 cycles × 17 sensors of the UCI hydraulic rig; per-component normal models (Ledoit-Wolf Mahalanobis, 1% false-alarm threshold) with a k-consecutive alert rule; RandomForest vs LDA diagnosis under random and time-block splits"
             - "Power demand forecasting: day-ahead 24-hour forecasts from KPX 2025 national hourly demand and Open-Meteo temperature — features use only values at least 24 hours old (with a leakage test), holidays included; baseline, linear, GBM and ensemble tested on October–December"
             - "DART data mart: OpenDART collection (status-code handling, rate-limit waits), standardised accounts, pivot/LAG/RANK SQL views, and evidence search over business-report paragraphs with character-bigram BM25, returned with sources (API key only via Secrets)"
-            - "Analysis warehouse: seven questions on power demand, temperature and data-job postings, each answered by one dbt analysis table — a two-segment temperature model on weekdays (breakpoints found by a 0.5 °C grid search), day types re-classified with a holiday seed to compare days off and long holidays, peak hour by season, the spring midday dip, and skill mentions by data role. Sources are modelled in dbt (DuckDB) as staging → intermediate → marts → analysis, with the hour's start time as key so '24:00' never slips into the next day · the Airflow DAG, CLI and tests share the same functions"
+            - "Analysis warehouse: eight questions on power demand, temperature, solar irradiance and data-job postings, each answered by dbt analysis tables — a two-segment temperature model on weekdays (breakpoints found by a 0.5 °C grid search), day types re-classified with a holiday seed to compare days off and long holidays, peak hour by season, the spring midday dip and a test of its cause (a month-fixed-effect regression gives −2,704 MW of midday demand per 100 W/m² of irradiance, while the 20:00–23:00 placebo shows +11 MW, i.e. no effect — consistent with unmetered solar), and skill mentions by data role. Sources are modelled in dbt (DuckDB) as staging → intermediate → marts → analysis, with the hour's start time as key so '24:00' never slips into the next day · the Airflow DAG, CLI and tests share the same functions"
             - "Power-transition analysis: Ember monthly generation and Our World in Data energy data (keyless open data) analysed with seven SQL queries — Korea's 25-year electricity mix, coal decline vs 11 other countries, solar growth and seasonality, carbon intensity — published as a D3 dashboard with an animated year scatter; coal 46.3% (2009) → 31.1% (2025), solar share peaks in May (7.6%) vs December (3.4%), the same direction as the warehouse's spring midday dip"
             - "API monitoring (API Watch): checks 22 public APIs on a regular schedule — beyond HTTP 200 it flags stale data, empty results, duplicates and type changes, stores the first healthy schema to tell added fields from removed or retyped ones, and groups repeated failures into one issue (includes a Django admin and Docker Compose version)"
             - "Wildfire risk map: compares the Fosberg fire weather index with NASA satellite fire detections daily — most detections are persistent heat sources such as steelworks, so rules filter them out"
@@ -404,7 +404,7 @@ activities:
             - "Sensor diagnosis: RandomForest scored 0.99+ on every component with a random split but 0.46 on the valve with a time-block split; LDA kept 1.00 on cooler, valve and pump, while the accumulator (0.55) remains open"
             - "Earthquakes: b = 1.11 ± 0.05 on 2,474 events of M4+ in East Asia (the catalogue updates daily) · 39 tests across the four projects"
             - "Analysis: above 17.5 °C weekday demand rises +1,636 MW per °C, below 13 °C +969 MW (R² 0.83); Saturdays −10.8% and Sundays/holidays −16.7% vs weekdays; Lunar New Year and Chuseok −21.6% and −18.7% vs nearby weekdays; on 14 of 22 April weekdays midday demand fell below the night minimum · data-engineer postings mention SQL 90% and Spark 68%, data-analyst postings SQL 51% and Tableau 27% (107 postings over one week, so no trend claims yet)"
-            - "Warehouse: 40 models (9 analysis tables) · 123 dbt tests · 40 pytest cases; the analysis dashboard is recomputed daily · Airflow verified for a single DAG run only (not operated continuously)"
+            - "Warehouse: 44 models (12 analysis tables) · 129 dbt tests · 42 pytest cases; the analysis dashboard is recomputed daily · Airflow verified for a single DAG run only (not operated continuously)"
             - "API monitoring: success rate is reported only as the share of observed checks (not called uptime), and the rules are covered by 34 tests — about 130 pytest tests across the eight projects"
         links:
           - { label: "GitHub repository", url: "https://github.com/0Ju12/data-projects" }
@@ -413,7 +413,7 @@ activities:
           - { label: "Wildfire risk map (updated daily)", url: "https://0ju12.github.io/data-projects/fire/" }
           - { label: "Data agent (MCP server with number checks)", url: "https://github.com/0Ju12/data-projects/tree/main/data-agent" }
           - { label: "Power-transition analysis (Ember · OWID · D3)", url: "https://0ju12.github.io/data-projects/energy/" }
-          - { label: "Analysis dashboard (power demand · job postings · 7 questions)", url: "https://0ju12.github.io/data-projects/warehouse/" }
+          - { label: "Analysis dashboard (power demand · job postings · 8 questions)", url: "https://0ju12.github.io/data-projects/warehouse/" }
           - { label: "API monitoring board (22 public APIs · scheduled checks)", url: "https://0ju12.github.io/data-projects/api-watch/" }
           - { label: "Warehouse code (dbt · Airflow)", url: "https://github.com/0Ju12/data-projects/tree/main/warehouse" }
       - id: portfolio-site
