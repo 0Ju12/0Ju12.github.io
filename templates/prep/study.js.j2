@@ -25,7 +25,7 @@ function mergeState(a,b){var n=0;
   Object.keys(b.days||{}).forEach(function(k){a.days[k]=Math.max(a.days[k]||0,b.days[k])});
   var seen={};a.exams.forEach(function(m){seen[JSON.stringify(m)]=1});(b.exams||[]).forEach(function(m){if(!seen[JSON.stringify(m)]){a.exams.push(m);n++}});
   if(!a.last&&b.last)a.last=b.last;return n}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(_){toast('브라우저 저장 공간을 쓸 수 없어 기록이 남지 않습니다.')}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));if(typeof WORKSPACE_CLOUD!=='undefined')WORKSPACE_CLOUD.changed()}catch(_){toast('브라우저 저장 공간을 쓸 수 없어 기록이 남지 않습니다.')}}
 function today(off){var d=new Date();d.setDate(d.getDate()+(off||0));return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function toast(t){var el=$('#toast');el.textContent=t;el.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(function(){el.style.display='none'},2600)}
 

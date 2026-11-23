@@ -17,7 +17,7 @@ var amockT=null;
 function todayBoard(){var t=today(),items=[];
   var ds=STUDY?STUDY.dueN():0;if(ds)items.push(['#/review','복습할 문제 '+ds+'개','강의 노트 문제 · 간격 반복',0]);
   var dq=due().length;if(dq)items.push(['#/mock','복습 질문 '+dq+'개','면접 질문 · 간격 반복',0]);
-  var da=algoDue().length;if(da)items.push(['#/algo','다시 풀 문제 '+da+'개','힌트·못 푼 SWEA',0]);
+  var da=algoDue().length;if(da)items.push(['#/algo','다시 풀 문제 '+da+'개','힌트·못 푼 알고리즘 문제',0]);
   if(S.amock)items.push(['#/algo','A형 모의 진행 중','타이머가 돌아가고 있습니다',0]);
   S.board.forEach(function(b){if(!b.due||b.stage==='done'||b.stage==='drop')return;var n=ddays(b.due);if(n!=null&&n>=0&&n<=14)items.push(['#/board',b.name+' 마감 D-'+n,(STAGES[b.stage]||'')+(b.role?' · '+b.role:''),n])});
   ((P.goals)||[]).forEach(function(g){var n=ddays(gdate(g));if(n!=null&&n>=0&&n<=21)items.push(['#/',g.name+' D-'+n,g.note||'목표',n])});
@@ -31,7 +31,7 @@ function heat(m,weeks,label){var end=new Date(today()+'T00:00:00'),start=new Dat
   var streak=0;for(var s=new Date(end);;s.setDate(s.getDate()-1)){var sk=s.getFullYear()+'-'+String(s.getMonth()+1).padStart(2,'0')+'-'+String(s.getDate()).padStart(2,'0');if(m[sk])streak++;else if(+s!==+end)break;else continue;}
   return '<div class="card" style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px"><b>'+esc(label)+'</b><span class="small muted">최근 '+weeks+'주 · '+days+'일 · '+tot+'회 · 연속 '+streak+'일</span></div><div style="display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,12px);grid-auto-columns:12px;justify-content:start;gap:3px;margin-top:12px;overflow-x:auto;padding-bottom:2px">'+cells+'</div></div>'}
 /* A형 모의: 추천 문제 2개 · 3시간 타이머 · 끝내면 결과가 기록에 들어감 */
-function amockPick(){var st={},done={};S.algo.forEach(function(a){(a.t||[]).forEach(function(t){var o=st[t]||(st[t]={n:0,bad:0});o.n++;if(a.r!=='ok')o.bad++});var m=/^(\d{3,5})/.exec(a.n||'');if(m&&a.r==='ok')done[m[1]]=1});
+function amockPick(){var st={},done={};S.algo.forEach(function(a){(a.t||[]).forEach(function(t){var o=st[t]||(st[t]={n:0,bad:0});o.n++;if(a.r!=='ok')o.bad++});var m=/^(\d{3,5})/.exec(a.n||'');if(m&&a.r==='ok'&&a.s==='SWEA')done[m[1]]=1});
   var order=ATOP.slice().sort(function(x,y){var a=st[x]||{n:0,bad:0},b=st[y]||{n:0,bad:0};return (b.bad/(b.n||1)-a.bad/(a.n||1))||(a.n-b.n)}),out=[];
   var free=function(k){return (ARECO[k]||[]).filter(function(p){return !done[p[0]]})[0]},out=[],a=free('구현·시뮬레이션');if(a)out.push([a[0],a[1],'구현·시뮬레이션']);
   order.some(function(k){if(k==='구현·시뮬레이션')return false;var p=free(k);if(p&&!out.some(function(x){return x[0]===p[0]})){out.push([p[0],p[1],k]);return true}return false});
@@ -51,7 +51,7 @@ function algo(){
   var few=ATOP.filter(function(k){return !st[k]||st[k].n<2});
   var drv=S.algo.filter(function(a){return a.src==='drive'}).length;
   var weak=Object.keys(st).filter(function(k){return st[k].n>=2&&st[k].bad>0}).sort(function(a,b){return st[b].bad/st[b].n-st[a].bad/st[a].n}).slice(0,3);
-  var done={};S.algo.forEach(function(a){var m=/^(\d{3,5})/.exec(a.n||'');if(m&&a.r==='ok')done[m[1]]=1});
+  var done={};S.algo.forEach(function(a){var m=/^(\d{3,5})/.exec(a.n||'');if(m&&a.r==='ok'&&a.s==='SWEA')done[m[1]]=1});
   var nxt=[];weak.concat(few).forEach(function(k){(ARECO[k]||[]).filter(function(p){return !done[p[0]]&&!nxt.some(function(x){return x[0]===p[0]})}).slice(0,2).forEach(function(p){if(nxt.length<6)nxt.push([p[0],p[1],k])})});
   var h='<div class="hd"><div><span class="eyebrow">Algorithm log</span><h1 style="margin-top:6px">알고리즘 기록</h1><p class="sub" style="margin:0">이번 주 '+wk.length+' / '+tg+'문제 · 혼자 푼 문제를 추가하면 주간 체크에 자동으로 더해집니다.'+(drv?'<br><span class="small">드라이브 swea 풀이 코드에서 '+drv+'문제를 가져왔습니다 ('+esc((((D.algo_seed||{}).updated)||'').slice(0,10))+' 분석 · 월·목 갱신).</span>':'')+'</p></div><a class="btn ghost" href="#/tools">← 도구</a></div>';
   h+=sweaSection();

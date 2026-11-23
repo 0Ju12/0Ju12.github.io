@@ -1,0 +1,9 @@
+/* Same-tab draft and reading-position continuity. Excludes tokens and passwords. */
+var PREP_FLOW=(function(){var path='',positions={},drafts={};try{positions=JSON.parse(sessionStorage.getItem('prep-scroll')||'{}');drafts=JSON.parse(sessionStorage.getItem('prep-form-drafts')||'{}')}catch(_){}
+ function keep(){try{sessionStorage.setItem('prep-form-drafts',JSON.stringify(drafts));sessionStorage.setItem('prep-scroll',JSON.stringify(positions))}catch(_){}}
+ function restore(key){if(path!==key)return;var d=drafts[key]||{};Object.keys(d).forEach(function(id){var el=document.getElementById(id);if(el&&el!==document.activeElement&&el.type!=='password'&&typeof d[id]==='string')el.value=d[id]});if(positions[key])window.scrollTo(0,positions[key])}
+ function before(){if(path)positions[path]=window.scrollY;var key=location.hash||'#/';path=key;keep();setTimeout(function(){restore(key)},0)}
+ document.addEventListener('input',function(e){var el=e.target;if(!/^(career-|experience-|packet-)/.test(el.id||'')||!['INPUT','TEXTAREA'].includes(el.tagName)||['password','file','checkbox'].includes(el.type))return;(drafts[path]||(drafts[path]={}))[el.id]=el.value;keep()});
+ document.addEventListener('submit',function(e){if(e.target.closest('#app')){delete drafts[path];keep()}},true);
+ document.addEventListener('click',function(e){var b=e.target.closest('button');if(b&&(b.id==='packet-save'||b.id==='experience-clear'||b.hasAttribute('data-edit'))){delete drafts[path];keep()}},true);
+ window.addEventListener('pagehide',function(){if(path)positions[path]=window.scrollY;keep()});return {before:before};})();

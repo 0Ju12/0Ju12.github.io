@@ -10,7 +10,7 @@ module.exports=async function(page){
  await page.reload();await page.waitForSelector('[data-req]');assert.equal(await page.locator('[name=status]').inputValue(),'proof');assert.equal(await page.locator('#career-text').inputValue(),'필수: SQL 최적화\n우대: 데이터 품질');assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
  let download=page.waitForEvent('download');await page.locator('#career-export').click();assert((await download).suggestedFilename().endsWith('.md'));
  download=page.waitForEvent('download');await page.locator('#career-calendar').click();assert((await download).suggestedFilename().endsWith('.ics'));
- await page.evaluate(()=>location.hash='#/');await page.waitForSelector('text=다가오는 지원 · 다음 행동');assert((await page.locator('#app').innerText()).includes('실행 계획과 성능 측정 결과 정리'));
+ await page.evaluate(()=>location.hash='#/');await page.waitForSelector('text=지원 마감·다음 행동');assert((await page.locator('#app').innerText()).includes('실행 계획과 성능 측정 결과 정리'));
  await page.evaluate(()=>location.hash='#/career');await page.waitForSelector('[data-delete]');page.once('dialog',d=>d.accept());await page.locator('[data-delete]').click();assert.equal(await page.locator('[name=status]').inputValue(),'draft');
  const state=await page.evaluate(()=>JSON.parse(localStorage.getItem('interview-app-v1')));assert.equal(state.experiences.length,0);assert(state.deleted.experiences[ex]);
  await page.evaluate(()=>window.scrollTo(0,0));await page.waitForTimeout(150);
