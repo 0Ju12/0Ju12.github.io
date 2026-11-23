@@ -68,10 +68,11 @@
   var D=JSON.parse(document.getElementById('easy-data').textContent),C=D.cards||[],i=0,root=document.getElementById('ez'),stage=document.getElementById('ez-stage');
   function e(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
   function md(s){return e(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`([^`]+)`/g,'<code>$1</code>')}
-  function hl(code){var t=e(code);t=t.replace(/(--[^\n]*)/g,'<span class="cm">$1</span>');
-    t=t.replace(/('[^'\n]*')/g,'<span class="st">$1</span>');
-    t=t.replace(/\b(SELECT|FROM|WHERE|GROUP BY|HAVING|ORDER BY|LIMIT|OFFSET|DISTINCT|AND|OR|NOT|IN|BETWEEN|LIKE|IS|NULL|AS|ASC|DESC|COUNT|AVG|SUM|MAX|MIN|CREATE|TABLE|INSERT|INTO|VALUES|UPDATE|SET|DELETE|JOIN|ON|def|return|for|in|if|elif|else|while|import|from|class|not|and|or|True|False|None|break|continue|const|let|function|of|new)\b/g,'<span class="kw">$1</span>');
-    return t.replace(/\b(\d+)\b/g,'<span class="nu">$1</span>')}
+  // 토큰을 먼저 나눈 뒤 토큰마다 이스케이프 (전체를 먼저 이스케이프하면 &#39; 안의 39가 숫자로 칠해지고, class=".." 안의 class가 키워드로 칠해져 태그가 깨짐)
+  var HL=new RegExp("(--[^\\n]*)|('[^'\\n]*')|\\b("+'SELECT|FROM|WHERE|GROUP BY|HAVING|ORDER BY|LIMIT|OFFSET|DISTINCT|AND|OR|NOT|IN|BETWEEN|LIKE|IS|NULL|AS|ASC|DESC|COUNT|AVG|SUM|MAX|MIN|CREATE|TABLE|INSERT|INTO|VALUES|UPDATE|SET|DELETE|JOIN|ON|def|return|for|in|if|elif|else|while|import|from|class|not|and|or|True|False|None|break|continue|const|let|function|of|new'+")\\b|\\b(\\d+)\\b",'g');
+  function hl(code){code=String(code==null?'':code);var out='',last=0,m;HL.lastIndex=0;
+    while((m=HL.exec(code))){out+=e(code.slice(last,m.index));var cls=m[1]?'cm':m[2]?'st':m[3]?'kw':'nu';out+='<span class="'+cls+'">'+e(m[0])+'</span>';last=HL.lastIndex;if(!m[0].length)HL.lastIndex++}
+    return out+e(code.slice(last))}
   var ICON={cover:'📘 시작',idea:'💬 개념',compare:'⚖️ 비교',steps:'🧩 구성',flow:'➡️ 순서',code:'⌨️ 코드',quiz:'✅ 확인',recap:'📌 정리'};
   function render(c){var h='<span class="chip">'+(ICON[c.k]||'')+'</span>';
     if(c.k==='cover'){h+='<h2>'+md(c.title||D.title)+'</h2><div class="meta">'+e(c.sub||'')+(c.minutes?' · 약 '+c.minutes+'분':'')+'</div>'+(c.goals?'<p class="say">이번에 알게 될 것</p><ul class="pts">'+c.goals.map(function(g,j){return '<li data-n="'+(j+1)+'" style="animation-delay:'+(j*90)+'ms">'+md(g)+'</li>'}).join('')+'</ul>':'');return '<div class="cover">'+h+'</div>'}

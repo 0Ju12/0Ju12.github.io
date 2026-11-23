@@ -28,6 +28,9 @@ Python: `pip install jinja2 pyyaml markdown cryptography pypdf`
 - `python tests/render_interview_fixture.py`
 - `npm install playwright@1.47.2 && npx playwright install --with-deps chromium`
 - `node tests/interview-browser.cjs`
+- `python tests/render_illustrated_fixture.py --library` → `node tests/illustrated-browser.cjs`
+
+브라우저 테스트 전에는 위 두 `render_*_fixture.py`를 **매번 다시 실행**합니다. `work/`의 예전 fixture가 지금은 없는 이미지를 가리키면 illustrated 테스트가 이미지 디코딩 오류로 실패합니다. 로케일이 비어 있는 컨테이너(`LANG` 미설정)에서는 Chromium이 한글 파일 이름을 `download`로 바꾸므로, `interview-browser.cjs`가 실행 시 `LANG=C.UTF-8`을 스스로 지정합니다.
 
 설치된 Chromium을 쓰려면 `CHROMIUM_PATH=/usr/bin/chromium`을 지정합니다. 브라우저 테스트는 합성 질문 한 개로 실행하며 개인키·실제 개인 답변을 읽지 않습니다. 음성 장치 이벤트는 단위 테스트에서 모의합니다. 실제 마이크와 브라우저 제공자 음성 인식 품질은 사용자 기기에서 확인해야 합니다.
 
