@@ -25,11 +25,12 @@ OUT = ROOT / "docs" / "study"
 
 TRACKS = [   # 파일 이름으로 분류 — 새 강의 노트가 들어와도 규칙에 맞으면 자동으로 해당 트랙에
     ("web", "WEB", "HTML·CSS·Bootstrap·반응형", lambda n: n[:3] in ("01_", "02_", "03_")),
-    ("js", "JavaScript", "기본 문법·DOM·이벤트", lambda n: "_JS_" in n or "_JavaScript_" in n),
+    ("js", "JavaScript", "기본 문법·DOM·이벤트·AJAX", lambda n: "_JS_" in n or "_JavaScript_" in n),
     ("algo", "SW 알고리즘", "자료구조·탐색·DP·그래프", lambda n: n.startswith("SW")),
     ("django", "Django", "MTV·ORM·Form·인증·DRF", lambda n: "_Django_" in n),
     ("db", "DB · SQL", "SQL·관계(1:N, M:N)·N+1", lambda n: "_DB_" in n),
     ("ai", "AI", "데이터 분석·ML·NLP·LLM·비전·에이전트", lambda n: n.startswith("AI")),
+    ("vue", "Vue", "SPA·선언적 렌더링·반응형·컴포넌트", lambda n: "_Vue_" in n),
     ("etc", "기타", "분류 규칙에 없는 노트", lambda n: True),
 ]
 SKIP_SECTIONS = ("핵심 키워드", "확인 문제", "참고 내용", "실습 문제")

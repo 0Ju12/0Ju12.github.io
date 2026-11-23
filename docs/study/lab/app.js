@@ -98,7 +98,7 @@ if(params.get('embedded')==='1'){
         loaded=true;stop();if(busy)cancelRun();events=[];pos=0;finalOutput='';runError=null;
         $('code').value=m.code;$('input').value=m.input;
         $('title').textContent=(m.problem.number?m.problem.number+'. ':'')+m.problem.title;
-        $('filename').textContent='my_solution.py';const badge=document.querySelector('.difficulty');if(badge)badge.textContent=m.problem.level||'';$('desc').textContent='알고리즘 기록에 연결된 내 풀이';
+        document.querySelector('.problemHead .tag').textContent=m.problem.site==='BOJ'?'백준':m.problem.noteSlug?'강의 노트':'SWEA';$('filename').textContent='my_solution.py';const badge=document.querySelector('.difficulty');if(badge)badge.textContent=m.problem.level||'';$('desc').textContent='알고리즘 기록에 연결된 내 풀이';
         $('concepts').replaceChildren();$('visName').textContent='내 코드 실행 상태';updateWatchOptions();render();
         $('status').textContent='코드와 입력을 작성하고 실행하세요.';
         $('restore').hidden=true;
