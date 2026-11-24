@@ -183,7 +183,9 @@ class Locker:
             from cryptography.hazmat.primitives.ciphers.aead import AESGCM
             iv = os.urandom(12)
             e = lambda b: base64.b64encode(b).decode()
-            box = {"salt": e(self.salt), "iv": e(iv), "iter": ITER, "ct": e(AESGCM(self.key).encrypt(iv, inner_html.encode(), None))}
+            import gzip   # 암호문은 압축이 안 되므로 암호화 전에 줄임 (브라우저가 DecompressionStream 으로 풂)
+            raw = gzip.compress(inner_html.encode(), 9, mtime=0)
+            box = {"salt": e(self.salt), "iv": e(iv), "iter": ITER, "gz": 1, "ct": e(AESGCM(self.key).encrypt(iv, raw, None))}
         root = "../" if home.startswith("../../") else ""
         return self.env.get_template("study_lock.html.j2").render(title=title, box=box, home=home, root=root, pwa=pwa)
 

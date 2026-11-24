@@ -169,8 +169,36 @@ prep-apps:
 
 data-projects:
   ko:
-    study:
-      title: "사례 연구 · 맑은 날 한낮 전력 수요는 정말 더 내려갈까"
+    studies:
+    - title: "사례 연구 · 정확도 0.99는 왜 믿기 어려웠나 — 평가 분할이 바꾼 설비 진단 결론"
+      big: "0.99 → 0.46"
+      big_label: "밸브 진단 정확도(RandomForest) · 무작위 분할 vs 과거로 학습해 미래를 시험한 시간 구간 분할"
+      label_w: 92
+      fmt: "{:.2f}"
+      steps:
+        - ["문제", "유압 설비 2,205 사이클 × 센서 17개로 부품 상태를 진단했는데, 무작위 분할에서는 모든 부품이 0.99 이상이라 오히려 믿기 어려웠음"]
+        - ["가설", "이웃한 사이클은 값이 거의 같아 시험 사이클의 '쌍둥이'가 학습에 들어가 점수가 부풀었다 — 맞다면 과거로 학습해 미래를 맞히는 분할에서 크게 떨어져야 함"]
+        - ["방법", "사이클을 10구간으로 나눠 마지막 3구간을 시험용으로 두고, 센서마다 사이클 통계 8개(특징 136개)로 RandomForest와 표준화+LDA를 두 분할에서 나란히 비교"]
+        - ["결과", "RandomForest는 밸브 0.46 · 펌프 0.75 · 축압기 0.40으로 떨어졌고, LDA는 냉각기·밸브·펌프에서 1.00을 유지 → 평가 방식이 모델 선택까지 바꿈"]
+        - ["한계", "축압기는 어떤 조합에서도 0.55가 최고라 압력 상승 구간의 시정수 같은 특징이 더 필요해 보임 · 부품별 비지도 탐지는 고장이 겹치면 오경보가 많아(밸브 48% · 펌프 54%) 라벨 기반 진단과 함께 써야 함"]
+      chart_title: "RandomForest 정확도 · 회색은 무작위 분할, 파랑은 시간 구간 분할"
+      chart: [["밸브 · 무작위", 0.992, "ref"], ["밸브 · 시간", 0.456], ["펌프 · 무작위", 0.999, "ref"], ["펌프 · 시간", 0.752], ["축압기 · 무작위", 0.997, "ref"], ["축압기 · 시간", 0.397]]
+      link: ["코드와 결과 보기 (GitHub)", "https://github.com/0Ju12/data-projects/tree/main/sensor-anomaly"]
+    - title: "사례 연구 · 하루 전 전력 수요 예측 — 누수 없이 기준선을 절반으로"
+      big: "3.23%"
+      big_label: "10~12월 시험 구간 시간별 MAPE (선형 + GBM 평균) · 지난주 같은 시각 기준선 6.17% · 일 최대수요 2.64%"
+      label_w: 112
+      fmt: "{:.2f}%"
+      steps:
+        - ["문제", "전날에 다음 날 0~23시 전국 수요를 한꺼번에 예측해야 하고, 공개된 자료는 2025년 1년치(8,760시간)뿐"]
+        - ["설정", "예측 시점이 D-1이라 수요는 24시간 이상 지난 값만 특징으로 쓰고(누수 검사 테스트), 1~9월 학습 · 10~12월 시험(추석 연휴 포함)으로 시간 순서를 지킴"]
+        - ["방법", "시각 × 날 종류 · 월 · 지연값 · 냉난방 구간 기온으로 선형 모델과 GBM을 만들고, 기온을 넣은 것과 뺀 것을 함께 비교 — 실제 관측 기온을 '완벽한 예보'로 넣었기 때문"]
+        - ["결과", "두 모델 평균이 전체 3.23% · 일 최대수요 2.64%로 가장 좋았고, 공휴일에서는 선형(기온 없음)이 3.99%로 GBM(8%대)보다 안정적"]
+        - ["한계", "관측 기온을 예보처럼 넣어 운영 성능은 이보다 나쁨 · 1년치라 같은 계절을 두 번 학습하지 못함 · 3.23%는 단순 기준선 대비 개선이지 전력거래소 공식 예측보다 낫다는 뜻이 아님"]
+      chart_title: "모델별 MAPE (낮을수록 좋음) · 회색은 기준선"
+      chart: [["지난주 같은 시각", 6.17, "ref"], ["선형 + 기온", 4.77], ["GBM (기온 없음)", 4.17], ["GBM + 기온", 3.86], ["선형 (기온 없음)", 3.74], ["선형 + GBM 평균", 3.23]]
+      link: ["전력 수요 예측 탐색기에서 날짜별로 보기", "https://0ju12.github.io/data-projects/power/"]
+    - title: "사례 연구 · 맑은 날 한낮 전력 수요는 정말 더 내려갈까"
       big: "−2,704 MW"
       big_label: "일사량 100 W/m²당 평일 한낮(11~14시) 수요 변화 · 95% 구간 −2,986 ~ −2,422 · R² 0.91"
       steps:
@@ -180,7 +208,7 @@ data-projects:
         - ["결과", "12개월 모두 맑은 날 한낮이 낮았고, 같은 식을 저녁에 맞추면 +11 MW(95% 구간 −151 ~ 173)로 0과 구분되지 않음 → 두 예측 모두 맞음"]
         - ["한계", "흐린 날 조명 효과는 떼어 내지 못했고, 수평면 일사량이라 설비 용량으로 바꿔 읽지 않으며, 전력거래소 추정치와는 아직 대조하지 않음"]
       chart_title: "계절별로 따로 맞춘 계수 (MW / 100 W/m²) · 회색은 해가 진 뒤 대조군"
-      chart: [["겨울", -4088], ["봄", -2353], ["여름", -1998], ["가을", -3405], ["저녁 대조군", 11]]
+      chart: [["겨울", -4088], ["봄", -2353], ["여름", -1998], ["가을", -3405], ["저녁 대조군", 11, "sep"]]
       link: ["분석 과정 글 읽기", "../posts/2026-11-solar-midday-demand.html"]
     tradeoffs:
       - "평가 분할: 이웃한 시점이 거의 같은 시계열에서 무작위 분할은 성능을 부풀림 → 센서 진단과 수요 예측 모두 '과거로 학습해 미래를 시험'하는 시간 분할을 기본으로 하고, 무작위 분할 결과를 옆에 같이 보고"
@@ -191,8 +219,36 @@ data-projects:
       - "전력 수요는 1년치만 공개돼 같은 계절을 두 번 학습하지 못함 — 여러 해 자료와 실제 기온 예보로 다시 평가할 계획"
       - "지금 비교 기준은 '지난주 같은 시각'이라는 단순 기준선 — 3.23%는 이 기준선 대비 개선이며, 전력거래소 공식 하루 전 예측보다 낫다는 뜻이 아님. 공식 예측치를 같은 기간으로 받아 나란히 비교하는 것이 다음 단계"
   en:
-    study:
-      title: "Case study · Does weekday midday demand really drop on sunny days?"
+    studies:
+    - title: "Case study · Why 0.99 accuracy was hard to trust — how the evaluation split changed an equipment diagnosis"
+      big: "0.99 → 0.46"
+      big_label: "Valve diagnosis accuracy (RandomForest) · random split vs a time-block split that trains on the past and tests on the future"
+      label_w: 120
+      fmt: "{:.2f}"
+      steps:
+        - ["Problem", "Diagnosing component condition from 2,205 cycles × 17 sensors of a hydraulic rig, every component scored above 0.99 with a random split — too good to trust"]
+        - ["Hypothesis", "Neighbouring cycles are nearly identical, so 'twins' of test cycles leak into training. If so, scores should fall sharply when training on the past and testing on the future"]
+        - ["Method", "Split cycles into 10 blocks and hold out the last 3; 8 per-cycle statistics per sensor (136 features); RandomForest vs standardised LDA under both splits, side by side"]
+        - ["Result", "RandomForest fell to 0.46 (valve), 0.75 (pump), 0.40 (accumulator), while LDA kept 1.00 on cooler, valve and pump — the evaluation changed which model to choose"]
+        - ["Limits", "The accumulator tops out at 0.55, suggesting features such as the pressure build-up time constant are needed · per-component unsupervised detection raises many false alarms when faults overlap (valve 48%, pump 54%), so it needs label-based diagnosis alongside"]
+      chart_title: "RandomForest accuracy · grey = random split, blue = time-block split"
+      chart: [["Valve · random", 0.992, "ref"], ["Valve · time", 0.456], ["Pump · random", 0.999, "ref"], ["Pump · time", 0.752], ["Accum. · random", 0.997, "ref"], ["Accum. · time", 0.397]]
+      link: ["Code and results (GitHub)", "https://github.com/0Ju12/data-projects/tree/main/sensor-anomaly"]
+    - title: "Case study · Day-ahead power demand — half the baseline error without leakage"
+      big: "3.23%"
+      big_label: "Hourly MAPE on the Oct–Dec test period (linear + GBM average) · same-hour-last-week baseline 6.17% · daily peak 2.64%"
+      label_w: 128
+      fmt: "{:.2f}%"
+      steps:
+        - ["Problem", "Forecast all 24 hours of next-day national demand the day before, with only one public year (2025, 8,760 hours)"]
+        - ["Setup", "Because the forecast is made on D-1, demand features use only values at least 24 hours old (checked by a leakage test); train Jan–Sep, test Oct–Dec including the Chuseok holiday"]
+        - ["Method", "Linear and GBM models on hour × day type, month, lags and heating/cooling temperature terms, each with and without temperature — observed temperature stands in for a perfect forecast"]
+        - ["Result", "The average of the two models was best (3.23% overall, 2.64% daily peak); on public holidays the linear model without temperature stayed stable at 3.99% versus 8%+ for GBM"]
+        - ["Limits", "Observed temperature as a perfect forecast means real operation would be worse · one year means no season is seen twice · 3.23% beats a naive baseline, not the grid operator's official forecast"]
+      chart_title: "MAPE by model (lower is better) · grey = baseline"
+      chart: [["Same hour last week", 6.17, "ref"], ["Linear + temp", 4.77], ["GBM (no temp)", 4.17], ["GBM + temp", 3.86], ["Linear (no temp)", 3.74], ["Linear + GBM avg", 3.23]]
+      link: ["Browse dates in the demand forecast explorer", "https://0ju12.github.io/data-projects/power/"]
+    - title: "Case study · Does weekday midday demand really drop on sunny days?"
       big: "−2,704 MW"
       big_label: "Change in weekday midday (11:00–14:00) demand per 100 W/m² of irradiance · 95% CI −2,986 to −2,422 · R² 0.91"
       steps:
@@ -202,7 +258,7 @@ data-projects:
         - ["Result", "Sunny middays were lower in all 12 months, while the same model on evening demand gives +11 MW (95% CI −151 to 173), indistinguishable from zero — both predictions held"]
         - ["Limits", "Extra lighting on cloudy days is not separated out; irradiance is horizontal so the coefficient is not read as installed capacity; not yet compared with the operator's own estimate"]
       chart_title: "Coefficient fitted per season (MW per 100 W/m²) · grey is the after-sunset placebo"
-      chart: [["Winter", -4088], ["Spring", -2353], ["Summer", -1998], ["Autumn", -3405], ["Evening placebo", 11]]
+      chart: [["Winter", -4088], ["Spring", -2353], ["Summer", -1998], ["Autumn", -3405], ["Evening placebo", 11, "sep"]]
       link: ["Read the full write-up (Korean)", "../posts/2026-11-solar-midday-demand.html"]
     tradeoffs:
       - "Evaluation split: in time series where neighbouring points are nearly identical, random splits inflate scores, so both the sensor diagnosis and the demand forecast default to time-ordered splits (train on the past, test on the future), with random-split results reported alongside."

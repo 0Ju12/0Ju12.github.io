@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="학습 노트">{% endif %}
 <style>
 :root{--bg:#f7f7f8;--card:#fff;--text:#18181b;--muted:#5f5f68;--faint:#9b9ba3;--line:#e4e4e8;--ink:#18181b;--on-ink:#fafafa;--err:#dc2626}
-@media (prefers-color-scheme: dark){:root{--bg:#0d0d10;--card:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--faint:#71717a;--line:#27272a;--ink:#f4f4f5;--on-ink:#0d0d10;--err:#f87171}}
+@media (prefers-color-scheme: dark){:root{--bg:#0d0d10;--card:#17171a;--text:#f4f4f5;--muted:#a1a1aa;--faint:#8e8e98;--line:#27272a;--ink:#f4f4f5;--on-ink:#0d0d10;--err:#f87171}}
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;display:grid;grid-template-columns:minmax(0,1fr);place-items:center;background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Pretendard","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;padding:20px}
 .box{width:min(400px,100%);min-width:0;overflow-wrap:anywhere;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:30px 28px;box-shadow:0 18px 48px -18px rgba(0,0,0,.18)}
@@ -49,7 +49,7 @@ button:disabled{opacity:.6;cursor:wait}
 var box=JSON.parse(document.getElementById('box').textContent),K='study-key:'+box.salt;
 function b(s){return Uint8Array.from(atob(s),function(c){return c.charCodeAt(0)})}
 function e(u){var s='';new Uint8Array(u).forEach(function(x){s+=String.fromCharCode(x)});return btoa(s)}
-async function dec(raw){var key=await crypto.subtle.importKey('raw',raw,'AES-GCM',false,['decrypt']);var pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b(box.iv)},key,b(box.ct));return new TextDecoder().decode(pt);}
+async function dec(raw){var key=await crypto.subtle.importKey('raw',raw,'AES-GCM',false,['decrypt']);var pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b(box.iv)},key,b(box.ct));if(box.gz){if(typeof DecompressionStream==='undefined')throw new Error('nogz');return await new Response(new Blob([pt]).stream().pipeThrough(new DecompressionStream('gzip'))).text()}return new TextDecoder().decode(pt);}
 function show(html){document.open();document.write(html);document.close();}
 async function derive(pw){var base=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveBits']);return crypto.subtle.deriveBits({name:'PBKDF2',salt:b(box.salt),iterations:box.iter,hash:'SHA-256'},base,256);}
 var saved=null;try{saved=sessionStorage.getItem(K)||localStorage.getItem(K)}catch(_){}
@@ -57,7 +57,7 @@ function whenReady(f){if(document.readyState==='complete')setTimeout(f,0);else w
 if(saved){document.getElementById('f').style.visibility='hidden';dec(b(saved)).then(function(h){whenReady(function(){show(h)})}).catch(function(){try{sessionStorage.removeItem(K);localStorage.removeItem(K)}catch(_){}document.getElementById('f').style.visibility='';});}
 document.getElementById('f').addEventListener('submit',async function(ev){ev.preventDefault();var go=document.getElementById('go'),msg=document.getElementById('msg');go.disabled=true;msg.textContent='';
   try{var raw=await derive(document.getElementById('pw').value);var html=await dec(raw);try{sessionStorage.setItem(K,e(raw));if(document.getElementById('keep')&&document.getElementById('keep').checked){Object.keys(localStorage).forEach(function(k){if(k.indexOf('study-key:')===0)localStorage.removeItem(k)});localStorage.setItem(K,e(raw))}}catch(_){}show(html);}
-  catch(_){msg.textContent='암호가 맞지 않습니다.';go.disabled=false;}});
+  catch(err){msg.textContent=err&&err.message==='nogz'?'이 브라우저는 압축 해제를 지원하지 않습니다. 최신 Chrome·Safari·Firefox로 열어 주세요.':'암호가 맞지 않습니다.';go.disabled=false;}});
 })();
 </script>
 {% endif %}

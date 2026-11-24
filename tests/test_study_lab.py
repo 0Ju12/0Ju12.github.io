@@ -1,5 +1,6 @@
 """Synthetic notes verify integration without accessing sealed lecture material."""
 import base64
+import gzip
 import importlib.util
 import json
 import os
@@ -31,7 +32,9 @@ class StudyLabTest(unittest.TestCase):
             self.assertNotIn('id="code"', lab)
             self.assertIn('id="box"', lab)
             payload = json.loads(lab.split('<script id="box" type="application/json">')[1].split('</script>')[0])
-            raw = AESGCM(study.LOCKER.key).decrypt(base64.b64decode(payload['iv']),base64.b64decode(payload['ct']),None).decode()
+            pt = AESGCM(study.LOCKER.key).decrypt(base64.b64decode(payload['iv']),base64.b64decode(payload['ct']),None)
+            self.assertEqual(payload.get('gz'), 1)   # 암호화 전에 gzip 으로 줄임
+            raw = gzip.decompress(pt).decode()
             self.assertIn('id="code"', raw)
             self.assertIn('../notes/list2.html', raw)
             self.assertTrue((out / 'lab/note-bridge.js').exists())
