@@ -123,6 +123,8 @@ def inject(note, prev, nxt):
     bar = NAV_CSS + HASH_JS + '<nav class="st-nav">' + "".join(links) + "</nav>"
     if note.get("track") == "algo":
         bar += '<script defer src="../lab/note-bridge.js"></script>'
+    # 코드 블록 실행기: HTML·CSS·JS·Vue 미리보기, SQL(sql.js), Python(Pyodide) — 잠금을 푼 노트 안에서만 동작
+    bar += f'<script defer src="../lab/note-runner.js" data-track="{html.escape(note.get("track") or "")}"></script>'
     if note.get("easy"):
         data = json.dumps(dict(note["easy"], slug=note["slug"]), ensure_ascii=False).replace("</", "<\\/")
         bar += f'<script type="application/json" id="easy-data">{data}</script>' + EASY_VIEWER.read_text(encoding="utf-8")
