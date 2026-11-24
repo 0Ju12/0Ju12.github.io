@@ -124,7 +124,8 @@ def _qid(slug, prompt):
 
 
 def build(notes, lessons_path):
-    """notes: study.parse() 결과 목록 → {slug: {concepts, code, questions}}"""
+    """notes: study.parse() 결과 목록 → {slug: {concepts, code, questions, intro, prereq}}"""
+    basics = load_basics(lessons_path)
     lessons = []
     if lessons_path and Path(lessons_path).exists():
         lessons = json.loads(Path(lessons_path).read_text(encoding="utf-8"))
@@ -148,9 +149,52 @@ def build(notes, lessons_path):
                 item["o"] = q["options"]
             clean.append(item)
         concepts = [{"name": c[0], "core": c[1], "detail": c[2] if len(c) > 2 else "", "code": c[3] if len(c) > 3 else "",
-                     "note": c[4] if len(c) > 4 else ""} for c in (u or {}).get("concepts", [])]
-        units[n["slug"]] = {"questions": clean, "concepts": concepts, "code": (u or {}).get("code", "")}
+                     "note": c[4] if len(c) > 4 else "", "adv": 1} for c in (u or {}).get("concepts", [])]
+        b = basics.get(Path(n["file"]).stem) or {}
+        base = [{"name": c["name"], "core": c["plain"], "analogy": c.get("analogy", ""), "why": c.get("why", ""),
+                 "detail": "", "code": c.get("example", ""), "note": c.get("mistake", ""), "basic": 1} for c in b.get("concepts", [])]
+        units[n["slug"]] = {"questions": clean, "concepts": base + concepts, "code": (u or {}).get("code", ""),
+                            "intro": b.get("intro", ""), "prereq": b.get("prereq", [])}
     return units
+
+
+# ---------------------------------------------------------------- 기초 개념(basics.json) · 용어 사전(glossary.json)
+# basics.json  = {"<노트 파일 이름(확장자 없이)>": {"intro": 한 문장, "prereq": [용어], "concepts": [{name, plain, analogy, why, example, mistake}]}}
+# glossary.json = [{"term", "aka": [다른 이름], "plain": 쉬운 정의, "analogy": 비유(선택), "track": 분류}]
+# 용어가 어느 노트에 나오는지는 손으로 적지 않고 노트 본문에서 찾아 붙인다 (새 노트가 들어와도 자동으로 이어짐).
+
+def _load(path, default):
+    p = Path(path) if path else None
+    return json.loads(p.read_text(encoding="utf-8")) if p and p.exists() else default
+
+
+def load_basics(lessons_path):
+    return _load(Path(lessons_path).parent / "basics.json", {}) if lessons_path else {}
+
+
+def _term_re(g):
+    names = [g["term"]] + list(g.get("aka", []))
+    parts = []
+    for x in sorted(names, key=len, reverse=True):
+        e = re.escape(x)
+        # 영문·숫자로 된 이름은 낱말 경계로 (예: 'DOM' 이 'random' 에 걸리지 않게), 한글은 그대로
+        parts.append(r"(?<![A-Za-z0-9_])" + e + r"(?![A-Za-z0-9_])" if re.fullmatch(r"[A-Za-z0-9_.+#/ -]+", x) else e)
+    return re.compile("|".join(parts), re.I)
+
+
+def glossary(notes, lessons_path, min_hits=2):
+    """용어 사전 + 용어마다 나오는 노트(본문에서 min_hits 번 이상 나오는 노트, 수강 순서대로)"""
+    gl = _load(Path(lessons_path).parent / "glossary.json", []) if lessons_path else []
+    texts = {n["slug"]: _text(re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", n["raw"], flags=re.S)) for n in notes}
+    order = {n["slug"]: (n.get("date") or "9", n["file"]) for n in notes}
+    out = []
+    for g in gl:
+        rx = _term_re(g)
+        hits = [(s, len(rx.findall(t))) for s, t in texts.items()]
+        found = sorted([s for s, c in hits if c >= min_hits], key=lambda s: order[s])
+        out.append({"term": g["term"], "aka": g.get("aka", []), "plain": g["plain"], "analogy": g.get("analogy", ""),
+                    "track": g.get("track", ""), "notes": found})
+    return out
 
 
 # ---------------------------------------------------------------- 핵심 키워드 · 절(section) · 검색 색인

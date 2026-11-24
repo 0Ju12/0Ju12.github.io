@@ -20,6 +20,10 @@
 #ez .say{font-size:18px;line-height:1.8;margin:0 0 16px}
 #ez .say b,#ez li b{background:linear-gradient(transparent 60%,rgba(107,77,255,.22) 0);font-weight:800}
 #ez .ana{display:flex;gap:12px;align-items:flex-start;background:linear-gradient(135deg,rgba(107,77,255,.10),rgba(19,179,164,.10));border:1px solid var(--ez-line);border-radius:16px;padding:14px 16px;margin:6px 0 4px;font-size:16px}
+#ez .gl{margin-top:14px;border-top:1px dashed var(--ez-line);padding-top:10px;font-size:14.5px}
+#ez .gl summary{cursor:pointer;color:var(--ez-muted);font-weight:600;list-style:none}#ez .gl summary::-webkit-details-marker{display:none}#ez .gl summary:before{content:'🔤 '}
+#ez .gl dl,#ez .tl{margin:8px 0 0;display:grid;gap:8px}#ez .gl dt,#ez .tl dt{font-weight:700;color:var(--ez-ink)}#ez .gl dd,#ez .tl dd{margin:2px 0 0;color:var(--ez-text);line-height:1.6}
+#ez .tl div{background:var(--ez-soft);border:1px solid var(--ez-line);border-radius:14px;padding:12px 14px}
 #ez .ana i{font-style:normal;font-size:22px;line-height:1.2}
 #ez ul.pts{margin:6px 0 0;padding:0;list-style:none;display:grid;gap:10px}
 #ez ul.pts li{position:relative;padding:12px 14px 12px 44px;border:1px solid var(--ez-line);border-radius:14px;opacity:0;transform:translateY(8px);animation:ezup .5s forwards}
@@ -65,7 +69,7 @@
 </div>
 <script>
 (function(){
-  var D=JSON.parse(document.getElementById('easy-data').textContent),C=D.cards||[],i=0,root=document.getElementById('ez'),stage=document.getElementById('ez-stage');
+  var D=JSON.parse(document.getElementById('easy-data').textContent),C=(D.cards||[]).slice(),i=0,root=document.getElementById('ez'),stage=document.getElementById('ez-stage');
   function e(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
   function md(s){return e(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`([^`]+)`/g,'<code>$1</code>')}
   // 토큰을 먼저 나눈 뒤 토큰마다 이스케이프 (전체를 먼저 이스케이프하면 &#39; 안의 39가 숫자로 칠해지고, class=".." 안의 class가 키워드로 칠해져 태그가 깨짐)
@@ -73,8 +77,20 @@
   function hl(code){code=String(code==null?'':code);var out='',last=0,m;HL.lastIndex=0;
     while((m=HL.exec(code))){out+=e(code.slice(last,m.index));var cls=m[1]?'cm':m[2]?'st':m[3]?'kw':'nu';out+='<span class="'+cls+'">'+e(m[0])+'</span>';last=HL.lastIndex;if(!m[0].length)HL.lastIndex++}
     return out+e(code.slice(last))}
-  var ICON={cover:'📘 시작',idea:'💬 개념',compare:'⚖️ 비교',steps:'🧩 구성',flow:'➡️ 순서',code:'⌨️ 코드',quiz:'✅ 확인',recap:'📌 정리'};
+  var ICON={terms:'🔤 먼저 알 용어',cover:'📘 시작',idea:'💬 개념',compare:'⚖️ 비교',steps:'🧩 구성',flow:'➡️ 순서',code:'⌨️ 코드',quiz:'✅ 확인',recap:'📌 정리'};
+  // 용어 풀이: 용어 사전(D.terms)에 있는 낱말이 카드 글에 나오면 카드 아래에 쉬운 정의를 붙임 (영문은 낱말 경계로 찾음)
+  var TERMS=(D.terms||[]).map(function(g){var names=[g.t].concat(g.aka||[]).sort(function(a,b){return b.length-a.length});
+    var src=names.map(function(x){var q=x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');return /^[A-Za-z0-9_.+#\/ -]+$/.test(x)?'(?:^|[^A-Za-z0-9_])'+q+'(?![A-Za-z0-9_])':q}).join('|');return {t:g.t,p:g.p,re:new RegExp(src,'i')}});
+  var PRE=(D.prereq||[]).filter(function(t){return TERMS.some(function(g){return g.t===t})});
+  if(PRE.length&&C.length&&C[0].k==='cover')C.splice(1,0,{k:'terms',h:'먼저 알아야 할 용어',say:D.intro||'',pre:PRE});
+  function cardText(c){var a=[c.h,c.say,c.q,c.why,c.analogy].concat(c.points||[],c.flow||[],c.options||[]);
+    if(c.left)a=a.concat([c.left.t],c.left.items||[]);if(c.right)a=a.concat([c.right.t],c.right.items||[]);if(c.explain)c.explain.forEach(function(r){a.push(r[0],r[1])});
+    return a.filter(Boolean).join(' ').replace(/\*\*|`/g,'')}
+  function glossFor(c){if(c.k==='cover'||c.k==='terms'||!TERMS.length)return '';var tx=cardText(c),hit=[];
+    for(var j=0;j<TERMS.length&&hit.length<3;j++)if(TERMS[j].re.test(tx))hit.push(TERMS[j]);
+    return hit.length?'<details class="gl"><summary>용어 풀이 '+hit.length+'</summary><dl>'+hit.map(function(g){return '<dt>'+e(g.t)+'</dt><dd>'+md(g.p)+'</dd>'}).join('')+'</dl></details>':''}
   function render(c){var h='<span class="chip">'+(ICON[c.k]||'')+'</span>';
+    if(c.k==='terms'){h+='<h2>'+md(c.h)+'</h2>'+(c.say?'<p class="say">'+md(c.say)+'</p>':'')+'<dl class="tl">'+c.pre.map(function(t){var g=(D.terms||[]).filter(function(x){return x.t===t})[0];return '<div><dt>'+e(t)+'</dt><dd>'+md(g.p)+'</dd></div>'}).join('')+'</dl>';return h}
     if(c.k==='cover'){h+='<h2>'+md(c.title||D.title)+'</h2><div class="meta">'+e(c.sub||'')+(c.minutes?' · 약 '+c.minutes+'분':'')+'</div>'+(c.goals?'<p class="say">이번에 알게 될 것</p><ul class="pts">'+c.goals.map(function(g,j){return '<li data-n="'+(j+1)+'" style="animation-delay:'+(j*90)+'ms">'+md(g)+'</li>'}).join('')+'</ul>':'');return '<div class="cover">'+h+'</div>'}
     if(c.h)h+='<h2>'+md(c.h)+'</h2>';
     if(c.say)h+='<p class="say">'+md(c.say)+'</p>';
@@ -85,7 +101,7 @@
     if(c.explain)h+='<table>'+c.explain.map(function(r){return '<tr><td>'+e(r[0])+'</td><td>'+md(r[1])+'</td></tr>'}).join('')+'</table>';
     if(c.k==='quiz')h+='<p class="say">'+md(c.q)+'</p><div class="opts">'+c.options.map(function(o,j){return '<button type="button" data-j="'+j+'">'+md(o)+'</button>'}).join('')+'</div><div class="why">'+md(c.why||'')+'</div>';
     if(c.analogy)h+='<div class="ana"><i>💡</i><div>'+md(c.analogy)+'</div></div>';
-    return h}
+    return h+glossFor(c)}
   function bind(card,c){if(c.k!=='quiz')return;card.querySelectorAll('.opts button').forEach(function(b){b.onclick=function(){var j=+b.dataset.j;card.querySelectorAll('.opts button').forEach(function(x){x.disabled=true;if(+x.dataset.j===c.a)x.classList.add('ok')});if(j!==c.a)b.classList.add('no');card.querySelector('.why').style.display='block'}})}
   function show(n,dir){if(n<0||n>=C.length)return;var cs=stage.querySelectorAll('.card'),old=cs[cs.length-1]||null;for(var q=0;q<cs.length-1;q++)cs[q].remove();
     var card=document.createElement('div');card.className='card '+(dir<0?'in-l':'in-r');card.innerHTML=render(C[n]);stage.appendChild(card);bind(card,C[n]);

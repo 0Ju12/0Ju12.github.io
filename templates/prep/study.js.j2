@@ -5,7 +5,7 @@ var STUDY=(function(D){
 if(!D||!D.notes||!D.notes.length)return null;
 var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
-var NOTES=D.notes,TRACKS=D.tracks,UNITS=D.units;
+var NOTES=D.notes,TRACKS=D.tracks,UNITS=D.units,GLOSS=D.glossary||[];
 var NOTE={};NOTES.forEach(function(n){NOTE[n.slug]=n});
 var TRACK={};TRACKS.forEach(function(t){TRACK[t.id]=t});
 var Q={},ALLQ=[];
@@ -99,7 +99,7 @@ function notes(track){
       (u.one?'<p class="one">'+esc(u.one)+'</p>':n.summary?'<p>'+esc(n.summary)+'</p>':'')+
       (n.sections.length?'<div class="chips">'+n.sections.slice(0,4).map(function(x){return '<span class="tag">'+esc(x.length>20?x.slice(0,19)+'…':x)+'</span>'}).join('')+'</div>':'')+
       '<div class="meta">'+(n.date?'<span>'+esc(n.date.slice(5))+'</span>':'')+(s.total?'<span>문제 '+s.total+'</span><span class="bar" title="익힌 문제 비율"><i style="width:'+s.pct+'%"></i></span><span>'+s.pct+'%</span>':'<span class="faint">문제 없음</span>')+'</div>'+
-      '<div class="row"><button class="btn sm" data-open="'+n.slug+'">노트 열기</button>'+(n.easy?'<a class="btn sm ghost" href="notes/'+n.slug+'.html#easy" title="카드 '+n.easy+'장 · 같은 화면에서 넘겨 보기">쉬운 설명 ▶</a>':'')+(s.total?'<a class="btn sm ghost" href="#/quiz/'+n.slug+'">문제 풀기</a>':'')+(cardList(n.slug).length?'<a class="btn sm ghost" href="#/cards/'+n.slug+'">키워드 카드 '+cardList(n.slug).length+'</a>':'')+'</div></article>'}).join(''):'<div class="empty card">"'+esc(noteQuery)+'"에 맞는 노트가 없습니다.</div>';
+      '<div class="row"><button class="btn sm" data-open="'+n.slug+'">노트 열기</button>'+(n.easy?'<a class="btn sm ghost" href="notes/'+n.slug+'.html#easy" title="카드 '+n.easy+'장 · 같은 화면에서 넘겨 보기">쉬운 설명 ▶</a>':'')+(s.total?'<a class="btn sm ghost" href="#/quiz/'+n.slug+'">문제 풀기</a>':'')+(cardList(n.slug).length?'<a class="btn sm ghost" href="#/cards/'+n.slug+'">개념 카드 '+cardList(n.slug).length+'</a>':'')+'</div></article>'}).join(''):'<div class="empty card">"'+esc(noteQuery)+'"에 맞는 노트가 없습니다.</div>';
     $$('[data-open]').forEach(function(b){b.onclick=function(){openNote(b.dataset.open)}});
     $$('[data-read]').forEach(function(b){b.onclick=function(){var k=b.dataset.read;if(S.read[k])delete S.read[k];else S.read[k]=today();save();b.classList.toggle('on')}});
   };
@@ -146,13 +146,30 @@ function cards(slug,i){
   var cs=cardList(slug),n=NOTE[slug];i=(i+cs.length)%cs.length;var c=cs[i],flip=false;
   var draw=function(){
     $('#app').innerHTML='<div class="flash"><div class="qhead"><a href="#/notes/'+n.track+'">← '+esc(n.title)+'</a><span>'+(i+1)+' / '+cs.length+'</span></div>'+
-    '<div class="card fcard" id="fc" tabindex="0" role="button" aria-label="카드 뒤집기"><span class="tag">'+(c.kw?'핵심 키워드':'개념')+' '+(i+1)+'</span><div class="nm">'+esc(c.name)+'</div><p style="margin:0">'+esc(c.core)+'</p>'+
-    (flip?(c.detail?'<p class="muted" style="margin:0">'+esc(c.detail)+'</p>':'')+(c.code?'<pre><code>'+esc(c.code)+'</code></pre>':'')+(c.note?'<div class="warn">'+esc(c.note)+'</div>':''):'<p class="faint small" style="margin-top:auto">'+(c.kw?(c.detail?'눌러서 예시 보기':''):'눌러서 자세히 보기 · 예시 코드 · 주의할 점')+'</p>')+'</div>'+
+    '<div class="card fcard" id="fc" tabindex="0" role="button" aria-label="카드 뒤집기"><span class="tag">'+(c.kw?'핵심 키워드':c.basic?'기초 개념':c.adv?'심화 개념':'개념')+' '+(i+1)+'</span><div class="nm">'+esc(c.name)+'</div><p style="margin:0">'+esc(c.core)+'</p>'+
+    (flip?(c.analogy?'<p style="margin:0">💡 '+esc(c.analogy)+'</p>':'')+(c.why?'<p class="muted" style="margin:0"><b>왜 필요할까?</b> '+esc(c.why)+'</p>':'')+(c.detail?'<p class="muted" style="margin:0">'+esc(c.detail)+'</p>':'')+(c.code?(c.basic?'<b class="small">예시</b>':'')+'<pre><code>'+esc(c.code)+'</code></pre>':'')+(c.note?'<div class="warn">'+(c.basic?'<b>자주 하는 오해</b> ':'')+esc(c.note)+'</div>':''):'<p class="faint small" style="margin-top:auto">'+(c.kw?(c.detail?'눌러서 예시 보기':''):c.basic?'눌러서 비유 · 왜 필요한지 · 예시 · 자주 하는 오해 보기':'눌러서 자세히 보기 · 예시 코드 · 주의할 점')+'</p>')+'</div>'+
     '<div class="qfoot"><button class="btn ghost" id="pv">← 이전</button><a class="btn ghost" href="#/quiz/'+slug+'">이 단원 문제</a><button class="btn" id="nx">다음 →</button></div><p class="faint small" style="text-align:center"><span class="kbd">←</span> <span class="kbd">→</span> 이동 · <span class="kbd">Space</span> 뒤집기</p></div>';
     $('#fc').onclick=function(){flip=!flip;draw()};$('#pv').onclick=function(){cards(slug,i-1)};$('#nx').onclick=function(){cards(slug,i+1)};
   };
   draw();
   keyHandler=function(e){if(e.key==='ArrowRight')cards(slug,i+1);else if(e.key==='ArrowLeft')cards(slug,i-1);else if(e.key===' '){e.preventDefault();flip=!flip;draw()}};
+}
+
+/* ---------- 용어 사전: 여러 노트에 반복되는 기초 용어를 한곳에, 나오는 노트로 이어 줌 ---------- */
+var glossTrack='';
+function glossary(q){
+  q=q||'';var ql=q.toLowerCase(),tr={};GLOSS.forEach(function(g){if(g.track)tr[g.track]=(tr[g.track]||0)+1});
+  var list=GLOSS.filter(function(g){return (!glossTrack||g.track===glossTrack)&&(!ql||(g.term+' '+(g.aka||[]).join(' ')+' '+g.plain).toLowerCase().indexOf(ql)>=0)});
+  var h='<h2>용어 사전 <span class="faint small">'+GLOSS.length+'개</span></h2><p class="muted small" style="margin:0 0 10px">여러 강의에 반복해서 나오는 기초 용어를 처음 배우는 사람 기준으로 풀었습니다. 용어마다 그 말이 나오는 노트로 이어집니다.</p>'+
+    '<input class="field" id="gq" type="search" placeholder="용어 찾기 (예: HTTP, 비동기, 인덱스)" value="'+esc(q)+'" style="margin-bottom:10px">'+
+    '<div class="chips" style="margin:0 0 14px"><button type="button" class="chip'+(glossTrack?'':' on')+'" data-gt="">전체</button>'+Object.keys(tr).map(function(t){return '<button type="button" class="chip'+(glossTrack===t?' on':'')+'" data-gt="'+esc(t)+'">'+esc(t)+' '+tr[t]+'</button>'}).join('')+'</div>';
+  h+=list.length?'<div class="list">'+list.map(function(g){var ns=(g.notes||[]).filter(function(s){return NOTE[s]});
+    return '<div class="card"><b style="font-size:17px">'+esc(g.term)+'</b>'+((g.aka||[]).length?' <span class="faint small">· '+esc(g.aka.join(', '))+'</span>':'')+
+      '<p style="margin:6px 0 0">'+esc(g.plain)+'</p>'+(g.analogy?'<p class="muted small" style="margin:6px 0 0">💡 '+esc(g.analogy)+'</p>':'')+
+      (ns.length?'<p class="small" style="margin:8px 0 0"><span class="faint">나오는 노트</span> '+ns.slice(0,6).map(function(s){return '<a href="notes/'+s+'.html">'+esc(NOTE[s].title)+'</a>'}).join(' · ')+(ns.length>6?' <span class="faint">외 '+(ns.length-6)+'편</span>':'')+'</p>':'')+'</div>'}).join('')+'</div>':'<div class="empty card">"'+esc(q)+'"에 맞는 용어가 없습니다.</div>';
+  $('#app').innerHTML=h;var inp=$('#gq');
+  inp.oninput=function(){var v=inp.value,pos=inp.selectionStart;glossary(v);var n=$('#gq');n.focus();try{n.setSelectionRange(pos,pos)}catch(_){}};
+  document.querySelectorAll('[data-gt]').forEach(function(b){b.onclick=function(){glossTrack=b.dataset.gt;glossary(inp.value)}});
 }
 
 /* ---------- 문제: 범위 고르기 ---------- */
@@ -397,6 +414,7 @@ function view(v,parts){
   if(v==='quiz'){if(parts[1]&&NOTE[parts[1]]){startQuiz(shuffle(noteQs(parts[1]).slice()),NOTE[parts[1]].title);return}if(session&&parts[1]==='play')return play();return setup()}
   if(v==='review')return review();
   if(v==='cards'&&NOTE[parts[1]])return cards(parts[1],0);
+  if(v==='glossary')return glossary(decodeURIComponent(parts[1]||''));
   return notes(decodeURIComponent(parts[1]||''));
 }
 return {view:view,reset:function(){keyHandler=null;if(exam&&exam.timer){clearInterval(exam.timer);exam.timer=null}},

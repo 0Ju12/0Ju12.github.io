@@ -257,8 +257,16 @@ def build(env, data):
         quiz_file = ROOT / "content" / "study" / "quiz" / "lessons.json"
     units = study_quiz.build(notes, quiz_file)
     index = study_quiz.enrich(notes, units)
+    gloss = study_quiz.glossary(notes, quiz_file)
     for n in notes:
         n["nq"] = len(units[n["slug"]]["questions"])
+        if n.get("easy"):   # 쉬운 설명에 '먼저 알아야 할 용어' 카드와 카드별 용어 풀이를 붙임
+            u = units[n["slug"]]
+            pre = [p for p in u.get("prereq", []) if any(g["term"] == p for g in gloss)]
+            mine = sorted([g for g in gloss if n["slug"] in g["notes"] or g["term"] in pre],
+                          key=lambda g: len(g["notes"]))   # 드문(이 노트에 특화된) 용어부터 → 카드 아래 용어 풀이 3개에 먼저 뽑힘
+            n["easy"] = dict(n["easy"], prereq=pre, intro=u.get("intro", ""),
+                             terms=[{"t": g["term"], "aka": g["aka"], "p": g["plain"]} for g in mine])
     order = {t[0]: i for i, t in enumerate(TRACKS)}
     notes.sort(key=lambda n: (order[n["track"]], n["date"] or "9", n["file"]))   # 수강 날짜 순
     (OUT / "notes").mkdir(parents=True, exist_ok=True)
@@ -270,7 +278,7 @@ def build(env, data):
         (OUT / "notes" / f"{n['slug']}.html").write_text(locker.page(n["title"], inject(n, prev, nxt), "../../index.html"), encoding="utf-8")
     app = {"tracks": [{"id": t[0], "name": t[1], "desc": t[2]} for t in TRACKS],
            "notes": [dict({k: n[k] for k in ("slug", "title", "num", "date", "sections", "summary", "track", "nq")}, easy=len(n["easy"]["cards"]) if n.get("easy") else 0) for n in notes],
-           "pitch": (data.get("pitch") or {}), "units": units, "salt": base64.b64encode(locker.salt).decode() if locker.password else ""}
+           "pitch": (data.get("pitch") or {}), "units": units, "glossary": gloss, "salt": base64.b64encode(locker.salt).decode() if locker.password else ""}
     search = OUT / "search.enc.json"
     if locker.password:
         search.write_text(json.dumps(locker.blob(index)), encoding="utf-8")
