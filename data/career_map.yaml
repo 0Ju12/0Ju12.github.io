@@ -1,4 +1,6 @@
 # 커리어 지도 — 메인 페이지 '발자취' 섹션 (templates/_map.j2, 바탕 지도 data/geo/basemap.json)
+# 3D 지구본: 같은 장소를 deck.gl 지구본에도 그림 (육지 윤곽 data/geo/globe_land.json ← scripts/geo_globe.mjs, 라이브러리 docs/assets/vendor/)
+# 지구본은 지도 섹션에 가까워질 때만 불러오고, WebGL·스크립트가 안 되면 평면 지도가 그대로 보임
 # layer: stay(머문 곳) · data(데이터로 연구한 지역) · partner(협력 기관)
 # 좌표는 대략적인 위치입니다(해상 광구·저장소는 근처 지점). 사실은 portfolio.yaml 에 있는 것만.
 # link: 프로젝트 상세 페이지 id(docs/projects/<id>.html) 또는 posts/<slug>
