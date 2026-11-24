@@ -152,7 +152,7 @@ def build(notes, lessons_path):
                      "note": c[4] if len(c) > 4 else "", "adv": 1} for c in (u or {}).get("concepts", [])]
         b = basics.get(Path(n["file"]).stem) or {}
         base = [{"name": c["name"], "core": c["plain"], "analogy": c.get("analogy", ""), "why": c.get("why", ""),
-                 "detail": "", "code": c.get("example", ""), "note": c.get("mistake", ""), "basic": 1} for c in b.get("concepts", [])]
+                 "detail": "", "code": c.get("example", ""), "note": c.get("mistake", ""), "fig": c.get("fig", ""), "basic": 1} for c in b.get("concepts", [])]
         units[n["slug"]] = {"questions": clean, "concepts": base + concepts, "code": (u or {}).get("code", ""),
                             "intro": b.get("intro", ""), "prereq": b.get("prereq", [])}
     return units

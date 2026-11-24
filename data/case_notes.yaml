@@ -169,6 +169,19 @@ prep-apps:
 
 data-projects:
   ko:
+    study:
+      title: "사례 연구 · 맑은 날 한낮 전력 수요는 정말 더 내려갈까"
+      big: "−2,704 MW"
+      big_label: "일사량 100 W/m²당 평일 한낮(11~14시) 수요 변화 · 95% 구간 −2,986 ~ −2,422 · R² 0.91"
+      steps:
+        - ["문제", "4월 평일 22일 중 14일은 한낮 수요가 그날 새벽 최저보다 낮았고, 여름에는 이런 날이 없었음"]
+        - ["가설", "전력거래소가 계량하지 않는 소규모 태양광이 맑은 날 한낮 수요를 깎는다 — 맞다면 ① 같은 달 안에서도 맑은 날 한낮이 낮고 ② 해가 진 뒤에는 차이가 없어야 함"]
+        - ["방법", "4개 도시 시간별 일사량(Open-Meteo)을 수요와 '끝 시각' 기준으로 맞추고, 달별 절편·새벽 최저·냉난방 기온항을 넣은 회귀로 비교 · 20~23시 수요를 대조군으로 둠"]
+        - ["결과", "12개월 모두 맑은 날 한낮이 낮았고, 같은 식을 저녁에 맞추면 +11 MW(95% 구간 −151 ~ 173)로 0과 구분되지 않음 → 두 예측 모두 맞음"]
+        - ["한계", "흐린 날 조명 효과는 떼어 내지 못했고, 수평면 일사량이라 설비 용량으로 바꿔 읽지 않으며, 전력거래소 추정치와는 아직 대조하지 않음"]
+      chart_title: "계절별로 따로 맞춘 계수 (MW / 100 W/m²) · 회색은 해가 진 뒤 대조군"
+      chart: [["겨울", -4088], ["봄", -2353], ["여름", -1998], ["가을", -3405], ["저녁 대조군", 11]]
+      link: ["분석 과정 글 읽기", "../posts/2026-11-solar-midday-demand.html"]
     tradeoffs:
       - "평가 분할: 이웃한 시점이 거의 같은 시계열에서 무작위 분할은 성능을 부풀림 → 센서 진단과 수요 예측 모두 '과거로 학습해 미래를 시험'하는 시간 분할을 기본으로 하고, 무작위 분할 결과를 옆에 같이 보고"
       - "지진 파이프라인 저장: 사람이 읽고 diff 할 수 있는 CSV를 원본으로, SQLite는 매번 다시 만드는 질의용으로 — 파일은 조금 커지지만 변경 이력이 저장소에 그대로 남음"
@@ -178,6 +191,19 @@ data-projects:
       - "전력 수요는 1년치만 공개돼 같은 계절을 두 번 학습하지 못함 — 여러 해 자료와 실제 기온 예보로 다시 평가할 계획"
       - "지금 비교 기준은 '지난주 같은 시각'이라는 단순 기준선 — 3.23%는 이 기준선 대비 개선이며, 전력거래소 공식 하루 전 예측보다 낫다는 뜻이 아님. 공식 예측치를 같은 기간으로 받아 나란히 비교하는 것이 다음 단계"
   en:
+    study:
+      title: "Case study · Does weekday midday demand really drop on sunny days?"
+      big: "−2,704 MW"
+      big_label: "Change in weekday midday (11:00–14:00) demand per 100 W/m² of irradiance · 95% CI −2,986 to −2,422 · R² 0.91"
+      steps:
+        - ["Problem", "On 14 of 22 April weekdays, midday demand fell below that day's overnight minimum; in summer it never did"]
+        - ["Hypothesis", "Small-scale solar that the grid operator does not meter cuts midday demand on sunny days. If so, (1) sunny middays should be lower even within the same month, and (2) there should be no gap after sunset"]
+        - ["Method", "Hourly irradiance for four cities (Open-Meteo) aligned to demand by interval end; regression with month intercepts, overnight minimum and heating/cooling temperature terms; 20:00–23:00 demand as a placebo"]
+        - ["Result", "Sunny middays were lower in all 12 months, while the same model on evening demand gives +11 MW (95% CI −151 to 173), indistinguishable from zero — both predictions held"]
+        - ["Limits", "Extra lighting on cloudy days is not separated out; irradiance is horizontal so the coefficient is not read as installed capacity; not yet compared with the operator's own estimate"]
+      chart_title: "Coefficient fitted per season (MW per 100 W/m²) · grey is the after-sunset placebo"
+      chart: [["Winter", -4088], ["Spring", -2353], ["Summer", -1998], ["Autumn", -3405], ["Evening placebo", 11]]
+      link: ["Read the full write-up (Korean)", "../posts/2026-11-solar-midday-demand.html"]
     tradeoffs:
       - "Evaluation split: in time series where neighbouring points are nearly identical, random splits inflate scores, so both the sensor diagnosis and the demand forecast default to time-ordered splits (train on the past, test on the future), with random-split results reported alongside."
       - "Earthquake storage: a human-readable, diff-able CSV is the source of truth and SQLite is rebuilt for queries — slightly larger files, but every change stays visible in the repository history."

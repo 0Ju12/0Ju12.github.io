@@ -139,7 +139,7 @@ details.ex summary{cursor:pointer;color:var(--muted);font-size:13.5px}
 .hide-m{display:inline}
 @media (max-width:640px){.hide-m{display:none}.prompt{font-size:16.5px}main{padding-top:18px}}
 /* 준비 공간: 큰 메뉴(오늘·공부·면접·지원·기록) 아래 하위 메뉴 */
-.subnav{max-width:1100px;margin:0 auto;padding:8px 16px 0;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.subnav::-webkit-scrollbar{display:none}.subnav:empty{display:none}.subnav a{flex:none;text-decoration:none;border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:99px;padding:5px 13px;font-size:13.5px;font-weight:600;white-space:nowrap}.subnav a.on{background:var(--ink-soft);color:var(--ink);border-color:transparent}.tabs a .n{font-size:11px;margin-left:4px;padding:0 6px;border-radius:99px;background:var(--bad);color:#fff;vertical-align:1px}.tlink{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:8px;font-size:13px}.tlink a{text-decoration:none}
+.subnav{max-width:1100px;margin:0 auto;padding:8px 16px 0;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.subnav::-webkit-scrollbar{display:none}.subnav:empty{display:none}.cfig{margin:2px 0;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);--acc:var(--ink);max-width:420px}.cfig svg{display:block;height:auto}.subnav .sg{flex:none;align-self:center;font-size:11.5px;font-weight:700;letter-spacing:.02em;color:var(--muted,#888);padding:0 2px 0 10px}.subnav .sg:first-child{padding-left:0}.subnav a{flex:none;text-decoration:none;border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:99px;padding:5px 13px;font-size:13.5px;font-weight:600;white-space:nowrap}.subnav a.on{background:var(--ink-soft);color:var(--ink);border-color:transparent}.tabs a .n{font-size:11px;margin-left:4px;padding:0 6px;border-radius:99px;background:var(--bad);color:#fff;vertical-align:1px}.tlink{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:8px;font-size:13px}.tlink a{text-decoration:none}
 
 .tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1}.tabs::-webkit-scrollbar{display:none}
 .tabs a{padding:7px 11px;border-radius:9px;text-decoration:none;color:var(--muted);font-weight:600;font-size:14px;white-space:nowrap}
@@ -475,18 +475,19 @@ function route(){if(typeof PREP_FLOW!=='undefined')PREP_FLOW.before();if(typeof 
 /* ---------- 메뉴: 오늘 · 공부 · 면접 · 지원 · 기록 ---------- */
 var SVIEWS={study:1,notes:1,cards:1,quiz:1,review:1,exam:1,glossary:1};
 var SUBNAV={
-  study:[['study','한눈에'],['notes','강의 노트'],['glossary','용어 사전'],['quiz','문제'],['review','복습'],['exam','모의고사'],['algo','알고리즘'],['boj','백준'],['sql','SQL 실습'],['sql-exam','SQL 모의시험'],['weakness','취약점 복습'],['ncs','인적성']],
+  study:[['#','배우기'],['study','한눈에'],['notes','강의 노트'],['glossary','용어 사전'],['#','연습'],['quiz','문제'],['review','복습'],['weakness','취약점 복습'],['exam','모의고사'],['#','코딩'],['algo','알고리즘'],['boj','백준'],['sql','SQL 실습'],['sql-exam','SQL 모의시험'],['#','시험'],['ncs','인적성']],
   interview:[['defense','프로젝트 방어'],['questions','질문 은행'],['drafts','내 답변 정리'],['mock','모의 면접'],['decks','발표'],['opic-exam','OPIc'],['speak','말하기 분석']],
   apply:[['career','지원 준비'],['essay','자소서'],['jobs','공채 정보'],['board','지원 현황'],['cv','맞춤 이력서'],['packet','포트폴리오 구성'],['evidence','증빙 점검'],['submissions','제출본 보관']],
   log:[['cloud','통합 동기화'],['log','기록·백업'],['sources','자료 현황']]};
 var GROUP_OF={home:'home',cards:'study',deck:'interview',opic:'interview',tools:'log'};
-Object.keys(SUBNAV).forEach(function(g){SUBNAV[g].forEach(function(x){GROUP_OF[x[0]]=g})});
-if(!STUDY){SUBNAV.study=SUBNAV.study.filter(function(x){return !SVIEWS[x[0]]});GROUP_OF.study='study'}
+Object.keys(SUBNAV).forEach(function(g){SUBNAV[g].forEach(function(x){if(x[0]!=='#')GROUP_OF[x[0]]=g})});
+if(!STUDY){SUBNAV.study=SUBNAV.study.filter(function(x){return !SVIEWS[x[0]]}).filter(function(x,i,a){return x[0]!=='#'||(a[i+1]&&a[i+1][0]!=='#')});GROUP_OF.study='study'}
 var SUBALIAS={cards:'notes',deck:'decks',opic:'opic-exam'};
 function drawNav(v,p){var g=GROUP_OF[v]||'home',cur=SUBALIAS[v]||v;
   $$('#tabs a').forEach(function(a){a.classList.toggle('on',a.dataset.v===g)});
   var st=$('#tabs a[data-v="study"]');if(st){if(!STUDY)st.setAttribute('href','#/algo');var n=STUDY?STUDY.dueN():0;st.innerHTML='공부'+(n?'<span class="n">'+n+'</span>':'')}
-  var sub=SUBNAV[g]||[];$('#subnav').innerHTML=sub.map(function(x){return '<a href="#/'+x[0]+'"'+(x[0]===cur?' class="on" aria-current="page"':'')+'>'+x[1]+'</a>'}).join('')}
+  var sub=SUBNAV[g]||[];$('#subnav').innerHTML=sub.map(function(x){return x[0]==='#'?'<span class="sg">'+x[1]+'</span>':'<a href="#/'+x[0]+'"'+(x[0]===cur?' class="on" aria-current="page"':'')+'>'+x[1]+'</a>'}).join('');
+  var on=$('#subnav a.on'),sn=$('#subnav');if(on&&sn&&sn.scrollWidth>sn.clientWidth){var l=on.offsetLeft-sn.offsetLeft-24;if(l<sn.scrollLeft||on.offsetLeft+on.offsetWidth>sn.scrollLeft+sn.clientWidth)sn.scrollLeft=Math.max(0,l)}}
 window.addEventListener('hashchange',route);
 document.addEventListener('keydown',function(e){if(e.metaKey||e.ctrlKey||e.altKey)return;var t=(e.target.tagName||'').toLowerCase();if(t==='textarea'||t==='input'||t==='select')return;if(keyHandler)keyHandler(e)});
 
