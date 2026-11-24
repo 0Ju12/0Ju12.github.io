@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer">
+<title>개인 비서 업무실 · 이영주</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f1f5f2;color:#18332b;font:16px/1.65 system-ui,sans-serif}header,main{max-width:720px;margin:auto;padding:24px}header{display:flex;justify-content:space-between;border-bottom:1px solid #cddbd4}a{color:#165643}main{padding-top:clamp(45px,10vh,100px)}h1{font-size:clamp(36px,7vw,60px);letter-spacing:-.07em;margin:0}section{background:white;padding:clamp(20px,5vw,36px);border-radius:18px;margin:28px 0}label{display:block;font-weight:650}input,button{font:inherit;border-radius:8px;padding:12px;width:100%;margin:8px 0}input{border:1px solid #81968d}button{background:#155440;color:white;border:0;cursor:pointer}small{color:#41594f}p{margin:12px 0}details{margin-top:20px}
+</style>
+<header><a href="../">포트폴리오</a><span>개인 업무 공간</span></header>
+<main><h1>개인 비서 업무실</h1><p>업무를 맡기고 Codex의 초안, Claude Code의 검토 의견과 최종 결과를 확인하세요.</p>
+<section><form id="connect"><label for="address">내 업무실 주소</label>
+<input id="address" type="url" required placeholder="https://…-8501.app.github.dev" spellcheck="false" autocomplete="off">
+<small>처음 한 번 연결하면 이 브라우저에서 다음 방문부터 업무실이 바로 열립니다.</small>
+<button>업무실 열기</button><p id="message" role="status"></p></form>
+<details open><summary>처음 연결하거나 업무실이 멈췄나요?</summary><p>아래에서 본인의 Codespace를 시작하거나 재개하세요. <b>Ports → 8501</b>의 전달 주소를 복사해 위에 입력하세요. 포트는 Private으로 유지하세요.</p>
+<a href="https://codespaces.new/0Ju12/personal-assistant?quickstart=1" target="_blank" rel="noopener">GitHub에서 실행 환경 열기</a></details></section></main>
+<script>
+const field=document.querySelector('#address'), message=document.querySelector('#message');
+const key='personal-assistant.port8501';
+function endpoint(value){
+  try{
+    const u=new URL(value);
+    if(u.protocol==='https:' && /^[a-z0-9-]+-8501\.app\.github\.dev$/.test(u.hostname) && !u.username && !u.password && !u.port) return u.origin+'/';
+  }catch{}
+}
+let saved;
+try{saved=endpoint(localStorage.getItem(key))}catch{}
+const candidate=endpoint(new URLSearchParams(location.hash.slice(1)).get('connect'));
+if(candidate){field.value=candidate;history.replaceState(null,'',location.pathname+'#settings')}
+else if(saved){field.value=saved;if(location.hash!=='#settings')location.replace(saved)}
+document.querySelector('#connect').onsubmit=e=>{
+  e.preventDefault();
+  const url=endpoint(field.value);
+  if(!url){message.textContent='8501번 포트의 https://…-8501.app.github.dev 주소를 입력하세요.';return}
+  try{localStorage.setItem(key,url)}catch{}
+  location.assign(url);
+};
+</script></html>
