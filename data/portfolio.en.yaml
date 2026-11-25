@@ -80,7 +80,7 @@ education:
 
 workstyle:
   - "I make the design calls: problem framing, data sources, evaluation (time-ordered splits, fixes vs. breaks) and what gets adopted."
-  - "I build with generative AI such as Claude and GPT for drafts, refactoring and documentation, and public commits record the AI co-author."
+  - "I build with generative AI such as Claude and GPT: drafts, refactoring and documentation, and public commits record the AI co-author."
   - "I verify in code: every change must pass automated tests and layout checks before deploy, and numbers in posts and resumes are checked against the original results."
 
 skills:
