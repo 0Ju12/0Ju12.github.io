@@ -22,7 +22,7 @@
 .cmap-dlg .bar b{color:var(--text)}
 .cmap-dlg .bar span{flex:1;min-width:0}
 .cmap-dlg .bar button{flex:none;border:1px solid var(--line);background:none;color:var(--text);font:inherit;font-size:13px;font-weight:700;padding:7px 14px;border-radius:999px;cursor:pointer}
-.cmap{--stay:#5b6cff;--data:#ea7a0c;--partner:#16a34a;--land:color-mix(in srgb,var(--text) 11%,var(--card));--land2:color-mix(in srgb,var(--text) 5%,var(--card))}
+.cmap{--stay:#5b6cff;--data:#ea7a0c;--partner:#16a34a;--land:color-mix(in srgb,var(--text) 11%,var(--card));--land2:color-mix(in srgb,var(--text) 5%,var(--card));--gsea:color-mix(in srgb,var(--stay) 9%,var(--card));--gland:color-mix(in srgb,var(--text) 20%,var(--card))}
 .cmap-f{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
 .cmap-f button{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);color:var(--muted);font:inherit;font-size:13.5px;font-weight:700;padding:7px 14px;border-radius:999px;cursor:pointer}
 .cmap-f button[aria-pressed="true"]{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
@@ -91,11 +91,21 @@
 .cmap-info li i{width:9px;height:9px;border-radius:50%;display:inline-block}
 .cmap-swipe{display:none;font-size:12px;color:var(--faint);margin:-6px 2px 8px}
 .cmap-note{font-size:12px;color:var(--faint);margin:10px 2px 0}
+.cmap-globe{position:relative;height:clamp(360px,44vw,520px);border-radius:18px;overflow:hidden;background:radial-gradient(ellipse at 50% 45%,color-mix(in srgb,var(--stay) 7%,var(--card)) 0%,var(--card) 70%);touch-action:pan-y}
+.cmap-globe canvas{outline:none}
+.cmap-view{position:absolute;top:14px;right:14px;z-index:3;display:none;gap:2px;padding:3px;border-radius:999px;background:color-mix(in srgb,var(--card) 88%,transparent);border:1px solid var(--line);backdrop-filter:blur(8px)}
+.cmap-view button{border:0;background:none;color:var(--muted);font:inherit;font-size:12.5px;font-weight:700;padding:6px 12px;border-radius:999px;cursor:pointer}
+.cmap-view button[aria-pressed="true"]{background:var(--ink);color:var(--on-ink)}
+.cmap.has-globe .cmap-view{display:inline-flex}
+.cmap.has-globe.globe-on .cmap-world>.cmap-stage,.cmap.has-globe.globe-on .cmap-swipe{display:none!important}
+.cmap:not(.globe-on) .cmap-globe{display:none}
+.cmap-ghint{position:absolute;left:16px;bottom:12px;z-index:2;font-size:12px;color:var(--faint);pointer-events:none}
 @media (max-width:960px){
   .cmap-g{grid-template-columns:1fr;grid-template-areas:'world' 'info' 'korea' 'list'}
   .cmap-info{position:static}
   .cmap-world{padding:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
   .cmap-world .cmap-stage{width:760px}
+  .cmap.globe-on .cmap-world{overflow:hidden}
   .cmap-swipe{display:block!important}
   .plabel{font-size:11.5px}
   .cmap-list ul{columns:1}
@@ -121,6 +131,8 @@ document.getElementById('cmap-dlg-x').addEventListener('click',function(){d.clos
   <p class="cmap-swipe">{{ '← Swipe the world map sideways →' if en else '← 세계 지도는 옆으로 밀어서 볼 수 있어요 →' }}</p>
   <div class="cmap-g">
     <div class="cmap-card cmap-world">
+      {% if M.globe %}<div class="cmap-view" role="group" aria-label="{{ 'Map view' if en else '지도 보기' }}"><button type="button" data-view="globe" aria-pressed="true">{{ '3D globe' if en else '3D 지구본' }}</button><button type="button" data-view="flat" aria-pressed="false">{{ 'Flat map' if en else '평면 지도' }}</button></div>
+      <div class="cmap-globe" id="cmap-globe" role="img" aria-label="{{ 'Rotating 3D globe of my career — pins mark each place' if en else '돌려 볼 수 있는 커리어 3D 지구본 — 핀이 각 장소를 표시' }}"><span class="cmap-ghint">{{ 'Drag to rotate · tap a point' if en else '끌어서 돌리기 · 점을 눌러 보기' }}</span></div>{% endif %}
       <div class="cmap-stage">
         <svg viewBox="0 0 {{ B.world.w }} {{ B.world.h }}" role="img" aria-label="{{ 'World map of my career' if en else '커리어 세계 지도' }}"><path class="land" d="{{ B.world.land }}"/></svg>
         {% set PB = {} %}{% for pl in M.places %}{% set _ = PB.update({pl.id: pl}) %}{% endfor %}
@@ -161,6 +173,8 @@ document.getElementById('cmap-dlg-x').addEventListener('click',function(){d.clos
   <script type="application/json" id="cmap-data">{{ M.places|map(attribute='id')|list|tojson }}</script>
   {% set info = {} %}{% for pl in M.places %}{% set t = pl.en if en else pl.ko %}{% set ph = pl.photo or {} %}{% set _ = info.update({pl.id: {'n': t.name, 'w': t.when, 'd': t.desc, 'a': t.about or '', 'as': pl.about_src or '', 'ph': ph.src or '', 'cr': (ph.credit_en if en and ph.credit_en else ph.credit) or '', 'pg': ph.page or '', 'l': pl.layer, 'u': ('projects/' ~ pl.link ~ ('-en' if en else '') ~ '.html') if pl.link else ''}}) %}{% endfor %}
   <script type="application/json" id="cmap-info-data">{{ info|tojson }}</script>
+  {% if M.globe %}{% set gp = [] %}{% for pl in M.places %}{% set t = pl.en if en else pl.ko %}{% set _ = gp.append({'id': pl.id, 'lat': pl.lat, 'lon': pl.lon, 'l': pl.layer, 'n': t.name.split(' (')[0], 'lab': (pl.label or pl.id == 'jeonju') and not pl.inset or pl.id == 'jeonju', 'k': pl.inset or False}) %}{% endfor %}
+  <script type="application/json" id="cmap-globe-data">{{ gp|tojson }}</script>{% endif %}
 </section>
 <script>
 (function(){
@@ -168,7 +182,8 @@ var root=document.querySelector('.cmap');if(!root)return;
 var INFO=JSON.parse(document.getElementById('cmap-info-data').textContent),box=document.getElementById('cmap-info');
 var LBL={stay:'{{ LY.stay }}',data:'{{ LY.data }}',partner:'{{ LY.partner }}'},GO='{{ "Project details →" if en else "관련 프로젝트 보기 →" }}';
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
-function pick(id,btn){var p=INFO[id];if(!p)return;
+var GLOBE=null;
+function pick(id,btn){var p=INFO[id];if(!p)return;if(GLOBE)GLOBE.focus(id);
   root.querySelectorAll('[data-goto]').forEach(function(x){x.classList.toggle('on',x.dataset.goto===id)});
   root.querySelectorAll('.pin.on').forEach(function(x){x.classList.remove('on')});
   root.querySelectorAll('.pin[data-id="'+id+'"]').forEach(function(x){if(!x.classList.contains('kgroup'))x.classList.add('on')});
@@ -184,7 +199,69 @@ root.querySelectorAll('[data-goto]').forEach(function(b){b.addEventListener('cli
 if(INFO.ghasha)pick('ghasha');
 root.querySelectorAll('.pin').forEach(function(b){b.addEventListener('click',function(){if(b.classList.contains('grp'))list(b);else pick(b.dataset.id,b)})});
 function regroup(){root.querySelectorAll('.pin.grp').forEach(function(g){var n=g.dataset.members.split(',').filter(vis).length;g.classList.toggle('off',!n);g.querySelector('b span').textContent=n;var l=g.nextElementSibling;if(l&&l.classList.contains('grp-l'))l.classList.toggle('off',!n);})}
-root.querySelectorAll('.cmap-f button').forEach(function(b){b.addEventListener('click',function(){var on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);root.classList.toggle('hide-'+b.dataset.layer,!on);HID[b.dataset.layer]=!on;regroup()})});
+root.querySelectorAll('.cmap-f button').forEach(function(b){b.addEventListener('click',function(){var on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);root.classList.toggle('hide-'+b.dataset.layer,!on);HID[b.dataset.layer]=!on;regroup();if(GLOBE)GLOBE.refresh()})});
+{% if M.globe %}
+// ── 3D 지구본 (deck.gl GlobeView, 사이트 안에 둔 파일) — 지도 섹션에 가까워질 때만 불러온다. 실패하면 평면 지도가 그대로 남는다.
+(function(){
+  var host=document.getElementById('cmap-globe');if(!host||!window.IntersectionObserver)return;
+  var PL=JSON.parse(document.getElementById('cmap-globe-data').textContent),HOME=PL.filter(function(p){return p.id==='jeonju'})[0];
+  var probe=document.createElement('i');probe.style.display='none';root.appendChild(probe);
+  function rgb(v,a){probe.style.color='var('+v+')';var c=getComputedStyle(probe).color,m=c.match(/[\d.]+/g)||[0,0,0];
+    var x=c.indexOf('color(')===0?m.slice(0,3).map(function(n){return Math.round(+n*255)}):m.slice(0,3).map(Number);return x.concat([a==null?255:a])}
+  function load(src){return new Promise(function(ok,no){var s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=no;document.head.appendChild(s)})}
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,small=matchMedia('(max-width:960px)').matches;
+  var fit=function(){var w=host.clientWidth||600,h=host.clientHeight||420;return Math.log2(0.88*Math.min(w,h)/375)};   // 지름 ≈ 375·2^zoom px → 짧은 변의 88%
+  var view={longitude:HOME?HOME.lon-25:100,latitude:22,zoom:fit(),minZoom:-1,maxZoom:3},spin=!reduce,deckObj=null,LAND=null,sel=null;
+  // 지금 보는 면의 중심에서 75° 안쪽만 (반대편 이름표가 지평선 너머로 비치지 않게)
+  function front(p){var r=Math.PI/180,a=view.latitude*r,b=p.lat*r;return Math.sin(a)*Math.sin(b)+Math.cos(a)*Math.cos(b)*Math.cos((p.lon-view.longitude)*r)>0.26}
+  var lastLab=0;function relabel(){var t=Date.now();if(t-lastLab>150){lastLab=t;draw()}}
+  var PIN={};
+  function pinIcon(l,c,card){var k=l+c.join()+card.join();if(PIN[k])return PIN[k];
+    var fill='rgb('+c.slice(0,3).join()+')',bg='rgb('+card.slice(0,3).join()+')',mark=l==='partner'?'<rect x="12" y="8" width="8" height="8" rx="1.5" fill="'+bg+'"/>':'<circle cx="16" cy="12" r="4.2" fill="'+bg+'"/>';
+    var svg='<svg xmlns="http://www.w3.org/2000/svg" width="32" height="40" viewBox="0 0 32 40"><ellipse cx="16" cy="38" rx="5" ry="1.8" fill="rgba(0,0,0,.22)"/><path d="M16 37C16 37 4 24.5 4 13a12 12 0 0 1 24 0C28 24.5 16 37 16 37z" fill="'+fill+'" stroke="'+bg+'" stroke-width="2"/>'+mark+'</svg>';
+    return PIN[k]={url:'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg),width:64,height:80,anchorY:80,mask:false}}
+  function layers(){
+    var C={stay:rgb('--stay'),data:rgb('--data'),partner:rgb('--partner')},card=rgb('--card'),land=rgb('--gland'),line=rgb('--ggrid'),txt=rgb('--text'),sea=rgb('--gsea');
+    var vis=PL.filter(function(p){return !HID[p.l]}),far=vis.filter(function(p){return !p.k});
+    return [
+      new deck.SolidPolygonLayer({id:'sea',data:[[[-180,90],[0,90],[180,90],[180,-90],[0,-90],[-180,-90]]],getPolygon:function(d){return d},getFillColor:sea,updateTriggers:{getFillColor:sea.join()}}),
+      new deck.SolidPolygonLayer({id:'land',data:LAND,getPolygon:function(d){return d},getFillColor:land,updateTriggers:{getFillColor:land.join()}}),
+      new deck.IconLayer({id:'pts',data:vis.filter(front),getPosition:function(p){return[p.lon,p.lat]},getIcon:function(p){return pinIcon(p.l,C[p.l],card)},
+        getSize:function(p){return (p.id===sel?6:0)+(p.l==='data'?24:30)},sizeUnits:'pixels',pickable:true,autoHighlight:true,highlightColor:[255,255,255,70],parameters:{depthTest:false},
+        updateTriggers:{getIcon:JSON.stringify(C)+card.join(),getSize:sel,data:view.longitude},transitions:{getSize:180}}),
+      new deck.TextLayer({id:'lab',data:vis.filter(function(p){return p.lab&&front(p)}),getPosition:function(p){return[p.lon,p.lat]},getText:function(p){return p.n},characterSet:'auto',
+        fontFamily:getComputedStyle(document.body).fontFamily,fontWeight:700,getSize:12,getColor:txt,getPixelOffset:[14,-22],getTextAnchor:'start',getAlignmentBaseline:'center',
+        fontSettings:{sdf:true},outlineWidth:4,outlineColor:card,updateTriggers:{getColor:txt.join()}})];
+  }
+  function draw(){if(deckObj)deckObj.setProps({layers:layers()})}
+  function tick(){if(!spin||!deckObj)return;view=Object.assign({},view,{longitude:view.longitude+0.06});deckObj.setProps({initialViewState:view});relabel();requestAnimationFrame(tick)}
+  function stop(){spin=false}
+  function start(){
+    root.classList.add('has-globe','globe-on');   // 먼저 보이게 해야 크기를 잴 수 있다
+    view=Object.assign({},view,{zoom:fit()});
+    deckObj=new deck.Deck({parent:host,views:new deck._GlobeView({resolution:10}),initialViewState:view,controller:{scrollZoom:false,touchZoom:true,keyboard:false},
+      layers:layers(),getCursor:function(s){return s.isHovering?'pointer':'grab'},
+      onViewStateChange:function(e){view=e.viewState;relabel();return e.viewState},
+      onInteractionStateChange:function(s){if(s.isDragging||s.isZooming||s.isRotating)stop()},
+      onClick:function(info){if(info.object&&info.layer.id==='pts'){stop();pick(info.object.id)}},
+      getTooltip:function(info){return info.object&&info.layer.id==='pts'?{text:info.object.n,style:{fontFamily:getComputedStyle(document.body).fontFamily,fontSize:'12.5px',padding:'5px 9px',borderRadius:'8px',background:'rgba('+rgb('--card').slice(0,3).join()+',.95)',color:'rgb('+rgb('--text').slice(0,3).join()+')',border:'1px solid rgba('+rgb('--line').slice(0,3).join()+',1)'}}:null}});
+    GLOBE={focus:function(id){var p=PL.filter(function(x){return x.id===id})[0];if(!p)return;sel=id;stop();
+        view=Object.assign({},view,{longitude:p.lon,latitude:Math.max(-50,Math.min(60,p.lat)),zoom:Math.max(view.zoom,fit()+0.7),transitionDuration:reduce?0:1200,transitionInterpolator:new deck.FlyToInterpolator()});
+        deckObj.setProps({initialViewState:view});draw()},refresh:draw};
+    if(spin)requestAnimationFrame(tick);
+    var mo=new MutationObserver(draw);mo.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);
+  }
+  root.querySelectorAll('.cmap-view button').forEach(function(b){b.addEventListener('click',function(){var g=b.dataset.view==='globe';
+    root.classList.toggle('globe-on',g);root.querySelectorAll('.cmap-view button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});if(g&&deckObj)deckObj.redraw(true)})});
+  var io=new IntersectionObserver(function(es){if(!es.some(function(e){return e.isIntersecting}))return;io.disconnect();
+    Promise.all([load('assets/vendor/deck.gl-9.0.38.min.js'),fetch('assets/globe/land.json').then(function(r){if(!r.ok)throw 0;return r.json()})])
+      .then(function(r){LAND=r[1];if(!window.deck||!deck._GlobeView)throw 0;start()})
+      .catch(function(){host.remove()});   // 실패하면 평면 지도 그대로
+  },{rootMargin:'600px 0px'});
+  io.observe(root);
+})();
+{% endif %}
 })();
 </script>
 {% endif %}
