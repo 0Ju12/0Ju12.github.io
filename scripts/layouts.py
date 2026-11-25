@@ -24,8 +24,10 @@ def render(names=None):
     try:
         import build as _b
         env.filters["thumb"] = _b.thumb
+        env.filters["hl"] = _b.highlight_numbers
     except Exception:
         env.filters["thumb"] = lambda s, *a: {"src": s, "w": None, "h": None}
+        env.filters["hl"] = lambda s: s
     out = []
     for f in sorted((TEMPLATES / "layouts").glob("*.html.j2")):
         name = f.name.split(".")[0]

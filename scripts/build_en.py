@@ -158,6 +158,7 @@ def main():
                       trim_blocks=True, lstrip_blocks=True)
     env.globals["analytics"] = build.analytics()
     env.filters["thumb"] = build.thumb
+    env.filters["hl"] = build.highlight_numbers
     layout = (data.get("site") or {}).get("layout", "showcase")
     out = {
         "en.html": env.get_template(f"layouts/{layout}.html.j2").render(alt_lang={"url": "index.html", "label": "KO", "code": "ko"}, **data),
