@@ -8,47 +8,62 @@
 </style>
 <header><a href="../">포트폴리오</a><span>개인 업무 공간</span></header>
 <main><h1>개인 비서 업무실</h1><p>업무를 맡기고 Codex의 초안, Claude Code의 검토 의견과 최종 결과를 확인하세요.</p>
-<section><form id="connect"><label for="address">내 업무실 주소</label>
-<input id="address" type="url" required placeholder="https://…-8501.app.github.dev" spellcheck="false" autocomplete="off">
-<small>처음 한 번 연결하면 이 브라우저에서 다음 방문부터 업무실이 바로 열립니다.</small>
-<button>업무실 열기</button><p id="message" role="status"></p></form>
-<details open><summary>처음 연결하거나 업무실이 멈췄나요?</summary><p>아래에서 본인의 Codespace를 시작하거나 재개하세요. <b>Ports → 8501</b>의 전달 주소를 복사해 위에 입력하세요. 포트는 Private으로 유지하세요.</p>
-<a href="https://github.com/codespaces" target="_blank" rel="noopener">GitHub에서 실행 환경 열기</a></details></section></main>
-<script>
-const field=document.querySelector('#address'), message=document.querySelector('#message');
+<section><p id="message" role="status">내 Codespace를 연결해 주세요.</p>
+<div id="recovery" hidden><a id="editor" target="_blank" rel="noopener">Codespace 재개 ↗</a><p><small>비공개 포트 로그인이 필요하면 <a id="direct" target="_blank" rel="noopener">업무실을 새 탭에서 열기</a>를 이용하세요.</small></p></div>
+<a href="https://github.com/codespaces" target="_blank" rel="noopener">내 Codespaces 목록 ↗</a>
+<details id="settings"><summary>연결 주소 설정</summary><form id="connect"><label for="address">Codespace 편집기 또는 업무실 주소</label><input id="address" type="url" required autocomplete="off" spellcheck="false" placeholder="https://…​.github.dev"><small>기존 환경을 삭제하거나 다시 만들었다면 새 편집기 주소를 입력하세요.</small><button>저장하고 연결</button></form></details></section></main><script>
+const byId=id=>document.getElementById(id);
 const key='personal-assistant.port8501';
-function endpoint(value){
+let generation=0, retry;
+function workspace(value){
   try{
     const u=new URL(value);
-    if(u.protocol==='https:' && /^[a-z0-9-]+-8501\.app\.github\.dev$/.test(u.hostname) && !u.username && !u.password && !u.port) return u.origin+'/';
+    const m=/^([a-z0-9]+(?:-[a-z0-9]+)*?)(?:-8501\.app)?\.github\.dev$/.exec(u.hostname);
+    if(u.protocol==='https:' && !u.port && !u.username && !u.password && m)
+      return {port:'https://'+m[1]+'-8501.app.github.dev/',editor:'https://'+m[1]+'.github.dev/'};
   }catch{}
 }
-function launch(url){
-  const editor=url.replace('-8501.app.github.dev/', '.github.dev/');
-  const probe=new Image();
-  let done=false;
-  function enter(target){
-    if(done)return;
-    done=true;clearTimeout(timer);location.replace(target);
-  }
-  const timer=setTimeout(()=>enter(editor),3500);
-  message.textContent='업무실 연결을 확인하고 있어요…';
-  probe.onload=()=>enter(url);
-  probe.onerror=()=>enter(editor);
-  probe.src=url+'ready.svg';
+function probe(port){
+  return new Promise(resolve=>{
+    const image=new Image();
+    function finish(ok){clearTimeout(timer);image.onload=image.onerror=null;resolve(ok)}
+    const timer=setTimeout(()=>finish(false),5000);
+    image.onload=()=>finish(image.naturalWidth===1 && image.naturalHeight===1);
+    image.onerror=()=>finish(false);
+    image.src=port+'ready.svg';
+  });
 }
-let saved;
-try{saved=endpoint(localStorage.getItem(key))}catch{}
-const candidate=endpoint(new URLSearchParams(location.hash.slice(1)).get('connect'));
-const start=endpoint(new URLSearchParams(location.hash.slice(1)).get('start'));
-if(start){try{localStorage.setItem(key,start)}catch{} field.value=start;history.replaceState(null,'',location.pathname);launch(start)}
-else if(candidate){field.value=candidate;history.replaceState(null,'',location.pathname+'#settings')}
-else if(saved){field.value=saved;if(location.hash!=='#settings')launch(saved)}
-document.querySelector('#connect').onsubmit=e=>{
-  e.preventDefault();
-  const url=endpoint(field.value);
-  if(!url){message.textContent='8501번 포트의 https://…-8501.app.github.dev 주소를 입력하세요.';return}
-  try{localStorage.setItem(key,url)}catch{}
-  launch(url);
+function watch(w){
+  clearTimeout(retry);
+  const id=++generation, until=Date.now()+120000;
+  byId('address').value=w.port;
+  byId('editor').href=w.editor;
+  byId('direct').href=w.port;
+  byId('recovery').hidden=false;
+  byId('message').textContent='업무실이 열려 있는지 확인하고 있어요…';
+  async function check(){
+    const ready=await probe(w.port);
+    if(id!==generation)return;
+    if(ready){location.assign(w.port);return}
+    if(Date.now()>=until){byId('message').textContent='연결을 확인하지 못했어요. 내 Codespaces에서 현재 환경을 확인한 뒤 다시 연결해 주세요.';return}
+    byId('message').textContent='아직 연결되지 않았어요. 아래에서 Codespace를 재개해 주세요. 2분 동안 자동으로 다시 확인합니다.';
+    retry=setTimeout(check,4000);
+  }
+  check();
+}
+function remember(w){try{localStorage.setItem(key,w.port)}catch{}}
+const params=new URLSearchParams(location.hash.slice(1));
+const connect=workspace(params.get('connect')),start=workspace(params.get('start'));
+let saved;try{saved=workspace(localStorage.getItem(key))}catch{}
+if(connect || location.hash==='#settings'){
+  byId('address').value=(connect||saved)?.port||'';
+  byId('settings').open=true;
+}else if(start||saved){const w=start||saved;remember(w);history.replaceState(null,'',location.pathname+location.search);watch(w)}
+else{byId('settings').open=true}
+byId('settings').addEventListener('toggle',()=>{if(byId('settings').open){generation++;clearTimeout(retry)}});
+byId('connect').onsubmit=e=>{
+  e.preventDefault();const w=workspace(byId('address').value);
+  if(!w){byId('message').textContent='GitHub Codespace 편집기 주소 또는 8501 포트 주소를 입력해 주세요.';return}
+  remember(w);byId('settings').open=false;watch(w);
 };
 </script></html>
