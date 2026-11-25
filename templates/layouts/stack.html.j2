@@ -308,6 +308,57 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
 .card{position:relative!important;top:auto!important;transform:none!important;opacity:1!important;border-radius:18px;box-shadow:none;margin-bottom:28px}
 .rail{display:none!important}.hero h1{letter-spacing:-.035em}.btn{border-radius:10px}
 #selected-cases article{border-radius:14px!important}#work .sec-t p{max-width:580px}
+
+/* ── 가독성 다듬기 (2026-11-25): 훑어볼 때 제목·핵심 숫자가 먼저 보이게 ── */
+:root{--muted:#52525b}
+.num{font-weight:800;color:var(--text);font-variant-numeric:tabular-nums}
+.sec-t{margin:64px 0 26px}
+.sec-t p{color:var(--muted)}
+/* 히어로: 직접 내린 판단 3가지 */
+.hero .proof-h{font-size:13px;color:var(--text);letter-spacing:0}
+.proof{border-top:0;display:grid;gap:8px;max-width:700px}
+.proof a{grid-template-columns:62px 1fr 18px;align-items:start;padding:14px 16px 14px 14px;border:1px solid var(--line);border-radius:16px;background:var(--card);font-size:14.5px;line-height:1.6;color:var(--muted);transition:border-color .2s,transform .2s,box-shadow .2s}
+.proof a:hover{background:var(--card);border-color:color-mix(in srgb,var(--c) 45%,var(--line));transform:translateY(-1px);box-shadow:var(--shadow)}
+.proof b.lab{justify-self:start;margin-top:1px;font-size:12px;font-weight:800;letter-spacing:.01em;padding:2px 9px;border-radius:999px;color:color-mix(in srgb,var(--c) 68%,var(--mixc));background:color-mix(in srgb,var(--c) 13%,transparent)}
+.proof em{display:block;font-style:normal;font-weight:700;font-size:15.5px;color:var(--text);letter-spacing:-.015em;margin:0 0 2px}
+.proof .num{color:color-mix(in srgb,var(--c) 72%,var(--mixc))}
+.proof i{margin-top:2px}
+@media (max-width:600px){.proof a{grid-template-columns:1fr 18px}.proof b.lab{grid-column:1/-1;margin-bottom:4px}}
+/* 먼저 볼 프로젝트 */
+.sc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:14px}
+.sc{position:relative;display:flex;flex-direction:column;gap:0;padding:22px 22px 20px;border:1px solid var(--line);border-radius:20px;background:var(--card);min-width:0;overflow:hidden;transition:transform .2s,box-shadow .2s,border-color .2s}
+.sc::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--c)}
+.sc:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:color-mix(in srgb,var(--c) 40%,var(--line))}
+.sc .sc-k{display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:700;color:var(--muted)}
+.sc .sc-n{font-size:13px;font-weight:800;color:color-mix(in srgb,var(--c) 75%,var(--mixc));font-variant-numeric:tabular-nums}
+.sc h3{font-size:21px;line-height:1.3;letter-spacing:-.03em;margin:12px 0 8px}
+.sc h3 a::after{content:"";position:absolute;inset:0}
+.sc .sc-t{font-size:14.5px;line-height:1.6;color:var(--muted);margin:0}
+.sc .sc-r{font-size:12.5px;color:var(--faint);margin:10px 0 0}
+.sc .sc-key{margin:16px 0 0;padding:12px 14px;border-radius:14px;background:color-mix(in srgb,var(--c) 8%,var(--card));font-size:14px;line-height:1.6;color:var(--text)}
+.sc .sc-key small{display:block;font-size:11.5px;font-weight:800;letter-spacing:.04em;color:color-mix(in srgb,var(--c) 70%,var(--mixc));margin:0 0 3px}
+.sc .sc-key .num{font-size:15px;color:color-mix(in srgb,var(--c) 78%,var(--mixc))}
+.sc .sc-go{margin-top:auto;padding-top:16px;font-size:14px;font-weight:700;color:var(--text);display:inline-flex;gap:6px;align-items:center}
+.sc .sc-go i{font-style:normal;transition:transform .2s}.sc:hover .sc-go i{transform:translateX(3px)}
+/* 글 */
+.carousel{scrollbar-width:none;padding-bottom:6px}.carousel::-webkit-scrollbar{display:none}
+.post{position:relative;overflow:hidden;border-radius:22px;padding:24px;gap:10px;min-height:240px}
+.post::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--c);opacity:.85}
+.post .ptop{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.post .pinb{margin-left:0;color:#b45309;font-size:11.5px}
+.post>b{font-size:18.5px;font-weight:750;line-height:1.42}
+.post p b.num,.proof span b.num,.sc .sc-key b.num{letter-spacing:0;line-height:inherit}
+.post p b.num,.proof span b.num{font-size:inherit}
+.post p{flex:none;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font-size:14px;line-height:1.65}
+.post p .num{font-weight:700}
+.post small{margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid var(--line)}
+/* 기술: 분류마다 색 */
+.skills div{padding:20px 0 22px}
+.skills b{font-size:15.5px}
+.skills b i{width:9px;height:9px;border-radius:3px;background:var(--c)!important}
+.skills b small{background:color-mix(in srgb,var(--c) 12%,transparent);color:color-mix(in srgb,var(--c) 70%,var(--mixc));padding:0 8px;border-radius:999px;font-size:12px;line-height:1.6}
+.skills button.ev{background:color-mix(in srgb,var(--c) 7%,var(--card));border-color:color-mix(in srgb,var(--c) 24%,var(--line));color:var(--text)}
+.skills button.ev:hover,.skills button.ev.on{background:var(--c);border-color:var(--c);color:#fff}
 </style>
 </head>
 <body class="role-all">
@@ -322,7 +373,7 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
       <p class="rv rv-all lede">{{ T.intro }}</p>
       {% for k, rv in RV.items() %}<p class="rv rv-{{ k }} rolehead"><b>{{ rv.headline }}</b><small>{{ T.role_note }}</small></p>{% endfor %}
       <div class="cta"><a class="btn pri" href="#selected-cases">{{ T.see }}</a><a class="btn" id="resume-btn" href="resume-1page.pdf" data-all="resume-1page.pdf"{% for k in RV %} data-{{ k }}="resume-{{ k }}.pdf"{% endfor %} download>{{ T.resume }}</a>{% for l in profile.links if 'github' in l.label|lower %}<a class="btn" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.icon('github', 16) }} GitHub</a>{% endfor %}</div>
-      {% if proof %}<p class="proof-h">{{ 'Three calls I made' if en else '직접 내린 판단 3가지' }}</p><ul class="proof" aria-label="{{ 'Key evidence' if en else '대표 근거' }}">{% for x in proof %}<li><a href="{{ x.u }}"{% if x.u.startswith('http') %} target="_blank" rel="noopener"{% endif %}><b>{{ x.k }}</b><span>{{ x.t }}</span><i aria-hidden="true">→</i></a></li>{% endfor %}</ul>{% endif %}
+      {% if proof %}<p class="proof-h">{{ 'Three calls I made' if en else '직접 내린 판단 3가지' }}</p><ul class="proof" aria-label="{{ 'Key evidence' if en else '대표 근거' }}">{% for x in proof %}{% set pt = x.t.split(': ', 1) %}<li style="--c:{{ dots[loop.index0 % 7] }}"><a href="{{ x.u }}"{% if x.u.startswith('http') %} target="_blank" rel="noopener"{% endif %}><b class="lab">{{ x.k }}</b><span>{% if pt|length > 1 %}<em>{{ pt[0] }}</em>{{ pt[1]|hl }}{% else %}{{ x.t|hl }}{% endif %}</span><i aria-hidden="true">→</i></a></li>{% endfor %}</ul>{% endif %}
       {% set av = profile.availability or {} %}
       <div class="avail">{% if av.role %}<span><b>{{ T.want }}</b>{{ av.role }}</span>{% endif %}{% if av.location %}<span><b>{{ T.loc }}</b>{{ av.location }}</span>{% endif %}{% if av.start %}<span><b>{{ T.start }}</b>{{ av.start }}</span>{% endif %}</div>
     </div>
@@ -379,7 +430,7 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
   <section id="writing">
     <div class="sec-t"><h2>{{ T.writing }}</h2><div class="carr"><button type="button" data-dir="-1" aria-label="이전 글">←</button><button type="button" data-dir="1" aria-label="다음 글">→</button></div></div>
     {% set pins = ['2026-11-rag-citation-verify', '2026-11-vqa-ensemble-fixes-breaks', '2026-11-wavenumber-correlation'] %}{% set ordered = [] %}{% for sl in pins %}{% for w in posts if w.slug == sl %}{% set _ = ordered.append(w) %}{% endfor %}{% endfor %}{% for w in posts if w.slug not in pins %}{% set _ = ordered.append(w) %}{% endfor %}
-    <div class="carousel" id="carousel">{% for w in ordered %}{% set c = dots[loop.index0 % 7] %}<a class="post" href="posts/{{ w.slug }}.html"><span class="tag" style="color:color-mix(in srgb,{{ c }} 62%,var(--mixc));background:color-mix(in srgb,{{ c }} 12%,transparent)">{{ (w.tags or ['글'])[0] }}</span>{% if w.slug in pins %}<i class="pinb">{{ '★ Featured' if en else '★ 대표 글' }}</i>{% endif %}<b>{{ w.title }}</b><p>{{ w.summary|truncate(90) }}</p><small>{{ w.date }}{% if w.minutes and not en %} · {{ w.minutes }}분{% endif %} · {{ T.read }}</small></a>{% endfor %}</div>
+    <div class="carousel" id="carousel">{% for w in ordered %}{% set c = dots[loop.index0 % 7] %}<a class="post" href="posts/{{ w.slug }}.html" style="--c:{{ c }}"><span class="ptop"><span class="tag" style="color:color-mix(in srgb,{{ c }} 62%,var(--mixc));background:color-mix(in srgb,{{ c }} 12%,transparent)">{{ (w.tags or ['글'])[0] }}</span>{% if w.slug in pins %}<i class="pinb">{{ '★ Featured' if en else '★ 대표 글' }}</i>{% endif %}</span><b>{{ w.title }}</b><p>{{ w.summary|truncate(110)|hl }}</p><small>{{ w.date }}{% if w.minutes and not en %} · {{ w.minutes }}분{% endif %} · {{ T.read }}</small></a>{% endfor %}</div>
     {% if trend_posts and not en %}<p style="margin:14px 0 0;font-size:14.5px"><a href="posts/ai-trend.html" style="font-weight:700">AI 트렌드 노트 · {{ trend_posts|length }}편 →</a> <span style="color:var(--muted)">에이전트 개념부터 순서대로 정리한 학습 노트입니다 (최근: {{ (trend_posts|last).title|truncate(30) }})</span></p>{% endif %}
     <p style="margin:8px 0 0;font-size:14.5px"><a href="learning-demo.html" style="font-weight:700">{{ 'Algorithm study app (public demo) →' if en else '알고리즘 학습 앱 공개 체험 →' }}</a></p>
   </section>
@@ -392,7 +443,7 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
       <div class="box"><h3><i style="background:{{ dots[3] }}"></i>{{ T.pubs }}</h3>{% for x in papers %}<div class="it">{% if x.url %}<a href="{{ x.url }}" target="_blank" rel="noopener">{{ x.title }}</a>{% else %}{{ x.title }}{% endif %}<small>{{ x.venue }} · {{ x.year }}</small></div>{% endfor %}<div class="it"><small>{{ T.talks }} {{ talks|length }}</small></div></div>
       <div class="box"><h3><i style="background:{{ dots[2] }}"></i>{{ T.awards }}</h3>{% for x in awards + certifications %}<div class="it">{{ x.name }}<small>{{ x.org }} · {{ x.date }}</small></div>{% endfor %}</div>
       {% if workstyle %}<div class="box wide"><h3><i style="background:{{ dots[4] }}"></i>{{ 'How I work' if en else '일하는 방식' }}</h3><ol class="flow3" style="--wc:{{ dots[4] }}">{% for w in workstyle %}{% set parts = w.split(': ', 1) %}<li>{% if parts|length == 2 %}<b>{{ parts[0] }}</b><span>{{ parts[1] }}</span>{% else %}<span>{{ w }}</span>{% endif %}</li>{% endfor %}</ol></div>{% endif %}
-      <div class="box wide"><h3><i style="background:{{ dots[1] }}"></i>{{ T.skills }}</h3><p class="evhint">{{ T.ev_hint }}</p><div class="skills rv rv-all">{% for s in skills %}<div><b><i style="background:{{ dots[loop.index0 % 7] }}"></i>{{ s.category }}<small>{{ s['items']|length }}</small></b>{% for i in s['items'] %}<button type="button" class="ev">{{ i }}</button>{% endfor %}</div>{% endfor %}</div>{% for k, rv in RV.items() %}<div class="skills rv rv-{{ k }}">{% for s in rv.skills %}<div><b><i style="background:{{ dots[loop.index0 % 7] }}"></i>{{ s.category }}<small>{{ s['items']|length }}</small></b>{% for i in s['items'] %}<button type="button" class="ev">{{ i }}</button>{% endfor %}</div>{% endfor %}</div>{% endfor %}</div>
+      <div class="box wide"><h3><i style="background:{{ dots[1] }}"></i>{{ T.skills }}</h3><p class="evhint">{{ T.ev_hint }}</p><div class="skills rv rv-all">{% for s in skills %}<div style="--c:{{ dots[loop.index0 % 7] }}"><b><i style="background:{{ dots[loop.index0 % 7] }}"></i>{{ s.category }}<small>{{ s['items']|length }}</small></b>{% for i in s['items'] %}<button type="button" class="ev">{{ i }}</button>{% endfor %}</div>{% endfor %}</div>{% for k, rv in RV.items() %}<div class="skills rv rv-{{ k }}">{% for s in rv.skills %}<div style="--c:{{ dots[loop.index0 % 7] }}"><b><i style="background:{{ dots[loop.index0 % 7] }}"></i>{{ s.category }}<small>{{ s['items']|length }}</small></b>{% for i in s['items'] %}<button type="button" class="ev">{{ i }}</button>{% endfor %}</div>{% endfor %}</div>{% endfor %}</div>
     </div>
   </section>
 

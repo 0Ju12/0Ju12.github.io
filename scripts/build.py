@@ -15,6 +15,7 @@ from pathlib import Path
 
 import yaml
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+from markupsafe import Markup, escape
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data" / "portfolio.yaml"
@@ -484,6 +485,15 @@ def thumb(src, width=760):
     return out
 
 
+NUM_RE = re.compile(r"(?<![\d.])(?!(?:19|20)\d{2}\.\d)(?:R²\s?)?(?:\d+(?:,\d{3})*\.\d+(?:\s?(?:%|배|MW))?|\d+(?:,\d{3})+\s?MW|\d+(?:\.\d+)?(?:%|배)|\d+\s?MW)")
+
+
+def highlight_numbers(text) -> Markup:
+    """문장 속 핵심 수치(0.99, 3.23%, R² 0.83, 1,636 MW, 1.7배)만 굵게 — 훑어볼 때 숫자가 먼저 눈에 들어오게."""
+    safe = str(escape(text or ""))
+    return Markup(NUM_RE.sub(lambda m: f'<b class="num">{m.group(0)}</b>', safe))
+
+
 def main():
     data = normalize(yaml.safe_load(DATA.read_text(encoding="utf-8")))
     env = Environment(
@@ -494,6 +504,7 @@ def main():
     )
     env.globals["analytics"] = analytics()
     env.filters["thumb"] = thumb
+    env.filters["hl"] = highlight_numbers
     md_env = Environment(loader=FileSystemLoader(TEMPLATES), trim_blocks=True, lstrip_blocks=True)
 
     DOCS.mkdir(exist_ok=True)
