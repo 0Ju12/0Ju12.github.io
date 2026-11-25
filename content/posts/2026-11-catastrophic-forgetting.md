@@ -1,7 +1,7 @@
 ---
 title: "순차 학습이 성능을 떨어뜨린 이유 — catastrophic forgetting 실험기"
 date: "2026-11-02"
-summary: "단어 단위 → 문맥 단위로 차례로 학습하면 더 좋아질 줄 알았는데, BERTScore가 0.47에서 0.32로 떨어졌다. FLAN-T5 LoRA 학습 전략 비교."
+summary: "단어 단위에서 문맥 단위로 차례로 학습하면 더 좋아질 줄 알았는데, BERTScore가 0.47에서 0.32로 떨어졌습니다. FLAN-T5 LoRA 학습 전략을 비교한 기록입니다."
 tags: [NLP, FLAN-T5, LoRA, 실험 설계]
 project: posco-pospeak
 repo: "https://github.com/POSCO-AI-BigData-30th/ai-pospeak/tree/db2-t5"

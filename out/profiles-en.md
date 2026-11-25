@@ -119,7 +119,7 @@ Details: https://0ju12.github.io/projects/posco-pospeak-en.html
 ### Heritage guide — citation-verified RAG
 - **직함/역할:** Individual project, collection through UI
 - **회사/기관:** SSAFY 16
-- **기간:** 2026.10 – 2026.10
+- **기간:** 2026.10
 - **설명:**
 ```
 Collect official heritage documents and Wikipedia, index them in ChromaDB, and validate citation numbers in code.
@@ -134,7 +134,7 @@ Details: https://0ju12.github.io/projects/heritage-en.html
 ### VQA challenge — probability ensemble
 - **직함/역할:** Team project, training and data refinement
 - **회사/기관:** SSAFY 16
-- **기간:** 2026.09 – 2026.09
+- **기간:** 2026.09
 - **설명:**
 ```
 Combine Qwen QLoRA, Gemma, OCR and multiple views; select candidates by fixes minus breaks.

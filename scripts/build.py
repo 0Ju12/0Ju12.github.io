@@ -35,7 +35,7 @@ def period_str(p):
         return ""
     start, end = p.get("start", ""), p.get("end", "")
     if start and end:
-        return f"{start} – {end}"
+        return start if start == end else f"{start} – {end}"
     return f"~ {end}" if end else start
 
 
@@ -145,6 +145,12 @@ def normalize(data):
         "ai": ["hankki", "heritage", "vqa"],
     }
     data["project_lookup"] = {sp["id"]: sp for g in acts for sp in g.get("projects") or []}
+    sc = DATA.parent / "showcase.yaml"   # 메인 페이지 '프로젝트' 섹션: 겹치던 프로젝트를 주제 4개로 묶어 보여 줌
+    data["showcase"] = yaml.safe_load(sc.read_text(encoding="utf-8")) if sc.exists() else {}
+    for th in (data["showcase"] or {}).get("themes") or []:
+        for r in th.get("rows") or []:
+            if r.get("project") and r["project"] not in data["project_lookup"]:
+                raise SystemExit(f"showcase.yaml: 없는 프로젝트 id {r['project']}")
     ops_file = DATA.parent / "ops_record.json"   # scripts/ops_record.py 가 갱신 (data-projects 실제 실행 기록)
     data["ops"] = json.loads(ops_file.read_text(encoding="utf-8")) if ops_file.exists() else {}
 

@@ -48,8 +48,8 @@
   "id": "heritage-en",
   "title": "Heritage guide — citation-verified RAG",
   "tagline": "Collect official heritage documents and Wikipedia, index them in ChromaDB, and validate citation numbers in code.",
-  "key": "55 offline tests",
-  "period": "2026.10 – 2026.10",
+  "key": "55 offline tests passing",
+  "period": "2026.10",
   "group": "Bootcamps — SSAFY · POSCO AI·BigData Academy",
   "image": "assets/photos/heritage/국보입문가이드_RAG_질의응답_화면.jpg"
  },
@@ -58,7 +58,7 @@
   "title": "VQA challenge — probability ensemble",
   "tagline": "Combine Qwen QLoRA, Gemma, OCR and multiple views; select candidates by fixes minus breaks.",
   "key": "Public Score 0.96961",
-  "period": "2026.09 – 2026.09",
+  "period": "2026.09",
   "group": "Bootcamps — SSAFY · POSCO AI·BigData Academy",
   "image": ""
  },

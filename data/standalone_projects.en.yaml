@@ -5,7 +5,7 @@
     and validate citation numbers in code.
   summary: Collect official heritage documents and Wikipedia, index them in ChromaDB,
     and validate citation numbers in code.
-  key: 55 offline tests
+  key: 55 offline tests passing
   type: AI project
   org: SSAFY 16
   role: Individual project, collection through UI
@@ -32,8 +32,7 @@
     result: &id002
     - 55 offline tests; real-model quality requires a separate evaluation.
   digest:
-    problem: Collect official heritage documents and Wikipedia, index them in ChromaDB,
-      and validate citation numbers in code.
+    problem: Even when told to cite sources, an LLM attaches evidence numbers that do not exist, so users cannot tell whether an answer comes from a retrieved document.
     role: Individual project, collection through UI
     did: *id001
     result: *id002
@@ -72,8 +71,7 @@
     result: &id004
     - Public Score 0.96961; this is not a private-test or general-purpose VQA score.
   digest:
-    problem: Combine Qwen QLoRA, Gemma, OCR and multiple views; select candidates
-      by fixes minus breaks.
+    problem: Choosing ensemble candidates by accuracy alone lets in unstable swaps that raise the score slightly while breaking questions the model used to get right.
     role: Team project, training and data refinement
     did: *id003
     result: *id004

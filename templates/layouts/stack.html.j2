@@ -8,9 +8,9 @@
   'h1': (pitch.h1[0] ~ '<br>' ~ pitch.h1[1] ~ '<br><em>' ~ pitch.h1[2] ~ '</em>') if pitch and pitch.h1 else ('Collect the data,<br>verify with models,<br><em>prove it with results.</em>' if en else '데이터를 모으고,<br>모델을 검증하고,<br><em>결과로 증명합니다.</em>'),
   'intro': pitch.body if pitch and pitch.body else ('I\'m an engineer who starts by asking where the data came from. I check a model\'s answer another way before relying on it, and I value being able to explain why a result is right over a result that merely looks good.' if en else '데이터가 어디서 왔는지부터 확인합니다. 모델이 낸 답은 다른 방법으로 한 번 더 검증하고, 좋아 보이는 결과보다 왜 맞는지 설명할 수 있는 결과를 더 중요하게 여깁니다.'),
   'areas': ['Geophysical data research', 'International collaboration', 'LLM · RAG engineering', 'Deep learning modeling'] if en else ['지구물리 데이터 연구', '국제 공동연구', 'LLM · RAG 엔지니어링', '딥러닝 모델링'],
-  'work': 'Work' if en else '작업',
+  'work': 'Projects' if en else '프로젝트',
   'work_sub': 'Four chapters — graduate research, undergraduate research, bootcamps and personal projects. Use the tabs inside each card for individual projects.' if en else '석사·학부·부트캠프·개인 프로젝트, 네 묶음으로 정리했습니다. 카드 안의 탭을 누르면 세부 프로젝트가 나옵니다.',
-  'see': 'See work' if en else '작업 보기',
+  'see': 'See projects' if en else '프로젝트 보기',
   'resume': 'Resume PDF' if en else '이력서 PDF',
   'scroll': 'Scroll — the cards stack one by one' if en else '스크롤하면 카드가 한 장씩 쌓입니다',
   'detail': 'Full story' if en else '자세히',
@@ -29,7 +29,7 @@
   'mail': 'Send email' if en else '메일 보내기',
   'full': 'Full resume' if en else '상세 이력서',
   'notes': 'Lecture notes' if en else '강의 노트',
-  'gen': 'generated from data/portfolio.yaml' if not en else 'generated from data/portfolio.en.yaml',
+  'gen': 'data/portfolio.yaml 에서 자동 생성' if not en else 'generated from data/portfolio.en.yaml',
   'theme': 'Theme' if en else '테마',
   'roles': 'By role (1 page):' if en else '직무별 이력서(1장):',
   'r_data': 'Data Engineer · Analyst' if en else '데이터 엔지니어·분석가',
@@ -359,6 +359,59 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
 .skills b small{background:color-mix(in srgb,var(--c) 12%,transparent);color:color-mix(in srgb,var(--c) 70%,var(--mixc));padding:0 8px;border-radius:999px;font-size:12px;line-height:1.6}
 .skills button.ev{background:color-mix(in srgb,var(--c) 7%,var(--card));border-color:color-mix(in srgb,var(--c) 24%,var(--line));color:var(--text)}
 .skills button.ev:hover,.skills button.ev.on{background:var(--c);border-color:var(--c);color:#fff}
+
+/* ── 프로젝트 합치기 + 디자인 정리 (2026-11-25) ── */
+.hero{grid-template-columns:minmax(0,1fr);padding:116px 0 40px}
+.hero-in{max-width:860px}
+.hero p.lede{font-size:17.5px}
+.avail{margin-top:20px}
+.live{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:26px 0 0;padding:14px 0 0;border-top:1px solid var(--line)}
+.live-h{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--text);margin-right:6px}
+.live-h i{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.18)}
+.live a{display:inline-flex;align-items:center;gap:5px;font-size:13.5px;font-weight:600;padding:6px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--text);transition:border-color .2s,transform .2s}
+.live a i{font-style:normal;color:var(--faint);font-size:12px}
+.live a:hover{border-color:var(--text);transform:translateY(-1px)}
+#work .sec-t{margin-top:40px}
+.themes{display:flex;flex-direction:column;gap:18px}
+body.role-data .th{order:var(--o-data,9)}body.role-ai .th{order:var(--o-ai,9)}
+.th{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:28px;padding:28px;border:1px solid var(--line);border-radius:24px;background:var(--card);overflow:hidden}
+.th::before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:var(--c)}
+.th-k{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:var(--muted)}
+.th-n{font-size:13px;font-weight:800;color:color-mix(in srgb,var(--c) 75%,var(--mixc));font-variant-numeric:tabular-nums;padding:2px 9px;border-radius:999px;background:color-mix(in srgb,var(--c) 12%,transparent)}
+.th h3{font-size:clamp(22px,2.4vw,28px);line-height:1.25;letter-spacing:-.035em;margin:14px 0 10px}
+.th-lead{margin:0;font-size:15.5px;line-height:1.7;color:var(--muted)}
+.th-m{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:22px 0 0}
+.th-m div{padding:12px 14px;border-radius:14px;background:color-mix(in srgb,var(--c) 8%,var(--card))}
+.th-m dt{font-size:21px;font-weight:800;letter-spacing:-.03em;line-height:1.2;color:color-mix(in srgb,var(--c) 78%,var(--mixc));font-variant-numeric:tabular-nums}
+.th-m dd{margin:4px 0 0;font-size:12.5px;line-height:1.45;color:var(--muted)}
+.th-links{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 0}
+.th-links a{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--text);transition:transform .15s,border-color .15s}
+.th-links a.pri{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.th-links a:hover{transform:translateY(-1px);border-color:var(--text)}
+.th-links a i{font-style:normal}
+.th-side{display:flex;flex-direction:column;gap:12px;min-width:0}
+.th-img{margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);aspect-ratio:16/7;background:var(--bg)}
+.th-img img{width:100%;height:100%;object-fit:cover;display:block}
+.th-rows{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.th-rows a{display:grid;grid-template-columns:minmax(0,1fr) 16px;gap:4px 10px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);transition:border-color .2s,background .2s}
+.th-rows a:hover{border-color:color-mix(in srgb,var(--c) 50%,var(--line));background:color-mix(in srgb,var(--c) 4%,var(--card))}
+.th-rt{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px}
+.th-rt b{font-size:15px;letter-spacing:-.015em;line-height:1.4}
+.th-rt small{font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums}
+.th-rx{grid-column:1;font-size:13.5px;line-height:1.6;color:var(--muted)}
+.th-rx b.num{color:color-mix(in srgb,var(--c) 75%,var(--mixc));font-size:inherit}
+.th-rows i{grid-column:2;grid-row:1;font-style:normal;color:var(--faint);transition:transform .2s}
+.th-rows a:hover i{transform:translateX(3px);color:var(--text)}
+.others{margin:22px 0 0}
+.others h3{font-size:15px;margin:0 0 10px;color:var(--muted);font-weight:700}
+.others ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.others a{display:grid;grid-template-columns:minmax(0,1fr) 16px;gap:2px 10px;padding:12px 16px;border-radius:14px;background:var(--card);border:1px solid var(--line);transition:border-color .2s}
+.others a:hover{border-color:var(--text)}
+.others b{font-size:14.5px;line-height:1.4}
+.others span{grid-column:1;font-size:12.5px;color:var(--faint)}
+.others i{grid-column:2;grid-row:1/3;align-self:center;font-style:normal;color:var(--faint)}
+@media (max-width:900px){.th{grid-template-columns:1fr;padding:22px 20px 22px 24px;gap:20px}.others ul{grid-template-columns:1fr}}
+@media (max-width:600px){.hero{padding:96px 0 32px}.th-m dt{font-size:19px}}
 </style>
 </head>
 <body class="role-all">
@@ -372,66 +425,21 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
       {% set RV = {} if en else (role_variants or {}) %}
       <p class="rv rv-all lede">{{ T.intro }}</p>
       {% for k, rv in RV.items() %}<p class="rv rv-{{ k }} rolehead"><b>{{ rv.headline }}</b><small>{{ T.role_note }}</small></p>{% endfor %}
-      <div class="cta"><a class="btn pri" href="#selected-cases">{{ T.see }}</a><a class="btn" id="resume-btn" href="resume-1page.pdf" data-all="resume-1page.pdf"{% for k in RV %} data-{{ k }}="resume-{{ k }}.pdf"{% endfor %} download>{{ T.resume }}</a>{% for l in profile.links if 'github' in l.label|lower %}<a class="btn" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.icon('github', 16) }} GitHub</a>{% endfor %}</div>
-      {% if proof %}<p class="proof-h">{{ 'Three calls I made' if en else '직접 내린 판단 3가지' }}</p><ul class="proof" aria-label="{{ 'Key evidence' if en else '대표 근거' }}">{% for x in proof %}{% set pt = x.t.split(': ', 1) %}<li style="--c:{{ dots[loop.index0 % 7] }}"><a href="{{ x.u }}"{% if x.u.startswith('http') %} target="_blank" rel="noopener"{% endif %}><b class="lab">{{ x.k }}</b><span>{% if pt|length > 1 %}<em>{{ pt[0] }}</em>{{ pt[1]|hl }}{% else %}{{ x.t|hl }}{% endif %}</span><i aria-hidden="true">→</i></a></li>{% endfor %}</ul>{% endif %}
+      <div class="cta"><a class="btn pri" href="#work">{{ T.see }}</a><a class="btn" id="resume-btn" href="resume-1page.pdf" data-all="resume-1page.pdf"{% for k in RV %} data-{{ k }}="resume-{{ k }}.pdf"{% endfor %} download>{{ T.resume }}</a>{% for l in profile.links if 'github' in l.label|lower %}<a class="btn" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.icon('github', 16) }} GitHub</a>{% endfor %}</div>
       {% set av = profile.availability or {} %}
       <div class="avail">{% if av.role %}<span><b>{{ T.want }}</b>{{ av.role }}</span>{% endif %}{% if av.location %}<span><b>{{ T.loc }}</b>{{ av.location }}</span>{% endif %}{% if av.start %}<span><b>{{ T.start }}</b>{{ av.start }}</span>{% endif %}</div>
+      {% set LV = (showcase or {}).live or [] %}{% if LV %}<div class="live"><span class="live-h"><i></i>{{ 'Running every day' if en else '지금 매일 돌아가는 대시보드' }}</span>{% for l in LV %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label_en if en and l.label_en else l.label }}<i aria-hidden="true">↗</i></a>{% endfor %}</div>{% endif %}
     </div>
-    <div class="trys"><a class="try" href="https://0ju12.github.io/data-projects/warehouse/" target="_blank" rel="noopener">
-      <span class="tl">{{ 'See it running' if en else '매일 돌아가는 것 보기' }}</span>
-      <b>{{ 'Eight questions on power demand and job postings — answered from tables recomputed every day' if en else '전력 수요와 채용 공고로 세운 질문 8개, 답은 매일 표에서 다시 계산' }}</b>
-      <span class="demo"><code>{{ 'dbt · 12 analysis tables · 129 data tests' if en else 'dbt 분석 표 12개 · 테스트 129개 · 실행 기록 매일 추가' }}</code></span>
-      {% if ops and ops.daily %}<span class="ops">{% if en %}Actual run log: daily collection <b>{{ ops.daily.total }} runs · {{ ops.daily.failure }} failed</b> since {{ ops.daily.first }} (as of {{ ops.as_of }}){% else %}실제 실행 기록: {{ ops.daily.first }}부터 매일 수집 <b>{{ ops.daily.total }}회 · 실패 {{ ops.daily.failure }}회</b> ({{ ops.as_of }} 기준){% endif %}</span>{% endif %}
-      <span class="tx">{{ 'Open the analysis dashboard (power · job postings · quality) →' if en else '분석 대시보드 열기 (전력·채용 공고·품질) →' }}</span>
-    </a>
-    <a class="try try2" href="demo{{ '-en' if en else '' }}.html"><span class="tl">{{ 'Try it' if en else '직접 해 보기' }}</span><span class="tx">{{ 'Citation check from my RAG guide →' if en else 'RAG 가이드의 근거 번호 검사 재현 →' }}</span></a></div>
   </header>
 
-  {% include "_selected-cases.j2" %}
-  <section id="work">
-    <div class="sec-t"><h2>{{ T.work }}</h2><p>{{ T.work_sub }}</p></div>
-
-    <div class="deck">
-    {% for a in featured %}{% set ci = loop.index0 %}{% set c = dots[ci] %}
-      <article class="card" id="c{{ loop.index }}" data-gid="{{ a.id }}" style="top:{{ 96 + ci * 14 }}px;background:var(--t{{ (ci % 3) + 1 }});--c:{{ c }}">
-        <div>
-          <div class="head"><span class="n" style="color:color-mix(in srgb,{{ c }} 68%,var(--mixc))">{{ '%02d'|format(loop.index) }} / {{ '%02d'|format(featured|length) }}</span><span class="chip">{{ a.type }}</span><span class="chip">{{ a.period_str }}</span></div>
-          <h3>{{ a.card_title or a.title }}</h3>
-          <p class="one">{{ a.tagline or a.summary }}</p>{% if a.tagline and a.summary %}<p class="desc">{{ a.summary }}</p>{% endif %}
-          {% for k, rv in RV.items() %}{% set rb = (rv.brief or {}).get(a.id) %}{% if rb %}<ul class="pts rv rv-{{ k }}">{% for t in rb[:2] %}<li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:{{ c }}"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>{{ t }}</span></li>{% endfor %}</ul>{% endif %}{% endfor %}
-          {% if a.highlights %}<ul class="keys rv rv-all">{% for t in a.highlights %}<li><i></i>{{ t }}</li>{% endfor %}</ul>{% else %}<ul class="pts rv rv-all">{% for t in (a.brief or a.star.result or [])[:3] %}<li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:{{ c }}"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>{{ t }}</span></li>{% endfor %}</ul>{% endif %}
-          <div class="tags" hidden>{% for t in a.tags[:5] %}<button type="button" class="ev" title="{{ T.ev_hint }}">{{ t }}</button>{% endfor %}</div>
-        </div>
-        {% set subs = a.projects or [a] %}
-        <div class="window">
-          <div class="tabs" role="tablist" aria-label="{{ a.title }}">{% for sp in subs %}<button type="button" role="tab" id="tab-{{ sp.id }}" aria-controls="pn-{{ sp.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}"><i></i>{{ sp.short or sp.title }}</button>{% endfor %}</div>
-          {% for sp in subs %}{% set ns = namespace(img=none) %}{% for kw in ['GPlates', 'Fig11', '결과화면', '질의응답'] %}{% for g in sp.gallery or [] %}{% if ns.img is none and kw in g.src %}{% set ns.img = g %}{% endif %}{% endfor %}{% endfor %}{% set img = ns.img or (sp.gallery or [])|first %}
-          <div class="panel" role="tabpanel" id="pn-{{ sp.id }}" aria-labelledby="tab-{{ sp.id }}"{% if not loop.first %} hidden{% endif %}>
-            {% if sp.case and sp.case.demo %}<figure class="shot" style="margin:0"><img src="{{ sp.case.demo }}" alt="{{ sp.case.demo_caption_en if en else sp.case.demo_caption_ko }}" loading="lazy"><figcaption>▶ {{ 'Demo — Heritage RAG guide' if en else '시연 — 국보 입문 가이드' }}</figcaption></figure>
-            {% elif img or sp.card_image %}{% set th = (sp.card_image or img.src)|thumb %}<figure class="shot" style="margin:0"><img{% if sp.card_image %} style="object-position:center"{% elif 'ssafy-16' not in img.src %} style="object-position:center 45%"{% endif %} src="{{ th.src }}"{% if th.w %} width="{{ th.w }}" height="{{ th.h }}"{% endif %} alt="{{ sp.card_caption or img.caption }}" loading="lazy"><figcaption>{{ sp.card_caption or img.caption }}{% if sp.card_credit %} · {{ sp.card_credit_en if en and sp.card_credit_en else sp.card_credit }}{% endif %}</figcaption></figure>
-            {% elif loop.first and a.image %}{% set th = a.image|thumb %}<figure class="shot" style="margin:0"><img src="{{ th.src }}"{% if th.w %} width="{{ th.w }}" height="{{ th.h }}"{% endif %} alt="{{ a.image_caption or a.title }}" loading="lazy">{% if a.image_caption %}<figcaption>{{ a.image_caption }}</figcaption>{% endif %}</figure>{% endif %}
-            <div class="pb">
-              <h4>{{ sp.tagline or sp.title }}</h4>
-              <div class="meta">{{ sp.period_str }}{% if sp.role %} · {{ sp.role }}{% endif %}</div>
-              {% if sp.digest and sp.digest.problem %}<p class="sum"><b class="why">{{ 'Why' if en else '문제' }}</b>{{ sp.digest.problem }}</p>{% elif sp.tagline and sp.summary %}<p class="sum">{{ sp.summary }}</p>{% endif %}
-              {% if sp.key %}<p class="key"><i></i>{{ sp.key }}</p>{% else %}<ul class="res">{% for r in (sp.star.result or [])[:1] %}<li>{{ r }}</li>{% endfor %}</ul>{% endif %}
-              <div class="acts"><a class="go" href="projects/{{ sp.id }}{{ '-en' if en else '' }}.html">{{ 'Design & validation' if en else '설계와 검증 과정' }} →</a>{% if sp.case and sp.case.demo %}<a href="projects/{{ sp.id }}{{ '-en' if en else '' }}.html#demo">▶ {{ T.demo }}</a>{% endif %}{% for l in (sp.links or [])[:1] %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }} ↗</a>{% endfor %}{% set np = posts|selectattr('project', 'equalto', sp.id)|list %}{% if np %}<a href="projects/{{ sp.id }}{{ '-en' if en else '' }}.html#posts">✎ {{ T.post }}{% if np|length > 1 %} {{ np|length }}{{ '' if en else '편' }}{% endif %}</a>{% endif %}</div>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-      </article>
-    {% endfor %}
-    </div>
-
-  </section>
+  {% include "_showcase.j2" %}
 
   {% if posts %}
   <section id="writing">
     <div class="sec-t"><h2>{{ T.writing }}</h2><div class="carr"><button type="button" data-dir="-1" aria-label="이전 글">←</button><button type="button" data-dir="1" aria-label="다음 글">→</button></div></div>
     {% set pins = ['2026-11-rag-citation-verify', '2026-11-vqa-ensemble-fixes-breaks', '2026-11-wavenumber-correlation'] %}{% set ordered = [] %}{% for sl in pins %}{% for w in posts if w.slug == sl %}{% set _ = ordered.append(w) %}{% endfor %}{% endfor %}{% for w in posts if w.slug not in pins %}{% set _ = ordered.append(w) %}{% endfor %}
     <div class="carousel" id="carousel">{% for w in ordered %}{% set c = dots[loop.index0 % 7] %}<a class="post" href="posts/{{ w.slug }}.html" style="--c:{{ c }}"><span class="ptop"><span class="tag" style="color:color-mix(in srgb,{{ c }} 62%,var(--mixc));background:color-mix(in srgb,{{ c }} 12%,transparent)">{{ (w.tags or ['글'])[0] }}</span>{% if w.slug in pins %}<i class="pinb">{{ '★ Featured' if en else '★ 대표 글' }}</i>{% endif %}</span><b>{{ w.title }}</b><p>{{ w.summary|truncate(110)|hl }}</p><small>{{ w.date }}{% if w.minutes and not en %} · {{ w.minutes }}분{% endif %} · {{ T.read }}</small></a>{% endfor %}</div>
-    {% if trend_posts and not en %}<p style="margin:14px 0 0;font-size:14.5px"><a href="posts/ai-trend.html" style="font-weight:700">AI 트렌드 노트 · {{ trend_posts|length }}편 →</a> <span style="color:var(--muted)">에이전트 개념부터 순서대로 정리한 학습 노트입니다 (최근: {{ (trend_posts|last).title|truncate(30) }})</span></p>{% endif %}
+    {% if trend_posts and not en %}<p style="margin:14px 0 0;font-size:14.5px"><a href="posts/ai-trend.html" style="font-weight:700">AI 트렌드 노트 · {{ trend_posts|length }}편 →</a> <span style="color:var(--muted)">에이전트 개념부터 순서대로 정리한 학습 노트입니다{% if (trend_posts|last).date %} (최근 {{ (trend_posts|last).date }}){% endif %}</span></p>{% endif %}
     <p style="margin:8px 0 0;font-size:14.5px"><a href="learning-demo.html" style="font-weight:700">{{ 'Algorithm study app (public demo) →' if en else '알고리즘 학습 앱 공개 체험 →' }}</a></p>
   </section>
   {% endif %}
@@ -450,48 +458,29 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
   {% include "_map.j2" %}
 
   <div class="end" id="contact"><h2>{{ T.end|safe }}</h2><p>{{ profile.email }}</p><div class="cta">{% if profile.email %}<a class="btn" href="mailto:{{ profile.email }}">{{ T.mail }}</a>{% endif %}<a class="btn ghost" href="resume.pdf" download>{{ T.full }}</a>{% for l in profile.links if 'linkedin' in l.label|lower %}<a class="btn ghost" href="{{ l.url }}" target="_blank" rel="noopener">LinkedIn</a>{% endfor %}</div><p class="sub">{% if en %}Also: <a href="resume-1page-en.pdf" download>one-page résumé</a> · <a href="brief-en.html">30-second brief</a>{% else %}직무별 1쪽 이력서: <a href="resume-data.pdf" download>{{ T.r_data }}</a> · <a href="resume-ai.pdf" download>{{ T.r_ai }}</a> · <a href="brief.html">30초 소개</a>{% endif %}</p></div>
-  <footer>© {{ profile.name_en }} · {{ T.gen }} · <button id="theme" type="button" style="font:inherit;color:inherit;background:none;border:0;padding:0;text-decoration:underline;cursor:pointer">{{ T.theme }}</button><br><span class="own">{{ 'Owner only (locked)' if en else '본인용 (잠김)' }} — {% if study_notes or interview_ready %}<a href="study/index.html" rel="nofollow">{{ 'Prep space (study · interview)' if en else '준비 공간 (공부·면접)' }}</a> · {% endif %}<a href="desk/index.html" rel="nofollow">{{ 'Personal assistant' if en else '개인 비서 업무실' }}</a> · <a href="private/index.html" rel="nofollow">{{ 'Private files' if en else '비공개 자료' }}</a></span></footer>
+  <footer>© {{ profile.name_en if en else profile.name }} · {{ T.gen }} · <button id="theme" type="button" style="font:inherit;color:inherit;background:none;border:0;padding:0;text-decoration:underline;cursor:pointer">{{ T.theme }}</button><br><span class="own" hidden>{{ 'Owner only (locked)' if en else '본인용 (잠김)' }} — {% if study_notes or interview_ready %}<a href="study/index.html" rel="nofollow">{{ 'Prep space (study · interview)' if en else '준비 공간 (공부·면접)' }}</a> · {% endif %}<a href="desk/index.html" rel="nofollow">{{ 'Personal assistant' if en else '개인 비서 업무실' }}</a> · <a href="private/index.html" rel="nofollow">{{ 'Private files' if en else '비공개 자료' }}</a></span></footer>
 </div>
 <div class="evp" id="evp" role="dialog" aria-modal="false" aria-labelledby="evt" hidden><div class="evh"><span id="evt"></span><button type="button" id="evx" aria-label="{{ T.close }}">✕</button></div><ul id="evl"></ul></div>
 <script type="application/json" id="ev-data">{{ evidence|default([])|tojson }}</script>
 {% set ro = {} %}{% for k, rv in (RV or {}).items() %}{% set _ = ro.update({k: rv.order}) %}{% endfor %}<script type="application/json" id="rv-data">{{ ro|tojson }}</script>
 {% include "_ask.j2" %}
-<nav class="rail" id="rail" aria-label="chapters">{% for a in featured %}<a href="#c{{ loop.index }}" style="--c:{{ dots[loop.index0] }}"><span>{{ a.type }}</span><i></i></a>{% endfor %}</nav>
 {{ p.theme_script() }}
 <script>
 (function(){
-var cards=[].slice.call(document.querySelectorAll('.card')),rail=document.getElementById('rail'),dots=rail?[].slice.call(rail.children):[];
-var deck=document.querySelector('.deck'),wide=matchMedia('(min-width:961px)'),reduce=matchMedia('(prefers-reduced-motion: reduce)');
-/* 탭 */
-document.querySelectorAll('.tabs').forEach(function(tl){
-  var tabs=[].slice.call(tl.querySelectorAll('[role=tab]'));
-  function sel(t){tabs.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;document.getElementById(x.getAttribute('aria-controls')).hidden=!on;});}
-  tabs.forEach(function(t,i){t.tabIndex=i?-1:0;t.addEventListener('click',function(){sel(t)});t.addEventListener('keydown',function(e){var k=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(k){var n=tabs[(i+k+tabs.length)%tabs.length];sel(n);n.focus();}});});
-});
-
-/* 탭이 넘치면 끝을 흐리게 */
-function more(){document.querySelectorAll('.tabs').forEach(function(t){t.classList.toggle('more',t.scrollWidth>t.clientWidth+4&&t.scrollLeft+t.clientWidth<t.scrollWidth-4)})}
-document.querySelectorAll('.tabs').forEach(function(t){t.addEventListener('scroll',more,{passive:true})});window.addEventListener('resize',more);more();
+var reduce=matchMedia('(prefers-reduced-motion: reduce)');
 /* 섹션 제목·글 카드·이력 카드가 화면에 들어올 때 살짝 올라오며 나타남 (스크립트가 없으면 그대로 보임) */
 if('IntersectionObserver' in window&&!reduce.matches){document.documentElement.classList.add('js');var rio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
-  document.querySelectorAll('.sec-t,#writing .carousel,#about .bento>*,#about .skills').forEach(function(el){el.classList.add('rise');rio.observe(el)})}
+  document.querySelectorAll('.sec-t,.th,.others,#writing .carousel,#about .bento>*,#about .skills').forEach(function(el){el.classList.add('rise');rio.observe(el)})}
 /* 직무 보기 */
 var RO=JSON.parse((document.getElementById('rv-data')||{}).textContent||'{}');
-var base=cards.map(function(c){return c.dataset.gid});
 var rbtn=document.getElementById('resume-btn');
 function setRole(r,keep){
   if(r!=='all'&&!RO[r])r='all';
   document.body.className=document.body.className.replace(/\brole-\w+/,'').trim()+' role-'+r;
   document.querySelectorAll('.roleswitch button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.role===r)});
   if(rbtn)rbtn.href=rbtn.getAttribute('data-'+r)||rbtn.getAttribute('data-all');
-  var order=r==='all'?base:RO[r];
-  var byId={};cards.forEach(function(c){byId[c.dataset.gid]=c});
-  var rl={};dots.forEach(function(a){rl[a.getAttribute('href')]=a});
-  cards=order.filter(function(id){return byId[id]}).map(function(id){return byId[id]});
-  cards.forEach(function(c,i){deck.appendChild(c);c.dataset.top=96+i*14;c.style.top=c.dataset.top+'px';var n=c.querySelector('.n');if(n)n.textContent=String(i+1).padStart(2,'0')+' / '+String(cards.length).padStart(2,'0');var a=rl['#'+c.id];if(a)rail.appendChild(a);});
-  dots=[].slice.call(rail.children);
+  document.querySelectorAll('.th .th-n').forEach(function(n){var th=n.closest('.th'),o=getComputedStyle(th).getPropertyValue('--o-'+r).trim();if(o)n.textContent=('0'+o).slice(-2)});
   if(!keep){var u=new URL(location.href);if(r==='all')u.searchParams.delete('role');else u.searchParams.set('role',r);history.replaceState(null,'',u);}
-
 }
 document.querySelectorAll('.roleswitch button').forEach(function(b){b.addEventListener('click',function(){setRole(b.dataset.role)})});
 var q=new URLSearchParams(location.search).get('role');if(q)setRole(q,true);
@@ -514,6 +503,8 @@ document.querySelectorAll('button.ev').forEach(function(b){b.addEventListener('c
 document.getElementById('evx').addEventListener('click',hideEv);
 document.addEventListener('keydown',function(e){if(e.key==='Escape')hideEv()});
 document.addEventListener('click',function(e){if(!evp.hidden&&!evp.contains(e.target))hideEv()});
+/* 본인 기기에서만 비공개 링크 표시 (방문 집계 제외용 ?nostat=1 표시를 같이 씀) */
+try{if(localStorage.getItem('nostat')){var own=document.querySelector('footer .own');if(own)own.hidden=false}}catch(e){}
 /* 글 넘기기 */
 var car=document.getElementById('carousel');document.querySelectorAll('.carr button').forEach(function(b){b.addEventListener('click',function(){car.scrollBy({left:car.clientWidth*0.9*(+b.dataset.dir),behavior:reduce.matches?'auto':'smooth'})})});
 var links=document.querySelectorAll('.top a.n');if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)})})},{rootMargin:'-45% 0px -50% 0px'});document.querySelectorAll('section[id]').forEach(function(s){io.observe(s)});}

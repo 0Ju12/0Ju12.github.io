@@ -1,0 +1,165 @@
+# 메인 페이지 '프로젝트' 섹션 — 겹치던 프로젝트를 주제 4개로 묶어 한 번씩만 보여 줌 (2026-11-25)
+# 프로젝트 상세 페이지·이력서는 portfolio.yaml 의 활동 묶음(석사·학부·부트캠프·개인)을 그대로 씀.
+# 여기에는 메인 페이지에서 '어떻게 묶어 보여 줄지'와 짧은 설명만 둔다. 숫자는 portfolio.yaml·data-projects 결과와 같아야 함.
+# 각 줄: project(있으면 상세 페이지로 연결) 또는 url. *_en 은 영문 페이지용.
+themes:
+  - id: platform
+    color: "#5b6cff"
+    image_from: data-projects
+    eyebrow: "개인 프로젝트 · 2026.11 – 진행 중"
+    eyebrow_en: "Personal · Nov 2026 – present"
+    title: "공개 데이터 플랫폼"
+    title_en: "Public data platform"
+    lead: "공개 데이터를 매일 모아 다듬고, 웨어하우스에서 분석하고, 결과가 제때 갱신되는지까지 지켜봅니다. 저장소 하나에 여러 프로젝트를 같은 규칙(시간 순서 평가·자동 테스트·매일 배포)으로 묶었습니다."
+    lead_en: "Collect public data every day, model it in a warehouse, analyse it, and watch that every output stays fresh. Many projects in one repository share the same rules: time-ordered evaluation, automated tests and daily deployment."
+    metrics:
+      - { v: "0.99 → 0.46", k: "평가를 시간 분할로 바꾸자 뒤집힌 결론", k_en: "Accuracy once the split respects time" }
+      - { v: "MAPE 3.23%", k: "전력 수요 하루 전 예측 (기준선 6.17%)", k_en: "Day-ahead power demand (baseline 6.17%)" }
+      - { v: "R² 0.83", k: "평일 수요 ~ 기온 두 구간 모형", k_en: "Weekday demand vs. temperature, two-segment" }
+    rows:
+      - name: "분석 웨어하우스 (dbt · Airflow)"
+        name_en: "Analytics warehouse (dbt · Airflow)"
+        text: "전력 수요·기온·채용 공고로 질문 8개를 세우고 dbt 표로 답합니다. 냉방 민감도 1℃당 1,636 MW, 데이터 테스트 129개."
+        text_en: "Eight questions on power demand, weather and job postings, each answered by a dbt table. Cooling sensitivity 1,636 MW per °C; 129 data tests."
+        url: "https://0ju12.github.io/data-projects/warehouse/"
+      - name: "전력 수요 예측 · 설비 이상 탐지"
+        name_en: "Demand forecasting · equipment anomaly detection"
+        text: "시간 순서를 지킨 평가와 누수 검사로 검증합니다. 무작위 분할에서 0.99였던 정확도가 시간 분할에서는 0.46이었습니다."
+        text_en: "Validated with time-ordered splits and leakage checks. An accuracy of 0.99 on random splits fell to 0.46 once the split respected time."
+        url: "https://0ju12.github.io/data-projects/power/"
+      - name: "공간 데이터 지도 (지진 · 산불 · 응급실)"
+        name_en: "Spatial data maps (earthquakes · wildfire · ER access)"
+        text: "지진과 산불 위험은 매일 갱신하고, 1 km 칸마다 응급실까지 차로 몇 분인지 도로망으로 계산했습니다. 세 자료를 벡터 타일 파일 하나로 구워 보여 줍니다."
+        text_en: "Earthquakes and wildfire risk update daily; drive time to the nearest ER is computed on the road network for every 1 km cell. All three are baked into one vector-tile file."
+        url: "https://0ju12.github.io/data-projects/tiles/"
+      - name: "운영 관제 (API Watch · 파이프라인 상태판)"
+        name_en: "Operations (API Watch · pipeline status)"
+        text: "공개 API 22개를 정기 점검하고, 성공으로 끝났지만 안에서 실패한 단계와 늦은 산출물을 찾아 알림 이슈로 엽니다."
+        text_en: "Checks 22 public APIs on a schedule and opens an alert issue for steps that failed inside a green run and for outputs that went stale."
+        url: "https://0ju12.github.io/data-projects/status/"
+    links:
+      - { label: "설계와 검증 과정", label_en: "Design & validation", project: data-projects }
+      - { label: "GitHub 저장소", label_en: "GitHub", url: "https://github.com/0Ju12/data-projects" }
+
+  - id: llm
+    color: "#16a34a"
+    image_from: hankki
+    eyebrow: "SSAFY 16기 · 개인 프로젝트 · 2026.10 – 진행 중"
+    eyebrow_en: "SSAFY 16th · personal · Oct 2026 – present"
+    title: "LLM이 틀려도 코드가 잡는 서비스"
+    title_en: "LLM services where code catches the model's mistakes"
+    lead: "모델에는 문장 해석과 답변 작성만 맡기고, 계산과 근거 확인은 코드가 합니다. 모델이 없는 근거 번호를 붙이거나 실패해도 서비스가 멈추지 않게 만들었습니다."
+    lead_en: "The model only interprets and writes; code does the arithmetic and checks the evidence, so made-up citations or model failures do not break the service."
+    metrics:
+      - { v: "테스트 110개", v_en: "110 tests", k: "한끼 에이전트 자동 테스트", k_en: "Automated tests, Hankki agent" }
+      - { v: "테스트 55개", v_en: "55 tests", k: "국보 RAG 가이드 (가짜 LLM으로 전 과정)", k_en: "Heritage RAG guide, end to end with a fake LLM" }
+    rows:
+      - project: hankki
+        name: "한끼 — 냉장고 재고 기반 식단·운동 코치 에이전트"
+        name_en: "Hankki — fridge-aware meal & exercise coach agent"
+        text: "LangGraph로 분석 → 계획 → 실행 → 판정 → 재계획(최대 3회)을 돌리고, 재고·분량 판정은 코드가 합니다. 응답이 끊겨 다시 보내도 기록이 겹치지 않습니다."
+        text_en: "LangGraph runs analyse → plan → act → judge → replan (up to 3 times); stock and portion checks are done in code. Resending after a dropped response never duplicates records."
+      - project: heritage
+        name: "국보 RAG 가이드 — 인용을 검증하는 RAG"
+        name_en: "Heritage RAG guide — citation-checked RAG"
+        text: "국가유산청 오픈API와 위키백과를 색인하고, 답변의 [근거 N]을 코드로 다시 검사해 실제로 인용한 근거만 보여 줍니다."
+        text_en: "Indexes the national heritage API and Wikipedia, then re-checks every [source N] in the answer with code and shows only sources actually cited."
+    links:
+      - { label: "직접 해 보기 (근거 번호 검사)", label_en: "Try the citation check", url: "demo.html", url_en: "demo-en.html" }
+      - { label: "한끼 GitHub", label_en: "Hankki on GitHub", url: "https://github.com/0Ju12/ai-agents" }
+
+  - id: research
+    color: "#ea7a0c"
+    image_from: masters
+    eyebrow: "석사 연구 · 2024.03 – 2026.08"
+    eyebrow_en: "Graduate research · Mar 2024 – Aug 2026"
+    title: "겹친 중력·자력 신호를 분리해 지하 구조 규명"
+    title_en: "Separating overlapping gravity and magnetic signals"
+    lead: "파수 영역 상관 분석으로 기반암(SLFI)·암염(DLFI) 지표를 설계했습니다. 캐나다 캘거리대에서 6개월 파견 연구를 하며 3개 기관과 공동연구했고, 분석 코드는 Python 패키지로 정리해 공개했습니다."
+    lead_en: "Designed basement (SLFI) and salt (DLFI) indicators with wavenumber-domain correlation, during a six-month research stay at the University of Calgary with three partner institutions. The analysis code is published as a Python package."
+    metrics:
+      - { v: "SCIE 제1저자", v_en: "SCIE first author", k: "SPE Journal (2026)", k_en: "SPE Journal (2026)" }
+      - { v: "r ≥ 0.94", k: "기존 독립 모델 3개와 일치", k_en: "Agreement with three independent models" }
+      - { v: "약 3 km", v_en: "~3 km", k: "기존 해석보다 깊게 찾은 암염", k_en: "Deeper salt than previous interpretation" }
+    rows:
+      - project: masters
+        name: "석사 학위논문 · SPE Journal 논문"
+        name_en: "Master's thesis · SPE Journal paper"
+        text: "8~10 km 퇴적층 아래 겹친 신호를 분리해, 약 6,000 m로 보던 암염 깊이를 약 9,300 m로 다시 추정했습니다."
+        text_en: "Separated signals beneath 8–10 km of sediment and re-estimated the salt depth at about 9,300 m instead of about 6,000 m."
+      - project: calgary-2024
+        name: "캐나다 캘거리대 장기 파견 연구"
+        name_en: "Long-term research stay, University of Calgary"
+        text: "중력·자력 자료를 결합해 아부다비 가샤 지역의 암염돔과 기반암 구조를 함께 해석했습니다."
+        text_en: "Jointly interpreted gravity and magnetic data for the salt domes and basement of the Ghasha area, Abu Dhabi."
+    links:
+      - { label: "SPE Journal 논문", label_en: "SPE Journal paper", url: "https://doi.org/10.2118/236968-PA" }
+      - { label: "분석 코드 (gravmag-wcf)", label_en: "Code (gravmag-wcf)", url: "https://github.com/0Ju12/gravmag-wcf" }
+
+  - id: experiments
+    color: "#db2777"
+    image_from: wildfire-capstone
+    eyebrow: "팀 프로젝트 · 2023 – 2026"
+    eyebrow_en: "Team projects · 2023 – 2026"
+    title: "평가 기준부터 세운 모델 실험"
+    title_en: "Model experiments that start from the evaluation rule"
+    lead: "점수가 오르는지보다 무엇을 새로 맞히고 무엇을 새로 틀렸는지를 먼저 봤습니다. 시공간 딥러닝, LLM 파인튜닝, 멀티모델 앙상블에서 같은 원칙으로 후보를 골랐습니다."
+    lead_en: "Before asking whether the score went up, I checked what each change newly fixed and newly broke — the same rule for spatio-temporal deep learning, LLM fine-tuning and multi-model ensembles."
+    metrics:
+      - { v: "0.96961", k: "SSAFY AI 챌린지(VQA) Public", k_en: "SSAFY AI challenge (VQA), public" }
+      - { v: "0.32 → 0.74", k: "BERTScore F1 · 포스코 장려상", k_en: "BERTScore F1 · POSCO award" }
+      - { v: "F1 0.85", k: "학습에 안 쓴 강릉 산불", k_en: "Unseen Gangneung wildfire" }
+    rows:
+      - project: vqa
+        name: "VQA 챌린지 — 멀티모델 확률 앙상블"
+        name_en: "VQA challenge — multi-model probability ensemble"
+        text: "Qwen QLoRA·Gemma·OCR·멀티뷰를 확률로 합치고, 새 후보는 fixes−breaks와 유형별 회귀를 확인한 뒤에만 넣었습니다."
+        text_en: "Combined Qwen QLoRA, Gemma, OCR and multi-view by probability; a new candidate went in only after checking fixes−breaks and per-type regressions."
+      - project: posco-pospeak
+        name: "POSPEAK — 콩글리시를 원어민 표현으로 바꾸는 생성 모델"
+        name_en: "POSPEAK — rewriting Konglish into natural English"
+        text: "교정 데이터셋을 만들고 FLAN-T5 LoRA 학습 전략을 비교했습니다. 순차 학습이 오히려 성능을 떨어뜨린 원인도 분석했습니다."
+        text_en: "Built the correction dataset and compared FLAN-T5 LoRA training strategies, including why sequential training made things worse."
+      - project: wildfire-capstone
+        name: "U-LSTM 산불 확산 경로 예측 (캡스톤)"
+        name_en: "U-LSTM wildfire spread prediction (capstone)"
+        text: "ArcGIS로 산불 4건의 화선·기상·지형 래스터를 만들고, 다음 시점 화선을 예측하는 U-LSTM을 설계·학습했습니다."
+        text_en: "Built fire-line, weather and terrain rasters for four wildfires in ArcGIS and trained a U-LSTM that predicts the next fire line."
+    links: []
+
+# 주제에 넣지 않은 작업 — 한 줄씩
+others:
+  - project: undergrad-research
+    name: "판구조 형성사로 본 해외 CO2 저장소 탄성파 해석"
+    name_en: "Seismic interpretation of overseas CO2 storage sites through plate history"
+    note: "학부 제1저자 논문 · 학생 우수논문 발표상"
+    note_en: "Undergraduate first-author paper · student presentation award"
+  - project: portfolio-site
+    name: "YAML 하나로 만드는 포트폴리오·이력서 생성기"
+    name_en: "Portfolio and resume generator from one YAML file"
+    note: "이 사이트 · 국문·영문 · 이력서 PDF 5종"
+    note_en: "This site · Korean & English · five resume PDFs"
+  - project: prep-apps
+    name: "암호화한 학습·면접 준비 앱"
+    name_en: "Encrypted study & interview prep app"
+    note: "PBKDF2 + AES-GCM · 서버 없이"
+    note_en: "PBKDF2 + AES-GCM · no server"
+  - url: "posts/2026-11-battle-ssafy-bfs-bot.html"
+    name: "배틀싸피 자동 플레이 봇"
+    name_en: "Battle SSAFY auto-play bot"
+    note: "BFS 한 줄에서 매 턴 다시 계획하는 봇까지 · 글"
+    note_en: "From one-line BFS to per-turn replanning · post"
+
+# 직무별 보기에서 주제 순서
+order:
+  all: [platform, llm, research, experiments]
+  data: [platform, llm, research, experiments]
+  ai: [llm, experiments, research, platform]
+
+# 히어로 아래 '지금 돌아가는 대시보드' 띠
+live:
+  - { label: "분석 웨어하우스", label_en: "Analytics warehouse", url: "https://0ju12.github.io/data-projects/warehouse/" }
+  - { label: "지진 3D 지도", label_en: "Earthquake 3D map", url: "https://0ju12.github.io/data-projects/" }
+  - { label: "산불 위험 지도", label_en: "Wildfire risk map", url: "https://0ju12.github.io/data-projects/fire/" }
+  - { label: "가까운 응급실", label_en: "Nearest ER finder", url: "https://0ju12.github.io/data-projects/near/" }
+  - { label: "파이프라인 상태", label_en: "Pipeline status", url: "https://0ju12.github.io/data-projects/status/" }

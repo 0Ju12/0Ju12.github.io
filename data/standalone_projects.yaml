@@ -1,11 +1,11 @@
 - id: heritage
-  short: 국보 RAG
+  short: 국보 RAG 가이드
   title: 국보 입문 가이드 — 인용을 검증하는 RAG
   tagline: 국가유산청 오픈API·위키백과를 수집해 ChromaDB에 색인하고, 답변의 [근거 N]을 코드로 다시 검사해 실제 인용한 근거만
     보여 주는 RAG
   summary: 국가유산청 오픈API·위키백과를 수집해 ChromaDB에 색인하고, 답변의 [근거 N]을 코드로 다시 검사해 실제 인용한 근거만
     보여 주는 RAG
-  key: 오프라인 테스트 55
+  key: 오프라인 테스트 55개 통과
   type: AI 프로젝트
   org: SSAFY 16기 AI 코어 프로젝트 2
   role: 개인 · 데이터 수집부터 화면까지
@@ -30,19 +30,17 @@
     - 청크 ID 고정(국보ID:문서ID:순번)으로 재실행해도 중복 없는 색인
     - LangGraph retrieve→generate, 없는 근거 번호는 제거 · 가짜 LLM으로 전 과정 테스트
     result:
-    - 오프라인 테스트 55
+    - 오프라인 테스트 55개 통과
   digest:
-    problem: 국가유산청 오픈API·위키백과를 수집해 ChromaDB에 색인하고, 답변의 [근거 N]을 코드로 다시 검사해 실제 인용한 근거만
-      보여 주는 RAG
+    problem: 근거를 인용하라고 프롬프트에 써도 LLM은 없는 근거 번호를 붙입니다. 사용자는 답변의 출처가 실제로 검색된 문서인지 확인할 수 없습니다
     role: 개인 · 데이터 수집부터 화면까지
     did: *id001
     result:
-    - 오프라인 테스트 55
+    - 오프라인 테스트 55개 통과
 - id: vqa
   short: VQA 앙상블
   title: VQA 챌린지 — 멀티모델 확률 앙상블
-  tagline: 이미지+질문 4지선다 VQA. Qwen QLoRA·Gemma·OCR·멀티뷰를 확률 앙상블하고, 후보는 정확도가 아니라 fixes−breaks로
-    채택
+  tagline: 이미지와 질문을 보고 4지선다로 답하는 VQA. Qwen QLoRA·Gemma·OCR·멀티뷰를 확률 앙상블하고, 후보는 정확도가 아니라 fixes−breaks로 채택했습니다
   summary: 이미지+질문 4지선다 VQA. Qwen QLoRA·Gemma·OCR·멀티뷰를 확률 앙상블하고, 후보는 정확도가 아니라 fixes−breaks로
     채택
   key: Public Score 0.96961
@@ -73,8 +71,7 @@
     result:
     - Public Score 0.96961
   digest:
-    problem: 이미지+질문 4지선다 VQA. Qwen QLoRA·Gemma·OCR·멀티뷰를 확률 앙상블하고, 후보는 정확도가 아니라 fixes−breaks로
-      채택
+    problem: 앙상블 후보를 정확도만 보고 고르면, 점수가 조금 올라도 원래 맞히던 문제를 새로 틀리는 불안정한 교체가 섞입니다
     role: 팀 · 모델 학습·정제 담당
     did: *id002
     result:
