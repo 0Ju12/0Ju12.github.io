@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<script>try{var preference=localStorage.getItem('prep-theme-v2');document.documentElement.dataset.theme=preference==='light'?'light':'dark'}catch(_){document.documentElement.dataset.theme='dark'}</script>
 <style>
 :root{--bg:#f7f7f8;--card:#fff;--text:#18181b;--muted:#5f6670;--faint:#646b77;--line:#e4e6ea;--soft:#f0f2f5;--ink:#1f3a5f;--hero:#1f3a5f;--on-hero:#fff;--ink-soft:#e8edf5;--on-ink:#fff;--ok:#0f7b5f;--ok-soft:#e3f4ee;--bad:#c2410c;--bad-soft:#fdeee5;--mid:#8a5a0a;--mid-soft:#fbf3dc;--acc:#d97706}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0e1116;--card:#161a21;--text:#eef1f5;--muted:#a3abb7;--faint:#8d96a3;--line:#29303a;--soft:#1d222b;--ink:#9db8dd;--hero:#1d3557;--on-hero:#eef1f5;--ink-soft:#1e2a3a;--on-ink:#0e1116;--ok:#34d399;--ok-soft:#10261f;--bad:#fb923c;--bad-soft:#2a1a10;--mid:#facc15;--mid-soft:#262110}}
@@ -369,6 +370,35 @@ h2{font-weight:750;letter-spacing:-.025em;font-size:16px;margin:34px 0 12px;disp
 .review-search{width:min(680px,calc(100% - 32px));max-height:80vh;border:1px solid var(--line);border-radius:16px;padding:24px;background:var(--card);color:var(--text)}.review-search::backdrop{background:#10182888}.review-result{display:block;text-align:left;width:100%;padding:14px;background:transparent;color:inherit;border:0;border-bottom:1px solid var(--line);cursor:pointer;overflow-wrap:anywhere}
 @media(max-width:640px){.review-start{grid-template-columns:1fr;padding:20px}.brand small{display:none}.top .in{flex-wrap:wrap}.top .tabs{min-width:60%}}
 
+
+/* Workspace visual system: dark by default, explicit light preference retained. */
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0b1018;--card:#131c28;--soft:#1a2635;--text:#e8eef7;--muted:#aab8ca;--faint:#94a5ba;--line:#2b3b50;--ink:#9dbfff;--ink-soft:#20334f;--on-ink:#0b1728;--hero:#172b45;--on-hero:#edf4ff;--gold:#9dbfff;--gold-soft:#20334f;--code:#0d1521;--ok:#6bd5b0;--ok-soft:#13352e;--bad:#ffad96;--bad-soft:#3b2525;--mid:#e4c782;--mid-soft:#342e21;--sh:0 8px 24px #00000018}
+:root[data-theme="light"]{color-scheme:light;--bg:#f3f6fa;--card:#fff;--soft:#eaf0f6;--text:#1b293c;--muted:#506078;--faint:#5d6d80;--line:#ced8e4;--ink:#244f8d;--ink-soft:#e3edf9;--on-ink:#fff;--gold:#244f8d;--gold-soft:#e3edf9;--code:#eaf0f6}
+body{font-family:"Pretendard Variable","Noto Sans KR",system-ui,sans-serif;line-height:1.65;background:var(--bg)}
+.top{background:var(--bg);box-shadow:none}.top .in{max-width:1200px;padding-block:12px}
+main{max-width:1200px;padding-top:30px}.card{border-radius:12px;box-shadow:none}
+h1{font-weight:750;letter-spacing:-.035em}h2{font-weight:650}.btn,.field,.search,.iconbtn{border-radius:8px}
+.btn{box-shadow:none}.btn.ghost:hover,.iconbtn:hover{background:var(--soft)}
+.field,input,textarea,select{color:var(--text)}.field::placeholder,textarea::placeholder{color:var(--faint)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+.subnav{max-width:1200px;display:block;overflow:visible;padding-top:12px}
+.workspace-groups,.workspace-context{display:flex;flex-wrap:wrap;gap:6px}
+.workspace-context{padding:10px 0 12px;border-bottom:1px solid var(--line);margin-bottom:2px}
+.subnav .workspace-groups a{border-radius:8px;background:transparent;border-color:transparent;padding:7px 13px}
+.subnav .workspace-groups a.on{background:var(--soft);color:var(--text);border-color:var(--line)}
+.subnav .workspace-context a{border-radius:6px;background:transparent;border:0;font-size:13px;padding:5px 10px}
+.subnav .workspace-context a.on{background:var(--ink-soft);color:var(--ink)}
+.review-start{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:none}
+.review-start h2{color:var(--text)}.review-start p{color:var(--muted)}
+.home-more{margin-top:24px;border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--card)}
+.home-more>summary{cursor:pointer;font-weight:650;color:var(--muted)}
+#next-actions{margin-top:18px}#next-actions h2{margin-top:0}
+#next-actions article{padding:12px 0;border-bottom:1px solid var(--line)}
+.review-search{background:var(--card)}.review-result:hover{background:var(--soft)}
+@media(min-width:900px){#next-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 24px}#next-actions>h2,#next-actions>p,#next-actions>a{grid-column:1/-1}}
+@media(max-width:640px){main{padding-top:20px}.subnav{padding-inline:16px}.workspace-groups{gap:4px}.subnav .workspace-groups a{padding:7px 9px;font-size:13px}.card{padding:16px}.top .in{padding-block:9px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
 </style>
 </head>
 <body>
@@ -483,11 +513,19 @@ var GROUP_OF={home:'home',cards:'study',deck:'interview',opic:'interview',tools:
 Object.keys(SUBNAV).forEach(function(g){SUBNAV[g].forEach(function(x){if(x[0]!=='#')GROUP_OF[x[0]]=g})});
 if(!STUDY){SUBNAV.study=SUBNAV.study.filter(function(x){return !SVIEWS[x[0]]}).filter(function(x,i,a){return x[0]!=='#'||(a[i+1]&&a[i+1][0]!=='#')});GROUP_OF.study='study'}
 var SUBALIAS={cards:'notes',deck:'decks',opic:'opic-exam'};
+var WORKSPACE_GROUPS={
+ study:[['학습 자료',['study','notes','glossary']],['복습·평가',['review','weakness','quiz','exam']],['코딩',['algo','boj','sql','sql-exam']],['인적성',['ncs']]],
+ interview:[['답변 준비',['questions','drafts','defense']],['실전 연습',['mock','opic-exam','speak']],['발표',['decks']]],
+ apply:[['지원 관리',['career','board','jobs']],['서류 작성',['essay','cv','packet']],['검토·제출',['evidence','submissions']]],
+ log:[['기록·백업',['log','cloud']],['자료 현황',['sources']]]
+};
 function drawNav(v,p){var g=GROUP_OF[v]||'home',cur=SUBALIAS[v]||v;
-  $$('#tabs a').forEach(function(a){a.classList.toggle('on',a.dataset.v===g)});
-  var st=$('#tabs a[data-v="study"]');if(st){if(!STUDY)st.setAttribute('href','#/algo');var n=STUDY?STUDY.dueN():0;st.innerHTML='공부'+(n?'<span class="n">'+n+'</span>':'')}
-  var sub=SUBNAV[g]||[];$('#subnav').innerHTML=sub.map(function(x){return x[0]==='#'?'<span class="sg">'+x[1]+'</span>':'<a href="#/'+x[0]+'"'+(x[0]===cur?' class="on" aria-current="page"':'')+'>'+x[1]+'</a>'}).join('');
-  var on=$('#subnav a.on'),sn=$('#subnav');if(on&&sn&&sn.scrollWidth>sn.clientWidth){var l=on.offsetLeft-sn.offsetLeft-24;if(l<sn.scrollLeft||on.offsetLeft+on.offsetWidth>sn.scrollLeft+sn.clientWidth)sn.scrollLeft=Math.max(0,l)}}
+ $$('#tabs a').forEach(function(a){var active=a.dataset.v===g;a.classList.toggle('on',active);if(active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+ var st=$('#tabs a[data-v="study"]');if(st){if(!STUDY)st.setAttribute('href','#/algo');var n=STUDY?STUDY.dueN():0;st.innerHTML='공부'+(n?'<span class="n">'+n+'</span>':'')}
+ var links=(SUBNAV[g]||[]).filter(function(x){return x[0]!=='#'}),labels={};links.forEach(function(x){labels[x[0]]=x[1]});
+ var groups=(WORKSPACE_GROUPS[g]||[]).map(function(x){return {label:x[0],routes:x[1].filter(function(r){return labels[r]})}}).filter(function(x){return x.routes.length}),selected=groups.find(function(x){return x.routes.includes(cur)})||groups[0];
+ $('#subnav').innerHTML=groups.length?'<div class="workspace-groups" aria-label="작업 그룹">'+groups.map(function(x){return '<a href="#/'+(x===selected?cur:x.routes[0])+'"'+(x===selected?' class="on"':'')+'>'+x.label+'</a>'}).join('')+'</div><div class="workspace-context" aria-label="'+selected.label+' 메뉴">'+selected.routes.map(function(r){return '<a href="#/'+r+'"'+(r===cur?' class="on" aria-current="page"':'')+'>'+labels[r]+'</a>'}).join('')+'</div>':'';
+}
 window.addEventListener('hashchange',route);
 document.addEventListener('keydown',function(e){if(e.metaKey||e.ctrlKey||e.altKey)return;var t=(e.target.tagName||'').toLowerCase();if(t==='textarea'||t==='input'||t==='select')return;if(keyHandler)keyHandler(e)});
 
@@ -534,7 +572,7 @@ function home(){
   var a=$('#hdue');if(a)a.onclick=function(){startMock(shuffle(d.slice()).slice(0,10),{sec:90,rec:false,label:'복습'})};
   var b=$('#hquick');if(b)b.onclick=function(){startMock(shuffle(QS.filter(function(q){return q.c!=='OPIc'})).slice(0,5),{sec:60,rec:false,label:'바로 시작'})};
   $('#hopic').onclick=startOpic;bindGoals(home);if(STUDY)STUDY.bindToday();
-  $('#app').insertAdjacentHTML('beforeend',freshnessHTML());drawReleaseStatus();DESIGN_REVIEW.home();var careerHome=CAREER.summary();if(careerHome){var ch=document.createElement('section');ch.innerHTML='<h2>다가오는 지원 · 다음 행동</h2>'+careerHome;$('#app').prepend(ch)}CAREER_PLUS.home();
+  $('#app').insertAdjacentHTML('beforeend',freshnessHTML());drawReleaseStatus();DESIGN_REVIEW.home();CAREER_PLUS.home();
 }
 
 {% include 'interview/questions.js.j2' %}
@@ -558,8 +596,9 @@ function log(){
   sy.bind(function(){if(confirm('공부·면접 기록·메모·자소서를 모두 지울까요? 되돌릴 수 없습니다.')){if(STUDY)STUDY.clear();var reset=stamp(S.updatedAt);S=blank();S.resetAt=reset;try{localStorage.removeItem(KEY);localStorage.removeItem(KEY+':recovery');storageNeedsRecovery=false}catch(_){}save();log()}});
 }
 
-(function(){var r=document.documentElement,t=null;try{t=localStorage.getItem('theme')}catch(_){}if(t)r.dataset.theme=t;
-  $('#theme').onclick=function(){var dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=dark?'light':'dark';try{localStorage.setItem('theme',r.dataset.theme)}catch(_){}}})();
+(function(){var r=document.documentElement,button=$('#theme');
+ function sync(){var dark=r.dataset.theme==='dark';button.textContent=dark?'라이트':'다크';button.setAttribute('aria-label',dark?'라이트 모드로 전환':'다크 모드로 전환');document.querySelector('meta[name="theme-color"]').content=dark?'#0b1018':'#f3f6fa'}
+ button.onclick=function(){r.dataset.theme=r.dataset.theme==='dark'?'light':'dark';try{localStorage.setItem('prep-theme-v2',r.dataset.theme)}catch(_){}sync()};sync()})();
 $('#backup-local').onclick=downloadLocalBackup;$('#recover-local').onclick=recoverLocal;storageStatus();
 route();
 checkRelease();
