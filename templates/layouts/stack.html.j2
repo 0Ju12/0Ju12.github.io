@@ -40,12 +40,12 @@
   'demo': 'Demo' if en else '데모',
   'role_all': 'All' if en else '전체 보기',
   'role_aria': 'View by role' if en else '직무별 보기',
-  'role_note': 'Order, highlights and skills are tailored to this role.' if en else '이 직무에 맞게 순서와 핵심 문장, 기술을 다시 정리한 보기입니다.',
+  'role_note': 'Order, highlights and skills are tailored to this role.' if en else '해당 직무 기준으로 프로젝트 순서·핵심 성과·기술 스택을 재구성한 보기입니다.',
   'ev_title': 'Where I used' if en else '근거',
-  'ev_none': 'No project or post on this site mentions it yet.' if en else '이 기술이 나오는 프로젝트·글이 아직 없습니다.',
+  'ev_none': 'No project or post on this site mentions it yet.' if en else '이 기술을 적용한 프로젝트·글이 아직 없습니다.',
   'ev_p': 'Project' if en else '프로젝트',
   'ev_w': 'Post' if en else '글',
-  'ev_hint': 'Click a skill to see where I used it' if en else '기술을 누르면 실제로 쓴 프로젝트·글이 나옵니다',
+  'ev_hint': 'Select a skill to see the projects and posts that use it' if en else '기술을 선택하면 해당 기술을 적용한 프로젝트·글이 표시됩니다',
 } %}
 {% set tints = ['#eef1ff', '#eafaf3', '#fff4e8'] %}
 {% set tints_d = ['#1a1e2e', '#132520', '#2a1f14'] %}
@@ -204,7 +204,10 @@ section{scroll-margin-top:80px}
 
 /* 글 캐러셀 */
 .pinb{font-style:normal;font-size:11.5px;font-weight:700;color:var(--muted);margin-left:8px;letter-spacing:.2px}
-footer .own{font-size:12px;opacity:.75}
+footer .own{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;margin:14px 0 0}
+footer .own b{font-size:12.5px;font-weight:700;color:var(--faint);margin-right:2px}
+footer .own a{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:var(--text);padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);text-decoration:none;transition:border-color .2s}
+footer .own a:hover{border-color:var(--text)}
 .carousel{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 32px)/3);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 18px;scrollbar-width:thin}
 .post{scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:26px;padding:26px;display:flex;flex-direction:column;gap:10px;min-height:250px;transition:transform .2s,box-shadow .2s}
 .post:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
@@ -373,7 +376,20 @@ html[lang="en"] .hero p,html[lang="en"] .card .desc,html[lang="en"] .card .one{t
 .live a:hover{border-color:var(--text);transform:translateY(-1px)}
 #work .sec-t{margin-top:40px}
 .themes{display:flex;flex-direction:column;gap:18px}
-body.role-data .th{order:var(--o-data,9)}body.role-ai .th{order:var(--o-ai,9)}
+body.role-data .th,body.role-data .th-tabs button{order:var(--o-data,9)}body.role-ai .th,body.role-ai .th-tabs button{order:var(--o-ai,9)}
+/* 분야 탭: 한 번에 한 분야만 (스크립트가 없으면 탭 없이 넷 다 보임) */
+.th-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0 0 14px}.th-tabs[hidden]{display:none}
+.th-tabs button{display:flex;align-items:center;gap:10px;min-width:0;text-align:left;padding:12px 14px;border-radius:16px;border:1px solid var(--line);background:var(--card);color:var(--muted);font:inherit;font-size:14.5px;font-weight:700;line-height:1.35;cursor:pointer;transition:border-color .2s,background .2s,color .2s}
+.th-tabs button:hover{color:var(--text);border-color:color-mix(in srgb,var(--c) 45%,var(--line))}
+.th-tabs button[aria-selected="true"]{color:var(--text);border-color:var(--c);background:color-mix(in srgb,var(--c) 9%,var(--card));box-shadow:inset 0 -3px 0 var(--c)}
+.th-tabs button:focus-visible{outline:2px solid var(--c);outline-offset:2px}
+.th-tabs .th-n{flex:none}
+.th-tl{min-width:0}
+.th[hidden]{display:none!important}
+.th.show{animation:thIn .35s ease}
+@keyframes thIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.th.show{animation:none}}
+@media (max-width:760px){.th-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.th-tabs button{padding:10px 12px;font-size:13.5px}}
 .th{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:28px;padding:28px;border:1px solid var(--line);border-radius:24px;background:var(--card);overflow:hidden}
 .th::before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:var(--c)}
 .th-k{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:var(--muted)}
@@ -428,7 +444,7 @@ body.role-data .th{order:var(--o-data,9)}body.role-ai .th{order:var(--o-ai,9)}
       <div class="cta"><a class="btn pri" href="#work">{{ T.see }}</a><a class="btn" id="resume-btn" href="resume-1page.pdf" data-all="resume-1page.pdf"{% for k in RV %} data-{{ k }}="resume-{{ k }}.pdf"{% endfor %} download>{{ T.resume }}</a>{% for l in profile.links if 'github' in l.label|lower %}<a class="btn" href="{{ l.url }}" target="_blank" rel="noopener">{{ p.icon('github', 16) }} GitHub</a>{% endfor %}</div>
       {% set av = profile.availability or {} %}
       <div class="avail">{% if av.role %}<span><b>{{ T.want }}</b>{{ av.role }}</span>{% endif %}{% if av.location %}<span><b>{{ T.loc }}</b>{{ av.location }}</span>{% endif %}{% if av.start %}<span><b>{{ T.start }}</b>{{ av.start }}</span>{% endif %}</div>
-      {% set LV = (showcase or {}).live or [] %}{% if LV %}<div class="live"><span class="live-h"><i></i>{{ 'Running every day' if en else '지금 매일 돌아가는 대시보드' }}</span>{% for l in LV %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label_en if en and l.label_en else l.label }}<i aria-hidden="true">↗</i></a>{% endfor %}</div>{% endif %}
+      {% set LV = (showcase or {}).live or [] %}{% if LV %}<div class="live"><span class="live-h"><i></i>{{ 'Live dashboards · refreshed daily' if en else '운영 중인 대시보드 · 일일 갱신' }}</span>{% for l in LV %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label_en if en and l.label_en else l.label }}<i aria-hidden="true">↗</i></a>{% endfor %}</div>{% endif %}
     </div>
   </header>
 
@@ -458,7 +474,7 @@ body.role-data .th{order:var(--o-data,9)}body.role-ai .th{order:var(--o-ai,9)}
   {% include "_map.j2" %}
 
   <div class="end" id="contact"><h2>{{ T.end|safe }}</h2><p>{{ profile.email }}</p><div class="cta">{% if profile.email %}<a class="btn" href="mailto:{{ profile.email }}">{{ T.mail }}</a>{% endif %}<a class="btn ghost" href="resume.pdf" download>{{ T.full }}</a>{% for l in profile.links if 'linkedin' in l.label|lower %}<a class="btn ghost" href="{{ l.url }}" target="_blank" rel="noopener">LinkedIn</a>{% endfor %}</div><p class="sub">{% if en %}Also: <a href="resume-1page-en.pdf" download>one-page résumé</a> · <a href="brief-en.html">30-second brief</a>{% else %}직무별 1쪽 이력서: <a href="resume-data.pdf" download>{{ T.r_data }}</a> · <a href="resume-ai.pdf" download>{{ T.r_ai }}</a> · <a href="brief.html">30초 소개</a>{% endif %}</p></div>
-  <footer>© {{ profile.name_en if en else profile.name }} · {{ T.gen }} · <button id="theme" type="button" style="font:inherit;color:inherit;background:none;border:0;padding:0;text-decoration:underline;cursor:pointer">{{ T.theme }}</button><br><span class="own" hidden>{{ 'Owner only (locked)' if en else '본인용 (잠김)' }} — {% if study_notes or interview_ready %}<a href="study/index.html" rel="nofollow">{{ 'Prep space (study · interview)' if en else '준비 공간 (공부·면접)' }}</a> · {% endif %}<a href="desk/index.html" rel="nofollow">{{ 'Personal assistant' if en else '개인 비서 업무실' }}</a> · <a href="private/index.html" rel="nofollow">{{ 'Private files' if en else '비공개 자료' }}</a></span></footer>
+  <footer>© {{ profile.name_en if en else profile.name }} · {{ T.gen }} · <button id="theme" type="button" style="font:inherit;color:inherit;background:none;border:0;padding:0;text-decoration:underline;cursor:pointer">{{ T.theme }}</button><nav class="own" aria-label="{{ 'Owner spaces' if en else '본인용 공간' }}"><b>{{ 'Owner only · locked' if en else '본인용 · 암호 잠금' }}</b><a href="study/index.html" rel="nofollow">{{ 'Prep space (study · interview)' if en else '준비 공간 (학습·면접)' }}</a><a href="desk/index.html" rel="nofollow">{{ 'Personal assistant desk' if en else '개인 비서 업무실' }}</a><a href="private/index.html" rel="nofollow">{{ 'Private files' if en else '비공개 자료' }}</a></nav></footer>
 </div>
 <div class="evp" id="evp" role="dialog" aria-modal="false" aria-labelledby="evt" hidden><div class="evh"><span id="evt"></span><button type="button" id="evx" aria-label="{{ T.close }}">✕</button></div><ul id="evl"></ul></div>
 <script type="application/json" id="ev-data">{{ evidence|default([])|tojson }}</script>
@@ -470,8 +486,16 @@ body.role-data .th{order:var(--o-data,9)}body.role-ai .th{order:var(--o-ai,9)}
 var reduce=matchMedia('(prefers-reduced-motion: reduce)');
 /* 섹션 제목·글 카드·이력 카드가 화면에 들어올 때 살짝 올라오며 나타남 (스크립트가 없으면 그대로 보임) */
 if('IntersectionObserver' in window&&!reduce.matches){document.documentElement.classList.add('js');var rio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
-  document.querySelectorAll('.sec-t,.th,.others,#writing .carousel,#about .bento>*,#about .skills').forEach(function(el){el.classList.add('rise');rio.observe(el)})}
+  document.querySelectorAll('.sec-t,.themes,.others,#writing .carousel,#about .bento>*,#about .skills').forEach(function(el){el.classList.add('rise');rio.observe(el)})}
 /* 직무 보기 */
+/* 프로젝트 분야 탭: 한 번에 한 분야 */
+var tabBox=document.querySelector('.th-tabs'),tabs=tabBox?[].slice.call(tabBox.querySelectorAll('[role=tab]')):[];
+function visTabs(){return tabs.slice().sort(function(a,b){return (+getComputedStyle(a).order)-(+getComputedStyle(b).order)})}
+function firstTab(){return visTabs()[0]}
+function selTab(t,focus){if(!t)return;tabs.forEach(function(b){var on=b===t,pn=document.getElementById(b.getAttribute('aria-controls'));b.setAttribute('aria-selected',on);b.tabIndex=on?0:-1;if(pn){pn.hidden=!on;pn.classList.toggle('show',on)}});if(focus)t.focus();}
+if(tabs.length){tabBox.hidden=false;
+  tabs.forEach(function(t){t.addEventListener('click',function(){selTab(t)});t.addEventListener('keydown',function(e){var v=visTabs(),i=v.indexOf(t),k=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(e.key==='Home'){e.preventDefault();selTab(v[0],1)}else if(e.key==='End'){e.preventDefault();selTab(v[v.length-1],1)}else if(k){e.preventDefault();selTab(v[(i+k+v.length)%v.length],1)}})});
+  var h0=location.hash.slice(1),t0=h0&&document.getElementById('tab-'+h0.replace(/^th-/,''));selTab(t0||tabs[0]);}
 var RO=JSON.parse((document.getElementById('rv-data')||{}).textContent||'{}');
 var rbtn=document.getElementById('resume-btn');
 function setRole(r,keep){
@@ -479,7 +503,8 @@ function setRole(r,keep){
   document.body.className=document.body.className.replace(/\brole-\w+/,'').trim()+' role-'+r;
   document.querySelectorAll('.roleswitch button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.role===r)});
   if(rbtn)rbtn.href=rbtn.getAttribute('data-'+r)||rbtn.getAttribute('data-all');
-  document.querySelectorAll('.th .th-n').forEach(function(n){var th=n.closest('.th'),o=getComputedStyle(th).getPropertyValue('--o-'+r).trim();if(o)n.textContent=('0'+o).slice(-2)});
+  document.querySelectorAll('.th .th-n,.th-tabs .th-n').forEach(function(n){var o=getComputedStyle(n.closest('.th,[role=tab]')).getPropertyValue('--o-'+r).trim();if(o)n.textContent=('0'+o).slice(-2)});
+  if(!keep||!location.hash)selTab(firstTab());
   if(!keep){var u=new URL(location.href);if(r==='all')u.searchParams.delete('role');else u.searchParams.set('role',r);history.replaceState(null,'',u);}
 }
 document.querySelectorAll('.roleswitch button').forEach(function(b){b.addEventListener('click',function(){setRole(b.dataset.role)})});
@@ -503,8 +528,6 @@ document.querySelectorAll('button.ev').forEach(function(b){b.addEventListener('c
 document.getElementById('evx').addEventListener('click',hideEv);
 document.addEventListener('keydown',function(e){if(e.key==='Escape')hideEv()});
 document.addEventListener('click',function(e){if(!evp.hidden&&!evp.contains(e.target))hideEv()});
-/* 본인 기기에서만 비공개 링크 표시 (방문 집계 제외용 ?nostat=1 표시를 같이 씀) */
-try{if(localStorage.getItem('nostat')){var own=document.querySelector('footer .own');if(own)own.hidden=false}}catch(e){}
 /* 글 넘기기 */
 var car=document.getElementById('carousel');document.querySelectorAll('.carr button').forEach(function(b){b.addEventListener('click',function(){car.scrollBy({left:car.clientWidth*0.9*(+b.dataset.dir),behavior:reduce.matches?'auto':'smooth'})})});
 var links=document.querySelectorAll('.top a.n');if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)})})},{rootMargin:'-45% 0px -50% 0px'});document.querySelectorAll('section[id]').forEach(function(s){io.observe(s)});}

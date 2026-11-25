@@ -30,7 +30,7 @@ repos:
     homepage: "https://0ju12.github.io/projects/heritage.html"
     topics: [rag, langgraph, chromadb, fastapi, streamlit, llm, python]
   wildfire-spread-prediction:
-    description: "U-LSTM 시공간 딥러닝으로 산불 확산 경로 예측 — IAB 융합전공 캡스톤 (미학습 산불 F1 0.85)"
+    description: "U-LSTM 시공간 딥러닝으로 산불 확산 경로 예측 — IAB 융합전공 캡스톤 (홀드아웃 테스트 F1 0.85)"
     homepage: "https://0ju12.github.io/projects/wildfire-capstone.html"
     topics: [deep-learning, tensorflow, lstm, spatiotemporal, wildfire, gis]
   swea-solutions:

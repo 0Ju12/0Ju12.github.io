@@ -5,7 +5,7 @@ masters:
   source: https://doi.org/10.2118/236968-PA
 wildfire-capstone:
   value: F1 0.85 · Accuracy 0.90
-  meaning: 학습에 쓰지 않은 강릉 산불 화선 예측
+  meaning: 홀드아웃 테스트셋(미학습 강릉 산불) 화선 예측
   conditions: 산불 4건의 소규모 데이터. 시점별 표본 수·집계 방식은 원 보고서를 확인해야 하며 다른 지역 일반화는 미검증.
   source: https://github.com/0Ju12/wildfire-spread-prediction
 vqa:
@@ -15,8 +15,8 @@ vqa:
   source: https://0ju12.github.io/posts/2026-11-vqa-ensemble-fixes-breaks.html
 heritage:
   value: 55개
-  meaning: 가짜 LLM·API 대체를 이용한 자동 테스트 수
-  conditions: 인용·예외 처리 규칙 검증. 실제 모델 답변 품질은 별도 평가가 필요. 공개 평가 보고서는 가짜 LLM의 도구 검증용 결과.
+  meaning: Mock LLM·API 스텁을 이용한 자동화 테스트 수
+  conditions: 인용·예외 처리 규칙 검증. 실제 모델 답변 품질은 별도 평가가 필요. 공개 평가 보고서는 Mock LLM 기반 파이프라인 검증 결과.
   source: https://github.com/0Ju12/heritage-rag-guide/tree/main/evals
 hankki:
   value: 110개

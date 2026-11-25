@@ -65,7 +65,7 @@
       by fixes minus breaks.
     task: Team project, training and data refinement
     action: &id003
-    - Evaluate each candidate by corrected versus newly broken answers.
+    - Evaluate each candidate by per-sample fixes versus regressions (fixes − breaks).
     - Protect the best submission and inspect category regressions.
     - Validate submission IDs, row counts and hashes for reproducibility.
     result: &id004

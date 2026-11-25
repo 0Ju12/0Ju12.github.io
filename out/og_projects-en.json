@@ -93,7 +93,7 @@
   "id": "wildfire-capstone-en",
   "title": "IAB capstone — Wildfire spread prediction with spatiotemporal deep learning",
   "tagline": "U-LSTM that predicts the next fire front from past fronts, weather and terrain",
-  "key": "F1 0.85 on an unseen wildfire (Gangneung)",
+  "key": "F1 0.85 on a held-out test event (Gangneung wildfire)",
   "period": "2023.09 – 2023.12",
   "group": "B.S. — CO2 storage seismic interpretation · wildfire deep learning",
   "image": "assets/photos/wildfire-capstone/card/U-LSTM_강릉_산불_GIS_실제·예측_비교_(t1~t5).jpg"

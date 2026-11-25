@@ -138,7 +138,7 @@ Details: https://0ju12.github.io/projects/heritage-en.html
 - **설명:**
 ```
 Combine Qwen QLoRA, Gemma, OCR and multiple views; select candidates by fixes minus breaks.
-• Evaluate each candidate by corrected versus newly broken answers.
+• Evaluate each candidate by per-sample fixes versus regressions (fixes − breaks).
 • Protect the best submission and inspect category regressions.
 • Validate submission IDs, row counts and hashes for reproducibility.
 ✔ Public Score 0.96961; this is not a private-test or general-purpose VQA score.

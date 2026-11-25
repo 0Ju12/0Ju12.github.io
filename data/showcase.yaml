@@ -8,37 +8,39 @@ themes:
     image_from: data-projects
     eyebrow: "개인 프로젝트 · 2026.11 – 진행 중"
     eyebrow_en: "Personal · Nov 2026 – present"
+    tab: "공개 데이터 플랫폼"
+    tab_en: "Public data platform"
     title: "공개 데이터 플랫폼"
     title_en: "Public data platform"
-    lead: "공개 데이터를 매일 모아 다듬고, 웨어하우스에서 분석하고, 결과가 제때 갱신되는지까지 지켜봅니다. 저장소 하나에 여러 프로젝트를 같은 규칙(시간 순서 평가·자동 테스트·매일 배포)으로 묶었습니다."
-    lead_en: "Collect public data every day, model it in a warehouse, analyse it, and watch that every output stays fresh. Many projects in one repository share the same rules: time-ordered evaluation, automated tests and daily deployment."
+    lead: "공개 데이터를 일 단위 배치로 수집·정제하고, dbt 웨어하우스에서 모델링·분석하며, 산출물의 신선도(freshness)까지 모니터링합니다. 단일 저장소(모노레포)의 모든 프로젝트에 시계열 분할 검증·자동 테스트(CI)·일일 배포라는 공통 원칙을 적용했습니다."
+    lead_en: "Daily batch ingestion and cleansing of public data, modelling and analysis in a dbt warehouse, and freshness monitoring of every output. All projects in the monorepo follow the same standards: time-based validation splits, automated tests (CI) and daily deployment."
     metrics:
-      - { v: "0.99 → 0.46", k: "평가를 시간 분할로 바꾸자 뒤집힌 결론", k_en: "Accuracy once the split respects time" }
-      - { v: "MAPE 3.23%", k: "전력 수요 하루 전 예측 (기준선 6.17%)", k_en: "Day-ahead power demand (baseline 6.17%)" }
-      - { v: "R² 0.83", k: "평일 수요 ~ 기온 두 구간 모형", k_en: "Weekday demand vs. temperature, two-segment" }
+      - { v: "0.99 → 0.46", k: "무작위 분할 → 시계열 분할 정확도 (데이터 누수 확인)", k_en: "Accuracy, random vs. time-based split (leakage exposed)" }
+      - { v: "MAPE 3.23%", k: "전력 수요 D-1 예측 (베이스라인 6.17%)", k_en: "Day-ahead load forecast (baseline 6.17%)" }
+      - { v: "R² 0.83", k: "평일 수요–기온 구간 선형 회귀", k_en: "Weekday load vs. temperature, piecewise regression" }
     rows:
       - name: "분석 웨어하우스 (dbt · Airflow)"
         name_en: "Analytics warehouse (dbt · Airflow)"
-        text: "전력 수요·기온·채용 공고로 질문 8개를 세우고 dbt 표로 답합니다. 냉방 민감도 1℃당 1,636 MW, 데이터 테스트 129개."
-        text_en: "Eight questions on power demand, weather and job postings, each answered by a dbt table. Cooling sensitivity 1,636 MW per °C; 129 data tests."
+        text: "전력 수요·기상·채용 공고 데이터로 분석 과제 8개를 정의하고 dbt 마트 모델로 답합니다. 냉방 민감도 1,636 MW/℃, 데이터 품질 테스트 129개."
+        text_en: "Eight analytical questions on power load, weather and job postings, each answered by a dbt mart model. Cooling sensitivity 1,636 MW/°C; 129 data-quality tests."
         url: "https://0ju12.github.io/data-projects/warehouse/"
       - name: "전력 수요 예측 · 설비 이상 탐지"
-        name_en: "Demand forecasting · equipment anomaly detection"
-        text: "시간 순서를 지킨 평가와 누수 검사로 검증합니다. 무작위 분할에서 0.99였던 정확도가 시간 분할에서는 0.46이었습니다."
-        text_en: "Validated with time-ordered splits and leakage checks. An accuracy of 0.99 on random splits fell to 0.46 once the split respected time."
+        name_en: "Load forecasting · equipment anomaly detection"
+        text: "시계열 분할 검증과 데이터 누수(leakage) 테스트로 성능을 평가합니다. 무작위 분할에서 0.99였던 정확도가 시계열 분할에서는 0.46으로 떨어졌습니다."
+        text_en: "Evaluated with time-based splits and data-leakage tests. Accuracy of 0.99 under a random split dropped to 0.46 under a time-based split."
         url: "https://0ju12.github.io/data-projects/power/"
       - name: "공간 데이터 지도 (지진 · 산불 · 응급실)"
         name_en: "Spatial data maps (earthquakes · wildfire · ER access)"
-        text: "지진과 산불 위험은 매일 갱신하고, 1 km 칸마다 응급실까지 차로 몇 분인지 도로망으로 계산했습니다. 세 자료를 벡터 타일 파일 하나로 구워 보여 줍니다."
-        text_en: "Earthquakes and wildfire risk update daily; drive time to the nearest ER is computed on the road network for every 1 km cell. All three are baked into one vector-tile file."
+        text: "지진·산불 위험 레이어는 일 단위로 갱신하고, 1 km 격자별 응급실 접근 시간을 도로 네트워크 분석으로 산출했습니다. 세 레이어를 단일 벡터 타일 파일로 서빙합니다."
+        text_en: "Earthquake and wildfire-risk layers refresh daily; ER drive time is computed per 1 km grid cell with road-network analysis. All three layers are served from a single vector-tile file."
         url: "https://0ju12.github.io/data-projects/tiles/"
-      - name: "운영 관제 (API Watch · 파이프라인 상태판)"
-        name_en: "Operations (API Watch · pipeline status)"
-        text: "공개 API 22개를 정기 점검하고, 성공으로 끝났지만 안에서 실패한 단계와 늦은 산출물을 찾아 알림 이슈로 엽니다."
-        text_en: "Checks 22 public APIs on a schedule and opens an alert issue for steps that failed inside a green run and for outputs that went stale."
+      - name: "데이터 옵저버빌리티 (API Watch · 파이프라인 상태판)"
+        name_en: "Data observability (API Watch · pipeline status)"
+        text: "공개 API 22개의 가용성·스키마 변경을 주기적으로 모니터링하고, 워크플로는 성공했지만 내부 단계가 실패한 경우(silent failure)와 갱신 기한을 넘긴 산출물을 탐지해 알림 이슈를 생성합니다."
+        text_en: "Monitors availability and schema drift of 22 public APIs on a schedule, and raises alert issues for silent failures inside green workflow runs and for outputs past their freshness deadline."
         url: "https://0ju12.github.io/data-projects/status/"
     links:
-      - { label: "설계와 검증 과정", label_en: "Design & validation", project: data-projects }
+      - { label: "아키텍처·검증 상세", label_en: "Architecture & validation", project: data-projects }
       - { label: "GitHub 저장소", label_en: "GitHub", url: "https://github.com/0Ju12/data-projects" }
 
   - id: llm
@@ -46,26 +48,28 @@ themes:
     image_from: hankki
     eyebrow: "SSAFY 16기 · 개인 프로젝트 · 2026.10 – 진행 중"
     eyebrow_en: "SSAFY 16th · personal · Oct 2026 – present"
-    title: "LLM이 틀려도 코드가 잡는 서비스"
-    title_en: "LLM services where code catches the model's mistakes"
-    lead: "모델에는 문장 해석과 답변 작성만 맡기고, 계산과 근거 확인은 코드가 합니다. 모델이 없는 근거 번호를 붙이거나 실패해도 서비스가 멈추지 않게 만들었습니다."
-    lead_en: "The model only interprets and writes; code does the arithmetic and checks the evidence, so made-up citations or model failures do not break the service."
+    tab: "LLM 에이전트 · RAG"
+    tab_en: "LLM agents · RAG"
+    title: "결정론적 검증 계층을 갖춘 LLM 서비스"
+    title_en: "LLM services with a deterministic validation layer"
+    lead: "LLM은 자연어 이해와 응답 생성만 담당하고, 수치 계산과 근거 검증은 규칙 기반 코드가 수행합니다. 환각 인용(hallucinated citation)이나 모델 호출 실패가 발생해도 폴백(fallback) 경로로 서비스가 계속 동작하도록 설계했습니다."
+    lead_en: "The LLM handles only language understanding and response generation; arithmetic and evidence checks run in rule-based code. Hallucinated citations or failed model calls fall back to a deterministic path, so the service keeps running."
     metrics:
-      - { v: "테스트 110개", v_en: "110 tests", k: "한끼 에이전트 자동 테스트", k_en: "Automated tests, Hankki agent" }
-      - { v: "테스트 55개", v_en: "55 tests", k: "국보 RAG 가이드 (가짜 LLM으로 전 과정)", k_en: "Heritage RAG guide, end to end with a fake LLM" }
+      - { v: "테스트 110개", v_en: "110 tests", k: "한끼 에이전트 자동화 테스트", k_en: "Automated tests, Hankki agent" }
+      - { v: "테스트 55개", v_en: "55 tests", k: "국보 RAG 가이드 E2E 테스트 (Mock LLM)", k_en: "Heritage RAG guide, end-to-end with a mock LLM" }
     rows:
       - project: hankki
         name: "한끼 — 냉장고 재고 기반 식단·운동 코치 에이전트"
         name_en: "Hankki — fridge-aware meal & exercise coach agent"
-        text: "LangGraph로 분석 → 계획 → 실행 → 판정 → 재계획(최대 3회)을 돌리고, 재고·분량 판정은 코드가 합니다. 응답이 끊겨 다시 보내도 기록이 겹치지 않습니다."
-        text_en: "LangGraph runs analyse → plan → act → judge → replan (up to 3 times); stock and portion checks are done in code. Resending after a dropped response never duplicates records."
+        text: "LangGraph로 분석 → 계획 → 실행 → 평가 → 재계획(최대 3회) 루프를 구성하고, 재고·분량 검증은 코드로 수행합니다. 요청 ID 기반 멱등성(idempotency)으로 재시도 시 중복 기록을 방지합니다."
+        text_en: "A LangGraph loop of analyse → plan → act → evaluate → replan (up to 3 times); stock and portion checks run in code. Request-ID idempotency prevents duplicate records on retry."
       - project: heritage
-        name: "국보 RAG 가이드 — 인용을 검증하는 RAG"
-        name_en: "Heritage RAG guide — citation-checked RAG"
-        text: "국가유산청 오픈API와 위키백과를 색인하고, 답변의 [근거 N]을 코드로 다시 검사해 실제로 인용한 근거만 보여 줍니다."
-        text_en: "Indexes the national heritage API and Wikipedia, then re-checks every [source N] in the answer with code and shows only sources actually cited."
+        name: "국보 RAG 가이드 — 인용 검증 RAG"
+        name_en: "Heritage RAG guide — citation-verified RAG"
+        text: "국가유산청 오픈API와 위키백과를 색인하고, 생성 답변의 [근거 N] 인용을 후처리 단계에서 검증해 실제 검색 결과와 일치하는 출처만 노출합니다."
+        text_en: "Indexes the national heritage API and Wikipedia, then verifies every [source N] citation in post-processing and shows only sources that match the retrieved documents."
     links:
-      - { label: "직접 해 보기 (근거 번호 검사)", label_en: "Try the citation check", url: "demo.html", url_en: "demo-en.html" }
+      - { label: "인용 검증 데모", label_en: "Citation-check demo", url: "demo.html", url_en: "demo-en.html" }
       - { label: "한끼 GitHub", label_en: "Hankki on GitHub", url: "https://github.com/0Ju12/ai-agents" }
 
   - id: research
@@ -73,25 +77,27 @@ themes:
     image_from: masters
     eyebrow: "석사 연구 · 2024.03 – 2026.08"
     eyebrow_en: "Graduate research · Mar 2024 – Aug 2026"
-    title: "겹친 중력·자력 신호를 분리해 지하 구조 규명"
-    title_en: "Separating overlapping gravity and magnetic signals"
-    lead: "파수 영역 상관 분석으로 기반암(SLFI)·암염(DLFI) 지표를 설계했습니다. 캐나다 캘거리대에서 6개월 파견 연구를 하며 3개 기관과 공동연구했고, 분석 코드는 Python 패키지로 정리해 공개했습니다."
-    lead_en: "Designed basement (SLFI) and salt (DLFI) indicators with wavenumber-domain correlation, during a six-month research stay at the University of Calgary with three partner institutions. The analysis code is published as a Python package."
+    tab: "석사 연구"
+    tab_en: "Graduate research"
+    title: "파수 영역 상관 분석으로 중첩된 중력·자력 이상 분리"
+    title_en: "Separating superimposed gravity and magnetic anomalies in the wavenumber domain"
+    lead: "파수 영역 상관 분석을 기반으로 기반암(SLFI)·암염(DLFI) 지시자를 설계했습니다. 캐나다 캘거리대 6개월 파견 기간에 3개 기관과 공동연구를 수행했고, 분석 코드는 테스트를 갖춘 Python 패키지로 공개했습니다."
+    lead_en: "Designed basement (SLFI) and salt (DLFI) indicators based on wavenumber-domain correlation, during a six-month research stay at the University of Calgary with three partner institutions. The analysis code is published as a tested Python package."
     metrics:
       - { v: "SCIE 제1저자", v_en: "SCIE first author", k: "SPE Journal (2026)", k_en: "SPE Journal (2026)" }
-      - { v: "r ≥ 0.94", k: "기존 독립 모델 3개와 일치", k_en: "Agreement with three independent models" }
-      - { v: "약 3 km", v_en: "~3 km", k: "기존 해석보다 깊게 찾은 암염", k_en: "Deeper salt than previous interpretation" }
+      - { v: "r ≥ 0.94", k: "독립 모델 3종과의 상관계수", k_en: "Correlation with three independent models" }
+      - { v: "약 3 km", v_en: "~3 km", k: "기존 해석 대비 암염 심도 보정", k_en: "Salt-depth correction vs. prior interpretation" }
     rows:
       - project: masters
         name: "석사 학위논문 · SPE Journal 논문"
         name_en: "Master's thesis · SPE Journal paper"
-        text: "8~10 km 퇴적층 아래 겹친 신호를 분리해, 약 6,000 m로 보던 암염 깊이를 약 9,300 m로 다시 추정했습니다."
-        text_en: "Separated signals beneath 8–10 km of sediment and re-estimated the salt depth at about 9,300 m instead of about 6,000 m."
+        text: "8~10 km 퇴적층 하부의 중첩 신호를 분리해, 기존 약 6,000 m로 해석되던 암염 심도를 약 9,300 m로 재추정했습니다."
+        text_en: "Separated superimposed signals beneath 8–10 km of sediment and re-estimated the salt depth at about 9,300 m, versus about 6,000 m previously."
       - project: calgary-2024
         name: "캐나다 캘거리대 장기 파견 연구"
         name_en: "Long-term research stay, University of Calgary"
-        text: "중력·자력 자료를 결합해 아부다비 가샤 지역의 암염돔과 기반암 구조를 함께 해석했습니다."
-        text_en: "Jointly interpreted gravity and magnetic data for the salt domes and basement of the Ghasha area, Abu Dhabi."
+        text: "중력·자력 자료 복합 해석(joint interpretation)으로 아부다비 가샤 지역의 암염돔과 기반암 구조를 규명했습니다."
+        text_en: "Joint interpretation of gravity and magnetic data to characterise the salt domes and basement of the Ghasha area, Abu Dhabi."
     links:
       - { label: "SPE Journal 논문", label_en: "SPE Journal paper", url: "https://doi.org/10.2118/236968-PA" }
       - { label: "분석 코드 (gravmag-wcf)", label_en: "Code (gravmag-wcf)", url: "https://github.com/0Ju12/gravmag-wcf" }
@@ -101,30 +107,32 @@ themes:
     image_from: wildfire-capstone
     eyebrow: "팀 프로젝트 · 2023 – 2026"
     eyebrow_en: "Team projects · 2023 – 2026"
-    title: "평가 기준부터 세운 모델 실험"
-    title_en: "Model experiments that start from the evaluation rule"
-    lead: "점수가 오르는지보다 무엇을 새로 맞히고 무엇을 새로 틀렸는지를 먼저 봤습니다. 시공간 딥러닝, LLM 파인튜닝, 멀티모델 앙상블에서 같은 원칙으로 후보를 골랐습니다."
-    lead_en: "Before asking whether the score went up, I checked what each change newly fixed and newly broke — the same rule for spatio-temporal deep learning, LLM fine-tuning and multi-model ensembles."
+    tab: "모델링 실험"
+    tab_en: "ML experiments"
+    title: "평가 프로토콜을 먼저 설계한 모델링 실험"
+    title_en: "ML experiments built on an evaluation protocol first"
+    lead: "단일 지표 상승보다 샘플 단위 오류 분석(fixes−breaks)과 유형별 성능 회귀 여부를 먼저 확인했습니다. 시공간 딥러닝, LLM 파인튜닝, 멀티모델 앙상블에 동일한 모델 선택 기준을 적용했습니다."
+    lead_en: "Before trusting a higher aggregate score, I ran per-sample error analysis (fixes − breaks) and checked for per-category regressions — the same model-selection rule across spatio-temporal deep learning, LLM fine-tuning and multi-model ensembles."
     metrics:
-      - { v: "0.96961", k: "SSAFY AI 챌린지(VQA) Public", k_en: "SSAFY AI challenge (VQA), public" }
+      - { v: "0.96961", k: "SSAFY AI 챌린지(VQA) Public 리더보드", k_en: "SSAFY AI challenge (VQA), public leaderboard" }
       - { v: "0.32 → 0.74", k: "BERTScore F1 · 포스코 장려상", k_en: "BERTScore F1 · POSCO award" }
-      - { v: "F1 0.85", k: "학습에 안 쓴 강릉 산불", k_en: "Unseen Gangneung wildfire" }
+      - { v: "F1 0.85", k: "홀드아웃 테스트셋 (미학습 강릉 산불)", k_en: "Held-out test event (Gangneung wildfire)" }
     rows:
       - project: vqa
         name: "VQA 챌린지 — 멀티모델 확률 앙상블"
         name_en: "VQA challenge — multi-model probability ensemble"
-        text: "Qwen QLoRA·Gemma·OCR·멀티뷰를 확률로 합치고, 새 후보는 fixes−breaks와 유형별 회귀를 확인한 뒤에만 넣었습니다."
-        text_en: "Combined Qwen QLoRA, Gemma, OCR and multi-view by probability; a new candidate went in only after checking fixes−breaks and per-type regressions."
+        text: "Qwen QLoRA·Gemma·OCR·멀티뷰 모델을 확률 기반 소프트 보팅 앙상블로 결합하고, 신규 후보는 fixes−breaks와 문항 유형별 회귀 검증을 통과한 경우에만 채택했습니다."
+        text_en: "Combined Qwen QLoRA, Gemma, OCR and multi-view models with probability-based soft voting; a new candidate was adopted only after passing fixes − breaks and per-category regression checks."
       - project: posco-pospeak
         name: "POSPEAK — 콩글리시를 원어민 표현으로 바꾸는 생성 모델"
         name_en: "POSPEAK — rewriting Konglish into natural English"
-        text: "교정 데이터셋을 만들고 FLAN-T5 LoRA 학습 전략을 비교했습니다. 순차 학습이 오히려 성능을 떨어뜨린 원인도 분석했습니다."
-        text_en: "Built the correction dataset and compared FLAN-T5 LoRA training strategies, including why sequential training made things worse."
+        text: "교정용 병렬 데이터셋을 구축하고 FLAN-T5 LoRA 파인튜닝 전략을 비교했습니다. 순차 학습에서 발생한 파국적 망각(catastrophic forgetting)의 원인도 분석했습니다."
+        text_en: "Built a parallel correction dataset and compared FLAN-T5 LoRA fine-tuning strategies, including an analysis of catastrophic forgetting under sequential training."
       - project: wildfire-capstone
         name: "U-LSTM 산불 확산 경로 예측 (캡스톤)"
         name_en: "U-LSTM wildfire spread prediction (capstone)"
-        text: "ArcGIS로 산불 4건의 화선·기상·지형 래스터를 만들고, 다음 시점 화선을 예측하는 U-LSTM을 설계·학습했습니다."
-        text_en: "Built fire-line, weather and terrain rasters for four wildfires in ArcGIS and trained a U-LSTM that predicts the next fire line."
+        text: "ArcGIS로 산불 4건의 화선·기상·지형 래스터 시계열을 구축하고, 다음 시점 화선을 예측하는 U-LSTM(Conv 인코더–LSTM–디코더)을 설계·학습했습니다. 1건은 학습·검증에서 제외한 홀드아웃 테스트셋으로 일반화 성능을 평가했습니다."
+        text_en: "Built fire-line, weather and terrain raster time series for four wildfires in ArcGIS and trained a U-LSTM (conv encoder–LSTM–decoder) to predict the next fire line, holding out one event as an unseen test set."
     links: []
 
 # 주제에 넣지 않은 작업 — 한 줄씩
@@ -135,20 +143,20 @@ others:
     note: "학부 제1저자 논문 · 학생 우수논문 발표상"
     note_en: "Undergraduate first-author paper · student presentation award"
   - project: portfolio-site
-    name: "YAML 하나로 만드는 포트폴리오·이력서 생성기"
+    name: "YAML 단일 소스 기반 포트폴리오·이력서 정적 사이트 생성기"
     name_en: "Portfolio and resume generator from one YAML file"
     note: "이 사이트 · 국문·영문 · 이력서 PDF 5종"
     note_en: "This site · Korean & English · five resume PDFs"
   - project: prep-apps
     name: "암호화한 학습·면접 준비 앱"
     name_en: "Encrypted study & interview prep app"
-    note: "PBKDF2 + AES-GCM · 서버 없이"
-    note_en: "PBKDF2 + AES-GCM · no server"
+    note: "PBKDF2 + AES-GCM · 서버리스 클라이언트 측 암호화"
+    note_en: "PBKDF2 + AES-GCM · serverless, client-side encryption"
   - url: "posts/2026-11-battle-ssafy-bfs-bot.html"
     name: "배틀싸피 자동 플레이 봇"
     name_en: "Battle SSAFY auto-play bot"
-    note: "BFS 한 줄에서 매 턴 다시 계획하는 봇까지 · 글"
-    note_en: "From one-line BFS to per-turn replanning · post"
+    note: "BFS 경로 탐색에서 턴 단위 재계획(replanning)까지 · 글"
+    note_en: "From BFS path-finding to per-turn replanning · post"
 
 # 직무별 보기에서 주제 순서
 order:
