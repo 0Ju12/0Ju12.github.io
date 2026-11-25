@@ -13,7 +13,7 @@
 <small>처음 한 번 연결하면 이 브라우저에서 다음 방문부터 업무실이 바로 열립니다.</small>
 <button>업무실 열기</button><p id="message" role="status"></p></form>
 <details open><summary>처음 연결하거나 업무실이 멈췄나요?</summary><p>아래에서 본인의 Codespace를 시작하거나 재개하세요. <b>Ports → 8501</b>의 전달 주소를 복사해 위에 입력하세요. 포트는 Private으로 유지하세요.</p>
-<a href="https://codespaces.new/0Ju12/personal-assistant?quickstart=1" target="_blank" rel="noopener">GitHub에서 실행 환경 열기</a></details></section></main>
+<a href="https://github.com/codespaces" target="_blank" rel="noopener">GitHub에서 실행 환경 열기</a></details></section></main>
 <script>
 const field=document.querySelector('#address'), message=document.querySelector('#message');
 const key='personal-assistant.port8501';
@@ -23,16 +23,32 @@ function endpoint(value){
     if(u.protocol==='https:' && /^[a-z0-9-]+-8501\.app\.github\.dev$/.test(u.hostname) && !u.username && !u.password && !u.port) return u.origin+'/';
   }catch{}
 }
+function launch(url){
+  const editor=url.replace('-8501.app.github.dev/', '.github.dev/');
+  const probe=new Image();
+  let done=false;
+  function enter(target){
+    if(done)return;
+    done=true;clearTimeout(timer);location.replace(target);
+  }
+  const timer=setTimeout(()=>enter(editor),3500);
+  message.textContent='업무실 연결을 확인하고 있어요…';
+  probe.onload=()=>enter(url);
+  probe.onerror=()=>enter(editor);
+  probe.src=url+'ready.svg';
+}
 let saved;
 try{saved=endpoint(localStorage.getItem(key))}catch{}
 const candidate=endpoint(new URLSearchParams(location.hash.slice(1)).get('connect'));
-if(candidate){field.value=candidate;history.replaceState(null,'',location.pathname+'#settings')}
-else if(saved){field.value=saved;if(location.hash!=='#settings')location.replace(saved)}
+const start=endpoint(new URLSearchParams(location.hash.slice(1)).get('start'));
+if(start){try{localStorage.setItem(key,start)}catch{} field.value=start;history.replaceState(null,'',location.pathname);launch(start)}
+else if(candidate){field.value=candidate;history.replaceState(null,'',location.pathname+'#settings')}
+else if(saved){field.value=saved;if(location.hash!=='#settings')launch(saved)}
 document.querySelector('#connect').onsubmit=e=>{
   e.preventDefault();
   const url=endpoint(field.value);
   if(!url){message.textContent='8501번 포트의 https://…-8501.app.github.dev 주소를 입력하세요.';return}
   try{localStorage.setItem(key,url)}catch{}
-  location.assign(url);
+  launch(url);
 };
 </script></html>
