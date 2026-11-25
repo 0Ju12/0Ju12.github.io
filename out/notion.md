@@ -54,7 +54,7 @@
 ### 부트캠프 — SSAFY 16기 · 포스코 청년 AI·BigData 아카데미 30기
 `AI 프로젝트` · 2025.06 – 진행 중 · 삼성 청년 SW·AI 아카데미(SSAFY) · 포스코인재창조원·POSTECH · **LLM 에이전트 · RAG · 파인튜닝**
 
-SSAFY에서 냉장고 생활 코치 에이전트(한끼)·근거를 검증하는 RAG 가이드·VQA 모델 앙상블을, 포스코 아카데미에서 콩글리시 교정 생성 모델+RAG를 구현
+SSAFY에서는 냉장고 생활 코치 에이전트(한끼), 근거를 검증하는 RAG 가이드, VQA 모델 앙상블을 만들었고, 포스코 아카데미에서는 콩글리시를 교정하는 생성 모델과 RAG를 구현했습니다
 
 - **상황** 
 - **역할·과제** 
@@ -72,9 +72,9 @@ SSAFY에서 냉장고 생활 코치 에이전트(한끼)·근거를 검증하는
   - [POSPEAK(KILL KONG)] [담당] FLAN-T5를 LoRA로 파인튜닝하고, 학습 전략 3가지(단어→문맥 순차, 문맥→단어 순차, 통합 학습)를 BERTScore로 비교 실험
   - [POSPEAK(KILL KONG)] [최종 서비스 KILL KONG] Qwen-2.5(1.5B) 파인튜닝(Friends 대사 기반 회화체 데이터 2,000건) + 콩글리시 RAG DB 630건 + 사용자별 개인화 메모리(오답노트)를 LangChain으로 결합, React Native·FastAPI 모바일 앱으로 구현
   - [POSPEAK(KILL KONG)] [팀] 다국어 문장 임베딩(paraphrase-multilingual-MiniLM)과 FAISS로 유사 교정 예문 top-5를 검색해 모델 입력에 제공하는 RAG 파이프라인과 CLI 구성
-  - [국보 RAG] XML·EUC-KR 오픈API 수집, 국보명→위키 문서 자동 연결(일반명사 오연결 방지)
-  - [국보 RAG] 청크 ID 고정(국보ID:문서ID:순번)으로 재실행해도 중복 없는 색인
-  - [국보 RAG] LangGraph retrieve→generate, 없는 근거 번호는 제거 · 가짜 LLM으로 전 과정 테스트
+  - [국보 RAG 가이드] XML·EUC-KR 오픈API 수집, 국보명→위키 문서 자동 연결(일반명사 오연결 방지)
+  - [국보 RAG 가이드] 청크 ID 고정(국보ID:문서ID:순번)으로 재실행해도 중복 없는 색인
+  - [국보 RAG 가이드] LangGraph retrieve→generate, 없는 근거 번호는 제거 · 가짜 LLM으로 전 과정 테스트
   - [VQA 앙상블] 새 모델은 단독 성능이 아니라, 기존 앙상블에 더했을 때 고친 문제와 새로 틀린 문제(fixes−breaks)로 평가
   - [VQA 앙상블] 최고 제출을 보호 기준선으로 고정하고 유형별 회귀를 확인한 뒤에만 교체
   - [VQA 앙상블] 제출 전 자동 검사(6,714행·ID·확률 행합) + SHA-256 매니페스트로 GPU 없이 재현
@@ -85,7 +85,7 @@ SSAFY에서 냉장고 생활 코치 에이전트(한끼)·근거를 검증하는
   - [POSPEAK(KILL KONG)] 순차 학습에서 앞 단계 성능이 떨어지는 현상(catastrophic forgetting, BERTScore F1 0.47 → 0.32)을 실험으로 확인하고 통합 학습으로 전환
   - [POSPEAK(KILL KONG)] 통합 학습 모델의 검증 BERTScore F1 약 0.74 (순차 학습 0.32~0.47 대비 개선)
   - [POSPEAK(KILL KONG)] 팀 프로젝트 장려상 수상
-  - [국보 RAG] 오프라인 테스트 55
+  - [국보 RAG 가이드] 오프라인 테스트 55개 통과
   - [VQA 앙상블] Public Score 0.96961
 
 🏷 Python, LangGraph, FastAPI, LLM 파인튜닝, QLoRA, RAG, ChromaDB, FAISS

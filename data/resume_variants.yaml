@@ -27,7 +27,7 @@ data:
     - { category: "수집·처리", items: [Python, Pandas, SQL, "오픈API(XML·JSON)", 웹 수집] }
     - { category: "모델링·저장", items: ["dbt(DuckDB)", 차원 모델링, "변경 이력(SCD 2형)", ChromaDB, Django ORM] }
     - { category: "품질·운영", items: [데이터 품질 테스트, pytest, GitHub Actions, "Airflow DAG 작성"] }
-    - { category: "분석·ML", items: [PyTorch, Hugging Face, LangGraph RAG, ArcGIS] }
+    - { category: "분석·ML·공간", items: [PyTorch, Hugging Face, LangGraph RAG, ArcGIS] }
 
 ai:
   label: "AI·ML 엔지니어"
@@ -53,5 +53,5 @@ ai:
   skills:
     - { category: "모델·학습", items: [PyTorch, TensorFlow, Hugging Face Transformers, LoRA/QLoRA, "FLAN-T5·Qwen·Gemma"] }
     - { category: "LLM 응용", items: ["LLM 에이전트(LangGraph Planner·Worker)", "RAG(LangGraph·ChromaDB·FAISS)", 프롬프트 설계, 응답·인용 검증] }
-    - { category: "딥러닝", items: ["시공간 딥러닝(U-LSTM)", CNN·LSTM, 멀티모델 확률 앙상블] }
-    - { category: "평가·데이터", items: [F1·BERTScore, fixes−breaks 회귀 분석, pytest, Pandas, SQL, ArcGIS] }
+    - { category: "딥러닝", items: ["시공간 딥러닝(U-LSTM)", CNN·LSTM, 멀티모델 확률 앙상블, "ArcGIS 래스터 구축"] }
+    - { category: "평가·데이터", items: [F1·BERTScore, fixes−breaks 회귀 분석, pytest, Pandas, SQL] }

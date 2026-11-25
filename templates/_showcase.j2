@@ -1,0 +1,33 @@
+{# 메인 '프로젝트' 섹션 — data/showcase.yaml 의 주제 4개 + 그 밖의 작업. 직무 보기는 CSS order 로 순서만 바꿈 #}
+{% set S = showcase or {} %}
+{% macro tx(o, k) %}{{ o[k ~ '_en'] if en and o[k ~ '_en'] else o[k] }}{% endmacro %}
+{% macro href(o) %}{% if o.project %}projects/{{ o.project }}{{ '-en' if en else '' }}.html{% elif en and o.url_en %}{{ o.url_en }}{% else %}{{ o.url }}{% endif %}{% endmacro %}
+{% macro ext(o) %}{% if not o.project and (o.url or '').startswith('http') %} target="_blank" rel="noopener"{% endif %}{% endmacro %}
+<section id="work" aria-label="{{ 'Projects' if en else '프로젝트' }}">
+  <div class="sec-t"><h2>{{ 'Projects' if en else '프로젝트' }}</h2><p>{{ 'Four themes, each project shown once. Choose a role to reorder them.' if en else '겹치던 프로젝트를 주제 넷으로 묶었습니다. 직무를 고르면 순서가 바뀝니다.' }}</p></div>
+  {% if RV %}<div class="roleswitch" role="group" aria-label="{{ T.role_aria }}"><button type="button" data-role="all" aria-pressed="true">{{ T.role_all }}</button>{% for k, rv in RV.items() %}<button type="button" data-role="{{ k }}" aria-pressed="false">{{ rv.label }}</button>{% endfor %}</div>{% endif %}
+  {% set ords = S.order or {} %}
+  <div class="themes">
+  {% for th in S.themes or [] %}
+    {% set sp0 = project_lookup.get(th.image_from) if th.image_from else none %}
+    {% set ns = namespace(img=none) %}{% if sp0 %}{% if sp0.card_image %}{% set ns.img = {'src': sp0.card_image, 'caption': sp0.card_caption} %}{% else %}{% for kw in ['GPlates', 'Fig11', '결과화면', '질의응답', '대시보드', '지도', 'GIS'] %}{% for g in sp0.gallery or [] %}{% if ns.img is none and kw in g.src %}{% set ns.img = g %}{% endif %}{% endfor %}{% endfor %}{% if ns.img is none and sp0.gallery %}{% set ns.img = sp0.gallery|first %}{% endif %}{% endif %}{% endif %}
+    {% set st = [] %}{% for r, ids in ords.items() %}{% if th.id in ids %}{% set _ = st.append('--o-' ~ r ~ ':' ~ (ids.index(th.id) + 1)) %}{% endif %}{% endfor %}
+    <article class="th" id="th-{{ th.id }}" style="--c:{{ th.color }};{{ st|join(';') }}">
+      <div class="th-main">
+        <div class="th-k"><span class="th-n">{{ '%02d'|format(loop.index) }}</span><span>{{ tx(th, 'eyebrow') }}</span></div>
+        <h3>{{ tx(th, 'title') }}</h3>
+        <p class="th-lead">{{ tx(th, 'lead') }}</p>
+        {% if th.metrics %}<dl class="th-m">{% for m in th.metrics %}<div><dt>{{ tx(m, 'v') }}</dt><dd>{{ tx(m, 'k') }}</dd></div>{% endfor %}</dl>{% endif %}
+        {% if th.links %}<div class="th-links">{% for l in th.links %}<a href="{{ href(l) }}"{{ ext(l) }}{% if loop.first %} class="pri"{% endif %}>{{ tx(l, 'label') }} <i aria-hidden="true">{{ '→' if l.project or not (l.url or '').startswith('http') else '↗' }}</i></a>{% endfor %}</div>{% endif %}
+      </div>
+      <div class="th-side">
+        {% if ns.img %}{% set im = ns.img.src|thumb %}<figure class="th-img"><img src="{{ im.src }}"{% if im.w %} width="{{ im.w }}" height="{{ im.h }}"{% endif %} alt="{{ ns.img.caption or tx(th, 'title') }}" loading="lazy"></figure>{% endif %}
+        <ul class="th-rows">{% for r in th.rows or [] %}{% set sp = project_lookup.get(r.project) if r.project else none %}
+          <li><a href="{{ href(r) }}"{{ ext(r) }}><span class="th-rt"><b>{{ tx(r, 'name') }}</b>{% if sp and sp.period_str %}<small>{{ sp.period_str }}</small>{% endif %}</span><span class="th-rx">{{ tx(r, 'text')|hl }}</span><i aria-hidden="true">{{ '→' if r.project else '↗' }}</i></a></li>{% endfor %}
+        </ul>
+      </div>
+    </article>
+  {% endfor %}
+  </div>
+  {% if S.others %}<div class="others"><h3>{{ 'More work' if en else '그 밖의 작업' }}</h3><ul>{% for o in S.others %}{% set sp = project_lookup.get(o.project) if o.project else none %}<li><a href="{{ href(o) }}"{{ ext(o) }}><b>{{ tx(o, 'name') }}</b><span>{{ tx(o, 'note') }}{% if sp and sp.period_str %} · {{ sp.period_str }}{% endif %}</span><i aria-hidden="true">→</i></a></li>{% endfor %}</ul></div>{% endif %}
+</section>

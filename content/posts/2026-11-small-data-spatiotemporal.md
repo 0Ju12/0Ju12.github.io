@@ -1,7 +1,7 @@
 ---
 title: "산불 4건으로 시공간 딥러닝 학습하기"
 date: "2026-11-02"
-summary: "데이터가 35개 시점뿐일 때 어떻게 학습시켰고, 다시 보니 무엇이 부족했는지. U-LSTM 산불 확산 예측 모델 회고."
+summary: "데이터가 35개 시점뿐일 때 어떻게 학습시켰고, 다시 보니 무엇이 부족했는지 돌아본 U-LSTM 산불 확산 예측 모델 회고입니다."
 tags: [딥러닝, 시공간 데이터, TensorFlow, ArcGIS, 회고]
 project: wildfire-capstone
 repo: "https://github.com/0Ju12/wildfire-spread-prediction"
