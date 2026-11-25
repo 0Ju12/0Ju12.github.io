@@ -6,7 +6,7 @@ profile:
   name_en: Young-Ju Lee
   title: Data Engineer · Data Analyst
   background: "Geophysics research M.S. · first-author SCIE paper"
-  headline: "A data engineer and analyst who collects and cleans public data and turns it into metrics and analysis that can be checked"
+  headline: "Data engineer and analyst who ingests and cleanses public data and turns it into reproducible, verifiable metrics and analysis"
   summary: >-
     M.S. in Environment and Energy (Jeonbuk National University, 2026) with a B.S. in Mineral Resources and Energy Engineering.
     As an undergraduate researcher I wrote a first-author paper interpreting seismic images of large overseas CO2 storage sites in light of plate-tectonic history,
@@ -31,7 +31,7 @@ profile:
 
 pitch:
   h1: ["Collect the data,", "verify the model,", "prove it with results."]
-  body: "Working with geophysical survey data, the work I spent longest on was checking where data came from, how good it was, and verifying results again. I now apply the same habits to public data: collecting and cleaning it daily, modelling it in a warehouse, and explaining with code and evidence why an analysis can be trusted."
+  body: "Working with geophysical survey data, most of my time went into checking data lineage and quality and cross-validating results. I now apply the same principles to public data: daily ingestion pipelines, warehouse modelling and analysis, and tests plus source data that show why a result can be trusted."
 
 highlights:
   - { value: "8 questions", label: "Power-demand, solar & job-posting analysis warehouse" }
@@ -40,9 +40,9 @@ highlights:
   - { value: "3 · 6", label: "Papers · conference talks" }
 
 proof:
-  - { k: "Evaluation", t: "Equipment-sensor diagnosis: 0.99 accuracy on a random split, 0.46 on a time split — the evaluation choice changed the conclusion, so I report the time split", u: "projects/data-projects-en.html" }
-  - { k: "Analysis", t: "Fitting weekday power demand with a two-segment temperature model (R² 0.83) showed cooling at +1,636 MW per °C — 1.7× the heating slope; first I fixed a date dimension that counted substitute holidays and election day as weekdays", u: "https://0ju12.github.io/data-projects/warehouse/" }
-  - { k: "LLM", t: "The model interprets, picks tools and words answers; code decides stock and portions — a re-sent request reuses its first ID so records are never counted twice (Hankki agent · SSAFY)", u: "projects/hankki-en.html" }
+  - { k: "Evaluation", t: "Equipment-sensor diagnosis: 0.99 accuracy on a random split, 0.46 on a time-based split — the random split leaked future data, so the time-based split is the reported metric", u: "projects/data-projects-en.html" }
+  - { k: "Analysis", t: "After correcting a date dimension that classed substitute holidays and election day as weekdays, a piecewise regression of weekday load on temperature (R² 0.83) gave a cooling sensitivity of 1,636 MW/°C — 1.7× the heating slope", u: "https://0ju12.github.io/data-projects/warehouse/" }
+  - { k: "LLM", t: "The LLM handles intent parsing, tool calling and response generation; stock and portion logic runs in code, and request-ID idempotency prevents duplicate records on retry (Hankki agent · SSAFY)", u: "projects/hankki-en.html" }
 
 site:
   theme: editorial
@@ -236,7 +236,7 @@ activities:
       - id: wildfire-capstone
         digest: {"problem": "No model in Korea predicted wildfire spread in real time", "role": "Designed and trained the spatiotemporal model in a team of four", "did": ["Rasterized fire fronts, elevation, NDVI and wind for 4 large wildfires in ArcGIS", "Designed a Conv2D encoder–LSTM–decoder U-LSTM (2,736 parameters)", "Built 151 training batches with sliding windows; held one fire out for testing"], "result": ["Accuracy 0.90 · F1 0.85 on the unseen Gangneung fire", "Repackaged the team notebook as a tested Python package"]}
         tagline: "U-LSTM that predicts the next fire front from past fronts, weather and terrain"
-        key: "F1 0.85 on an unseen wildfire (Gangneung)"
+        key: "F1 0.85 on a held-out test event (Gangneung wildfire)"
         short: "IAB capstone"
         title: "IAB capstone — Wildfire spread prediction with spatiotemporal deep learning"
         type: AI project

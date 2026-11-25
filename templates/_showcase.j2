@@ -1,18 +1,20 @@
-{# 메인 '프로젝트' 섹션 — data/showcase.yaml 의 주제 4개 + 그 밖의 작업. 직무 보기는 CSS order 로 순서만 바꿈 #}
+{# 메인 '프로젝트' 섹션 — data/showcase.yaml 의 주제 4개 + 그 밖의 작업.
+   주제는 탭으로 하나씩 보여 줌(스크립트가 없으면 넷 다 보임). 직무 보기는 CSS order 로 탭 순서만 바꾸고 첫 탭을 엶 #}
 {% set S = showcase or {} %}
 {% macro tx(o, k) %}{{ o[k ~ '_en'] if en and o[k ~ '_en'] else o[k] }}{% endmacro %}
 {% macro href(o) %}{% if o.project %}projects/{{ o.project }}{{ '-en' if en else '' }}.html{% elif en and o.url_en %}{{ o.url_en }}{% else %}{{ o.url }}{% endif %}{% endmacro %}
 {% macro ext(o) %}{% if not o.project and (o.url or '').startswith('http') %} target="_blank" rel="noopener"{% endif %}{% endmacro %}
 <section id="work" aria-label="{{ 'Projects' if en else '프로젝트' }}">
-  <div class="sec-t"><h2>{{ 'Projects' if en else '프로젝트' }}</h2><p>{{ 'Four themes, each project shown once. Choose a role to reorder them.' if en else '겹치던 프로젝트를 주제 넷으로 묶었습니다. 직무를 고르면 순서가 바뀝니다.' }}</p></div>
+  <div class="sec-t"><h2>{{ 'Projects' if en else '프로젝트' }}</h2><p>{{ 'Four project areas. Pick one to see its scope, key metrics and sub-projects.' if en else '프로젝트를 네 분야로 정리했습니다. 분야를 고르면 범위·핵심 지표·세부 프로젝트가 나옵니다.' }}</p></div>
   {% if RV %}<div class="roleswitch" role="group" aria-label="{{ T.role_aria }}"><button type="button" data-role="all" aria-pressed="true">{{ T.role_all }}</button>{% for k, rv in RV.items() %}<button type="button" data-role="{{ k }}" aria-pressed="false">{{ rv.label }}</button>{% endfor %}</div>{% endif %}
   {% set ords = S.order or {} %}
+  {% macro ostyle(th) %}{% for r, ids in ords.items() %}{% if th.id in ids %}--o-{{ r }}:{{ ids.index(th.id) + 1 }};{% endif %}{% endfor %}{% endmacro %}
+  <div class="th-tabs" role="tablist" aria-label="{{ 'Project areas' if en else '프로젝트 분야' }}" hidden>{% for th in S.themes or [] %}<button type="button" role="tab" id="tab-{{ th.id }}" aria-controls="th-{{ th.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}" tabindex="{{ '0' if loop.first else '-1' }}" style="--c:{{ th.color }};{{ ostyle(th) }}"><span class="th-n">{{ '%02d'|format(loop.index) }}</span><span class="th-tl">{{ tx(th, 'tab') if th.tab else tx(th, 'title') }}</span></button>{% endfor %}</div>
   <div class="themes">
   {% for th in S.themes or [] %}
     {% set sp0 = project_lookup.get(th.image_from) if th.image_from else none %}
     {% set ns = namespace(img=none) %}{% if sp0 %}{% if sp0.card_image %}{% set ns.img = {'src': sp0.card_image, 'caption': sp0.card_caption} %}{% else %}{% for kw in ['GPlates', 'Fig11', '결과화면', '질의응답', '대시보드', '지도', 'GIS'] %}{% for g in sp0.gallery or [] %}{% if ns.img is none and kw in g.src %}{% set ns.img = g %}{% endif %}{% endfor %}{% endfor %}{% if ns.img is none and sp0.gallery %}{% set ns.img = sp0.gallery|first %}{% endif %}{% endif %}{% endif %}
-    {% set st = [] %}{% for r, ids in ords.items() %}{% if th.id in ids %}{% set _ = st.append('--o-' ~ r ~ ':' ~ (ids.index(th.id) + 1)) %}{% endif %}{% endfor %}
-    <article class="th" id="th-{{ th.id }}" style="--c:{{ th.color }};{{ st|join(';') }}">
+    <article class="th" id="th-{{ th.id }}" role="tabpanel" aria-labelledby="tab-{{ th.id }}" style="--c:{{ th.color }};{{ ostyle(th) }}">
       <div class="th-main">
         <div class="th-k"><span class="th-n">{{ '%02d'|format(loop.index) }}</span><span>{{ tx(th, 'eyebrow') }}</span></div>
         <h3>{{ tx(th, 'title') }}</h3>

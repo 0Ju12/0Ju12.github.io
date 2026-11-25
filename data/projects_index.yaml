@@ -10,7 +10,7 @@
   flow: ["Qwen 4B 베이스라인", "27B · QLoRA 파인튜닝", "Gemma · OCR · 멀티뷰", "확률 앙상블", "fixes−breaks로 채택 검증"]
   oneliner: "이미지+질문 4지선다 VQA. Qwen QLoRA·Gemma·OCR·멀티뷰를 확률 앙상블하고, 후보는 정확도가 아니라 fixes−breaks로 채택"
   points:
-    - "새 모델은 단독 성능이 아니라, 기존 앙상블에 더했을 때 고친 문제와 새로 틀린 문제(fixes−breaks)로 평가"
+    - "신규 모델은 단독 성능이 아닌, 기존 앙상블 대비 개선·악화 샘플 수(fixes−breaks)로 평가"
     - "최고 제출을 보호 기준선으로 고정하고 유형별 회귀를 확인한 뒤에만 교체"
     - "제출 전 자동 검사(6,714행·ID·확률 행합) + SHA-256 매니페스트로 GPU 없이 재현"
   stack: [PyTorch, Hugging Face, QLoRA, Qwen, Gemma, OCR]
@@ -72,10 +72,10 @@
   period: "2023.09 – 2023.12"
   team: "4인 팀 · 모델 설계·학습"
   cat: [dl, data]
-  metric: { value: "F1 0.85", label: "미학습 산불 테스트 (Acc 0.90)" }
+  metric: { value: "F1 0.85", label: "홀드아웃 테스트셋 (Acc 0.90)" }
   oneliner: "이전 시점의 화선·기상·지형 래스터(산불 4건)로 Conv2D 인코더–LSTM–디코더를 설계·학습해 다음 시점 화선을 예측"
   points:
-    - "ArcGIS로 시계열 래스터 구축, 학습에 쓰지 않은 산불로 일반화 검증"
+    - "ArcGIS로 시계열 래스터 구축, 홀드아웃 테스트셋(미학습 산불)으로 일반화 성능 평가"
   stack: [TensorFlow, PyTorch, U-LSTM, ArcGIS]
   image: assets/wildfire_test_map.png
   caption: "미학습 산불 테스트 — 실제 화선(위) vs 예측(아래)"

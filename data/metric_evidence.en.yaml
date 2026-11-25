@@ -6,7 +6,7 @@ masters:
   source: https://doi.org/10.2118/236968-PA
 wildfire-capstone:
   value: F1 0.85 · Accuracy 0.90
-  meaning: Fire-front prediction on an unseen Gangneung wildfire
+  meaning: Fire-front prediction on a held-out test event (Gangneung wildfire)
   conditions: Four-fire dataset. Sample counts and aggregation require the original
     report. Generalization to other regions is unverified.
   source: https://github.com/0Ju12/wildfire-spread-prediction
