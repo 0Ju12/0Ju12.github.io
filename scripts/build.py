@@ -288,7 +288,12 @@ def career_map():
     for gr in groups:
         gr["layers"] = sorted({byid[m]["layer"] for m in gr["members"]}, key=rank.get)
         gr["label"] = gr["label"] or any(byid[m].get("label") for m in gr["members"])
-    return {"base": base, "places": places, "groups": groups}
+    # 3D 지구본(templates/_map.j2)이 지도 섹션에 가까워질 때 불러오는 육지 윤곽 — scripts/geo_globe.mjs 로 만든 파일을 그대로 복사
+    globe = DATA.parent / "geo" / "globe_land.json"
+    if globe.exists():
+        (DOCS / "assets" / "globe").mkdir(parents=True, exist_ok=True)
+        (DOCS / "assets" / "globe" / "land.json").write_bytes(globe.read_bytes())
+    return {"base": base, "places": places, "groups": groups, "globe": globe.exists()}
 
 
 def evidence_index(data, en=False):
