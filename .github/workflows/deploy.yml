@@ -42,6 +42,7 @@ jobs:
         run: |
           python tests/render_interview_fixture.py
           node tests/public-learning-browser.cjs
+          node tests/desk-browser.cjs
           node tests/interview-browser.cjs
           node tests/opic-browser.cjs
           node tests/career-browser.cjs
