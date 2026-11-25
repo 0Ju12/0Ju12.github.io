@@ -2,7 +2,7 @@
 <html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"><meta name="color-scheme" content="light dark">
-<title>해원 · 개인 비서 업무실</title>
+<title>해원 · 개인 비서 업무실</title>
 <style>
 :root{
   --bg:#edf3f3;--surface:#fff;--surface-2:#f5f9f8;--ink:#17282d;--muted:#52696d;--line:#d3e0de;
@@ -39,12 +39,12 @@ input{flex:1 1 260px;min-width:0;border:1px solid var(--line);border-radius:8px;
 #note.error{color:var(--err)}
 ul{margin:8px 0 0;padding-left:20px}li{margin:3px 0}
 @media (max-width:640px){header{grid-template-columns:40% 60%}.portrait{min-height:180px}.portrait:before{width:104px}.greeting{padding:16px 14px}h1{font-size:21px;margin:6px 0}.greeting p{font-size:13px}.identity{font-size:12px}.actions .btn{width:100%;text-align:center}}
-</style></head>
+</style><style data-wrapfix>:where(html:lang(ko)) :where(body){word-break:keep-all;overflow-wrap:anywhere}:where(body){text-wrap-style:pretty}:where(h1,h2,h3,h4,h5,h6,figcaption,summary,dt,th,caption){text-wrap-style:balance}:where(pre,code,kbd,samp,textarea,input){word-break:normal;text-wrap-style:auto}:where(td,th){overflow-wrap:break-word}</style></head>
 <body data-ready="no"><main>
-  <div class="top"><a href="../">← 포트폴리오</a><span>본인 전용 · GitHub 로그인 필요</span></div>
+  <div class="top"><a href="../">← 포트폴리오</a><span>본인 전용 · GitHub 로그인 필요</span></div>
   <header>
     <div class="portrait" role="img" aria-label="헤드셋을 쓴 개인 비서 해원의 일러스트"></div>
-    <div class="greeting"><span class="identity">개인 AI 비서 · 해원 · Claude × ChatGPT</span><h1>업무실은 비공개<br>실행 환경에서 열립니다</h1><p>Claude와 ChatGPT가 각자 분석하고 쟁점을 토론하며 결과물을 다듬습니다.</p></div>
+    <div class="greeting"><span class="identity">개인 AI 비서 · 해원 · Claude × ChatGPT</span><h1>업무실은 비공개<br>실행 환경에서 열립니다</h1><p>Claude와 ChatGPT가 각자 분석하고 쟁점을 토론하며 결과물을 다듬습니다.</p></div>
   </header>
   <section class="panel" aria-label="업무실 연결">
     <p id="state" role="status">업무실이 열려 있는지 확인하고 있습니다…</p>
@@ -108,4 +108,11 @@ const hint=new URLSearchParams(location.hash.slice(1)).get('connect');
 apply();
 if(hint&&workspace(hint)){$('#settings').open=true;$('#address').value=workspace(hint).app;$('#state').textContent='새 실행 환경 주소가 전달됐습니다. 확인 후 저장해 주세요.'}
 else watch();
-</script></body></html>
+</script><script id="wrapfix-js">(function(){var R=[[/ \u00b7 /g,'\u00a0\u00b7 '],[/ \u2014 /g,'\u00a0\u2014 '],[/ \u2192 /g,'\u00a0\u2192 '],[/ \u2013 /g,'\u00a0\u2013\u00a0'],[/([^\s\u00a0\u2060])\u00b7(?=[^\s\u00a0\u200b])/g,'$1\u2060\u00b7\u200b']];
+var SKIP=/^(SCRIPT|STYLE|PRE|CODE|TEXTAREA|INPUT|SVG|MATH|KBD|SAMP|OPTION)$/;
+function fix(root){if(!root)return;if(root.nodeType===3){one(root);return}if(root.nodeType!==1||SKIP.test(root.nodeName)||root.isContentEditable)return;
+var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:function(n){for(var p=n.parentNode;p&&p!==root.parentNode;p=p.parentNode){if(p.nodeType===1&&(SKIP.test(p.nodeName)||p.isContentEditable))return 2}return 1}}),n;while((n=w.nextNode()))one(n)}
+function one(n){var v=n.nodeValue,o=v;if(!v||v.length<3)return;for(var i=0;i<R.length;i++)v=v.replace(R[i][0],R[i][1]);if(v!==o)n.nodeValue=v}
+var q=[],t=0;function flush(){t=0;var a=q;q=[];for(var i=0;i<a.length;i++)fix(a[i])}
+function start(){fix(document.body);new MutationObserver(function(ms){for(var i=0;i<ms.length;i++)for(var j=0;j<ms[i].addedNodes.length;j++)q.push(ms[i].addedNodes[j]);if(!t)t=requestAnimationFrame(flush)}).observe(document.body,{childList:true,subtree:true})}
+if(document.body)start();else document.addEventListener('DOMContentLoaded',start)})();</script></body></html>
