@@ -437,7 +437,7 @@ def sitemap(data):
         tpl = (ROOT / "templates" / "stats.html").read_text(encoding="utf-8")
         (DOCS / "stats.html").write_text(tpl.replace("__NS__", an["counter"]).replace("__PAGES__", json.dumps(keys, ensure_ascii=False)), encoding="utf-8")
     (DOCS / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{xml}\n</urlset>\n', encoding="utf-8")
-    (DOCS / "robots.txt").write_text(f"User-agent: *\nDisallow: /cv.html\nDisallow: /cv/\nDisallow: /study/\nDisallow: /interview/\nDisallow: /private/\nDisallow: /stats.html\nSitemap: {base}sitemap.xml\n", encoding="utf-8")
+    (DOCS / "robots.txt").write_text(f"User-agent: *\nDisallow: /cv.html\nDisallow: /cv/\nDisallow: /study/\nDisallow: /interview/\nDisallow: /private/\nDisallow: /desk/\nDisallow: /stats.html\nSitemap: {base}sitemap.xml\n", encoding="utf-8")
 
 
 def project_pages(env, data, en=False):
