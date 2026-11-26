@@ -11,7 +11,7 @@ await ctx.route('**/*',r=>{const u=new URL(r.request().url());
   if(u.origin==='https://0ju12.github.io'&&u.pathname==='/study/version.json')return r.fulfill({contentType:'application/json',body:'{"version":"fixture-v1"}'});
   return r.abort()});
 const desk=await ctx.newPage();await desk.goto('http://localhost:8501/');const [prep]=await Promise.all([desk.waitForEvent('popup'),desk.click('#go')]);const errors=[];prep.on('pageerror',e=>errors.push(e.message));
-await desk.waitForFunction(()=>last&&last.interview);const s=await desk.evaluate(()=>last);assert.equal(s.interview.total,1);assert.equal(s.week.length,7);assert(s.menus.interview);checks++;
+await desk.waitForFunction(()=>last&&last.interview);const s=await desk.evaluate(()=>last);assert.equal(s.interview.total,1);assert.equal(s.week.length,7);assert(s.menus.interview);assert.equal(s.cats.reduce((a,c)=>a+c.total,0),1);checks++;
 await desk.evaluate(()=>w.postMessage({type:'prep:open',route:'questions'},'https://0ju12.github.io'));await prep.waitForFunction(()=>location.hash==='#/questions');checks++;
 await desk.evaluate(()=>w.postMessage({type:'prep:open',route:'javascript:alert(1)'},'https://0ju12.github.io'));await prep.waitForTimeout(200);assert.equal(await prep.evaluate(()=>location.hash),'#/questions');checks++;
 await desk.evaluate(()=>w.postMessage({type:'prep:inbox',item:{kind:'answer',qid:'q1',title:'답변 다듬기',text:'네오가 다듬은 답변'}},'https://0ju12.github.io'));
