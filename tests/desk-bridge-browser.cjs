@@ -1,4 +1,4 @@
-/* Bridge between the prep space and 해원's desk: only the opener on an allowed origin may read a summary,
+/* Bridge between the prep space and 네오's desk: only the opener on an allowed origin may read a summary,
    open a menu or drop inbox items, and inbox items are applied only by a click. Uses the synthetic fixture. */
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
 const fixture=process.env.INTERVIEW_FIXTURE||path.resolve(__dirname,'../work/interview-fixture');
@@ -14,10 +14,10 @@ const desk=await ctx.newPage();await desk.goto('http://localhost:8501/');const [
 await desk.waitForFunction(()=>last&&last.interview);const s=await desk.evaluate(()=>last);assert.equal(s.interview.total,1);assert.equal(s.week.length,7);assert(s.menus.interview);checks++;
 await desk.evaluate(()=>w.postMessage({type:'prep:open',route:'questions'},'https://0ju12.github.io'));await prep.waitForFunction(()=>location.hash==='#/questions');checks++;
 await desk.evaluate(()=>w.postMessage({type:'prep:open',route:'javascript:alert(1)'},'https://0ju12.github.io'));await prep.waitForTimeout(200);assert.equal(await prep.evaluate(()=>location.hash),'#/questions');checks++;
-await desk.evaluate(()=>w.postMessage({type:'prep:inbox',item:{kind:'answer',qid:'q1',title:'답변 다듬기',text:'해원이 다듬은 답변'}},'https://0ju12.github.io'));
+await desk.evaluate(()=>w.postMessage({type:'prep:inbox',item:{kind:'answer',qid:'q1',title:'답변 다듬기',text:'네오가 다듬은 답변'}},'https://0ju12.github.io'));
 await prep.waitForFunction(()=>/받은 자료 1/.test(document.querySelector('#haewon-inbox').textContent));
-assert.notEqual(await prep.evaluate(()=>(JSON.parse(localStorage.getItem('interview-app-v1')||'{}').answers||{}).q1?.text),'해원이 다듬은 답변');checks++;
-await prep.click('#haewon-inbox');await prep.click('[data-hw-apply]');await prep.waitForFunction(()=>JSON.parse(localStorage.getItem('interview-app-v1')).answers.q1.text==='해원이 다듬은 답변');checks++;
+assert.notEqual(await prep.evaluate(()=>(JSON.parse(localStorage.getItem('interview-app-v1')||'{}').answers||{}).q1?.text),'네오가 다듬은 답변');checks++;
+await prep.click('#haewon-inbox');await prep.click('[data-hw-apply]');await prep.waitForFunction(()=>JSON.parse(localStorage.getItem('interview-app-v1')).answers.q1.text==='네오가 다듬은 답변');checks++;
 await prep.evaluate(()=>window.postMessage({type:'prep:inbox',item:{kind:'note',text:'spoof'}},'*'));await prep.waitForTimeout(200);
 assert.equal(await prep.evaluate(()=>JSON.parse(localStorage.getItem('prep-haewon-inbox')).length),0);checks++;
 assert.deepEqual(errors,[]);console.log('desk bridge checks',checks)}finally{await browser.close()}})().catch(e=>{console.error(e);process.exit(1)});

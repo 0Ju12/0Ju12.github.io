@@ -1,4 +1,4 @@
-/* Link to 해원's desk (the private Codespace page).
+/* Link to 네오's desk (the private Codespace page).
    Two ways in: the desk frames this page from its own origin (/study/ served by the desk), or the desk
    window opened this tab on the public site. Only that parent or opener may talk to it.
    It can read a summary, open a menu and leave items in an inbox (applied here only by a click).
@@ -11,7 +11,7 @@ var DESK_BRIDGE=(function(){
    try{var u=new URL(v),m=/^([a-z0-9]+(?:-[a-z0-9]+)*?)(?:-8501\.app)?\.github\.dev$/.exec(u.hostname);if(u.protocol==='https:'&&!u.port&&m)return 'https://'+m[1]+'-8501.app.github.dev'}catch(_){}return ''}
  function allowed(origin){return origin===deskOrigin()||origin==='http://localhost:8501'||origin==='http://127.0.0.1:8501'}
  function inbox(){try{var x=JSON.parse(localStorage.getItem(INBOX)||'[]');return Array.isArray(x)?x:[]}catch(_){return []}}
- function keep(items){try{localStorage.setItem(INBOX,JSON.stringify(items.slice(-MAX_ITEMS)))}catch(_){toast('해원 자료를 저장하지 못했습니다.')}}
+ function keep(items){try{localStorage.setItem(INBOX,JSON.stringify(items.slice(-MAX_ITEMS)))}catch(_){toast('네오 자료를 저장하지 못했습니다.')}}
  function qtext(q){return {id:q.id,c:q.c,q:q.q,b:(S.q[q.id]||{}).b||0,answer:getAnswer(q).slice(0,1200)}}
  function summary(){var t=today(),week=[];for(var i=6;i>=0;i--){var k=today(-i);week.push([k,(S.days[k]||0)+(STUDY&&STUDY.days()[k]||0)])}
    var tried=QS.filter(function(q){return S.q[q.id]}),weak=tried.filter(function(q){return (S.q[q.id].b||0)<=2});
@@ -34,12 +34,12 @@ var DESK_BRIDGE=(function(){
    else if(m.type==='prep:open'&&typeof m.route==='string'&&/^[a-z-]{1,24}(\/[\w:%.-]{1,80})?$/.test(m.route)){location.hash='#/'+m.route;window.focus()}
    else if(m.type==='prep:inbox'&&m.item&&typeof m.item.text==='string'&&m.item.text.trim()){
      var it=m.item,items=inbox();items.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),kind:it.kind==='answer'&&Q[it.qid]?'answer':'note',
-       qid:it.kind==='answer'&&Q[it.qid]?it.qid:'',title:String(it.title||'해원 자료').slice(0,120),text:it.text.slice(0,MAX_TEXT),at:Date.now()});
-     keep(items);badge();send({type:'prep:inbox-ok',count:items.length});toast('해원이 자료를 보냈습니다. 오른쪽 아래에서 확인하세요.')}}
+       qid:it.kind==='answer'&&Q[it.qid]?it.qid:'',title:String(it.title||'네오 자료').slice(0,120),text:it.text.slice(0,MAX_TEXT),at:Date.now()});
+     keep(items);badge();send({type:'prep:inbox-ok',count:items.length});toast('네오가 자료를 보냈습니다. 오른쪽 아래에서 확인하세요.')}}
  function badge(){var b=$('#haewon-inbox');if(!b){b=document.createElement('button');b.id='haewon-inbox';b.type='button';b.className='btn ghost sm';
      b.style.cssText='position:fixed;right:16px;bottom:16px;z-index:40;box-shadow:0 6px 20px rgba(0,0,0,.12);background:var(--card)';b.onclick=panel;document.body.appendChild(b)}
-   var n=inbox().length;b.style.display=(embedded?!n:(!n&&!peer))?'none':'';b.textContent=(peer?'해원 연결됨':'해원')+(n?' · 받은 자료 '+n:'')}
- function panel(){var items=inbox(),h='<h1>해원이 보낸 자료</h1><p class="sub">업무실에서 보낸 결과입니다. 확인하고 적용한 것만 준비 공간 기록에 들어갑니다.</p>';
+   var n=inbox().length;b.style.display=(embedded?!n:(!n&&!peer))?'none':'';b.textContent=(peer?'네오 연결됨':'네오')+(n?' · 받은 자료 '+n:'')}
+ function panel(){var items=inbox(),h='<h1>네오가 보낸 자료</h1><p class="sub">업무실에서 보낸 결과입니다. 확인하고 적용한 것만 준비 공간 기록에 들어갑니다.</p>';
    if(!items.length)h+='<div class="card muted">받은 자료가 없습니다.</div>';
    items.slice().reverse().forEach(function(x){var q=x.qid&&Q[x.qid];h+='<div class="card" style="margin-top:10px"><b>'+esc(x.title)+'</b><div class="faint small">'+new Date(x.at).toLocaleString()+(q?' · 질문: '+esc(q.q):'')+'</div><pre style="white-space:pre-wrap;font:inherit;margin:10px 0">'+esc(x.text)+'</pre><div class="row">'+
      (q?'<button class="btn sm" data-hw-apply="'+esc(x.id)+'">내 답변으로 적용</button>':'')+'<button class="btn ghost sm" data-hw-copy="'+esc(x.id)+'">복사</button><button class="btn ghost sm" data-hw-drop="'+esc(x.id)+'">지우기</button></div></div>'});
