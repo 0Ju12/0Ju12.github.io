@@ -152,6 +152,7 @@ def main():
     data["private_ready"] = False
     data["evidence"] = build.evidence_index(data, en=True)
     import json
+    (build.DOCS / "evidence-en.json").write_text(json.dumps(data["evidence"], ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     (build.DOCS / "search-en.json").write_text(json.dumps(build.search_index(data, en=True), ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     env = Environment(loader=FileSystemLoader(build.TEMPLATES),
                       autoescape=select_autoescape(["html", "j2"], default_for_string=False),

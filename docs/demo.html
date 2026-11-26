@@ -28,7 +28,7 @@ window.stat=function(e){if(!S.getItem('se:'+e)){S.setItem('se:'+e,'1');h('e.'+e)
 document.addEventListener('click',function(ev){var a=ev.target.closest&&ev.target.closest('a[href]');if(!a)return;var u=a.getAttribute('href');
 if(/resume|cv[./]/.test(u))stat('resume');else if(/github\.com/.test(u))stat('github');else if(/doi\.org|koreascience/.test(u))stat('paper');else if(/^mailto:/.test(u))stat('mail');else if(/linkedin/.test(u))stat('linkedin');else if(/data-projects|\/demo/.test(u))stat('demo')},true);
 }catch(e){}})();</script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/vendor/pretendard/pretendardvariable-dynamic-subset.css">
 <style>
 :root{--bg:#f6f7f9;--card:#fff;--text:#18181b;--muted:#5f6670;--faint:#646b77;--line:#e2e5ea;--ink:#1f3a5f;--on-ink:#fff;--ok:#15803d;--ok-bg:#e8f5ec;--bad:#b42318;--bad-bg:#fdecea;--mark:#e8edf5;--mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0e1116;--card:#171b22;--text:#eef1f5;--muted:#a3abb7;--faint:#8d96a3;--line:#2a313b;--ink:#9db8dd;--on-ink:#0e1116;--ok:#4ade80;--ok-bg:#14271b;--bad:#f87171;--bad-bg:#2c1414;--mark:#1d2633}}

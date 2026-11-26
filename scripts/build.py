@@ -544,6 +544,8 @@ def main():
     for t in [] if "--previews" not in sys.argv else sorted(x.stem for x in (TEMPLATES / "themes").glob("*.css")):
         (DOCS / f"design-{t}.html").write_text(site_tpl.render(theme=t, **data), encoding="utf-8")
     (DOCS / "search.json").write_text(json.dumps(search_index(data), ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    # 기술 → 근거 목록: 첫 화면 HTML에 싣지 않고 버튼을 처음 누를 때 불러옴
+    (DOCS / "evidence.json").write_text(json.dumps(data["evidence"], ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     (DOCS / "projects").mkdir(exist_ok=True)
     for name, html in project_pages(env, data).items():
         (DOCS / "projects" / name).write_text(html, encoding="utf-8")
