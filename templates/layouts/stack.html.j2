@@ -58,7 +58,7 @@
 {{ h.meta(profile.name ~ ' — ' ~ profile.title, profile.headline, ('en.html' if en else ''), '', en) }}
 {% set ld = {'@context': 'https://schema.org', '@type': 'Person', 'name': profile.name, 'alternateName': profile.name_en, 'jobTitle': profile.title, 'description': profile.headline, 'url': 'https://0ju12.github.io/' ~ ('en.html' if en else ''), 'image': 'https://0ju12.github.io/assets/photos/profile.jpg', 'sameAs': (profile.links or [])|map(attribute='url')|list, 'alumniOf': (education or [])|map(attribute='school')|unique|list} %}<script type="application/ld+json">{{ ld|tojson }}</script>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/vendor/pretendard/pretendardvariable-dynamic-subset.css">
 <style>
 :root{--bg:#f7f7f8;--text:#18181b;--muted:#5f5f68;--faint:#6a6a74;--mixc:#000;--line:#e4e4e8;--card:#fff;--ink:#18181b;--on-ink:#fafafa;--shadow:0 1px 2px rgba(0,0,0,.04),0 18px 48px -18px rgba(0,0,0,.16){% for t in tints %};--t{{ loop.index }}:{{ t }}{% endfor %}}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d10;--mixc:#fff;--text:#f4f4f5;--muted:#a1a1aa;--faint:#8e8e98;--line:#27272a;--card:#17171a;--ink:#f4f4f5;--on-ink:#0d0d10;--shadow:0 18px 48px -18px rgba(0,0,0,.6){% for t in tints_d %};--t{{ loop.index }}:{{ t }}{% endfor %}}}
@@ -400,6 +400,8 @@ body.role-data .th,body.role-data .th-tabs button{order:var(--o-data,9)}body.rol
 .th-m div{padding:12px 14px;border-radius:14px;background:color-mix(in srgb,var(--c) 8%,var(--card))}
 .th-m dt{font-size:21px;font-weight:800;letter-spacing:-.03em;line-height:1.2;color:color-mix(in srgb,var(--c) 78%,var(--mixc));font-variant-numeric:tabular-nums}
 .th-m dd{margin:4px 0 0;font-size:12.5px;line-height:1.45;color:var(--muted)}
+.th-badge{display:table;margin:0 0 5px;padding:1px 8px;border-radius:99px;font-size:11.5px;font-weight:700;color:color-mix(in srgb,var(--c) 85%,var(--mixc));background:color-mix(in srgb,var(--c) 18%,var(--card))}
+.th-m .tone-fix{box-shadow:inset 3px 0 0 color-mix(in srgb,var(--c) 70%,transparent)}
 .th-links{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 0}
 .th-links a{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--text);transition:transform .15s,border-color .15s}
 .th-links a.pri{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
@@ -427,7 +429,9 @@ body.role-data .th,body.role-data .th-tabs button{order:var(--o-data,9)}body.rol
 .others span{grid-column:1;font-size:12.5px;color:var(--faint)}
 .others i{grid-column:2;grid-row:1/3;align-self:center;font-style:normal;color:var(--faint)}
 @media (max-width:900px){.th{grid-template-columns:1fr;padding:22px 20px 22px 24px;gap:20px}.others ul{grid-template-columns:1fr}}
-@media (max-width:600px){.hero{padding:96px 0 32px}.th-m dt{font-size:19px}}
+@media (max-width:600px){.hero{padding:96px 0 32px}.th-m dt{font-size:19px}.th-m{grid-template-columns:1fr}
+  /* 직무 보기: 휴대폰에서는 가로 스크롤 대신 세 칸 고정 — 잘린 버튼이 생기지 않게 */
+  .roleswitch{display:grid;grid-template-columns:.8fr 1.1fr 1.1fr;width:100%;border-radius:16px;overflow:visible}.roleswitch button{white-space:normal;padding:8px 6px;border-radius:12px;font-size:13px;line-height:1.3;text-align:center}}
 </style>
 </head>
 <body class="role-all">
@@ -477,7 +481,6 @@ body.role-data .th,body.role-data .th-tabs button{order:var(--o-data,9)}body.rol
   <footer>© {{ profile.name_en if en else profile.name }} · {{ T.gen }} · <button id="theme" type="button" style="font:inherit;color:inherit;background:none;border:0;padding:0;text-decoration:underline;cursor:pointer">{{ T.theme }}</button><nav class="own" aria-label="{{ 'Owner spaces' if en else '본인용 공간' }}"><b>{{ 'Owner only · locked' if en else '본인용 · 암호 잠금' }}</b><a href="study/index.html" rel="nofollow">{{ 'Prep space (study · interview)' if en else '준비 공간 (학습·면접)' }}</a><a href="desk/index.html" rel="nofollow">{{ 'Personal assistant desk' if en else '개인 비서 업무실' }}</a><a href="private/index.html" rel="nofollow">{{ 'Private files' if en else '비공개 자료' }}</a></nav></footer>
 </div>
 <div class="evp" id="evp" role="dialog" aria-modal="false" aria-labelledby="evt" hidden><div class="evh"><span id="evt"></span><button type="button" id="evx" aria-label="{{ T.close }}">✕</button></div><ul id="evl"></ul></div>
-<script type="application/json" id="ev-data">{{ evidence|default([])|tojson }}</script>
 {% set ro = {} %}{% for k, rv in (RV or {}).items() %}{% set _ = ro.update({k: rv.order}) %}{% endfor %}<script type="application/json" id="rv-data">{{ ro|tojson }}</script>
 {% include "_ask.j2" %}
 {{ p.theme_script() }}
@@ -510,14 +513,16 @@ function setRole(r,keep){
 document.querySelectorAll('.roleswitch button').forEach(function(b){b.addEventListener('click',function(){setRole(b.dataset.role)})});
 var q=new URLSearchParams(location.search).get('role');if(q)setRole(q,true);
 /* 기술 → 근거 */
-var EV=JSON.parse((document.getElementById('ev-data')||{}).textContent||'[]'),evp=document.getElementById('evp'),evl=document.getElementById('evl'),evt=document.getElementById('evt'),evOn=null;
+var EV=null,EVSRC='{{ "evidence-en.json" if en else "evidence.json" }}',evp=document.getElementById('evp'),evl=document.getElementById('evl'),evt=document.getElementById('evt'),evOn=null;
 var LBL={p:'{{ T.ev_p }}',w:'{{ T.ev_w }}'};
 function keys(t){var out=[];t.toLowerCase().split(/[\/·,()]+/).forEach(function(x){x=x.trim();if(x.length<2)return;out.push(x);var w=x.split(/\s+/);if(w.length>2)out.push(w.slice(0,2).join(' '));});return out;}
 function rx(k){var e=k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');return /^[a-z0-9 .+#\-]+$/.test(k)?new RegExp('(^|[^a-z0-9])'+e+'([^a-z0-9]|$)'):new RegExp(e);}
-function evidence(t){var rs=keys(t).map(rx);return EV.filter(function(it){return rs.some(function(r){return r.test(it.s)})});}
+function evidence(t,list){var rs=keys(t).map(rx);return list.filter(function(it){return rs.some(function(r){return r.test(it.s)})});}
 function esc(s){return s.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
-function showEv(btn){
-  var t=btn.textContent.trim(),hits=evidence(t);
+function loadEv(){if(!EV)EV=fetch(EVSRC).then(function(r){if(!r.ok)throw r;return r.json()}).catch(function(){EV=null;return []});return EV;}
+function showEv(btn){loadEv().then(function(list){drawEv(btn,list)})}
+function drawEv(btn,list){
+  var t=btn.textContent.trim(),hits=evidence(t,list);
   if(evOn)evOn.classList.remove('on');evOn=btn;btn.classList.add('on');
   evt.innerHTML='‘'+esc(t)+'’ {{ T.ev_title }}<small>'+hits.length+'</small>';
   evl.innerHTML=hits.length?hits.map(function(h){return '<li><a href="'+h.u+'"><i>'+LBL[h.k]+'</i><span>'+esc(h.t)+'</span></a></li>'}).join(''):'<li class="none">{{ T.ev_none }}</li>';

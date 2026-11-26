@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>준비 공간 · {{ profile.name }}</title>
-<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#1f3a5f">
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0b0b0c">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/vendor/pretendard/pretendardvariable-dynamic-subset.css">
 <style>
 :root{--bg:#f7f7f8;--card:#fff;--text:#18181b;--muted:#5f6670;--faint:#646b77;--line:#e4e6ea;--soft:#f0f2f5;--ink:#1f3a5f;--hero:#1f3a5f;--on-hero:#fff;--ink-soft:#e8edf5;--on-ink:#fff;--ok:#0f7b5f;--ok-soft:#e3f4ee;--bad:#c2410c;--bad-soft:#fdeee5;--mid:#8a5a0a;--mid-soft:#fbf3dc;--acc:#d97706}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0e1116;--card:#161a21;--text:#eef1f5;--muted:#a3abb7;--faint:#8d96a3;--line:#29303a;--soft:#1d222b;--ink:#9db8dd;--hero:#1d3557;--on-hero:#eef1f5;--ink-soft:#1e2a3a;--on-ink:#0e1116;--ok:#34d399;--ok-soft:#10261f;--bad:#fb923c;--bad-soft:#2a1a10;--mid:#facc15;--mid-soft:#262110}}
@@ -261,6 +261,8 @@ a:focus-visible,button:focus-visible,select:focus-visible,summary:focus-visible,
 :root{--bg:#f5f4f0;--card:#fff;--text:#16181d;--muted:#5d6370;--faint:#9097a3;--line:#e6e3dc;--soft:#f1efe9;--ink:#13294b;--hero:#13294b;--on-hero:#f7f3ea;--ink-soft:#e9edf4;--on-ink:#fff;--gold:#b07d2b;--gold-soft:#f6eedd;--ok:#1f7a5a;--ok-soft:#e6f2ec;--bad:#b4471f;--bad-soft:#f9ebe3;--mid:#9a6b12;--mid-soft:#f7efdc;--sh:0 1px 2px rgba(20,24,33,.04),0 10px 30px -18px rgba(20,24,33,.18)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d1014;--card:#151920;--text:#eceef2;--muted:#a1a8b4;--faint:#6c7480;--line:#262c36;--soft:#1b2029;--ink:#a9c1e6;--hero:#17243a;--on-hero:#f2ece0;--ink-soft:#1c2738;--on-ink:#0d1014;--gold:#d9a54a;--gold-soft:#2a2214;--ok:#4cc79a;--ok-soft:#10261e;--bad:#f08a5d;--bad-soft:#2b1a12;--mid:#e3b341;--mid-soft:#29220f;--sh:0 1px 2px rgba(0,0,0,.3),0 12px 30px -18px rgba(0,0,0,.6)}}
 :root[data-theme="dark"]{--bg:#0d1014;--card:#151920;--text:#eceef2;--muted:#a1a8b4;--faint:#6c7480;--line:#262c36;--soft:#1b2029;--ink:#a9c1e6;--hero:#17243a;--on-hero:#f2ece0;--ink-soft:#1c2738;--on-ink:#0d1014;--gold:#d9a54a;--gold-soft:#2a2214;--ok:#4cc79a;--ok-soft:#10261e;--bad:#f08a5d;--bad-soft:#2b1a12;--mid:#e3b341;--mid-soft:#29220f;--sh:0 1px 2px rgba(0,0,0,.3),0 12px 30px -18px rgba(0,0,0,.6)}
+:root:not([data-theme="light"]){/* 네오 skin (2026-11-26): 업무실과 같은 검정·코랄이 기본. [밝게]를 고르면 아래 밝은 화면 */--bg:#0b0b0c;--card:#141415;--text:#ececee;--muted:#a3a3aa;--faint:#86868d;--line:#2a2a2e;--soft:#1b1b1d;--ink:#ff7a5c;--hero:#1f1411;--on-hero:#ececee;--ink-soft:#3a1d15;--on-ink:#1c0d08;--gold:#ffb37a;--gold-soft:#33231a;--ok:#7bc795;--ok-soft:#16281d;--bad:#ff8f86;--bad-soft:#3a1c1a;--mid:#e3b341;--mid-soft:#29220f;--acc:#ffb37a;--sh:0 1px 2px rgba(0,0,0,.35),0 12px 30px -18px rgba(0,0,0,.7);color-scheme:dark}
+:root[data-theme="light"]{--bg:#edf3f3;--card:#fff;--text:#17282d;--muted:#52696d;--faint:#7b8f92;--line:#d3e0de;--soft:#f5f9f8;--ink:#126665;--hero:#126665;--on-hero:#fff;--ink-soft:#e2f1ee;--on-ink:#fff;--gold:#a8741f;--gold-soft:#f6eedd;--ok:#2f7a4f;--ok-soft:#e7f3ea;--bad:#b4542f;--bad-soft:#fdf0e8;--mid:#9a6b12;--mid-soft:#f7efdc;--acc:#a8741f;--sh:0 1px 2px rgba(20,40,44,.05),0 10px 30px -18px rgba(20,40,44,.2);color-scheme:light}
 body{font-family:"Pretendard Variable",Pretendard,"Noto Sans KR",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;font-size:15px;letter-spacing:-.005em;font-feature-settings:"tnum" 1}
 h1{font-weight:800;letter-spacing:-.035em;font-size:clamp(24px,3.4vw,32px)}
 h2{font-weight:750;letter-spacing:-.025em;font-size:16px;margin:34px 0 12px;display:flex;align-items:baseline;gap:8px}
@@ -541,6 +543,7 @@ function home(){
 {% include 'interview/mock.js.j2' %}
 {% include 'interview/decks.js.j2' %}
 {% include 'interview/jobs.js.j2' %}
+{% include 'interview/desk-bridge.js.j2' %}
 /* ---------- 기록 ---------- */
 function log(){
   var h='<h1>기록</h1><p class="sub">공부·면접 연습 기록, 메모, 자소서는 이 브라우저(localStorage)에만 있습니다. 아래 [기기 옮기기] 한 번으로 둘 다 파일 하나에 담아 다른 기기와 합칠 수 있습니다.</p>';
@@ -559,7 +562,7 @@ function log(){
 }
 
 (function(){var r=document.documentElement,t=null;try{t=localStorage.getItem('theme')}catch(_){}if(t)r.dataset.theme=t;
-  $('#theme').onclick=function(){var dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=dark?'light':'dark';try{localStorage.setItem('theme',r.dataset.theme)}catch(_){}}})();
+  $('#theme').onclick=function(){var dark=r.dataset.theme!=='light';r.dataset.theme=dark?'light':'dark';try{localStorage.setItem('theme',r.dataset.theme)}catch(_){}}})();
 $('#backup-local').onclick=downloadLocalBackup;$('#recover-local').onclick=recoverLocal;storageStatus();
 route();
 checkRelease();

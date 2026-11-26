@@ -28,6 +28,7 @@ Python: `pip install jinja2 pyyaml markdown cryptography pypdf`
 - `python tests/render_interview_fixture.py`
 - `npm install playwright@1.47.2 && npx playwright install --with-deps chromium`
 - `node tests/interview-browser.cjs`
+- `node tests/desk-bridge-browser.cjs` (네오 업무실 연결: 요약·메뉴 열기·받은 자료 적용)
 - `python tests/render_illustrated_fixture.py --library` → `node tests/illustrated-browser.cjs`
 
 브라우저 테스트 전에는 위 두 `render_*_fixture.py`를 **매번 다시 실행**합니다. `work/`의 예전 fixture가 지금은 없는 이미지를 가리키면 illustrated 테스트가 이미지 디코딩 오류로 실패합니다. 로케일이 비어 있는 컨테이너(`LANG` 미설정)에서는 Chromium이 한글 파일 이름을 `download`로 바꾸므로, `interview-browser.cjs`가 실행 시 `LANG=C.UTF-8`을 스스로 지정합니다.

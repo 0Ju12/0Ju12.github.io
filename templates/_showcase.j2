@@ -19,7 +19,7 @@
         <div class="th-k"><span class="th-n">{{ '%02d'|format(loop.index) }}</span><span>{{ tx(th, 'eyebrow') }}</span></div>
         <h3>{{ tx(th, 'title') }}</h3>
         <p class="th-lead">{{ tx(th, 'lead') }}</p>
-        {% if th.metrics %}<dl class="th-m">{% for m in th.metrics %}<div><dt>{{ tx(m, 'v') }}</dt><dd>{{ tx(m, 'k') }}</dd></div>{% endfor %}</dl>{% endif %}
+        {% if th.metrics %}<dl class="th-m">{% for m in th.metrics %}<div{% if m.tone %} class="tone-{{ m.tone }}"{% endif %}><dt>{{ tx(m, 'v') }}</dt><dd>{% if m.label %}<span class="th-badge">{{ tx(m, 'label') }}</span>{% endif %}{{ tx(m, 'k') }}</dd></div>{% endfor %}</dl>{% endif %}
         {% if th.links %}<div class="th-links">{% for l in th.links %}<a href="{{ href(l) }}"{{ ext(l) }}{% if loop.first %} class="pri"{% endif %}>{{ tx(l, 'label') }} <i aria-hidden="true">{{ '→' if l.project or not (l.url or '').startswith('http') else '↗' }}</i></a>{% endfor %}</div>{% endif %}
       </div>
       <div class="th-side">

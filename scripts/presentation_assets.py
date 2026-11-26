@@ -37,7 +37,7 @@ def build():
  for key,labels,values,title,note in [
   ('pospeak-score',['Sequential','Combined'],[.32,.74],'BERTScore F1 · learning strategy','Semantic-similarity metric, not correction accuracy.'),
   ('power-mape',['Last-week baseline','Ensemble'],[6.17,3.23],'Power demand · MAPE (%)','Lower is better. Reported project test period only.'),
-  ('sensor-split',['Random split','Time split'],[.99,.46],'Sensor diagnosis · split comparison','Different evaluation splits, not a model improvement.'),
+  ('sensor-split',['Random split','Time-series CV (5 folds)'],[.99,.81],'Sensor diagnosis · valve accuracy (RandomForest)','Different evaluation splits, not a model improvement. LDA holds 0.99 under the same CV.'),
  ]:
   fig,ax=plt.subplots(figsize=(12,5.6));fig.patch.set_facecolor('#f4f7fb');ax.set_facecolor('#f4f7fb');bars=ax.barh(labels,values,color=['#95a8bb','#c48c3b'],height=.45)
   ax.set_xlim(0,max(values)*1.35);ax.invert_yaxis();ax.spines[['top','right','left']].set_visible(False);ax.tick_params(axis='y',length=0,labelsize=15);ax.set_title(title,loc='left',fontsize=20,fontweight='bold',pad=28,color='#132940')

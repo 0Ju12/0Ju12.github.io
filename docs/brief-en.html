@@ -29,7 +29,7 @@ window.stat=function(e){if(!S.getItem('se:'+e)){S.setItem('se:'+e,'1');h('e.'+e)
 document.addEventListener('click',function(ev){var a=ev.target.closest&&ev.target.closest('a[href]');if(!a)return;var u=a.getAttribute('href');
 if(/resume|cv[./]/.test(u))stat('resume');else if(/github\.com/.test(u))stat('github');else if(/doi\.org|koreascience/.test(u))stat('paper');else if(/^mailto:/.test(u))stat('mail');else if(/linkedin/.test(u))stat('linkedin');else if(/data-projects|\/demo/.test(u))stat('demo')},true);
 }catch(e){}})();</script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/vendor/pretendard/pretendardvariable-dynamic-subset.css">
 <style>
 :root{--bg:#f5f4f0;--card:#fff;--text:#16181d;--muted:#5d6370;--line:#e6e3dc;--ink:#13294b;--gold:#b07d2b;--soft:#f1efe9}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d1014;--card:#151920;--text:#eceef2;--muted:#a1a8b4;--line:#262c36;--ink:#a9c1e6;--gold:#d9a54a;--soft:#1b2029}}
@@ -73,7 +73,7 @@ h2{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--mu
   <div class="kpis"><div class="kpi"><b>8 questions</b><span>Power-demand, solar &amp; job-posting analysis warehouse</span></div><div class="kpi"><b>1 SCIE</b><span>First-author paper (SPE Journal)</span></div><div class="kpi"><b>SSAFY 16th</b><span>Samsung SW &amp; AI Academy (in progress)</span></div></div>
   <h2>Three projects</h2>
   <div class="proj">    <div class="pj"><b>Public-data projects</b><a href="projects/data-projects-en.html">Details →</a>
-      <span class="k">Accuracy 0.99 on a random split fell to 0.46 on a time split — the evaluation choice changed the conclusion · power demand MAPE 3.23% (vs 6.17% for the same-hour-last-week baseline)</span><span class="t">Eight projects that collect and model public data daily and monitor data quality and API health</span></div>    <div class="pj"><b>Hankki agent</b><a href="projects/hankki-en.html">Details →</a>
+      <span class="k">Accuracy 0.99 on a random split fell to 0.81 under time-series cross-validation, exposing data leakage · power demand MAPE 3.23% (model chosen by rolling CV; same-hour-last-week baseline 6.17%)</span><span class="t">Eight projects that collect and model public data daily and monitor data quality and API health</span></div>    <div class="pj"><b>Hankki agent</b><a href="projects/hankki-en.html">Details →</a>
       <span class="k">The model interprets, picks tools and words answers; code decides stock and portions — unknown tools are dropped and a model failure falls back to the rule plan</span><span class="t">A life-coach agent that plans meals, shopping and workouts from what&#39;s in your fridge</span></div>    <div class="pj"><b>Thesis research</b><a href="projects/masters-en.html">Details →</a>
       <span class="k">Agrees with 3 independent models at r ≥ 0.94</span><span class="t">Wavenumber-domain correlation → basement (SLFI) and salt (DLFI) indices</span></div>  </div>
   <div class="meta" style="margin-top:20px"><div><span>Looking for</span>Data Engineer · Data Analyst</div><div><span>Location</span>Open to any location</div><div><span>Available</span>H1 2027</div></div>

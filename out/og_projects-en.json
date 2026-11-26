@@ -3,7 +3,7 @@
   "id": "data-projects-en",
   "title": "Public-data projects — earthquake pipeline · equipment anomaly detection · power demand forecasting · DART data mart · dbt warehouse",
   "tagline": "Eight projects that collect and model public data daily and monitor data quality and API health",
-  "key": "Accuracy 0.99 on a random split fell to 0.46 on a time split — the evaluation choice changed the conclusion · power demand MAPE 3.23% (vs 6.17% for the same-hour-last-week baseline)",
+  "key": "Accuracy 0.99 on a random split fell to 0.81 under time-series cross-validation, exposing data leakage · power demand MAPE 3.23% (model chosen by rolling CV; same-hour-last-week baseline 6.17%)",
   "period": "2026.11 – present",
   "group": "Personal projects — public-data warehouse & monitoring · portfolio generator · encrypted prep space",
   "image": "assets/photos/data-projects/card/지진_파이프라인_지도.jpg"

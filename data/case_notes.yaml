@@ -171,29 +171,29 @@ data-projects:
   ko:
     studies:
     - title: "사례 연구 · 정확도 0.99는 왜 믿기 어려웠나 — 평가 분할이 바꾼 설비 진단 결론"
-      big: "0.99 → 0.46"
-      big_label: "밸브 진단 정확도(RandomForest) · 무작위 분할 vs 과거로 학습해 미래를 시험한 시간 구간 분할"
+      big: "0.99 → 0.81"
+      big_label: "밸브 진단 정확도(RandomForest) · 무작위 분할 vs 과거로 학습해 미래를 시험한 시계열 교차검증(전진 연쇄 5겹 평균)"
       label_w: 92
       fmt: "{:.2f}"
       steps:
         - ["문제", "유압 설비 2,205 사이클 × 센서 17개로 부품 상태를 진단했는데, 무작위 분할에서는 모든 부품이 0.99 이상이라 오히려 믿기 어려웠음"]
         - ["가설", "이웃한 사이클은 값이 거의 같아 시험 사이클의 '쌍둥이'가 학습에 들어가 점수가 부풀었다 — 맞다면 과거로 학습해 미래를 맞히는 분할에서 크게 떨어져야 함"]
-        - ["방법", "사이클을 10구간으로 나눠 마지막 3구간을 시험용으로 두고, 센서마다 사이클 통계 8개(특징 136개)로 RandomForest와 표준화+LDA를 두 분할에서 나란히 비교"]
-        - ["결과", "RandomForest는 밸브 0.46 · 펌프 0.75 · 축압기 0.40으로 떨어졌고, LDA는 냉각기·밸브·펌프에서 1.00을 유지 → 평가 방식이 모델 선택까지 바꿈"]
-        - ["한계", "축압기는 어떤 조합에서도 0.55가 최고라 압력 상승 구간의 시정수 같은 특징이 더 필요해 보임 · 부품별 비지도 탐지는 고장이 겹치면 오경보가 많아(밸브 48% · 펌프 54%) 라벨 기반 진단과 함께 써야 함"]
-      chart_title: "RandomForest 정확도 · 회색은 무작위 분할, 파랑은 시간 구간 분할"
-      chart: [["밸브 · 무작위", 0.992, "ref"], ["밸브 · 시간", 0.456], ["펌프 · 무작위", 0.999, "ref"], ["펌프 · 시간", 0.752], ["축압기 · 무작위", 0.997, "ref"], ["축압기 · 시간", 0.397]]
+        - ["방법", "사이클을 10구간으로 나눠 5~9번째 구간을 차례로 시험 구간으로 두는 전진 연쇄 5겹(앞선 구간으로만 학습)과 무작위 분할을 비교. 센서마다 사이클 통계 8개(특징 136개)로 RandomForest와 표준화+LDA를 평가하고, 단일 분할에는 이동 블록 부트스트랩 95% 신뢰구간을 붙임"]
+        - ["결과", "RandomForest는 밸브 0.81 ± 0.10 · 펌프 0.93 · 축압기 0.35로 떨어졌고, LDA는 밸브 0.99 ± 0.02 · 펌프 1.00으로 시험 구간을 바꿔도 유지 → 평가 방식이 모델 선택까지 바꿈. 처음 쓴 단일 분할(밸브 0.46)은 하락폭을 과장했다는 것도 교차검증으로 확인"]
+        - ["한계", "축압기는 시계열 CV에서 LDA 0.47이 최고라 압력 상승 구간의 시정수 같은 특징이 더 필요해 보임 · 부품별 비지도 탐지는 고장이 겹치면 오경보가 많아(밸브 48% · 펌프 54%) 라벨 기반 진단과 함께 써야 함"]
+      chart_title: "RandomForest 정확도 · 회색은 무작위 분할, 파랑은 시계열 CV 5겹 평균"
+      chart: [["밸브 · 무작위", 0.992, "ref"], ["밸브 · 시계열 CV", 0.807], ["펌프 · 무작위", 0.999, "ref"], ["펌프 · 시계열 CV", 0.931], ["축압기 · 무작위", 0.997, "ref"], ["축압기 · 시계열 CV", 0.350]]
       link: ["코드와 결과 보기 (GitHub)", "https://github.com/0Ju12/data-projects/tree/main/sensor-anomaly"]
     - title: "사례 연구 · 하루 전 전력 수요 예측 — 누수 없이 기준선을 절반으로"
       big: "3.23%"
-      big_label: "10~12월 시험 구간 시간별 MAPE (선형 + GBM 평균) · 지난주 같은 시각 기준선 6.17% · 일 최대수요 2.64%"
+      big_label: "10~12월 시험 구간 시간별 MAPE (롤링 CV로 고른 선형 + GBM 평균) · 지난주 같은 시각 기준선 6.17% · 기온 예보 없이 3.44%"
       label_w: 112
       fmt: "{:.2f}%"
       steps:
         - ["문제", "전날에 다음 날 0~23시 전국 수요를 한꺼번에 예측해야 하고, 공개된 자료는 2025년 1년치(8,760시간)뿐"]
         - ["설정", "예측 시점이 D-1이라 수요는 24시간 이상 지난 값만 특징으로 쓰고(누수 검사 테스트), 1~9월 학습 · 10~12월 시험(추석 연휴 포함)으로 시간 순서를 지킴"]
-        - ["방법", "시각 × 날 종류 · 월 · 지연값 · 냉난방 구간 기온으로 선형 모델과 GBM을 만들고, 기온을 넣은 것과 뺀 것을 함께 비교 — 실제 관측 기온을 '완벽한 예보'로 넣었기 때문"]
-        - ["결과", "두 모델 평균이 전체 3.23% · 일 최대수요 2.64%로 가장 좋았고, 공휴일에서는 선형(기온 없음)이 3.99%로 GBM(8%대)보다 안정적"]
+        - ["방법", "시각 × 날 종류 · 월 · 지연값 · 냉난방 구간 기온으로 선형 모델과 GBM을 만들고, 기온을 넣은 것과 뺀 것을 함께 비교 — 실제 관측 기온을 '완벽한 예보'로 넣었기 때문. 후보 10개 중 모델은 1~9월 안의 롤링 원점 교차검증 6겹으로만 고르고, 시험 구간은 마지막에 한 번만 평가"]
+        - ["결과", "교차검증으로 고른 두 모델 평균이 시험 3.23% · 일 최대수요 2.64%, 기온 없는 후보 중 최선은 3.44%. 공휴일에서는 선형(기온 없음)이 3.99%로 GBM(8%대)보다 안정적"]
         - ["한계", "관측 기온을 예보처럼 넣어 운영 성능은 이보다 나쁨 · 1년치라 같은 계절을 두 번 학습하지 못함 · 3.23%는 단순 기준선 대비 개선이지 전력거래소 공식 예측보다 낫다는 뜻이 아님"]
       chart_title: "모델별 MAPE (낮을수록 좋음) · 회색은 기준선"
       chart: [["지난주 같은 시각", 6.17, "ref"], ["선형 + 기온", 4.77], ["GBM (기온 없음)", 4.17], ["GBM + 기온", 3.86], ["선형 (기온 없음)", 3.74], ["선형 + GBM 평균", 3.23]]
@@ -215,35 +215,35 @@ data-projects:
       - "지진 파이프라인 저장: 사람이 읽고 diff 할 수 있는 CSV를 원본으로, SQLite는 매번 다시 만드는 질의용으로 — 파일은 조금 커지지만 변경 이력이 저장소에 그대로 남음"
       - "DART 근거 검색: 생성형 답변 대신 원문 문단과 출처만 돌려줌 — 문장이 매끄럽지 않은 대신 틀린 요약을 만들 위험이 없음"
     next:
-      - "축압기 진단(0.55)은 모델보다 압력 상승 구간의 시정수 같은 특징이 더 필요해 보임"
+      - "축압기 진단(시계열 CV 0.47)은 모델보다 압력 상승 구간의 시정수 같은 특징이 더 필요해 보임"
       - "전력 수요는 1년치만 공개돼 같은 계절을 두 번 학습하지 못함 — 여러 해 자료와 실제 기온 예보로 다시 평가할 계획"
       - "지금 비교 기준은 '지난주 같은 시각'이라는 단순 기준선 — 3.23%는 이 기준선 대비 개선이며, 전력거래소 공식 하루 전 예측보다 낫다는 뜻이 아님. 공식 예측치를 같은 기간으로 받아 나란히 비교하는 것이 다음 단계"
   en:
     studies:
     - title: "Case study · Why 0.99 accuracy was hard to trust — how the evaluation split changed an equipment diagnosis"
-      big: "0.99 → 0.46"
-      big_label: "Valve diagnosis accuracy (RandomForest) · random split vs a time-block split that trains on the past and tests on the future"
+      big: "0.99 → 0.81"
+      big_label: "Valve diagnosis accuracy (RandomForest) · random split vs time-series cross-validation that trains on the past and tests on the future (5-fold forward chaining)"
       label_w: 120
       fmt: "{:.2f}"
       steps:
         - ["Problem", "Diagnosing component condition from 2,205 cycles × 17 sensors of a hydraulic rig, every component scored above 0.99 with a random split — too good to trust"]
         - ["Hypothesis", "Neighbouring cycles are nearly identical, so 'twins' of test cycles leak into training. If so, scores should fall sharply when training on the past and testing on the future"]
-        - ["Method", "Split cycles into 10 blocks and hold out the last 3; 8 per-cycle statistics per sensor (136 features); RandomForest vs standardised LDA under both splits, side by side"]
-        - ["Result", "RandomForest fell to 0.46 (valve), 0.75 (pump), 0.40 (accumulator), while LDA kept 1.00 on cooler, valve and pump — the evaluation changed which model to choose"]
-        - ["Limits", "The accumulator tops out at 0.55, suggesting features such as the pressure build-up time constant are needed · per-component unsupervised detection raises many false alarms when faults overlap (valve 48%, pump 54%), so it needs label-based diagnosis alongside"]
-      chart_title: "RandomForest accuracy · grey = random split, blue = time-block split"
-      chart: [["Valve · random", 0.992, "ref"], ["Valve · time", 0.456], ["Pump · random", 0.999, "ref"], ["Pump · time", 0.752], ["Accum. · random", 0.997, "ref"], ["Accum. · time", 0.397]]
+        - ["Method", "Split cycles into 10 blocks and test on blocks 5–9 in turn, training only on earlier blocks (5-fold forward chaining), against a random split; 8 per-cycle statistics per sensor (136 features); RandomForest vs standardised LDA, with moving-block bootstrap 95% intervals on the single split"]
+        - ["Result", "RandomForest fell to 0.81 ± 0.10 (valve), 0.93 (pump), 0.35 (accumulator), while LDA held 0.99 ± 0.02 (valve) and 1.00 (pump) across test windows — the evaluation changed which model to choose. Cross-validation also showed the first single split (valve 0.46) overstated the drop"]
+        - ["Limits", "The accumulator tops out at 0.47 (LDA, time-series CV), suggesting features such as the pressure build-up time constant are needed · per-component unsupervised detection raises many false alarms when faults overlap (valve 48%, pump 54%), so it needs label-based diagnosis alongside"]
+      chart_title: "RandomForest accuracy · grey = random split, blue = 5-fold time-series CV mean"
+      chart: [["Valve · random", 0.992, "ref"], ["Valve · TS-CV", 0.807], ["Pump · random", 0.999, "ref"], ["Pump · TS-CV", 0.931], ["Accum. · random", 0.997, "ref"], ["Accum. · TS-CV", 0.350]]
       link: ["Code and results (GitHub)", "https://github.com/0Ju12/data-projects/tree/main/sensor-anomaly"]
     - title: "Case study · Day-ahead power demand — half the baseline error without leakage"
       big: "3.23%"
-      big_label: "Hourly MAPE on the Oct–Dec test period (linear + GBM average) · same-hour-last-week baseline 6.17% · daily peak 2.64%"
+      big_label: "Hourly MAPE on the Oct–Dec test period (linear + GBM average chosen by rolling CV) · same-hour-last-week baseline 6.17% · 3.44% without a temperature forecast"
       label_w: 128
       fmt: "{:.2f}%"
       steps:
         - ["Problem", "Forecast all 24 hours of next-day national demand the day before, with only one public year (2025, 8,760 hours)"]
         - ["Setup", "Because the forecast is made on D-1, demand features use only values at least 24 hours old (checked by a leakage test); train Jan–Sep, test Oct–Dec including the Chuseok holiday"]
-        - ["Method", "Linear and GBM models on hour × day type, month, lags and heating/cooling temperature terms, each with and without temperature — observed temperature stands in for a perfect forecast"]
-        - ["Result", "The average of the two models was best (3.23% overall, 2.64% daily peak); on public holidays the linear model without temperature stayed stable at 3.99% versus 8%+ for GBM"]
+        - ["Method", "Linear and GBM models on hour × day type, month, lags and heating/cooling temperature terms, each with and without temperature — observed temperature stands in for a perfect forecast. The model is chosen from 10 candidates by 6-fold rolling-origin CV inside Jan–Sep only; the test period is scored once at the end"]
+        - ["Result", "The CV-selected average of the two models scored 3.23% on test (2.64% daily peak); the best candidate without temperature scored 3.44%. On public holidays the linear model without temperature stayed stable at 3.99% versus 8%+ for GBM"]
         - ["Limits", "Observed temperature as a perfect forecast means real operation would be worse · one year means no season is seen twice · 3.23% beats a naive baseline, not the grid operator's official forecast"]
       chart_title: "MAPE by model (lower is better) · grey = baseline"
       chart: [["Same hour last week", 6.17, "ref"], ["Linear + temp", 4.77], ["GBM (no temp)", 4.17], ["GBM + temp", 3.86], ["Linear (no temp)", 3.74], ["Linear + GBM avg", 3.23]]
@@ -265,6 +265,6 @@ data-projects:
       - "Earthquake storage: a human-readable, diff-able CSV is the source of truth and SQLite is rebuilt for queries — slightly larger files, but every change stays visible in the repository history."
       - "DART evidence search returns source paragraphs instead of generated answers — less fluent, but no risk of a wrong summary."
     next:
-      - "Accumulator diagnosis (0.55) seems to need features such as the time constant of pressure build-up more than a different model."
+      - "Accumulator diagnosis (0.47 under time-series CV) seems to need features such as the time constant of pressure build-up more than a different model."
       - "Only one year of demand data is public, so no season is seen twice; I plan to re-evaluate with several years and real temperature forecasts."
       - "The current reference is a naive same-hour-last-week baseline — 3.23% is an improvement over that baseline, not a claim of beating the grid operator's official day-ahead forecast. Comparing against the official forecast over the same period is the next step."
