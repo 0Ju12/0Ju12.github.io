@@ -40,7 +40,7 @@ highlights:
   - { value: "3 · 6", label: "Papers · conference talks" }
 
 proof:
-  - { k: "Evaluation", t: "Equipment-sensor diagnosis: 0.99 accuracy on a random split, 0.46 on a time-based split — the random split leaked future data, so the time-based split is the reported metric", u: "projects/data-projects-en.html" }
+  - { k: "Evaluation", t: "Equipment-sensor diagnosis: 0.99 accuracy on a random split, 0.81 under 5-fold time-series cross-validation — the random split leaked future data, so time-series validation is the reported metric, and LDA, which held 0.99 across test windows, was chosen", u: "projects/data-projects-en.html" }
   - { k: "Analysis", t: "After correcting a date dimension that classed substitute holidays and election day as weekdays, a piecewise regression of weekday load on temperature (R² 0.83) gave a cooling sensitivity of 1,636 MW/°C — 1.7× the heating slope", u: "https://0ju12.github.io/data-projects/warehouse/" }
   - { k: "LLM", t: "The LLM handles intent parsing, tool calling and response generation; stock and portion logic runs in code, and request-ID idempotency prevents duplicate records on retry (Hankki agent · SSAFY)", u: "projects/hankki-en.html" }
 
@@ -355,7 +355,7 @@ activities:
   - id: personal
     card_title: "Personal projects — public-data warehouse & monitoring · portfolio generator · encrypted prep space"
     tagline: "Site and resumes generated from one YAML source; private material served as encrypted apps"
-    highlights: ["Changing the split: 0.99 → 0.46", "YAML → KO/EN site · 5 PDFs", "PBKDF2 · AES-GCM encrypted PWA"]
+    highlights: ["Leakage caught: 0.99 → 0.81 under time-series CV", "YAML → KO/EN site · 5 PDFs", "PBKDF2 · AES-GCM encrypted PWA"]
     icon: "🛠️"
     kpi: { value: "5 PDFs", label: "Resumes generated from one YAML source (1-page · full · role-specific · English)" }
     title: "Personal projects — public-data warehouse & API monitoring · portfolio generator · encrypted prep space"
@@ -374,9 +374,9 @@ activities:
     summary: Collecting and cleaning public data daily, modelling it in a dbt + Airflow warehouse and monitoring 22 public APIs and their data quality on a regular schedule; the portfolio itself is managed as data (YAML) to generate the site and resumes, and private study and interview material runs in an encrypted prep space.
     projects:
       - id: data-projects
-        digest: {"problem": "I needed work in my target fields (energy, resources, manufacturing, finance) that goes from collection to validation on real data", "role": "Personal project · collection, cleaning, modelling, validation, automation", "did": ["Incremental USGS earthquake collection → revision handling and quarantine counts → CSV/SQLite → b-value analysis → a dashboard updated daily", "Per-component anomaly detection, streaming alerts and supervised diagnosis on UCI hydraulic-rig sensors, comparing random vs time-block splits", "Day-ahead power demand forecasting from KPX 2025 hourly demand plus temperature (baseline, linear, GBM, ensemble)", "OpenDART data mart: pivot, LAG and RANK SQL views and evidence search over business reports", "The same data modelled in dbt as staging → intermediate → marts and run by an Airflow DAG — data tests, earthquake revision history (SCD type 2), safe re-runs"], "result": ["Power demand MAPE: 6.17% for the same-hour-last-week baseline → 3.23% for the ensemble · daily-peak error 2.64%", "dbt warehouse: 6 sources · 35 models · 101 data tests passing, with a daily run log and dashboard", "Sensor diagnosis: 0.99 with a random split fell to 0.46 with a time split — the split changes the conclusion", "134 automated tests across 8 folders passing in CI · daily collection and deployment with GitHub Actions"]}
+        digest: {"problem": "I needed work in my target fields (energy, resources, manufacturing, finance) that goes from collection to validation on real data", "role": "Personal project · collection, cleaning, modelling, validation, automation", "did": ["Incremental USGS earthquake collection → revision handling and quarantine counts → CSV/SQLite → b-value analysis → a dashboard updated daily", "Per-component anomaly detection, streaming alerts and supervised diagnosis on UCI hydraulic-rig sensors, comparing random vs time-block splits", "Day-ahead power demand forecasting from KPX 2025 hourly demand plus temperature (baseline, linear, GBM, ensemble)", "OpenDART data mart: pivot, LAG and RANK SQL views and evidence search over business reports", "The same data modelled in dbt as staging → intermediate → marts and run by an Airflow DAG — data tests, earthquake revision history (SCD type 2), safe re-runs"], "result": ["Power demand MAPE: 6.17% for the same-hour-last-week baseline → 3.23% for the ensemble chosen by rolling CV · 3.44% without a temperature forecast · daily-peak error 2.64%", "dbt warehouse: 6 sources · 35 models · 101 data tests passing, with a daily run log and dashboard", "Sensor diagnosis: 0.99 with a random split fell to 0.81 under 5-fold time-series CV (RF) — validation changes both the conclusion and the model choice (LDA 0.99 ± 0.02)", "134 automated tests across 8 folders passing in CI · daily collection and deployment with GitHub Actions"]}
         tagline: "Eight projects that collect and model public data daily and monitor data quality and API health"
-        key: "Accuracy 0.99 on a random split fell to 0.46 on a time split — the evaluation choice changed the conclusion · power demand MAPE 3.23% (vs 6.17% for the same-hour-last-week baseline)"
+        key: "Accuracy 0.99 on a random split fell to 0.81 under time-series cross-validation, exposing data leakage · power demand MAPE 3.23% (model chosen by rolling CV; same-hour-last-week baseline 6.17%)"
         short: "Public-data projects"
         title: "Public-data projects — earthquake pipeline · equipment anomaly detection · power demand forecasting · DART data mart · dbt warehouse"
         type: Personal project
@@ -401,7 +401,7 @@ activities:
             - "Data agent: an MCP server that lets an LLM query these results in SQL — read-only SQL guards and a check that numbers in the answer match the query results"
           result:
             - "Power demand: MAPE 6.17% for the same-hour-last-week baseline → 3.23% for the ensemble; daily-peak error 2.64%"
-            - "Sensor diagnosis: RandomForest scored 0.99+ on every component with a random split but 0.46 on the valve with a time-block split; LDA kept 1.00 on cooler, valve and pump, while the accumulator (0.55) remains open"
+            - "Sensor diagnosis: RandomForest scored 0.99+ on every component with a random split but 0.81 ± 0.10 on the valve under 5-fold time-series CV; LDA held 0.99 ± 0.02 (valve) and 1.00 (pump) across test windows, while the accumulator (0.47) remains open"
             - "Earthquakes: b = 1.11 ± 0.05 on 2,474 events of M4+ in East Asia (the catalogue updates daily) · 39 tests across the four projects"
             - "Analysis: above 17.5 °C weekday demand rises +1,636 MW per °C, below 13 °C +969 MW (R² 0.83); Saturdays −10.8% and Sundays/holidays −16.7% vs weekdays; Lunar New Year and Chuseok −21.6% and −18.7% vs nearby weekdays; on 14 of 22 April weekdays midday demand fell below the night minimum · data-engineer postings mention SQL 90% and Spark 68%, data-analyst postings SQL 51% and Tableau 27% (107 postings over one week, so no trend claims yet)"
             - "Warehouse: 44 models (12 analysis tables) · 129 dbt tests · 42 pytest cases; the analysis dashboard is recomputed daily · Airflow verified for a single DAG run only (not operated continuously)"

@@ -15,8 +15,8 @@ themes:
     lead: "공개 데이터를 일 단위 배치로 수집·정제하고, dbt 웨어하우스에서 모델링·분석하며, 산출물의 신선도(freshness)까지 모니터링합니다. 단일 저장소(모노레포)의 모든 프로젝트에 시계열 분할 검증·자동 테스트(CI)·일일 배포라는 공통 원칙을 적용했습니다."
     lead_en: "Daily batch ingestion and cleansing of public data, modelling and analysis in a dbt warehouse, and freshness monitoring of every output. All projects in the monorepo follow the same standards: time-based validation splits, automated tests (CI) and daily deployment."
     metrics:
-      - { v: "0.99 → 0.46", k: "무작위 분할 → 시계열 분할 정확도 (데이터 누수 확인)", k_en: "Accuracy, random vs. time-based split (leakage exposed)" }
-      - { v: "MAPE 3.23%", k: "전력 수요 D-1 예측 (베이스라인 6.17%)", k_en: "Day-ahead load forecast (baseline 6.17%)" }
+      - { v: "0.99 → 0.81", tone: fix, label: "누수 제거", label_en: "Leakage removed", k: "무작위 분할 → 시계열 CV 5겹 정확도(RF). 0.18p는 데이터 누수로 부풀려진 몫, LDA는 0.99 유지", k_en: "Random split → 5-fold time-series CV accuracy (RF). The 0.18 gap was inflated by data leakage; LDA holds 0.99" }
+      - { v: "MAPE 3.23%", k: "전력 수요 D-1 예측, 롤링 CV로 모델 선택 (베이스라인 6.17% · 기온 예보 없이 3.44%)", k_en: "Day-ahead load forecast, model chosen by rolling CV (baseline 6.17% · 3.44% without a temperature forecast)" }
       - { v: "R² 0.83", k: "평일 수요–기온 구간 선형 회귀", k_en: "Weekday load vs. temperature, piecewise regression" }
     rows:
       - name: "분석 웨어하우스 (dbt · Airflow)"
@@ -26,8 +26,8 @@ themes:
         url: "https://0ju12.github.io/data-projects/warehouse/"
       - name: "전력 수요 예측 · 설비 이상 탐지"
         name_en: "Load forecasting · equipment anomaly detection"
-        text: "시계열 분할 검증과 데이터 누수(leakage) 테스트로 성능을 평가합니다. 무작위 분할에서 0.99였던 정확도가 시계열 분할에서는 0.46으로 떨어졌습니다."
-        text_en: "Evaluated with time-based splits and data-leakage tests. Accuracy of 0.99 under a random split dropped to 0.46 under a time-based split."
+        text: "시계열 분할 검증과 데이터 누수(leakage) 테스트로 성능을 평가합니다. 무작위 분할에서 0.99였던 정확도가 시계열 교차검증에서는 0.81로 내려가, 그 차이만큼이 데이터 누수였음을 확인했습니다."
+        text_en: "Evaluated with time-based splits and data-leakage tests. Accuracy of 0.99 under a random split fell to 0.81 under time-series cross-validation, exposing the gap as data leakage."
         url: "https://0ju12.github.io/data-projects/power/"
       - name: "공간 데이터 지도 (지진 · 산불 · 응급실)"
         name_en: "Spatial data maps (earthquakes · wildfire · ER access)"
