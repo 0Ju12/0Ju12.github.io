@@ -13,6 +13,8 @@ var DESK_BRIDGE=(function(){
  function inbox(){try{var x=JSON.parse(localStorage.getItem(INBOX)||'[]');return Array.isArray(x)?x:[]}catch(_){return []}}
  function keep(items){try{localStorage.setItem(INBOX,JSON.stringify(items.slice(-MAX_ITEMS)))}catch(_){toast('네오 자료를 저장하지 못했습니다.')}}
  function qtext(q){return {id:q.id,c:q.c,q:q.q,b:(S.q[q.id]||{}).b||0,answer:getAnswer(q).slice(0,1200)}}
+ function cats(){var m={},t=today();QS.forEach(function(q){var c=q.c||'기타',r=S.q[q.id],x=m[c]||(m[c]={c:c,total:0,tried:0,solid:0,due:0});x.total++;if(r){x.tried++;if((r.b||0)>=3)x.solid++;if(r.due&&r.due<=t)x.due++}});
+   return Object.keys(m).map(function(k){return m[k]}).sort(function(a,b){return b.total-a.total}).slice(0,24)}
  function summary(){var t=today(),week=[];for(var i=6;i>=0;i--){var k=today(-i);week.push([k,(S.days[k]||0)+(STUDY&&STUDY.days()[k]||0)])}
    var tried=QS.filter(function(q){return S.q[q.id]}),weak=tried.filter(function(q){return (S.q[q.id].b||0)<=2});
    return {v:1,at:Date.now(),today:t,role:D.roles[S.role]||S.role||'',
@@ -21,7 +23,7 @@ var DESK_BRIDGE=(function(){
        due:due().slice(0,8).map(qtext),weak:weak.slice(0,8).map(qtext),answers:Object.keys(S.answers).length,mocks:S.mocks.length},
      applications:S.board.filter(function(b){return b.stage!=='drop'}).slice(0,30).map(function(b){return {name:b.name||'',role:b.role||'',stage:STAGES[b.stage]||b.stage||'',due:b.due||''}}),
      essays:Object.keys(S.essay).filter(function(k){return S.essay[k]&&S.essay[k].t}).length,
-     week:week,menus:SUBNAV,inbox:inbox().length}}
+     week:week,menus:SUBNAV,inbox:inbox().length,cats:cats()}}
  function snapshot(){var x=JSON.parse(JSON.stringify(S));if(STUDY)x.study=JSON.parse(JSON.stringify(STUDY.state()));return x}
  function restore(state){var d=validateState(JSON.parse(JSON.stringify(state))),n=mergeState(S,d);if(STUDY&&state.study)n+=STUDY.merge(state.study);fix();save();route();return n}
  function send(msg){if(peer&&!peer.win.closed)try{peer.win.postMessage(msg,peer.origin)}catch(_){}}
