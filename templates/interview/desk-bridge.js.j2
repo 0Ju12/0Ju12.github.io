@@ -1,9 +1,12 @@
-/* Link to 해원's desk (the private Codespace page that opened this window).
-   Only the desk window that opened this tab, on the saved Codespace origin, may talk to it.
-   It can read a summary, open a menu, and leave items in an inbox; nothing is applied without a click here. */
+/* Link to 해원's desk (the private Codespace page).
+   Two ways in: the desk frames this page from its own origin (/study/ served by the desk), or the desk
+   window opened this tab on the public site. Only that parent or opener may talk to it.
+   It can read a summary, open a menu and leave items in an inbox (applied here only by a click).
+   Framed by the desk, records are also mirrored to the desk server; opened by it, it can hand over a copy. */
 var DESK_BRIDGE=(function(){
  var ADDR='personal-assistant.port8501',DEFAULT='https://humble-tribble-x544gwrrjgrg2vq75.github.dev/',INBOX='prep-haewon-inbox',MAX_ITEMS=30,MAX_TEXT=20000;
- var peer=null,timer=null;
+ var peer=null,timer=null,mirror=null,embedded=false;
+ try{embedded=window.parent!==window&&window.parent.location.origin===location.origin}catch(_){}
  function deskOrigin(){var v=DEFAULT;try{v=localStorage.getItem(ADDR)||DEFAULT}catch(_){}
    try{var u=new URL(v),m=/^([a-z0-9]+(?:-[a-z0-9]+)*?)(?:-8501\.app)?\.github\.dev$/.exec(u.hostname);if(u.protocol==='https:'&&!u.port&&m)return 'https://'+m[1]+'-8501.app.github.dev'}catch(_){}return ''}
  function allowed(origin){return origin===deskOrigin()||origin==='http://localhost:8501'||origin==='http://127.0.0.1:8501'}
@@ -19,11 +22,15 @@ var DESK_BRIDGE=(function(){
      applications:S.board.filter(function(b){return b.stage!=='drop'}).slice(0,30).map(function(b){return {name:b.name||'',role:b.role||'',stage:STAGES[b.stage]||b.stage||'',due:b.due||''}}),
      essays:Object.keys(S.essay).filter(function(k){return S.essay[k]&&S.essay[k].t}).length,
      week:week,menus:SUBNAV,inbox:inbox().length}}
+ function snapshot(){var x=JSON.parse(JSON.stringify(S));if(STUDY)x.study=JSON.parse(JSON.stringify(STUDY.state()));return x}
+ function restore(state){var d=validateState(JSON.parse(JSON.stringify(state))),n=mergeState(S,d);if(STUDY&&state.study)n+=STUDY.merge(state.study);fix();save();route();return n}
  function send(msg){if(peer&&!peer.win.closed)try{peer.win.postMessage(msg,peer.origin)}catch(_){}}
  function push(){send({type:'prep:summary',summary:summary()})}
- function receive(e){if(!window.opener||e.source!==window.opener||!allowed(e.origin))return;var m=e.data||{};
-   if(!peer){peer={win:e.source,origin:e.origin};badge();clearInterval(timer);timer=setInterval(function(){if(peer.win.closed){clearInterval(timer);peer=null;badge();return}push()},15000)}
+ function receive(e){var framed=embedded&&e.source===window.parent&&e.origin===location.origin,opened=!framed&&window.opener&&e.source===window.opener&&allowed(e.origin);if(!framed&&!opened)return;var m=e.data||{};
+   if(!peer){peer={win:e.source,origin:e.origin};badge();clearInterval(timer);timer=setInterval(function(){if(peer.win.closed||(!embedded&&peer.win!==window.opener)){clearInterval(timer);peer=null;badge();return}push()},15000)}
    if(m.type==='prep:hello')push();
+   else if(m.type==='prep:export'&&opened)send({type:'prep:export',state:snapshot()});
+   else if(m.type==='prep:restore'&&framed&&m.state&&typeof m.state==='object'){try{var n=restore(m.state);send({type:'prep:restored',count:n});push()}catch(err){send({type:'prep:restored',error:String(err&&err.message||err)})}}
    else if(m.type==='prep:open'&&typeof m.route==='string'&&/^[a-z-]{1,24}(\/[\w:%.-]{1,80})?$/.test(m.route)){location.hash='#/'+m.route;window.focus()}
    else if(m.type==='prep:inbox'&&m.item&&typeof m.item.text==='string'&&m.item.text.trim()){
      var it=m.item,items=inbox();items.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),kind:it.kind==='answer'&&Q[it.qid]?'answer':'note',
@@ -31,7 +38,7 @@ var DESK_BRIDGE=(function(){
      keep(items);badge();send({type:'prep:inbox-ok',count:items.length});toast('해원이 자료를 보냈습니다. 오른쪽 아래에서 확인하세요.')}}
  function badge(){var b=$('#haewon-inbox');if(!b){b=document.createElement('button');b.id='haewon-inbox';b.type='button';b.className='btn ghost sm';
      b.style.cssText='position:fixed;right:16px;bottom:16px;z-index:40;box-shadow:0 6px 20px rgba(0,0,0,.12);background:var(--card)';b.onclick=panel;document.body.appendChild(b)}
-   var n=inbox().length;b.hidden=!n&&!peer;b.textContent=(peer?'해원 연결됨':'해원')+(n?' · 받은 자료 '+n:'')}
+   var n=inbox().length;b.style.display=(embedded?!n:(!n&&!peer))?'none':'';b.textContent=(peer?'해원 연결됨':'해원')+(n?' · 받은 자료 '+n:'')}
  function panel(){var items=inbox(),h='<h1>해원이 보낸 자료</h1><p class="sub">업무실에서 보낸 결과입니다. 확인하고 적용한 것만 준비 공간 기록에 들어갑니다.</p>';
    if(!items.length)h+='<div class="card muted">받은 자료가 없습니다.</div>';
    items.slice().reverse().forEach(function(x){var q=x.qid&&Q[x.qid];h+='<div class="card" style="margin-top:10px"><b>'+esc(x.title)+'</b><div class="faint small">'+new Date(x.at).toLocaleString()+(q?' · 질문: '+esc(q.q):'')+'</div><pre style="white-space:pre-wrap;font:inherit;margin:10px 0">'+esc(x.text)+'</pre><div class="row">'+
@@ -42,6 +49,8 @@ var DESK_BRIDGE=(function(){
    $$('[data-hw-copy]').forEach(function(b){b.onclick=function(){var x=find(b.dataset.hwCopy);if(x&&navigator.clipboard)navigator.clipboard.writeText(x.text).then(function(){toast('복사했습니다.')})}});
    $$('[data-hw-drop]').forEach(function(b){b.onclick=function(){keep(inbox().filter(function(y){return y.id!==b.dataset.hwDrop}));badge();panel()}})}
  window.addEventListener('message',receive);
+ if(embedded){peer={win:window.parent,origin:location.origin};var plain=save;save=function(){var ok=plain.apply(this,arguments);if(ok){clearTimeout(mirror);mirror=setTimeout(function(){send({type:'prep:state',state:snapshot()});push()},1500)}return ok};
+   window.parent.postMessage({type:'prep:ready',embedded:true},location.origin)}
  if(window.opener)[deskOrigin(),'http://localhost:8501','http://127.0.0.1:8501'].forEach(function(o){if(o)try{window.opener.postMessage({type:'prep:ready'},o)}catch(_){}});  // a mismatched target origin is dropped by the browser
  badge();
  return {summary:summary,inbox:inbox,panel:panel}
