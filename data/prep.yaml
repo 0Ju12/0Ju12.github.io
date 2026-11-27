@@ -4,8 +4,8 @@
 updated: '2026-11-26'
 
 goals:
-  - { id: sqld, name: "SQLD 시험", date: "2026-11-14", note: "결과 발표 11/27 · 합격하면 이력서·포트폴리오 반영" }
-  - { id: sqld-result, name: "SQLD 결과 발표", date: "2026-11-27", note: "" }
+  - { id: sqld, name: "SQLD 시험", date: "2026-11-14", note: "합격 · 이력서·포트폴리오 반영 완료" }
+  - { id: sqld-result, name: "SQLD 결과 발표", date: "2026-11-27", note: "합격" }
   - { id: opic, name: "OPIc IH", date: "", note: "포스코그룹 하반기 공채는 9/16 마감 — 다음 상반기 공채(통상 3~4월) 서류 마감 1~2주 전으로 시험일을 역산해 입력하세요" }
   - { id: algo, name: "SW 역량테스트 A형", date: "", note: "SSAFY 공지의 시험일을 입력하세요" }
   - { id: essay, name: "자소서 30문항 완성", date: "2026-12-26", note: "하루 1문항 · 주 5문항이면 6주", progress: essay }

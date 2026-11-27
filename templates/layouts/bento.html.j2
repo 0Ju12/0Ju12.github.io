@@ -96,7 +96,7 @@ footer{color:var(--muted);font-size:13px;padding:56px 0}
     <p>{{ profile.summary|truncate(150) }}</p>
     <div class="cta"><a class="btn solid" href="resume.pdf" download>{{ p.icon('doc', 16) }} 이력서</a><a class="btn ghost" href="#projects">프로젝트 보기 {{ p.icon('arrow', 14) }}</a></div>
   </div>
-  <div class="tile photo">{{ p.avatar(profile) }}<div class="namecard"><b>{{ profile.name }} · {{ profile.name_en }}</b><span>전북대 석사 · ADsP</span></div></div>
+  <div class="tile photo">{{ p.avatar(profile) }}<div class="namecard"><b>{{ profile.name }} · {{ profile.name_en }}</b><span>전북대 석사 · ADsP · SQLD</span></div></div>
   {% for h in highlights %}<div class="tile stat {{ 'dark' if loop.index == 1 else 'accent' if loop.index == 2 else '' }}"><b>{{ h.value }}</b><span>{{ h.label }}</span></div>{% endfor %}
   <div class="tile stack"><h3>기술 스택</h3><div class="chips">{% for s in skills[:2] %}{% for i in s['items'] %}<span class="chip">{{ i }}</span>{% endfor %}{% endfor %}</div></div>
   <div class="tile edu"><h3>학력 · 교육</h3><ul>{% for e in education %}<li><b>{{ e.school }}</b><span>{{ e.major }} {{ e.degree }} · {{ e.period_str }}</span></li>{% endfor %}</ul></div>
