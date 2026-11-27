@@ -1,114 +1,73 @@
 <!doctype html>
 <html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"><meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"><meta name="color-scheme" content="dark">
 <title>네오 · 개인 비서 업무실</title>
 <style>
-:root {
-  color-scheme: light;
-  --paper: #f6f7f2; --surface: #fff; --ink: #17332e; --muted: #50635c;
-  --teal: #145b50; --hover: #104a41; --line: #cdd7cf; --tint: #e7eee7;
+:root{
+  --bg:#edf3f3;--surface:#fff;--surface-2:#f5f9f8;--ink:#17282d;--muted:#52696d;--line:#d3e0de;
+  --accent:#126665;--accent-hover:#0e5453;--accent-ink:#fff;--accent-soft:#e2f1ee;--focus:#3c9aa6;
+  --ok:#2f7a4f;--ok-soft:#e7f3ea;--run:#b4542f;--run-soft:#fdf0e8;--err:#b3362b;--mint:#a8ede2;
+  --portrait:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgNDUwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImJnIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMTIzYTQ3Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMGExZjI5Ii8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNraW4iIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmN2RjY2IiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNlZWM1YWQiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0iaGFpciIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzNhMmEyZiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzFkMTUxOSIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJjb2F0IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMWY2ZjZkIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTM0YzRiIi8+PC9saW5lYXJHcmFkaWVudD48cmFkaWFsR3JhZGllbnQgaWQ9Imdsb3ciIGN4PSIuNSIgY3k9Ii4zOCIgcj0iLjU1Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM1ZmUwZTYiIHN0b3Atb3BhY2l0eT0iLjI4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNWZlMGU2IiBzdG9wLW9wYWNpdHk9IjAiLz48L3JhZGlhbEdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQ1MCIgZmlsbD0idXJsKCNiZykiLz48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQ1MCIgZmlsbD0idXJsKCNnbG93KSIvPjxnIHN0cm9rZT0iIzZmZDZkYyIgc3Ryb2tlLW9wYWNpdHk9Ii4xMCI+PHBhdGggZD0iTTAgNjBIMzAwTTAgMTIwSDMwME0wIDE4MEgzMDBNMCAyNDBIMzAwTTAgMzAwSDMwME0wIDM2MEgzMDBNMCA0MjBIMzAwTTUwIDBWNDUwTTEwMCAwVjQ1ME0xNTAgMFY0NTBNMjAwIDBWNDUwTTI1MCAwVjQ1MCIvPjwvZz48Y2lyY2xlIGN4PSIxNTAiIGN5PSIxNzAiIHI9IjExOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjN2ZlNmVhIiBzdHJva2Utb3BhY2l0eT0iLjM1IiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWRhc2hhcnJheT0iMyA3Ii8+PHBhdGggZD0iTTY4IDE4MEM2MiAxMDggMTAwIDY0IDE1MCA2NFMyMzggMTA4IDIzMiAxODBsOCAxMDRjLTggMTItMjQgMTgtNDIgMTRIMTAyYy0xOCA0LTM0LTItNDItMTR6IiBmaWxsPSJ1cmwoI2hhaXIpIi8+PHBhdGggZD0iTTEzNCAyMjBoMzJ2NDBxLTE2IDEwLTMyIDB6IiBmaWxsPSIjZWNjMGE2Ii8+PHBhdGggZD0iTTEzNCAyMjJoMzJ2MTRxLTE2IDEwLTMyIDB6IiBmaWxsPSIjZDlhNjhjIi8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwtMTYpIj48cGF0aCBkPSJNNDQgNDcwVjQ1MGMyLTkyIDM0LTE1MCAxMDYtMTYwIDcyIDEwIDEwNCA2OCAxMDYgMTYwdjIweiIgZmlsbD0idXJsKCNjb2F0KSIvPjxwYXRoIGQ9Ik0xMjAgMjg2bDMwIDQ2IDMwLTQ2Yy04LTYtMTgtMTAtMzAtMTBzLTIyIDQtMzAgMTB6IiBmaWxsPSIjZjRmN2Y2Ii8+PHBhdGggZD0iTTE1MCAzMzJsLTMwLTQ2LTE4IDEwIDMwIDkyek0xNTAgMzMybDMwLTQ2IDE4IDEwLTMwIDkyeiIgZmlsbD0iIzE4NWE1OSIvPjxwYXRoIGQ9Ik0xMDIgMjk2bDMwIDkyLTEwIDc4SDkyYy0yLTcwIDAtMTE4IDEwLTE3MHpNMTk4IDI5NmwtMzAgOTIgMTAgNjJoMzBjMi03MCAwLTExOC0xMC0xNTR6IiBmaWxsPSIjMWM2OTY3IiBvcGFjaXR5PSIuNTUiLz48Y2lyY2xlIGN4PSIxNTAiIGN5PSIzNTIiIHI9IjMiIGZpbGw9IiNhOGVkZTIiLz48Y2lyY2xlIGN4PSIxNTAiIGN5PSIzNzgiIHI9IjMiIGZpbGw9IiNhOGVkZTIiLz48cmVjdCB4PSIxODYiIHk9IjM0MiIgd2lkdGg9IjMwIiBoZWlnaHQ9IjE2IiByeD0iMyIgZmlsbD0iIzBmM2YzZSIvPjxyZWN0IHg9IjE5MCIgeT0iMzQ3IiB3aWR0aD0iMjIiIGhlaWdodD0iMi41IiByeD0iMSIgZmlsbD0iI2E4ZWRlMiIvPjxyZWN0IHg9IjE5MCIgeT0iMzUyIiB3aWR0aD0iMTQiIGhlaWdodD0iMiIgcng9IjEiIGZpbGw9IiM2ZmJjYjgiLz48L2c+PHBhdGggZD0iTTEwMCAxNjBjMC00NCAyMi03MiA1MC03MnM1MCAyOCA1MCA3MmMwIDQwLTIyIDc0LTUwIDc0cy01MC0zNC01MC03NHoiIGZpbGw9InVybCgjc2tpbikiLz48ZWxsaXBzZSBjeD0iMTAxIiBjeT0iMTcwIiByeD0iOCIgcnk9IjEyIiBmaWxsPSIjZWVjM2FhIi8+PGVsbGlwc2UgY3g9IjE5OSIgY3k9IjE3MCIgcng9IjgiIHJ5PSIxMiIgZmlsbD0iI2VlYzNhYSIvPjxwYXRoIGQ9Ik0xMTQgMTQ2cTE0LTggMjYtMU0xNjAgMTQ1cTEyLTcgMjYgMSIgc3Ryb2tlPSIjM2EyYTJmIiBzdHJva2Utd2lkdGg9IjMuMiIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PGcgZmlsbD0iIzJhMWYyNCI+PGVsbGlwc2UgY3g9IjEyNyIgY3k9IjE2NCIgcng9IjciIHJ5PSI4LjUiLz48ZWxsaXBzZSBjeD0iMTczIiBjeT0iMTY0IiByeD0iNyIgcnk9IjguNSIvPjwvZz48ZyBmaWxsPSIjZmZmIj48Y2lyY2xlIGN4PSIxMjkuNSIgY3k9IjE2MSIgcj0iMi40Ii8+PGNpcmNsZSBjeD0iMTc1LjUiIGN5PSIxNjEiIHI9IjIuNCIvPjwvZz48cGF0aCBkPSJNMTE3IDE1OHExMC02IDIwIDBNMTYzIDE1OHExMC02IDIwIDAiIHN0cm9rZT0iIzJhMWYyNCIgc3Ryb2tlLXdpZHRoPSIyLjIiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xNTAgMTcycS0zIDEyIDMgMTQiIHN0cm9rZT0iI2Q5YTM4YSIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNMTM2IDIwMHExNCAxMSAyOCAwIiBzdHJva2U9IiNiNTYxNWEiIHN0cm9rZS13aWR0aD0iMyIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PGcgZmlsbD0iI2YzYTdhMCIgb3BhY2l0eT0iLjQ1Ij48ZWxsaXBzZSBjeD0iMTE2IiBjeT0iMTg2IiByeD0iOSIgcnk9IjUiLz48ZWxsaXBzZSBjeD0iMTg0IiBjeT0iMTg2IiByeD0iOSIgcnk9IjUiLz48L2c+PHBhdGggZD0iTTk3IDE3MEM5MyAxMTIgMTE2IDgwIDE1MiA4MHM2MCAzMCA1MiA4NGMtNC0yMC0xNC0zNi0zMC00NC0xMi02LTIyLTE0LTI2LTI0LTYgMTQtMjAgMjYtMzYgMzQtMTAgOC0xNCAyMi0xNSA0MHoiIGZpbGw9InVybCgjaGFpcikiLz48cGF0aCBkPSJNMjAwIDE1MGM2IDMwIDQgNzAtNiAxMDBsMTQgNGMxMC0zMCAxMi03MCA0LTEwNHoiIGZpbGw9InVybCgjaGFpcikiLz48cGF0aCBkPSJNMTAwIDE1MGMtNiAzNC00IDcwIDYgMTAwbC0xNCA0Yy0xMC0zMC0xMi03MC00LTEwNHoiIGZpbGw9InVybCgjaGFpcikiLz48cGF0aCBkPSJNMTQ3IDk4Yy00IDEyLTE0IDIyLTI4IDMwTTE1MCA5OGM2IDEwIDE2IDE4IDMwIDI0IiBzdHJva2U9IiM1YTQ2NGMiIHN0cm9rZS13aWR0aD0iMS42IiBmaWxsPSJub25lIiBvcGFjaXR5PSIuNTUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik05MiAxNjBjMC01OCAyNi05MiA1OC05MnM1OCAzNCA1OCA5MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGUyYTMzIiBzdHJva2Utd2lkdGg9IjciIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik05MiAxNjBjMC01OCAyNi05MiA1OC05MnM1OCAzNCA1OCA5MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjN2ZlNmVhIiBzdHJva2Utd2lkdGg9IjEuNiIgc3Ryb2tlLW9wYWNpdHk9Ii43IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cmVjdCB4PSI4MiIgeT0iMTUwIiB3aWR0aD0iMjAiIGhlaWdodD0iMzQiIHJ4PSI5IiBmaWxsPSIjMGUyYTMzIi8+PHJlY3QgeD0iMTk4IiB5PSIxNTAiIHdpZHRoPSIyMCIgaGVpZ2h0PSIzNCIgcng9IjkiIGZpbGw9IiMwZTJhMzMiLz48cmVjdCB4PSI4NiIgeT0iMTU4IiB3aWR0aD0iNCIgaGVpZ2h0PSIxOCIgcng9IjIiIGZpbGw9IiM1ZmUwZTYiLz48cmVjdCB4PSIyMTAiIHk9IjE1OCIgd2lkdGg9IjQiIGhlaWdodD0iMTgiIHJ4PSIyIiBmaWxsPSIjNWZlMGU2Ii8+PHBhdGggZD0iTTkyIDE4MmM0IDIyIDE4IDMyIDM4IDMwIiBmaWxsPSJub25lIiBzdHJva2U9IiMwZTJhMzMiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PGNpcmNsZSBjeD0iMTMyIiBjeT0iMjEyIiByPSI1IiBmaWxsPSIjMGUyYTMzIi8+PGNpcmNsZSBjeD0iMTMyIiBjeT0iMjEyIiByPSIyIiBmaWxsPSIjNWZlMGU2Ii8+PC9zdmc+");
+  color-scheme:light;
 }
-@media (prefers-color-scheme: dark) {
-  :root {color-scheme:dark; --paper:#10201d; --surface:#172b26; --ink:#edf5eb; --muted:#b8c9bf;
-    --teal:#afe4ce; --hover:#c4f5df; --line:#3d534a; --tint:#20392f}
-}
-* {box-sizing:border-box}
-body {margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 "Segoe UI","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;word-break:keep-all;overflow-wrap:anywhere}
-a {color:inherit;text-decoration:none}
-button,input {font:inherit}
-button,summary {cursor:pointer}
-:focus-visible {outline:3px solid #268377;outline-offset:4px}
-.shell {width:min(1100px,100% - 64px);margin:0 auto}
-.top {display:flex;align-items:center;justify-content:space-between;gap:15px;padding:24px 0;border-bottom:1px solid var(--line)}
-.brand {display:inline-flex;align-items:center;gap:12px;font-size:15px;font-weight:650}
-.brandmark {font:italic 700 31px/1 Georgia,serif;letter-spacing:-.09em;color:var(--teal);padding-right:12px;border-right:1px solid var(--line)}
-.back {color:var(--muted);font-size:14px}.back:hover,.text-link:hover {text-decoration:underline}
-.welcome {display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,1fr);align-items:stretch;gap:clamp(20px,4.4vw,68px);padding:clamp(32px,5vw,72px) 0}
-.intro {align-self:center;padding:8px 0}
-.dateline {display:flex;align-items:center;gap:10px;min-height:20px;color:var(--teal);font-size:13px;font-weight:650;letter-spacing:.03em}
-.dateline::before {content:"";width:28px;border-top:2px solid currentColor}
-h1 {font-size:clamp(34px,4.3vw,64px);line-height:1.17;letter-spacing:-.068em;margin:20px 0 17px;font-weight:740}
-h1 span {display:block}
-.intro p {max-width:38ch;color:var(--muted);font-size:clamp(15px,1.25vw,18px);margin:0;line-height:1.8}
-.enter {display:inline-flex;align-items:center;justify-content:space-between;gap:32px;border:0;margin-top:27px;background:var(--teal);color:var(--surface);padding:12px 20px;border-radius:10px;font-weight:700}
-.enter:hover,.save:hover {background:var(--hover)}
-.enter span:last-child {font-size:21px;line-height:1}
-.signin {display:block;margin-top:10px;color:var(--muted);font-size:13px}
-.memory {position:relative;margin:0;isolation:isolate;min-height:340px;overflow:hidden;border-radius:4px 36px 4px 4px;background:#233c37}
-.memory img {position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 52%}
-.memory::after {position:absolute;inset:42% 0 0;content:"";background:linear-gradient(transparent,rgba(7,22,17,.8));pointer-events:none}
-.memory figcaption {position:absolute;inset:auto 23px 19px;z-index:1;display:flex;align-items:end;justify-content:space-between;gap:12px;color:white}
-.memory figcaption strong {display:block;font-weight:600;font-size:18px}.memory figcaption small {font-size:12px;color:#f0f3ea}
-.memory time {font:14px/1.5 ui-monospace,monospace;letter-spacing:.03em}
-.connection {border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden;margin-bottom:36px}
-.status-row {display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 24px}
-.status-text {min-width:0}
-.status-text h2 {display:flex;align-items:center;gap:9px;margin:0;font-size:16px;letter-spacing:-.03em}
-.status-text h2::before {content:"";width:8px;height:8px;border-radius:50%;background:#b0792d}
-body[data-ready=yes] .status-text h2::before {background:#399169}
-#state {color:var(--muted);margin:4px 0 0 17px;font-size:14px}
-.resume {display:inline-flex;align-items:center;justify-content:center;gap:12px;flex:none;border:1px solid var(--line);border-radius:8px;padding:8px 14px;color:var(--teal);font-size:14px;font-weight:650}
-.resume:hover {background:var(--tint)}
-details {border-top:1px solid var(--line)}
-summary {display:flex;align-items:center;justify-content:space-between;padding:12px 24px;color:var(--muted);font-size:14px;list-style:none}
-summary::-webkit-details-marker {display:none}
-summary::after {content:"＋";font-size:18px}details[open] summary::after {content:"−"}
-form {padding:3px 24px 23px;max-width:750px}
-form label {display:block;margin-bottom:5px;font-weight:600;font-size:14px}
-.field {display:flex;gap:8px}
-input {width:100%;min-width:0;border:1px solid var(--line);border-radius:7px;padding:8px 11px;color:var(--ink);background:var(--paper)}
-.save {border:0;border-radius:7px;background:var(--teal);color:var(--surface);padding:8px 16px;white-space:nowrap;font-weight:650}
-#note {display:block;color:var(--muted);margin:6px 0;font-size:13px}#note.error {color:#ad4c30}
-.text-link {font-size:14px;color:var(--teal)}
-@media(max-width:680px){
-  .shell {width:calc(100% - 36px)}.top {padding:16px 0}.brand {gap:8px;font-size:13px}.brandmark {font-size:26px}.back {font-size:13px}
-  .welcome {grid-template-columns:1fr;gap:22px;padding:27px 0 20px}.intro {padding:0}
-  h1 {margin:12px 0;font-size:clamp(34px,8vw,48px)}.intro p {max-width:38ch}
-  .enter {margin-top:16px}.memory {min-height:148px;height:clamp(148px,29vw,190px);border-top-right-radius:24px}
-  .memory img {object-position:center 44%}.memory figcaption {inset:auto 15px 12px}.memory figcaption strong {font-size:15px}
-  .status-row {padding:15px;align-items:start;flex-wrap:wrap;gap:12px}.resume {margin-left:17px}summary {padding:10px 15px}form {padding:0 15px 16px}
-}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0b1619;--surface:#12222a;--surface-2:#172b33;--ink:#e3eeee;--muted:#9bb4b6;--line:#26414a;
+  --accent:#3fb3aa;--accent-hover:#5cc6be;--accent-ink:#04201f;--accent-soft:#163a3b;--focus:#6fd0d8;
+  --ok:#7bc795;--ok-soft:#173326;--run:#f0a37f;--run-soft:#3a2418;--err:#ff9b91;color-scheme:dark;
+}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;word-break:keep-all;overflow-wrap:anywhere}
+button,input{font:inherit;color:inherit}button{cursor:pointer}:focus-visible{outline:3px solid var(--focus);outline-offset:2px}a{color:var(--accent)}[hidden]{display:none!important}
+main{width:min(880px,100%);margin:0 auto;padding:28px 16px 48px}
+.top{display:flex;justify-content:space-between;color:var(--muted);font-size:14px;margin:0 2px 14px}.top a{color:inherit;text-decoration:none}.top a:hover{text-decoration:underline}
+header{display:grid;grid-template-columns:1fr 1.15fr;overflow:hidden;border:1px solid #345866;border-radius:20px;background:linear-gradient(115deg,#07151f,#123340 76%,#092631);color:#effcfc}
+.portrait{position:relative;display:grid;place-items:center;min-height:250px;background-color:#081722;background-image:radial-gradient(ellipse at center,transparent 54%,#62dfed55 54.6%,transparent 55.3%),linear-gradient(#4cc8d812 1px,transparent 1px),linear-gradient(90deg,#4cc8d812 1px,transparent 1px);background-size:100% 100%,24px 24px,24px 24px}
+.portrait:before{content:"";width:min(160px,88%);aspect-ratio:2/3;border-radius:6px;background:var(--portrait) center/cover no-repeat;box-shadow:0 0 0 1px #7ddce17a,0 0 26px #42d7ed22}
+.greeting{padding:clamp(18px,3vw,34px);align-self:center}.identity{font-weight:650;font-size:14px;color:var(--mint)}
+h1{font-size:clamp(24px,3.2vw,38px);line-height:1.25;letter-spacing:-.05em;margin:10px 0}.greeting p{color:#d2e5e7;font-size:15px;margin:0}
+.panel{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:clamp(16px,3vw,26px)}
+#state{display:flex;align-items:flex-start;gap:9px;margin:0 0 14px}#state:before{content:"";flex:none;margin-top:.5em;width:9px;height:9px;border-radius:50%;background:var(--run);box-shadow:0 0 0 3px var(--run-soft)}
+body[data-ready=yes] #state:before{background:var(--ok);box-shadow:0 0 0 3px var(--ok-soft)}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-block;border:0;border-radius:9px;padding:10px 18px;font-weight:650;background:var(--accent);color:var(--accent-ink);text-decoration:none}.btn:hover{background:var(--accent-hover)}
+.btn-line{display:inline-block;border:1px solid var(--line);background:var(--surface);color:var(--accent);border-radius:9px;padding:9px 14px;text-decoration:none}.btn-line:hover{border-color:var(--accent)}
+.hint{color:var(--muted);font-size:14px}
+details{margin-top:18px}summary{cursor:pointer;color:var(--muted);font-size:14px}
+form{display:grid;gap:6px;margin-top:10px}form label{font-weight:650;font-size:14px}form div{display:flex;gap:8px;flex-wrap:wrap}
+input{flex:1 1 260px;min-width:0;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--surface-2)}
+#note.error{color:var(--err)}
+ul{margin:8px 0 0;padding-left:20px}li{margin:3px 0}
+@media (max-width:640px){header{grid-template-columns:40% 60%}.portrait{min-height:180px}.portrait:before{width:104px}.greeting{padding:16px 14px}h1{font-size:21px;margin:6px 0}.greeting p{font-size:13px}.identity{font-size:12px}.actions .btn{width:100%;text-align:center}}
+/* The gateway follows the desk's charcoal background and coral controls. */
+:root{color-scheme:dark;--bg:#0b0b0c;--surface:#141415;--surface-2:#1b1b1d;--ink:#ececee;--muted:#a3a3aa;--line:#2a2a2e;--accent:#ff7a5c;--accent-hover:#ff9478;--accent-ink:#1c0d08;--focus:#ff9478;--mint:#ff9478;--ok:#7bc795;--ok-soft:#16281d;--run:#ffb37a;--run-soft:#33231a;--err:#ff8f86}
+main{width:min(980px,100%);padding-top:clamp(18px,4vw,52px)}
+header,.panel{border-radius:6px;border-color:var(--line)}header{border-top:2px solid var(--accent);background:linear-gradient(115deg,#0c0c0e,#19191b);color:var(--ink)}
+.portrait{background-color:#101011;background-image:radial-gradient(ellipse at center,transparent 54%,#ff7a5c52 54.6%,transparent 55.3%),radial-gradient(#65504775 .7px,transparent .8px);background-size:100% 100%,12px 12px}
+.portrait:before{box-shadow:0 0 0 1px #544842}.greeting p{color:#c4c4c8}.btn,.btn-line{border-radius:5px}
+@media(max-width:640px){.greeting{padding:16px 12px}.greeting h1{font-size:clamp(19px,5.4vw,30px)}}
 </style><style data-wrapfix>:where(html:lang(ko)) :where(body){word-break:keep-all;overflow-wrap:anywhere}:where(body){text-wrap-style:pretty}:where(h1,h2,h3,h4,h5,h6,figcaption,summary,dt,th,caption){text-wrap-style:balance}:where(pre,code,kbd,samp,textarea,input){word-break:normal;text-wrap-style:auto}:where(td,th){overflow-wrap:break-word}</style></head>
-<body data-ready="no"><main class="shell">
-  <nav class="top" aria-label="포트폴리오 탐색">
-    <div class="brand"><span class="brandmark" lang="en">Neo</span><span>개인 비서 업무실</span></div>
-    <a class="back" href="../">← 포트폴리오</a>
-  </nav>
-  <section class="welcome" aria-labelledby="hello">
-    <div class="intro">
-      <div class="dateline"><time id="today">오늘의 업무실</time></div>
-      <h1 id="hello"><span>영주 님,</span><span>무엇부터 해볼까요?</span></h1>
-      <p>개인 비서 네오예요. 오늘 챙길 일부터 살펴보고, 지난번에 남긴 업무도 함께 이어가요.</p>
-      <a class="enter" id="open"><span>내 업무실 열기</span><span aria-hidden="true">→</span></a>
-      <small class="signin">영주 님의 GitHub 계정으로 입장합니다.</small>
-    </div>
-    <figure class="memory">
-      <img src="../assets/photos/calgary-2024/2024-08_카나나스키스_(캐나다_로키).jpg" alt="캐나다 로키의 산길에서 바라본 카나나스키스 계곡" width="636" height="960">
-      <figcaption><div><small>내 포트폴리오 사진</small><strong>캐나다, 카나나스키스</strong></div><time datetime="2024-08">2024.08</time></figcaption>
-    </figure>
-  </section>
-  <section class="connection" aria-labelledby="connection-heading">
-    <div class="status-row">
-      <div class="status-text"><h2 id="connection-heading">업무실 연결</h2><p id="state" role="status">네오가 업무실 연결을 확인하고 있어요.</p></div>
-      <a class="resume" id="resume" target="_blank" rel="noopener">Codespace 재개 <span aria-hidden="true">↗</span></a>
-    </div>
+<body data-ready="no"><main>
+  <div class="top"><a href="../">← 포트폴리오</a><span>본인 전용 · GitHub 로그인 필요</span></div>
+  <header>
+    <div class="portrait" role="img" aria-label="헤드셋을 쓴 개인 비서 네오의 일러스트"></div>
+    <div class="greeting"><span class="identity">개인 비서 · 네오</span><h1>영주 님,<br>무엇부터 해볼까요?</h1><p>오늘 챙길 일을 확인하고, 세컨드 브레인에 남긴 기록으로 다음 업무를 이어가요.</p></div>
+  </header>
+  <section class="panel" aria-label="업무실 연결">
+    <p id="state" role="status">업무실이 열려 있는지 확인하고 있습니다…</p>
+    <div class="actions"><a class="btn" id="open">내 업무실 열기 →</a><a class="btn-line" id="resume" target="_blank" rel="noopener">Codespace 재개 ↗</a><a class="btn-line" href="https://github.com/codespaces" target="_blank" rel="noopener">내 Codespaces</a></div>
+    <ul class="hint">
+      <li>영주 님의 GitHub 계정으로 입장하세요.</li>
+      <li>Codespace가 중지됐다면 ‘Codespace 재개’를 누른 뒤 업무실을 열어 주세요.</li>
+    </ul>
     <details id="settings"><summary>실행 환경 주소 설정</summary>
-      <form id="address-form"><label for="address">Codespace 편집기 주소 또는 8501 포트 주소</label>
-        <div class="field"><input id="address" type="url" required autocomplete="off" spellcheck="false" placeholder="https://…github.dev"><button class="btn save">저장</button></div>
-        <small id="note" role="status">Codespace를 바꿨다면 새 주소를 입력하세요. 이 브라우저에 저장됩니다.</small>
-        <a class="text-link" href="https://github.com/codespaces" target="_blank" rel="noopener">내 Codespaces 목록 열기 ↗</a>
-      </form>
+      <form id="address-form"><label for="address">Codespace 편집기 주소 또는 8501 포트 주소</label><div><input id="address" type="url" required autocomplete="off" spellcheck="false" placeholder="https://…github.dev"><button class="btn">저장</button></div><small id="note" class="hint" role="status">Codespace를 새로 만들었다면 새 주소를 입력하세요. 이 브라우저에만 저장됩니다.</small></form>
     </details>
   </section>
 </main>
 <script>
 'use strict';
 const $=s=>document.querySelector(s);
-const now=new Date();
-const seoulDate=new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',dateStyle:'full'});
-$('#today').textContent=seoulDate.format(now);
-$('#today').dateTime=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul'}).format(now);
 const KEY='personal-assistant.port8501', DEFAULT='https://humble-tribble-x544gwrrjgrg2vq75.github.dev/';
 const PROBE_MS=4000, WATCH_MS=120000;
 function workspace(value){
@@ -137,12 +96,12 @@ async function watch(){
   while(id===generation){
     if(await probe(ws.app)){
       if(id!==generation)return;
-      document.body.dataset.ready='yes';$('#state').textContent='연결됐어요. 업무실로 이동할게요.';
+      document.body.dataset.ready='yes';$('#state').textContent='업무실이 준비됐습니다. 이동합니다…';
       location.assign(ws.app);return;
     }
     if(id!==generation)return;
-    if(Date.now()>until){$('#state').textContent='자동 확인을 마쳤어요. Codespace를 재개한 뒤 ‘내 업무실 열기’를 눌러 주세요.';return}
-    $('#state').textContent='연결 대기 중이에요. 2분 안에 연결되면 자동으로 입장해요. Codespace가 중지됐다면 재개해 주세요.';
+    if(Date.now()>until){$('#state').textContent='업무실 응답을 확인하지 못했습니다. "업무실 열기"로 직접 열거나 Codespace를 재개해 주세요.';return}
+    $('#state').textContent='연결 대기 중이에요. 2분 안에 연결되면 업무실로 이동해요.';
     await new Promise(r=>setTimeout(r,PROBE_MS));
   }
 }
