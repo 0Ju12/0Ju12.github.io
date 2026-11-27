@@ -423,5 +423,5 @@ return {view:view,reset:function(){keyHandler=null;if(exam&&exam.timer){clearInt
   clear:function(){S=blank();save()},
   days:function(){return S.days},kpi:function(){var st=stat(ALLQ);return {read:Object.keys(S.read).filter(function(k){return NOTE[k]}).length,notes:NOTES.length,tried:st.tried,total:st.total,master:st.master,wrong:wrongList().length}},
   todayCard:todayCard,bindToday:bindToday,logHTML:logHTML,bindLog:bindLog,related:related,trackQs:trackQs,
-  tracks:TRACKS,notes:NOTES,made:MADE};
+  sectionIndex:loadIdx,tracks:TRACKS,notes:NOTES,made:MADE};
 })(D.study);

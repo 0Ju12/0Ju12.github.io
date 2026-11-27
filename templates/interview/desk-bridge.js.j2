@@ -28,9 +28,47 @@ var DESK_BRIDGE=(function(){
  function restore(state){var d=validateState(JSON.parse(JSON.stringify(state))),n=mergeState(S,d);if(STUDY&&state.study)n+=STUDY.merge(state.study);fix();save();route();return n}
  function send(msg){if(peer&&!peer.win.closed)try{peer.win.postMessage(msg,peer.origin)}catch(_){}}
  function push(){send({type:'prep:summary',summary:summary()})}
+
+ function sourceRecords(){
+   const rows=[];
+   function add(kind,id,title,body,href){
+     if(!body)return;
+     rows.push({kind,id:String(id),title:String(title||id),text:String(body),href:href||('/study/index.html#/source-record/'+encodeURIComponent(kind)+'/'+encodeURIComponent(id))});
+   }
+   QS.forEach(q=>add('면접',q.id,q.q,[q.q,getAnswer(q)].filter(Boolean).join('\n')));
+   (P.experiences||[]).forEach(x=>add('프로젝트',x.id,x.name,x.hint));
+   (P.essays||[]).forEach((x,i)=>{const id=essayId(x,i),saved=S.essay[id];add('자소서',id,x.q,saved?saved.t:x.draft)});
+   DECKS.forEach(base=>{const d=effectiveDeck(base);d.slides.forEach((s,i)=>add('발표',d.id+'-'+i,d.title+' · '+(i+1)+'장 · '+(s.h||''),[s.sub,...(s.items||[]),s.note].filter(Boolean).join('\n'),'/study/index.html#/deck/'+encodeURIComponent(d.id)+'/'+i))});
+   return rows;
+ }
+ function openRecord(parts){
+   const kind=decodeURIComponent(parts[1]||''),id=decodeURIComponent(parts[2]||'');
+   const r=sourceRecords().find(x=>x.kind===kind&&x.id===id);
+   $('#app').innerHTML=r?'<h1>'+esc(r.title)+'</h1><p class="small">'+esc(r.kind)+'</p><div class="card" style="white-space:pre-wrap">'+esc(r.text)+'</div>':'<p>현재 기록에서 이 자료를 찾을 수 없습니다.</p>';
+ }
+ async function searchSources(query){
+   const words=[...new Set((query.toLowerCase().match(/[가-힣a-z0-9_+#.]+/g)||[]).map(x=>x.replace(/(?:에서|으로|으로부터|관련|을|를|의|와|과)$/,'')).filter(x=>x.length>1&&!/^(질문|자료|만들어|만들어줘|뽑아줘|기반|대한|해줘)$/.test(x)))];
+   const rows=sourceRecords();let partial=false;
+   if(STUDY){let index={};try{index=await STUDY.sectionIndex()}catch(_){partial=true}
+     for(const n of STUDY.notes){
+       const secs=index[n.slug]||[];
+       for(const [id,t,body] of secs)rows.push({kind:'강의',title:n.title+' · '+t,text:body,href:'/study/notes/'+encodeURIComponent(n.slug)+'.html#'+encodeURIComponent(id)});
+       if(!secs.length)rows.push({kind:'강의',title:n.title,text:[n.summary,...(n.sections||[])].join(' '),href:'/study/notes/'+encodeURIComponent(n.slug)+'.html'});
+     }
+   }
+   const hits=[];
+   for(const r of rows){
+     const title=r.title.toLowerCase(),body=r.text.toLowerCase();let score=0,pos=-1;
+     for(const word of words){if(title.includes(word))score+=4;const at=body.indexOf(word);if(at>=0){score+=2;if(pos<0)pos=at}}
+     if(score){const start=Math.max(0,pos-100);hits.push({kind:r.kind,title:r.title,href:r.href,text:r.text.slice(start,start+1200),score})}
+   }
+   hits.sort((a,b)=>b.score-a.score);
+   const counts={};return {partial,hits:hits.filter(r=>(counts[r.kind]=(counts[r.kind]||0)+1)<=5).slice(0,20)};
+ }
  function receive(e){var framed=embedded&&e.source===window.parent&&e.origin===location.origin,opened=!framed&&window.opener&&e.source===window.opener&&allowed(e.origin);if(!framed&&!opened)return;var m=e.data||{};
    if(!peer){peer={win:e.source,origin:e.origin};badge();clearInterval(timer);timer=setInterval(function(){if(peer.win.closed||(!embedded&&peer.win!==window.opener)){clearInterval(timer);peer=null;badge();return}push()},15000)}
    if(m.type==='prep:hello')push();
+   else if(m.type==='prep:find'&&framed&&typeof m.query==='string'){searchSources(m.query.slice(0,1000)).then(r=>send({type:'prep:found',id:m.id,...r})).catch(()=>send({type:'prep:found',id:m.id,error:true}))}
    else if(m.type==='prep:export'&&opened)send({type:'prep:export',state:snapshot()});
    else if(m.type==='prep:restore'&&framed&&m.state&&typeof m.state==='object'){try{var n=restore(m.state);send({type:'prep:restored',count:n});push()}catch(err){send({type:'prep:restored',error:String(err&&err.message||err)})}}
    else if(m.type==='prep:open'&&typeof m.route==='string'&&/^[a-z-]{1,24}(\/[\w:%.-]{1,80})?$/.test(m.route)){location.hash='#/'+m.route;window.focus()}
@@ -55,5 +93,5 @@ var DESK_BRIDGE=(function(){
    window.parent.postMessage({type:'prep:ready',embedded:true},location.origin)}
  if(window.opener)[deskOrigin(),'http://localhost:8501','http://127.0.0.1:8501'].forEach(function(o){if(o)try{window.opener.postMessage({type:'prep:ready'},o)}catch(_){}});  // a mismatched target origin is dropped by the browser
  badge();
- return {summary:summary,inbox:inbox,panel:panel}
+ return {summary:summary,inbox:inbox,panel:panel,openRecord:openRecord}
 })();

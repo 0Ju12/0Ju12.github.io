@@ -447,6 +447,7 @@ function route(){if(typeof PREP_FLOW!=='undefined')PREP_FLOW.before();if(typeof 
   if(v==='opic-exam')return opicExam();
   if(v==='drafts')return draftsView();
   if(v==='sources')return sourcesView();
+  if(v==='source-record')return DESK_BRIDGE.openRecord(p);
   if(v==='questions')return questions(decodeURIComponent(p[1]||''),decodeURIComponent(p[2]||''));
   if(v==='jobs')return jobs(p[1]||'');
   if(v==='mock')return p[1]==='play'&&mock?mockPlay():mockSetup();
