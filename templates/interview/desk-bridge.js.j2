@@ -46,8 +46,7 @@ var DESK_BRIDGE=(function(){
    const r=sourceRecords().find(x=>x.kind===kind&&x.id===id);
    $('#app').innerHTML=r?'<h1>'+esc(r.title)+'</h1><p class="small">'+esc(r.kind)+'</p><div class="card" style="white-space:pre-wrap">'+esc(r.text)+'</div>':'<p>현재 기록에서 이 자료를 찾을 수 없습니다.</p>';
  }
- async function searchSources(query){
-   const words=[...new Set((query.toLowerCase().match(/[가-힣a-z0-9_+#.]+/g)||[]).map(x=>x.replace(/(?:에서|으로|으로부터|관련|을|를|의|와|과)$/,'')).filter(x=>x.length>1&&!/^(질문|자료|만들어|만들어줘|뽑아줘|기반|대한|해줘)$/.test(x)))];
+ async function librarySources(){
    const rows=sourceRecords();let partial=false;
    if(STUDY){let index={};try{index=await STUDY.sectionIndex()}catch(_){partial=true}
      for(const n of STUDY.notes){
@@ -56,6 +55,11 @@ var DESK_BRIDGE=(function(){
        if(!secs.length)rows.push({kind:'강의',title:n.title,text:[n.summary,...(n.sections||[])].join(' '),href:'/study/notes/'+encodeURIComponent(n.slug)+'.html'});
      }
    }
+   return {rows,partial};
+ }
+ async function searchSources(query){
+   const words=[...new Set((query.toLowerCase().match(/[가-힣a-z0-9_+#.]+/g)||[]).map(x=>x.replace(/(?:에서|으로|으로부터|관련|을|를|의|와|과)$/,'')).filter(x=>x.length>1&&!/^(질문|자료|만들어|만들어줘|뽑아줘|기반|대한|해줘)$/.test(x)))];
+   const {rows,partial}=await librarySources();
    const hits=[];
    for(const r of rows){
      const title=r.title.toLowerCase(),body=r.text.toLowerCase();let score=0,pos=-1;
@@ -68,6 +72,7 @@ var DESK_BRIDGE=(function(){
  function receive(e){var framed=embedded&&e.source===window.parent&&e.origin===location.origin,opened=!framed&&window.opener&&e.source===window.opener&&allowed(e.origin);if(!framed&&!opened)return;var m=e.data||{};
    if(!peer){peer={win:e.source,origin:e.origin};badge();clearInterval(timer);timer=setInterval(function(){if(peer.win.closed||(!embedded&&peer.win!==window.opener)){clearInterval(timer);peer=null;badge();return}push()},15000)}
    if(m.type==='prep:hello')push();
+   else if(m.type==='prep:library'&&framed){librarySources().then(r=>send({type:'prep:library-result',id:m.id,...r})).catch(()=>send({type:'prep:library-result',id:m.id,error:true}))}
    else if(m.type==='prep:find'&&framed&&typeof m.query==='string'){searchSources(m.query.slice(0,1000)).then(r=>send({type:'prep:found',id:m.id,...r})).catch(()=>send({type:'prep:found',id:m.id,error:true}))}
    else if(m.type==='prep:export'&&opened)send({type:'prep:export',state:snapshot()});
    else if(m.type==='prep:restore'&&framed&&m.state&&typeof m.state==='object'){try{var n=restore(m.state);send({type:'prep:restored',count:n});push()}catch(err){send({type:'prep:restored',error:String(err&&err.message||err)})}}
